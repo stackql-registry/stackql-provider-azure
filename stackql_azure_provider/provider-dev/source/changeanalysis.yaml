@@ -1,0 +1,362 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Azure Change Analysis Management Client
+  description: AzureChangeAnalysisManagementClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2021-04-01-stackql-generated
+  x-serviceAlias: changeanalysis
+  x-sdkPackage: azure-mgmt-changeanalysis
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    ChangeProperties:
+      type: object
+      description: The properties of a change.
+      properties:
+        resourceId:
+          type: string
+          description: The resource id that the change is attached to.
+        timeStamp:
+          type: string
+          format: date-time
+          description: The time when the change is detected.
+        initiatedByList:
+          type: array
+          items:
+            type: string
+          description: The list of identities who might initiated the change. The identity could be user name (email
+            address) or the object ID of the Service Principal.
+        changeType:
+          type: string
+          description: 'The type of the change. Known values are: "Add", "Remove", and "Update".'
+        propertyChanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyChange'
+          description: The list of detailed changes at json property level.
+    PropertyChange:
+      type: object
+      description: Data of a property change.
+      properties:
+        changeType:
+          type: string
+          description: 'The type of the change. Known values are: "Add", "Remove", and "Update".'
+        changeCategory:
+          type: string
+          description: 'The change category. Known values are: "User" and "System".'
+        jsonPath:
+          type: string
+          description: The json path of the changed property.
+        displayName:
+          type: string
+          description: The enhanced display name of the json path. E.g., the json path value[0].properties will
+            be translated to something meaningful like slots["Staging"].properties.
+        level:
+          type: string
+          description: 'Known values are: "Noisy", "Normal", and "Important".'
+        description:
+          type: string
+          description: The description of the changed property.
+        oldValue:
+          type: string
+          description: The value of the property before the change.
+        newValue:
+          type: string
+          description: The value of the property after the change.
+        isDataMasked:
+          type: boolean
+          description: The boolean indicating whether the oldValue and newValue are masked. The values are masked
+            if it contains sensitive information that the user doesn't have access to.
+    ChangeFlattened:
+      type: object
+      description: Flattened view of Change ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        resourceId:
+          type: string
+          description: The resource id that the change is attached to.
+        timeStamp:
+          type: string
+          format: date-time
+          description: The time when the change is detected.
+        initiatedByList:
+          type: array
+          items:
+            type: string
+          description: The list of identities who might initiated the change. The identity could be user name (email
+            address) or the object ID of the Service Principal.
+        changeType:
+          type: string
+          description: 'The type of the change. Known values are: "Add", "Remove", and "Update".'
+        propertyChanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyChange'
+          description: The list of detailed changes at json property level.
+    PagedChangeFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChangeFlattened'
+        nextLink:
+          type: string
+    ResourceProviderOperationDisplay:
+      type: object
+      description: The resource provider operation details.
+      properties:
+        provider:
+          type: string
+          description: Name of the resource provider.
+        resource:
+          type: string
+          description: Name of the resource type.
+        operation:
+          type: string
+          description: Name of the resource provider operation.
+        description:
+          type: string
+          description: Description of the resource provider operation.
+    ResourceProviderOperationDefinition:
+      type: object
+      description: The resource provider operation definition.
+      properties:
+        name:
+          type: string
+          description: The resource provider operation name.
+        display:
+          $ref: '#/components/schemas/ResourceProviderOperationDisplay'
+          description: The resource provider operation details.
+    PagedResourceProviderOperationDefinition:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceProviderOperationDefinition'
+        nextLink:
+          type: string
+    Change:
+      type: object
+      description: The detected change. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        properties:
+          $ref: '#/components/schemas/ChangeProperties'
+          description: The properties of a change.
+    PagedChange:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Change'
+        nextLink:
+          type: string
+paths:
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ChangeAnalysis/changes?api-version=2021-04-01
+  : get:
+      operationId: Changes_list_changes_by_resource_group
+      description: List the changes of a resource group within the specified time range. Customer data will always
+        be masked. List the changes of a resource group within the specified time range. Customer data will always
+        be masked.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $startTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Specifies the start time of the changes request. Required.
+      - name: $endTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Specifies the end time of the changes request. Required.
+      - name: $skipToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A skip token is used to continue retrieving items after an operation returns a partial result.
+          If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken
+          parameter that specifies a starting point to use for subsequent calls. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedChangeFlattened'
+      x-stackql-resource: changes
+      x-stackql-method: list_changes_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.ChangeAnalysis/changes?api-version=2021-04-01:
+    get:
+      operationId: Changes_list_changes_by_subscription
+      description: List the changes of a subscription within the specified time range. Customer data will always
+        be masked. List the changes of a subscription within the specified time range. Customer data will always
+        be masked.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $startTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Specifies the start time of the changes request. Required.
+      - name: $endTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Specifies the end time of the changes request. Required.
+      - name: $skipToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A skip token is used to continue retrieving items after an operation returns a partial result.
+          If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken
+          parameter that specifies a starting point to use for subsequent calls. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedChangeFlattened'
+      x-stackql-resource: changes
+      x-stackql-method: list_changes_by_subscription
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /providers/Microsoft.ChangeAnalysis/operations?api-version=2021-04-01:
+    get:
+      operationId: changeanalysis_list
+      description: Lists all the supported operations by the Microsoft.ChangeAnalysis resource provider along with
+        their descriptions. Lists all the supported operations by the Microsoft.ChangeAnalysis resource provider
+        along with their descriptions.
+      parameters:
+      - name: $skipToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A skip token is used to continue retrieving items after an operation returns a partial result.
+          If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken
+          parameter that specifies a starting point to use for subsequent calls. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceProviderOperationDefinition'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  /{resource_id}/providers/Microsoft.ChangeAnalysis/resourceChanges?api-version=2021-04-01:
+    post:
+      operationId: ResourceChanges_list
+      description: List the changes of a resource within the specified time range. Customer data will be masked
+        if the user doesn't have access. List the changes of a resource within the specified time range. Customer
+        data will be masked if the user doesn't have access.
+      parameters:
+      - name: resource_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the resource. Required.
+      - name: $startTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Specifies the start time of the changes request. Required.
+      - name: $endTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Specifies the end time of the changes request. Required.
+      - name: $skipToken
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A skip token is used to continue retrieving items after an operation returns a partial result.
+          If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken
+          parameter that specifies a starting point to use for subsequent calls. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedChange'
+      x-stackql-resource: resource_changes
+      x-stackql-method: list
+      x-stackql-verb: EXEC

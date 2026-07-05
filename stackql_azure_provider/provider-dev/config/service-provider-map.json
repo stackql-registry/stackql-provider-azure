@@ -1,0 +1,156 @@
+{
+  "_comment": "Service-to-provider map. Keys are service aliases produced by openapi-generation/azure_sdk_to_openapi.py (SDK package derived). Any service NOT listed here lands in the base `azure` provider. Optional per-service `title` / `description` override the SDK-derived info block.",
+  "defaultProvider": "azure",
+  "services": {
+    "agrifood": {
+      "provider": "azure_extras"
+    },
+    "appcomplianceautomation": {
+      "provider": "azure_extras"
+    },
+    "astro": {
+      "provider": "azure_isv"
+    },
+    "azurestack": {
+      "provider": "azure_stack"
+    },
+    "azurestackhci": {
+      "provider": "azure_stack"
+    },
+    "chaos": {
+      "provider": "azure_extras"
+    },
+    "artifactsigning": {
+      "provider": "azure_extras"
+    },
+    "commerce": {
+      "provider": "azure_extras"
+    },
+    "confluent": {
+      "provider": "azure_isv"
+    },
+    "connectedvmware": {
+      "provider": "azure_isv"
+    },
+    "databricks": {
+      "provider": "azure_isv"
+    },
+    "datadog": {
+      "provider": "azure_isv"
+    },
+    "devspaces": {
+      "provider": "azure_extras"
+    },
+    "devhub": {
+      "provider": "azure_extras"
+    },
+    "dynatrace": {
+      "provider": "azure_isv"
+    },
+    "edgeorder": {
+      "provider": "azure_extras"
+    },
+    "education": {
+      "provider": "azure_extras"
+    },
+    "elastic": {
+      "provider": "azure_isv"
+    },
+    "hanaonazure": {
+      "provider": "azure_isv"
+    },
+    "healthbot": {
+      "provider": "azure_extras"
+    },
+    "healthcareapis": {
+      "provider": "azure_extras"
+    },
+    "selfhelp": {
+      "provider": "azure_extras"
+    },
+    "managementpartner": {
+      "provider": "azure_extras"
+    },
+    "marketplaceordering": {
+      "provider": "azure_extras"
+    },
+    "netapp": {
+      "provider": "azure_isv"
+    },
+    "newrelicobservability": {
+      "provider": "azure_isv"
+    },
+    "nginx": {
+      "provider": "azure_isv"
+    },
+    "springappdiscovery": {
+      "provider": "azure_extras"
+    },
+    "oracledatabase": {
+      "provider": "azure_isv"
+    },
+    "paloaltonetworksngfw": {
+      "provider": "azure_isv"
+    },
+    "powerplatform": {
+      "provider": "azure_extras"
+    },
+    "qumulo": {
+      "provider": "azure_isv"
+    },
+    "redhatopenshift": {
+      "provider": "azure_isv"
+    },
+    "redis": {
+      "provider": "azure_isv"
+    },
+    "redisenterprise": {
+      "provider": "azure_isv"
+    },
+    "workloads": {
+      "provider": "azure_isv"
+    },
+    "workloadssapvirtualinstance": {
+      "provider": "azure_isv"
+    },
+    "testbase": {
+      "provider": "azure_extras"
+    },
+    "avs": {
+      "provider": "azure_isv"
+    },
+    "vmwarecloudsimple": {
+      "provider": "azure_isv"
+    },
+    "arizeaiobservabilityeval": {
+      "provider": "azure_isv"
+    },
+    "lambdatesthyperexecute": {
+      "provider": "azure_isv"
+    },
+    "mongodbatlas": {
+      "provider": "azure_isv"
+    },
+    "weightsandbiases": {
+      "provider": "azure_isv"
+    },
+    "commvaultcontentstore": {
+      "provider": "azure_isv"
+    },
+    "purestorageblock": {
+      "provider": "azure_isv"
+    },
+    "neonpostgres": {
+      "provider": "azure_isv"
+    },
+    "informaticadatamanagement": {
+      "provider": "azure_isv"
+    },
+    "dellstorage": {
+      "provider": "azure_isv"
+    },
+    "oep": {
+      "provider": "azure_extras"
+    }
+  }
+}

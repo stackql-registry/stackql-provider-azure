@@ -1,0 +1,2310 @@
+openapi: 3.0.0
+servers:
+  - url: https://management.azure.com/
+info:
+  title: Azure Databricks Management Client
+  description: ARM Databricks.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2026-01-01-stackql-generated
+  x-serviceAlias: databricks
+  x-sdkPackage: azure-mgmt-databricks
+  x-plane: mgmt
+security:
+  - azure_auth:
+      - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          $ref: "#/components/schemas/CreatedByType"
+          description: 'The type of identity that created the resource. Known values are: "User", "Application", "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          $ref: "#/components/schemas/CreatedByType"
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application", "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    CreatedByType:
+      type: string
+      enum:
+        - User
+        - Application
+        - ManagedIdentity
+        - Key
+    AccessConnectorProperties:
+      type: object
+      description: AccessConnectorProperties.
+      properties:
+        provisioningState:
+          $ref: "#/components/schemas/ProvisioningState"
+          description: 'Provisioning status of the Access Connector. Known values are: "Accepted", "Running", "Ready", "Creating", "Created", "Deleting", "Deleted", "Canceled", "Failed", "Succeeded", and "Updating".'
+        referedBy:
+          type: array
+          items:
+            type: string
+          description: List of workspaces referring this Access Connector.
+    ProvisioningState:
+      type: string
+      enum:
+        - Accepted
+        - Running
+        - Ready
+        - Creating
+        - Created
+        - Deleting
+        - Deleted
+        - Canceled
+        - Failed
+        - Succeeded
+        - Updating
+    ManagedServiceIdentity:
+      type: object
+      description: Managed service identity (system assigned and/or user assigned identities).
+      properties:
+        principalId:
+          type: string
+          description: The service principal ID of the system assigned identity. This property will only be provided for a system assigned identity.
+        tenantId:
+          type: string
+          description: The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+        type:
+          $ref: "#/components/schemas/ManagedServiceIdentityType"
+          description: 'The type of managed identity assigned to this resource. Required. Known values are: "None", "SystemAssigned", "UserAssigned", and "SystemAssigned,UserAssigned".'
+        userAssignedIdentities:
+          type: object
+          properties: {}
+          description: The identities assigned to this resource by the user.
+      required:
+        - type
+    ManagedServiceIdentityType:
+      type: string
+      enum:
+        - None
+        - SystemAssigned
+        - UserAssigned
+        - SystemAssigned,UserAssigned
+    AccessConnectorFlattened:
+      type: object
+      description: Flattened view of AccessConnector ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        identity:
+          $ref: "#/components/schemas/ManagedServiceIdentity"
+          description: The managed service identities assigned to this resource.
+        provisioningState:
+          $ref: "#/components/schemas/ProvisioningState"
+          description: 'Provisioning status of the Access Connector. Known values are: "Accepted", "Running", "Ready", "Creating", "Created", "Deleting", "Deleted", "Canceled", "Failed", "Succeeded", and "Updating".'
+        referedBy:
+          type: array
+          items:
+            type: string
+          description: List of workspaces referring this Access Connector.
+    PagedAccessConnectorFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccessConnectorFlattened"
+        nextLink:
+          type: string
+    AccessConnector:
+      type: object
+      description: Information about Azure Databricks Access Connector.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        properties:
+          $ref: "#/components/schemas/AccessConnectorProperties"
+          description: Azure Databricks Access Connector properties.
+        identity:
+          $ref: "#/components/schemas/ManagedServiceIdentity"
+          description: The managed service identities assigned to this resource.
+      required:
+        - location
+    OperationDisplay:
+      type: object
+      description: The object that represents the operation.
+      properties:
+        provider:
+          type: string
+          description: "Service provider: ex Microsoft.Databricks."
+        resource:
+          type: string
+          description: Resource on which the operation is performed.
+        operation:
+          type: string
+          description: "Operation type: Read, write, delete, etc."
+        description:
+          type: string
+          description: Description for the resource operation.
+    Operation:
+      type: object
+      description: REST API operation.
+      properties:
+        name:
+          type: string
+          description: "Operation name: {provider}/{resource}/{operation}."
+        display:
+          $ref: "#/components/schemas/OperationDisplay"
+          description: The object that represents the operation.
+    PagedOperation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/Operation"
+        nextLink:
+          type: string
+    EndpointDependency:
+      type: object
+      description: A domain name or IP address the Workspace is reaching at.
+      properties:
+        domainName:
+          type: string
+          description: The domain name of the dependency.
+        endpointDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/EndpointDetail"
+          description: The Ports used when connecting to domainName.
+    EndpointDetail:
+      type: object
+      description: Connect information from the Workspace to a single endpoint.
+      properties:
+        ipAddress:
+          type: string
+          description: An IP Address that Domain Name currently resolves to.
+        port:
+          type: integer
+          description: The port an endpoint is connected to.
+        latency:
+          type: number
+          description: The time in milliseconds it takes for the connection to be created from the Workspace to this IpAddress at this Port.
+        isAccessible:
+          type: boolean
+          description: Whether it is possible to create a connection from the Workspace to this IpAddress at this Port.
+    OutboundEnvironmentEndpoint:
+      type: object
+      description: Egress endpoints which Workspace connects to for common purposes.
+      properties:
+        category:
+          type: string
+          description: The category of endpoints accessed by the Workspace, e.g. azure-storage, azure-mysql, etc.
+        endpoints:
+          type: array
+          items:
+            $ref: "#/components/schemas/EndpointDependency"
+          description: The endpoints that Workspace connect to.
+    PrivateEndpointConnectionProperties:
+      type: object
+      description: The properties of a private endpoint connection.
+      properties:
+        privateEndpoint:
+          $ref: "#/components/schemas/PrivateEndpoint"
+          description: Private endpoint.
+        groupIds:
+          type: array
+          items:
+            type: string
+          description: GroupIds from the private link service resource.
+        privateLinkServiceConnectionState:
+          $ref: "#/components/schemas/PrivateLinkServiceConnectionState"
+          description: Private endpoint connection state. Required.
+        provisioningState:
+          $ref: "#/components/schemas/PrivateEndpointConnectionProvisioningState"
+          description: 'Provisioning state of the private endpoint connection. Known values are: "Succeeded", "Creating", "Updating", "Deleting", and "Failed".'
+      required:
+        - privateLinkServiceConnectionState
+    PrivateEndpoint:
+      type: object
+      description: The private endpoint property of a private endpoint connection.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+    PrivateLinkServiceConnectionState:
+      type: object
+      description: The current state of a private endpoint connection.
+      properties:
+        status:
+          $ref: "#/components/schemas/PrivateLinkServiceConnectionStatus"
+          description: 'The status of a private endpoint connection. Required. Known values are: "Pending", "Approved", "Rejected", and "Disconnected".'
+        description:
+          type: string
+          description: The description for the current state of a private endpoint connection.
+        actionsRequired:
+          type: string
+          description: Actions required for a private endpoint connection.
+      required:
+        - status
+    PrivateLinkServiceConnectionStatus:
+      type: string
+      enum:
+        - Pending
+        - Approved
+        - Rejected
+        - Disconnected
+    PrivateEndpointConnectionProvisioningState:
+      type: string
+      enum:
+        - Succeeded
+        - Creating
+        - Updating
+        - Deleting
+        - Failed
+    PrivateEndpointConnectionFlattened:
+      type: object
+      description: Flattened view of PrivateEndpointConnection ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        privateEndpoint:
+          $ref: "#/components/schemas/PrivateEndpoint"
+          description: Private endpoint.
+        groupIds:
+          type: array
+          items:
+            type: string
+          description: GroupIds from the private link service resource.
+        privateLinkServiceConnectionState:
+          $ref: "#/components/schemas/PrivateLinkServiceConnectionState"
+          description: Private endpoint connection state. Required.
+        provisioningState:
+          $ref: "#/components/schemas/PrivateEndpointConnectionProvisioningState"
+          description: 'Provisioning state of the private endpoint connection. Known values are: "Succeeded", "Creating", "Updating", "Deleting", and "Failed".'
+    PagedPrivateEndpointConnectionFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/PrivateEndpointConnectionFlattened"
+        nextLink:
+          type: string
+    PrivateEndpointConnection:
+      type: object
+      description: The private endpoint connection of a workspace.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: "#/components/schemas/PrivateEndpointConnectionProperties"
+          description: The private endpoint connection properties. Required.
+      required:
+        - properties
+    GroupIdInformationProperties:
+      type: object
+      description: The properties for a group information object.
+      properties:
+        groupId:
+          type: string
+          description: The group id.
+        requiredMembers:
+          type: array
+          items:
+            type: string
+          description: The required members for a specific group id.
+        requiredZoneNames:
+          type: array
+          items:
+            type: string
+          description: The required DNS zones for a specific group id.
+    GroupIdInformationFlattened:
+      type: object
+      description: Flattened view of GroupIdInformation ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        groupId:
+          type: string
+          description: The group id.
+        requiredMembers:
+          type: array
+          items:
+            type: string
+          description: The required members for a specific group id.
+        requiredZoneNames:
+          type: array
+          items:
+            type: string
+          description: The required DNS zones for a specific group id.
+    PagedGroupIdInformationFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/GroupIdInformationFlattened"
+        nextLink:
+          type: string
+    VirtualNetworkPeeringPropertiesFormat:
+      type: object
+      description: Properties of the virtual network peering.
+      properties:
+        allowVirtualNetworkAccess:
+          type: boolean
+          description: Whether the VMs in the local virtual network space would be able to access the VMs in remote virtual network space.
+        allowForwardedTraffic:
+          type: boolean
+          description: Whether the forwarded traffic from the VMs in the local virtual network will be allowed/disallowed in remote virtual network.
+        allowGatewayTransit:
+          type: boolean
+          description: If gateway links can be used in remote virtual networking to link to this virtual network.
+        useRemoteGateways:
+          type: boolean
+          description: If remote gateways can be used on this virtual network. If the flag is set to true, and allowGatewayTransit on remote peering is also true, virtual network will use gateways of remote virtual network for transit. Only one peering can have this flag set to true. This flag cannot be set if virtual network already has a gateway.
+        databricksVirtualNetwork:
+          $ref: "#/components/schemas/VirtualNetworkPeeringPropertiesFormatDatabricksVirtualNetwork"
+          description: The remote virtual network should be in the same region. See here to learn more (`https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/vnet-peering `_).
+        databricksAddressSpace:
+          $ref: "#/components/schemas/AddressSpace"
+          description: The reference to the databricks virtual network address space.
+        remoteVirtualNetwork:
+          $ref: "#/components/schemas/VirtualNetworkPeeringPropertiesFormatRemoteVirtualNetwork"
+          description: The remote virtual network should be in the same region. See here to learn more (`https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/vnet-peering `_). Required.
+        remoteAddressSpace:
+          $ref: "#/components/schemas/AddressSpace"
+          description: The reference to the remote virtual network address space.
+        peeringState:
+          $ref: "#/components/schemas/PeeringState"
+          description: 'The status of the virtual network peering. Known values are: "Initiated", "Connected", and "Disconnected".'
+        provisioningState:
+          $ref: "#/components/schemas/PeeringProvisioningState"
+          description: 'The provisioning state of the virtual network peering resource. Known values are: "Succeeded", "Updating", "Deleting", and "Failed".'
+      required:
+        - remoteVirtualNetwork
+    VirtualNetworkPeeringPropertiesFormatDatabricksVirtualNetwork:
+      type: object
+      description: The remote virtual network should be in the same region. See here to learn more (`https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/vnet-peering `_).
+      properties:
+        id:
+          type: string
+          description: The Id of the databricks virtual network.
+    AddressSpace:
+      type: object
+      description: AddressSpace contains an array of IP address ranges that can be used by subnets of the virtual network.
+      properties:
+        addressPrefixes:
+          type: array
+          items:
+            type: string
+          description: A list of address blocks reserved for this virtual network in CIDR notation.
+    VirtualNetworkPeeringPropertiesFormatRemoteVirtualNetwork:
+      type: object
+      description: The remote virtual network should be in the same region. See here to learn more (`https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/vnet-peering `_).
+      properties:
+        id:
+          type: string
+          description: The Id of the remote virtual network.
+    PeeringState:
+      type: string
+      enum:
+        - Initiated
+        - Connected
+        - Disconnected
+    PeeringProvisioningState:
+      type: string
+      enum:
+        - Succeeded
+        - Updating
+        - Deleting
+        - Failed
+    VirtualNetworkPeeringFlattened:
+      type: object
+      description: Flattened view of VirtualNetworkPeering ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        allowVirtualNetworkAccess:
+          type: boolean
+          description: Whether the VMs in the local virtual network space would be able to access the VMs in remote virtual network space.
+        allowForwardedTraffic:
+          type: boolean
+          description: Whether the forwarded traffic from the VMs in the local virtual network will be allowed/disallowed in remote virtual network.
+        allowGatewayTransit:
+          type: boolean
+          description: If gateway links can be used in remote virtual networking to link to this virtual network.
+        useRemoteGateways:
+          type: boolean
+          description: If remote gateways can be used on this virtual network. If the flag is set to true, and allowGatewayTransit on remote peering is also true, virtual network will use gateways of remote virtual network for transit. Only one peering can have this flag set to true. This flag cannot be set if virtual network already has a gateway.
+        databricksVirtualNetwork:
+          $ref: "#/components/schemas/VirtualNetworkPeeringPropertiesFormatDatabricksVirtualNetwork"
+          description: The remote virtual network should be in the same region. See here to learn more (`https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/vnet-peering `_).
+        databricksAddressSpace:
+          $ref: "#/components/schemas/AddressSpace"
+          description: The reference to the databricks virtual network address space.
+        remoteVirtualNetwork:
+          $ref: "#/components/schemas/VirtualNetworkPeeringPropertiesFormatRemoteVirtualNetwork"
+          description: The remote virtual network should be in the same region. See here to learn more (`https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/vnet-peering `_). Required.
+        remoteAddressSpace:
+          $ref: "#/components/schemas/AddressSpace"
+          description: The reference to the remote virtual network address space.
+        peeringState:
+          $ref: "#/components/schemas/PeeringState"
+          description: 'The status of the virtual network peering. Known values are: "Initiated", "Connected", and "Disconnected".'
+        provisioningState:
+          $ref: "#/components/schemas/PeeringProvisioningState"
+          description: 'The provisioning state of the virtual network peering resource. Known values are: "Succeeded", "Updating", "Deleting", and "Failed".'
+    PagedVirtualNetworkPeeringFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/VirtualNetworkPeeringFlattened"
+        nextLink:
+          type: string
+    VirtualNetworkPeering:
+      type: object
+      description: Peerings in a VirtualNetwork resource.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: "#/components/schemas/VirtualNetworkPeeringPropertiesFormat"
+          description: List of properties for vNet Peering. Required.
+      required:
+        - properties
+    WorkspaceProperties:
+      type: object
+      description: The workspace properties.
+      properties:
+        computeMode:
+          $ref: "#/components/schemas/ComputeMode"
+          description: "The workspace compute mode. Required on create, cannot be changed. Possible values include: 'Serverless', 'Hybrid'. Required. Known values are: \"Serverless\" and \"Hybrid\"."
+        managedResourceGroupId:
+          type: string
+          description: The managed resource group Id. Required in Hybrid ComputeMode workspace. Not allowed in Serverless ComputeMode workspace.
+        parameters:
+          $ref: "#/components/schemas/WorkspaceCustomParameters"
+          description: The workspace's custom parameters.
+        provisioningState:
+          $ref: "#/components/schemas/ProvisioningState"
+          description: 'The workspace provisioning state. Known values are: "Accepted", "Running", "Ready", "Creating", "Created", "Deleting", "Deleted", "Canceled", "Failed", "Succeeded", and "Updating".'
+        uiDefinitionUri:
+          type: string
+          description: The blob URI where the UI definition file is located.
+        authorizations:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkspaceProviderAuthorization"
+          description: The workspace provider authorizations.
+        createdBy:
+          $ref: "#/components/schemas/CreatedBy"
+          description: Indicates the Object ID, PUID and Application ID of entity that created the workspace.
+        updatedBy:
+          $ref: "#/components/schemas/CreatedBy"
+          description: Indicates the Object ID, PUID and Application ID of entity that last updated the workspace.
+        createdDateTime:
+          type: string
+          format: date-time
+          description: Specifies the date and time when the workspace is created.
+        workspaceId:
+          type: string
+          description: The unique identifier of the databricks workspace in databricks control plane.
+        workspaceUrl:
+          type: string
+          description: The workspace URL which is of the format 'adb-{workspaceId}.{random}.azuredatabricks.net'.
+        storageAccountIdentity:
+          $ref: "#/components/schemas/ManagedIdentityConfiguration"
+          description: The details of Managed Identity of Storage Account. Only returned in Hybrid ComputeMode workspace.
+        managedDiskIdentity:
+          $ref: "#/components/schemas/ManagedIdentityConfiguration"
+          description: The details of Managed Identity of Disk Encryption Set used for Managed Disk Encryption. Only returned in Hybrid ComputeMode workspace.
+        diskEncryptionSetId:
+          type: string
+          description: The resource Id of the managed disk encryption set. Not allowed in Serverless ComputeMode workspace.
+        encryption:
+          $ref: "#/components/schemas/WorkspacePropertiesEncryption"
+          description: Encryption properties for databricks workspace. Supported in both Serverless and Hybrid ComputeMode workspace.
+        enhancedSecurityCompliance:
+          $ref: "#/components/schemas/EnhancedSecurityComplianceDefinition"
+          description: Contains settings related to the Enhanced Security and Compliance Add-On. Supported in both Serverless and Hybrid ComputeMode workspace.
+        privateEndpointConnections:
+          type: array
+          items:
+            $ref: "#/components/schemas/PrivateEndpointConnection"
+          description: Private endpoint connections created on the workspace. Supported in both Serverless and Hybrid ComputeMode workspace.
+        publicNetworkAccess:
+          $ref: "#/components/schemas/PublicNetworkAccess"
+          description: 'The network access type for accessing workspace. Set value to disabled to access workspace only via private link. Used to configure front-end only private link for Serverless ComputeMode workspace. Known values are: "Enabled" and "Disabled".'
+        requiredNsgRules:
+          $ref: "#/components/schemas/RequiredNsgRules"
+          description: "Gets or sets a value indicating whether data plane (clusters) to control plane communication happen over private endpoint. Supported values are 'AllRules' and 'NoAzureDatabricksRules'. 'NoAzureServiceRules' value is for internal use only. Not allowed in Serverless ComputeMode workspace. Known values are: \"AllRules\", \"NoAzureDatabricksRules\", and \"NoAzureServiceRules\"."
+        defaultCatalog:
+          $ref: "#/components/schemas/DefaultCatalogProperties"
+          description: Properties for Default Catalog configuration during workspace creation. Not allowed in Serverless ComputeMode workspace.
+        isUcEnabled:
+          type: boolean
+          description: Indicates whether unity catalog enabled for the workspace or not. Set as true in Serverless ComputeMode workspace.
+        accessConnector:
+          $ref: "#/components/schemas/WorkspacePropertiesAccessConnector"
+          description: Access Connector Resource that is going to be associated with Databricks Workspace. Not allowed in Serverless ComputeMode workspace.
+        defaultStorageFirewall:
+          $ref: "#/components/schemas/DefaultStorageFirewall"
+          description: 'Gets or Sets Default Storage Firewall configuration information. Not allowed in Serverless ComputeMode workspace. Known values are: "Disabled" and "Enabled".'
+      required:
+        - computeMode
+    ComputeMode:
+      type: string
+      enum:
+        - Serverless
+        - Hybrid
+    WorkspaceCustomParameters:
+      type: object
+      description: Custom Parameters used for Workspace Creation. Not allowed in Serverless ComputeMode workspace.
+      properties:
+        amlWorkspaceId:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: The ID of a Azure Machine Learning workspace to link with Databricks workspace. Not allowed in Serverless ComputeMode workspace.
+        customVirtualNetworkId:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: The ID of a Virtual Network where this Databricks Cluster should be created. Not allowed in Serverless ComputeMode workspace.
+        customPublicSubnetName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: The name of a Public Subnet within the Virtual Network. Not allowed in Serverless ComputeMode workspace.
+        customPrivateSubnetName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: The name of the Private Subnet within the Virtual Network. Not allowed in Serverless ComputeMode workspace.
+        enableNoPublicIp:
+          $ref: "#/components/schemas/WorkspaceNoPublicIPBooleanParameter"
+          description: Boolean indicating whether the public IP should be disabled. Default value is true. Not allowed in Serverless ComputeMode workspace.
+        loadBalancerBackendPoolName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: Name of the outbound Load Balancer Backend Pool for Secure Cluster Connectivity (No Public IP). Not allowed in Serverless ComputeMode workspace.
+        loadBalancerId:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: Resource URI of Outbound Load balancer for Secure Cluster Connectivity (No Public IP) workspace. Not allowed in Serverless ComputeMode workspace.
+        natGatewayName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: Name of the NAT gateway for Secure Cluster Connectivity (No Public IP) workspace subnets. Not allowed in Serverless ComputeMode workspace.
+        publicIpName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: Name of the Public IP for No Public IP workspace with managed vNet. Not allowed in Serverless ComputeMode workspace.
+        prepareEncryption:
+          $ref: "#/components/schemas/WorkspaceCustomBooleanParameter"
+          description: Prepare the workspace for encryption. Enables the Managed Identity for managed storage account. Not allowed in Serverless ComputeMode workspace.
+        encryption:
+          $ref: "#/components/schemas/WorkspaceEncryptionParameter"
+          description: Contains the encryption details for Customer-Managed Key (CMK) enabled workspace.Not allowed in Serverless ComputeMode workspace.
+        requireInfrastructureEncryption:
+          $ref: "#/components/schemas/WorkspaceCustomBooleanParameter"
+          description: A boolean indicating whether or not the DBFS root file system will be enabled with secondary layer of encryption with platform managed keys for data at rest. Not allowed in Serverless ComputeMode workspace.
+        storageAccountName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: Default DBFS storage account name. Not allowed in Serverless ComputeMode workspace.
+        storageAccountSkuName:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: "Storage account SKU name, ex: Standard_GRS, Standard_LRS. Refer `https://aka.ms/storageskus `_ for valid inputs. Not allowed in Serverless ComputeMode workspace."
+        vnetAddressPrefix:
+          $ref: "#/components/schemas/WorkspaceCustomStringParameter"
+          description: Address prefix for Managed virtual network. Default value for this input is 10.139. Not allowed in Serverless ComputeMode workspace.
+        resourceTags:
+          $ref: "#/components/schemas/WorkspaceCustomObjectParameter"
+          description: Tags applied to resources under Managed resource group. These can be updated by updating tags at workspace level. Not allowed in Serverless ComputeMode workspace.
+    WorkspaceCustomStringParameter:
+      type: object
+      description: The Value.
+      properties:
+        type:
+          $ref: "#/components/schemas/CustomParameterType"
+          description: 'The type of variable that this is. Known values are: "Bool", "Object", and "String".'
+        value:
+          type: string
+          description: The value which should be used for this field. Required.
+      required:
+        - value
+    CustomParameterType:
+      type: string
+      enum:
+        - Bool
+        - Object
+        - String
+    WorkspaceNoPublicIPBooleanParameter:
+      type: object
+      description: The value which should be used for this field.
+      properties:
+        type:
+          $ref: "#/components/schemas/CustomParameterType"
+          description: 'The type of variable that this is. Known values are: "Bool", "Object", and "String".'
+        value:
+          type: boolean
+          description: The value which should be used for this field. Required.
+      required:
+        - value
+    WorkspaceCustomBooleanParameter:
+      type: object
+      description: The value which should be used for this field.
+      properties:
+        type:
+          $ref: "#/components/schemas/CustomParameterType"
+          description: 'The type of variable that this is. Known values are: "Bool", "Object", and "String".'
+        value:
+          type: boolean
+          description: The value which should be used for this field. Required.
+      required:
+        - value
+    WorkspaceEncryptionParameter:
+      type: object
+      description: The object that contains details of encryption used on the workspace.
+      properties:
+        type:
+          $ref: "#/components/schemas/CustomParameterType"
+          description: 'The type of variable that this is. Known values are: "Bool", "Object", and "String".'
+        value:
+          $ref: "#/components/schemas/Encryption"
+          description: The value which should be used for this field.
+    Encryption:
+      type: object
+      description: The object that contains details of encryption used on the workspace.
+      properties:
+        keySource:
+          $ref: "#/components/schemas/KeySource"
+          description: 'The encryption keySource (provider). Possible values (case-insensitive): Default, Microsoft.Keyvault. Known values are: "Default" and "Microsoft.Keyvault".'
+        KeyName:
+          type: string
+          description: The name of KeyVault key.
+        keyversion:
+          type: string
+          description: The version of KeyVault key.
+        keyvaulturi:
+          type: string
+          description: The Uri of KeyVault.
+    KeySource:
+      type: string
+      enum:
+        - Default
+        - Microsoft.Keyvault
+    WorkspaceCustomObjectParameter:
+      type: object
+      description: The value which should be used for this field.
+      properties:
+        type:
+          $ref: "#/components/schemas/CustomParameterType"
+          description: 'The type of variable that this is. Known values are: "Bool", "Object", and "String".'
+        value:
+          type: object
+          properties: {}
+          description: The value which should be used for this field. Required.
+      required:
+        - value
+    WorkspaceProviderAuthorization:
+      type: object
+      description: The workspace provider authorization.
+      properties:
+        principalId:
+          type: string
+          description: The provider's principal identifier. This is the identity that the provider will use to call ARM to manage the workspace resources. Required.
+        roleDefinitionId:
+          type: string
+          description: The provider's role definition identifier. This role will define all the permissions that the provider must have on the workspace's container resource group. This role definition cannot have permission to delete the resource group. Required.
+      required:
+        - principalId
+        - roleDefinitionId
+    CreatedBy:
+      type: object
+      description: Provides details of the entity that created/updated the workspace.
+      properties:
+        oid:
+          type: string
+          description: The Object ID that created the workspace.
+        puid:
+          type: string
+          description: The Personal Object ID corresponding to the object ID above.
+        applicationId:
+          type: string
+          description: The application ID of the application that initiated the creation of the workspace. For example, Azure Portal.
+    ManagedIdentityConfiguration:
+      type: object
+      description: The Managed Identity details for storage account.
+      properties:
+        principalId:
+          type: string
+          description: The objectId of the Managed Identity that is linked to the Managed Storage account.
+        tenantId:
+          type: string
+          description: The tenant Id where the Managed Identity is created.
+        type:
+          type: string
+          description: The type of Identity created. It can be either SystemAssigned or UserAssigned.
+    WorkspacePropertiesEncryption:
+      type: object
+      description: Encryption properties for databricks workspace. Supported in both Serverless and Hybrid ComputeMode workspace.
+      properties:
+        entities:
+          $ref: "#/components/schemas/EncryptionEntitiesDefinition"
+          description: Encryption entities definition for the workspace. Required.
+      required:
+        - entities
+    EncryptionEntitiesDefinition:
+      type: object
+      description: Encryption entities for databricks workspace resource.
+      properties:
+        managedServices:
+          $ref: "#/components/schemas/EncryptionV2"
+          description: Encryption properties for the databricks managed services. Supported in both Serverless and Hybrid ComputeMode.
+        managedDisk:
+          $ref: "#/components/schemas/ManagedDiskEncryption"
+          description: Encryption properties for the databricks managed disks. Not allowed in Serverless ComputeMode workspace.
+    EncryptionV2:
+      type: object
+      description: The object that contains details of encryption used on the workspace.
+      properties:
+        keySource:
+          $ref: "#/components/schemas/EncryptionKeySource"
+          description: 'The encryption keySource (provider). Possible values (case-insensitive): Microsoft.Keyvault. Required. "Microsoft.Keyvault"'
+        keyVaultProperties:
+          $ref: "#/components/schemas/EncryptionV2KeyVaultProperties"
+          description: Key Vault input properties for encryption.
+      required:
+        - keySource
+    EncryptionKeySource:
+      type: string
+      enum:
+        - Microsoft.Keyvault
+    EncryptionV2KeyVaultProperties:
+      type: object
+      description: Key Vault input properties for encryption.
+      properties:
+        keyVaultUri:
+          type: string
+          description: The Uri of KeyVault. Required.
+        keyName:
+          type: string
+          description: The name of KeyVault key. Required.
+        keyVersion:
+          type: string
+          description: The version of KeyVault key. Required.
+      required:
+        - keyVaultUri
+        - keyName
+        - keyVersion
+    ManagedDiskEncryption:
+      type: object
+      description: The object that contains details of encryption used on the workspace.
+      properties:
+        keySource:
+          $ref: "#/components/schemas/EncryptionKeySource"
+          description: 'The encryption keySource (provider). Possible values (case-insensitive): Microsoft.Keyvault. Not allowed in Serverless ComputeMode workspace. Required. "Microsoft.Keyvault"'
+        keyVaultProperties:
+          $ref: "#/components/schemas/ManagedDiskEncryptionKeyVaultProperties"
+          description: Key Vault input properties for encryption. Required.
+        rotationToLatestKeyVersionEnabled:
+          type: boolean
+          description: Indicate whether the latest key version should be automatically used for Managed Disk Encryption.
+      required:
+        - keySource
+        - keyVaultProperties
+    ManagedDiskEncryptionKeyVaultProperties:
+      type: object
+      description: Key Vault input properties for encryption.
+      properties:
+        keyVaultUri:
+          type: string
+          description: The URI of KeyVault. Required.
+        keyName:
+          type: string
+          description: The name of KeyVault key. Required.
+        keyVersion:
+          type: string
+          description: The version of KeyVault key. Required.
+      required:
+        - keyVaultUri
+        - keyName
+        - keyVersion
+    EnhancedSecurityComplianceDefinition:
+      type: object
+      description: Status of settings related to the Enhanced Security and Compliance Add-On.
+      properties:
+        automaticClusterUpdate:
+          $ref: "#/components/schemas/AutomaticClusterUpdateDefinition"
+          description: Status of automated cluster updates feature.
+        complianceSecurityProfile:
+          $ref: "#/components/schemas/ComplianceSecurityProfileDefinition"
+          description: Status of Compliance Security Profile feature.
+        enhancedSecurityMonitoring:
+          $ref: "#/components/schemas/EnhancedSecurityMonitoringDefinition"
+          description: Status of Enhanced Security Monitoring feature.
+    AutomaticClusterUpdateDefinition:
+      type: object
+      description: Status of automated cluster updates feature.
+      properties:
+        value:
+          $ref: "#/components/schemas/AutomaticClusterUpdateValue"
+          description: 'Known values are: "Enabled" and "Disabled".'
+    AutomaticClusterUpdateValue:
+      type: string
+      enum:
+        - Enabled
+        - Disabled
+    ComplianceSecurityProfileDefinition:
+      type: object
+      description: Status of Compliance Security Profile feature.
+      properties:
+        complianceStandards:
+          type: array
+          items:
+            type: string
+          description: Compliance standards associated with the workspace.
+        value:
+          $ref: "#/components/schemas/ComplianceSecurityProfileValue"
+          description: 'Known values are: "Enabled" and "Disabled".'
+    ComplianceSecurityProfileValue:
+      type: string
+      enum:
+        - Enabled
+        - Disabled
+    EnhancedSecurityMonitoringDefinition:
+      type: object
+      description: Status of Enhanced Security Monitoring feature.
+      properties:
+        value:
+          $ref: "#/components/schemas/EnhancedSecurityMonitoringValue"
+          description: 'Known values are: "Enabled" and "Disabled".'
+    EnhancedSecurityMonitoringValue:
+      type: string
+      enum:
+        - Enabled
+        - Disabled
+    PublicNetworkAccess:
+      type: string
+      enum:
+        - Enabled
+        - Disabled
+    RequiredNsgRules:
+      type: string
+      enum:
+        - AllRules
+        - NoAzureDatabricksRules
+        - NoAzureServiceRules
+    DefaultCatalogProperties:
+      type: object
+      description: These properties lets user specify default catalog properties during workspace creation. Not allowed in Serverless ComputeMode workspace.
+      properties:
+        initialType:
+          $ref: "#/components/schemas/InitialType"
+          description: 'Defines the initial type of the default catalog. Possible values (case-insensitive): HiveMetastore, UnityCatalog. Known values are: "HiveMetastore" and "UnityCatalog".'
+        initialName:
+          type: string
+          description: Specifies the initial Name of default catalog. If not specified, the name of the workspace will be used.
+    InitialType:
+      type: string
+      enum:
+        - HiveMetastore
+        - UnityCatalog
+    WorkspacePropertiesAccessConnector:
+      type: object
+      description: Access Connector Resource that is going to be associated with Databricks Workspace. Not allowed in Serverless ComputeMode workspace.
+      properties:
+        id:
+          type: string
+          description: The resource ID of Azure Databricks Access Connector Resource. Required.
+        identityType:
+          $ref: "#/components/schemas/IdentityType"
+          description: 'The identity type of the Access Connector Resource. Required. Known values are: "SystemAssigned" and "UserAssigned".'
+        userAssignedIdentityId:
+          type: string
+          description: The resource ID of the User Assigned Identity associated with the Access Connector Resource. This is required for type 'UserAssigned' and not valid for type 'SystemAssigned'.
+      required:
+        - id
+        - identityType
+    IdentityType:
+      type: string
+      enum:
+        - SystemAssigned
+        - UserAssigned
+    DefaultStorageFirewall:
+      type: string
+      enum:
+        - Disabled
+        - Enabled
+    Sku:
+      type: object
+      description: SKU for the resource.
+      properties:
+        name:
+          type: string
+          description: The SKU name. Required.
+        tier:
+          type: string
+          description: The SKU tier.
+      required:
+        - name
+    WorkspaceFlattened:
+      type: object
+      description: Flattened view of Workspace ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        sku:
+          $ref: "#/components/schemas/Sku"
+          description: The SKU of the resource.
+        computeMode:
+          $ref: "#/components/schemas/ComputeMode"
+          description: "The workspace compute mode. Required on create, cannot be changed. Possible values include: 'Serverless', 'Hybrid'. Required. Known values are: \"Serverless\" and \"Hybrid\"."
+        managedResourceGroupId:
+          type: string
+          description: The managed resource group Id. Required in Hybrid ComputeMode workspace. Not allowed in Serverless ComputeMode workspace.
+        parameters:
+          $ref: "#/components/schemas/WorkspaceCustomParameters"
+          description: The workspace's custom parameters.
+        provisioningState:
+          $ref: "#/components/schemas/ProvisioningState"
+          description: 'The workspace provisioning state. Known values are: "Accepted", "Running", "Ready", "Creating", "Created", "Deleting", "Deleted", "Canceled", "Failed", "Succeeded", and "Updating".'
+        uiDefinitionUri:
+          type: string
+          description: The blob URI where the UI definition file is located.
+        authorizations:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkspaceProviderAuthorization"
+          description: The workspace provider authorizations.
+        createdBy:
+          $ref: "#/components/schemas/CreatedBy"
+          description: Indicates the Object ID, PUID and Application ID of entity that created the workspace.
+        updatedBy:
+          $ref: "#/components/schemas/CreatedBy"
+          description: Indicates the Object ID, PUID and Application ID of entity that last updated the workspace.
+        createdDateTime:
+          type: string
+          format: date-time
+          description: Specifies the date and time when the workspace is created.
+        workspaceId:
+          type: string
+          description: The unique identifier of the databricks workspace in databricks control plane.
+        workspaceUrl:
+          type: string
+          description: The workspace URL which is of the format 'adb-{workspaceId}.{random}.azuredatabricks.net'.
+        storageAccountIdentity:
+          $ref: "#/components/schemas/ManagedIdentityConfiguration"
+          description: The details of Managed Identity of Storage Account. Only returned in Hybrid ComputeMode workspace.
+        managedDiskIdentity:
+          $ref: "#/components/schemas/ManagedIdentityConfiguration"
+          description: The details of Managed Identity of Disk Encryption Set used for Managed Disk Encryption. Only returned in Hybrid ComputeMode workspace.
+        diskEncryptionSetId:
+          type: string
+          description: The resource Id of the managed disk encryption set. Not allowed in Serverless ComputeMode workspace.
+        encryption:
+          $ref: "#/components/schemas/WorkspacePropertiesEncryption"
+          description: Encryption properties for databricks workspace. Supported in both Serverless and Hybrid ComputeMode workspace.
+        enhancedSecurityCompliance:
+          $ref: "#/components/schemas/EnhancedSecurityComplianceDefinition"
+          description: Contains settings related to the Enhanced Security and Compliance Add-On. Supported in both Serverless and Hybrid ComputeMode workspace.
+        privateEndpointConnections:
+          type: array
+          items:
+            $ref: "#/components/schemas/PrivateEndpointConnection"
+          description: Private endpoint connections created on the workspace. Supported in both Serverless and Hybrid ComputeMode workspace.
+        publicNetworkAccess:
+          $ref: "#/components/schemas/PublicNetworkAccess"
+          description: 'The network access type for accessing workspace. Set value to disabled to access workspace only via private link. Used to configure front-end only private link for Serverless ComputeMode workspace. Known values are: "Enabled" and "Disabled".'
+        requiredNsgRules:
+          $ref: "#/components/schemas/RequiredNsgRules"
+          description: "Gets or sets a value indicating whether data plane (clusters) to control plane communication happen over private endpoint. Supported values are 'AllRules' and 'NoAzureDatabricksRules'. 'NoAzureServiceRules' value is for internal use only. Not allowed in Serverless ComputeMode workspace. Known values are: \"AllRules\", \"NoAzureDatabricksRules\", and \"NoAzureServiceRules\"."
+        defaultCatalog:
+          $ref: "#/components/schemas/DefaultCatalogProperties"
+          description: Properties for Default Catalog configuration during workspace creation. Not allowed in Serverless ComputeMode workspace.
+        isUcEnabled:
+          type: boolean
+          description: Indicates whether unity catalog enabled for the workspace or not. Set as true in Serverless ComputeMode workspace.
+        accessConnector:
+          $ref: "#/components/schemas/WorkspacePropertiesAccessConnector"
+          description: Access Connector Resource that is going to be associated with Databricks Workspace. Not allowed in Serverless ComputeMode workspace.
+        defaultStorageFirewall:
+          $ref: "#/components/schemas/DefaultStorageFirewall"
+          description: 'Gets or Sets Default Storage Firewall configuration information. Not allowed in Serverless ComputeMode workspace. Known values are: "Disabled" and "Enabled".'
+    PagedWorkspaceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkspaceFlattened"
+        nextLink:
+          type: string
+    Workspace:
+      type: object
+      description: Information about workspace.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        properties:
+          $ref: "#/components/schemas/WorkspaceProperties"
+          description: The workspace properties. Required.
+        sku:
+          $ref: "#/components/schemas/Sku"
+          description: The SKU of the resource.
+      required:
+        - location
+        - properties
+  x-stackQL-resources:
+    access_connectors:
+      id: azure_isv.databricks.access_connectors
+      name: access_connectors
+      title: access_connectors
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1accessConnectors~1{connector_name}?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1accessConnectors~1{connector_name}?api-version=2026-01-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1accessConnectors~1{connector_name}?api-version=2026-01-01/patch"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1accessConnectors~1{connector_name}?api-version=2026-01-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list_by_resource_group:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1accessConnectors?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        list_by_subscription:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Databricks~1accessConnectors?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/get"
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/list_by_subscription"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/create_or_update"
+        update:
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/update"
+        replace:
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/access_connectors/methods/delete"
+    operations:
+      id: azure_isv.databricks.operations
+      name: operations
+      title: operations
+      methods:
+        list:
+          operation:
+            $ref: "#/paths/~1providers~1Microsoft.Databricks~1operations?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/operations/methods/list"
+        insert: []
+        update: []
+        delete: []
+    outbound_network_dependencies_endpoints:
+      id: azure_isv.databricks.outbound_network_dependencies_endpoints
+      name: outbound_network_dependencies_endpoints
+      title: outbound_network_dependencies_endpoints
+      methods:
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1outboundNetworkDependenciesEndpoints?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/outbound_network_dependencies_endpoints/methods/list"
+        insert: []
+        update: []
+        delete: []
+    private_endpoint_connections:
+      id: azure_isv.databricks.private_endpoint_connections
+      name: private_endpoint_connections
+      title: private_endpoint_connections
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1privateEndpointConnections~1{private_endpoint_connection_name}?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1privateEndpointConnections~1{private_endpoint_connection_name}?api-version=2026-01-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1privateEndpointConnections~1{private_endpoint_connection_name}?api-version=2026-01-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1privateEndpointConnections?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/private_endpoint_connections/methods/get"
+          - $ref: "#/components/x-stackQL-resources/private_endpoint_connections/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/private_endpoint_connections/methods/create"
+        update: []
+        delete:
+          - $ref: "#/components/x-stackQL-resources/private_endpoint_connections/methods/delete"
+    private_link_resources:
+      id: azure_isv.databricks.private_link_resources
+      name: private_link_resources
+      title: private_link_resources
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1privateLinkResources~1{group_id}?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1privateLinkResources?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/private_link_resources/methods/get"
+          - $ref: "#/components/x-stackQL-resources/private_link_resources/methods/list"
+        insert: []
+        update: []
+        delete: []
+    v_net_peering:
+      id: azure_isv.databricks.v_net_peering
+      name: v_net_peering
+      title: v_net_peering
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1virtualNetworkPeerings~1{peering_name}?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1virtualNetworkPeerings~1{peering_name}?api-version=2026-01-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1virtualNetworkPeerings~1{peering_name}?api-version=2026-01-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list_by_workspace:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}~1virtualNetworkPeerings?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/get"
+          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/list_by_workspace"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/delete"
+    workspaces:
+      id: azure_isv.databricks.workspaces
+      name: workspaces
+      title: workspaces
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}?api-version=2026-01-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}?api-version=2026-01-01/patch"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces~1{workspace_name}?api-version=2026-01-01/delete"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+        list_by_resource_group:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Databricks~1workspaces?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        list_by_subscription:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Databricks~1workspaces?api-version=2026-01-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/get"
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/list_by_subscription"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/create_or_update"
+        update:
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/update"
+        replace:
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/workspaces/methods/delete"
+paths:
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/accessConnectors/{connector_name}?api-version=2026-01-01:
+    get:
+      operationId: AccessConnectors_get
+      description: Gets an Azure Databricks Access Connector.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the Azure Databricks Access Connector. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessConnectorFlattened"
+    put:
+      operationId: AccessConnectors_begin_create_or_update
+      description: Creates or updates Azure Databricks Access Connector.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the Azure Databricks Access Connector. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: "#/components/schemas/AccessConnectorProperties"
+                  description: Azure Databricks Access Connector properties.
+                identity:
+                  $ref: "#/components/schemas/ManagedServiceIdentity"
+                  description: The managed service identities assigned to this resource.
+              required:
+                - location
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessConnector"
+    patch:
+      operationId: AccessConnectors_begin_update
+      description: Updates an Azure Databricks Access Connector.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the Azure Databricks Access Connector. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                identity:
+                  $ref: "#/components/schemas/ManagedServiceIdentity"
+                  description: Managed service identity (system assigned and/or user assigned identities).
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessConnector"
+    delete:
+      operationId: AccessConnectors_begin_delete
+      description: Deletes the Azure Databricks Access Connector.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the Azure Databricks Access Connector. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/accessConnectors?api-version=2026-01-01:
+    get:
+      operationId: AccessConnectors_list_by_resource_group
+      description: Gets all the Azure Databricks Access Connectors within a resource group.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedAccessConnectorFlattened"
+  /subscriptions/{subscription_id}/providers/Microsoft.Databricks/accessConnectors?api-version=2026-01-01:
+    get:
+      operationId: AccessConnectors_list_by_subscription
+      description: Gets all the Azure Databricks Access Connectors within a subscription.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedAccessConnectorFlattened"
+  /providers/Microsoft.Databricks/operations?api-version=2026-01-01:
+    get:
+      operationId: databricks_list
+      description: List the operations for the provider.
+      parameters: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedOperation"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/outboundNetworkDependenciesEndpoints?api-version=2026-01-01:
+    get:
+      operationId: OutboundNetworkDependenciesEndpoints_list
+      description: Gets a list of egress endpoints (network endpoints of all outbound dependencies) in the specified Workspace. Gets the list of endpoints that VNET Injected Workspace calls Azure Databricks Control Plane. You must configure outbound access with these endpoints. For more information, see `https://docs.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/udr `_.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OutboundEnvironmentEndpoint"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2026-01-01:
+    get:
+      operationId: PrivateEndpointConnections_get
+      description: Get private endpoint connection. Get a private endpoint connection properties for a workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: private_endpoint_connection_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the private endpoint connection. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivateEndpointConnectionFlattened"
+    put:
+      operationId: PrivateEndpointConnections_begin_create
+      description: Update private endpoint connection status. Update the status of a private endpoint connection with the specified name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: private_endpoint_connection_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the private endpoint connection. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/PrivateEndpointConnectionProperties"
+                  description: The private endpoint connection properties. Required.
+              required:
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrivateEndpointConnection"
+    delete:
+      operationId: PrivateEndpointConnections_begin_delete
+      description: Remove private endpoint connection. Remove private endpoint connection with the specified name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: private_endpoint_connection_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the private endpoint connection. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/privateEndpointConnections?api-version=2026-01-01:
+    get:
+      operationId: PrivateEndpointConnections_list
+      description: List private endpoint connections. List private endpoint connections of the workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedPrivateEndpointConnectionFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/privateLinkResources/{group_id}?api-version=2026-01-01:
+    get:
+      operationId: PrivateLinkResources_get
+      description: Get the specified private link resource. Get the specified private link resource for the given group id (sub-resource).
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: group_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the private link resource. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupIdInformationFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/privateLinkResources?api-version=2026-01-01:
+    get:
+      operationId: PrivateLinkResources_list
+      description: List private link resources. List private link resources for a given workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedGroupIdInformationFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/virtualNetworkPeerings/{peering_name}?api-version=2026-01-01:
+    get:
+      operationId: VNetPeering_get
+      description: Gets the workspace vNet Peering.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: peering_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace vNet peering. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VirtualNetworkPeeringFlattened"
+    put:
+      operationId: VNetPeering_begin_create_or_update
+      description: Creates vNet Peering for workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: peering_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace vNet peering. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/VirtualNetworkPeeringPropertiesFormat"
+                  description: List of properties for vNet Peering. Required.
+              required:
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VirtualNetworkPeering"
+    delete:
+      operationId: VNetPeering_begin_delete
+      description: Deletes the workspace vNetPeering.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: peering_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace vNet peering. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}/virtualNetworkPeerings?api-version=2026-01-01:
+    get:
+      operationId: VNetPeering_list_by_workspace
+      description: Lists the workspace vNet Peerings.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedVirtualNetworkPeeringFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces/{workspace_name}?api-version=2026-01-01:
+    get:
+      operationId: Workspaces_get
+      description: Gets the workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkspaceFlattened"
+    put:
+      operationId: Workspaces_begin_create_or_update
+      description: Creates a new workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: "#/components/schemas/WorkspaceProperties"
+                  description: The workspace properties. Required.
+                sku:
+                  $ref: "#/components/schemas/Sku"
+                  description: The SKU of the resource.
+              required:
+                - location
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+    patch:
+      operationId: Workspaces_begin_update
+      description: Updates a workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+    delete:
+      operationId: Workspaces_begin_delete
+      description: Deletes the workspace.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: workspace_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the workspace. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: forceDeletion
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Optional parameter to retain default unity catalog data. By default the data will retained if Uc is enabled on the workspace. Default value is False.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Databricks/workspaces?api-version=2026-01-01:
+    get:
+      operationId: Workspaces_list_by_resource_group
+      description: Gets all the workspaces within a resource group.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedWorkspaceFlattened"
+  /subscriptions/{subscription_id}/providers/Microsoft.Databricks/workspaces?api-version=2026-01-01:
+    get:
+      operationId: Workspaces_list_by_subscription
+      description: Gets all the workspaces within a subscription.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedWorkspaceFlattened"

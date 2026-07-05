@@ -1,0 +1,581 @@
+--- 
+title: gallery_application_versions
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - gallery_application_versions
+  - compute
+  - azure
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage azure resources using SQL
+custom_edit_url: null
+image: /img/stackql-azure-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes, gets or lists a <code>gallery_application_versions</code> resource.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><CopyableCode code="gallery_application_versions" /></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure.compute.gallery_application_versions" /></td></tr>
+</tbody></table>
+
+## Fields
+
+The following fields are returned by `SELECT` queries:
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list_by_gallery_application', value: 'list_by_gallery_application' }
+    ]}
+>
+<TabItem value="get">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The geo-location where the resource lives. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The provisioning state, which only appears in the response. Known values are: "Creating", "Updating", "Failed", "Succeeded", "Deleting", and "Migrating". (Creating, Updating, Failed, Succeeded, Deleting, Migrating)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="publishingProfile" /></td>
+    <td><code>object</code></td>
+    <td>The publishing profile of a gallery image version. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="replicationStatus" /></td>
+    <td><code>object</code></td>
+    <td>This is the replication status of the gallery image version.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="safetyProfile" /></td>
+    <td><code>object</code></td>
+    <td>The safety profile of the Gallery Application Version.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>Resource tags.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_by_gallery_application">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The geo-location where the resource lives. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The provisioning state, which only appears in the response. Known values are: "Creating", "Updating", "Failed", "Succeeded", "Deleting", and "Migrating". (Creating, Updating, Failed, Succeeded, Deleting, Migrating)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="publishingProfile" /></td>
+    <td><code>object</code></td>
+    <td>The publishing profile of a gallery image version. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="replicationStatus" /></td>
+    <td><code>object</code></td>
+    <td>This is the replication status of the gallery image version.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="safetyProfile" /></td>
+    <td><code>object</code></td>
+    <td>The safety profile of the Gallery Application Version.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>Resource tags.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
+
+## Methods
+
+The following methods are available for this resource:
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+    <th>Optional Params</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gallery_name"><code>gallery_name</code></a>, <a href="#parameter-gallery_application_name"><code>gallery_application_name</code></a>, <a href="#parameter-gallery_application_version_name"><code>gallery_application_version_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$expand"><code>$expand</code></a></td>
+    <td>Retrieves information about a gallery Application Version.</td>
+</tr>
+<tr>
+    <td><a href="#list_by_gallery_application"><CopyableCode code="list_by_gallery_application" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gallery_name"><code>gallery_name</code></a>, <a href="#parameter-gallery_application_name"><code>gallery_application_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>List gallery Application Versions in a gallery Application Definition.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><CopyableCode code="insert" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gallery_name"><code>gallery_name</code></a>, <a href="#parameter-gallery_application_name"><code>gallery_application_name</code></a>, <a href="#parameter-gallery_application_version_name"><code>gallery_application_version_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>Create or update a gallery Application Version.</td>
+</tr>
+<tr>
+    <td><a href="#update"><CopyableCode code="update" /></a></td>
+    <td><CopyableCode code="update" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gallery_name"><code>gallery_name</code></a>, <a href="#parameter-gallery_application_name"><code>gallery_application_name</code></a>, <a href="#parameter-gallery_application_version_name"><code>gallery_application_version_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a gallery Application Version.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><CopyableCode code="replace" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gallery_name"><code>gallery_name</code></a>, <a href="#parameter-gallery_application_name"><code>gallery_application_name</code></a>, <a href="#parameter-gallery_application_version_name"><code>gallery_application_version_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>Create or update a gallery Application Version.</td>
+</tr>
+<tr>
+    <td><a href="#delete"><CopyableCode code="delete" /></a></td>
+    <td><CopyableCode code="delete" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gallery_name"><code>gallery_name</code></a>, <a href="#parameter-gallery_application_name"><code>gallery_application_name</code></a>, <a href="#parameter-gallery_application_version_name"><code>gallery_application_version_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a gallery Application Version.</td>
+</tr>
+</tbody>
+</table>
+
+## Parameters
+
+Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#methods) section to see which parameters are required or optional for each operation.
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr id="parameter-gallery_application_name">
+    <td><CopyableCode code="gallery_application_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the gallery Application Definition to be retrieved. Required.</td>
+</tr>
+<tr id="parameter-gallery_application_version_name">
+    <td><CopyableCode code="gallery_application_version_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the gallery Application Version to be retrieved. Required.</td>
+</tr>
+<tr id="parameter-gallery_name">
+    <td><CopyableCode code="gallery_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the Shared Image Gallery. Required.</td>
+</tr>
+<tr id="parameter-resource_group_name">
+    <td><CopyableCode code="resource_group_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource group. The name is case insensitive. Required.</td>
+</tr>
+<tr id="parameter-subscription_id">
+    <td><CopyableCode code="subscription_id" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr id="parameter-$expand">
+    <td><CopyableCode code="$expand" /></td>
+    <td><code>string</code></td>
+    <td>The expand expression to apply on the operation. Known values are: "ReplicationStatus" and "UefiSettings". Default value is None.</td>
+</tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list_by_gallery_application', value: 'list_by_gallery_application' }
+    ]}
+>
+<TabItem value="get">
+
+Retrieves information about a gallery Application Version.
+
+```sql
+SELECT
+id,
+name,
+location,
+provisioningState,
+publishingProfile,
+replicationStatus,
+safetyProfile,
+systemData,
+tags,
+type
+FROM azure.compute.gallery_application_versions
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND gallery_name = '{{ gallery_name }}' -- required
+AND gallery_application_name = '{{ gallery_application_name }}' -- required
+AND gallery_application_version_name = '{{ gallery_application_version_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $expand = '{{ $expand }}'
+;
+```
+</TabItem>
+<TabItem value="list_by_gallery_application">
+
+List gallery Application Versions in a gallery Application Definition.
+
+```sql
+SELECT
+id,
+name,
+location,
+provisioningState,
+publishingProfile,
+replicationStatus,
+safetyProfile,
+systemData,
+tags,
+type
+FROM azure.compute.gallery_application_versions
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND gallery_name = '{{ gallery_name }}' -- required
+AND gallery_application_name = '{{ gallery_application_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## `INSERT` examples
+
+<Tabs
+    defaultValue="create_or_update"
+    values={[
+        { label: 'create_or_update', value: 'create_or_update' },
+        { label: 'Manifest', value: 'manifest' }
+    ]}
+>
+<TabItem value="create_or_update">
+
+Create or update a gallery Application Version.
+
+```sql
+INSERT INTO azure.compute.gallery_application_versions (
+tags,
+location,
+properties,
+resource_group_name,
+gallery_name,
+gallery_application_name,
+gallery_application_version_name,
+subscription_id
+)
+SELECT 
+'{{ tags }}',
+'{{ location }}' /* required */,
+'{{ properties }}',
+'{{ resource_group_name }}',
+'{{ gallery_name }}',
+'{{ gallery_application_name }}',
+'{{ gallery_application_version_name }}',
+'{{ subscription_id }}'
+RETURNING
+id,
+name,
+location,
+properties,
+systemData,
+tags,
+type
+;
+```
+</TabItem>
+<TabItem value="manifest">
+
+<CodeBlock language="yaml">{`# Description fields are for documentation purposes
+- name: gallery_application_versions
+  props:
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
+      description: Required parameter for the gallery_application_versions resource.
+    - name: gallery_name
+      value: "{{ gallery_name }}"
+      description: Required parameter for the gallery_application_versions resource.
+    - name: gallery_application_name
+      value: "{{ gallery_application_name }}"
+      description: Required parameter for the gallery_application_versions resource.
+    - name: gallery_application_version_name
+      value: "{{ gallery_application_version_name }}"
+      description: Required parameter for the gallery_application_versions resource.
+    - name: subscription_id
+      value: "{{ subscription_id }}"
+      description: Required parameter for the gallery_application_versions resource.
+    - name: tags
+      value: "{{ tags }}"
+      description: |
+        Resource tags.
+    - name: location
+      value: "{{ location }}"
+      description: |
+        The geo-location where the resource lives. Required.
+    - name: properties
+      description: |
+        Describes the properties of a gallery image version.
+      value:
+        publishingProfile:
+          targetRegions:
+            - name: "{{ name }}"
+              regionalReplicaCount: {{ regionalReplicaCount }}
+              storageAccountType: "{{ storageAccountType }}"
+              encryption:
+                osDiskImage:
+                  diskEncryptionSetId: "{{ diskEncryptionSetId }}"
+                  securityProfile: "{{ securityProfile }}"
+                dataDiskImages:
+                  - diskEncryptionSetId: "{{ diskEncryptionSetId }}"
+                    lun: {{ lun }}
+              excludeFromLatest: {{ excludeFromLatest }}
+              additionalReplicaSets: "{{ additionalReplicaSets }}"
+          replicaCount: {{ replicaCount }}
+          excludeFromLatest: {{ excludeFromLatest }}
+          publishedDate: "{{ publishedDate }}"
+          endOfLifeDate: "{{ endOfLifeDate }}"
+          storageAccountType: "{{ storageAccountType }}"
+          replicationMode: "{{ replicationMode }}"
+          targetExtendedLocations:
+            - name: "{{ name }}"
+              extendedLocation:
+                name: "{{ name }}"
+                type: "{{ type }}"
+              extendedLocationReplicaCount: {{ extendedLocationReplicaCount }}
+              storageAccountType: "{{ storageAccountType }}"
+              encryption:
+                osDiskImage:
+                  diskEncryptionSetId: "{{ diskEncryptionSetId }}"
+                  securityProfile: "{{ securityProfile }}"
+                dataDiskImages:
+                  - diskEncryptionSetId: "{{ diskEncryptionSetId }}"
+                    lun: {{ lun }}
+          storageAccountStrategy: "{{ storageAccountStrategy }}"
+          source:
+            mediaLink: "{{ mediaLink }}"
+            defaultConfigurationLink: "{{ defaultConfigurationLink }}"
+          manageActions:
+            install: "{{ install }}"
+            remove: "{{ remove }}"
+            update: "{{ update }}"
+          settings:
+            packageFileName: "{{ packageFileName }}"
+            configFileName: "{{ configFileName }}"
+            scriptBehaviorAfterReboot: "{{ scriptBehaviorAfterReboot }}"
+          advancedSettings: "{{ advancedSettings }}"
+          enableHealthCheck: {{ enableHealthCheck }}
+          customActions:
+            - name: "{{ name }}"
+              script: "{{ script }}"
+              description: "{{ description }}"
+              parameters: "{{ parameters }}"
+        safetyProfile:
+          allowDeletionOfReplicatedLocations: {{ allowDeletionOfReplicatedLocations }}
+        provisioningState: "{{ provisioningState }}"
+        replicationStatus:
+          aggregatedState: "{{ aggregatedState }}"
+          summary:
+            - region: "{{ region }}"
+              state: "{{ state }}"
+              details: "{{ details }}"
+              progress: {{ progress }}
+`}</CodeBlock>
+
+</TabItem>
+</Tabs>
+
+
+## `UPDATE` examples
+
+<Tabs
+    defaultValue="update"
+    values={[
+        { label: 'update', value: 'update' }
+    ]}
+>
+<TabItem value="update">
+
+Update a gallery Application Version.
+
+```sql
+UPDATE azure.compute.gallery_application_versions
+SET 
+tags = '{{ tags }}',
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND gallery_name = '{{ gallery_name }}' --required
+AND gallery_application_name = '{{ gallery_application_name }}' --required
+AND gallery_application_version_name = '{{ gallery_application_version_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+location,
+properties,
+systemData,
+tags,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `REPLACE` examples
+
+<Tabs
+    defaultValue="create_or_update"
+    values={[
+        { label: 'create_or_update', value: 'create_or_update' }
+    ]}
+>
+<TabItem value="create_or_update">
+
+Create or update a gallery Application Version.
+
+```sql
+REPLACE azure.compute.gallery_application_versions
+SET 
+tags = '{{ tags }}',
+location = '{{ location }}',
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND gallery_name = '{{ gallery_name }}' --required
+AND gallery_application_name = '{{ gallery_application_name }}' --required
+AND gallery_application_version_name = '{{ gallery_application_version_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+AND location = '{{ location }}' --required
+RETURNING
+id,
+name,
+location,
+properties,
+systemData,
+tags,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `DELETE` examples
+
+<Tabs
+    defaultValue="delete"
+    values={[
+        { label: 'delete', value: 'delete' }
+    ]}
+>
+<TabItem value="delete">
+
+Delete a gallery Application Version.
+
+```sql
+DELETE FROM azure.compute.gallery_application_versions
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND gallery_name = '{{ gallery_name }}' --required
+AND gallery_application_name = '{{ gallery_application_name }}' --required
+AND gallery_application_version_name = '{{ gallery_application_version_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>

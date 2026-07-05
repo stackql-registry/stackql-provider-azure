@@ -1,0 +1,371 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Online Experimentation Client
+  description: OnlineExperimentationClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-05-31-preview-stackql-generated
+  x-serviceAlias: onlineexperimentation_dataplane
+  x-sdkPackage: azure-onlineexperimentation
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    LifecycleStage:
+      type: string
+      enum:
+      - Active
+      - Inactive
+    DesiredDirection:
+      type: string
+      enum:
+      - Increase
+      - Decrease
+      - Neutral
+    ExperimentMetricDefinition:
+      type: object
+      description: 'The metric definition, which determines how the metric value is calculated from event data.
+        You probably want to use the sub-classes and not this class directly. Known sub-classes are: AverageMetricDefinition,
+        EventCountMetricDefinition, EventRateMetricDefinition, PercentileMetricDefinition, SumMetricDefinition,
+        UserCountMetricDefinition, UserRateMetricDefinition'
+      properties:
+        type:
+          type: string
+          description: 'Discriminator property for ExperimentMetricDefinition. Required. Known values are: "EventCount",
+            "UserCount", "EventRate", "UserRate", "Sum", "Average", and "Percentile".'
+      required:
+      - type
+    ExperimentMetric:
+      type: object
+      description: Defines experiment metric metadata and computation details.
+      properties:
+        id:
+          type: string
+          description: Identifier for this experiment metric. Must start with a lowercase letter and contain only
+            lowercase letters, numbers, and underscores. Required.
+        lifecycle:
+          $ref: '#/components/schemas/LifecycleStage'
+          description: 'Determines whether it is included in experiment analysis. Required. Known values are: "Active"
+            and "Inactive".'
+        displayName:
+          type: string
+          description: A user-friendly display name for the experiment metric shown in reports and dashboards. Required.
+        description:
+          type: string
+          description: A detailed description of the experiment metric. Required.
+        categories:
+          type: array
+          items:
+            type: string
+          description: Categories associated with the experiment metric. Used for organizing and filtering metrics.
+            Required.
+        desiredDirection:
+          $ref: '#/components/schemas/DesiredDirection'
+          description: 'The desired direction for changes in the metric value. Required. Known values are: "Increase",
+            "Decrease", and "Neutral".'
+        definition:
+          $ref: '#/components/schemas/ExperimentMetricDefinition'
+          description: The metric definition specifying how the metric value is calculated from event data. Required.
+        eTag:
+          type: string
+          description: ETag of the experiment metric. Required.
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp (UTC) of the last modification to the experiment metric resource. Required.
+      required:
+      - lifecycle
+      - displayName
+      - description
+      - categories
+      - desiredDirection
+      - definition
+    PagedExperimentMetric:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExperimentMetric'
+        nextLink:
+          type: string
+    ExperimentMetricValidationResult:
+      type: object
+      description: The result of validating an experiment metric.
+      properties:
+        isValid:
+          type: boolean
+          description: Indicates whether the experiment metric is valid. Required.
+        diagnostics:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosticDetail'
+          description: Diagnostic details from the validation process. Required.
+      required:
+      - isValid
+    DiagnosticDetail:
+      type: object
+      description: Diagnostic details for validation errors.
+      properties:
+        message:
+          type: string
+          description: A human-readable error message. Required.
+        code:
+          $ref: '#/components/schemas/DiagnosticCode'
+          description: 'The diagnostic error code. Required. Known values are: "FailedSchemaValidation", "InvalidEventCondition",
+            "UnsupportedEventCondition", and "InvalidExperimentMetricDefinition".'
+    DiagnosticCode:
+      type: string
+      enum:
+      - FailedSchemaValidation
+      - InvalidEventCondition
+      - UnsupportedEventCondition
+      - InvalidExperimentMetricDefinition
+paths:
+  /experiment-metrics?api-version=2025-05-31-preview:
+    get:
+      operationId: OnlineExperimentationClient_list_metrics
+      description: Lists experiment metrics.
+      parameters:
+      - name: top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of result items to return. Default value is None.
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of result items to skip. Default value is None.
+      - name: maxpagesize
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedExperimentMetric'
+      x-stackql-resource: metrics
+      x-stackql-method: list_metrics
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  /experiment-metrics/{experiment_metric_id}?api-version=2025-05-31-preview:
+    get:
+      operationId: OnlineExperimentationClient_get_metric
+      description: Fetches an experiment metric by ID.
+      parameters:
+      - name: experiment_metric_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifier for this experiment metric. Must start with a lowercase letter and contain only
+          lowercase letters, numbers, and underscores. Required.
+      - name: If-Unmodified-Since
+        in: header
+        required: false
+        schema:
+          type: string
+        description: The request should only proceed if the entity was not modified after this time. Default value
+          is None.
+      - name: If-Modified-Since
+        in: header
+        required: false
+        schema:
+          type: string
+        description: The request should only proceed if the entity was modified after this time. Default value is
+          None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentMetric'
+      x-stackql-resource: metrics
+      x-stackql-method: get_metric
+      x-stackql-verb: SELECT
+    patch:
+      operationId: OnlineExperimentationClient_create_or_update_metric
+      description: Creates or updates an experiment metric.
+      parameters:
+      - name: experiment_metric_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifier for this experiment metric. Must start with a lowercase letter and contain only
+          lowercase letters, numbers, and underscores. Required.
+      - name: If-Unmodified-Since
+        in: header
+        required: false
+        schema:
+          type: string
+        description: The request should only proceed if the entity was not modified after this time. Default value
+          is None.
+      - name: If-Modified-Since
+        in: header
+        required: false
+        schema:
+          type: string
+        description: The request should only proceed if the entity was modified after this time. Default value is
+          None.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lifecycle:
+                  $ref: '#/components/schemas/LifecycleStage'
+                  description: 'Determines whether it is included in experiment analysis. Required. Known values
+                    are: "Active" and "Inactive".'
+                displayName:
+                  type: string
+                  description: A user-friendly display name for the experiment metric shown in reports and dashboards.
+                    Required.
+                description:
+                  type: string
+                  description: A detailed description of the experiment metric. Required.
+                categories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories associated with the experiment metric. Used for organizing and filtering
+                    metrics. Required.
+                desiredDirection:
+                  $ref: '#/components/schemas/DesiredDirection'
+                  description: 'The desired direction for changes in the metric value. Required. Known values are:
+                    "Increase", "Decrease", and "Neutral".'
+                definition:
+                  $ref: '#/components/schemas/ExperimentMetricDefinition'
+                  description: The metric definition specifying how the metric value is calculated from event data.
+                    Required.
+              required:
+              - lifecycle
+              - displayName
+              - description
+              - categories
+              - desiredDirection
+              - definition
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentMetric'
+      x-stackql-resource: metrics
+      x-stackql-method: create_or_update_metric
+      x-stackql-verb: INSERT
+    delete:
+      operationId: OnlineExperimentationClient_delete_metric
+      description: Deletes an experiment metric.
+      parameters:
+      - name: experiment_metric_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifier for this experiment metric. Must start with a lowercase letter and contain only
+          lowercase letters, numbers, and underscores. Required.
+      - name: If-Unmodified-Since
+        in: header
+        required: false
+        schema:
+          type: string
+        description: The request should only proceed if the entity was not modified after this time. Default value
+          is None.
+      - name: If-Modified-Since
+        in: header
+        required: false
+        schema:
+          type: string
+        description: The request should only proceed if the entity was modified after this time. Default value is
+          None.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: metrics
+      x-stackql-method: delete_metric
+      x-stackql-verb: DELETE
+  /experiment-metrics:validate?api-version=2025-05-31-preview:
+    post:
+      operationId: OnlineExperimentationClient_validate_metric
+      description: Validates an experiment metric definition.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lifecycle:
+                  $ref: '#/components/schemas/LifecycleStage'
+                  description: 'Determines whether it is included in experiment analysis. Required. Known values
+                    are: "Active" and "Inactive".'
+                displayName:
+                  type: string
+                  description: A user-friendly display name for the experiment metric shown in reports and dashboards.
+                    Required.
+                description:
+                  type: string
+                  description: A detailed description of the experiment metric. Required.
+                categories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories associated with the experiment metric. Used for organizing and filtering
+                    metrics. Required.
+                desiredDirection:
+                  $ref: '#/components/schemas/DesiredDirection'
+                  description: 'The desired direction for changes in the metric value. Required. Known values are:
+                    "Increase", "Decrease", and "Neutral".'
+                definition:
+                  $ref: '#/components/schemas/ExperimentMetricDefinition'
+                  description: The metric definition specifying how the metric value is calculated from event data.
+                    Required.
+              required:
+              - lifecycle
+              - displayName
+              - description
+              - categories
+              - desiredDirection
+              - definition
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentMetricValidationResult'
+      x-stackql-resource: validate_metrics
+      x-stackql-method: validate_metric
+      x-stackql-verb: EXEC

@@ -1,0 +1,28 @@
+{
+  "name": "stackql-provider-azure",
+  "version": "0.1.0",
+  "description": "StackQL Provider for Azure (native, azure-sdk-for-python derived)",
+  "type": "module",
+  "scripts": {
+    "generate-openapi": "python openapi-generation/azure_sdk_to_openapi.py --output-dir provider-dev/source",
+    "generate-provider": "node provider-dev/scripts/generate-provider.mjs --provider-name azure --source-dir provider-dev/source --output-dir provider-dev/openapi/src --overwrite",
+    "generate-docs": "bash ./bin/generate-docs.sh",
+    "start-server": "bash ./bin/start-server.sh",
+    "stop-server": "bash ./bin/stop-server.sh",
+    "server-status": "bash ./bin/server-status.sh",
+    "test-meta-routes": "node ./bin/test-meta-routes.cjs"
+  },
+  "dependencies": {
+    "@stackql/pgwire-lite": "^1.0.1",
+    "@stackql/provider-utils": "^0.6.4",
+    "yaml": "^2.5.0"
+  },
+  "keywords": [
+    "stackql",
+    "azure",
+    "provider"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

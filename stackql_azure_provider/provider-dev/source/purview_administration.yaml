@@ -1,0 +1,225 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint.
+info:
+  title: Purview Account Client
+  description: Creates a Microsoft.Purview data plane account client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: unversioned-stackql-generated
+  x-serviceAlias: purview_administration
+  x-sdkPackage: azure-purview-administration
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /:
+    get:
+      operationId: Accounts_get_account_properties
+      description: Get an account.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: accounts
+      x-stackql-method: get_account_properties
+      x-stackql-verb: SELECT
+  /listkeys:
+    get:
+      operationId: Accounts_get_access_keys
+      description: List the authorization keys associated with this account.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: accounts
+      x-stackql-method: get_access_keys
+      x-stackql-verb: SELECT
+  /regeneratekeys:
+    get:
+      operationId: Accounts_regenerate_access_key
+      description: Regenerate the authorization keys associated with this data catalog.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: accounts
+      x-stackql-method: regenerate_access_key
+      x-stackql-verb: EXEC
+  /collections:
+    get:
+      operationId: Collections_list_collections
+      description: List the collections in the account.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collections
+      x-stackql-method: list_collections
+      x-stackql-verb: SELECT
+  /collections/{collection_name}/getChildCollectionNames:
+    get:
+      operationId: Collections_list_child_collection_names
+      description: Lists the child collections names in the collection.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collections
+      x-stackql-method: list_child_collection_names
+      x-stackql-verb: SELECT
+  /collections/{collection_name}:
+    get:
+      operationId: Collections_get_collection
+      description: Get a collection.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collections
+      x-stackql-method: get_collection
+      x-stackql-verb: SELECT
+  /collections/{collection_name}/getCollectionPath:
+    get:
+      operationId: Collections_get_collection_path
+      description: Gets the parent name and parent friendly name chains that represent the collection path.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collections
+      x-stackql-method: get_collection_path
+      x-stackql-verb: SELECT
+  /metadataPolicies/{policy_id}:
+    get:
+      operationId: MetadataPolicy_get
+      description: Gets a metadata policy.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: metadata_policy
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+  /metadataPolicies:
+    get:
+      operationId: MetadataPolicy_list_all
+      description: List or Get metadata policies.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: metadata_policy
+      x-stackql-method: list_all
+      x-stackql-verb: SELECT
+  /metadataRoles:
+    get:
+      operationId: MetadataRoles_list
+      description: Lists roles for Purview Account.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: metadata_roles
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+  /resourceSetRuleConfigs:
+    get:
+      operationId: ResourceSetRules_list_resource_set_rules
+      description: Get a resource set config service model.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: resource_set_rules
+      x-stackql-method: list_resource_set_rules
+      x-stackql-verb: SELECT
+  /resourceSetRuleConfigs/defaultResourceSetRuleConfig:
+    get:
+      operationId: ResourceSetRules_get_resource_set_rule
+      description: Get a resource set config service model.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: resource_set_rules
+      x-stackql-method: get_resource_set_rule
+      x-stackql-verb: SELECT

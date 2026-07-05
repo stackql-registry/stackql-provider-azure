@@ -1,0 +1,215 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Communication Identity Client
+  description: Azure Communication Services Identity client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2023-10-01-stackql-generated
+  x-serviceAlias: communication_identity
+  x-sdkPackage: azure-communication-identity
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    CommunicationIdentityAccessTokenResult:
+      type: object
+      description: A communication identity with access token. All required parameters must be populated in order
+        to send to Azure.
+      properties:
+        identity:
+          $ref: '#/components/schemas/CommunicationIdentity'
+          description: A communication identity. Required.
+        accessToken:
+          $ref: '#/components/schemas/CommunicationIdentityAccessToken'
+          description: An access token.
+      required:
+      - identity
+    CommunicationIdentity:
+      type: object
+      description: A communication identity. All required parameters must be populated in order to send to Azure.
+      properties:
+        id:
+          type: string
+          description: Identifier of the identity. Required.
+      required:
+      - id
+    CommunicationIdentityAccessToken:
+      type: object
+      description: An access token. All required parameters must be populated in order to send to Azure.
+      properties:
+        token:
+          type: string
+          description: The access token issued for the identity. Required.
+        expiresOn:
+          type: string
+          description: The expiry time of the token. Required.
+      required:
+      - token
+      - expiresOn
+paths:
+  /identities?api-version=2023-10-01:
+    post:
+      operationId: CommunicationIdentity_create
+      description: Create a new identity, and optionally, an access token. Create a new identity, and optionally,
+        an access token.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                createTokenWithScopes:
+                  type: array
+                  items:
+                    type: string
+                  description: Also create access token for the created identity.
+                expiresInMinutes:
+                  type: integer
+                  description: Optional custom validity period of the token within [60,1440] minutes range. If not
+                    provided, the default value of 1440 minutes (24 hours) will be used.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationIdentityAccessTokenResult'
+      x-stackql-resource: communication_identity
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+  /identities/{id}?api-version=2023-10-01:
+    delete:
+      operationId: CommunicationIdentity_delete
+      description: Delete the identity, revoke all tokens for the identity and delete all associated data. Delete
+        the identity, revoke all tokens for the identity and delete all associated data.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifier of the identity to be deleted. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: communication_identity
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /identities/{id}/:revokeAccessTokens?api-version=2023-10-01:
+    post:
+      operationId: CommunicationIdentity_revoke_access_tokens
+      description: Revoke all access tokens for the specific identity. Revoke all access tokens for the specific
+        identity.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifier of the identity. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: communication_identity
+      x-stackql-method: revoke_access_tokens
+      x-stackql-verb: EXEC
+  /teamsUser/:exchangeAccessToken?api-version=2023-10-01:
+    post:
+      operationId: CommunicationIdentity_exchange_teams_user_access_token
+      description: Exchange an Azure Active Directory (Azure AD) access token of a Teams user for a new Communication
+        Identity access token with a matching expiration time. Exchange an Azure Active Directory (Azure AD) access
+        token of a Teams user for a new Communication Identity access token with a matching expiration time.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Azure AD access token of a Teams User to acquire a new Communication Identity access
+                    token. Required.
+                appId:
+                  type: string
+                  description: Client ID of an Azure AD application to be verified against the appid claim in the
+                    Azure AD access token. Required.
+                userId:
+                  type: string
+                  description: Object ID of an Azure AD user (Teams User) to be verified against the oid claim in
+                    the Azure AD access token. Required.
+              required:
+              - token
+              - appId
+              - userId
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationIdentityAccessToken'
+      x-stackql-resource: communication_identity
+      x-stackql-method: exchange_teams_user_access_token
+      x-stackql-verb: EXEC
+  /identities/{id}/:issueAccessToken?api-version=2023-10-01:
+    post:
+      operationId: CommunicationIdentity_issue_access_token
+      description: Issue a new token for an identity. Issue a new token for an identity.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifier of the identity to issue token for. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scopes:
+                  type: array
+                  items:
+                    type: string
+                  description: List of scopes attached to the token. Required.
+                expiresInMinutes:
+                  type: integer
+                  description: Optional custom validity period of the token within [60,1440] minutes range. If not
+                    provided, the default value of 1440 minutes (24 hours) will be used.
+              required:
+              - scopes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunicationIdentityAccessToken'
+      x-stackql-resource: communication_identity
+      x-stackql-method: issue_access_token
+      x-stackql-verb: EXEC

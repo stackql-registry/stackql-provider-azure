@@ -1,0 +1,774 @@
+--- 
+title: global_schedules
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - global_schedules
+  - devtestlabs
+  - azure
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage azure resources using SQL
+custom_edit_url: null
+image: /img/stackql-azure-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes, gets or lists a <code>global_schedules</code> resource.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><CopyableCode code="global_schedules" /></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure.devtestlabs.global_schedules" /></td></tr>
+</tbody></table>
+
+## Fields
+
+The following fields are returned by `SELECT` queries:
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'list_by_subscription', value: 'list_by_subscription' }
+    ]}
+>
+<TabItem value="get">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>The identifier of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdDate" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The creation date of the schedule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dailyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur once each day of the week, specify the daily recurrence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hourlyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur multiple times a day, specify the hourly recurrence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The location of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="notificationSettings" /></td>
+    <td><code>object</code></td>
+    <td>Notification settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The provisioning status of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The status of the schedule (i.e. Enabled, Disabled). Known values are: "Enabled" and "Disabled".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>The tags of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="targetResourceId" /></td>
+    <td><code>string</code></td>
+    <td>The resource ID to which the schedule belongs.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="taskType" /></td>
+    <td><code>string</code></td>
+    <td>The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="timeZoneId" /></td>
+    <td><code>string</code></td>
+    <td>The time zone ID (e.g. China Standard Time, Greenland Standard Time, Pacific Standard time, etc.). The possible values for this property can be found in `IReadOnlyCollection TimeZoneConverter.TZConvert.KnownWindowsTimeZoneIds` (https://github.com/mattjohnsonpint/TimeZoneConverter/blob/main/README.md).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="uniqueIdentifier" /></td>
+    <td><code>string</code></td>
+    <td>The unique immutable identifier of a resource (Guid).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="weeklyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur only some days of the week, specify the weekly recurrence.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_by_resource_group">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>The identifier of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdDate" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The creation date of the schedule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dailyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur once each day of the week, specify the daily recurrence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hourlyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur multiple times a day, specify the hourly recurrence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The location of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="notificationSettings" /></td>
+    <td><code>object</code></td>
+    <td>Notification settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The provisioning status of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The status of the schedule (i.e. Enabled, Disabled). Known values are: "Enabled" and "Disabled".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>The tags of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="targetResourceId" /></td>
+    <td><code>string</code></td>
+    <td>The resource ID to which the schedule belongs.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="taskType" /></td>
+    <td><code>string</code></td>
+    <td>The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="timeZoneId" /></td>
+    <td><code>string</code></td>
+    <td>The time zone ID (e.g. China Standard Time, Greenland Standard Time, Pacific Standard time, etc.). The possible values for this property can be found in `IReadOnlyCollection TimeZoneConverter.TZConvert.KnownWindowsTimeZoneIds` (https://github.com/mattjohnsonpint/TimeZoneConverter/blob/main/README.md).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="uniqueIdentifier" /></td>
+    <td><code>string</code></td>
+    <td>The unique immutable identifier of a resource (Guid).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="weeklyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur only some days of the week, specify the weekly recurrence.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_by_subscription">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>The identifier of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdDate" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The creation date of the schedule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dailyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur once each day of the week, specify the daily recurrence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hourlyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur multiple times a day, specify the hourly recurrence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The location of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="notificationSettings" /></td>
+    <td><code>object</code></td>
+    <td>Notification settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The provisioning status of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The status of the schedule (i.e. Enabled, Disabled). Known values are: "Enabled" and "Disabled".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>The tags of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="targetResourceId" /></td>
+    <td><code>string</code></td>
+    <td>The resource ID to which the schedule belongs.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="taskType" /></td>
+    <td><code>string</code></td>
+    <td>The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="timeZoneId" /></td>
+    <td><code>string</code></td>
+    <td>The time zone ID (e.g. China Standard Time, Greenland Standard Time, Pacific Standard time, etc.). The possible values for this property can be found in `IReadOnlyCollection TimeZoneConverter.TZConvert.KnownWindowsTimeZoneIds` (https://github.com/mattjohnsonpint/TimeZoneConverter/blob/main/README.md).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="uniqueIdentifier" /></td>
+    <td><code>string</code></td>
+    <td>The unique immutable identifier of a resource (Guid).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="weeklyRecurrence" /></td>
+    <td><code>object</code></td>
+    <td>If the schedule will occur only some days of the week, specify the weekly recurrence.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
+
+## Methods
+
+The following methods are available for this resource:
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+    <th>Optional Params</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$expand"><code>$expand</code></a></td>
+    <td>Get schedule.</td>
+</tr>
+<tr>
+    <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$expand"><code>$expand</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a></td>
+    <td>List schedules in a resource group.</td>
+</tr>
+<tr>
+    <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$expand"><code>$expand</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a></td>
+    <td>List schedules in a subscription.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><CopyableCode code="insert" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or replace an existing schedule.</td>
+</tr>
+<tr>
+    <td><a href="#update"><CopyableCode code="update" /></a></td>
+    <td><CopyableCode code="update" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Allows modifying tags of schedules. All other properties will be ignored.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><CopyableCode code="replace" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or replace an existing schedule.</td>
+</tr>
+<tr>
+    <td><a href="#delete"><CopyableCode code="delete" /></a></td>
+    <td><CopyableCode code="delete" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete schedule.</td>
+</tr>
+<tr>
+    <td><a href="#execute"><CopyableCode code="execute" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Execute a schedule. This operation can take a while to complete.</td>
+</tr>
+<tr>
+    <td><a href="#retarget"><CopyableCode code="retarget" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates a schedule's target resource Id. This operation can take a while to complete.</td>
+</tr>
+</tbody>
+</table>
+
+## Parameters
+
+Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#methods) section to see which parameters are required or optional for each operation.
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr id="parameter-name">
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the schedule. Required.</td>
+</tr>
+<tr id="parameter-resource_group_name">
+    <td><CopyableCode code="resource_group_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource group. Required.</td>
+</tr>
+<tr id="parameter-subscription_id">
+    <td><CopyableCode code="subscription_id" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr id="parameter-$expand">
+    <td><CopyableCode code="$expand" /></td>
+    <td><code>string</code></td>
+    <td>Specify the $expand query. Example: 'properties($select=status)'. Default value is None.</td>
+</tr>
+<tr id="parameter-$filter">
+    <td><CopyableCode code="$filter" /></td>
+    <td><code>string</code></td>
+    <td>The filter to apply to the operation. Example: '$filter=contains(name,'myName'). Default value is None.</td>
+</tr>
+<tr id="parameter-$orderby">
+    <td><CopyableCode code="$orderby" /></td>
+    <td><code>string</code></td>
+    <td>The ordering expression for the results, using OData notation. Example: '$orderby=name desc'. Default value is None.</td>
+</tr>
+<tr id="parameter-$top">
+    <td><CopyableCode code="$top" /></td>
+    <td><code>integer</code></td>
+    <td>The maximum number of resources to return from the operation. Example: '$top=10'. Default value is None.</td>
+</tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'list_by_subscription', value: 'list_by_subscription' }
+    ]}
+>
+<TabItem value="get">
+
+Get schedule.
+
+```sql
+SELECT
+id,
+name,
+createdDate,
+dailyRecurrence,
+hourlyRecurrence,
+location,
+notificationSettings,
+provisioningState,
+status,
+tags,
+targetResourceId,
+taskType,
+timeZoneId,
+type,
+uniqueIdentifier,
+weeklyRecurrence
+FROM azure.devtestlabs.global_schedules
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $expand = '{{ $expand }}'
+;
+```
+</TabItem>
+<TabItem value="list_by_resource_group">
+
+List schedules in a resource group.
+
+```sql
+SELECT
+id,
+name,
+createdDate,
+dailyRecurrence,
+hourlyRecurrence,
+location,
+notificationSettings,
+provisioningState,
+status,
+tags,
+targetResourceId,
+taskType,
+timeZoneId,
+type,
+uniqueIdentifier,
+weeklyRecurrence
+FROM azure.devtestlabs.global_schedules
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $expand = '{{ $expand }}'
+AND $filter = '{{ $filter }}'
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+;
+```
+</TabItem>
+<TabItem value="list_by_subscription">
+
+List schedules in a subscription.
+
+```sql
+SELECT
+id,
+name,
+createdDate,
+dailyRecurrence,
+hourlyRecurrence,
+location,
+notificationSettings,
+provisioningState,
+status,
+tags,
+targetResourceId,
+taskType,
+timeZoneId,
+type,
+uniqueIdentifier,
+weeklyRecurrence
+FROM azure.devtestlabs.global_schedules
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND $expand = '{{ $expand }}'
+AND $filter = '{{ $filter }}'
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+;
+```
+</TabItem>
+</Tabs>
+
+
+## `INSERT` examples
+
+<Tabs
+    defaultValue="create_or_update"
+    values={[
+        { label: 'create_or_update', value: 'create_or_update' },
+        { label: 'Manifest', value: 'manifest' }
+    ]}
+>
+<TabItem value="create_or_update">
+
+Create or replace an existing schedule.
+
+```sql
+INSERT INTO azure.devtestlabs.global_schedules (
+location,
+tags,
+properties,
+resource_group_name,
+name,
+subscription_id
+)
+SELECT 
+'{{ location }}',
+'{{ tags }}',
+'{{ properties }}',
+'{{ resource_group_name }}',
+'{{ name }}',
+'{{ subscription_id }}'
+RETURNING
+id,
+name,
+location,
+properties,
+tags,
+type
+;
+```
+</TabItem>
+<TabItem value="manifest">
+
+<CodeBlock language="yaml">{`# Description fields are for documentation purposes
+- name: global_schedules
+  props:
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
+      description: Required parameter for the global_schedules resource.
+    - name: name
+      value: "{{ name }}"
+      description: Required parameter for the global_schedules resource.
+    - name: subscription_id
+      value: "{{ subscription_id }}"
+      description: Required parameter for the global_schedules resource.
+    - name: location
+      value: "{{ location }}"
+      description: |
+        The location of the resource.
+    - name: tags
+      value: "{{ tags }}"
+      description: |
+        The tags of the resource.
+    - name: properties
+      value:
+        status: "{{ status }}"
+        taskType: "{{ taskType }}"
+        weeklyRecurrence:
+          weekdays:
+            - "{{ weekdays }}"
+          time: "{{ time }}"
+        dailyRecurrence:
+          time: "{{ time }}"
+        hourlyRecurrence:
+          minute: {{ minute }}
+        timeZoneId: "{{ timeZoneId }}"
+        notificationSettings:
+          status: "{{ status }}"
+          timeInMinutes: {{ timeInMinutes }}
+          webhookUrl: "{{ webhookUrl }}"
+          emailRecipient: "{{ emailRecipient }}"
+          notificationLocale: "{{ notificationLocale }}"
+        targetResourceId: "{{ targetResourceId }}"
+`}</CodeBlock>
+
+</TabItem>
+</Tabs>
+
+
+## `UPDATE` examples
+
+<Tabs
+    defaultValue="update"
+    values={[
+        { label: 'update', value: 'update' }
+    ]}
+>
+<TabItem value="update">
+
+Allows modifying tags of schedules. All other properties will be ignored.
+
+```sql
+UPDATE azure.devtestlabs.global_schedules
+SET 
+-- No updatable properties
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND name = '{{ name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+location,
+properties,
+tags,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `REPLACE` examples
+
+<Tabs
+    defaultValue="create_or_update"
+    values={[
+        { label: 'create_or_update', value: 'create_or_update' }
+    ]}
+>
+<TabItem value="create_or_update">
+
+Create or replace an existing schedule.
+
+```sql
+REPLACE azure.devtestlabs.global_schedules
+SET 
+location = '{{ location }}',
+tags = '{{ tags }}',
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND name = '{{ name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+location,
+properties,
+tags,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `DELETE` examples
+
+<Tabs
+    defaultValue="delete"
+    values={[
+        { label: 'delete', value: 'delete' }
+    ]}
+>
+<TabItem value="delete">
+
+Delete schedule.
+
+```sql
+DELETE FROM azure.devtestlabs.global_schedules
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND name = '{{ name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="execute"
+    values={[
+        { label: 'execute', value: 'execute' },
+        { label: 'retarget', value: 'retarget' }
+    ]}
+>
+<TabItem value="execute">
+
+Execute a schedule. This operation can take a while to complete.
+
+```sql
+EXEC azure.devtestlabs.global_schedules.execute 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="retarget">
+
+Updates a schedule's target resource Id. This operation can take a while to complete.
+
+```sql
+EXEC azure.devtestlabs.global_schedules.retarget 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>

@@ -1,0 +1,497 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Search Client
+  description: SearchClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2026-05-01-preview-stackql-generated
+  x-serviceAlias: search_documents
+  x-sdkPackage: azure-search-documents
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /knowledgebases('{knowledge_base_name}')/retrieve?api-version=2026-05-01-preview:
+    post:
+      operationId: _KnowledgeBaseRetrievalClient_retrieve
+      description: KnowledgeBase retrieves relevant data from backing stores.
+      parameters:
+      - name: knowledge_base_name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: x-ms-query-source-authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Token identifying the user for which the query is being executed. This token is used to enforce
+          security restrictions on documents. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: retrieves
+      x-stackql-method: retrieve
+      x-stackql-verb: EXEC
+  /indexes('{index_name}')/docs/$count?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchClient_get_document_count
+      description: Queries the number of documents in the index.
+      parameters:
+      - name: index_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: document_counts
+      x-stackql-method: get_document_count
+      x-stackql-verb: SELECT
+  /indexes('{index_name}')/docs('{key}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchClient_get_document
+      description: Retrieves a document from the index.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The key of the document to retrieve. Required.
+      - name: index_name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: x-ms-query-source-authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Token identifying the user for which the query is being executed. This token is used to enforce
+          security restrictions on documents. Default value is None.
+      - name: x-ms-enable-elevated-read
+        in: header
+        required: false
+        schema:
+          type: boolean
+        description: A value that enables elevated read that bypass document level permission checks for the query
+          operation. Default value is None.
+      - name: $select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: List of field names to retrieve for the document; Any field not retrieved will be missing from
+          the returned document. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: documents
+      x-stackql-method: get_document
+      x-stackql-verb: SELECT
+  /aliases?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_list_aliases
+      description: Lists all aliases available for a search service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: aliases
+      x-stackql-method: list_aliases
+      x-stackql-verb: SELECT
+    post:
+      operationId: _SearchIndexClient_create_alias
+      description: Creates a new search alias.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: alias
+      x-stackql-method: create_alias
+      x-stackql-verb: INSERT
+  /knowledgebases?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_list_knowledge_bases
+      description: Lists all knowledge bases available for a search service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_bases
+      x-stackql-method: list_knowledge_bases
+      x-stackql-verb: SELECT
+    post:
+      operationId: _SearchIndexClient_create_knowledge_base
+      description: Creates a new knowledge base.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_bases
+      x-stackql-method: create_knowledge_base
+      x-stackql-verb: INSERT
+  /knowledgesources?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_list_knowledge_sources
+      description: Lists all knowledge sources available for a search service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_sources
+      x-stackql-method: list_knowledge_sources
+      x-stackql-verb: SELECT
+    post:
+      operationId: _SearchIndexClient_create_knowledge_source
+      description: Creates a new knowledge source.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_sources
+      x-stackql-method: create_knowledge_source
+      x-stackql-verb: INSERT
+  /knowledgesources('{source_name}')/files?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_list_knowledge_source_files
+      description: Lists all files in a File knowledge source.
+      parameters:
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the knowledge source. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_source_files
+      x-stackql-method: list_knowledge_source_files
+      x-stackql-verb: SELECT
+  /indexstats?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_list_index_stats_summary
+      description: Retrieves a summary of statistics for all indexes in the search service.
+      parameters:
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to retrieve. Default is 50, maximum is 1000. Default value is None.
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to skip. Default value is None.
+      - name: $count
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: A value that specifies whether to fetch the total count of items. Default is false. Default
+          value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: index_stats_summaries
+      x-stackql-method: list_index_stats_summary
+      x-stackql-verb: SELECT
+  /synonymmaps('{synonym_map_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_synonym_map
+      description: Retrieves a synonym map definition.
+      parameters:
+      - name: synonym_map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the synonym map. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: synonym_maps
+      x-stackql-method: get_synonym_map
+      x-stackql-verb: SELECT
+  /indexes('{index_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_index
+      description: Retrieves an index definition.
+      parameters:
+      - name: index_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the index. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: indexes
+      x-stackql-method: get_index
+      x-stackql-verb: SELECT
+  /aliases('{alias_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_alias
+      description: Retrieves an alias definition.
+      parameters:
+      - name: alias_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the alias. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: alias
+      x-stackql-method: get_alias
+      x-stackql-verb: SELECT
+  /knowledgebases('{knowledge_base_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_knowledge_base
+      description: Retrieves a knowledge base definition.
+      parameters:
+      - name: knowledge_base_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the knowledge base. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_bases
+      x-stackql-method: get_knowledge_base
+      x-stackql-verb: SELECT
+  /knowledgesources('{source_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_knowledge_source
+      description: Retrieves a knowledge source definition.
+      parameters:
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the knowledge source. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_sources
+      x-stackql-method: get_knowledge_source
+      x-stackql-verb: SELECT
+  /knowledgesources('{source_name}')/status?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_knowledge_source_status
+      description: Retrieves the status of a knowledge source.
+      parameters:
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the knowledge source. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: knowledge_source_status
+      x-stackql-method: get_knowledge_source_status
+      x-stackql-verb: SELECT
+  /servicestats?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexClient_get_service_statistics
+      description: Gets service level statistics for a search service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: service_statistics
+      x-stackql-method: get_service_statistics
+      x-stackql-verb: SELECT
+  /synonymmaps?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexClient_create_synonym_map
+      description: Creates a new synonym map.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: synonym_maps
+      x-stackql-method: create_synonym_map
+      x-stackql-verb: INSERT
+  /indexes?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexClient_create_index
+      description: Creates a new search index.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: indexes
+      x-stackql-method: create_index
+      x-stackql-verb: INSERT
+  /datasources('{data_source_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexerClient_get_data_source_connection
+      description: Retrieves a datasource definition.
+      parameters:
+      - name: data_source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the datasource. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: data_source_connections
+      x-stackql-method: get_data_source_connection
+      x-stackql-verb: SELECT
+  /indexers('{indexer_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexerClient_get_indexer
+      description: Retrieves an indexer definition.
+      parameters:
+      - name: indexer_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the indexer. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: indexers
+      x-stackql-method: get_indexer
+      x-stackql-verb: SELECT
+  /indexers('{indexer_name}')/search.status?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexerClient_get_indexer_status
+      description: Returns the current status and execution history of an indexer.
+      parameters:
+      - name: indexer_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the indexer. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: indexer_status
+      x-stackql-method: get_indexer_status
+      x-stackql-verb: SELECT
+  /skillsets('{skillset_name}')?api-version=2026-05-01-preview:
+    get:
+      operationId: _SearchIndexerClient_get_skillset
+      description: Retrieves a skillset in a search service.
+      parameters:
+      - name: skillset_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the skillset. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: skillsets
+      x-stackql-method: get_skillset
+      x-stackql-verb: SELECT
+  /datasources?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexerClient_create_data_source_connection
+      description: Creates a new datasource.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: data_source_connections
+      x-stackql-method: create_data_source_connection
+      x-stackql-verb: INSERT
+  /indexers('{indexer_name}')/search.reset?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexerClient_reset_indexer
+      description: Resets the change tracking state associated with an indexer.
+      parameters:
+      - name: indexer_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the indexer. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: reset_indexers
+      x-stackql-method: reset_indexer
+      x-stackql-verb: EXEC
+  /indexers('{indexer_name}')/search.run?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexerClient_run_indexer
+      description: Runs an indexer on-demand.
+      parameters:
+      - name: indexer_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the indexer. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: run_indexers
+      x-stackql-method: run_indexer
+      x-stackql-verb: EXEC
+  /indexers?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexerClient_create_indexer
+      description: Creates a new indexer.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: indexers
+      x-stackql-method: create_indexer
+      x-stackql-verb: INSERT
+  /skillsets?api-version=2026-05-01-preview:
+    post:
+      operationId: _SearchIndexerClient_create_skillset
+      description: Creates a new skillset in a search service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: skillsets
+      x-stackql-method: create_skillset
+      x-stackql-verb: INSERT

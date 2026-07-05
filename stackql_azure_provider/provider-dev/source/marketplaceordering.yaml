@@ -1,0 +1,536 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Marketplaceordering
+  description: This is the Microsoft Azure Market Place Ordering Client Library.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2021-01-01-stackql-generated
+  x-serviceAlias: marketplaceordering
+  x-sdkPackage: azure-mgmt-marketplaceordering
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          type: string
+          description: 'The type of identity that created the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          type: string
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    AgreementTermsFlattened:
+      type: object
+      description: Flattened view of AgreementTerms ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource ID.
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: The system meta data relating to this resource.
+        publisher:
+          type: string
+          description: Publisher identifier string of image being deployed.
+        product:
+          type: string
+          description: Offer identifier string of image being deployed.
+        plan:
+          type: string
+          description: Plan identifier string of image being deployed.
+        licenseTextLink:
+          type: string
+          description: Link to HTML with Microsoft and Publisher terms.
+        privacyPolicyLink:
+          type: string
+          description: Link to the privacy policy of the publisher.
+        marketplaceTermsLink:
+          type: string
+          description: Link to HTML with Azure Marketplace terms.
+        retrieveDatetime:
+          type: string
+          description: Date and time in UTC of when the terms were accepted. This is empty if Accepted is false.
+        signature:
+          type: string
+          description: Terms signature.
+        accepted:
+          type: boolean
+          description: If any version of the terms have been accepted, otherwise false.
+    OldAgreementTerms:
+      type: object
+      description: Terms properties for provided Publisher/Offer/Plan tuple. Variables are only populated by the
+        server, and will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: Resource ID.
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type.
+        properties:
+          type: object
+          properties:
+            id:
+              type: string
+              description: A unique identifier of the agreement.
+            publisher:
+              type: string
+              description: Publisher identifier string of image being deployed.
+            offer:
+              type: string
+              description: Offer identifier string of image being deployed.
+            signDate:
+              type: string
+              format: date-time
+              description: Date and time in UTC of when the terms were accepted. This is empty if state is cancelled.
+            cancelDate:
+              type: string
+              format: date-time
+              description: Date and time in UTC of when the terms were cancelled. This is empty if state is active.
+            state:
+              type: string
+              description: 'Whether the agreement is active or cancelled. Known values are: "Active" and "Canceled".'
+    OldAgreementTermsFlattened:
+      type: object
+      description: Flattened view of OldAgreementTerms ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource ID.
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type.
+        publisher:
+          type: string
+          description: Publisher identifier string of image being deployed.
+        offer:
+          type: string
+          description: Offer identifier string of image being deployed.
+        signDate:
+          type: string
+          format: date-time
+          description: Date and time in UTC of when the terms were accepted. This is empty if state is cancelled.
+        cancelDate:
+          type: string
+          format: date-time
+          description: Date and time in UTC of when the terms were cancelled. This is empty if state is active.
+        state:
+          type: string
+          description: 'Whether the agreement is active or cancelled. Known values are: "Active" and "Canceled".'
+    OldAgreementTermsListFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/OldAgreementTermsFlattened'
+        nextLink:
+          type: string
+    AgreementTerms:
+      type: object
+      description: Terms properties for provided Publisher/Offer/Plan tuple. Variables are only populated by the
+        server, and will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: Resource ID.
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: The system meta data relating to this resource.
+        properties:
+          type: object
+          properties:
+            publisher:
+              type: string
+              description: Publisher identifier string of image being deployed.
+            product:
+              type: string
+              description: Offer identifier string of image being deployed.
+            plan:
+              type: string
+              description: Plan identifier string of image being deployed.
+            licenseTextLink:
+              type: string
+              description: Link to HTML with Microsoft and Publisher terms.
+            privacyPolicyLink:
+              type: string
+              description: Link to the privacy policy of the publisher.
+            marketplaceTermsLink:
+              type: string
+              description: Link to HTML with Azure Marketplace terms.
+            retrieveDatetime:
+              type: string
+              description: Date and time in UTC of when the terms were accepted. This is empty if Accepted is false.
+            signature:
+              type: string
+              description: Terms signature.
+            accepted:
+              type: boolean
+              description: If any version of the terms have been accepted, otherwise false.
+    OperationDisplay:
+      type: object
+      description: The object that represents the operation.
+      properties:
+        provider:
+          type: string
+          description: 'Service provider: Microsoft.MarketplaceOrdering.'
+        resource:
+          type: string
+          description: 'Resource on which the operation is performed: Agreement, virtualmachine, etc.'
+        operation:
+          type: string
+          description: 'Operation type: Get Agreement, Sign Agreement, Cancel Agreement etc.'
+        description:
+          type: string
+          description: Operation description.
+    Operation:
+      type: object
+      description: Microsoft.MarketplaceOrdering REST API operation.
+      properties:
+        name:
+          type: string
+          description: 'Operation name: {provider}/{resource}/{operation}.'
+        display:
+          $ref: '#/components/schemas/OperationDisplay'
+          description: The object that represents the operation.
+    PagedOperation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        nextLink:
+          type: string
+paths:
+  ? /subscriptions/{subscription_id}/providers/Microsoft.MarketplaceOrdering/offerTypes/{offer_type}/publishers/{publisher_id}/offers/{offer_id}/plans/{plan_id}/agreements/current?api-version=2021-01-01
+  : get:
+      operationId: MarketplaceAgreements_get
+      description: Get marketplace terms.
+      parameters:
+      - name: offer_type
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer Type, currently only virtualmachine type is supported. "virtualmachine" Required.
+      - name: publisher_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Publisher identifier string of image being deployed. Required.
+      - name: offer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer identifier string of image being deployed. Required.
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Plan identifier string of image being deployed. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgreementTermsFlattened'
+      x-stackql-resource: marketplace_agreements
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: MarketplaceAgreements_create
+      description: Save marketplace terms.
+      parameters:
+      - name: offer_type
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer Type, currently only virtualmachine type is supported. "virtualmachine" Required.
+      - name: publisher_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Publisher identifier string of image being deployed. Required.
+      - name: offer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer identifier string of image being deployed. Required.
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Plan identifier string of image being deployed. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    publisher:
+                      type: string
+                      description: Publisher identifier string of image being deployed.
+                    product:
+                      type: string
+                      description: Offer identifier string of image being deployed.
+                    plan:
+                      type: string
+                      description: Plan identifier string of image being deployed.
+                    licenseTextLink:
+                      type: string
+                      description: Link to HTML with Microsoft and Publisher terms.
+                    privacyPolicyLink:
+                      type: string
+                      description: Link to the privacy policy of the publisher.
+                    marketplaceTermsLink:
+                      type: string
+                      description: Link to HTML with Azure Marketplace terms.
+                    retrieveDatetime:
+                      type: string
+                      description: Date and time in UTC of when the terms were accepted. This is empty if Accepted
+                        is false.
+                    signature:
+                      type: string
+                      description: Terms signature.
+                    accepted:
+                      type: boolean
+                      description: If any version of the terms have been accepted, otherwise false.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgreementTerms'
+      x-stackql-resource: marketplace_agreements
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+  /subscriptions/{subscription_id}/providers/Microsoft.MarketplaceOrdering/agreements?api-version=2021-01-01:
+    get:
+      operationId: MarketplaceAgreements_list
+      description: List marketplace agreements in the subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OldAgreementTermsListFlattened'
+      x-stackql-resource: marketplace_agreements
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/providers/Microsoft.MarketplaceOrdering/agreements/{publisher_id}/offers/{offer_id}/plans/{plan_id}?api-version=2021-01-01
+  : get:
+      operationId: MarketplaceAgreements_get_agreement
+      description: Get marketplace agreement.
+      parameters:
+      - name: publisher_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Publisher identifier string of image being deployed. Required.
+      - name: offer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer identifier string of image being deployed. Required.
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Plan identifier string of image being deployed. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OldAgreementTermsFlattened'
+      x-stackql-resource: marketplace_agreements
+      x-stackql-method: get_agreement
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+  ? /subscriptions/{subscription_id}/providers/Microsoft.MarketplaceOrdering/agreements/{publisher_id}/offers/{offer_id}/plans/{plan_id}/sign?api-version=2021-01-01
+  : post:
+      operationId: MarketplaceAgreements_sign
+      description: Sign marketplace terms.
+      parameters:
+      - name: publisher_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Publisher identifier string of image being deployed. Required.
+      - name: offer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer identifier string of image being deployed. Required.
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Plan identifier string of image being deployed. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OldAgreementTerms'
+      x-stackql-resource: marketplace_agreements
+      x-stackql-method: sign
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/providers/Microsoft.MarketplaceOrdering/agreements/{publisher_id}/offers/{offer_id}/plans/{plan_id}/cancel?api-version=2021-01-01
+  : post:
+      operationId: MarketplaceAgreements_cancel
+      description: Cancel marketplace terms.
+      parameters:
+      - name: publisher_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Publisher identifier string of image being deployed. Required.
+      - name: offer_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Offer identifier string of image being deployed. Required.
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Plan identifier string of image being deployed. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OldAgreementTerms'
+      x-stackql-resource: marketplace_agreements
+      x-stackql-method: cancel
+      x-stackql-verb: EXEC
+  /providers/Microsoft.MarketplaceOrdering/operations?api-version=2021-01-01:
+    get:
+      operationId: marketplaceordering_list
+      description: Lists all of the available Microsoft.MarketplaceOrdering REST API operations.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOperation'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value

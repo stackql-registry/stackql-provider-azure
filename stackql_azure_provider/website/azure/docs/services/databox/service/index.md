@@ -1,0 +1,250 @@
+--- 
+title: service
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - service
+  - databox
+  - azure
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage azure resources using SQL
+custom_edit_url: null
+image: /img/stackql-azure-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes, gets or lists a <code>service</code> resource.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><CopyableCode code="service" /></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure.databox.service" /></td></tr>
+</tbody></table>
+
+## Fields
+
+The following fields are returned by `SELECT` queries:
+
+`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+
+
+## Methods
+
+The following methods are available for this resource:
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+    <th>Optional Params</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><a href="#list_available_skus_by_resource_group"><CopyableCode code="list_available_skus_by_resource_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-transferType"><code>transferType</code></a>, <a href="#parameter-country"><code>country</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>This method provides the list of available skus for the given subscription, resource group and location.</td>
+</tr>
+<tr>
+    <td><a href="#validate_address"><CopyableCode code="validate_address" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-validationType"><code>validationType</code></a>, <a href="#parameter-shippingAddress"><code>shippingAddress</code></a>, <a href="#parameter-deviceType"><code>deviceType</code></a></td>
+    <td></td>
+    <td>[DEPRECATED NOTICE: This operation will soon be removed]. This method validates the customer shipping address and provide alternate addresses if any.</td>
+</tr>
+<tr>
+    <td><a href="#validate_inputs_by_resource_group"><CopyableCode code="validate_inputs_by_resource_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-validationCategory"><code>validationCategory</code></a>, <a href="#parameter-individualRequestDetails"><code>individualRequestDetails</code></a></td>
+    <td></td>
+    <td>This method does all necessary pre-job creation validation under resource group.</td>
+</tr>
+<tr>
+    <td><a href="#validate_inputs"><CopyableCode code="validate_inputs" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-validationCategory"><code>validationCategory</code></a>, <a href="#parameter-individualRequestDetails"><code>individualRequestDetails</code></a></td>
+    <td></td>
+    <td>This method does all necessary pre-job creation validation under subscription.</td>
+</tr>
+<tr>
+    <td><a href="#region_configuration"><CopyableCode code="region_configuration" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>This API provides configuration details specific to given region/location at Subscription level.</td>
+</tr>
+<tr>
+    <td><a href="#region_configuration_by_resource_group"><CopyableCode code="region_configuration_by_resource_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>This API provides configuration details specific to given region/location at Resource group level.</td>
+</tr>
+</tbody>
+</table>
+
+## Parameters
+
+Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#methods) section to see which parameters are required or optional for each operation.
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr id="parameter-location">
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The location of the resource. Required.</td>
+</tr>
+<tr id="parameter-resource_group_name">
+    <td><CopyableCode code="resource_group_name" /></td>
+    <td><code>string</code></td>
+    <td>The Resource Group Name. Required.</td>
+</tr>
+<tr id="parameter-subscription_id">
+    <td><CopyableCode code="subscription_id" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="list_available_skus_by_resource_group"
+    values={[
+        { label: 'list_available_skus_by_resource_group', value: 'list_available_skus_by_resource_group' },
+        { label: 'validate_address', value: 'validate_address' },
+        { label: 'validate_inputs_by_resource_group', value: 'validate_inputs_by_resource_group' },
+        { label: 'validate_inputs', value: 'validate_inputs' },
+        { label: 'region_configuration', value: 'region_configuration' },
+        { label: 'region_configuration_by_resource_group', value: 'region_configuration_by_resource_group' }
+    ]}
+>
+<TabItem value="list_available_skus_by_resource_group">
+
+This method provides the list of available skus for the given subscription, resource group and location.
+
+```sql
+EXEC azure.databox.service.list_available_skus_by_resource_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@location='{{ location }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"transferType": "{{ transferType }}", 
+"country": "{{ country }}", 
+"location": "{{ location }}", 
+"skuNames": "{{ skuNames }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="validate_address">
+
+[DEPRECATED NOTICE: This operation will soon be removed]. This method validates the customer shipping address and provide alternate addresses if any.
+
+```sql
+EXEC azure.databox.service.validate_address 
+@location='{{ location }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"validationType": "{{ validationType }}", 
+"shippingAddress": "{{ shippingAddress }}", 
+"deviceType": "{{ deviceType }}", 
+"transportPreferences": "{{ transportPreferences }}", 
+"model": "{{ model }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="validate_inputs_by_resource_group">
+
+This method does all necessary pre-job creation validation under resource group.
+
+```sql
+EXEC azure.databox.service.validate_inputs_by_resource_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@location='{{ location }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"validationCategory": "{{ validationCategory }}", 
+"individualRequestDetails": "{{ individualRequestDetails }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="validate_inputs">
+
+This method does all necessary pre-job creation validation under subscription.
+
+```sql
+EXEC azure.databox.service.validate_inputs 
+@location='{{ location }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"validationCategory": "{{ validationCategory }}", 
+"individualRequestDetails": "{{ individualRequestDetails }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="region_configuration">
+
+This API provides configuration details specific to given region/location at Subscription level.
+
+```sql
+EXEC azure.databox.service.region_configuration 
+@location='{{ location }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"scheduleAvailabilityRequest": "{{ scheduleAvailabilityRequest }}", 
+"transportAvailabilityRequest": "{{ transportAvailabilityRequest }}", 
+"datacenterAddressRequest": "{{ datacenterAddressRequest }}", 
+"deviceCapabilityRequest": "{{ deviceCapabilityRequest }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="region_configuration_by_resource_group">
+
+This API provides configuration details specific to given region/location at Resource group level.
+
+```sql
+EXEC azure.databox.service.region_configuration_by_resource_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@location='{{ location }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"scheduleAvailabilityRequest": "{{ scheduleAvailabilityRequest }}", 
+"transportAvailabilityRequest": "{{ transportAvailabilityRequest }}", 
+"datacenterAddressRequest": "{{ datacenterAddressRequest }}", 
+"deviceCapabilityRequest": "{{ deviceCapabilityRequest }}"
+}'
+;
+```
+</TabItem>
+</Tabs>

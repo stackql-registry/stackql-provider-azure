@@ -1,0 +1,434 @@
+--- 
+title: fleetspace
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - fleetspace
+  - cosmosdb
+  - azure
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage azure resources using SQL
+custom_edit_url: null
+image: /img/stackql-azure-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes, gets or lists a <code>fleetspace</code> resource.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><CopyableCode code="fleetspace" /></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure.cosmosdb.fleetspace" /></td></tr>
+</tbody></table>
+
+## Fields
+
+The following fields are returned by `SELECT` queries:
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataRegions" /></td>
+    <td><code>array</code></td>
+    <td>List of data regions assigned to the fleetspace. Eg [westus2].</td>
+</tr>
+<tr>
+    <td><CopyableCode code="fleetspaceApiKind" /></td>
+    <td><code>string</code></td>
+    <td>The kind of API this fleetspace belongs to. Acceptable values: 'NoSQL'. "NoSQL" (NoSQL)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>A provisioning state of the Fleetspace. Known values are: "Uninitialized", "Initializing", "InternallyReady", "Online", "Deleting", "Succeeded", "Failed", "Canceled", "Updating", and "Creating". (Uninitialized, Initializing, InternallyReady, Online, Deleting, Succeeded, Failed, Canceled, Updating, Creating)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="serviceTier" /></td>
+    <td><code>string</code></td>
+    <td>Service Tier for the fleetspace. GeneralPurpose types refers to single write region accounts that can be added to this fleetspace, whereas BusinessCritical refers to multi write region. Known values are: "GeneralPurpose" and "BusinessCritical". (GeneralPurpose, BusinessCritical)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="throughputPoolConfiguration" /></td>
+    <td><code>object</code></td>
+    <td>Configuration for throughput pool in the fleetspace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataRegions" /></td>
+    <td><code>array</code></td>
+    <td>List of data regions assigned to the fleetspace. Eg [westus2].</td>
+</tr>
+<tr>
+    <td><CopyableCode code="fleetspaceApiKind" /></td>
+    <td><code>string</code></td>
+    <td>The kind of API this fleetspace belongs to. Acceptable values: 'NoSQL'. "NoSQL" (NoSQL)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>A provisioning state of the Fleetspace. Known values are: "Uninitialized", "Initializing", "InternallyReady", "Online", "Deleting", "Succeeded", "Failed", "Canceled", "Updating", and "Creating". (Uninitialized, Initializing, InternallyReady, Online, Deleting, Succeeded, Failed, Canceled, Updating, Creating)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="serviceTier" /></td>
+    <td><code>string</code></td>
+    <td>Service Tier for the fleetspace. GeneralPurpose types refers to single write region accounts that can be added to this fleetspace, whereas BusinessCritical refers to multi write region. Known values are: "GeneralPurpose" and "BusinessCritical". (GeneralPurpose, BusinessCritical)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="throughputPoolConfiguration" /></td>
+    <td><code>object</code></td>
+    <td>Configuration for throughput pool in the fleetspace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
+
+## Methods
+
+The following methods are available for this resource:
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+    <th>Optional Params</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-fleet_name"><code>fleet_name</code></a>, <a href="#parameter-fleetspace_name"><code>fleetspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieves the properties of an existing Azure Cosmos DB fleetspace under a fleet.</td>
+</tr>
+<tr>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-fleet_name"><code>fleet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Lists all the fleetspaces under a fleet.</td>
+</tr>
+<tr>
+    <td><a href="#create"><CopyableCode code="create" /></a></td>
+    <td><CopyableCode code="insert" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-fleet_name"><code>fleet_name</code></a>, <a href="#parameter-fleetspace_name"><code>fleetspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates an Azure Cosmos DB fleetspace under a fleet.</td>
+</tr>
+<tr>
+    <td><a href="#update"><CopyableCode code="update" /></a></td>
+    <td><CopyableCode code="update" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-fleet_name"><code>fleet_name</code></a>, <a href="#parameter-fleetspace_name"><code>fleetspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update the properties of an existing Azure Cosmos DB fleetspace under a fleet.</td>
+</tr>
+<tr>
+    <td><a href="#delete"><CopyableCode code="delete" /></a></td>
+    <td><CopyableCode code="delete" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-fleet_name"><code>fleet_name</code></a>, <a href="#parameter-fleetspace_name"><code>fleetspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Fleetspace.</td>
+</tr>
+</tbody>
+</table>
+
+## Parameters
+
+Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#methods) section to see which parameters are required or optional for each operation.
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr id="parameter-fleet_name">
+    <td><CopyableCode code="fleet_name" /></td>
+    <td><code>string</code></td>
+    <td>Cosmos DB fleet name. Needs to be unique under a subscription. Required.</td>
+</tr>
+<tr id="parameter-fleetspace_name">
+    <td><CopyableCode code="fleetspace_name" /></td>
+    <td><code>string</code></td>
+    <td>Cosmos DB fleetspace name. Needs to be unique under a fleet. Required.</td>
+</tr>
+<tr id="parameter-resource_group_name">
+    <td><CopyableCode code="resource_group_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource group. The name is case insensitive. Required.</td>
+</tr>
+<tr id="parameter-subscription_id">
+    <td><CopyableCode code="subscription_id" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+Retrieves the properties of an existing Azure Cosmos DB fleetspace under a fleet.
+
+```sql
+SELECT
+id,
+name,
+dataRegions,
+fleetspaceApiKind,
+provisioningState,
+serviceTier,
+systemData,
+throughputPoolConfiguration,
+type
+FROM azure.cosmosdb.fleetspace
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND fleet_name = '{{ fleet_name }}' -- required
+AND fleetspace_name = '{{ fleetspace_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list">
+
+Lists all the fleetspaces under a fleet.
+
+```sql
+SELECT
+id,
+name,
+dataRegions,
+fleetspaceApiKind,
+provisioningState,
+serviceTier,
+systemData,
+throughputPoolConfiguration,
+type
+FROM azure.cosmosdb.fleetspace
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND fleet_name = '{{ fleet_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## `INSERT` examples
+
+<Tabs
+    defaultValue="create"
+    values={[
+        { label: 'create', value: 'create' },
+        { label: 'Manifest', value: 'manifest' }
+    ]}
+>
+<TabItem value="create">
+
+Creates an Azure Cosmos DB fleetspace under a fleet.
+
+```sql
+INSERT INTO azure.cosmosdb.fleetspace (
+properties,
+resource_group_name,
+fleet_name,
+fleetspace_name,
+subscription_id
+)
+SELECT 
+'{{ properties }}',
+'{{ resource_group_name }}',
+'{{ fleet_name }}',
+'{{ fleetspace_name }}',
+'{{ subscription_id }}'
+RETURNING
+id,
+name,
+properties,
+systemData,
+type
+;
+```
+</TabItem>
+<TabItem value="manifest">
+
+<CodeBlock language="yaml">{`# Description fields are for documentation purposes
+- name: fleetspace
+  props:
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
+      description: Required parameter for the fleetspace resource.
+    - name: fleet_name
+      value: "{{ fleet_name }}"
+      description: Required parameter for the fleetspace resource.
+    - name: fleetspace_name
+      value: "{{ fleetspace_name }}"
+      description: Required parameter for the fleetspace resource.
+    - name: subscription_id
+      value: "{{ subscription_id }}"
+      description: Required parameter for the fleetspace resource.
+    - name: properties
+      description: |
+        Properties to update Azure Cosmos DB Fleetspace.
+      value:
+        provisioningState: "{{ provisioningState }}"
+        fleetspaceApiKind: "{{ fleetspaceApiKind }}"
+        serviceTier: "{{ serviceTier }}"
+        dataRegions:
+          - "{{ dataRegions }}"
+        throughputPoolConfiguration:
+          minThroughput: {{ minThroughput }}
+          maxThroughput: {{ maxThroughput }}
+          dedicatedRUs: {{ dedicatedRUs }}
+          maxConsumableRUs: {{ maxConsumableRUs }}
+`}</CodeBlock>
+
+</TabItem>
+</Tabs>
+
+
+## `UPDATE` examples
+
+<Tabs
+    defaultValue="update"
+    values={[
+        { label: 'update', value: 'update' }
+    ]}
+>
+<TabItem value="update">
+
+Update the properties of an existing Azure Cosmos DB fleetspace under a fleet.
+
+```sql
+UPDATE azure.cosmosdb.fleetspace
+SET 
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND fleet_name = '{{ fleet_name }}' --required
+AND fleetspace_name = '{{ fleetspace_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+properties,
+systemData,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `DELETE` examples
+
+<Tabs
+    defaultValue="delete"
+    values={[
+        { label: 'delete', value: 'delete' }
+    ]}
+>
+<TabItem value="delete">
+
+Deletes an existing Azure Cosmos DB Fleetspace.
+
+```sql
+DELETE FROM azure.cosmosdb.fleetspace
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND fleet_name = '{{ fleet_name }}' --required
+AND fleetspace_name = '{{ fleetspace_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>

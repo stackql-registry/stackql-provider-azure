@@ -1,0 +1,25 @@
+stackql
+.stackql/
+ref/
+
+# local credentials - never commit
+.env
+
+# node
+node_modules/
+
+# stackql runtime artifacts
+stackql.exe
+stackql-server.log
+
+# the upstream azure-sdk-for-python root .gitignore excludes any `website/`
+# dir - re-include ours (build artifacts are excluded by website/.gitignore)
+!website/
+
+# website build artifacts
+website/*/build/
+website/*/.docusaurus/
+
+# python
+__pycache__/
+*.pyc

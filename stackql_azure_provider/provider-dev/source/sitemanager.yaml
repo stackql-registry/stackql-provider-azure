@@ -1,0 +1,645 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Site Manager Mgmt Client
+  description: Azure Edge Sites Resource Provider management API.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-06-01-stackql-generated
+  x-serviceAlias: sitemanager
+  x-sdkPackage: azure-mgmt-sitemanager
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          $ref: '#/components/schemas/CreatedByType'
+          description: 'The type of identity that created the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          $ref: '#/components/schemas/CreatedByType'
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    CreatedByType:
+      type: string
+      enum:
+      - User
+      - Application
+      - ManagedIdentity
+      - Key
+    SiteProperties:
+      type: object
+      description: Site properties.
+      properties:
+        displayName:
+          type: string
+          description: displayName of Site resource.
+        description:
+          type: string
+          description: Description of Site resource.
+        siteAddress:
+          $ref: '#/components/schemas/SiteAddressProperties'
+          description: Physical address of the site.
+        labels:
+          type: object
+          properties: {}
+          description: Key-value pairs for labeling the site resource.
+        provisioningState:
+          $ref: '#/components/schemas/ResourceProvisioningState'
+          description: 'Provisioning state of last operation. Known values are: "Succeeded", "Failed", and "Canceled".'
+    SiteAddressProperties:
+      type: object
+      description: Site address properties.
+      properties:
+        streetAddress1:
+          type: string
+          description: First line of the street address.
+        streetAddress2:
+          type: string
+          description: Second line of the street address.
+        city:
+          type: string
+          description: City of the address.
+        stateOrProvince:
+          type: string
+          description: State or province of the address.
+        country:
+          type: string
+          description: Country of the address.
+        postalCode:
+          type: string
+          description: Postal or ZIP code of the address.
+    ResourceProvisioningState:
+      type: string
+      enum:
+      - Succeeded
+      - Failed
+      - Canceled
+    SiteFlattened:
+      type: object
+      description: Flattened view of Site ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        displayName:
+          type: string
+          description: displayName of Site resource.
+        description:
+          type: string
+          description: Description of Site resource.
+        siteAddress:
+          $ref: '#/components/schemas/SiteAddressProperties'
+          description: Physical address of the site.
+        labels:
+          type: object
+          properties: {}
+          description: Key-value pairs for labeling the site resource.
+        provisioningState:
+          $ref: '#/components/schemas/ResourceProvisioningState'
+          description: 'Provisioning state of last operation. Known values are: "Succeeded", "Failed", and "Canceled".'
+    PagedSiteFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/SiteFlattened'
+        nextLink:
+          type: string
+    Site:
+      type: object
+      description: Site as ARM Resource.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: '#/components/schemas/SiteProperties'
+          description: The resource-specific properties for this resource.
+    SiteUpdateProperties:
+      type: object
+      description: The updatable properties of the Site.
+      properties:
+        displayName:
+          type: string
+          description: displayName of Site resource.
+        description:
+          type: string
+          description: Description of Site resource.
+        siteAddress:
+          $ref: '#/components/schemas/SiteAddressProperties'
+          description: Physical address of the site.
+        labels:
+          type: object
+          properties: {}
+          description: Key-value pairs for labeling the site resource.
+paths:
+  ? /providers/Microsoft.Management/serviceGroups/{servicegroup_name}/providers/Microsoft.Edge/sites/{site_name}?api-version=2025-06-01
+  : get:
+      operationId: SitesByServiceGroup_get
+      description: Get Site at SG scope.
+      parameters:
+      - name: servicegroup_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the service group. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the site. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteFlattened'
+      x-stackql-resource: sites_by_service_group
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: SitesByServiceGroup_begin_create_or_update
+      description: create or update Site at SG scope.
+      parameters:
+      - name: servicegroup_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the service group. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the site. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SiteProperties'
+                  description: The resource-specific properties for this resource.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+      x-stackql-resource: sites_by_service_group
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: SitesByServiceGroup_update
+      description: update Site at SG scope.
+      parameters:
+      - name: servicegroup_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the service group. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the site. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SiteUpdateProperties'
+                  description: The updatable properties of the Site.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+      x-stackql-resource: sites_by_service_group
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: SitesByServiceGroup_delete
+      description: delete Site at SG scope.
+      parameters:
+      - name: servicegroup_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the service group. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the site. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: sites_by_service_group
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /providers/Microsoft.Management/serviceGroups/{servicegroup_name}/providers/Microsoft.Edge/sites?api-version=2025-06-01:
+    get:
+      operationId: SitesByServiceGroup_list_by_service_group
+      description: list Site at SG scope.
+      parameters:
+      - name: servicegroup_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the service group. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSiteFlattened'
+      x-stackql-resource: sites_by_service_group
+      x-stackql-method: list_by_service_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.Edge/sites/{site_name}?api-version=2025-06-01:
+    get:
+      operationId: SitesBySubscription_get
+      description: Get a Site.
+      parameters:
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteFlattened'
+      x-stackql-resource: sites_by_subscription
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: SitesBySubscription_begin_create_or_update
+      description: Create a Site.
+      parameters:
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SiteProperties'
+                  description: The resource-specific properties for this resource.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+      x-stackql-resource: sites_by_subscription
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: SitesBySubscription_update
+      description: Update a Site.
+      parameters:
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SiteUpdateProperties'
+                  description: The updatable properties of the Site.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+      x-stackql-resource: sites_by_subscription
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: SitesBySubscription_delete
+      description: Delete a Site.
+      parameters:
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: sites_by_subscription
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /subscriptions/{subscription_id}/providers/Microsoft.Edge/sites?api-version=2025-06-01:
+    get:
+      operationId: SitesBySubscription_list
+      description: List Site resources by subscription ID.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSiteFlattened'
+      x-stackql-resource: sites_by_subscription
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/sites/{site_name}?api-version=2025-06-01
+  : get:
+      operationId: Sites_get
+      description: Get a Site.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteFlattened'
+      x-stackql-resource: sites
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: Sites_begin_create_or_update
+      description: Create a Site.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SiteProperties'
+                  description: The resource-specific properties for this resource.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+      x-stackql-resource: sites
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: Sites_update
+      description: Update a Site.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SiteUpdateProperties'
+                  description: The updatable properties of the Site.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+      x-stackql-resource: sites
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Sites_delete
+      description: Delete a Site.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: site_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of Site resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: sites
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/sites?api-version=2025-06-01
+  : get:
+      operationId: Sites_list_by_resource_group
+      description: List Site resources by resource group.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSiteFlattened'
+      x-stackql-resource: sites
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value

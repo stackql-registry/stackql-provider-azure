@@ -1,0 +1,172 @@
+UAT run 2026-07-05T00:39:18Z rg=stackql-uat-1783211958 sub=d0a7d0c1-76bf-404f-bc48-ce42346fd01b auth=env
+
+===== 1. SHOW SERVICES (sample) =====
+-- SHOW SERVICES IN azure
+|---------------------------------------------------------|--------------------------------------------|--------------------------------|
+|                           id                            |                    name                    |             title              |
+|---------------------------------------------------------|--------------------------------------------|--------------------------------|
+| advisor:v00.00.00000                                    | advisor                                    | Advisor Management Client      |
+|---------------------------------------------------------|--------------------------------------------|--------------------------------|
+| agricultureplatform:v00.00.00000                        | agricultureplatform                        | Agriculture Platform Mgmt      |
+|                                                         |                                            | Client                         |
+|---------------------------------------------------------|--------------------------------------------|--------------------------------|
+| agrifood_farming:v00.00.00000                           | agrifood_farming                           | Farm Beats Client              |
+|---------------------------------------------------------|--------------------------------------------|--------------------------------|
+| ai_agents:v00.00.00000                                  | ai_agents                                  | Agents Client                  |
+|---------------------------------------------------------|--------------------------------------------|--------------------------------|
+
+===== 2. SHOW RESOURCES (network) =====
+-- SHOW RESOURCES IN azure.network
+|-------------------------------------------------------|---------------------------------------------------------------------|
+|                         name                          |                                 id                                  |
+|-------------------------------------------------------|---------------------------------------------------------------------|
+| active_connectivity_configurations                    | azure.network.active_connectivity_configurations                    |
+|-------------------------------------------------------|---------------------------------------------------------------------|
+| active_security_admin_rules                           | azure.network.active_security_admin_rules                           |
+|-------------------------------------------------------|---------------------------------------------------------------------|
+| active_sessions                                       | azure.network.active_sessions                                       |
+|-------------------------------------------------------|---------------------------------------------------------------------|
+| admin_rule_collections                                | azure.network.admin_rule_collections                                |
+|-------------------------------------------------------|---------------------------------------------------------------------|
+| admin_rules                                           | azure.network.admin_rules                                           |
+
+===== 3. DESCRIBE EXTENDED vnets =====
+-- DESCRIBE EXTENDED azure.network.virtual_networks
+|---------------------------------|---------|--------------------------------|
+|              name               |  type   |          description           |
+|---------------------------------|---------|--------------------------------|
+| id                              | string  | Resource ID.                   |
+|---------------------------------|---------|--------------------------------|
+| name                            | string  | Resource name.                 |
+|---------------------------------|---------|--------------------------------|
+| address_space                   | object  | AddressSpace contains an array |
+|                                 |         | of IP address ranges that      |
+|                                 |         | can be used by subnets of the  |
+|                                 |         | virtual network.               |
+|---------------------------------|---------|--------------------------------|
+| bgp_communities                 | object  | Bgp Communities sent over      |
+|                                 |         | ExpressRoute with each route   |
+|                                 |         | corresponding to a prefix in   |
+|                                 |         | this VNET.                     |
+|---------------------------------|---------|--------------------------------|
+| ddos_protection_plan            | object  | Reference to another           |
+|                                 |         | subresource.                   |
+|---------------------------------|---------|--------------------------------|
+
+===== 4. SHOW EXTENDED METHODS rgs =====
+-- SHOW EXTENDED METHODS IN azure.resource.resource_groups
+|------------------|--------------------------------|---------|--------------------------------|
+|    MethodName    |         RequiredParams         | SQLVerb |          description           |
+|------------------|--------------------------------|---------|--------------------------------|
+| get              | resource_group_name,           | SELECT  | Gets a resource group.         |
+|                  | subscription_id                |         |                                |
+|------------------|--------------------------------|---------|--------------------------------|
+| list             | subscription_id                | SELECT  | Gets all the resource groups   |
+|                  |                                |         | for a subscription.            |
+|------------------|--------------------------------|---------|--------------------------------|
+| delete           | resource_group_name,           | DELETE  | Deletes a resource group.      |
+|                  | subscription_id                |         | When you delete a resource     |
+|                  |                                |         | group, all of its resources    |
+|                  |                                |         | are also deleted. Deleting a   |
+|                  |                                |         | resource group deletes all of  |
+|                  |                                |         | its template deployments and   |
+|                  |                                |         | currently stored operations.   |
+|------------------|--------------------------------|---------|--------------------------------|
+| update           | resource_group_name,           | UPDATE  | Updates a resource group.      |
+|                  | subscription_id                |         | Resource groups can be         |
+|                  |                                |         | updated through a simple PATCH |
+|                  |                                |         | operation to a group address.  |
+|                  |                                |         | The format of the request is   |
+|                  |                                |         | the same as that for creating  |
+|                  |                                |         | a resource group. If a field   |
+|                  |                                |         | is unspecified, the current    |
+
+===== 5. INSERT resource group (RETURNING) =====
+-- INSERT INTO azure.resource.resource_groups(resource_group_name, subscription_id, location, tags) SELECT 'stackql-uat-1783211958', 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b', 'eastus', '{"env": "uat", "owner": "stackql"}' RETURNING name, location
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Resources/subscriptions/resourcegroups/write' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourcegroups/stackql-uat-1783211958' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+|------|----------|
+| name | location |
+|------|----------|
+
+===== 6. SELECT resource group (shape) =====
+-- SELECT name, location, tags, provisioning_state FROM azure.resource.resource_groups WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Resources/subscriptions/resourcegroups/read' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourcegroups/stackql-uat-1783211958' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+|------|----------|------|--------------------|
+| name | location | tags | provisioning_state |
+|------|----------|------|--------------------|
+
+===== 7. UPDATE resource group tags =====
+-- UPDATE azure.resource.resource_groups SET tags = '{"env": "uat2", "updated": "true"}' WHERE resource_group_name = 'stackql-uat-1783211958' AND subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Resources/subscriptions/resourcegroups/write' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourcegroups/stackql-uat-1783211958' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+insert over HTTP error: 403 Forbidden
+
+===== 8. SELECT rg (verify update) =====
+-- SELECT name, tags FROM azure.resource.resource_groups WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Resources/subscriptions/resourcegroups/read' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourcegroups/stackql-uat-1783211958' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+|------|------|
+| name | tags |
+|------|------|
+
+===== 9. INSERT vnet =====
+-- INSERT INTO azure.network.virtual_networks(virtual_network_name, resource_group_name, subscription_id, location, properties) SELECT 'stackql-uat-vnet', 'stackql-uat-1783211958', 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b', 'eastus', '{"addressSpace": {"addressPrefixes": ["10.42.0.0/16"]}}'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Network/virtualNetworks/write' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourceGroups/stackql-uat-1783211958/providers/Microsoft.Network/virtualNetworks/stackql-uat-vnet' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+insert over HTTP error: 403 Forbidden
+
+===== 10. SELECT vnet (flattened shape) =====
+-- SELECT name, location, provisioning_state, address_space, enable_ddos_protection FROM azure.network.virtual_networks WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Network/virtualNetworks/read' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourceGroups/stackql-uat-1783211958/providers/Microsoft.Network' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+|------|----------|--------------------|---------------|------------------------|
+| name | location | provisioning_state | address_space | enable_ddos_protection |
+|------|----------|--------------------|---------------|------------------------|
+
+===== 11. UPDATE vnet tags (update_tags PATCH) =====
+-- UPDATE azure.network.virtual_networks SET tags = '{"tier": "uat"}' WHERE virtual_network_name = 'stackql-uat-vnet' AND resource_group_name = 'stackql-uat-1783211958' AND subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Network/virtualNetworks/write' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourceGroups/stackql-uat-1783211958/providers/Microsoft.Network/virtualNetworks/stackql-uat-vnet' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+insert over HTTP error: 403 Forbidden
+
+===== 12. SELECT vnet (verify update) =====
+-- SELECT name, tags, provisioning_state FROM azure.network.virtual_networks WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Network/virtualNetworks/read' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourceGroups/stackql-uat-1783211958/providers/Microsoft.Network' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+|------|------|--------------------|
+| name | tags | provisioning_state |
+|------|------|--------------------|
+
+===== 13. REPLACE vnet (create_or_update PUT, added prefix) =====
+-- REPLACE azure.network.virtual_networks SET location = 'eastus', properties = '{"addressSpace": {"addressPrefixes": ["10.42.0.0/16", "10.43.0.0/16"]}}' WHERE virtual_network_name = 'stackql-uat-vnet' AND resource_group_name = 'stackql-uat-1783211958' AND subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b'
+http response status code: 403, response body: {"error":{"code":"AuthorizationFailed","message":"The client '0fa9a92e-813a-4f48-bc95-ee82e7033a12' with object id 'ab22a9e3-a99b-40ab-a2e5-f8467a39f211' does not have authorization to perform action 'Microsoft.Network/virtualNetworks/write' over scope '/subscriptions/d0a7d0c1-76bf-404f-bc48-ce42346fd01b/resourceGroups/stackql-uat-1783211958/providers/Microsoft.Network/virtualNetworks/stackql-uat-vnet' or the scope is invalid. If access was recently granted, please refresh your credentials."}}
+insert over HTTP error: 403 Forbidden
+
+===== 14. SELECT vnet (verify replace) =====
+-- SELECT name, address_space FROM azure.network.virtual_networks WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 404, response body: {"error":{"code":"ResourceGroupNotFound","message":"Resource group 'stackql-uat-1783211958' could not be found."}}
+|------|---------------|
+| name | address_space |
+|------|---------------|
+
+===== 15. DELETE vnet =====
+-- DELETE FROM azure.network.virtual_networks WHERE virtual_network_name = 'stackql-uat-vnet' AND resource_group_name = 'stackql-uat-1783211958' AND subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b'
+http response status code: 404, response body: {"error":{"code":"ResourceGroupNotFound","message":"Resource group 'stackql-uat-1783211958' could not be found."}}
+error processing response: no response body for operation =  VirtualNetworks_begin_delete
+no response body for operation =  VirtualNetworks_begin_delete
+
+===== 16. SELECT vnets (verify gone) =====
+-- SELECT name FROM azure.network.virtual_networks WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 404, response body: {"error":{"code":"ResourceGroupNotFound","message":"Resource group 'stackql-uat-1783211958' could not be found."}}
+|------|
+| name |
+|------|
+
+===== 17. DELETE resource group =====
+-- DELETE FROM azure.resource.resource_groups WHERE resource_group_name = 'stackql-uat-1783211958' AND subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b'
+http response status code: 404, response body: {"error":{"code":"ResourceGroupNotFound","message":"Resource group 'stackql-uat-1783211958' could not be found."}}
+error processing response: no response body for operation =  ResourceGroups_begin_delete
+no response body for operation =  ResourceGroups_begin_delete
+
+===== 18. SELECT rg (verify gone/deleting) =====
+-- SELECT name, provisioning_state FROM azure.resource.resource_groups WHERE subscription_id = 'd0a7d0c1-76bf-404f-bc48-ce42346fd01b' AND resource_group_name = 'stackql-uat-1783211958'
+http response status code: 404, response body: {"error":{"code":"ResourceGroupNotFound","message":"Resource group 'stackql-uat-1783211958' could not be found."}}
+|------|--------------------|
+| name | provisioning_state |
+|------|--------------------|
+
+UAT complete - full log at /c/LocalGitRepos/stackql-registry/providers/stackql-provider-azure/stackql_azure_provider/uat-results-sp.log

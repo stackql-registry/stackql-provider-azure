@@ -1,0 +1,545 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Dev Spaces Management Client
+  description: Dev Spaces Client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2019-04-01-stackql-generated
+  x-serviceAlias: devspaces
+  x-sdkPackage: azure-mgmt-devspaces
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    ContainerHostMapping:
+      type: object
+      description: Container host mapping object specifying the Container host resource ID and its associated Controller
+        resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        containerHostResourceId:
+          type: string
+          description: ARM ID of the Container Host resource.
+        mappedControllerResourceId:
+          type: string
+          description: ARM ID of the mapped Controller resource.
+    Sku:
+      type: object
+      description: Model representing SKU for Azure Dev Spaces Controller. All required parameters must be populated
+        in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The name of the SKU for Azure Dev Spaces Controller. Required. "S1"
+        tier:
+          type: string
+          description: The tier of the SKU for Azure Dev Spaces Controller. "Standard"
+      required:
+      - name
+    ControllerFlattened:
+      type: object
+      description: Flattened view of Controller ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource Id for the resource.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource.
+        tags:
+          type: object
+          properties: {}
+          description: Tags for the Azure resource.
+        location:
+          type: string
+          description: Region where the Azure resource is located.
+        sku:
+          $ref: '#/components/schemas/Sku'
+          description: Model representing SKU for Azure Dev Spaces Controller. Required.
+        provisioningState:
+          type: string
+          description: 'Provisioning state of the Azure Dev Spaces Controller. Known values are: "Succeeded", "Failed",
+            "Canceled", "Updating", "Creating", "Deleting", and "Deleted".'
+        hostSuffix:
+          type: string
+          description: DNS suffix for public endpoints running in the Azure Dev Spaces Controller.
+        dataPlaneFqdn:
+          type: string
+          description: DNS name for accessing DataPlane services.
+        targetContainerHostApiServerFqdn:
+          type: string
+          description: DNS of the target container host's API server.
+        targetContainerHostResourceId:
+          type: string
+          description: Resource ID of the target container host. Required.
+        targetContainerHostCredentialsBase64:
+          type: string
+          description: Credentials of the target container host (base64). Required.
+    PagedControllerFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ControllerFlattened'
+        nextLink:
+          type: string
+    ControllerConnectionDetailsList:
+      type: object
+      description: ControllerConnectionDetailsList.
+      properties:
+        connectionDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ControllerConnectionDetails'
+          description: List of Azure Dev Spaces Controller connection details.
+    ControllerConnectionDetails:
+      type: object
+      description: ControllerConnectionDetails.
+      properties:
+        orchestratorSpecificConnectionDetails:
+          $ref: '#/components/schemas/OrchestratorSpecificConnectionDetails'
+          description: Base class for types that supply values used to connect to container orchestrators.
+    OrchestratorSpecificConnectionDetails:
+      type: object
+      description: 'Base class for types that supply values used to connect to container orchestrators. You probably
+        want to use the sub-classes and not this class directly. Known sub-classes are: KubernetesConnectionDetails
+        Variables are only populated by the server, and will be ignored when sending a request. All required parameters
+        must be populated in order to send to Azure.'
+      properties:
+        instanceType:
+          type: string
+          description: Gets the Instance type. Required.
+    Controller:
+      type: object
+      description: Controller. Variables are only populated by the server, and will be ignored when sending a request.
+        All required parameters must be populated in order to send to Azure.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource Id for the resource.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource.
+        tags:
+          type: object
+          properties: {}
+          description: Tags for the Azure resource.
+        location:
+          type: string
+          description: Region where the Azure resource is located.
+        sku:
+          $ref: '#/components/schemas/Sku'
+          description: Model representing SKU for Azure Dev Spaces Controller. Required.
+        properties:
+          type: object
+          properties:
+            provisioningState:
+              type: string
+              description: 'Provisioning state of the Azure Dev Spaces Controller. Known values are: "Succeeded",
+                "Failed", "Canceled", "Updating", "Creating", "Deleting", and "Deleted".'
+            hostSuffix:
+              type: string
+              description: DNS suffix for public endpoints running in the Azure Dev Spaces Controller.
+            dataPlaneFqdn:
+              type: string
+              description: DNS name for accessing DataPlane services.
+            targetContainerHostApiServerFqdn:
+              type: string
+              description: DNS of the target container host's API server.
+            targetContainerHostResourceId:
+              type: string
+              description: Resource ID of the target container host. Required.
+            targetContainerHostCredentialsBase64:
+              type: string
+              description: Credentials of the target container host (base64). Required.
+      required:
+      - sku
+      - properties
+    ResourceProviderOperationDisplay:
+      type: object
+      description: ResourceProviderOperationDisplay.
+      properties:
+        provider:
+          type: string
+          description: Name of the resource provider.
+        resource:
+          type: string
+          description: Name of the resource type.
+        operation:
+          type: string
+          description: Name of the resource provider operation.
+        description:
+          type: string
+          description: Description of the resource provider operation.
+    ResourceProviderOperationDefinition:
+      type: object
+      description: ResourceProviderOperationDefinition.
+      properties:
+        name:
+          type: string
+          description: Resource provider operation name.
+        display:
+          $ref: '#/components/schemas/ResourceProviderOperationDisplay'
+          description: ':vartype display: ~azure.mgmt.devspaces.models.ResourceProviderOperationDisplay'
+    PagedResourceProviderOperationDefinition:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceProviderOperationDefinition'
+        nextLink:
+          type: string
+paths:
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevSpaces/locations/{location}/checkContainerHostMapping?api-version=2019-04-01
+  : post:
+      operationId: ContainerHostMappings_get_container_host_mapping
+      description: Returns container host mapping object for a container host resource ID if an associated controller
+        exists. Returns container host mapping object for a container host resource ID if an associated controller
+        exists.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Location of the container host. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                containerHostResourceId:
+                  type: string
+                  description: ARM ID of the Container Host resource.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerHostMapping'
+      x-stackql-resource: container_host_mappings
+      x-stackql-method: get_container_host_mapping
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevSpaces/controllers/{name}?api-version=2019-04-01
+  : get:
+      operationId: Controllers_get
+      description: Gets an Azure Dev Spaces Controller. Gets the properties for an Azure Dev Spaces Controller.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerFlattened'
+      x-stackql-resource: controllers
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: Controllers_begin_create
+      description: Creates an Azure Dev Spaces Controller. Creates an Azure Dev Spaces Controller with the specified
+        create parameters.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Tags for the Azure resource.
+                location:
+                  type: string
+                  description: Region where the Azure resource is located.
+                sku:
+                  $ref: '#/components/schemas/Sku'
+                  description: Model representing SKU for Azure Dev Spaces Controller. Required.
+                properties:
+                  type: object
+                  properties:
+                    targetContainerHostResourceId:
+                      type: string
+                      description: Resource ID of the target container host. Required.
+                    targetContainerHostCredentialsBase64:
+                      type: string
+                      description: Credentials of the target container host (base64). Required.
+              required:
+              - sku
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Controller'
+      x-stackql-resource: controllers
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+    delete:
+      operationId: Controllers_begin_delete
+      description: Deletes an Azure Dev Spaces Controller. Deletes an existing Azure Dev Spaces Controller.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: controllers
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+    patch:
+      operationId: Controllers_update
+      description: Updates an Azure Dev Spaces Controller. Updates the properties of an existing Azure Dev Spaces
+        Controller with the specified update parameters.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Tags for the Azure Dev Spaces Controller.
+                properties:
+                  type: object
+                  properties:
+                    targetContainerHostCredentialsBase64:
+                      type: string
+                      description: Credentials of the target container host (base64).
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Controller'
+      x-stackql-resource: controllers
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+  /subscriptions/{subscription_id}/providers/Microsoft.DevSpaces/controllers?api-version=2019-04-01:
+    get:
+      operationId: Controllers_list
+      description: Lists the Azure Dev Spaces Controllers in a subscription. Lists all the Azure Dev Spaces Controllers
+        with their properties in the subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedControllerFlattened'
+      x-stackql-resource: controllers
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevSpaces/controllers?api-version=2019-04-01
+  : get:
+      operationId: Controllers_list_by_resource_group
+      description: Lists the Azure Dev Spaces Controllers in a resource group. Lists all the Azure Dev Spaces Controllers
+        with their properties in the specified resource group and subscription.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedControllerFlattened'
+      x-stackql-resource: controllers
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevSpaces/controllers/{name}/listConnectionDetails?api-version=2019-04-01
+  : post:
+      operationId: Controllers_list_connection_details
+      description: Lists connection details for an Azure Dev Spaces Controller. Lists connection details for the
+        underlying container resources of an Azure Dev Spaces Controller.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource group to which the resource belongs. Required.
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetContainerHostResourceId:
+                  type: string
+                  description: Resource ID of the target container host mapped to the Azure Dev Spaces Controller.
+                    Required.
+              required:
+              - targetContainerHostResourceId
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerConnectionDetailsList'
+      x-stackql-resource: controllers
+      x-stackql-method: list_connection_details
+      x-stackql-verb: EXEC
+  /providers/Microsoft.DevSpaces/operations?api-version=2019-04-01:
+    get:
+      operationId: devspaces_list
+      description: Lists operations for the resource provider. Lists all the supported operations by the Microsoft.DevSpaces
+        resource provider along with their description.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceProviderOperationDefinition'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value

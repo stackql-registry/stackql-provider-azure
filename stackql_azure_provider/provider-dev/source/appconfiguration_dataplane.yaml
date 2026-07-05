@@ -1,0 +1,1064 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Azure App Configuration Client
+  description: Represents a client that calls restful API of Azure App Configuration service.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2026-04-01-stackql-generated
+  x-serviceAlias: appconfiguration_dataplane
+  x-sdkPackage: azure-appconfiguration
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    Key:
+      type: object
+      description: Keys serve as identifiers for key-values and are used to store and retrieve corresponding values.
+      properties:
+        name:
+          type: string
+          description: The name of the key. Required.
+    PagedKey:
+      type: object
+      properties:
+        items_:
+          type: array
+          items:
+            $ref: '#/components/schemas/Key'
+        nextLink:
+          type: string
+    KeyValue:
+      type: object
+      description: A key-value pair representing application settings.
+      properties:
+        key:
+          type: string
+          description: The key of the key-value. Required.
+        label:
+          type: string
+          description: The label the key-value belongs to.
+        content_type:
+          type: string
+          description: The content type of the value stored within the key-value.
+        value:
+          type: string
+          description: The value of the key-value.
+        last_modified:
+          type: string
+          format: date-time
+          description: A date representing the last time the key-value was modified.
+        tags:
+          type: object
+          properties: {}
+          description: The tags of the key-value.
+        description:
+          type: string
+          description: The description of the key-value.
+        locked:
+          type: boolean
+          description: Indicates whether the key-value is locked.
+        etag:
+          type: string
+          description: A value representing the current state of the resource.
+    PagedKeyValue:
+      type: object
+      properties:
+        items_:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        nextLink:
+          type: string
+    SnapshotStatus:
+      type: string
+      enum:
+      - provisioning
+      - ready
+      - archived
+      - failed
+    KeyValueFilter:
+      type: object
+      description: 'Enables filtering of key-values. Syntax reference: `https://aka.ms/azconfig/docs/restapisnapshots
+        `_.'
+      properties:
+        key:
+          type: string
+          description: Filters key-values by their key field. Required.
+        label:
+          type: string
+          description: Filters key-values by their label field.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Filters key-values by their tags field.
+      required:
+      - key
+    SnapshotComposition:
+      type: string
+      enum:
+      - key
+      - key_label
+    Snapshot:
+      type: object
+      description: A snapshot is a named, immutable subset of an App Configuration store's key-values.
+      properties:
+        name:
+          type: string
+          description: The name of the snapshot. Required.
+        status:
+          $ref: '#/components/schemas/SnapshotStatus'
+          description: 'The current status of the snapshot. Known values are: "provisioning", "ready", "archived",
+            and "failed".'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueFilter'
+          description: A list of filters used to filter the key-values included in the snapshot. Required.
+        composition_type:
+          $ref: '#/components/schemas/SnapshotComposition'
+          description: 'The composition type describes how the key-values within the snapshot are composed. The
+            ''key'' composition type ensures there are no two key-values containing the same key. The ''key_label''
+            composition type ensures there are no two key-values containing the same key and label. Known values
+            are: "key" and "key_label".'
+        created:
+          type: string
+          format: date-time
+          description: The time that the snapshot was created.
+        expires:
+          type: string
+          format: date-time
+          description: The time that the snapshot will expire.
+        retention_period:
+          type: integer
+          description: The amount of time, in seconds, that a snapshot will remain in the archived state before
+            expiring. This property is only writable during the creation of a snapshot. If not specified, the default
+            lifetime of key-value revisions will be used.
+        size:
+          type: integer
+          description: The size in bytes of the snapshot.
+        items_count:
+          type: integer
+          description: The amount of key-values in the snapshot.
+        tags:
+          type: object
+          properties: {}
+          description: The tags of the snapshot.
+        description:
+          type: string
+          description: The description of the snapshot.
+        etag:
+          type: string
+          description: A value representing the current state of the snapshot.
+      required:
+      - filters
+    PagedSnapshot:
+      type: object
+      properties:
+        items_:
+          type: array
+          items:
+            $ref: '#/components/schemas/Snapshot'
+        nextLink:
+          type: string
+    OperationState:
+      type: string
+      enum:
+      - NotStarted
+      - Running
+      - Succeeded
+      - Failed
+      - Canceled
+    OperationDetails:
+      type: object
+      description: Details of a long running operation.
+      properties:
+        id:
+          type: string
+          description: The unique id of the operation. Required.
+        status:
+          $ref: '#/components/schemas/OperationState'
+          description: 'The current status of the operation. Required. Known values are: "NotStarted", "Running",
+            "Succeeded", "Failed", and "Canceled".'
+        error:
+          type: object
+          properties: {}
+          description: An error, available when the status is `Failed`, describing why the operation failed.
+      required:
+      - id
+      - status
+    Label:
+      type: object
+      description: Labels are used to group key-values.
+      properties:
+        name:
+          type: string
+          description: The name of the label.
+    PagedLabel:
+      type: object
+      properties:
+        items_:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
+        nextLink:
+          type: string
+paths:
+  /keys?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_keys
+      description: Gets a list of keys. Gets a list of keys.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter for the name of the returned keys. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedKey'
+      x-stackql-resource: keys
+      x-stackql-method: get_keys
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.items_
+    head:
+      operationId: _AzureAppConfigurationClient_check_keys
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter for the name of the returned keys. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_keys
+      x-stackql-method: check_keys
+      x-stackql-verb: EXEC
+  /kv?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_key_values
+      description: Gets a list of key-values. Gets a list of key-values.
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match keys. Syntax reference: `https://aka.ms/azconfig/docs/keyvaluefiltering
+          `_. Default value is None.'
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match labels. Syntax reference: `https://aka.ms/azconfig/docs/keyvaluefiltering
+          `_. Default value is None.'
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      - name: snapshot
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter used get key-values for a snapshot. The value should be the name of the snapshot.
+          Not valid when used with 'key' and 'label' filters. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedKeyValue'
+      x-stackql-resource: key_values
+      x-stackql-method: get_key_values
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.items_
+    head:
+      operationId: _AzureAppConfigurationClient_check_key_values
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match keys. Syntax reference: `https://aka.ms/azconfig/docs/keyvaluefiltering
+          `_. Default value is None.'
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match labels. Syntax reference: `https://aka.ms/azconfig/docs/keyvaluefiltering
+          `_. Default value is None.'
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      - name: snapshot
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter used get key-values for a snapshot. The value should be the name of the snapshot.
+          Not valid when used with 'key' and 'label' filters. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_key_values
+      x-stackql-method: check_key_values
+      x-stackql-verb: EXEC
+  /kv/{key}?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_key_value
+      description: Gets a single key-value. Gets a single key-value.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The key of the key-value. Required.
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The label of the key-value to retrieve. Default value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyValue'
+      x-stackql-resource: key_values
+      x-stackql-method: get_key_value
+      x-stackql-verb: SELECT
+    delete:
+      operationId: _AzureAppConfigurationClient_delete_key_value
+      description: Deletes a key-value. Deletes a key-value.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The key of the key-value to delete. Required.
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The label of the key-value to delete. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyValue'
+      x-stackql-resource: key_values
+      x-stackql-method: delete_key_value
+      x-stackql-verb: DELETE
+    head:
+      operationId: _AzureAppConfigurationClient_check_key_value
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The key of the key-value to retrieve. Required.
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The label of the key-value to retrieve. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_key_values
+      x-stackql-method: check_key_value
+      x-stackql-verb: EXEC
+  /snapshots?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_snapshots
+      description: Gets a list of key-value snapshots. Gets a list of key-value snapshots.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter for the name of the returned snapshots. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to filter returned snapshots by their status property. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSnapshot'
+      x-stackql-resource: snapshots
+      x-stackql-method: get_snapshots
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.items_
+    head:
+      operationId: _AzureAppConfigurationClient_check_snapshots
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_snapshots
+      x-stackql-method: check_snapshots
+      x-stackql-verb: EXEC
+  /snapshots/{name}?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_snapshot
+      description: Gets a single key-value snapshot. Gets a single key-value snapshot.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the snapshot. Required.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+      x-stackql-resource: snapshots
+      x-stackql-method: get_snapshot
+      x-stackql-verb: SELECT
+    put:
+      operationId: _AzureAppConfigurationClient_begin_create_snapshot
+      description: Creates a key-value snapshot. Creates a key-value snapshot.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the key-value snapshot to create. Required.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/KeyValueFilter'
+                  description: A list of filters used to filter the key-values included in the snapshot. Required.
+                composition_type:
+                  $ref: '#/components/schemas/SnapshotComposition'
+                  description: 'The composition type describes how the key-values within the snapshot are composed.
+                    The ''key'' composition type ensures there are no two key-values containing the same key. The
+                    ''key_label'' composition type ensures there are no two key-values containing the same key and
+                    label. Known values are: "key" and "key_label".'
+                retention_period:
+                  type: integer
+                  description: The amount of time, in seconds, that a snapshot will remain in the archived state
+                    before expiring. This property is only writable during the creation of a snapshot. If not specified,
+                    the default lifetime of key-value revisions will be used.
+                tags:
+                  type: object
+                  properties: {}
+                  description: The tags of the snapshot.
+                description:
+                  type: string
+                  description: The description of the snapshot.
+              required:
+              - filters
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+      x-stackql-resource: snapshots
+      x-stackql-method: create_snapshot
+      x-stackql-verb: INSERT
+    head:
+      operationId: _AzureAppConfigurationClient_check_snapshot
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the key-value snapshot to check. Required.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_snapshots
+      x-stackql-method: check_snapshot
+      x-stackql-verb: EXEC
+  /operations?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_operation_details
+      description: Gets the state of a long running operation. Gets the state of a long running operation.
+      parameters:
+      - name: snapshot
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Snapshot identifier for the long running operation. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDetails'
+      x-stackql-resource: operation_details
+      x-stackql-method: get_operation_details
+      x-stackql-verb: SELECT
+  /labels?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_labels
+      description: Gets a list of labels. Gets a list of labels.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter for the name of the returned labels. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLabel'
+      x-stackql-resource: labels
+      x-stackql-method: get_labels
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.items_
+    head:
+      operationId: _AzureAppConfigurationClient_check_labels
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+        description: A filter for the name of the returned labels. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_labels
+      x-stackql-method: check_labels
+      x-stackql-verb: EXEC
+  /revisions?api-version=2026-04-01:
+    get:
+      operationId: _AzureAppConfigurationClient_get_revisions
+      description: Gets a list of key-value revisions. Gets a list of key-value revisions.
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match keys. Syntax reference: `https://aka.ms/azconfig/docs/restapirevisions
+          `_. Default value is None.'
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match labels. Syntax reference: `https://aka.ms/azconfig/docs/restapirevisions
+          `_. Default value is None.'
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedKeyValue'
+      x-stackql-resource: revisions
+      x-stackql-method: get_revisions
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.items_
+    head:
+      operationId: _AzureAppConfigurationClient_check_revisions
+      description: Requests the headers and status of the given resource. Requests the headers and status of the
+        given resource.
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match keys. Syntax reference: `https://aka.ms/azconfig/docs/restapirevisions
+          `_. Default value is None.'
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'A filter used to match labels. Syntax reference: `https://aka.ms/azconfig/docs/restapirevisions
+          `_. Default value is None.'
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      - name: After
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Instructs the server to return elements that appear after the element referred to by the specified
+          token. Default value is None.
+      - name: Accept-Datetime
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Requests the server to respond with the state of the resource at the specified time. Default
+          value is None.
+      - name: $Select
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Used to select what fields are present in the returned resource(s). Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+      x-stackql-resource: check_revisions
+      x-stackql-method: check_revisions
+      x-stackql-verb: EXEC
+  /locks/{key}?api-version=2026-04-01:
+    put:
+      operationId: _AzureAppConfigurationClient_put_lock
+      description: Locks a key-value. Locks a key-value.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The key of the key-value to lock. Required.
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The label, if any, of the key-value to lock. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyValue'
+      x-stackql-resource: locks
+      x-stackql-method: put_lock
+      x-stackql-verb: EXEC
+    delete:
+      operationId: _AzureAppConfigurationClient_delete_lock
+      description: Unlocks a key-value. Unlocks a key-value.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The key of the key-value to unlock. Required.
+      - name: label
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The label, if any, of the key-value to unlock. Default value is None.
+      - name: Sync-Token
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Used to guarantee real-time consistency between requests. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyValue'
+      x-stackql-resource: locks
+      x-stackql-method: delete_lock
+      x-stackql-verb: DELETE

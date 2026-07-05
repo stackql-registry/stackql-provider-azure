@@ -1,0 +1,159 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint.
+info:
+  title: Monitoring Client
+  description: MonitoringClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2019-11-01-preview-stackql-generated
+  x-serviceAlias: synapse_monitoring
+  x-sdkPackage: azure-synapse-monitoring
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    SparkJob:
+      type: object
+      description: SparkJob.
+      properties:
+        state:
+          type: string
+        name:
+          type: string
+        submitter:
+          type: string
+        compute:
+          type: string
+        sparkApplicationId:
+          type: string
+        livyId:
+          type: string
+        timing:
+          type: array
+          items:
+            type: string
+        sparkJobDefinition:
+          type: string
+        pipeline:
+          type: array
+          items:
+            $ref: '#/components/schemas/SparkJob'
+        jobType:
+          type: string
+        submitTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        queuedDuration:
+          type: string
+        runningDuration:
+          type: string
+        totalDuration:
+          type: string
+    SparkJobListViewResponse:
+      type: object
+      description: SparkJobListViewResponse.
+      properties:
+        nJobs:
+          type: integer
+        sparkJobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SparkJob'
+    SqlQueryStringDataModel:
+      type: object
+      description: SqlQueryStringDataModel.
+      properties:
+        query:
+          type: string
+paths:
+  /monitoring/workloadTypes/spark/Applications?api-version=2019-11-01-preview:
+    get:
+      operationId: Monitoring_get_spark_job_list
+      description: Get list of spark applications for the workspace.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: x-ms-client-request-id
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Can provide a guid, which is helpful for debugging and to provide better customer support.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SparkJobListViewResponse'
+      x-stackql-resource: monitoring
+      x-stackql-method: get_spark_job_list
+      x-stackql-verb: SELECT
+  /monitoring/workloadTypes/sql/querystring?api-version=2019-11-01-preview:
+    get:
+      operationId: Monitoring_get_sql_job_query_string
+      description: Get SQL OD/DW Query for the workspace.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ':type filter: str'
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ':type orderby: str'
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ':type skip: str'
+      - name: x-ms-client-request-id
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Can provide a guid, which is helpful for debugging and to provide better customer support.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SqlQueryStringDataModel'
+      x-stackql-resource: monitoring
+      x-stackql-method: get_sql_job_query_string
+      x-stackql-verb: SELECT

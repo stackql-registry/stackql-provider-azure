@@ -1,0 +1,409 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Purview Sharing Client
+  description: Creates a data plane client for Purview Share.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2023-05-30-preview-stackql-generated
+  x-serviceAlias: purview_sharing
+  x-sdkPackage: azure-purview-sharing
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /receivedShares/{received_share_id}?api-version=2023-05-30-preview:
+    get:
+      operationId: ReceivedShares_get
+      description: Get a received share by unique id. Get a received share.
+      parameters:
+      - name: received_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the received share. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: received_shares
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+    put:
+      operationId: ReceivedShares_begin_create_or_replace
+      description: Create or replace a received share. Update changes to a received share.
+      parameters:
+      - name: received_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the received share. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: received_shares
+      x-stackql-method: create_or_replace
+      x-stackql-verb: INSERT
+    delete:
+      operationId: ReceivedShares_begin_delete
+      description: Deletes a received share. Delete a received share.
+      parameters:
+      - name: received_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the received share. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: received_shares
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /receivedShares/attached?api-version=2023-05-30-preview:
+    get:
+      operationId: ReceivedShares_list_attached
+      description: Get a list of attached received shares. List attached received shares.
+      parameters:
+      - name: referenceName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: A name that references a data store. Required.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters the results using OData syntax. Default value is None.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sorts the results using OData syntax. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: received_shares
+      x-stackql-method: list_attached
+      x-stackql-verb: SELECT
+  /receivedShares/detached?api-version=2023-05-30-preview:
+    get:
+      operationId: ReceivedShares_list_detached
+      description: Get a list of detached received shares. List detached received shares.
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters the results using OData syntax. Default value is None.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sorts the results using OData syntax. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: received_shares
+      x-stackql-method: list_detached
+      x-stackql-verb: SELECT
+  /emails:activate?api-version=2023-05-30-preview:
+    post:
+      operationId: ReceivedShares_activate_tenant_email_registration
+      description: Activates the tenant and email combination using the activation code received. Activates the
+        email registration for current tenant.
+      parameters:
+      - name: repeatability-request-id
+        in: header
+        required: false
+        schema:
+          type: string
+        description: If specified, the client directs that the request is repeatable; that is, that the client can
+          make the request multiple times with the same Repeatability-Request-Id and get back an appropriate response
+          without the server executing the request multiple times. The value of the Repeatability-Request-Id is
+          an opaque string representing a client-generated, globally unique for all time, identifier for the request.
+          It is recommended to use version 4 (random) UUIDs. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: received_shares
+      x-stackql-method: activate_tenant_email_registration
+      x-stackql-verb: EXEC
+  /emails:register?api-version=2023-05-30-preview:
+    post:
+      operationId: ReceivedShares_register_tenant_email_registration
+      description: Registers the tenant and email combination for activation. Register an email for the current
+        tenant.
+      parameters:
+      - name: repeatability-request-id
+        in: header
+        required: false
+        schema:
+          type: string
+        description: If specified, the client directs that the request is repeatable; that is, that the client can
+          make the request multiple times with the same Repeatability-Request-Id and get back an appropriate response
+          without the server executing the request multiple times. The value of the Repeatability-Request-Id is
+          an opaque string representing a client-generated, globally unique for all time, identifier for the request.
+          It is recommended to use version 4 (random) UUIDs. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: received_shares
+      x-stackql-method: register_tenant_email_registration
+      x-stackql-verb: EXEC
+  /sentShares/{sent_share_id}?api-version=2023-05-30-preview:
+    get:
+      operationId: SentShares_get
+      description: Get a sent share by guid. Get a sent share.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: sent_shares
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+    put:
+      operationId: SentShares_begin_create_or_replace
+      description: Create or replace a sent share. Create or replace a sent share.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: sent_shares
+      x-stackql-method: create_or_replace
+      x-stackql-verb: INSERT
+    delete:
+      operationId: SentShares_begin_delete
+      description: Deletes a sent share. Delete a sent share.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: sent_shares
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /sentShares?api-version=2023-05-30-preview:
+    get:
+      operationId: SentShares_list
+      description: Get a list of sent shares. List sent shares.
+      parameters:
+      - name: referenceName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: A name that references a data store. Required.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters the results using OData syntax. Default value is None.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sorts the results using OData syntax. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: sent_shares
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+  /sentShares/{sent_share_id}/sentShareInvitations?api-version=2023-05-30-preview:
+    get:
+      operationId: SentShares_list_invitations
+      description: List all sent share invitations in a sent share. List sent share recipients.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters the results using OData syntax. Default value is None.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sorts the results using OData syntax. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: sent_shares
+      x-stackql-method: list_invitations
+      x-stackql-verb: SELECT
+  /sentShares/{sent_share_id}/sentShareInvitations/{sent_share_invitation_id}?api-version=2023-05-30-preview:
+    get:
+      operationId: SentShares_get_invitation
+      description: Get sent share invitation for a given sent share. Get recipient for a given sent share.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      - name: sent_share_invitation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share invitation. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: sent_shares
+      x-stackql-method: get_invitation
+      x-stackql-verb: SELECT
+    put:
+      operationId: SentShares_create_invitation
+      description: Create a sent share invitation. Create a recipient for a given sent share.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      - name: sent_share_invitation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share invitation. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: sent_shares
+      x-stackql-method: create_invitation
+      x-stackql-verb: INSERT
+    delete:
+      operationId: SentShares_begin_delete_invitation
+      description: Delete Invitation in a share. Delete a sent share invitation.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      - name: sent_share_invitation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share invitation. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: sent_shares
+      x-stackql-method: delete_invitation
+      x-stackql-verb: DELETE
+  /sentShares/{sent_share_id}/sentShareInvitations/{sent_share_invitation_id}:notify?api-version=2023-05-30-preview:
+    post:
+      operationId: SentShares_notify_user_invitation
+      description: Notifies the recipient of the sent share invitation. Notifies the user recipient of the sent
+        share invitation, does not apply to service invitations.
+      parameters:
+      - name: sent_share_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share. Required.
+      - name: sent_share_invitation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the sent share invitation. Required.
+      - name: repeatability-request-id
+        in: header
+        required: false
+        schema:
+          type: string
+        description: If specified, the client directs that the request is repeatable; that is, that the client can
+          make the request multiple times with the same Repeatability-Request-Id and get back an appropriate response
+          without the server executing the request multiple times. The value of the Repeatability-Request-Id is
+          an opaque string representing a client-generated, globally unique for all time, identifier for the request.
+          It is recommended to use version 4 (random) UUIDs. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: sent_shares
+      x-stackql-method: notify_user_invitation
+      x-stackql-verb: EXEC
+  /shareResources?api-version=2023-05-30-preview:
+    get:
+      operationId: ShareResources_list
+      description: API operation to list ShareResources. List share resources.
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters the results using OData syntax. Default value is None.
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Sorts the results using OData syntax. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: share_resources
+      x-stackql-method: list
+      x-stackql-verb: SELECT

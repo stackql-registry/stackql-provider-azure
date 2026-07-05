@@ -178,5 +178,5 @@ component-detection-pip-report.json
 # No uv lock for now
 uv.lock
 
-# Sphinx generated documentation
-website/
+# Sphinx generated documentation (anchored to repo root; stackql_azure_provider/website is committed)
+/website/

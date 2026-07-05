@@ -1,0 +1,425 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Resource Private Link Client
+  description: ResourcePrivateLink Client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2020-05-01-stackql-generated
+  x-serviceAlias: resource_privatelinks
+  x-sdkPackage: azure-mgmt-resource-privatelinks
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    PrivateLinkAssociationPropertiesExpanded:
+      type: object
+      description: Private Link Association Properties.
+      properties:
+        privateLink:
+          type: string
+          description: The rmpl Resource ID.
+        publicNetworkAccess:
+          type: string
+          description: 'Known values are: "Enabled" and "Disabled".'
+        tenantID:
+          type: string
+          description: The TenantID.
+        scope:
+          type: string
+          description: The scope of the private link association.
+    PrivateLinkAssociationFlattened:
+      type: object
+      description: Flattened view of PrivateLinkAssociation ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The plaResourceID.
+        type:
+          type: string
+          description: The operation type.
+        name:
+          type: string
+          description: The pla name.
+        privateLink:
+          type: string
+          description: The rmpl Resource ID.
+        publicNetworkAccess:
+          type: string
+          description: 'Known values are: "Enabled" and "Disabled".'
+        tenantID:
+          type: string
+          description: The TenantID.
+        scope:
+          type: string
+          description: The scope of the private link association.
+    PrivateLinkAssociation:
+      type: object
+      description: PrivateLinkAssociation. Variables are only populated by the server, and will be ignored when
+        sending a request.
+      properties:
+        properties:
+          $ref: '#/components/schemas/PrivateLinkAssociationPropertiesExpanded'
+          description: The private link association properties.
+        id:
+          type: string
+          description: The plaResourceID.
+        type:
+          type: string
+          description: The operation type.
+        name:
+          type: string
+          description: The pla name.
+    PrivateLinkAssociationGetResult:
+      type: object
+      description: Result of the request to get PLA for a MG scope.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateLinkAssociation'
+          description: private link association information.
+    PrivateLinkAssociationProperties:
+      type: object
+      description: PrivateLinkAssociationProperties.
+      properties:
+        privateLink:
+          type: string
+          description: The rmpl Resource ID.
+        publicNetworkAccess:
+          type: string
+          description: 'Known values are: "Enabled" and "Disabled".'
+    ResourceManagementPrivateLinkEndpointConnections:
+      type: object
+      description: ResourceManagementPrivateLinkEndpointConnections.
+      properties:
+        privateEndpointConnections:
+          type: array
+          items:
+            type: string
+          description: The private endpoint connections.
+    ResourceManagementPrivateLinkFlattened:
+      type: object
+      description: Flattened view of ResourceManagementPrivateLink ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The rmplResourceID.
+        name:
+          type: string
+          description: The rmpl Name.
+        type:
+          type: string
+          description: The operation type.
+        location:
+          type: string
+          description: the region of the rmpl.
+        privateEndpointConnections:
+          type: array
+          items:
+            type: string
+          description: The private endpoint connections.
+    ResourceManagementPrivateLink:
+      type: object
+      description: ResourceManagementPrivateLink. Variables are only populated by the server, and will be ignored
+        when sending a request.
+      properties:
+        properties:
+          $ref: '#/components/schemas/ResourceManagementPrivateLinkEndpointConnections'
+          description: ':vartype properties: ~azure.mgmt.resource.privatelinks.models.ResourceManagementPrivateLinkEndpointConnections'
+        id:
+          type: string
+          description: The rmplResourceID.
+        name:
+          type: string
+          description: The rmpl Name.
+        type:
+          type: string
+          description: The operation type.
+        location:
+          type: string
+          description: the region of the rmpl.
+    ResourceManagementPrivateLinkListResultFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceManagementPrivateLinkFlattened'
+        nextLink:
+          type: string
+paths:
+  ? /providers/Microsoft.Management/managementGroups/{group_id}/providers/Microsoft.Authorization/privateLinkAssociations/{pla_id}?api-version=2020-05-01
+  : get:
+      operationId: PrivateLinkAssociation_get
+      description: Get a single private link association.
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The management group ID. Required.
+      - name: pla_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the PLA. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkAssociationFlattened'
+      x-stackql-resource: private_link_association
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: PrivateLinkAssociation_put
+      description: Create a PrivateLinkAssociation.
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The management group ID. Required.
+      - name: pla_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the PLA. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/PrivateLinkAssociationProperties'
+                  description: The properties of the PrivateLinkAssociation.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkAssociation'
+      x-stackql-resource: private_link_association
+      x-stackql-method: put
+      x-stackql-verb: EXEC
+    delete:
+      operationId: PrivateLinkAssociation_delete
+      description: Delete a PrivateLinkAssociation.
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The management group ID. Required.
+      - name: pla_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the PLA. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: private_link_association
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /providers/Microsoft.Management/managementGroups/{group_id}/providers/Microsoft.Authorization/privateLinkAssociations?api-version=2020-05-01
+  : get:
+      operationId: PrivateLinkAssociation_list
+      description: Get a private link association for a management group scope.
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The management group ID. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkAssociationGetResult'
+      x-stackql-resource: private_link_association
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Authorization/resourceManagementPrivateLinks/{rmpl_name}?api-version=2020-05-01
+  : get:
+      operationId: ResourceManagementPrivateLink_get
+      description: Get a resource management private link(resource-level).
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: rmpl_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource management private link. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceManagementPrivateLinkFlattened'
+      x-stackql-resource: resource_management_private_link
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: ResourceManagementPrivateLink_put
+      description: Create a resource management group private link.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: rmpl_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource management private link. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: the region to create private link association.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceManagementPrivateLink'
+      x-stackql-resource: resource_management_private_link
+      x-stackql-method: put
+      x-stackql-verb: EXEC
+    delete:
+      operationId: ResourceManagementPrivateLink_delete
+      description: Delete a resource management private link.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: rmpl_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource management private link. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: resource_management_private_link
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /subscriptions/{subscription_id}/providers/Microsoft.Authorization/resourceManagementPrivateLinks?api-version=2020-05-01:
+    get:
+      operationId: ResourceManagementPrivateLink_list
+      description: Get all the resource management private links in a subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceManagementPrivateLinkListResultFlattened'
+      x-stackql-resource: resource_management_private_link
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Authorization/resourceManagementPrivateLinks?api-version=2020-05-01
+  : get:
+      operationId: ResourceManagementPrivateLink_list_by_resource_group
+      description: Get all the resource management private links in a resource group.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceManagementPrivateLinkListResultFlattened'
+      x-stackql-resource: resource_management_private_link
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value

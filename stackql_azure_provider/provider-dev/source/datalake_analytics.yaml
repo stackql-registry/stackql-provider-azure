@@ -1,0 +1,2524 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Data Lake Analytics Account Management Client
+  description: Creates an Azure Data Lake Analytics account management client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2019-11-01-preview-stackql-generated
+  x-serviceAlias: datalake_analytics
+  x-sdkPackage: azure-mgmt-datalake-analytics
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    DataLakeStoreAccountInformation:
+      type: object
+      description: Data Lake Store account information. Variables are only populated by the server, and will be
+        ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        properties:
+          type: object
+          properties:
+            suffix:
+              type: string
+              description: The optional suffix for the Data Lake Store account.
+    StorageAccountInformation:
+      type: object
+      description: Azure Storage account information. Variables are only populated by the server, and will be ignored
+        when sending a request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        properties:
+          type: object
+          properties:
+            suffix:
+              type: string
+              description: The optional suffix for the storage account.
+    ComputePolicy:
+      type: object
+      description: Data Lake Analytics compute policy information. Variables are only populated by the server, and
+        will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        properties:
+          type: object
+          properties:
+            objectId:
+              type: string
+              description: The AAD object identifier for the entity to create a policy for.
+            objectType:
+              type: string
+              description: 'The type of AAD object the object identifier refers to. Known values are: "User", "Group",
+                and "ServicePrincipal".'
+            maxDegreeOfParallelismPerJob:
+              type: integer
+              description: The maximum degree of parallelism per job this user can use to submit jobs.
+            minPriorityPerJob:
+              type: integer
+              description: The minimum priority per job this user can use to submit jobs.
+    HiveMetastore:
+      type: object
+      description: HiveMetastore. Variables are only populated by the server, and will be ignored when sending a
+        request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        properties:
+          type: object
+          properties:
+            serverUri:
+              type: string
+              description: The serverUri for the Hive MetaStore.
+            databaseName:
+              type: string
+              description: The databaseName for the Hive MetaStore.
+            runtimeVersion:
+              type: string
+              description: The runtimeVersion for the Hive MetaStore.
+            userName:
+              type: string
+              description: The userName for the Hive MetaStore.
+            password:
+              type: string
+              description: The password for the Hive MetaStore.
+            nestedResourceProvisioningState:
+              type: string
+              description: 'The current state of the NestedResource. Known values are: "Succeeded", "Canceled",
+                and "Failed".'
+    VirtualNetworkRule:
+      type: object
+      description: Data Lake Analytics VirtualNetwork Rule information. Variables are only populated by the server,
+        and will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        properties:
+          type: object
+          properties:
+            subnetId:
+              type: string
+              description: The resource identifier for the subnet.
+            virtualNetworkRuleState:
+              type: string
+              description: 'The current state of the VirtualNetwork Rule. Known values are: "Active", "NetworkSourceDeleted",
+                and "Failed".'
+    FirewallRule:
+      type: object
+      description: Data Lake Analytics firewall rule information. Variables are only populated by the server, and
+        will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        properties:
+          type: object
+          properties:
+            startIpAddress:
+              type: string
+              description: The start IP address for the firewall rule. This can be either ipv4 or ipv6. Start and
+                End should be in the same protocol.
+            endIpAddress:
+              type: string
+              description: The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start and
+                End should be in the same protocol.
+    DataLakeAnalyticsAccountFlattened:
+      type: object
+      description: Flattened view of DataLakeAnalyticsAccount ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        location:
+          type: string
+          description: The resource location.
+        tags:
+          type: object
+          properties: {}
+          description: The resource tags.
+        accountId:
+          type: string
+          description: The unique identifier associated with this Data Lake Analytics account.
+        provisioningState:
+          type: string
+          description: 'The provisioning status of the Data Lake Analytics account. Known values are: "Failed",
+            "Creating", "Running", "Succeeded", "Patching", "Suspending", "Resuming", "Deleting", "Deleted", "Undeleting",
+            and "Canceled".'
+        state:
+          type: string
+          description: 'The state of the Data Lake Analytics account. Known values are: "Active" and "Suspended".'
+        creationTime:
+          type: string
+          format: date-time
+          description: The account creation time.
+        lastModifiedTime:
+          type: string
+          format: date-time
+          description: The account last modified time.
+        endpoint:
+          type: string
+          description: The full CName endpoint for this account.
+        defaultDataLakeStoreAccountType:
+          type: string
+          description: The type of the default Data Lake Store account associated with this account.
+        defaultDataLakeStoreAccount:
+          type: string
+          description: The default Data Lake Store account associated with this account.
+        dataLakeStoreAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLakeStoreAccountInformation'
+          description: The list of Data Lake Store accounts associated with this account.
+        publicDataLakeStoreAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLakeStoreAccountInformation'
+          description: The list of Data Lake Store accounts associated with this account.
+        storageAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageAccountInformation'
+          description: The list of Azure Blob Storage accounts associated with this account.
+        computePolicies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComputePolicy'
+          description: The list of compute policies associated with this account.
+        hiveMetastores:
+          type: array
+          items:
+            $ref: '#/components/schemas/HiveMetastore'
+          description: The list of hiveMetastores associated with this account.
+        virtualNetworkRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualNetworkRule'
+          description: The list of virtualNetwork rules associated with this account.
+        firewallRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRule'
+          description: The list of firewall rules associated with this account.
+        firewallState:
+          type: string
+          description: 'The current state of the IP address firewall for this account. Known values are: "Enabled"
+            and "Disabled".'
+        firewallAllowAzureIps:
+          type: string
+          description: 'The current state of allowing or disallowing IPs originating within Azure through the firewall.
+            If the firewall is disabled, this is not enforced. Known values are: "Enabled" and "Disabled".'
+        newTier:
+          type: string
+          description: 'The commitment tier for the next month. Known values are: "Consumption", "Commitment_100AUHours",
+            "Commitment_500AUHours", "Commitment_1000AUHours", "Commitment_5000AUHours", "Commitment_10000AUHours",
+            "Commitment_50000AUHours", "Commitment_100000AUHours", and "Commitment_500000AUHours".'
+        currentTier:
+          type: string
+          description: 'The commitment tier in use for the current month. Known values are: "Consumption", "Commitment_100AUHours",
+            "Commitment_500AUHours", "Commitment_1000AUHours", "Commitment_5000AUHours", "Commitment_10000AUHours",
+            "Commitment_50000AUHours", "Commitment_100000AUHours", and "Commitment_500000AUHours".'
+        maxJobCount:
+          type: integer
+          description: The maximum supported jobs running under the account at the same time.
+        maxActiveJobCountPerUser:
+          type: integer
+          description: The maximum supported active jobs under the account at the same time.
+        maxQueuedJobCountPerUser:
+          type: integer
+          description: The maximum supported jobs queued under the account at the same time.
+        maxJobRunningTimeInMin:
+          type: integer
+          description: The maximum supported active jobs under the account at the same time.
+        systemMaxJobCount:
+          type: integer
+          description: The system defined maximum supported jobs running under the account at the same time, which
+            restricts the maximum number of running jobs the user can set for the account.
+        maxDegreeOfParallelism:
+          type: integer
+          description: The maximum supported degree of parallelism for this account.
+        systemMaxDegreeOfParallelism:
+          type: integer
+          description: The system defined maximum supported degree of parallelism for this account, which restricts
+            the maximum value of parallelism the user can set for the account.
+        maxDegreeOfParallelismPerJob:
+          type: integer
+          description: The maximum supported degree of parallelism per job for this account.
+        minPriorityPerJob:
+          type: integer
+          description: The minimum supported priority per job for this account.
+        queryStoreRetention:
+          type: integer
+          description: The number of days that job metadata is retained.
+        debugDataAccessLevel:
+          type: string
+          description: 'The current state of the DebugDataAccessLevel for this account. Known values are: "All",
+            "Customer", and "None".'
+    DataLakeAnalyticsAccountBasicFlattened:
+      type: object
+      description: Flattened view of DataLakeAnalyticsAccountBasic ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        location:
+          type: string
+          description: The resource location.
+        tags:
+          type: object
+          properties: {}
+          description: The resource tags.
+        accountId:
+          type: string
+          description: The unique identifier associated with this Data Lake Analytics account.
+        provisioningState:
+          type: string
+          description: 'The provisioning status of the Data Lake Analytics account. Known values are: "Failed",
+            "Creating", "Running", "Succeeded", "Patching", "Suspending", "Resuming", "Deleting", "Deleted", "Undeleting",
+            and "Canceled".'
+        state:
+          type: string
+          description: 'The state of the Data Lake Analytics account. Known values are: "Active" and "Suspended".'
+        creationTime:
+          type: string
+          format: date-time
+          description: The account creation time.
+        lastModifiedTime:
+          type: string
+          format: date-time
+          description: The account last modified time.
+        endpoint:
+          type: string
+          description: The full CName endpoint for this account.
+    PagedDataLakeAnalyticsAccountBasicFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLakeAnalyticsAccountBasicFlattened'
+        nextLink:
+          type: string
+    AddDataLakeStoreWithAccountParameters:
+      type: object
+      description: The parameters used to add a new Data Lake Store account while creating a new Data Lake Analytics
+        account. All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the Data Lake Store account to add. Required.
+        properties:
+          type: object
+          properties:
+            suffix:
+              type: string
+              description: The optional suffix for the Data Lake Store account.
+      required:
+      - name
+    AddStorageAccountWithAccountParameters:
+      type: object
+      description: The parameters used to add a new Azure Storage account while creating a new Data Lake Analytics
+        account. All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the Azure Storage account to add. Required.
+        properties:
+          type: object
+          properties:
+            accessKey:
+              type: string
+              description: The access key associated with this Azure Storage account that will be used to connect
+                to it. Required.
+            suffix:
+              type: string
+              description: The optional suffix for the storage account.
+      required:
+      - name
+      - properties
+    CreateComputePolicyWithAccountParameters:
+      type: object
+      description: The parameters used to create a new compute policy while creating a new Data Lake Analytics account.
+        All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the compute policy to create. Required.
+        properties:
+          type: object
+          properties:
+            objectId:
+              type: string
+              description: The AAD object identifier for the entity to create a policy for. Required.
+            objectType:
+              type: string
+              description: 'The type of AAD object the object identifier refers to. Required. Known values are:
+                "User", "Group", and "ServicePrincipal".'
+            maxDegreeOfParallelismPerJob:
+              type: integer
+              description: The maximum degree of parallelism per job this user can use to submit jobs. This property,
+                the min priority per job property, or both must be passed.
+            minPriorityPerJob:
+              type: integer
+              description: The minimum priority per job this user can use to submit jobs. This property, the max
+                degree of parallelism per job property, or both must be passed.
+      required:
+      - name
+      - properties
+    CreateFirewallRuleWithAccountParameters:
+      type: object
+      description: The parameters used to create a new firewall rule while creating a new Data Lake Analytics account.
+        All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the firewall rule to create. Required.
+        properties:
+          type: object
+          properties:
+            startIpAddress:
+              type: string
+              description: The start IP address for the firewall rule. This can be either ipv4 or ipv6. Start and
+                End should be in the same protocol. Required.
+            endIpAddress:
+              type: string
+              description: The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start and
+                End should be in the same protocol. Required.
+      required:
+      - name
+      - properties
+    DataLakeAnalyticsAccount:
+      type: object
+      description: A Data Lake Analytics account object, containing all information associated with the named Data
+        Lake Analytics account. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        location:
+          type: string
+          description: The resource location.
+        tags:
+          type: object
+          properties: {}
+          description: The resource tags.
+        properties:
+          type: object
+          properties:
+            accountId:
+              type: string
+              description: The unique identifier associated with this Data Lake Analytics account.
+            provisioningState:
+              type: string
+              description: 'The provisioning status of the Data Lake Analytics account. Known values are: "Failed",
+                "Creating", "Running", "Succeeded", "Patching", "Suspending", "Resuming", "Deleting", "Deleted",
+                "Undeleting", and "Canceled".'
+            state:
+              type: string
+              description: 'The state of the Data Lake Analytics account. Known values are: "Active" and "Suspended".'
+            creationTime:
+              type: string
+              format: date-time
+              description: The account creation time.
+            lastModifiedTime:
+              type: string
+              format: date-time
+              description: The account last modified time.
+            endpoint:
+              type: string
+              description: The full CName endpoint for this account.
+            defaultDataLakeStoreAccountType:
+              type: string
+              description: The type of the default Data Lake Store account associated with this account.
+            defaultDataLakeStoreAccount:
+              type: string
+              description: The default Data Lake Store account associated with this account.
+            dataLakeStoreAccounts:
+              type: array
+              items:
+                $ref: '#/components/schemas/DataLakeStoreAccountInformation'
+              description: The list of Data Lake Store accounts associated with this account.
+            publicDataLakeStoreAccounts:
+              type: array
+              items:
+                $ref: '#/components/schemas/DataLakeStoreAccountInformation'
+              description: The list of Data Lake Store accounts associated with this account.
+            storageAccounts:
+              type: array
+              items:
+                $ref: '#/components/schemas/StorageAccountInformation'
+              description: The list of Azure Blob Storage accounts associated with this account.
+            computePolicies:
+              type: array
+              items:
+                $ref: '#/components/schemas/ComputePolicy'
+              description: The list of compute policies associated with this account.
+            hiveMetastores:
+              type: array
+              items:
+                $ref: '#/components/schemas/HiveMetastore'
+              description: The list of hiveMetastores associated with this account.
+            virtualNetworkRules:
+              type: array
+              items:
+                $ref: '#/components/schemas/VirtualNetworkRule'
+              description: The list of virtualNetwork rules associated with this account.
+            firewallRules:
+              type: array
+              items:
+                $ref: '#/components/schemas/FirewallRule'
+              description: The list of firewall rules associated with this account.
+            firewallState:
+              type: string
+              description: 'The current state of the IP address firewall for this account. Known values are: "Enabled"
+                and "Disabled".'
+            firewallAllowAzureIps:
+              type: string
+              description: 'The current state of allowing or disallowing IPs originating within Azure through the
+                firewall. If the firewall is disabled, this is not enforced. Known values are: "Enabled" and "Disabled".'
+            newTier:
+              type: string
+              description: 'The commitment tier for the next month. Known values are: "Consumption", "Commitment_100AUHours",
+                "Commitment_500AUHours", "Commitment_1000AUHours", "Commitment_5000AUHours", "Commitment_10000AUHours",
+                "Commitment_50000AUHours", "Commitment_100000AUHours", and "Commitment_500000AUHours".'
+            currentTier:
+              type: string
+              description: 'The commitment tier in use for the current month. Known values are: "Consumption", "Commitment_100AUHours",
+                "Commitment_500AUHours", "Commitment_1000AUHours", "Commitment_5000AUHours", "Commitment_10000AUHours",
+                "Commitment_50000AUHours", "Commitment_100000AUHours", and "Commitment_500000AUHours".'
+            maxJobCount:
+              type: integer
+              description: The maximum supported jobs running under the account at the same time.
+            maxActiveJobCountPerUser:
+              type: integer
+              description: The maximum supported active jobs under the account at the same time.
+            maxQueuedJobCountPerUser:
+              type: integer
+              description: The maximum supported jobs queued under the account at the same time.
+            maxJobRunningTimeInMin:
+              type: integer
+              description: The maximum supported active jobs under the account at the same time.
+            systemMaxJobCount:
+              type: integer
+              description: The system defined maximum supported jobs running under the account at the same time,
+                which restricts the maximum number of running jobs the user can set for the account.
+            maxDegreeOfParallelism:
+              type: integer
+              description: The maximum supported degree of parallelism for this account.
+            systemMaxDegreeOfParallelism:
+              type: integer
+              description: The system defined maximum supported degree of parallelism for this account, which restricts
+                the maximum value of parallelism the user can set for the account.
+            maxDegreeOfParallelismPerJob:
+              type: integer
+              description: The maximum supported degree of parallelism per job for this account.
+            minPriorityPerJob:
+              type: integer
+              description: The minimum supported priority per job for this account.
+            queryStoreRetention:
+              type: integer
+              description: The number of days that job metadata is retained.
+            debugDataAccessLevel:
+              type: string
+              description: 'The current state of the DebugDataAccessLevel for this account. Known values are: "All",
+                "Customer", and "None".'
+    UpdateDataLakeStoreWithAccountParameters:
+      type: object
+      description: The parameters used to update a Data Lake Store account while updating a Data Lake Analytics
+        account. All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the Data Lake Store account to update. Required.
+        properties:
+          type: object
+          properties:
+            suffix:
+              type: string
+              description: The optional suffix for the Data Lake Store account.
+      required:
+      - name
+    UpdateStorageAccountWithAccountParameters:
+      type: object
+      description: The parameters used to update an Azure Storage account while updating a Data Lake Analytics account.
+        All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the Azure Storage account to update. Required.
+        properties:
+          type: object
+          properties:
+            accessKey:
+              type: string
+              description: The updated access key associated with this Azure Storage account that will be used to
+                connect to it.
+            suffix:
+              type: string
+              description: The optional suffix for the storage account.
+      required:
+      - name
+    UpdateComputePolicyWithAccountParameters:
+      type: object
+      description: The parameters used to update a compute policy while updating a Data Lake Analytics account.
+        All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the compute policy to update. Required.
+        properties:
+          type: object
+          properties:
+            objectId:
+              type: string
+              description: The AAD object identifier for the entity to create a policy for.
+            objectType:
+              type: string
+              description: 'The type of AAD object the object identifier refers to. Known values are: "User", "Group",
+                and "ServicePrincipal".'
+            maxDegreeOfParallelismPerJob:
+              type: integer
+              description: The maximum degree of parallelism per job this user can use to submit jobs. This property,
+                the min priority per job property, or both must be passed.
+            minPriorityPerJob:
+              type: integer
+              description: The minimum priority per job this user can use to submit jobs. This property, the max
+                degree of parallelism per job property, or both must be passed.
+      required:
+      - name
+    UpdateFirewallRuleWithAccountParameters:
+      type: object
+      description: The parameters used to update a firewall rule while updating a Data Lake Analytics account. All
+        required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The unique name of the firewall rule to update. Required.
+        properties:
+          type: object
+          properties:
+            startIpAddress:
+              type: string
+              description: The start IP address for the firewall rule. This can be either ipv4 or ipv6. Start and
+                End should be in the same protocol.
+            endIpAddress:
+              type: string
+              description: The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start and
+                End should be in the same protocol.
+      required:
+      - name
+    NameAvailabilityInformation:
+      type: object
+      description: Data Lake Analytics account name availability result information. Variables are only populated
+        by the server, and will be ignored when sending a request.
+      properties:
+        nameAvailable:
+          type: boolean
+          description: The Boolean value of true or false to indicate whether the Data Lake Analytics account name
+            is available or not.
+        reason:
+          type: string
+          description: The reason why the Data Lake Analytics account name is not available, if nameAvailable is
+            false.
+        message:
+          type: string
+          description: The message describing why the Data Lake Analytics account name is not available, if nameAvailable
+            is false.
+    ComputePolicyFlattened:
+      type: object
+      description: Flattened view of ComputePolicy ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        objectId:
+          type: string
+          description: The AAD object identifier for the entity to create a policy for.
+        objectType:
+          type: string
+          description: 'The type of AAD object the object identifier refers to. Known values are: "User", "Group",
+            and "ServicePrincipal".'
+        maxDegreeOfParallelismPerJob:
+          type: integer
+          description: The maximum degree of parallelism per job this user can use to submit jobs.
+        minPriorityPerJob:
+          type: integer
+          description: The minimum priority per job this user can use to submit jobs.
+    PagedComputePolicyFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComputePolicyFlattened'
+        nextLink:
+          type: string
+    DataLakeStoreAccountInformationFlattened:
+      type: object
+      description: Flattened view of DataLakeStoreAccountInformation ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        suffix:
+          type: string
+          description: The optional suffix for the Data Lake Store account.
+    PagedDataLakeStoreAccountInformationFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLakeStoreAccountInformationFlattened'
+        nextLink:
+          type: string
+    FirewallRuleFlattened:
+      type: object
+      description: Flattened view of FirewallRule ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        startIpAddress:
+          type: string
+          description: The start IP address for the firewall rule. This can be either ipv4 or ipv6. Start and End
+            should be in the same protocol.
+        endIpAddress:
+          type: string
+          description: The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start and End
+            should be in the same protocol.
+    PagedFirewallRuleFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRuleFlattened'
+        nextLink:
+          type: string
+    CapabilityInformation:
+      type: object
+      description: Subscription-level properties and limits for Data Lake Analytics. Variables are only populated
+        by the server, and will be ignored when sending a request.
+      properties:
+        subscriptionId:
+          type: string
+          description: The subscription credentials that uniquely identifies the subscription.
+        state:
+          type: string
+          description: 'The subscription state. Known values are: "Registered", "Suspended", "Deleted", "Unregistered",
+            and "Warned".'
+        maxAccountCount:
+          type: integer
+          description: The maximum supported number of accounts under this subscription.
+        accountCount:
+          type: integer
+          description: The current number of accounts under this subscription.
+        migrationState:
+          type: boolean
+          description: The Boolean value of true or false to indicate the maintenance state.
+    Operation:
+      type: object
+      description: An available operation for Data Lake Analytics. Variables are only populated by the server, and
+        will be ignored when sending a request.
+      properties:
+        name:
+          type: string
+          description: The name of the operation.
+        display:
+          $ref: '#/components/schemas/OperationDisplay'
+          description: The display information for the operation.
+        properties:
+          $ref: '#/components/schemas/OperationMetaPropertyInfo'
+          description: The OperationMetaPropertyInfo for the operation.
+        origin:
+          type: string
+          description: 'The intended executor of the operation. Known values are: "user", "system", and "user,system".'
+    OperationDisplay:
+      type: object
+      description: The display information for a particular operation. Variables are only populated by the server,
+        and will be ignored when sending a request.
+      properties:
+        provider:
+          type: string
+          description: The resource provider of the operation.
+        resource:
+          type: string
+          description: The resource type of the operation.
+        operation:
+          type: string
+          description: A friendly name of the operation.
+        description:
+          type: string
+          description: A friendly description of the operation.
+    OperationMetaPropertyInfo:
+      type: object
+      description: OperationMetaPropertyInfo.
+      properties:
+        serviceSpecification:
+          $ref: '#/components/schemas/OperationMetaServiceSpecification'
+          description: The operations OperationMetaServiceSpecification.
+    OperationMetaServiceSpecification:
+      type: object
+      description: OperationMetaServiceSpecification.
+      properties:
+        metricSpecifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationMetaMetricSpecification'
+          description: The metricSpecifications for OperationMetaServiceSpecification.
+        logSpecifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationMetaLogSpecification'
+          description: The logSpecifications for OperationMetaServiceSpecification.
+    OperationMetaMetricSpecification:
+      type: object
+      description: OperationMetaMetricSpecification.
+      properties:
+        name:
+          type: string
+          description: The name for OperationMetaMetricSpecification.
+        displayDescription:
+          type: string
+          description: The displayName for OperationMetaMetricSpecification.
+        displayName:
+          type: string
+          description: The displayName for OperationMetaMetricSpecification.
+        unit:
+          type: string
+          description: The unit for OperationMetaMetricSpecification.
+        aggregationType:
+          type: string
+          description: The aggregationType for OperationMetaMetricSpecification.
+        availabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationMetaMetricAvailabilitiesSpecification'
+          description: The availabilities for OperationMetaMetricSpecification.
+    OperationMetaMetricAvailabilitiesSpecification:
+      type: object
+      description: OperationMetaMetricAvailabilitiesSpecification.
+      properties:
+        timeGrain:
+          type: string
+          description: The timegrain for OperationMetaMetricAvailabilitiesSpecification.
+        blobDuration:
+          type: string
+          description: The blobDuration for OperationMetaMetricAvailabilitiesSpecification.
+    OperationMetaLogSpecification:
+      type: object
+      description: OperationMetaLogSpecification.
+      properties:
+        name:
+          type: string
+          description: The name for OperationMetaLogSpecification.
+        displayName:
+          type: string
+          description: The displayName for OperationMetaLogSpecification.
+        blobDuration:
+          type: string
+          description: The blobDuration for OperationMetaLogSpecification.
+    OperationFlattened:
+      type: object
+      description: Flattened view of Operation ('properties' hoisted to the top level).
+      properties:
+        name:
+          type: string
+          description: The name of the operation.
+        display:
+          $ref: '#/components/schemas/OperationDisplay'
+          description: The display information for the operation.
+        origin:
+          type: string
+          description: 'The intended executor of the operation. Known values are: "user", "system", and "user,system".'
+        serviceSpecification:
+          $ref: '#/components/schemas/OperationMetaServiceSpecification'
+          description: The operations OperationMetaServiceSpecification.
+    OperationListResultFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationFlattened'
+        nextLink:
+          type: string
+    StorageAccountInformationFlattened:
+      type: object
+      description: Flattened view of StorageAccountInformation ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        suffix:
+          type: string
+          description: The optional suffix for the storage account.
+    PagedStorageAccountInformationFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageAccountInformationFlattened'
+        nextLink:
+          type: string
+    StorageContainerFlattened:
+      type: object
+      description: Flattened view of StorageContainer ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource identifier.
+        name:
+          type: string
+          description: The resource name.
+        type:
+          type: string
+          description: The resource type.
+        lastModifiedTime:
+          type: string
+          format: date-time
+          description: The last modified time of the blob container.
+    PagedStorageContainerFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageContainerFlattened'
+        nextLink:
+          type: string
+    SasTokenInformation:
+      type: object
+      description: SAS token information. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        accessToken:
+          type: string
+          description: The access token for the associated Azure Storage Container.
+    PagedSasTokenInformation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/SasTokenInformation'
+        nextLink:
+          type: string
+paths:
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}?api-version=2019-11-01-preview
+  : get:
+      operationId: Accounts_get
+      description: Gets details of the specified Data Lake Analytics account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLakeAnalyticsAccountFlattened'
+      x-stackql-resource: accounts
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: Accounts_begin_create
+      description: Creates the specified Data Lake Analytics account. This supplies the user with computation services
+        for Data Lake Analytics workloads.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: The resource location. Required.
+                tags:
+                  type: object
+                  properties: {}
+                  description: The resource tags.
+                properties:
+                  type: object
+                  properties:
+                    defaultDataLakeStoreAccount:
+                      type: string
+                      description: The default Data Lake Store account associated with this account. Required.
+                    dataLakeStoreAccounts:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/AddDataLakeStoreWithAccountParameters'
+                      description: The list of Data Lake Store accounts associated with this account. Required.
+                    storageAccounts:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/AddStorageAccountWithAccountParameters'
+                      description: The list of Azure Blob Storage accounts associated with this account.
+                    computePolicies:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CreateComputePolicyWithAccountParameters'
+                      description: The list of compute policies associated with this account.
+                    firewallRules:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CreateFirewallRuleWithAccountParameters'
+                      description: The list of firewall rules associated with this account.
+                    firewallState:
+                      type: string
+                      description: 'The current state of the IP address firewall for this account. Known values
+                        are: "Enabled" and "Disabled".'
+                    firewallAllowAzureIps:
+                      type: string
+                      description: 'The current state of allowing or disallowing IPs originating within Azure through
+                        the firewall. If the firewall is disabled, this is not enforced. Known values are: "Enabled"
+                        and "Disabled".'
+                    newTier:
+                      type: string
+                      description: 'The commitment tier for the next month. Known values are: "Consumption", "Commitment_100AUHours",
+                        "Commitment_500AUHours", "Commitment_1000AUHours", "Commitment_5000AUHours", "Commitment_10000AUHours",
+                        "Commitment_50000AUHours", "Commitment_100000AUHours", and "Commitment_500000AUHours".'
+                    maxJobCount:
+                      type: integer
+                      description: The maximum supported jobs running under the account at the same time.
+                    maxDegreeOfParallelism:
+                      type: integer
+                      description: The maximum supported degree of parallelism for this account.
+                    maxDegreeOfParallelismPerJob:
+                      type: integer
+                      description: The maximum supported degree of parallelism per job for this account.
+                    minPriorityPerJob:
+                      type: integer
+                      description: The minimum supported priority per job for this account.
+                    queryStoreRetention:
+                      type: integer
+                      description: The number of days that job metadata is retained.
+              required:
+              - location
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLakeAnalyticsAccount'
+      x-stackql-resource: accounts
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+    patch:
+      operationId: Accounts_begin_update
+      description: Updates the Data Lake Analytics account object specified by the accountName with the contents
+        of the account object.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: The resource tags.
+                properties:
+                  type: object
+                  properties:
+                    dataLakeStoreAccounts:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/UpdateDataLakeStoreWithAccountParameters'
+                      description: The list of Data Lake Store accounts associated with this account.
+                    storageAccounts:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/UpdateStorageAccountWithAccountParameters'
+                      description: The list of Azure Blob storage accounts associated with this account.
+                    computePolicies:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/UpdateComputePolicyWithAccountParameters'
+                      description: The list of compute policies associated with this account.
+                    firewallRules:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/UpdateFirewallRuleWithAccountParameters'
+                      description: The list of firewall rules associated with this account.
+                    firewallState:
+                      type: string
+                      description: 'The current state of the IP address firewall for this account. Disabling the
+                        firewall does not remove existing rules, they will just be ignored until the firewall is
+                        re-enabled. Known values are: "Enabled" and "Disabled".'
+                    firewallAllowAzureIps:
+                      type: string
+                      description: 'The current state of allowing or disallowing IPs originating within Azure through
+                        the firewall. If the firewall is disabled, this is not enforced. Known values are: "Enabled"
+                        and "Disabled".'
+                    newTier:
+                      type: string
+                      description: 'The commitment tier to use for next month. Known values are: "Consumption",
+                        "Commitment_100AUHours", "Commitment_500AUHours", "Commitment_1000AUHours", "Commitment_5000AUHours",
+                        "Commitment_10000AUHours", "Commitment_50000AUHours", "Commitment_100000AUHours", and "Commitment_500000AUHours".'
+                    maxJobCount:
+                      type: integer
+                      description: The maximum supported jobs running under the account at the same time.
+                    maxDegreeOfParallelism:
+                      type: integer
+                      description: The maximum supported degree of parallelism for this account.
+                    maxDegreeOfParallelismPerJob:
+                      type: integer
+                      description: The maximum supported degree of parallelism per job for this account.
+                    minPriorityPerJob:
+                      type: integer
+                      description: The minimum supported priority per job for this account.
+                    queryStoreRetention:
+                      type: integer
+                      description: The number of days that job metadata is retained.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLakeAnalyticsAccount'
+      x-stackql-resource: accounts
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Accounts_begin_delete
+      description: Begins the delete process for the Data Lake Analytics account object specified by the account
+        name.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: accounts
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /subscriptions/{subscription_id}/providers/Microsoft.DataLakeAnalytics/accounts?api-version=2019-11-01-preview:
+    get:
+      operationId: Accounts_list
+      description: Gets the first page of Data Lake Analytics accounts, if any, within the current subscription.
+        This includes a link to the next page, if any.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData filter. Optional. Default value is None.
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to return. Optional. Default value is None.
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to skip over before returning elements. Optional. Default value is None.
+      - name: $select
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description.
+          Optional. Default value is None.
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default)
+          or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc.
+          Optional. Default value is None.
+      - name: $count
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: The Boolean value of true or false to request a count of the matching resources included with
+          the resources in the response, e.g. Categories?$count=true. Optional. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedDataLakeAnalyticsAccountBasicFlattened'
+      x-stackql-resource: accounts
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts?api-version=2019-11-01-preview
+  : get:
+      operationId: Accounts_list_by_resource_group
+      description: Gets the first page of Data Lake Analytics accounts, if any, within a specific resource group.
+        This includes a link to the next page, if any.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData filter. Optional. Default value is None.
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to return. Optional. Default value is None.
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to skip over before returning elements. Optional. Default value is None.
+      - name: $select
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description.
+          Optional. Default value is None.
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default)
+          or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc.
+          Optional. Default value is None.
+      - name: $count
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: The Boolean value of true or false to request a count of the matching resources included with
+          the resources in the response, e.g. Categories?$count=true. Optional. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedDataLakeAnalyticsAccountBasicFlattened'
+      x-stackql-resource: accounts
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/providers/Microsoft.DataLakeAnalytics/locations/{location}/checkNameAvailability?api-version=2019-11-01-preview
+  : post:
+      operationId: Accounts_check_name_availability
+      description: Checks whether the specified account name is available or taken.
+      parameters:
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource location without whitespace. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The Data Lake Analytics name to check availability for. Required.
+                type:
+                  type: string
+                  description: 'The resource type. Note: This should not be set by the user, as the constant value
+                    is Microsoft.DataLakeAnalytics/accounts. Required. "Microsoft.DataLakeAnalytics/accounts"'
+              required:
+              - name
+              - type
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NameAvailabilityInformation'
+      x-stackql-resource: accounts
+      x-stackql-method: check_name_availability
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/computePolicies/{compute_policy_name}?api-version=2019-11-01-preview
+  : get:
+      operationId: ComputePolicies_get
+      description: Gets the specified Data Lake Analytics compute policy.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: compute_policy_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the compute policy to retrieve. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputePolicyFlattened'
+      x-stackql-resource: compute_policies
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: ComputePolicies_create_or_update
+      description: Creates or updates the specified compute policy. During update, the compute policy with the specified
+        name will be replaced with this new compute policy. An account supports, at most, 50 policies.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: compute_policy_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the compute policy to create or update. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    objectId:
+                      type: string
+                      description: The AAD object identifier for the entity to create a policy for. Required.
+                    objectType:
+                      type: string
+                      description: 'The type of AAD object the object identifier refers to. Required. Known values
+                        are: "User", "Group", and "ServicePrincipal".'
+                    maxDegreeOfParallelismPerJob:
+                      type: integer
+                      description: The maximum degree of parallelism per job this user can use to submit jobs. This
+                        property, the min priority per job property, or both must be passed.
+                    minPriorityPerJob:
+                      type: integer
+                      description: The minimum priority per job this user can use to submit jobs. This property,
+                        the max degree of parallelism per job property, or both must be passed.
+              required:
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputePolicy'
+      x-stackql-resource: compute_policies
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: ComputePolicies_update
+      description: Updates the specified compute policy.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: compute_policy_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the compute policy to update. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    objectId:
+                      type: string
+                      description: The AAD object identifier for the entity to create a policy for.
+                    objectType:
+                      type: string
+                      description: 'The type of AAD object the object identifier refers to. Known values are: "User",
+                        "Group", and "ServicePrincipal".'
+                    maxDegreeOfParallelismPerJob:
+                      type: integer
+                      description: The maximum degree of parallelism per job this user can use to submit jobs. This
+                        property, the min priority per job property, or both must be passed.
+                    minPriorityPerJob:
+                      type: integer
+                      description: The minimum priority per job this user can use to submit jobs. This property,
+                        the max degree of parallelism per job property, or both must be passed.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComputePolicy'
+      x-stackql-resource: compute_policies
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: ComputePolicies_delete
+      description: Deletes the specified compute policy from the specified Data Lake Analytics account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: compute_policy_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the compute policy to delete. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: compute_policies
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/computePolicies?api-version=2019-11-01-preview
+  : get:
+      operationId: ComputePolicies_list_by_account
+      description: Lists the Data Lake Analytics compute policies within the specified Data Lake Analytics account.
+        An account supports, at most, 50 policies.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedComputePolicyFlattened'
+      x-stackql-resource: compute_policies
+      x-stackql-method: list_by_account
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/dataLakeStoreAccounts/{data_lake_store_account_name}?api-version=2019-11-01-preview
+  : get:
+      operationId: DataLakeStoreAccounts_get
+      description: Gets the specified Data Lake Store account details in the specified Data Lake Analytics account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: data_lake_store_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Store account to retrieve. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLakeStoreAccountInformationFlattened'
+      x-stackql-resource: data_lake_store_accounts
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: DataLakeStoreAccounts_add
+      description: Updates the specified Data Lake Analytics account to include the additional Data Lake Store account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: data_lake_store_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Store account to add. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    suffix:
+                      type: string
+                      description: The optional suffix for the Data Lake Store account.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: data_lake_store_accounts
+      x-stackql-method: add
+      x-stackql-verb: EXEC
+    delete:
+      operationId: DataLakeStoreAccounts_delete
+      description: Updates the Data Lake Analytics account specified to remove the specified Data Lake Store account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: data_lake_store_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Store account to remove. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: data_lake_store_accounts
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/dataLakeStoreAccounts?api-version=2019-11-01-preview
+  : get:
+      operationId: DataLakeStoreAccounts_list_by_account
+      description: Gets the first page of Data Lake Store accounts linked to the specified Data Lake Analytics account.
+        The response includes a link to the next page, if any.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData filter. Optional. Default value is None.
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to return. Optional. Default value is None.
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to skip over before returning elements. Optional. Default value is None.
+      - name: $select
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description.
+          Optional. Default value is None.
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default)
+          or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc.
+          Optional. Default value is None.
+      - name: $count
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: The Boolean value of true or false to request a count of the matching resources included with
+          the resources in the response, e.g. Categories?$count=true. Optional. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedDataLakeStoreAccountInformationFlattened'
+      x-stackql-resource: data_lake_store_accounts
+      x-stackql-method: list_by_account
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/firewallRules/{firewall_rule_name}?api-version=2019-11-01-preview
+  : get:
+      operationId: FirewallRules_get
+      description: Gets the specified Data Lake Analytics firewall rule.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: firewall_rule_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the firewall rule to retrieve. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirewallRuleFlattened'
+      x-stackql-resource: firewall_rules
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: FirewallRules_create_or_update
+      description: Creates or updates the specified firewall rule. During update, the firewall rule with the specified
+        name will be replaced with this new firewall rule.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: firewall_rule_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the firewall rule to create or update. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    startIpAddress:
+                      type: string
+                      description: The start IP address for the firewall rule. This can be either ipv4 or ipv6.
+                        Start and End should be in the same protocol. Required.
+                    endIpAddress:
+                      type: string
+                      description: The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start
+                        and End should be in the same protocol. Required.
+              required:
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirewallRule'
+      x-stackql-resource: firewall_rules
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: FirewallRules_update
+      description: Updates the specified firewall rule.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: firewall_rule_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the firewall rule to update. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    startIpAddress:
+                      type: string
+                      description: The start IP address for the firewall rule. This can be either ipv4 or ipv6.
+                        Start and End should be in the same protocol.
+                    endIpAddress:
+                      type: string
+                      description: The end IP address for the firewall rule. This can be either ipv4 or ipv6. Start
+                        and End should be in the same protocol.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirewallRule'
+      x-stackql-resource: firewall_rules
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: FirewallRules_delete
+      description: Deletes the specified firewall rule from the specified Data Lake Analytics account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: firewall_rule_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the firewall rule to delete. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: firewall_rules
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/firewallRules?api-version=2019-11-01-preview
+  : get:
+      operationId: FirewallRules_list_by_account
+      description: Lists the Data Lake Analytics firewall rules within the specified Data Lake Analytics account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedFirewallRuleFlattened'
+      x-stackql-resource: firewall_rules
+      x-stackql-method: list_by_account
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/providers/Microsoft.DataLakeAnalytics/locations/{location}/capability?api-version=2019-11-01-preview
+  : get:
+      operationId: Locations_get_capability
+      description: Gets subscription-level properties and limits for Data Lake Analytics specified by resource location.
+      parameters:
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource location without whitespace. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapabilityInformation'
+      x-stackql-resource: locations
+      x-stackql-method: get_capability
+      x-stackql-verb: SELECT
+  /providers/Microsoft.DataLakeAnalytics/operations?api-version=2019-11-01-preview:
+    get:
+      operationId: datalake_analytics_list
+      description: Lists all of the available Data Lake Analytics REST API operations.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationListResultFlattened'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/storageAccounts/{storage_account_name}?api-version=2019-11-01-preview
+  : get:
+      operationId: StorageAccounts_get
+      description: Gets the specified Azure Storage account linked to the given Data Lake Analytics account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure Storage account for which to retrieve the details. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageAccountInformationFlattened'
+      x-stackql-resource: storage_accounts
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: StorageAccounts_add
+      description: Updates the specified Data Lake Analytics account to add an Azure Storage account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure Storage account to add. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    accessKey:
+                      type: string
+                      description: The access key associated with this Azure Storage account that will be used to
+                        connect to it. Required.
+                    suffix:
+                      type: string
+                      description: The optional suffix for the storage account.
+              required:
+              - properties
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: storage_accounts
+      x-stackql-method: add
+      x-stackql-verb: EXEC
+    patch:
+      operationId: StorageAccounts_update
+      description: Updates the Data Lake Analytics account to replace Azure Storage blob account details, such as
+        the access key and/or suffix.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The Azure Storage account to modify. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    accessKey:
+                      type: string
+                      description: The updated access key associated with this Azure Storage account that will be
+                        used to connect to it.
+                    suffix:
+                      type: string
+                      description: The optional suffix for the storage account.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: storage_accounts
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: StorageAccounts_delete
+      description: Updates the specified Data Lake Analytics account to remove an Azure Storage account.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure Storage account to remove. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: storage_accounts
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/storageAccounts?api-version=2019-11-01-preview
+  : get:
+      operationId: StorageAccounts_list_by_account
+      description: Gets the first page of Azure Storage accounts, if any, linked to the specified Data Lake Analytics
+        account. The response includes a link to the next page, if any.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The OData filter. Optional. Default value is None.
+      - name: $top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to return. Optional. Default value is None.
+      - name: $skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of items to skip over before returning elements. Optional. Default value is None.
+      - name: $select
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description.
+          Optional. Default value is None.
+      - name: $orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default)
+          or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc.
+          Optional. Default value is None.
+      - name: $count
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: The Boolean value of true or false to request a count of the matching resources included with
+          the resources in the response, e.g. Categories?$count=true. Optional. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedStorageAccountInformationFlattened'
+      x-stackql-resource: storage_accounts
+      x-stackql-method: list_by_account
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/storageAccounts/{storage_account_name}/containers?api-version=2019-11-01-preview
+  : get:
+      operationId: StorageAccounts_list_storage_containers
+      description: Lists the Azure Storage containers, if any, associated with the specified Data Lake Analytics
+        and Azure Storage account combination. The response includes a link to the next page of results, if any.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure storage account from which to list blob containers. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedStorageContainerFlattened'
+      x-stackql-resource: storage_accounts
+      x-stackql-method: list_storage_containers
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/storageAccounts/{storage_account_name}/containers/{container_name}/listSasTokens?api-version=2019-11-01-preview
+  : post:
+      operationId: StorageAccounts_list_sas_tokens
+      description: Gets the SAS token associated with the specified Data Lake Analytics and Azure Storage account
+        and container combination.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure storage account for which the SAS token is being requested. Required.
+      - name: container_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure storage container for which the SAS token is being requested. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedSasTokenInformation'
+      x-stackql-resource: storage_accounts
+      x-stackql-method: list_sas_tokens
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/storageAccounts/{storage_account_name}/containers/{container_name}?api-version=2019-11-01-preview
+  : get:
+      operationId: StorageAccounts_get_storage_container
+      description: Gets the specified Azure Storage container associated with the given Data Lake Analytics and
+        Azure Storage accounts.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure resource group. Required.
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Data Lake Analytics account. Required.
+      - name: storage_account_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure storage account from which to retrieve the blob container. Required.
+      - name: container_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Azure storage container to retrieve. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageContainerFlattened'
+      x-stackql-resource: storage_accounts
+      x-stackql-method: get_storage_container
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton

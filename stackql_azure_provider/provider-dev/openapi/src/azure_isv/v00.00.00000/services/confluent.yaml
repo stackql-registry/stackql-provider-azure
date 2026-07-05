@@ -1,0 +1,3826 @@
+openapi: 3.0.0
+servers:
+  - url: https://management.azure.com/
+info:
+  title: Confluent Management Client
+  description: ConfluentManagementClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-08-18-preview-stackql-generated
+  x-serviceAlias: confluent
+  x-sdkPackage: azure-mgmt-confluent
+  x-plane: mgmt
+security:
+  - azure_auth:
+      - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    AccessListUsersSuccessResponse:
+      type: object
+      description: List users success response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserRecord"
+          description: Data of the users list.
+    ConfluentListMetadata:
+      type: object
+      description: Metadata of the list.
+      properties:
+        first:
+          type: string
+          description: First page of the list.
+        last:
+          type: string
+          description: Last page of the list.
+        prev:
+          type: string
+          description: Previous page of the list.
+        next:
+          type: string
+          description: Next page of the list.
+        total_size:
+          type: integer
+          description: Total size of the list.
+    UserRecord:
+      type: object
+      description: Record of the user.
+      properties:
+        kind:
+          type: string
+          description: Type of account.
+        id:
+          type: string
+          description: Id of the user.
+        metadata:
+          $ref: "#/components/schemas/MetadataEntity"
+          description: Metadata of the record.
+        email:
+          type: string
+          description: Email of the user.
+        full_name:
+          type: string
+          description: Name of the user.
+        auth_type:
+          type: string
+          description: Auth type of the user.
+    MetadataEntity:
+      type: object
+      description: Metadata of the data record.
+      properties:
+        self:
+          type: string
+          description: Self lookup url.
+        resource_name:
+          type: string
+          description: Resource name of the record.
+        created_at:
+          type: string
+          description: Created Date Time.
+        updated_at:
+          type: string
+          description: Updated Date time.
+        deleted_at:
+          type: string
+          description: Deleted Date time.
+    AccessListServiceAccountsSuccessResponse:
+      type: object
+      description: List service accounts success response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceAccountRecord"
+          description: Data of the service accounts list.
+    ServiceAccountRecord:
+      type: object
+      description: Record of the service account.
+      properties:
+        kind:
+          type: string
+          description: Type of account.
+        id:
+          type: string
+          description: Id of the service account.
+        metadata:
+          $ref: "#/components/schemas/MetadataEntity"
+          description: Metadata of the record.
+        display_name:
+          type: string
+          description: Name of the service account.
+        description:
+          type: string
+          description: Description of the service account.
+    AccessListInvitationsSuccessResponse:
+      type: object
+      description: List invitations success response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/InvitationRecord"
+          description: Data of the invitations list.
+    InvitationRecord:
+      type: object
+      description: Record of the invitation.
+      properties:
+        kind:
+          type: string
+          description: Type of account.
+        id:
+          type: string
+          description: Id of the invitation.
+        metadata:
+          $ref: "#/components/schemas/MetadataEntity"
+          description: Metadata of the record.
+        email:
+          type: string
+          description: Email of the user.
+        auth_type:
+          type: string
+          description: Auth type of the user.
+        status:
+          type: string
+          description: Status of the invitation.
+        accepted_at:
+          type: string
+          description: Accepted date time of the invitation.
+        expires_at:
+          type: string
+          description: Expiration date time of the invitation.
+    AccessListEnvironmentsSuccessResponse:
+      type: object
+      description: Details of the environments returned on successful response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the environment list.
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/EnvironmentRecord"
+          description: Environment list data.
+    EnvironmentRecord:
+      type: object
+      description: Details about environment name, metadata and environment id of an environment.
+      properties:
+        kind:
+          type: string
+          description: Type of environment.
+        id:
+          type: string
+          description: Id of the environment.
+        metadata:
+          $ref: "#/components/schemas/MetadataEntity"
+          description: Metadata of the record.
+        display_name:
+          type: string
+          description: Display name of the user.
+    AccessListClusterSuccessResponse:
+      type: object
+      description: Details of the clusters returned on successful response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClusterRecord"
+          description: List of clusters.
+    ClusterRecord:
+      type: object
+      description: Details of cluster record.
+      properties:
+        kind:
+          type: string
+          description: Type of cluster.
+        id:
+          type: string
+          description: Id of the cluster.
+        metadata:
+          $ref: "#/components/schemas/MetadataEntity"
+          description: Metadata of the record.
+        display_name:
+          type: string
+          description: Display name of the cluster.
+        spec:
+          $ref: "#/components/schemas/ClusterSpecEntity"
+          description: Specification of the cluster.
+        status:
+          $ref: "#/components/schemas/ClusterStatusEntity"
+          description: Specification of the cluster.
+    ClusterSpecEntity:
+      type: object
+      description: Spec of the cluster record.
+      properties:
+        display_name:
+          type: string
+          description: The name of the cluster.
+        availability:
+          type: string
+          description: The availability zone configuration of the cluster.
+        cloud:
+          type: string
+          description: The cloud service provider.
+        zone:
+          type: string
+          description: type of zone availability.
+        region:
+          type: string
+          description: The cloud service provider region.
+        kafka_bootstrap_endpoint:
+          type: string
+          description: The bootstrap endpoint used by Kafka clients to connect to the cluster.
+        http_endpoint:
+          type: string
+          description: The cluster HTTP request URL.
+        api_endpoint:
+          type: string
+          description: The Kafka API cluster endpoint.
+        config:
+          $ref: "#/components/schemas/ClusterConfigEntity"
+          description: Specification of the cluster.
+        environment:
+          $ref: "#/components/schemas/ClusterEnvironmentEntity"
+          description: Specification of the cluster.
+        network:
+          $ref: "#/components/schemas/ClusterNetworkEntity"
+          description: Specification of the cluster.
+        byok:
+          $ref: "#/components/schemas/ClusterByokEntity"
+          description: Specification of the cluster.
+    ClusterConfigEntity:
+      type: object
+      description: The configuration of the Kafka cluster.
+      properties:
+        kind:
+          type: string
+          description: The lifecycle phase of the cluster.
+    ClusterEnvironmentEntity:
+      type: object
+      description: The environment to which cluster belongs.
+      properties:
+        id:
+          type: string
+          description: ID of the referred resource.
+        environment:
+          type: string
+          description: Environment of the referred resource.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resource_name:
+          type: string
+          description: CRN reference to the referred resource.
+    ClusterNetworkEntity:
+      type: object
+      description: The network associated with this object.
+      properties:
+        id:
+          type: string
+          description: ID of the referred resource.
+        environment:
+          type: string
+          description: Environment of the referred resource.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resource_name:
+          type: string
+          description: CRN reference to the referred resource.
+    ClusterByokEntity:
+      type: object
+      description: The network associated with this object.
+      properties:
+        id:
+          type: string
+          description: ID of the referred resource.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resource_name:
+          type: string
+          description: CRN reference to the referred resource.
+    ClusterStatusEntity:
+      type: object
+      description: Status of the cluster record.
+      properties:
+        phase:
+          type: string
+          description: The lifecycle phase of the cluster.
+        cku:
+          type: integer
+          description: The number of Confluent Kafka Units.
+    AccessListRoleBindingsSuccessResponse:
+      type: object
+      description: Details of the role bindings returned on successful response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoleBindingRecord"
+          description: List of role binding.
+    RoleBindingRecord:
+      type: object
+      description: Details on principal, role name and crn pattern of a role binding.
+      properties:
+        kind:
+          type: string
+          description: The type of the resource.
+        id:
+          type: string
+          description: Id of the role binding.
+        metadata:
+          $ref: "#/components/schemas/MetadataEntity"
+          description: Metadata of the record.
+        principal:
+          type: string
+          description: The principal User or Group to bind the role to.
+        role_name:
+          type: string
+          description: The name of the role to bind to the principal.
+        crn_pattern:
+          type: string
+          description: A CRN that specifies the scope and resource patterns necessary for the role to bind.
+    AccessRoleBindingNameListSuccessResponse:
+      type: object
+      description: Details of the role binding names returned on successful response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: "#/components/schemas/ConfluentListMetadata"
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            type: string
+          description: List of role binding names.
+    AccessInvitedUserDetails:
+      type: object
+      description: Details of the user being invited.
+      properties:
+        invitedEmail:
+          type: string
+          description: UPN/Email of the user who is being invited.
+        auth_type:
+          type: string
+          description: Auth type of the user.
+    ClusterProperties:
+      type: object
+      description: Service Connector Cluster Properties.
+      properties:
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/SCClusterSpecEntity"
+          description: Specification of the cluster.
+        status:
+          $ref: "#/components/schemas/ClusterStatusEntity"
+          description: Specification of the cluster status.
+    SCMetadataEntity:
+      type: object
+      description: Metadata of the data record.
+      properties:
+        self:
+          type: string
+          description: Self lookup url.
+        resourceName:
+          type: string
+          description: Resource name of the record.
+        createdTimestamp:
+          type: string
+          description: Created Date Time.
+        updatedTimestamp:
+          type: string
+          description: Updated Date time.
+        deletedTimestamp:
+          type: string
+          description: Deleted Date time.
+    SCClusterSpecEntity:
+      type: object
+      description: Spec of the cluster record.
+      properties:
+        name:
+          type: string
+          description: The name of the cluster.
+        availability:
+          type: string
+          description: The availability zone configuration of the cluster.
+        cloud:
+          type: string
+          description: The cloud service provider.
+        zone:
+          type: string
+          description: type of zone availability.
+        package:
+          $ref: "#/components/schemas/Package"
+          description: 'Stream governance configuration. Known values are: "ESSENTIALS" and "ADVANCED".'
+        region:
+          type: string
+          description: The cloud service provider region.
+        kafkaBootstrapEndpoint:
+          type: string
+          description: The bootstrap endpoint used by Kafka clients to connect to the cluster.
+        httpEndpoint:
+          type: string
+          description: The cluster HTTP request URL.
+        apiEndpoint:
+          type: string
+          description: The Kafka API cluster endpoint.
+        config:
+          $ref: "#/components/schemas/ClusterConfigEntity"
+          description: Specification of the cluster configuration.
+        environment:
+          $ref: "#/components/schemas/SCClusterNetworkEnvironmentEntity"
+          description: Specification of the cluster environment.
+        network:
+          $ref: "#/components/schemas/SCClusterNetworkEnvironmentEntity"
+          description: Specification of the cluster network.
+        byok:
+          $ref: "#/components/schemas/SCClusterByokEntity"
+          description: Specification of the cluster byok.
+    Package:
+      type: string
+      enum:
+        - ESSENTIALS
+        - ADVANCED
+    SCClusterNetworkEnvironmentEntity:
+      type: object
+      description: The environment or the network to which cluster belongs.
+      properties:
+        id:
+          type: string
+          description: ID of the referred resource.
+        environment:
+          type: string
+          description: Environment of the referred resource.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resourceName:
+          type: string
+          description: CRN reference to the referred resource.
+    SCClusterByokEntity:
+      type: object
+      description: The network associated with this object.
+      properties:
+        id:
+          type: string
+          description: ID of the referred resource.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resourceName:
+          type: string
+          description: CRN reference to the referred resource.
+    SCClusterRecord:
+      type: object
+      description: Details of cluster record.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Type of cluster.
+        properties:
+          $ref: "#/components/schemas/ClusterProperties"
+          description: Cluster Properties.
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          $ref: "#/components/schemas/CreatedByType"
+          description: 'The type of identity that created the resource. Known values are: "User", "Application", "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          $ref: "#/components/schemas/CreatedByType"
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application", "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    CreatedByType:
+      type: string
+      enum:
+        - User
+        - Application
+        - ManagedIdentity
+        - Key
+    ConnectorResourceProperties:
+      type: object
+      description: The resource properties of the Connector.
+      properties:
+        connectorBasicInfo:
+          $ref: "#/components/schemas/ConnectorInfoBase"
+          description: Connector Info Base.
+        connectorServiceTypeInfo:
+          $ref: "#/components/schemas/ConnectorServiceTypeInfoBase"
+          description: Connector Service type info base properties.
+        partnerConnectorInfo:
+          $ref: "#/components/schemas/PartnerInfoBase"
+          description: The connection information consumed by applications.
+    ConnectorInfoBase:
+      type: object
+      description: Connector Info Base properties.
+      properties:
+        connectorType:
+          $ref: "#/components/schemas/ConnectorType"
+          description: 'Connector Type. Known values are: "SINK" and "SOURCE".'
+        connectorClass:
+          $ref: "#/components/schemas/ConnectorClass"
+          description: 'Connector Class. Known values are: "AZUREBLOBSOURCE", "AZUREBLOBSINK", "AZURECOSMOSV2SINK", and "AZURECOSMOSV2SOURCE".'
+        connectorName:
+          type: string
+          description: Connector Name.
+        connectorId:
+          type: string
+          description: Connector Id.
+        connectorState:
+          $ref: "#/components/schemas/ConnectorStatus"
+          description: 'Connector Status. Known values are: "PROVISIONING", "RUNNING", "PAUSED", and "FAILED".'
+    ConnectorType:
+      type: string
+      enum:
+        - SINK
+        - SOURCE
+    ConnectorClass:
+      type: string
+      enum:
+        - AZUREBLOBSOURCE
+        - AZUREBLOBSINK
+        - AZURECOSMOSV2SINK
+        - AZURECOSMOSV2SOURCE
+    ConnectorStatus:
+      type: string
+      enum:
+        - PROVISIONING
+        - RUNNING
+        - PAUSED
+        - FAILED
+    ConnectorServiceTypeInfoBase:
+      type: object
+      description: "The connector service type info. You probably want to use the sub-classes and not this class directly. Known sub-classes are: AzureBlobStorageSinkConnectorServiceInfo, AzureBlobStorageSourceConnectorServiceInfo, AzureCosmosDBSinkConnectorServiceInfo, AzureCosmosDBSourceConnectorServiceInfo, AzureSynapseAnalyticsSinkConnectorServiceInfo"
+      properties:
+        connectorServiceType:
+          type: string
+          description: 'The connector service type. Required. Known values are: "AzureBlobStorageSinkConnector", "AzureBlobStorageSourceConnector", "AzureCosmosDBSinkConnector", "AzureCosmosDBSourceConnector", and "AzureSynapseAnalyticsSinkConnector".'
+      required:
+        - connectorServiceType
+    PartnerInfoBase:
+      type: object
+      description: "The partner info base. You probably want to use the sub-classes and not this class directly. Known sub-classes are: KafkaAzureBlobStorageSinkConnectorInfo, KafkaAzureBlobStorageSourceConnectorInfo, KafkaAzureCosmosDBSinkConnectorInfo, KafkaAzureCosmosDBSourceConnectorInfo, KafkaAzureSynapseAnalyticsSinkConnectorInfo"
+      properties:
+        partnerConnectorType:
+          type: string
+          description: 'The partner connector type. Required. Known values are: "KafkaAzureBlobStorageSource", "KafkaAzureBlobStorageSink", "KafkaAzureCosmosDBSource", "KafkaAzureCosmosDBSink", and "KafkaAzureSynapseAnalyticsSink".'
+      required:
+        - partnerConnectorType
+    ConnectorResourceFlattened:
+      type: object
+      description: Flattened view of ConnectorResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        connectorBasicInfo:
+          $ref: "#/components/schemas/ConnectorInfoBase"
+          description: Connector Info Base.
+        connectorServiceTypeInfo:
+          $ref: "#/components/schemas/ConnectorServiceTypeInfoBase"
+          description: Connector Service type info base properties.
+        partnerConnectorInfo:
+          $ref: "#/components/schemas/PartnerInfoBase"
+          description: The connection information consumed by applications.
+    PagedConnectorResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConnectorResourceFlattened"
+        nextLink:
+          type: string
+    ConnectorResource:
+      type: object
+      description: Details of connector record.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: "#/components/schemas/ConnectorResourceProperties"
+          description: The properties of the Connector. Required.
+      required:
+        - properties
+    EnvironmentProperties:
+      type: object
+      description: Environment resource property.
+      properties:
+        streamGovernanceConfig:
+          $ref: "#/components/schemas/StreamGovernanceConfig"
+          description: Stream governance configuration.
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+    StreamGovernanceConfig:
+      type: object
+      description: Stream governance configuration.
+      properties:
+        package:
+          $ref: "#/components/schemas/Package"
+          description: 'Stream governance configuration. Known values are: "ESSENTIALS" and "ADVANCED".'
+    SCEnvironmentRecord:
+      type: object
+      description: Details about environment name, metadata and environment id of an environment.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Type of environment.
+        properties:
+          $ref: "#/components/schemas/EnvironmentProperties"
+          description: Environment properties.
+    ConfluentAgreementProperties:
+      type: object
+      description: Terms properties for Marketplace and Confluent.
+      properties:
+        publisher:
+          type: string
+          description: Publisher identifier string.
+        product:
+          type: string
+          description: Product identifier string.
+        plan:
+          type: string
+          description: Plan identifier string.
+        licenseTextLink:
+          type: string
+          description: Link to HTML with Microsoft and Publisher terms.
+        privacyPolicyLink:
+          type: string
+          description: Link to the privacy policy of the publisher.
+        retrieveDatetime:
+          type: string
+          format: date-time
+          description: Date and time in UTC of when the terms were accepted. This is empty if Accepted is false.
+        signature:
+          type: string
+          description: Terms signature.
+        accepted:
+          type: boolean
+          description: If any version of the terms have been accepted, otherwise false.
+    ConfluentAgreementResourceFlattened:
+      type: object
+      description: Flattened view of ConfluentAgreementResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The ARM id of the resource.
+        name:
+          type: string
+          description: The name of the agreement.
+        type:
+          type: string
+          description: The type of the agreement.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Metadata pertaining to creation and last modification of the resource.
+        publisher:
+          type: string
+          description: Publisher identifier string.
+        product:
+          type: string
+          description: Product identifier string.
+        plan:
+          type: string
+          description: Plan identifier string.
+        licenseTextLink:
+          type: string
+          description: Link to HTML with Microsoft and Publisher terms.
+        privacyPolicyLink:
+          type: string
+          description: Link to the privacy policy of the publisher.
+        retrieveDatetime:
+          type: string
+          format: date-time
+          description: Date and time in UTC of when the terms were accepted. This is empty if Accepted is false.
+        signature:
+          type: string
+          description: Terms signature.
+        accepted:
+          type: boolean
+          description: If any version of the terms have been accepted, otherwise false.
+    PagedConfluentAgreementResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfluentAgreementResourceFlattened"
+        nextLink:
+          type: string
+    ConfluentAgreementResource:
+      type: object
+      description: Agreement Terms definition.
+      properties:
+        id:
+          type: string
+          description: The ARM id of the resource.
+        name:
+          type: string
+          description: The name of the agreement.
+        type:
+          type: string
+          description: The type of the agreement.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Metadata pertaining to creation and last modification of the resource.
+        properties:
+          $ref: "#/components/schemas/ConfluentAgreementProperties"
+          description: Represents the properties of the resource.
+    OrganizationResourceProperties:
+      type: object
+      description: Organization resource property.
+      properties:
+        createdTime:
+          type: string
+          format: date-time
+          description: The creation time of the resource.
+        provisioningState:
+          $ref: "#/components/schemas/ProvisionState"
+          description: 'Provision states for confluent RP. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+        organizationId:
+          type: string
+          description: Id of the Confluent organization.
+        ssoUrl:
+          type: string
+          description: SSO url for the Confluent organization.
+        offerDetail:
+          $ref: "#/components/schemas/OfferDetail"
+          description: Confluent offer detail. Required.
+        userDetail:
+          $ref: "#/components/schemas/UserDetail"
+          description: Subscriber detail. Required.
+        linkOrganization:
+          $ref: "#/components/schemas/LinkOrganization"
+          description: Link an existing Confluent organization.
+      required:
+        - offerDetail
+        - userDetail
+    ProvisionState:
+      type: string
+      enum:
+        - Accepted
+        - Creating
+        - Updating
+        - Deleting
+        - Succeeded
+        - Failed
+        - Canceled
+        - Deleted
+        - NotSpecified
+    OfferDetail:
+      type: object
+      description: Confluent Offer detail.
+      properties:
+        publisherId:
+          type: string
+          description: Publisher Id. Required.
+        id:
+          type: string
+          description: Offer Id. Required.
+        planId:
+          type: string
+          description: Offer Plan Id. Required.
+        planName:
+          type: string
+          description: Offer Plan Name. Required.
+        termUnit:
+          type: string
+          description: Offer Plan Term unit. Required.
+        termId:
+          type: string
+          description: Offer Plan Term Id.
+        privateOfferId:
+          type: string
+          description: Private Offer Id.
+        privateOfferIds:
+          type: array
+          items:
+            type: string
+          description: Array of Private Offer Ids.
+        status:
+          $ref: "#/components/schemas/SaaSOfferStatus"
+          description: 'SaaS Offer Status. Known values are: "Started", "PendingFulfillmentStart", "InProgress", "Subscribed", "Suspended", "Reinstated", "Succeeded", "Failed", "Unsubscribed", and "Updating".'
+      required:
+        - publisherId
+        - id
+        - planId
+        - planName
+        - termUnit
+    SaaSOfferStatus:
+      type: string
+      enum:
+        - Started
+        - PendingFulfillmentStart
+        - InProgress
+        - Subscribed
+        - Suspended
+        - Reinstated
+        - Succeeded
+        - Failed
+        - Unsubscribed
+        - Updating
+    UserDetail:
+      type: object
+      description: Subscriber detail.
+      properties:
+        firstName:
+          type: string
+          description: First name.
+        lastName:
+          type: string
+          description: Last name.
+        emailAddress:
+          type: string
+          description: Email address. Required.
+        userPrincipalName:
+          type: string
+          description: User principal name.
+        aadEmail:
+          type: string
+          description: AAD email address.
+      required:
+        - emailAddress
+    LinkOrganization:
+      type: object
+      description: Link an existing Confluent organization.
+      properties:
+        token:
+          type: string
+          description: User auth token. Required.
+      required:
+        - token
+    OrganizationResourceFlattened:
+      type: object
+      description: Flattened view of OrganizationResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        createdTime:
+          type: string
+          format: date-time
+          description: The creation time of the resource.
+        provisioningState:
+          $ref: "#/components/schemas/ProvisionState"
+          description: 'Provision states for confluent RP. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+        organizationId:
+          type: string
+          description: Id of the Confluent organization.
+        ssoUrl:
+          type: string
+          description: SSO url for the Confluent organization.
+        offerDetail:
+          $ref: "#/components/schemas/OfferDetail"
+          description: Confluent offer detail. Required.
+        userDetail:
+          $ref: "#/components/schemas/UserDetail"
+          description: Subscriber detail. Required.
+        linkOrganization:
+          $ref: "#/components/schemas/LinkOrganization"
+          description: Link an existing Confluent organization.
+    PagedOrganizationResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrganizationResourceFlattened"
+        nextLink:
+          type: string
+    ListRegionsSuccessResponse:
+      type: object
+      description: Result of POST request to list regions supported by confluent.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegionRecord"
+          description: List of regions supported by confluent.
+    RegionRecord:
+      type: object
+      description: Details of region record.
+      properties:
+        kind:
+          type: string
+          description: Kind of the cluster.
+        id:
+          type: string
+          description: Id of the cluster.
+        properties:
+          $ref: "#/components/schemas/RegionProperties"
+          description: Region Properties.
+    RegionProperties:
+      type: object
+      description: Region Properties.
+      properties:
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/RegionSpecEntity"
+          description: Specification of the region.
+    RegionSpecEntity:
+      type: object
+      description: Region spec details.
+      properties:
+        name:
+          type: string
+          description: Display Name of the region.
+        cloud:
+          type: string
+          description: Cloud provider name.
+        regionName:
+          type: string
+          description: Region name.
+        packages:
+          type: array
+          items:
+            type: string
+          description: ":vartype packages: list[str]"
+    SCEnvironmentRecordFlattened:
+      type: object
+      description: Flattened view of SCEnvironmentRecord ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Type of environment.
+        streamGovernanceConfig:
+          $ref: "#/components/schemas/StreamGovernanceConfig"
+          description: Stream governance configuration.
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+    PagedSCEnvironmentRecordFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/SCEnvironmentRecordFlattened"
+        nextLink:
+          type: string
+    SchemaRegistryClusterProperties:
+      type: object
+      description: Schema Registry Cluster Properties.
+      properties:
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/SchemaRegistryClusterSpecEntity"
+          description: Specification of the schema registry cluster.
+        status:
+          $ref: "#/components/schemas/SchemaRegistryClusterStatusEntity"
+          description: Specification of the cluster status.
+    SchemaRegistryClusterSpecEntity:
+      type: object
+      description: Details of schema registry cluster spec.
+      properties:
+        name:
+          type: string
+          description: Name of the schema registry cluster.
+        httpEndpoint:
+          type: string
+          description: Http endpoint of the cluster.
+        package:
+          type: string
+          description: Type of the cluster package Advanced, essentials.
+        region:
+          $ref: "#/components/schemas/SchemaRegistryClusterEnvironmentRegionEntity"
+          description: Region details of the schema registry cluster.
+        environment:
+          $ref: "#/components/schemas/SchemaRegistryClusterEnvironmentRegionEntity"
+          description: Environment details of the schema registry cluster.
+        cloud:
+          type: string
+          description: The cloud service provider.
+    SchemaRegistryClusterEnvironmentRegionEntity:
+      type: object
+      description: The environment associated with this object.
+      properties:
+        id:
+          type: string
+          description: ID of the referred resource.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resourceName:
+          type: string
+          description: CRN reference to the referred resource.
+    SchemaRegistryClusterStatusEntity:
+      type: object
+      description: Status of the schema registry cluster record.
+      properties:
+        phase:
+          type: string
+          description: The lifecycle phase of the cluster.
+    SchemaRegistryClusterRecordFlattened:
+      type: object
+      description: Flattened view of SchemaRegistryClusterRecord ('properties' hoisted to the top level).
+      properties:
+        kind:
+          type: string
+          description: Kind of the cluster.
+        id:
+          type: string
+          description: Id of the cluster.
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/SchemaRegistryClusterSpecEntity"
+          description: Specification of the schema registry cluster.
+        status:
+          $ref: "#/components/schemas/SchemaRegistryClusterStatusEntity"
+          description: Specification of the cluster status.
+    PagedSchemaRegistryClusterRecordFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/SchemaRegistryClusterRecordFlattened"
+        nextLink:
+          type: string
+    SCClusterRecordFlattened:
+      type: object
+      description: Flattened view of SCClusterRecord ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Type of cluster.
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/SCClusterSpecEntity"
+          description: Specification of the cluster.
+        status:
+          $ref: "#/components/schemas/ClusterStatusEntity"
+          description: Specification of the cluster status.
+    PagedSCClusterRecordFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/SCClusterRecordFlattened"
+        nextLink:
+          type: string
+    APIKeyProperties:
+      type: object
+      description: API Key Properties.
+      properties:
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/APIKeySpecEntity"
+          description: Specification of the API Key.
+    APIKeySpecEntity:
+      type: object
+      description: Spec of the API Key record.
+      properties:
+        description:
+          type: string
+          description: The description of the API Key.
+        name:
+          type: string
+          description: The name of the API Key.
+        secret:
+          type: string
+          description: API Key Secret.
+        resource:
+          $ref: "#/components/schemas/APIKeyResourceEntity"
+          description: Specification of the cluster.
+        owner:
+          $ref: "#/components/schemas/APIKeyOwnerEntity"
+          description: Specification of the cluster.
+    APIKeyResourceEntity:
+      type: object
+      description: API Key Resource details which can be kafka cluster or schema registry cluster.
+      properties:
+        id:
+          type: string
+          description: Id of the resource.
+        environment:
+          type: string
+          description: The environment of the api key.
+        related:
+          type: string
+          description: API URL for accessing or modifying the api key resource object.
+        resourceName:
+          type: string
+          description: CRN reference to the referred resource.
+        kind:
+          type: string
+          description: Type of the owner which can be service or user account.
+    APIKeyOwnerEntity:
+      type: object
+      description: API Key Owner details which can be a user or service account.
+      properties:
+        id:
+          type: string
+          description: API Key owner id.
+        related:
+          type: string
+          description: API URL for accessing or modifying the referred object.
+        resourceName:
+          type: string
+          description: CRN reference to the referred resource.
+        kind:
+          type: string
+          description: Type of the owner service or user account.
+    APIKeyRecordFlattened:
+      type: object
+      description: Flattened view of APIKeyRecord ('properties' hoisted to the top level).
+      properties:
+        kind:
+          type: string
+          description: Type of api key.
+        id:
+          type: string
+          description: Id of the api key.
+        metadata:
+          $ref: "#/components/schemas/SCMetadataEntity"
+          description: Metadata of the record.
+        spec:
+          $ref: "#/components/schemas/APIKeySpecEntity"
+          description: Specification of the API Key.
+    OrganizationResource:
+      type: object
+      description: Organization resource.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        properties:
+          $ref: "#/components/schemas/OrganizationResourceProperties"
+          description: Organization resource properties. Required.
+      required:
+        - location
+        - properties
+    APIKeyRecord:
+      type: object
+      description: Details API key.
+      properties:
+        kind:
+          type: string
+          description: Type of api key.
+        id:
+          type: string
+          description: Id of the api key.
+        properties:
+          $ref: "#/components/schemas/APIKeyProperties"
+          description: API Key Properties.
+    OperationDisplay:
+      type: object
+      description: The object that represents the operation.
+      properties:
+        provider:
+          type: string
+          description: "Service provider: Microsoft.Confluent."
+        resource:
+          type: string
+          description: Type on which the operation is performed, e.g., 'clusters'.
+        operation:
+          type: string
+          description: Operation type, e.g., read, write, delete, etc.
+        description:
+          type: string
+          description: Description of the operation, e.g., 'Write confluent'.
+    OperationResult:
+      type: object
+      description: An Confluent REST API operation.
+      properties:
+        name:
+          type: string
+          description: "Operation name: {provider}/{resource}/{operation}."
+        display:
+          $ref: "#/components/schemas/OperationDisplay"
+          description: The object that represents the operation.
+        isDataAction:
+          type: boolean
+          description: Indicates whether the operation is a data action.
+    PagedOperationResult:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/OperationResult"
+        nextLink:
+          type: string
+    TopicProperties:
+      type: object
+      description: Topic Properties.
+      properties:
+        kind:
+          type: string
+          description: Type of topic.
+        topicId:
+          type: string
+          description: Topic Id returned by Confluent.
+        metadata:
+          $ref: "#/components/schemas/TopicMetadataEntity"
+          description: Metadata of the record.
+        partitions:
+          $ref: "#/components/schemas/TopicsRelatedLink"
+          description: Partition Specification of the topic.
+        configs:
+          $ref: "#/components/schemas/TopicsRelatedLink"
+          description: Config Specification of the topic.
+        inputConfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TopicsInputConfig"
+          description: Input Config Specification of the topic.
+        partitionsReassignments:
+          $ref: "#/components/schemas/TopicsRelatedLink"
+          description: Partition Reassignment Specification of the topic.
+        partitionsCount:
+          type: string
+          description: Partition count of the topic.
+        replicationFactor:
+          type: string
+          description: Replication factor of the topic.
+    TopicMetadataEntity:
+      type: object
+      description: Metadata of the data record.
+      properties:
+        self:
+          type: string
+          description: Self lookup url.
+        resourceName:
+          type: string
+          description: Resource name of the record.
+    TopicsRelatedLink:
+      type: object
+      description: Partition Config spec of the topic record.
+      properties:
+        related:
+          type: string
+          description: Relationship of the topic.
+    TopicsInputConfig:
+      type: object
+      description: Topics input config.
+      properties:
+        name:
+          type: string
+          description: Name of the topic input config.
+        value:
+          type: string
+          description: Value of the topic input config.
+    TopicRecordFlattened:
+      type: object
+      description: Flattened view of TopicRecord ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Type of topic.
+        topicId:
+          type: string
+          description: Topic Id returned by Confluent.
+        metadata:
+          $ref: "#/components/schemas/TopicMetadataEntity"
+          description: Metadata of the record.
+        partitions:
+          $ref: "#/components/schemas/TopicsRelatedLink"
+          description: Partition Specification of the topic.
+        configs:
+          $ref: "#/components/schemas/TopicsRelatedLink"
+          description: Config Specification of the topic.
+        inputConfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TopicsInputConfig"
+          description: Input Config Specification of the topic.
+        partitionsReassignments:
+          $ref: "#/components/schemas/TopicsRelatedLink"
+          description: Partition Reassignment Specification of the topic.
+        partitionsCount:
+          type: string
+          description: Partition count of the topic.
+        replicationFactor:
+          type: string
+          description: Replication factor of the topic.
+    PagedTopicRecordFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/TopicRecordFlattened"
+        nextLink:
+          type: string
+    TopicRecord:
+      type: object
+      description: Details of topic record.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: "#/components/schemas/TopicProperties"
+          description: Topic Properties.
+    ValidationResponse:
+      type: object
+      description: Validation response from the provider.
+      properties:
+        info:
+          type: object
+          properties: {}
+          description: Info from the response.
+  x-stackQL-resources:
+    access:
+      id: azure_isv.confluent.access
+      name: access
+      title: access
+      methods:
+        list_users:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listUsers?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_service_accounts:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listServiceAccounts?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_invitations:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listInvitations?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_environments:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listEnvironments?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_clusters:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listClusters?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_role_bindings:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listRoleBindings?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_role_binding_name_list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1listRoleBindingNameList?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete_role_binding:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1deleteRoleBinding~1{role_binding_id}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+        invite_user:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1createInvitation?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        create_role_binding:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1access~1default~1createRoleBinding?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select: []
+        insert:
+          - $ref: "#/components/x-stackQL-resources/access/methods/create_role_binding"
+        update: []
+        delete:
+          - $ref: "#/components/x-stackQL-resources/access/methods/delete_role_binding"
+    cluster:
+      id: azure_isv.confluent.cluster
+      name: cluster
+      title: cluster
+      methods:
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}?api-version=2025-08-18-preview/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+      sqlVerbs:
+        select: []
+        insert:
+          - $ref: "#/components/x-stackQL-resources/cluster/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/cluster/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/cluster/methods/delete"
+    organization:
+      id: azure_isv.confluent.organization
+      name: organization
+      title: organization
+      methods:
+        get_cluster_by_id:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        get_environment_by_id:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}?api-version=2025-08-18-preview/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}?api-version=2025-08-18-preview/patch"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+        list_by_resource_group:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        list_by_subscription:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Confluent~1organizations?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        list_regions:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1listRegions?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        list_environments:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+          request:
+            nativeCasing: camel
+        list_schema_registry_clusters:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1schemaRegistryClusters?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+          request:
+            nativeCasing: camel
+        list_clusters:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+          request:
+            nativeCasing: camel
+        get_cluster_api_key:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1apiKeys~1{api_key_id}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        delete_cluster_api_key:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1apiKeys~1{api_key_id}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+        get_schema_registry_cluster_by_id:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1schemaRegistryClusters~1{cluster_id}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_api_key:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1createAPIKey?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/organization/methods/get_cluster_by_id"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/list_schema_registry_clusters"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/get_cluster_api_key"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/get"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/list_by_subscription"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/organization/methods/create"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/create_api_key"
+        update:
+          - $ref: "#/components/x-stackQL-resources/organization/methods/update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/organization/methods/delete_cluster_api_key"
+          - $ref: "#/components/x-stackQL-resources/organization/methods/delete"
+    connector:
+      id: azure_isv.confluent.connector
+      name: connector
+      title: connector
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1connectors~1{connector_name}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1connectors~1{connector_name}?api-version=2025-08-18-preview/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1connectors~1{connector_name}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1connectors?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/connector/methods/get"
+          - $ref: "#/components/x-stackQL-resources/connector/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/connector/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/connector/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/connector/methods/delete"
+    environment:
+      id: azure_isv.confluent.environment
+      name: environment
+      title: environment
+      methods:
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}?api-version=2025-08-18-preview/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+      sqlVerbs:
+        select: []
+        insert:
+          - $ref: "#/components/x-stackQL-resources/environment/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/environment/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/environment/methods/delete"
+    marketplace_agreements:
+      id: azure_isv.confluent.marketplace_agreements
+      name: marketplace_agreements
+      title: marketplace_agreements
+      methods:
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Confluent~1agreements?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Confluent~1agreements~1default?api-version=2025-08-18-preview/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/marketplace_agreements/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/marketplace_agreements/methods/create"
+        update: []
+        delete: []
+    organization_operations:
+      id: azure_isv.confluent.organization_operations
+      name: organization_operations
+      title: organization_operations
+      methods:
+        list:
+          operation:
+            $ref: "#/paths/~1providers~1Microsoft.Confluent~1operations?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/organization_operations/methods/list"
+        insert: []
+        update: []
+        delete: []
+    topics:
+      id: azure_isv.confluent.topics
+      name: topics
+      title: topics
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1topics~1{topic_name}?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1topics~1{topic_name}?api-version=2025-08-18-preview/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1topics~1{topic_name}?api-version=2025-08-18-preview/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1organizations~1{organization_name}~1environments~1{environment_id}~1clusters~1{cluster_id}~1topics?api-version=2025-08-18-preview/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/topics/methods/get"
+          - $ref: "#/components/x-stackQL-resources/topics/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/topics/methods/create"
+        update: []
+        delete:
+          - $ref: "#/components/x-stackQL-resources/topics/methods/delete"
+    validations:
+      id: azure_isv.confluent.validations
+      name: validations
+      title: validations
+      methods:
+        validate_organization:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1validations~1{organization_name}~1orgvalidate?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        validate_organization_v2:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Confluent~1validations~1{organization_name}~1orgvalidateV2?api-version=2025-08-18-preview/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+paths:
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listUsers?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_users
+      description: Organization users details.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessListUsersSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listServiceAccounts?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_service_accounts
+      description: Organization service accounts details.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessListServiceAccountsSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listInvitations?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_invitations
+      description: Organization accounts invitation details.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessListInvitationsSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listEnvironments?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_environments
+      description: Environment list of an organization.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessListEnvironmentsSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listClusters?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_clusters
+      description: Cluster details.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessListClusterSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listRoleBindings?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_role_bindings
+      description: Organization role bindings.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessListRoleBindingsSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listRoleBindingNameList?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_list_role_binding_name_list
+      description: Organization role bindings.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessRoleBindingNameListSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/deleteRoleBinding/{role_binding_id}?api-version=2025-08-18-preview:
+    delete:
+      operationId: Access_delete_role_binding
+      description: Organization role bindings.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: role_binding_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent Role binding id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/createInvitation?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_invite_user
+      description: Invite user to the organization.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organizationId:
+                  type: string
+                  description: Id of the organization.
+                email:
+                  type: string
+                  description: Email of the logged in user.
+                upn:
+                  type: string
+                  description: Upn of the logged in user.
+                invitedUserDetails:
+                  $ref: "#/components/schemas/AccessInvitedUserDetails"
+                  description: Details of the user who is being invited.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvitationRecord"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/createRoleBinding?api-version=2025-08-18-preview:
+    post:
+      operationId: Access_create_role_binding
+      description: Organization role bindings.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                principal:
+                  type: string
+                  description: The principal User or Group to bind the role to.
+                role_name:
+                  type: string
+                  description: The name of the role to bind to the principal.
+                crn_pattern:
+                  type: string
+                  description: A CRN that specifies the scope and resource patterns necessary for the role to bind.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleBindingRecord"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}?api-version=2025-08-18-preview:
+    put:
+      operationId: Cluster_create_or_update
+      description: Create confluent clusters.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kind:
+                  type: string
+                  description: Type of cluster.
+                properties:
+                  $ref: "#/components/schemas/ClusterProperties"
+                  description: Cluster Properties.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SCClusterRecord"
+    delete:
+      operationId: Cluster_begin_delete
+      description: Delete confluent cluster by id.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+    get:
+      operationId: Organization_get_cluster_by_id
+      description: Get cluster by Id.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SCClusterRecordFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}/connectors/{connector_name}?api-version=2025-08-18-preview:
+    get:
+      operationId: Connector_get
+      description: Get confluent connector by Name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent connector name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorResourceFlattened"
+    put:
+      operationId: Connector_create_or_update
+      description: Create confluent connector by Name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent connector name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/ConnectorResourceProperties"
+                  description: The properties of the Connector. Required.
+              required:
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorResource"
+    delete:
+      operationId: Connector_begin_delete
+      description: Delete confluent connector by name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: connector_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent connector name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}/connectors?api-version=2025-08-18-preview:
+    get:
+      operationId: Connector_list
+      description: Lists all the connectors in a cluster.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Pagination size. Default value is None.
+        - name: pageToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: An opaque pagination token to fetch the next set of records. Default value is None.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedConnectorResourceFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}?api-version=2025-08-18-preview:
+    put:
+      operationId: Environment_create_or_update
+      description: Create confluent environment.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kind:
+                  type: string
+                  description: Type of environment.
+                properties:
+                  $ref: "#/components/schemas/EnvironmentProperties"
+                  description: Environment properties.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SCEnvironmentRecord"
+    delete:
+      operationId: Environment_begin_delete
+      description: Delete confluent environment by id.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+    get:
+      operationId: Organization_get_environment_by_id
+      description: Get Environment details by environment Id.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SCEnvironmentRecordFlattened"
+  /subscriptions/{subscription_id}/providers/Microsoft.Confluent/agreements?api-version=2025-08-18-preview:
+    get:
+      operationId: MarketplaceAgreements_list
+      description: List Confluent marketplace agreements in the subscription. List Confluent marketplace agreements in the subscription.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedConfluentAgreementResourceFlattened"
+  /subscriptions/{subscription_id}/providers/Microsoft.Confluent/agreements/default?api-version=2025-08-18-preview:
+    put:
+      operationId: MarketplaceAgreements_create
+      description: Create Confluent Marketplace agreement in the subscription. Create Confluent Marketplace agreement in the subscription.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/ConfluentAgreementProperties"
+                  description: Represents the properties of the resource.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfluentAgreementResource"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_get
+      description: Get the properties of a specific Organization resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationResourceFlattened"
+    put:
+      operationId: Organization_begin_create
+      description: Create Organization resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: "#/components/schemas/OrganizationResourceProperties"
+                  description: Organization resource properties. Required.
+              required:
+                - location
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationResource"
+    patch:
+      operationId: Organization_update
+      description: Update Organization resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: ARM resource tags.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationResource"
+    delete:
+      operationId: Organization_begin_delete
+      description: Delete Organization resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_list_by_resource_group
+      description: List all Organizations under the specified resource group.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedOrganizationResourceFlattened"
+  /subscriptions/{subscription_id}/providers/Microsoft.Confluent/organizations?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_list_by_subscription
+      description: List all organizations under the specified subscription.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedOrganizationResourceFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/listRegions?api-version=2025-08-18-preview:
+    post:
+      operationId: Organization_list_regions
+      description: cloud provider regions available for creating Schema Registry clusters.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searchFilters:
+                  type: object
+                  properties: {}
+                  description: Search filters for the request.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRegionsSuccessResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_list_environments
+      description: Lists of all the environments in a organization.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Pagination size. Default value is None.
+        - name: pageToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: An opaque pagination token to fetch the next set of records. Default value is None.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedSCEnvironmentRecordFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/schemaRegistryClusters?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_list_schema_registry_clusters
+      description: Get schema registry clusters.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Pagination size. Default value is None.
+        - name: pageToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: An opaque pagination token to fetch the next set of records. Default value is None.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedSchemaRegistryClusterRecordFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_list_clusters
+      description: Lists of all the clusters in a environment.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Pagination size. Default value is None.
+        - name: pageToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: An opaque pagination token to fetch the next set of records. Default value is None.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedSCClusterRecordFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/apiKeys/{api_key_id}?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_get_cluster_api_key
+      description: Get API key details of a kafka or schema registry cluster.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: api_key_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent API Key id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIKeyRecordFlattened"
+    delete:
+      operationId: Organization_delete_cluster_api_key
+      description: Deletes API key of a kafka or schema registry cluster.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: api_key_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent API Key id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/schemaRegistryClusters/{cluster_id}?api-version=2025-08-18-preview:
+    get:
+      operationId: Organization_get_schema_registry_cluster_by_id
+      description: Get schema registry cluster by Id.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent connector name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchemaRegistryClusterRecordFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}/createAPIKey?api-version=2025-08-18-preview:
+    post:
+      operationId: Organization_create_api_key
+      description: Creates API key for a schema registry Cluster ID or Kafka Cluster ID under a environment.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the API Key.
+                description:
+                  type: string
+                  description: Description of the API Key.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIKeyRecord"
+  /providers/Microsoft.Confluent/operations?api-version=2025-08-18-preview:
+    get:
+      operationId: OrganizationOperations_list
+      description: List the operations for the provider.
+      parameters: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedOperationResult"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}/topics/{topic_name}?api-version=2025-08-18-preview:
+    get:
+      operationId: Topics_get
+      description: Get confluent topic by Name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: topic_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry topic name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TopicRecordFlattened"
+    put:
+      operationId: Topics_create
+      description: Create confluent topics by Name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: topic_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry topic name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/TopicProperties"
+                  description: Topic Properties.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TopicRecord"
+    delete:
+      operationId: Topics_begin_delete
+      description: Delete confluent topic by name.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: topic_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry topic name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}/topics?api-version=2025-08-18-preview:
+    get:
+      operationId: Topics_list
+      description: Lists of all the topics in a clusters.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: environment_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent environment id. Required.
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Confluent kafka or schema registry cluster id. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Pagination size. Default value is None.
+        - name: pageToken
+          in: query
+          required: false
+          schema:
+            type: string
+          description: An opaque pagination token to fetch the next set of records. Default value is None.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedTopicRecordFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/validations/{organization_name}/orgvalidate?api-version=2025-08-18-preview:
+    post:
+      operationId: Validations_validate_organization
+      description: Organization Validate proxy resource. Organization Validate proxy resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: "#/components/schemas/OrganizationResourceProperties"
+                  description: Organization resource properties. Required.
+              required:
+                - location
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationResource"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/validations/{organization_name}/orgvalidateV2?api-version=2025-08-18-preview:
+    post:
+      operationId: Validations_validate_organization_v2
+      description: Organization Validate proxy resource. Organization Validate proxy resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: organization_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Organization resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: "#/components/schemas/OrganizationResourceProperties"
+                  description: Organization resource properties. Required.
+              required:
+                - location
+                - properties
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationResponse"

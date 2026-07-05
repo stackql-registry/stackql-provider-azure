@@ -1,0 +1,3045 @@
+openapi: 3.0.0
+servers:
+  - url: https://management.azure.com/
+info:
+  title: Elastic
+  description: This is the Microsoft Azure Elastic Management Client Library.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-06-01-stackql-generated
+  x-serviceAlias: elastic
+  x-sdkPackage: azure-mgmt-elastic
+  x-plane: mgmt
+security:
+  - azure_auth:
+      - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    ElasticTrafficFilterResponse:
+      type: object
+      description: List of elastic traffic filters in the account.
+      properties:
+        rulesets:
+          type: array
+          items:
+            $ref: "#/components/schemas/ElasticTrafficFilter"
+          description: List of elastic traffic filters in the account.
+    ElasticTrafficFilter:
+      type: object
+      description: Elastic traffic filter object.
+      properties:
+        id:
+          type: string
+          description: Id of the elastic filter.
+        name:
+          type: string
+          description: Name of the elastic filter.
+        description:
+          type: string
+          description: Description of the elastic filter.
+        region:
+          type: string
+          description: Region of the elastic filter.
+        type:
+          type: string
+          description: 'Type of the elastic filter. Known values are: "ip" and "azure_private_endpoint".'
+        includeByDefault:
+          type: boolean
+          description: IncludeByDefault for the elastic filter.
+        rules:
+          type: array
+          items:
+            $ref: "#/components/schemas/ElasticTrafficFilterRule"
+          description: Rules in the elastic filter.
+    ElasticTrafficFilterRule:
+      type: object
+      description: Elastic traffic filter rule object.
+      properties:
+        source:
+          type: string
+          description: IP of the elastic filter rule.
+        description:
+          type: string
+          description: Description of the elastic filter rule.
+        azureEndpointGuid:
+          type: string
+          description: Guid of Private Endpoint in the elastic filter rule.
+        azureEndpointName:
+          type: string
+          description: Name of the Private Endpoint in the elastic filter rule.
+        id:
+          type: string
+          description: Id of the elastic filter rule.
+    BillingInfoResponse:
+      type: object
+      description: Marketplace Subscription and Organization details to which resource gets billed into.
+      properties:
+        marketplaceSaasInfo:
+          $ref: "#/components/schemas/MarketplaceSaaSInfo"
+          description: Marketplace Subscription details.
+        partnerBillingEntity:
+          $ref: "#/components/schemas/PartnerBillingEntity"
+          description: "Partner Billing Entity details: Organization Info."
+    MarketplaceSaaSInfo:
+      type: object
+      description: Marketplace SAAS Info of the resource.
+      properties:
+        marketplaceSubscription:
+          $ref: "#/components/schemas/MarketplaceSaaSInfoMarketplaceSubscription"
+          description: Marketplace Subscription.
+        marketplaceName:
+          type: string
+          description: "Marketplace Subscription Details: SAAS Name."
+        marketplaceResourceId:
+          type: string
+          description: "Marketplace Subscription Details: Resource URI."
+        marketplaceStatus:
+          type: string
+          description: "Marketplace Subscription Details: SaaS Subscription Status."
+        billedAzureSubscriptionId:
+          type: string
+          description: The Azure Subscription ID to which the Marketplace Subscription belongs and gets billed into.
+        subscribed:
+          type: boolean
+          description: Flag specifying if the Marketplace status is subscribed or not.
+    MarketplaceSaaSInfoMarketplaceSubscription:
+      type: object
+      description: Marketplace Subscription.
+      properties:
+        id:
+          type: string
+          description: Marketplace Subscription Id. This is a GUID-formatted string.
+        publisherId:
+          type: string
+          description: Publisher Id of the Marketplace offer.
+        offerId:
+          type: string
+          description: Offer Id of the Marketplace offer,.
+    PartnerBillingEntity:
+      type: object
+      description: Partner Billing details associated with the resource.
+      properties:
+        id:
+          type: string
+          description: The Elastic Organization Id.
+        name:
+          type: string
+          description: The Elastic Organization Name.
+        partnerEntityUri:
+          type: string
+          description: Link to the elastic organization page.
+    ConnectedPartnerResourcesListFormat:
+      type: object
+      description: Connected Partner Resources List Format.
+      properties:
+        properties:
+          $ref: "#/components/schemas/ConnectedPartnerResourceProperties"
+          description: Connected Partner Resource Properties.
+    ConnectedPartnerResourceProperties:
+      type: object
+      description: Connected Partner Resource Properties.
+      properties:
+        partnerDeploymentName:
+          type: string
+          description: Elastic resource name.
+        partnerDeploymentUri:
+          type: string
+          description: URL of the resource in Elastic cloud.
+        azureResourceId:
+          type: string
+          description: The azure resource Id of the resource.
+        location:
+          type: string
+          description: The location of the resource.
+        type:
+          type: string
+          description: The hosting type of the resource.
+    PagedConnectedPartnerResourcesListFormat:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConnectedPartnerResourcesListFormat"
+        nextLink:
+          type: string
+    DeploymentInfoResponse:
+      type: object
+      description: The properties of deployment in Elastic cloud corresponding to the Elastic monitor resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        status:
+          type: string
+          description: 'The Elastic deployment status. Known values are: "Healthy" and "Unhealthy".'
+        version:
+          type: string
+          description: Version of the elasticsearch in Elastic cloud deployment.
+        memoryCapacity:
+          type: string
+          description: RAM capacity of the elasticsearch in Elastic cloud deployment.
+        diskCapacity:
+          type: string
+          description: Disk capacity of the elasticsearch in Elastic cloud deployment.
+        elasticsearchEndPoint:
+          type: string
+          description: Elasticsearch endpoint in Elastic cloud deployment. This is either the aliased_endpoint if available, or the service_url otherwise.
+        deploymentUrl:
+          type: string
+          description: Deployment URL of the elasticsearch in Elastic cloud deployment.
+        marketplaceSaasInfo:
+          $ref: "#/components/schemas/MarketplaceSaaSInfo"
+          description: Marketplace SaaS Info of the resource.
+        projectType:
+          type: string
+          description: Project Type - Applicable for Serverless only.
+        configurationType:
+          type: string
+          description: ConfigurationType Type - Applicable for Serverless only.
+    ElasticVersionListProperties:
+      type: object
+      description: Elastic Version Properties.
+      properties:
+        version:
+          type: string
+          description: Available elastic version of the given region.
+    ElasticVersionListFormatFlattened:
+      type: object
+      description: Flattened view of ElasticVersionListFormat ('properties' hoisted to the top level).
+      properties:
+        version:
+          type: string
+          description: Available elastic version of the given region.
+    PagedElasticVersionListFormatFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/ElasticVersionListFormatFlattened"
+        nextLink:
+          type: string
+    ExternalUserCreationResponse:
+      type: object
+      description: The properties of the response we got from elastic while creating external user. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        created:
+          type: boolean
+          description: Shows if user is created or updated.
+    MonitoredResource:
+      type: object
+      description: The properties of a resource currently being monitored by the Elastic monitor resource.
+      properties:
+        id:
+          type: string
+          description: The ARM id of the resource.
+        sendingLogs:
+          type: string
+          description: 'Flag indicating the status of the resource for sending logs operation to Elastic. Known values are: "True" and "False".'
+        reasonForLogsStatus:
+          type: string
+          description: Reason for why the resource is sending logs (or why it is not sending).
+    PagedMonitoredResource:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoredResource"
+        nextLink:
+          type: string
+    SubscriptionList:
+      type: object
+      description: The request to update subscriptions needed to be monitored by the Elastic monitor resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        operation:
+          type: string
+          description: 'The operation for the patch on the resource. Known values are: "AddBegin", "AddComplete", "DeleteBegin", "DeleteComplete", and "Active".'
+        monitoredSubscriptionList:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoredSubscription"
+          description: List of subscriptions and the state of the monitoring.
+        provisioningState:
+          type: string
+          description: 'Provisioning State of the resource. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+    MonitoredSubscription:
+      type: object
+      description: The list of subscriptions and it's monitoring status by current Elastic monitor.
+      properties:
+        subscriptionId:
+          type: string
+          description: The subscriptionId to be monitored.
+        status:
+          type: string
+          description: 'The state of monitoring. Known values are: "InProgress", "Active", "Failed", and "Deleting".'
+        error:
+          type: string
+          description: The reason of not monitoring the subscription.
+        tagRules:
+          $ref: "#/components/schemas/MonitoringTagRulesProperties"
+          description: Definition of the properties for a TagRules resource.
+    MonitoringTagRulesProperties:
+      type: object
+      description: Definition of the properties for a TagRules resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        provisioningState:
+          type: string
+          description: 'Provisioning state of the monitoring tag rules. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+        logRules:
+          $ref: "#/components/schemas/LogRules"
+          description: Rules for sending logs.
+    LogRules:
+      type: object
+      description: Set of rules for sending logs for the Monitor resource.
+      properties:
+        sendAadLogs:
+          type: boolean
+          description: Flag specifying if AAD logs should be sent for the Monitor resource.
+        sendSubscriptionLogs:
+          type: boolean
+          description: Flag specifying if subscription logs should be sent for the Monitor resource.
+        sendActivityLogs:
+          type: boolean
+          description: Flag specifying if activity logs from Azure resources should be sent for the Monitor resource.
+        filteringTags:
+          type: array
+          items:
+            $ref: "#/components/schemas/FilteringTag"
+          description: List of filtering tags to be used for capturing logs. This only takes effect if SendActivityLogs flag is enabled. If empty, all resources will be captured. If only Exclude action is specified, the rules will apply to the list of all available resources. If Include actions are specified, the rules will only include resources with the associated tags.
+    FilteringTag:
+      type: object
+      description: The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them from being monitored.
+      properties:
+        name:
+          type: string
+          description: The name (also known as the key) of the tag.
+        value:
+          type: string
+          description: The value of the tag.
+        action:
+          type: string
+          description: 'Valid actions for a filtering tag. Known values are: "Include" and "Exclude".'
+    MonitoredSubscriptionPropertiesFlattened:
+      type: object
+      description: Flattened view of MonitoredSubscriptionProperties ('properties' hoisted to the top level).
+      properties:
+        name:
+          type: string
+          description: Name of the monitored subscription resource.
+        id:
+          type: string
+          description: The id of the monitored subscription resource.
+        type:
+          type: string
+          description: The type of the monitored subscription resource.
+        operation:
+          type: string
+          description: 'The operation for the patch on the resource. Known values are: "AddBegin", "AddComplete", "DeleteBegin", "DeleteComplete", and "Active".'
+        monitoredSubscriptionList:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoredSubscription"
+          description: List of subscriptions and the state of the monitoring.
+        provisioningState:
+          type: string
+          description: 'Provisioning State of the resource. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+    PagedMonitoredSubscriptionPropertiesFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoredSubscriptionPropertiesFlattened"
+        nextLink:
+          type: string
+    MonitoredSubscriptionProperties:
+      type: object
+      description: The request to update subscriptions needed to be monitored by the Elastic monitor resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        name:
+          type: string
+          description: Name of the monitored subscription resource.
+        id:
+          type: string
+          description: The id of the monitored subscription resource.
+        type:
+          type: string
+          description: The type of the monitored subscription resource.
+        properties:
+          $ref: "#/components/schemas/SubscriptionList"
+          description: The request to update subscriptions needed to be monitored by the Elastic monitor resource.
+    ResourceSku:
+      type: object
+      description: Microsoft.Elastic SKU. All required parameters must be populated in order to send to server.
+      properties:
+        name:
+          type: string
+          description: Name of the SKU. Required.
+      required:
+        - name
+    MonitorProperties:
+      type: object
+      description: Properties specific to the monitor resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        provisioningState:
+          type: string
+          description: 'Provisioning state of the monitor resource. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+        monitoringStatus:
+          type: string
+          description: 'Flag specifying if the resource monitoring is enabled or disabled. Known values are: "Enabled" and "Disabled".'
+        elasticProperties:
+          $ref: "#/components/schemas/ElasticProperties"
+          description: Elastic cloud properties.
+        userInfo:
+          $ref: "#/components/schemas/UserInfo"
+          description: User information.
+        planDetails:
+          $ref: "#/components/schemas/PlanDetails"
+          description: Plan details of the monitor resource.
+        version:
+          type: string
+          description: Version of elastic of the monitor resource.
+        subscriptionState:
+          type: string
+          description: State of the Azure Subscription containing the monitor resource.
+        saaSAzureSubscriptionStatus:
+          type: string
+          description: Status of Azure Subscription where Marketplace SaaS is located.
+        sourceCampaignName:
+          type: string
+          description: Name of the marketing campaign.
+        sourceCampaignId:
+          type: string
+          description: A unique identifier associated with the campaign.
+        liftrResourceCategory:
+          type: string
+          description: 'Known values are: "Unknown" and "MonitorLogs".'
+        liftrResourcePreference:
+          type: integer
+          description: The priority of the resource.
+        generateApiKey:
+          type: boolean
+          description: Flag to determine if User API Key has to be generated and shared.
+        hostingType:
+          type: string
+          description: 'Hosting type of the monitor resource - either Hosted deployments OR Serverless Projects. Known values are: "Hosted" and "Serverless".'
+        projectDetails:
+          $ref: "#/components/schemas/ProjectDetails"
+          description: Project details of the monitor resource IF it belongs to Serverless offer kind.
+    ElasticProperties:
+      type: object
+      description: Elastic Resource Properties.
+      properties:
+        elasticCloudUser:
+          $ref: "#/components/schemas/ElasticCloudUser"
+          description: Details of the user's elastic account.
+        elasticCloudDeployment:
+          $ref: "#/components/schemas/ElasticCloudDeployment"
+          description: Details of the elastic cloud deployment.
+    ElasticCloudUser:
+      type: object
+      description: Details of the user's elastic account. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        emailAddress:
+          type: string
+          description: Email of the Elastic User Account.
+        id:
+          type: string
+          description: User Id of the elastic account of the User.
+        elasticCloudSsoDefaultUrl:
+          type: string
+          description: Elastic cloud default dashboard sso URL of the Elastic user account.
+    ElasticCloudDeployment:
+      type: object
+      description: Details of the user's elastic deployment associated with the monitor resource. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        name:
+          type: string
+          description: Elastic deployment name.
+        deploymentId:
+          type: string
+          description: Elastic deployment Id.
+        azureSubscriptionId:
+          type: string
+          description: Associated Azure subscription Id for the elastic deployment.
+        elasticsearchRegion:
+          type: string
+          description: Region where Deployment at Elastic side took place.
+        elasticsearchServiceUrl:
+          type: string
+          description: Elasticsearch ingestion endpoint of the Elastic deployment.
+        kibanaServiceUrl:
+          type: string
+          description: Kibana endpoint of the Elastic deployment.
+        kibanaSsoUrl:
+          type: string
+          description: Kibana dashboard sso URL of the Elastic deployment.
+    UserInfo:
+      type: object
+      description: User Information to be passed to partners.
+      properties:
+        firstName:
+          type: string
+          description: First name of the user.
+        lastName:
+          type: string
+          description: Last name of the user.
+        companyName:
+          type: string
+          description: Company name of the user.
+        emailAddress:
+          type: string
+          description: Email of the user used by Elastic for contacting them if needed.
+        companyInfo:
+          $ref: "#/components/schemas/CompanyInfo"
+          description: Company information of the user to be passed to partners.
+    CompanyInfo:
+      type: object
+      description: Company information of the user to be passed to partners.
+      properties:
+        domain:
+          type: string
+          description: Domain of the company.
+        business:
+          type: string
+          description: Business of the company.
+        employeesNumber:
+          type: string
+          description: Number of employees in the company.
+        state:
+          type: string
+          description: State of the company location.
+        country:
+          type: string
+          description: Country of the company location.
+    PlanDetails:
+      type: object
+      description: Plan details of the monitor resource.
+      properties:
+        offerID:
+          type: string
+          description: Offer ID of the plan.
+        publisherID:
+          type: string
+          description: Publisher ID of the plan.
+        termID:
+          type: string
+          description: Term ID of the plan.
+        planID:
+          type: string
+          description: Plan ID.
+        planName:
+          type: string
+          description: Plan Name.
+    ProjectDetails:
+      type: object
+      description: Project details of the monitor resource IF it belongs to Serverless offer kind.
+      properties:
+        projectType:
+          type: string
+          description: 'Project type; ex: Elasticsearch / Observability / Security. Known values are: "Elasticsearch", "Observability", "Security", and "NotApplicable".'
+        configurationType:
+          type: string
+          description: 'Configuration type of the Elasticsearch project. Known values are: "GeneralPurpose", "Vector", "TimeSeries", and "NotApplicable".'
+    IdentityProperties:
+      type: object
+      description: Identity properties. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        principalId:
+          type: string
+          description: The identity ID.
+        tenantId:
+          type: string
+          description: The tenant ID of resource.
+        type:
+          type: string
+          description: Managed identity type. "SystemAssigned"
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          type: string
+          description: 'The type of identity that created the resource. Known values are: "User", "Application", "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          type: string
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application", "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    ElasticMonitorResourceFlattened:
+      type: object
+      description: Flattened view of ElasticMonitorResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: ARM id of the monitor resource.
+        name:
+          type: string
+          description: Name of the monitor resource.
+        type:
+          type: string
+          description: The type of the monitor resource.
+        kind:
+          type: string
+          description: The kind of the Elastic resource - observability, security, search etc.
+        sku:
+          $ref: "#/components/schemas/ResourceSku"
+          description: SKU of the monitor resource.
+        identity:
+          $ref: "#/components/schemas/IdentityProperties"
+          description: Identity properties of the monitor resource.
+        tags:
+          type: object
+          properties: {}
+          description: The tags of the monitor resource.
+        location:
+          type: string
+          description: The location of the monitor resource. Required.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: The system metadata relating to this resource.
+        provisioningState:
+          type: string
+          description: 'Provisioning state of the monitor resource. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+        monitoringStatus:
+          type: string
+          description: 'Flag specifying if the resource monitoring is enabled or disabled. Known values are: "Enabled" and "Disabled".'
+        elasticProperties:
+          $ref: "#/components/schemas/ElasticProperties"
+          description: Elastic cloud properties.
+        userInfo:
+          $ref: "#/components/schemas/UserInfo"
+          description: User information.
+        planDetails:
+          $ref: "#/components/schemas/PlanDetails"
+          description: Plan details of the monitor resource.
+        version:
+          type: string
+          description: Version of elastic of the monitor resource.
+        subscriptionState:
+          type: string
+          description: State of the Azure Subscription containing the monitor resource.
+        saaSAzureSubscriptionStatus:
+          type: string
+          description: Status of Azure Subscription where Marketplace SaaS is located.
+        sourceCampaignName:
+          type: string
+          description: Name of the marketing campaign.
+        sourceCampaignId:
+          type: string
+          description: A unique identifier associated with the campaign.
+        liftrResourceCategory:
+          type: string
+          description: 'Known values are: "Unknown" and "MonitorLogs".'
+        liftrResourcePreference:
+          type: integer
+          description: The priority of the resource.
+        generateApiKey:
+          type: boolean
+          description: Flag to determine if User API Key has to be generated and shared.
+        hostingType:
+          type: string
+          description: 'Hosting type of the monitor resource - either Hosted deployments OR Serverless Projects. Known values are: "Hosted" and "Serverless".'
+        projectDetails:
+          $ref: "#/components/schemas/ProjectDetails"
+          description: Project details of the monitor resource IF it belongs to Serverless offer kind.
+    PagedElasticMonitorResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/ElasticMonitorResourceFlattened"
+        nextLink:
+          type: string
+    ElasticMonitorResource:
+      type: object
+      description: Monitor resource. Variables are only populated by the server, and will be ignored when sending a request. All required parameters must be populated in order to send to server.
+      properties:
+        id:
+          type: string
+          description: ARM id of the monitor resource.
+        name:
+          type: string
+          description: Name of the monitor resource.
+        type:
+          type: string
+          description: The type of the monitor resource.
+        kind:
+          type: string
+          description: The kind of the Elastic resource - observability, security, search etc.
+        sku:
+          $ref: "#/components/schemas/ResourceSku"
+          description: SKU of the monitor resource.
+        properties:
+          $ref: "#/components/schemas/MonitorProperties"
+          description: Properties of the monitor resource.
+        identity:
+          $ref: "#/components/schemas/IdentityProperties"
+          description: Identity properties of the monitor resource.
+        tags:
+          type: object
+          properties: {}
+          description: The tags of the monitor resource.
+        location:
+          type: string
+          description: The location of the monitor resource. Required.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: The system metadata relating to this resource.
+      required:
+        - location
+    OpenAIIntegrationProperties:
+      type: object
+      description: Open AI Integration details. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        openAIResourceId:
+          type: string
+          description: The resource name of Open AI resource.
+        openAIResourceEndpoint:
+          type: string
+          description: The API endpoint for Open AI resource.
+        openAIConnectorId:
+          type: string
+          description: The connector id of Open AI resource.
+        key:
+          type: string
+          description: Value of API key for Open AI resource.
+        lastRefreshAt:
+          type: string
+          format: date-time
+          description: Last Update Timestamp for key updation.
+    OpenAIIntegrationRPModelFlattened:
+      type: object
+      description: Flattened view of OpenAIIntegrationRPModel ('properties' hoisted to the top level).
+      properties:
+        name:
+          type: string
+          description: Name of the integration.
+        id:
+          type: string
+          description: The id of the integration.
+        type:
+          type: string
+          description: The type of the integration.
+        openAIResourceId:
+          type: string
+          description: The resource name of Open AI resource.
+        openAIResourceEndpoint:
+          type: string
+          description: The API endpoint for Open AI resource.
+        openAIConnectorId:
+          type: string
+          description: The connector id of Open AI resource.
+        key:
+          type: string
+          description: Value of API key for Open AI resource.
+        lastRefreshAt:
+          type: string
+          format: date-time
+          description: Last Update Timestamp for key updation.
+    PagedOpenAIIntegrationRPModelFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/OpenAIIntegrationRPModelFlattened"
+        nextLink:
+          type: string
+    OpenAIIntegrationRPModel:
+      type: object
+      description: Capture properties of Open AI resource Integration. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        name:
+          type: string
+          description: Name of the integration.
+        id:
+          type: string
+          description: The id of the integration.
+        type:
+          type: string
+          description: The type of the integration.
+        properties:
+          $ref: "#/components/schemas/OpenAIIntegrationProperties"
+          description: Open AI Integration details.
+    OpenAIIntegrationStatusResponse:
+      type: object
+      description: Status of the OpenAI Integration.
+      properties:
+        properties:
+          $ref: "#/components/schemas/OpenAIIntegrationStatusResponseProperties"
+          description: Status of the OpenAI Integration.
+    OpenAIIntegrationStatusResponseProperties:
+      type: object
+      description: Status of the OpenAI Integration.
+      properties:
+        status:
+          type: string
+          description: Status of the OpenAI Integration.
+    OperationDisplay:
+      type: object
+      description: The object that represents the operation.
+      properties:
+        provider:
+          type: string
+          description: Service provider, i.e., Microsoft.Elastic.
+        resource:
+          type: string
+          description: Type on which the operation is performed, e.g., 'monitors'.
+        operation:
+          type: string
+          description: Operation type, e.g., read, write, delete, etc.
+        description:
+          type: string
+          description: Description of the operation, e.g., 'Write monitors'.
+    OperationResult:
+      type: object
+      description: A Microsoft.Elastic REST API operation.
+      properties:
+        name:
+          type: string
+          description: Operation name, i.e., {provider}/{resource}/{operation}.
+        isDataAction:
+          type: boolean
+          description: Indicates whether the operation is a data action.
+        display:
+          $ref: "#/components/schemas/OperationDisplay"
+          description: The object that represents the operation.
+        origin:
+          type: string
+          description: Origin of the operation.
+    PagedOperationResult:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/OperationResult"
+        nextLink:
+          type: string
+    UserApiKeyResponse:
+      type: object
+      description: The User Api Key created for the Organization associated with the User Email Id that was passed in the request.
+      properties:
+        properties:
+          $ref: "#/components/schemas/UserApiKeyResponseProperties"
+          description: ":vartype properties: ~azure.mgmt.elastic.models.UserApiKeyResponseProperties"
+    UserApiKeyResponseProperties:
+      type: object
+      description: UserApiKeyResponseProperties.
+      properties:
+        apiKey:
+          type: string
+          description: The User Api Key Generated based on GenerateApiKey flag. This is applicable for non-Portal clients only.
+    ElasticOrganizationToAzureSubscriptionMappingResponse:
+      type: object
+      description: The Azure Subscription ID to which the Organization of the logged in user belongs and gets billed into.
+      properties:
+        properties:
+          $ref: "#/components/schemas/ElasticOrganizationToAzureSubscriptionMappingResponseProperties"
+          description: The properties of Azure Subscription ID to which the Organization of the logged in user belongs and gets billed into.
+    ElasticOrganizationToAzureSubscriptionMappingResponseProperties:
+      type: object
+      description: The properties of Azure Subscription ID to which the Organization of the logged in user belongs and gets billed into. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        billedAzureSubscriptionId:
+          type: string
+          description: The Azure Subscription ID to which the Organization belongs and gets billed into. This is empty for a new user OR a user without an Elastic Organization.
+        marketplaceSaasInfo:
+          $ref: "#/components/schemas/MarketplaceSaaSInfo"
+          description: Marketplace SaaS Info of the resource.
+        elasticOrganizationId:
+          type: string
+          description: The Elastic Organization Id.
+        elasticOrganizationName:
+          type: string
+          description: The Elastic Organization Name.
+    MonitoringTagRulesFlattened:
+      type: object
+      description: Flattened view of MonitoringTagRules ('properties' hoisted to the top level).
+      properties:
+        name:
+          type: string
+          description: Name of the rule set.
+        id:
+          type: string
+          description: The id of the rule set.
+        type:
+          type: string
+          description: The type of the rule set.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: The system metadata relating to this resource.
+        provisioningState:
+          type: string
+          description: 'Provisioning state of the monitoring tag rules. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
+        logRules:
+          $ref: "#/components/schemas/LogRules"
+          description: Rules for sending logs.
+    PagedMonitoringTagRulesFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoringTagRulesFlattened"
+        nextLink:
+          type: string
+    MonitoringTagRules:
+      type: object
+      description: Capture logs and metrics of Azure resources based on ARM tags. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        name:
+          type: string
+          description: Name of the rule set.
+        id:
+          type: string
+          description: The id of the rule set.
+        type:
+          type: string
+          description: The type of the rule set.
+        properties:
+          $ref: "#/components/schemas/MonitoringTagRulesProperties"
+          description: Properties of the monitoring tag rules.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: The system metadata relating to this resource.
+    UpgradableVersionsList:
+      type: object
+      description: Stack Versions that this version can upgrade to.
+      properties:
+        currentVersion:
+          type: string
+          description: Current version of the elastic monitor.
+        upgradableVersions:
+          type: array
+          items:
+            type: string
+          description: Stack Versions that this version can upgrade to.
+    VMResources:
+      type: object
+      description: The vm resource properties that is currently being monitored by the Elastic monitor resource.
+      properties:
+        vmResourceId:
+          type: string
+          description: The ARM id of the VM resource.
+    PagedVMResources:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/VMResources"
+        nextLink:
+          type: string
+    VMIngestionDetailsResponse:
+      type: object
+      description: The vm ingestion details to install an agent.
+      properties:
+        cloudId:
+          type: string
+          description: The cloudId of given Elastic monitor resource.
+        ingestionKey:
+          type: string
+          description: Ingestion details to install agent on given VM.
+  x-stackQL-resources:
+    all_traffic_filters:
+      id: azure_isv.elastic.all_traffic_filters
+      name: all_traffic_filters
+      title: all_traffic_filters
+      methods:
+        list_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listAllTrafficFilters?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    associate_traffic_filter:
+      id: azure_isv.elastic.associate_traffic_filter
+      name: associate_traffic_filter
+      title: associate_traffic_filter
+      methods:
+        associate:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1associateTrafficFilter?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    billing_info:
+      id: azure_isv.elastic.billing_info
+      name: billing_info
+      title: billing_info
+      methods:
+        get_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1getBillingInfo?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    connected_partner_resources:
+      id: azure_isv.elastic.connected_partner_resources
+      name: connected_partner_resources
+      title: connected_partner_resources
+      methods:
+        list_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listConnectedPartnerResources?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    create_and_associate_ip_filter:
+      id: azure_isv.elastic.create_and_associate_ip_filter
+      name: create_and_associate_ip_filter
+      title: create_and_associate_ip_filter
+      methods:
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1createAndAssociateIPFilter?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select: []
+        insert:
+          - $ref: "#/components/x-stackQL-resources/create_and_associate_ip_filter/methods/create"
+        update: []
+        delete: []
+    create_and_associate_pl_filter:
+      id: azure_isv.elastic.create_and_associate_pl_filter
+      name: create_and_associate_pl_filter
+      title: create_and_associate_pl_filter
+      methods:
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1createAndAssociatePLFilter?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select: []
+        insert:
+          - $ref: "#/components/x-stackQL-resources/create_and_associate_pl_filter/methods/create"
+        update: []
+        delete: []
+    deployment_info:
+      id: azure_isv.elastic.deployment_info
+      name: deployment_info
+      title: deployment_info
+      methods:
+        list_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listDeploymentInfo?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    detach_and_delete_traffic_filter:
+      id: azure_isv.elastic.detach_and_delete_traffic_filter
+      name: detach_and_delete_traffic_filter
+      title: detach_and_delete_traffic_filter
+      methods:
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1detachAndDeleteTrafficFilter?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete:
+          - $ref: "#/components/x-stackQL-resources/detach_and_delete_traffic_filter/methods/delete"
+    detach_traffic_filter:
+      id: azure_isv.elastic.detach_traffic_filter
+      name: detach_traffic_filter
+      title: detach_traffic_filter
+      methods:
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1detachTrafficFilter?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    elastic_versions:
+      id: azure_isv.elastic.elastic_versions
+      name: elastic_versions
+      title: elastic_versions
+      methods:
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Elastic~1elasticVersions?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/elastic_versions/methods/list"
+        insert: []
+        update: []
+        delete: []
+    external_user:
+      id: azure_isv.elastic.external_user
+      name: external_user
+      title: external_user
+      methods:
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1createOrUpdateExternalUser?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select: []
+        insert:
+          - $ref: "#/components/x-stackQL-resources/external_user/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/external_user/methods/create_or_update"
+        delete: []
+    list_associated_traffic_filters:
+      id: azure_isv.elastic.list_associated_traffic_filters
+      name: list_associated_traffic_filters
+      title: list_associated_traffic_filters
+      methods:
+        list_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listAssociatedTrafficFilters?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    monitor:
+      id: azure_isv.elastic.monitor
+      name: monitor
+      title: monitor
+      methods:
+        upgrade:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1upgrade?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    monitored_resources:
+      id: azure_isv.elastic.monitored_resources
+      name: monitored_resources
+      title: monitored_resources
+      methods:
+        list_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listMonitoredResources?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    monitored_subscriptions:
+      id: azure_isv.elastic.monitored_subscriptions
+      name: monitored_subscriptions
+      title: monitored_subscriptions
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1monitoredSubscriptions~1{configuration_name}?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        createor_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1monitoredSubscriptions~1{configuration_name}?api-version=2025-06-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1monitoredSubscriptions~1{configuration_name}?api-version=2025-06-01/patch"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1monitoredSubscriptions~1{configuration_name}?api-version=2025-06-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1monitoredSubscriptions?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/monitored_subscriptions/methods/get"
+          - $ref: "#/components/x-stackQL-resources/monitored_subscriptions/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/monitored_subscriptions/methods/createor_update"
+        update:
+          - $ref: "#/components/x-stackQL-resources/monitored_subscriptions/methods/update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/monitored_subscriptions/methods/delete"
+    monitors:
+      id: azure_isv.elastic.monitors
+      name: monitors
+      title: monitors
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}?api-version=2025-06-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}?api-version=2025-06-01/patch"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}?api-version=2025-06-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Elastic~1monitors?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        list_by_resource_group:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/get"
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/create"
+        update:
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/delete"
+    open_ai:
+      id: azure_isv.elastic.open_ai
+      name: open_ai
+      title: open_ai
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1openAIIntegrations~1{integration_name}?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1openAIIntegrations~1{integration_name}?api-version=2025-06-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1openAIIntegrations~1{integration_name}?api-version=2025-06-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1openAIIntegrations?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+        get_status:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1openAIIntegrations~1{integration_name}~1getStatus?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/open_ai/methods/get"
+          - $ref: "#/components/x-stackQL-resources/open_ai/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/open_ai/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/open_ai/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/open_ai/methods/delete"
+    operations:
+      id: azure_isv.elastic.operations
+      name: operations
+      title: operations
+      methods:
+        list:
+          operation:
+            $ref: "#/paths/~1providers~1Microsoft.Elastic~1operations?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/operations/methods/list"
+        insert: []
+        update: []
+        delete: []
+    organizations:
+      id: azure_isv.elastic.organizations
+      name: organizations
+      title: organizations
+      methods:
+        get_api_key:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Elastic~1getOrganizationApiKey?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        get_elastic_to_azure_subscription_mapping:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.Elastic~1getElasticOrganizationToAzureSubscriptionMapping?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+        resubscribe:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1resubscribe?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    tag_rules:
+      id: azure_isv.elastic.tag_rules
+      name: tag_rules
+      title: tag_rules
+      methods:
+        get:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1tagRules~1{rule_set_name}?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
+        create_or_update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1tagRules~1{rule_set_name}?api-version=2025-06-01/put"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1tagRules~1{rule_set_name}?api-version=2025-06-01/delete"
+          response:
+            openAPIDocKey: "204"
+        list:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1tagRules?api-version=2025-06-01/get"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
+      sqlVerbs:
+        select:
+          - $ref: "#/components/x-stackQL-resources/tag_rules/methods/get"
+          - $ref: "#/components/x-stackQL-resources/tag_rules/methods/list"
+        insert:
+          - $ref: "#/components/x-stackQL-resources/tag_rules/methods/create_or_update"
+        update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/tag_rules/methods/create_or_update"
+        delete:
+          - $ref: "#/components/x-stackQL-resources/tag_rules/methods/delete"
+    traffic_filters:
+      id: azure_isv.elastic.traffic_filters
+      name: traffic_filters
+      title: traffic_filters
+      methods:
+        delete:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1deleteTrafficFilter?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "204"
+          request:
+            nativeCasing: camel
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete:
+          - $ref: "#/components/x-stackQL-resources/traffic_filters/methods/delete"
+    upgradable_versions:
+      id: azure_isv.elastic.upgradable_versions
+      name: upgradable_versions
+      title: upgradable_versions
+      methods:
+        details:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listUpgradableVersions?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    vm_collection:
+      id: azure_isv.elastic.vm_collection
+      name: vm_collection
+      title: vm_collection
+      methods:
+        update:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1vmCollectionUpdate?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+          request:
+            nativeCasing: camel
+          config:
+            requestBodyTranslate:
+              algorithm: naive
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    vm_host:
+      id: azure_isv.elastic.vm_host
+      name: vm_host
+      title: vm_host
+      methods:
+        list_raw:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1listVMHost?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+    vm_ingestion:
+      id: azure_isv.elastic.vm_ingestion
+      name: vm_ingestion
+      title: vm_ingestion
+      methods:
+        details:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Elastic~1monitors~1{monitor_name}~1vmIngestionDetails?api-version=2025-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
+      sqlVerbs:
+        select: []
+        insert: []
+        update: []
+        delete: []
+paths:
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listAllTrafficFilters?api-version=2025-06-01:
+    post:
+      operationId: AllTrafficFilters_list
+      description: List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control. List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticTrafficFilterResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/associateTrafficFilter?api-version=2025-06-01:
+    post:
+      operationId: AssociateTrafficFilter_begin_associate
+      description: Associate a traffic filter with your Elastic monitor resource to control and manage network traffic. Associate a traffic filter with your Elastic monitor resource to control and manage network traffic.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rulesetId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Ruleset Id of the filter. Default value is None.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/getBillingInfo?api-version=2025-06-01:
+    post:
+      operationId: BillingInfo_get
+      description: Retrieve marketplace and organization billing information mapped to the given Elastic monitor resource. Retrieve marketplace and organization billing information mapped to the given Elastic monitor resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingInfoResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listConnectedPartnerResources?api-version=2025-06-01:
+    post:
+      operationId: ConnectedPartnerResources_list
+      description: List all active deployments associated with the marketplace subscription linked to the given Elastic monitor resource. List all active deployments associated with the marketplace subscription linked to the given Elastic monitor resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedConnectedPartnerResourcesListFormat"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/createAndAssociateIPFilter?api-version=2025-06-01:
+    post:
+      operationId: CreateAndAssociateIPFilter_begin_create
+      description: Create and associate an IP filter with your Elastic monitor resource to control and manage network traffic. Create and associate an IP filter with your Elastic monitor resource to control and manage network traffic.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: ips
+          in: query
+          required: false
+          schema:
+            type: string
+          description: List of ips. Default value is None.
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Name of the traffic filter. Default value is None.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/createAndAssociatePLFilter?api-version=2025-06-01:
+    post:
+      operationId: CreateAndAssociatePLFilter_begin_create
+      description: Create and associate a PL filter with your Elastic monitor resource to control and manage network traffic. Create and associate a PL filter with your Elastic monitor resource to control and manage network traffic.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Name of the traffic filter. Default value is None.
+        - name: privateEndpointGuid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Guid of the private endpoint. Default value is None.
+        - name: privateEndpointName
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Name of the private endpoint. Default value is None.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listDeploymentInfo?api-version=2025-06-01:
+    post:
+      operationId: DeploymentInfo_list
+      description: Fetch detailed information about Elastic cloud deployments corresponding to the Elastic monitor resource. Fetch detailed information about Elastic cloud deployments corresponding to the Elastic monitor resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentInfoResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/detachAndDeleteTrafficFilter?api-version=2025-06-01:
+    post:
+      operationId: DetachAndDeleteTrafficFilter_delete
+      description: Detach and delete an existing traffic filter from your Elastic monitor resource, removing its network traffic control capabilities. Detach and delete an existing traffic filter from your Elastic monitor resource, removing its network traffic control capabilities.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rulesetId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Ruleset Id of the filter. Default value is None.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/detachTrafficFilter?api-version=2025-06-01:
+    post:
+      operationId: DetachTrafficFilter_begin_update
+      description: Detach an existing traffic filter from your Elastic monitor resource, removing its network traffic control capabilities. Detach an existing traffic filter from your Elastic monitor resource, removing its network traffic control capabilities.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rulesetId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Ruleset Id of the filter. Default value is None.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/providers/Microsoft.Elastic/elasticVersions?api-version=2025-06-01:
+    get:
+      operationId: ElasticVersions_list
+      description: Retrieve a list of all available Elastic versions for a specified region, helping you choose the best version for your deployment. Retrieve a list of all available Elastic versions for a specified region, helping you choose the best version for your deployment.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: region
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Region where elastic deployment will take place. Required.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedElasticVersionListFormatFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/createOrUpdateExternalUser?api-version=2025-06-01:
+    post:
+      operationId: ExternalUser_create_or_update
+      description: Create or update external user configurations for your Elastic monitor resource, enabling access and management by external users. Create or update external user configurations for your Elastic monitor resource, enabling access and management by external users.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  description: Username of the user to be created or updated.
+                fullName:
+                  type: string
+                  description: Full name of the user to be created or updated.
+                password:
+                  type: string
+                  description: Password of the user to be created or updated.
+                emailId:
+                  type: string
+                  description: Email id of the user to be created or updated.
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  description: Roles to be assigned for created or updated user.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExternalUserCreationResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listAssociatedTrafficFilters?api-version=2025-06-01:
+    post:
+      operationId: ListAssociatedTrafficFilters_list
+      description: List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control. List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticTrafficFilterResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/upgrade?api-version=2025-06-01:
+    post:
+      operationId: Monitor_begin_upgrade
+      description: Upgrade the Elastic monitor resource to a newer version, ensuring optimal observability and performance. Upgrade the Elastic monitor resource to a newer version, ensuring optimal observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type: string
+                  description: Version to which the elastic monitor should be upgraded to.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listMonitoredResources?api-version=2025-06-01:
+    post:
+      operationId: MonitoredResources_list
+      description: List all resources currently being monitored by the Elastic monitor resource, helping you manage observability. List all resources currently being monitored by the Elastic monitor resource, helping you manage observability.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedMonitoredResource"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/monitoredSubscriptions/{configuration_name}?api-version=2025-06-01:
+    get:
+      operationId: MonitoredSubscriptions_get
+      description: Get detailed information about all subscriptions currently being monitored by the Elastic monitor resource. Get detailed information about all subscriptions currently being monitored by the Elastic monitor resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: configuration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The configuration name. Only 'default' value is supported. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoredSubscriptionPropertiesFlattened"
+    put:
+      operationId: MonitoredSubscriptions_begin_createor_update
+      description: Add subscriptions to be monitored by the Elastic monitor resource, enabling observability and monitoring. Add subscriptions to be monitored by the Elastic monitor resource, enabling observability and monitoring.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: configuration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The configuration name. Only 'default' value is supported. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/SubscriptionList"
+                  description: The request to update subscriptions needed to be monitored by the Elastic monitor resource.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoredSubscriptionProperties"
+    patch:
+      operationId: MonitoredSubscriptions_begin_update
+      description: Update subscriptions to be monitored by the Elastic monitor resource, ensuring optimal observability and performance. Update subscriptions to be monitored by the Elastic monitor resource, ensuring optimal observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: configuration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The configuration name. Only 'default' value is supported. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/SubscriptionList"
+                  description: The request to update subscriptions needed to be monitored by the Elastic monitor resource.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoredSubscriptionProperties"
+    delete:
+      operationId: MonitoredSubscriptions_begin_delete
+      description: Delete subscriptions being monitored by the Elastic monitor resource, removing their observability and monitoring capabilities. Delete subscriptions being monitored by the Elastic monitor resource, removing their observability and monitoring capabilities.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: configuration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The configuration name. Only 'default' value is supported. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/monitoredSubscriptions?api-version=2025-06-01:
+    get:
+      operationId: MonitoredSubscriptions_list
+      description: List all subscriptions currently being monitored by the Elastic monitor resource, helping you manage observability. List all subscriptions currently being monitored by the Elastic monitor resource, helping you manage observability.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedMonitoredSubscriptionPropertiesFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}?api-version=2025-06-01:
+    get:
+      operationId: Monitors_get
+      description: Get detailed properties of a specific Elastic monitor resource, helping you manage observability and performance. Get detailed properties of a specific Elastic monitor resource, helping you manage observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticMonitorResourceFlattened"
+    put:
+      operationId: Monitors_begin_create
+      description: Create a new Elastic monitor resource in your Azure subscription, enabling observability and monitoring of your Azure resources through Elastic. Create a new Elastic monitor resource in your Azure subscription, enabling observability and monitoring of your Azure resources through Elastic.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kind:
+                  type: string
+                  description: The kind of the Elastic resource - observability, security, search etc.
+                sku:
+                  $ref: "#/components/schemas/ResourceSku"
+                  description: SKU of the monitor resource.
+                properties:
+                  $ref: "#/components/schemas/MonitorProperties"
+                  description: Properties of the monitor resource.
+                identity:
+                  $ref: "#/components/schemas/IdentityProperties"
+                  description: Identity properties of the monitor resource.
+                tags:
+                  type: object
+                  properties: {}
+                  description: The tags of the monitor resource.
+                location:
+                  type: string
+                  description: The location of the monitor resource. Required.
+              required:
+                - location
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticMonitorResource"
+    patch:
+      operationId: Monitors_begin_update
+      description: Update an existing Elastic monitor resource in your Azure subscription, ensuring optimal observability and performance. Update an existing Elastic monitor resource in your Azure subscription, ensuring optimal observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: elastic monitor resource tags.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticMonitorResource"
+    delete:
+      operationId: Monitors_begin_delete
+      description: Delete an existing Elastic monitor resource from your Azure subscription, removing its observability and monitoring capabilities. Delete an existing Elastic monitor resource from your Azure subscription, removing its observability and monitoring capabilities.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/providers/Microsoft.Elastic/monitors?api-version=2025-06-01:
+    get:
+      operationId: Monitors_list
+      description: List all Elastic monitor resources within a specified subscription, helping you audit and manage your monitoring setup. List all Elastic monitor resources within a specified subscription, helping you audit and manage your monitoring setup.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedElasticMonitorResourceFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors?api-version=2025-06-01:
+    get:
+      operationId: Monitors_list_by_resource_group
+      description: List all Elastic monitor resources within a specified resource group of the subscription, helping you audit and manage your monitoring setup. List all Elastic monitor resources within a specified resource group of the subscription, helping you audit and manage your monitoring setup.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedElasticMonitorResourceFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/openAIIntegrations/{integration_name}?api-version=2025-06-01:
+    get:
+      operationId: OpenAI_get
+      description: Get detailed information about OpenAI integration rules for a given Elastic monitor resource. Get detailed information about OpenAI integration rules for a given Elastic monitor resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: integration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: OpenAI Integration name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenAIIntegrationRPModelFlattened"
+    put:
+      operationId: OpenAI_create_or_update
+      description: Create or update an OpenAI integration rule for a given Elastic monitor resource, enabling advanced AI-driven observability and monitoring. Create or update an OpenAI integration rule for a given Elastic monitor resource, enabling advanced AI-driven observability and monitoring.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: integration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: OpenAI Integration name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/OpenAIIntegrationProperties"
+                  description: Open AI Integration details.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenAIIntegrationRPModel"
+    delete:
+      operationId: OpenAI_delete
+      description: Delete an OpenAI integration rule for a given Elastic monitor resource, removing AI-driven observability and monitoring capabilities. Delete an OpenAI integration rule for a given Elastic monitor resource, removing AI-driven observability and monitoring capabilities.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: integration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: OpenAI Integration name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/openAIIntegrations?api-version=2025-06-01:
+    get:
+      operationId: OpenAI_list
+      description: List all OpenAI integration rules for a given Elastic monitor resource, helping you manage AI-driven observability and monitoring. List all OpenAI integration rules for a given Elastic monitor resource, helping you manage AI-driven observability and monitoring.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedOpenAIIntegrationRPModelFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/openAIIntegrations/{integration_name}/getStatus?api-version=2025-06-01:
+    post:
+      operationId: OpenAI_get_status
+      description: Get the status of OpenAI integration for a given Elastic monitor resource, ensuring optimal observability and performance. Get the status of OpenAI integration for a given Elastic monitor resource, ensuring optimal observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: integration_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: OpenAI Integration name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenAIIntegrationStatusResponse"
+  /providers/Microsoft.Elastic/operations?api-version=2025-06-01:
+    get:
+      operationId: elastic_list
+      description: List all operations provided by Microsoft.Elastic. List all operations provided by Microsoft.Elastic.
+      parameters: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedOperationResult"
+  /subscriptions/{subscription_id}/providers/Microsoft.Elastic/getOrganizationApiKey?api-version=2025-06-01:
+    post:
+      operationId: Organizations_get_api_key
+      description: Fetch the User API Key from the internal database, if it was generated and stored during the creation of the Elasticsearch Organization. Fetch the User API Key from the internal database, if it was generated and stored during the creation of the Elasticsearch Organization.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                emailId:
+                  type: string
+                  description: The User email Id.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserApiKeyResponse"
+  /subscriptions/{subscription_id}/providers/Microsoft.Elastic/getElasticOrganizationToAzureSubscriptionMapping?api-version=2025-06-01:
+    post:
+      operationId: Organizations_get_elastic_to_azure_subscription_mapping
+      description: Retrieve mapping details between the Elastic Organization and Azure Subscription for the logged-in user. Retrieve mapping details between the Elastic Organization and Azure Subscription for the logged-in user.
+      parameters:
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticOrganizationToAzureSubscriptionMappingResponse"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/resubscribe?api-version=2025-06-01:
+    post:
+      operationId: Organizations_begin_resubscribe
+      description: Resubscribe the Elasticsearch Organization. Resubscribe the Elasticsearch Organization.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                planId:
+                  type: string
+                  description: Newly selected plan Id to create the new Marketplace subscription for Resubscribe.
+                term:
+                  type: string
+                  description: Newly selected term to create the new Marketplace subscription for Resubscribe.
+                subscriptionId:
+                  type: string
+                  description: Newly selected Azure Subscription Id in which the new Marketplace subscription will be created for Resubscribe.
+                resourceGroup:
+                  type: string
+                  description: Newly selected Azure resource group in which the new Marketplace subscription will be created for Resubscribe.
+                organizationId:
+                  type: string
+                  description: Organization Id of the Elastic Organization that needs to be resubscribed.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ElasticMonitorResource"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/tagRules/{rule_set_name}?api-version=2025-06-01:
+    get:
+      operationId: TagRules_get
+      description: Get detailed information about a tag rule set for a given Elastic monitor resource. Get detailed information about a tag rule set for a given Elastic monitor resource.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: rule_set_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Tag Rule Set resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringTagRulesFlattened"
+    put:
+      operationId: TagRules_create_or_update
+      description: Create or update a tag rule set for a given Elastic monitor resource, enabling fine-grained control over observability based on resource tags. Create or update a tag rule set for a given Elastic monitor resource, enabling fine-grained control over observability based on resource tags.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: rule_set_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Tag Rule Set resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: "#/components/schemas/MonitoringTagRulesProperties"
+                  description: Properties of the monitoring tag rules.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringTagRules"
+    delete:
+      operationId: TagRules_begin_delete
+      description: Delete a tag rule set for a given Elastic monitor resource, removing fine-grained control over observability based on resource tags. Delete a tag rule set for a given Elastic monitor resource, removing fine-grained control over observability based on resource tags.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: rule_set_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Tag Rule Set resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/tagRules?api-version=2025-06-01:
+    get:
+      operationId: TagRules_list
+      description: List all tag rules for a given Elastic monitor resource, helping you manage fine-grained control over observability based on resource tags. List all tag rules for a given Elastic monitor resource, helping you manage fine-grained control over observability based on resource tags.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedMonitoringTagRulesFlattened"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/deleteTrafficFilter?api-version=2025-06-01:
+    post:
+      operationId: TrafficFilters_delete
+      description: Delete an existing traffic filter associated with your Elastic monitor resource, removing its network traffic control capabilities. Delete an existing traffic filter associated with your Elastic monitor resource, removing its network traffic control capabilities.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rulesetId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Ruleset Id of the filter. Default value is None.
+      responses:
+        "204":
+          description: Success (no content / accepted)
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listUpgradableVersions?api-version=2025-06-01:
+    post:
+      operationId: UpgradableVersions_details
+      description: List all upgradable versions for your Elastic monitor resource, helping you plan and execute upgrades. List all upgradable versions for your Elastic monitor resource, helping you plan and execute upgrades.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpgradableVersionsList"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/vmCollectionUpdate?api-version=2025-06-01:
+    post:
+      operationId: VMCollection_update
+      description: Update the VM details that will be monitored by the Elastic monitor resource, ensuring optimal observability and performance. Update the VM details that will be monitored by the Elastic monitor resource, ensuring optimal observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vmResourceId:
+                  type: string
+                  description: ARM id of the VM resource.
+                operationName:
+                  type: string
+                  description: 'Operation to be performed for given VM. Known values are: "Add" and "Delete".'
+      responses:
+        "200":
+          description: Success
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listVMHost?api-version=2025-06-01:
+    post:
+      operationId: VMHost_list
+      description: List all VM resources currently being monitored by the Elastic monitor resource, helping you manage observability. List all VM resources currently being monitored by the Elastic monitor resource, helping you manage observability.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedVMResources"
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/vmIngestionDetails?api-version=2025-06-01:
+    post:
+      operationId: VMIngestion_details
+      description: List detailed information about VM ingestion that will be monitored by the Elastic monitor resource, ensuring optimal observability and performance. List detailed information about VM ingestion that will be monitored by the Elastic monitor resource, ensuring optimal observability and performance.
+      parameters:
+        - name: resource_group_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the resource group. The name is case insensitive. Required.
+        - name: monitor_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Monitor resource name. Required.
+        - name: subscription_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VMIngestionDetailsResponse"

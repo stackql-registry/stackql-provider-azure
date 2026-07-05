@@ -1,0 +1,389 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}/workflow'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Purview Workflow Client
+  description: Workflows are automated, repeatable business processes which allow organizations to track changes,
+    enforce policy compliance, and ensure quality data across their data landscape.Workflow service is a micro service
+    within Microsoft Purview to validate and orchestrate CUD (create, update, delete) operations on their data entities.
+    This spec defines REST API of Purview Workflow Service, which could used for creating Purview workflow client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2023-10-01-preview-stackql-generated
+  x-serviceAlias: purview_workflow
+  x-sdkPackage: azure-purview-workflow
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /workflowtasks/{task_id}/approve-approval?api-version=2023-10-01-preview:
+    post:
+      operationId: Approval_approve
+      description: Approve an approval.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The task id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: approval
+      x-stackql-method: approve
+      x-stackql-verb: EXEC
+  /workflowtasks/{task_id}/reject-approval?api-version=2023-10-01-preview:
+    post:
+      operationId: Approval_reject
+      description: Reject an approval.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The task id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: approval
+      x-stackql-method: reject
+      x-stackql-verb: EXEC
+  /workflowtasks/{task_id}/change-task-status?api-version=2023-10-01-preview:
+    post:
+      operationId: TaskStatus_update
+      description: Update the status of a workflow task request.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The task id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: task_status
+      x-stackql-method: update
+      x-stackql-verb: EXEC
+  /userrequests?api-version=2023-10-01-preview:
+    post:
+      operationId: UserRequests_submit
+      description: Submit a user request for requestor, a user request describes user ask to do operation(s) on
+        Purview. If any workflow's trigger matches with an operation in request, a run of the workflow is created.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: user_requests
+      x-stackql-method: submit
+      x-stackql-verb: EXEC
+  /workflows/{workflow_id}?api-version=2023-10-01-preview:
+    get:
+      operationId: Workflow_get
+      description: Get a specific workflow.
+      parameters:
+      - name: workflow_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The workflow id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+    put:
+      operationId: Workflow_create_or_replace
+      description: Create or replace a workflow.
+      parameters:
+      - name: workflow_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The workflow id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow
+      x-stackql-method: create_or_replace
+      x-stackql-verb: INSERT
+    delete:
+      operationId: Workflow_delete
+      description: Delete a workflow.
+      parameters:
+      - name: workflow_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The workflow id. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: workflow
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /workflows/{workflow_id}/validate?api-version=2023-10-01-preview:
+    post:
+      operationId: Workflow_validate
+      description: Validate a workflow.
+      parameters:
+      - name: workflow_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The workflow id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow
+      x-stackql-method: validate
+      x-stackql-verb: EXEC
+  /workflowruns/{workflow_run_id}?api-version=2023-10-01-preview:
+    get:
+      operationId: WorkflowRun_get
+      description: Get a workflow run.
+      parameters:
+      - name: workflow_run_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The workflow run id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow_run
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+  /workflowruns/{workflow_run_id}/cancel?api-version=2023-10-01-preview:
+    post:
+      operationId: WorkflowRun_cancel
+      description: Cancel a workflow run.
+      parameters:
+      - name: workflow_run_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The workflow run id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow_run
+      x-stackql-method: cancel
+      x-stackql-verb: EXEC
+  /workflowruns?api-version=2023-10-01-preview:
+    get:
+      operationId: WorkflowRuns_list
+      description: List workflow runs.
+      parameters:
+      - name: viewMode
+        in: query
+        required: false
+        schema:
+          type: string
+        description: To filter user's workflow runs or view as admin. Default value is None.
+      - name: timeWindow
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Time window of filtering items. Known values are: "1d", "7d", "30d", and "90d". Default value
+          is None.'
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'The key word which used to sort the results. Known values are: "status desc", "status asc",
+          "requestor desc", "requestor asc", "startTime desc", "startTime asc", "createdTime desc", and "createdTime
+          asc". Default value is None.'
+      - name: runStatuses
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter workflow runs by workflow run status. Default value is None.
+      - name: workflowIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter items by workflow id list. Default value is None.
+      - name: requestors
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Requestors' ids to filter. Default value is None.
+      - name: maxpagesize
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow_runs
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+  /workflowtasks/{task_id}:
+    get:
+      operationId: WorkflowTask_get
+      description: Get a workflow task.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The task id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow_task
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+  /workflowtasks/{task_id}/reassign?api-version=2023-10-01-preview:
+    post:
+      operationId: WorkflowTask_reassign
+      description: Reassign a workflow task.
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The task id. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow_task
+      x-stackql-method: reassign
+      x-stackql-verb: EXEC
+  /workflowtasks?api-version=2023-10-01-preview:
+    get:
+      operationId: WorkflowTasks_list
+      description: Get all workflow tasks.
+      parameters:
+      - name: viewMode
+        in: query
+        required: false
+        schema:
+          type: string
+        description: To filter user's sent, received or history workflow tasks. Default value is None.
+      - name: workflowIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter items by workflow id list. Default value is None.
+      - name: timeWindow
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Time window of filtering items. Known values are: "1d", "7d", "30d", and "90d". Default value
+          is None.'
+      - name: maxpagesize
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: orderby
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'The key word which used to sort the results. Known values are: "status desc", "status asc",
+          "requestor desc", "requestor asc", "startTime desc", "startTime asc", "createdTime desc", and "createdTime
+          asc". Default value is None.'
+      - name: taskTypes
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter items by workflow task type. Default value is None.
+      - name: taskStatuses
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter workflow tasks by status. Default value is None.
+      - name: requestors
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Requestors' ids to filter. Default value is None.
+      - name: assignees
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Assignees' ids to filter. Default value is None.
+      - name: workflowNameKeyword
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The key word which could used to filter workflow item with related workflow. Default value
+          is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflow_tasks
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+  /workflows?api-version=2023-10-01-preview:
+    get:
+      operationId: Workflows_list
+      description: List all workflows.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: workflows
+      x-stackql-method: list
+      x-stackql-verb: SELECT

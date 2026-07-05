@@ -1,0 +1,180 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Notification Messages Client
+  description: NotificationMessagesClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-01-15-preview-stackql-generated
+  x-serviceAlias: communication_messages
+  x-sdkPackage: azure-communication-messages
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    MessageTemplateStatus:
+      type: string
+      enum:
+      - approved
+      - rejected
+      - pending
+      - paused
+    MessageTemplateItem:
+      type: object
+      description: 'The message template as returned from the service. You probably want to use the sub-classes
+        and not this class directly. Known sub-classes are: WhatsAppMessageTemplateItem Readonly variables are only
+        populated by the server, and will be ignored when sending a request.'
+      properties:
+        name:
+          type: string
+          description: The template's name. Required.
+        language:
+          type: string
+          description: The template's language, in the ISO 639 format, consist of a two-letter language code followed
+            by an optional two-letter country code, e.g., 'en' or 'en_US'. Required.
+        status:
+          $ref: '#/components/schemas/MessageTemplateStatus'
+          description: 'The aggregated template status. Required. Known values are: "approved", "rejected", "pending",
+            and "paused".'
+        kind:
+          type: string
+          description: The type discriminator describing a template type. Required. "whatsApp"
+      required:
+      - language
+      - status
+      - kind
+    PagedMessageTemplateItem:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageTemplateItem'
+        nextLink:
+          type: string
+    SendMessageResult:
+      type: object
+      description: Result of the send message operation.
+      properties:
+        receipts:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageReceipt'
+          description: Receipts of the send message operation. Required.
+      required:
+      - receipts
+    MessageReceipt:
+      type: object
+      description: Receipt of the sending one message.
+      properties:
+        messageId:
+          type: string
+          description: The message id. Required.
+        to:
+          type: string
+          description: The native external platform user identifier of the recipient. Required.
+      required:
+      - messageId
+      - to
+paths:
+  /messages/channels/{channel_id}/templates?api-version=2025-01-15-preview:
+    get:
+      operationId: MessageTemplateClient_list_templates
+      description: List all templates for given Azure Communication Services channel.
+      parameters:
+      - name: channel_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The registration ID of the channel. Required.
+      - name: maxpagesize
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedMessageTemplateItem'
+      x-stackql-resource: templates
+      x-stackql-method: list_templates
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  /messages/notifications:send?api-version=2025-01-15-preview:
+    post:
+      operationId: NotificationMessagesClient_send
+      description: Sends a notification message from Business to User.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                channelRegistrationId:
+                  type: string
+                  description: The Channel Registration ID for the Business Identifier. Required.
+                to:
+                  type: array
+                  items:
+                    type: string
+                  description: The native external platform user identifiers of the recipient. Required.
+                kind:
+                  type: string
+                  description: 'The type discriminator describing a notification type. Required. Known values are:
+                    "text", "image", "image_v0", "document", "video", "audio", "template", "sticker", "reaction",
+                    and "interactive".'
+              required:
+              - channelRegistrationId
+              - to
+              - kind
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResult'
+      x-stackql-resource: sends
+      x-stackql-method: send
+      x-stackql-verb: EXEC
+  /messages/streams/{id}?api-version=2025-01-15-preview:
+    get:
+      operationId: NotificationMessagesClient_download_media
+      description: Download the Media payload from a User to Business message.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The stream ID. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: download_medias
+      x-stackql-method: download_media
+      x-stackql-verb: EXEC

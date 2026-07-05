@@ -1,0 +1,947 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Dependency Map Mgmt Client
+  description: Microsoft.DependencyMap management service.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-01-31-preview-stackql-generated
+  x-serviceAlias: dependencymap
+  x-sdkPackage: azure-mgmt-dependencymap
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          $ref: '#/components/schemas/CreatedByType'
+          description: 'The type of identity that created the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          $ref: '#/components/schemas/CreatedByType'
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    CreatedByType:
+      type: string
+      enum:
+      - User
+      - Application
+      - ManagedIdentity
+      - Key
+    DiscoverySourceResourceProperties:
+      type: object
+      description: 'The properties of Discovery Source resource. You probably want to use the sub-classes and not
+        this class directly. Known sub-classes are: OffAzureDiscoverySourceResourceProperties'
+      properties:
+        provisioningState:
+          $ref: '#/components/schemas/ProvisioningState'
+          description: 'Provisioning state of Discovery Source resource. Known values are: "Succeeded", "Failed",
+            "Canceled", "Provisioning", "Updating", "Deleting", and "Accepted".'
+        sourceType:
+          type: string
+          description: Source type of Discovery Source resource. Required. "OffAzure"
+        sourceId:
+          type: string
+          description: Source ArmId of Discovery Source resource. Required.
+      required:
+      - sourceType
+      - sourceId
+    ProvisioningState:
+      type: string
+      enum:
+      - Succeeded
+      - Failed
+      - Canceled
+      - Provisioning
+      - Updating
+      - Deleting
+      - Accepted
+    DiscoverySourceResourceFlattened:
+      type: object
+      description: Flattened view of DiscoverySourceResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        provisioningState:
+          $ref: '#/components/schemas/ProvisioningState'
+          description: 'Provisioning state of Discovery Source resource. Known values are: "Succeeded", "Failed",
+            "Canceled", "Provisioning", "Updating", "Deleting", and "Accepted".'
+        sourceType:
+          type: string
+          description: Source type of Discovery Source resource. Required. "OffAzure"
+        sourceId:
+          type: string
+          description: Source ArmId of Discovery Source resource. Required.
+    PagedDiscoverySourceResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscoverySourceResourceFlattened'
+        nextLink:
+          type: string
+    DiscoverySourceResource:
+      type: object
+      description: A Discovery Source resource.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        properties:
+          $ref: '#/components/schemas/DiscoverySourceResourceProperties'
+          description: The resource-specific properties for this resource.
+      required:
+      - location
+    MapsResourceProperties:
+      type: object
+      description: The properties of Maps resource.
+      properties:
+        provisioningState:
+          $ref: '#/components/schemas/ProvisioningState'
+          description: 'Provisioning state of Maps resource. Known values are: "Succeeded", "Failed", "Canceled",
+            "Provisioning", "Updating", "Deleting", and "Accepted".'
+    MapsResourceFlattened:
+      type: object
+      description: Flattened view of MapsResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        provisioningState:
+          $ref: '#/components/schemas/ProvisioningState'
+          description: 'Provisioning state of Maps resource. Known values are: "Succeeded", "Failed", "Canceled",
+            "Provisioning", "Updating", "Deleting", and "Accepted".'
+    PagedMapsResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapsResourceFlattened'
+        nextLink:
+          type: string
+    MapsResource:
+      type: object
+      description: A Maps resource.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
+        properties:
+          $ref: '#/components/schemas/MapsResourceProperties'
+          description: The resource-specific properties for this resource.
+      required:
+      - location
+    DependencyMapVisualizationFilter:
+      type: object
+      description: Filters for dependency map visualization apis.
+      properties:
+        dateTime:
+          $ref: '#/components/schemas/DateTimeFilter'
+          description: DateTime filter.
+        processNameFilter:
+          $ref: '#/components/schemas/ProcessNameFilter'
+          description: Process name filter.
+    DateTimeFilter:
+      type: object
+      description: UTC DateTime filter for dependency map visualization apis.
+      properties:
+        startDateTimeUtc:
+          type: string
+          format: date-time
+          description: Start date time for dependency map visualization query.
+        endDateTimeUtc:
+          type: string
+          format: date-time
+          description: End date time for dependency map visualization query.
+    ProcessNameFilter:
+      type: object
+      description: Process name filter for dependency map visualization apis.
+      properties:
+        operator:
+          $ref: '#/components/schemas/ProcessNameFilterOperator'
+          description: 'Operator for process name filter. Required. Known values are: "contains" and "notContains".'
+        processNames:
+          type: array
+          items:
+            type: string
+          description: List of process names on which the operator should be applied. Required.
+      required:
+      - operator
+      - processNames
+    ProcessNameFilterOperator:
+      type: string
+      enum:
+      - contains
+      - notContains
+    OperationDisplay:
+      type: object
+      description: Localized display information for and operation.
+      properties:
+        provider:
+          type: string
+          description: The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights"
+            or "Microsoft Compute".
+        resource:
+          type: string
+          description: The localized friendly name of the resource type related to this operation. E.g. "Virtual
+            Machines" or "Job Schedule Collections".
+        operation:
+          type: string
+          description: The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create
+            or Update Virtual Machine", "Restart Virtual Machine".
+        description:
+          type: string
+          description: The short, localized friendly description of the operation; suitable for tool tips and detailed
+            views.
+    Origin:
+      type: string
+      enum:
+      - user
+      - system
+      - user,system
+    ActionType:
+      type: string
+      enum:
+      - Internal
+    Operation:
+      type: object
+      description: Details of a REST API operation, returned from the Resource Provider Operations API.
+      properties:
+        name:
+          type: string
+          description: 'The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+            "Microsoft.Compute/virtualMachines/capture/action".'
+        isDataAction:
+          type: boolean
+          description: Whether the operation applies to data-plane. This is "true" for data-plane operations and
+            "false" for Azure Resource Manager/control-plane operations.
+        display:
+          $ref: '#/components/schemas/OperationDisplay'
+          description: Localized display information for this particular operation.
+        origin:
+          $ref: '#/components/schemas/Origin'
+          description: 'The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit
+            logs UX. Default value is "user,system". Known values are: "user", "system", and "user,system".'
+        actionType:
+          $ref: '#/components/schemas/ActionType'
+          description: Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal
+            only APIs. "Internal"
+    PagedOperation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        nextLink:
+          type: string
+paths:
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/discoverySources/{source_name}?api-version=2025-01-31-preview
+  : get:
+      operationId: DiscoverySources_get
+      description: Get a DiscoverySourceResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: discovery source resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverySourceResourceFlattened'
+      x-stackql-resource: discovery_sources
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: DiscoverySources_begin_create_or_update
+      description: Create a DiscoverySourceResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: discovery source resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: '#/components/schemas/DiscoverySourceResourceProperties'
+                  description: The resource-specific properties for this resource.
+              required:
+              - location
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverySourceResource'
+      x-stackql-resource: discovery_sources
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: DiscoverySources_begin_update
+      description: Update a DiscoverySourceResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: discovery source resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverySourceResource'
+      x-stackql-resource: discovery_sources
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: DiscoverySources_begin_delete
+      description: Delete a DiscoverySourceResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: source_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: discovery source resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: discovery_sources
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/discoverySources?api-version=2025-01-31-preview
+  : get:
+      operationId: DiscoverySources_list_by_maps_resource
+      description: List DiscoverySourceResource resources by MapsResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedDiscoverySourceResourceFlattened'
+      x-stackql-resource: discovery_sources
+      x-stackql-method: list_by_maps_resource
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}?api-version=2025-01-31-preview
+  : get:
+      operationId: Maps_get
+      description: Get a MapsResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapsResourceFlattened'
+      x-stackql-resource: maps
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: Maps_begin_create_or_update
+      description: Create a MapsResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                location:
+                  type: string
+                  description: The geo-location where the resource lives. Required.
+                properties:
+                  $ref: '#/components/schemas/MapsResourceProperties'
+                  description: The resource-specific properties for this resource.
+              required:
+              - location
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapsResource'
+      x-stackql-resource: maps
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    patch:
+      operationId: Maps_begin_update
+      description: Update a MapsResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapsResource'
+      x-stackql-resource: maps
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Maps_begin_delete
+      description: Delete a MapsResource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: maps
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps?api-version=2025-01-31-preview
+  : get:
+      operationId: Maps_list_by_resource_group
+      description: List MapsResource resources by resource group.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedMapsResourceFlattened'
+      x-stackql-resource: maps
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.DependencyMap/maps?api-version=2025-01-31-preview:
+    get:
+      operationId: Maps_list_by_subscription
+      description: List MapsResource resources by subscription ID.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedMapsResourceFlattened'
+      x-stackql-resource: maps
+      x-stackql-method: list_by_subscription
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/getDependencyViewForFocusedMachine?api-version=2025-01-31-preview
+  : post:
+      operationId: Maps_begin_get_dependency_view_for_focused_machine
+      description: Get dependency map of single machine.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                focusedMachineId:
+                  type: string
+                  description: Machine arm id. Required.
+                filters:
+                  $ref: '#/components/schemas/DependencyMapVisualizationFilter'
+                  description: Filters for GetSingleMachineDependencyView.
+              required:
+              - focusedMachineId
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: maps
+      x-stackql-method: get_dependency_view_for_focused_machine
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/getConnectionsWithConnectedMachineForFocusedMachine?api-version=2025-01-31-preview
+  : post:
+      operationId: Maps_begin_get_connections_with_connected_machine_for_focused_machine
+      description: Get network connections between machines.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                focusedMachineId:
+                  type: string
+                  description: Source machine arm id. Required.
+                connectedMachineId:
+                  type: string
+                  description: Destination machine arm id. Required.
+                filters:
+                  $ref: '#/components/schemas/DependencyMapVisualizationFilter'
+                  description: Filters for GetNetworkConnectionsBetweenMachines.
+              required:
+              - focusedMachineId
+              - connectedMachineId
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: maps
+      x-stackql-method: get_connections_with_connected_machine_for_focused_machine
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/getConnectionsForProcessOnFocusedMachine?api-version=2025-01-31-preview
+  : post:
+      operationId: Maps_begin_get_connections_for_process_on_focused_machine
+      description: Get network connections of a process.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                focusedMachineId:
+                  type: string
+                  description: Machine arm id. Required.
+                processIdOnFocusedMachine:
+                  type: string
+                  description: Process id. Required.
+                filters:
+                  $ref: '#/components/schemas/DependencyMapVisualizationFilter'
+                  description: Filters for GetProcessNetworkConnections.
+              required:
+              - focusedMachineId
+              - processIdOnFocusedMachine
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: maps
+      x-stackql-method: get_connections_for_process_on_focused_machine
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/exportDependencies?api-version=2025-01-31-preview
+  : post:
+      operationId: Maps_begin_export_dependencies
+      description: Export dependencies.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. The name is case insensitive. Required.
+      - name: map_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Maps resource name. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                focusedMachineId:
+                  type: string
+                  description: Machine arm id. Required.
+                filters:
+                  $ref: '#/components/schemas/DependencyMapVisualizationFilter'
+                  description: Filters for ExportDependencies.
+              required:
+              - focusedMachineId
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: maps
+      x-stackql-method: export_dependencies
+      x-stackql-verb: EXEC
+  /providers/Microsoft.DependencyMap/operations?api-version=2025-01-31-preview:
+    get:
+      operationId: dependencymap_list
+      description: List the operations for the provider.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOperation'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value

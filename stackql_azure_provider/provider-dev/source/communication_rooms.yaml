@@ -1,0 +1,137 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Rooms Client
+  description: A client to interact with the AzureCommunicationService Rooms gateway. This client provides operations
+    to manage rooms.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2025-03-13-stackql-generated
+  x-serviceAlias: communication_rooms
+  x-sdkPackage: azure-communication-rooms
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /rooms/{room_id}/participants?api-version=2025-03-13:
+    get:
+      operationId: Participants_list
+      description: Get participants in a room. Get participants in a room.
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The id of the room to get participants from. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: participants
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+    patch:
+      operationId: Participants_update
+      description: Update participants in a room. Update participants in a room.
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The id of the room to update the participants in. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: participants
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+  /rooms/{room_id}?api-version=2025-03-13:
+    get:
+      operationId: Rooms_get
+      description: Retrieves an existing room by id. Retrieves an existing room by id.
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The id of the room requested. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: rooms
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+    patch:
+      operationId: Rooms_update
+      description: Update a room with given changes. Update a room with given changes.
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The id of the room requested. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: rooms
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Rooms_delete
+      description: Delete a room. Delete a room.
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The id of the room to be deleted. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: rooms
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /rooms?api-version=2025-03-13:
+    get:
+      operationId: Rooms_list
+      description: Retrieves all created rooms. Retrieves all created rooms.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: rooms
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+    post:
+      operationId: Rooms_create
+      description: Creates a new room. Creates a new room.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: rooms
+      x-stackql-method: create
+      x-stackql-verb: INSERT

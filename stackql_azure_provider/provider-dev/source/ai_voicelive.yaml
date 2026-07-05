@@ -1,0 +1,43 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint.
+info:
+  title: Ai Voicelive
+  description: Azure AI VoiceLive client library for Python
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: unversioned-stackql-generated
+  x-serviceAlias: ai_voicelive
+  x-sdkPackage: azure-ai-voicelive
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /:
+    post:
+      operationId: _BuilderFallback_voice_live_force_models
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: voice_live_force_models
+      x-stackql-method: voice_live_force_models
+      x-stackql-verb: EXEC

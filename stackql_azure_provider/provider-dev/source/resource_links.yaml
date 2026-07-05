@@ -1,0 +1,282 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Management Link Client
+  description: ManagementLink Client.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2016-09-01-stackql-generated
+  x-serviceAlias: resource_links
+  x-sdkPackage: azure-mgmt-resource-links
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    OperationDisplay:
+      type: object
+      description: The object that represents the operation.
+      properties:
+        provider:
+          type: string
+          description: 'Service provider: Microsoft.Resources.'
+        resource:
+          type: string
+          description: 'Resource on which the operation is performed: Profile, endpoint, etc.'
+        operation:
+          type: string
+          description: 'Operation type: Read, write, delete, etc.'
+        description:
+          type: string
+          description: Description of the operation.
+    Operation:
+      type: object
+      description: Microsoft.Resources operation.
+      properties:
+        name:
+          type: string
+          description: 'Operation name: {provider}/{resource}/{operation}.'
+        display:
+          $ref: '#/components/schemas/OperationDisplay'
+          description: The object that represents the operation.
+    PagedOperation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        nextLink:
+          type: string
+    ResourceLinkProperties:
+      type: object
+      description: The resource link properties. Variables are only populated by the server, and will be ignored
+        when sending a request. All required parameters must be populated in order to send to server.
+      properties:
+        sourceId:
+          type: string
+          description: The fully qualified ID of the source resource in the link.
+        targetId:
+          type: string
+          description: The fully qualified ID of the target resource in the link. Required.
+        notes:
+          type: string
+          description: Notes about the resource link.
+      required:
+      - targetId
+    ResourceLinkFlattened:
+      type: object
+      description: Flattened view of ResourceLink ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The fully qualified ID of the resource link.
+        name:
+          type: string
+          description: The name of the resource link.
+        type:
+          type: object
+          properties: {}
+          description: The resource link object.
+        sourceId:
+          type: string
+          description: The fully qualified ID of the source resource in the link.
+        targetId:
+          type: string
+          description: The fully qualified ID of the target resource in the link. Required.
+        notes:
+          type: string
+          description: Notes about the resource link.
+    ResourceLink:
+      type: object
+      description: The resource link. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        id:
+          type: string
+          description: The fully qualified ID of the resource link.
+        name:
+          type: string
+          description: The name of the resource link.
+        type:
+          type: object
+          properties: {}
+          description: The resource link object.
+        properties:
+          $ref: '#/components/schemas/ResourceLinkProperties'
+          description: Properties for resource link.
+    PagedResourceLinkFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceLinkFlattened'
+        nextLink:
+          type: string
+paths:
+  /providers/Microsoft.Resources/operations?api-version=2016-09-01:
+    get:
+      operationId: resource_links_list
+      description: Lists all of the available Microsoft.Resources REST API operations.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOperation'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  /{link_id}?api-version=2016-09-01:
+    get:
+      operationId: ResourceLinks_get
+      description: Gets a resource link with the specified ID.
+      parameters:
+      - name: link_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The fully qualified Id of the resource link. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite/Microsoft.Resources/links/myLink.
+          Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLinkFlattened'
+      x-stackql-resource: resource_links
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: ResourceLinks_create_or_update
+      description: Creates or updates a resource link between the specified resources.
+      parameters:
+      - name: link_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The fully qualified ID of the resource link. Use the format, /subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/{provider-namespace}/{resource-type}/{resource-name}/Microsoft.Resources/links/{link-name}.
+          For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite/Microsoft.Resources/links/myLink.
+          Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/ResourceLinkProperties'
+                  description: Properties for resource link.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceLink'
+      x-stackql-resource: resource_links
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    delete:
+      operationId: ResourceLinks_delete
+      description: Deletes a resource link with the specified ID.
+      parameters:
+      - name: link_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The fully qualified ID of the resource link. Use the format, /subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/{provider-namespace}/{resource-type}/{resource-name}/Microsoft.Resources/links/{link-name}.
+          For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite/Microsoft.Resources/links/myLink.
+          Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: resource_links
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /subscriptions/{subscription_id}/providers/Microsoft.Resources/links?api-version=2016-09-01:
+    get:
+      operationId: ResourceLinks_list_at_subscription
+      description: Gets all the linked resources for the subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The filter to apply on the list resource links operation. The supported filter for list resource
+          links is targetId. For example, $filter=targetId eq {value}. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceLinkFlattened'
+      x-stackql-resource: resource_links
+      x-stackql-method: list_at_subscription
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /{scope}/providers/Microsoft.Resources/links?api-version=2016-09-01:
+    get:
+      operationId: ResourceLinks_list_at_source_scope
+      description: Gets a list of resource links at and below the specified source scope.
+      parameters:
+      - name: scope
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The fully qualified ID of the scope for getting the resource links. For example, to list resource
+          links at and under a resource group, set the scope to /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup.
+          Required.
+      - name: $filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The filter to apply when getting resource links. To get links only at the specified scope (not
+          below the scope), use Filter.atScope(). Known values are "atScope()" and None. Default value is "atScope()".
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceLinkFlattened'
+      x-stackql-resource: resource_links
+      x-stackql-method: list_at_source_scope
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value

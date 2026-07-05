@@ -1,0 +1,1739 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Azure Stack Management Client
+  description: Azure Stack.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2020-06-01-preview-stackql-generated
+  x-serviceAlias: azurestack
+  x-sdkPackage: azure-mgmt-azurestack
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    CloudManifestFileProperties:
+      type: object
+      description: Cloud specific manifest JSON properties.
+      properties:
+        deploymentData:
+          $ref: '#/components/schemas/CloudManifestFileDeploymentData'
+          description: Cloud specific manifest data.
+        signature:
+          type: string
+          description: Signature of the cloud specific manifest data.
+    CloudManifestFileDeploymentData:
+      type: object
+      description: Cloud specific manifest data for AzureStack deployment.
+      properties:
+        externalDsmsCertificates:
+          type: string
+          description: Dsms external certificates.
+        customCloudVerificationKey:
+          type: string
+          description: Signing verification public key.
+        customEnvironmentEndpoints:
+          type: object
+          properties:
+            customCloudArmEndpoint:
+              type: string
+              description: ARM endpoint.
+            externalDsmsEndpoint:
+              type: string
+              description: Dsms endpoint.
+    CloudManifestFileResponseFlattened:
+      type: object
+      description: Flattened view of CloudManifestFileResponse ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        deploymentData:
+          $ref: '#/components/schemas/CloudManifestFileDeploymentData'
+          description: Cloud specific manifest data.
+        signature:
+          type: string
+          description: Signature of the cloud specific manifest data.
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          type: string
+          description: 'The type of identity that created the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          type: string
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    CustomerSubscriptionFlattened:
+      type: object
+      description: Flattened view of CustomerSubscription ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        tenantId:
+          type: string
+          description: Tenant Id.
+    PagedCustomerSubscriptionFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerSubscriptionFlattened'
+        nextLink:
+          type: string
+    CustomerSubscription:
+      type: object
+      description: Customer subscription. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        properties:
+          type: object
+          properties:
+            tenantId:
+              type: string
+              description: Tenant Id.
+    LinkedSubscriptionFlattened:
+      type: object
+      description: Flattened view of LinkedSubscription ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        kind:
+          type: string
+          description: The kind of the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        location:
+          type: string
+          description: Location of the resource. Required. "global"
+        tags:
+          type: object
+          properties: {}
+          description: Custom tags for the resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        linkedSubscriptionId:
+          type: string
+          description: The identifier associated with the device subscription.
+        registrationResourceId:
+          type: string
+          description: The identifier associated with the device registration.
+        deviceId:
+          type: string
+          description: The identifier of the Azure Stack device for remote management.
+        deviceObjectId:
+          type: string
+          description: The object identifier associated with the Azure Stack device connecting to Azure.
+        deviceLinkState:
+          type: string
+          description: The connection state of the Azure Stack device.
+        lastConnectedTime:
+          type: string
+          description: The last remote management connection time for the Azure Stack device connected to the linked
+            subscription resource.
+        deviceConnectionStatus:
+          type: string
+          description: The status of the remote management connection of the Azure Stack device.
+    PagedLinkedSubscriptionFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedSubscriptionFlattened'
+        nextLink:
+          type: string
+    LinkedSubscription:
+      type: object
+      description: Linked Subscription information. Variables are only populated by the server, and will be ignored
+        when sending a request. All required parameters must be populated in order to send to server.
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        kind:
+          type: string
+          description: The kind of the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        location:
+          type: string
+          description: Location of the resource. Required. "global"
+        tags:
+          type: object
+          properties: {}
+          description: Custom tags for the resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        properties:
+          type: object
+          properties:
+            linkedSubscriptionId:
+              type: string
+              description: The identifier associated with the device subscription.
+            registrationResourceId:
+              type: string
+              description: The identifier associated with the device registration.
+            deviceId:
+              type: string
+              description: The identifier of the Azure Stack device for remote management.
+            deviceObjectId:
+              type: string
+              description: The object identifier associated with the Azure Stack device connecting to Azure.
+            deviceLinkState:
+              type: string
+              description: The connection state of the Azure Stack device.
+            lastConnectedTime:
+              type: string
+              description: The last remote management connection time for the Azure Stack device connected to the
+                linked subscription resource.
+            deviceConnectionStatus:
+              type: string
+              description: The status of the remote management connection of the Azure Stack device.
+      required:
+      - location
+    Display:
+      type: object
+      description: Contains the localized display information for this particular operation or action.
+      properties:
+        provider:
+          type: string
+          description: The localized, friendly version of the resource provider name.
+        resource:
+          type: string
+          description: The localized, friendly version of the resource type related to this action or operation;
+            the resource type should match the public documentation for the resource provider.
+        operation:
+          type: string
+          description: The localized, friendly name for the operation. Use the name as it will displayed to the
+            user.
+        description:
+          type: string
+          description: The localized, friendly description for the operation. The description will be displayed
+            to the user. It should be thorough and concise for used in both tooltips and detailed views.
+    Operation:
+      type: object
+      description: Describes the supported REST operation.
+      properties:
+        name:
+          type: string
+          description: The name of the operation being performed on this particular object.
+        display:
+          $ref: '#/components/schemas/Display'
+          description: Contains the localized display information for this particular operation or action.
+        origin:
+          type: string
+          description: The intended executor of the operation.
+    PagedOperation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        nextLink:
+          type: string
+    IconUris:
+      type: object
+      description: Links to product icons.
+      properties:
+        large:
+          type: string
+          description: URI to large icon.
+        wide:
+          type: string
+          description: URI to wide icon.
+        medium:
+          type: string
+          description: URI to medium icon.
+        small:
+          type: string
+          description: URI to small icon.
+        hero:
+          type: string
+          description: URI to hero icon.
+    ProductLink:
+      type: object
+      description: Link with additional information about a product.
+      properties:
+        displayName:
+          type: string
+          description: The description of the link.
+        uri:
+          type: string
+          description: The URI corresponding to the link.
+    ProductProperties:
+      type: object
+      description: Additional properties of the product.
+      properties:
+        version:
+          type: string
+          description: The version.
+    Compatibility:
+      type: object
+      description: Product compatibility.
+      properties:
+        isCompatible:
+          type: boolean
+          description: Tells if product is compatible with current device.
+        message:
+          type: string
+          description: Short error message if any compatibility issues are found.
+        description:
+          type: string
+          description: Full error message if any compatibility issues are found.
+        issues:
+          type: array
+          items:
+            type: string
+          description: List of all issues found.
+    ProductFlattened:
+      type: object
+      description: Flattened view of Product ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        displayName:
+          type: string
+          description: The display name of the product.
+        description:
+          type: string
+          description: The description of the product.
+        publisherDisplayName:
+          type: string
+          description: The user-friendly name of the product publisher.
+        publisherIdentifier:
+          type: string
+          description: Publisher identifier.
+        offer:
+          type: string
+          description: The offer representing the product.
+        offerVersion:
+          type: string
+          description: The version of the product offer.
+        sku:
+          type: string
+          description: The product SKU.
+        billingPartNumber:
+          type: string
+          description: The part number used for billing purposes.
+        vmExtensionType:
+          type: string
+          description: The type of the Virtual Machine Extension.
+        galleryItemIdentity:
+          type: string
+          description: The identifier of the gallery item corresponding to the product.
+        iconUris:
+          $ref: '#/components/schemas/IconUris'
+          description: Additional links available for this product.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductLink'
+          description: Additional links available for this product.
+        legalTerms:
+          type: string
+          description: The legal terms.
+        privacyPolicy:
+          type: string
+          description: The privacy policy.
+        payloadLength:
+          type: integer
+          description: The length of product content.
+        productKind:
+          type: string
+          description: The kind of the product (virtualMachine or virtualMachineExtension).
+        productProperties:
+          $ref: '#/components/schemas/ProductProperties'
+          description: Additional properties for the product.
+        compatibility:
+          $ref: '#/components/schemas/Compatibility'
+          description: Product compatibility with current device.
+    PagedProductFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductFlattened'
+        nextLink:
+          type: string
+    ExtendedProduct:
+      type: object
+      description: Extended description about the product required for installing it into Azure Stack. Variables
+        are only populated by the server, and will be ignored when sending a request.
+      properties:
+        galleryPackageBlobSasUri:
+          type: string
+          description: The URI to the .azpkg file that provides information required for showing product in the
+            gallery.
+        productKind:
+          type: string
+          description: Specifies the kind of the product (virtualMachine or virtualMachineExtension).
+        properties:
+          type: object
+          properties:
+            computeRole:
+              type: string
+              description: 'Specifies kind of compute role included in the package. Known values are: "None", "IaaS",
+                and "PaaS".'
+            isSystemExtension:
+              type: boolean
+              description: Specifies if product is a Virtual Machine Extension.
+            supportMultipleExtensions:
+              type: boolean
+              description: Indicates if specified product supports multiple extensions.
+            version:
+              type: string
+              description: Specifies product version.
+            vmOsType:
+              type: string
+              description: 'Specifies operating system used by the product. Known values are: "None", "Windows",
+                and "Linux".'
+            vmScaleSetEnabled:
+              type: boolean
+              description: Indicates if virtual machine Scale Set is enabled in the specified product.
+            sourceBlob:
+              type: object
+              properties:
+                uri:
+                  type: string
+                  description: The URI.
+            osDiskImage:
+              $ref: '#/components/schemas/OsDiskImage'
+              description: OS disk image used by product.
+            dataDiskImages:
+              type: array
+              items:
+                $ref: '#/components/schemas/DataDiskImage'
+              description: List of attached data disks.
+    OsDiskImage:
+      type: object
+      description: OS disk image. Variables are only populated by the server, and will be ignored when sending a
+        request.
+      properties:
+        operatingSystem:
+          type: string
+          description: 'OS operating system type. Known values are: "None", "Windows", and "Linux".'
+        sourceBlobSasUri:
+          type: string
+          description: SAS key for source blob.
+    DataDiskImage:
+      type: object
+      description: Data disk image. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        lun:
+          type: integer
+          description: The LUN.
+        sourceBlobSasUri:
+          type: string
+          description: SAS key for source blob.
+    DeviceConfiguration:
+      type: object
+      description: Device Configuration. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        deviceVersion:
+          type: string
+          description: Version of the device.
+        identitySystem:
+          type: string
+          description: 'Identity system of the device. Known values are: "AzureAD" and "ADFS".'
+    Product:
+      type: object
+      description: Product information. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        properties:
+          type: object
+          properties:
+            displayName:
+              type: string
+              description: The display name of the product.
+            description:
+              type: string
+              description: The description of the product.
+            publisherDisplayName:
+              type: string
+              description: The user-friendly name of the product publisher.
+            publisherIdentifier:
+              type: string
+              description: Publisher identifier.
+            offer:
+              type: string
+              description: The offer representing the product.
+            offerVersion:
+              type: string
+              description: The version of the product offer.
+            sku:
+              type: string
+              description: The product SKU.
+            billingPartNumber:
+              type: string
+              description: The part number used for billing purposes.
+            vmExtensionType:
+              type: string
+              description: The type of the Virtual Machine Extension.
+            galleryItemIdentity:
+              type: string
+              description: The identifier of the gallery item corresponding to the product.
+            iconUris:
+              $ref: '#/components/schemas/IconUris'
+              description: Additional links available for this product.
+            links:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductLink'
+              description: Additional links available for this product.
+            legalTerms:
+              type: string
+              description: The legal terms.
+            privacyPolicy:
+              type: string
+              description: The privacy policy.
+            payloadLength:
+              type: integer
+              description: The length of product content.
+            productKind:
+              type: string
+              description: The kind of the product (virtualMachine or virtualMachineExtension).
+            productProperties:
+              $ref: '#/components/schemas/ProductProperties'
+              description: Additional properties for the product.
+            compatibility:
+              $ref: '#/components/schemas/Compatibility'
+              description: Product compatibility with current device.
+    ProductList:
+      type: object
+      description: Pageable list of products.
+      properties:
+        nextLink:
+          type: string
+          description: URI to the next page.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+          description: List of products.
+    MarketplaceProductLogUpdate:
+      type: object
+      description: Update details for product log. Variables are only populated by the server, and will be ignored
+        when sending a request.
+      properties:
+        operation:
+          type: string
+          description: Operation to log.
+        status:
+          type: string
+          description: Operation status to log.
+        error:
+          type: string
+          description: Error related to the operation.
+        details:
+          type: string
+          description: Error details related to operation.
+    ProductLog:
+      type: object
+      description: Product action log. Variables are only populated by the server, and will be ignored when sending
+        a request.
+      properties:
+        id:
+          type: string
+          description: Log ID.
+        productId:
+          type: string
+          description: Logged product ID.
+        subscriptionId:
+          type: string
+          description: Logged subscription ID.
+        registrationName:
+          type: string
+          description: Logged registration name.
+        resourceGroupName:
+          type: string
+          description: Logged resource group name.
+        operation:
+          type: string
+          description: Logged operation.
+        startDate:
+          type: string
+          description: Operation start datetime.
+        endDate:
+          type: string
+          description: Operation end datetime.
+        status:
+          type: string
+          description: Operation status.
+        error:
+          type: string
+          description: Operation error data.
+        details:
+          type: string
+          description: Operation error details.
+    RegistrationFlattened:
+      type: object
+      description: Flattened view of Registration ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        kind:
+          type: string
+          description: The kind of the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        location:
+          type: string
+          description: Location of the resource. Required. "global"
+        tags:
+          type: object
+          properties: {}
+          description: Custom tags for the resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        objectId:
+          type: string
+          description: The object identifier associated with the Azure Stack connecting to Azure.
+        cloudId:
+          type: string
+          description: The identifier of the registered Azure Stack.
+        billingModel:
+          type: string
+          description: Specifies the billing mode for the Azure Stack registration.
+    PagedRegistrationFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegistrationFlattened'
+        nextLink:
+          type: string
+    Registration:
+      type: object
+      description: Registration information. Variables are only populated by the server, and will be ignored when
+        sending a request. All required parameters must be populated in order to send to server.
+      properties:
+        id:
+          type: string
+          description: ID of the resource.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Type of Resource.
+        kind:
+          type: string
+          description: The kind of the resource.
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        location:
+          type: string
+          description: Location of the resource. Required. "global"
+        tags:
+          type: object
+          properties: {}
+          description: Custom tags for the resource.
+        etag:
+          type: string
+          description: The entity tag used for optimistic concurrency when modifying the resource.
+        properties:
+          type: object
+          properties:
+            objectId:
+              type: string
+              description: The object identifier associated with the Azure Stack connecting to Azure.
+            cloudId:
+              type: string
+              description: The identifier of the registered Azure Stack.
+            billingModel:
+              type: string
+              description: Specifies the billing mode for the Azure Stack registration.
+      required:
+      - location
+    ActivationKeyResult:
+      type: object
+      description: The resource containing the Azure Stack activation key.
+      properties:
+        activationKey:
+          type: string
+          description: Azure Stack activation key.
+paths:
+  /providers/Microsoft.AzureStack/cloudManifestFiles/{verification_version}?api-version=2020-06-01-preview:
+    get:
+      operationId: CloudManifestFile_get
+      description: Returns a cloud specific manifest JSON file.
+      parameters:
+      - name: verification_version
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Signing verification key version. Required.
+      - name: versionCreationDate
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Signing verification key version creation date. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudManifestFileResponseFlattened'
+      x-stackql-resource: cloud_manifest_file
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+  /providers/Microsoft.AzureStack/cloudManifestFiles?api-version=2020-06-01-preview:
+    get:
+      operationId: CloudManifestFile_list
+      description: Returns a cloud specific manifest JSON file with latest version.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudManifestFileResponseFlattened'
+      x-stackql-resource: cloud_manifest_file
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/customerSubscriptions/{customer_subscription_name}?api-version=2020-06-01-preview
+  : get:
+      operationId: CustomerSubscriptions_get
+      description: Returns the specified product.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: customer_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerSubscriptionFlattened'
+      x-stackql-resource: customer_subscriptions
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    delete:
+      operationId: CustomerSubscriptions_delete
+      description: Deletes a customer subscription under a registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: customer_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: customer_subscriptions
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+    put:
+      operationId: CustomerSubscriptions_create
+      description: Creates a new customer subscription under a registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: customer_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                etag:
+                  type: string
+                  description: The entity tag used for optimistic concurrency when modifying the resource.
+                properties:
+                  type: object
+                  properties:
+                    tenantId:
+                      type: string
+                      description: Tenant Id.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerSubscription'
+      x-stackql-resource: customer_subscriptions
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/customerSubscriptions?api-version=2020-06-01-preview
+  : get:
+      operationId: CustomerSubscriptions_list
+      description: Returns a list of products.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedCustomerSubscriptionFlattened'
+      x-stackql-resource: customer_subscriptions
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/linkedSubscriptions/{linked_subscription_name}?api-version=2020-06-01-preview
+  : get:
+      operationId: LinkedSubscriptions_get
+      description: Returns the properties of a Linked Subscription resource.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: linked_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Linked Subscription resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedSubscriptionFlattened'
+      x-stackql-resource: linked_subscriptions
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: LinkedSubscriptions_create_or_update
+      description: Create or update a linked subscription resource.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: linked_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Linked Subscription resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: Location of the resource. Required. "global"
+                properties:
+                  type: object
+                  properties:
+                    linkedSubscriptionId:
+                      type: string
+                      description: The identifier associated with the device subscription. Required.
+                    registrationResourceId:
+                      type: string
+                      description: The identifier associated with the device registration. Required.
+              required:
+              - location
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedSubscription'
+      x-stackql-resource: linked_subscriptions
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    delete:
+      operationId: LinkedSubscriptions_delete
+      description: Delete the requested Linked Subscription resource.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: linked_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Linked Subscription resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: linked_subscriptions
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+    patch:
+      operationId: LinkedSubscriptions_update
+      description: Patch a Linked Subscription resource.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: linked_subscription_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Linked Subscription resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: Location of the resource. Required. "global"
+                properties:
+                  type: object
+                  properties:
+                    linkedSubscriptionId:
+                      type: string
+                      description: The identifier associated with the device subscription. Required.
+                    registrationResourceId:
+                      type: string
+                      description: The identifier associated with the device registration. Required.
+              required:
+              - location
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedSubscription'
+      x-stackql-resource: linked_subscriptions
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/linkedSubscriptions?api-version=2020-06-01-preview
+  : get:
+      operationId: LinkedSubscriptions_list_by_resource_group
+      description: Returns a list of all linked subscriptions under current resource group.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLinkedSubscriptionFlattened'
+      x-stackql-resource: linked_subscriptions
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.AzureStack/linkedSubscriptions?api-version=2020-06-01-preview:
+    get:
+      operationId: LinkedSubscriptions_list_by_subscription
+      description: Returns a list of all linked subscriptions under current subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLinkedSubscriptionFlattened'
+      x-stackql-resource: linked_subscriptions
+      x-stackql-method: list_by_subscription
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /providers/Microsoft.AzureStack/operations?api-version=2020-06-01-preview:
+    get:
+      operationId: azurestack_list
+      description: Returns the list of supported REST operations.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOperation'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}?api-version=2020-06-01-preview
+  : get:
+      operationId: Products_get
+      description: Returns the specified product.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: product_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductFlattened'
+      x-stackql-resource: products
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products?api-version=2020-06-01-preview
+  : get:
+      operationId: Products_list
+      description: Returns a list of products.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedProductFlattened'
+      x-stackql-resource: products
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/listDetails?api-version=2020-06-01-preview
+  : post:
+      operationId: Products_list_details
+      description: Returns the extended properties of a product.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: product_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtendedProduct'
+      x-stackql-resource: products
+      x-stackql-method: list_details
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/getProducts?api-version=2020-06-01-preview
+  : post:
+      operationId: Products_get_products
+      description: Returns a list of products.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: product_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceConfiguration'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+      x-stackql-resource: products
+      x-stackql-method: get_products
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/getProduct?api-version=2020-06-01-preview
+  : post:
+      operationId: Products_get_product
+      description: Returns the specified product.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: product_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceConfiguration'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      x-stackql-resource: products
+      x-stackql-method: get_product
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/uploadProductLog?api-version=2020-06-01-preview
+  : post:
+      operationId: Products_upload_log
+      description: Returns the specified product.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: product_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the product. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceProductLogUpdate'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductLog'
+      x-stackql-resource: products
+      x-stackql-method: upload_log
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}?api-version=2020-06-01-preview
+  : get:
+      operationId: Registrations_get
+      description: Returns the properties of an Azure Stack registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationFlattened'
+      x-stackql-resource: registrations
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: Registrations_create_or_update
+      description: Create or update an Azure Stack registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: Location of the resource. Required. "global"
+                properties:
+                  type: object
+                  properties:
+                    registrationToken:
+                      type: string
+                      description: The token identifying registered Azure Stack. Required.
+              required:
+              - location
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
+      x-stackql-resource: registrations
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    delete:
+      operationId: Registrations_delete
+      description: Delete the requested Azure Stack registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: registrations
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+    patch:
+      operationId: Registrations_update
+      description: Patch an Azure Stack registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: Location of the resource. Required. "global"
+                properties:
+                  type: object
+                  properties:
+                    registrationToken:
+                      type: string
+                      description: The token identifying registered Azure Stack. Required.
+              required:
+              - location
+              - properties
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
+      x-stackql-resource: registrations
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations?api-version=2020-06-01-preview
+  : get:
+      operationId: Registrations_list
+      description: Returns a list of all registrations.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedRegistrationFlattened'
+      x-stackql-resource: registrations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.AzureStack/registrations?api-version=2020-06-01-preview:
+    get:
+      operationId: Registrations_list_by_subscription
+      description: Returns a list of all registrations under current subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedRegistrationFlattened'
+      x-stackql-resource: registrations
+      x-stackql-method: list_by_subscription
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/getactivationkey?api-version=2020-06-01-preview
+  : post:
+      operationId: Registrations_get_activation_key
+      description: Returns Azure Stack Activation Key.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivationKeyResult'
+      x-stackql-resource: registrations
+      x-stackql-method: get_activation_key
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/enableRemoteManagement
+  : post:
+      operationId: Registrations_enable_remote_management
+      description: Enables remote management for device under the Azure Stack registration.
+      parameters:
+      - name: resource_group
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the resource group. Required.
+      - name: registration_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Name of the Azure Stack registration. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: registrations
+      x-stackql-method: enable_remote_management
+      x-stackql-verb: EXEC

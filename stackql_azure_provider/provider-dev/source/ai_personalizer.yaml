@@ -1,0 +1,460 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}/personalizer'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `Endpoint` parameter.
+info:
+  title: Personalizer Client
+  description: Personalizer Service is an Azure Cognitive Service that makes it easy to target content and experiences
+    without complex pre-analysis or cleanup of past data. Given a context and featurized content, the Personalizer
+    Service returns which content item to show to users in rewardActionId. As rewards are sent in response to the
+    use of rewardActionId, the reinforcement learning algorithm will improve the model and improve performance of
+    future rank calls.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2022-09-01-preview-stackql-generated
+  x-serviceAlias: ai_personalizer
+  x-sdkPackage: azure-ai-personalizer
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /evaluations?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_list_evaluations
+      description: All Offline Evaluations. List of all Offline Evaluations.
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: An expression to filter the evaluations against evaluation metadata. Only evaluations where
+          the expression evaluates to true are included in the response. Here is an example, metadata=evaluationType
+          eq 'Manual'. Default value is None.
+      - name: top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The maximum number of resources to return from the collection. Defaults to maximum value of
+          integer. Default value is None.
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: An offset into the collection of the first resource to be returned. Defaults to 0. Default
+          value is 0.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: evaluations
+      x-stackql-method: list_evaluations
+      x-stackql-verb: SELECT
+  /featureImportances?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_list_feature_importances
+      description: All Feature Importances. List of all Feature Importances.
+      parameters:
+      - name: top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The maximum number of resources to return from the collection. Defaults to maximum value of
+          integer. Default value is None.
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: An offset into the collection of the first resource to be returned. Defaults to 0. Default
+          value is 0.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: feature_importances
+      x-stackql-method: list_feature_importances
+      x-stackql-verb: SELECT
+  /configurations/service?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_service_configuration
+      description: Service Configuration. Get the Personalizer service configuration.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: service_configurations
+      x-stackql-method: get_service_configuration
+      x-stackql-verb: SELECT
+    put:
+      operationId: PersonalizerClient_update_service_configuration
+      description: Update Service Configuration. Update the Personalizer service configuration.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: service_configurations
+      x-stackql-method: update_service_configuration
+      x-stackql-verb: UPDATE
+  /configurations/policy?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_policy
+      description: Policy. Get the Learning Settings currently used by the Personalizer service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: policies
+      x-stackql-method: get_policy
+      x-stackql-verb: SELECT
+    put:
+      operationId: PersonalizerClient_update_policy
+      description: Update Policy. Update the Learning Settings that the Personalizer service will use to train models.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: policies
+      x-stackql-method: update_policy
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: PersonalizerClient_reset_policy
+      description: Reset Policy. Resets the learning settings of the Personalizer service to default.
+      parameters: []
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: reset_policies
+      x-stackql-method: reset_policy
+      x-stackql-verb: DELETE
+  /evaluations/{evaluation_id}?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_evaluation
+      description: Offline Evaluation. Get the Offline Evaluation associated with the Id.
+      parameters:
+      - name: evaluation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the Offline Evaluation. Required.
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Start of aggregation time interval. Required.
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: End of aggregation time interval. Required.
+      - name: intervalInMinutes
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: '"Time interval for aggregation of events in minutes. Allowed intervals: 5 minutes, 60 minutes,
+          360 minutes, 720 minutes and 1440 minutes. Defaults to 5 minutes. Default value is None.'
+      - name: window
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Rolling or Expanding time. Rolling compatible with 60 minutes, 360 minutes, 720 minutes and
+          1440 minutes intervals. Expanding compatible with 5 minute time interval only. Defaults to Expanding.
+          Known values are: "Expanding" and "Rolling". Default value is None.'
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: evaluations
+      x-stackql-method: get_evaluation
+      x-stackql-verb: SELECT
+    delete:
+      operationId: PersonalizerClient_delete_evaluation
+      description: Offline Evaluation. Delete the Offline Evaluation associated with the Id.
+      parameters:
+      - name: evaluation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the Offline Evaluation to delete. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: evaluations
+      x-stackql-method: delete_evaluation
+      x-stackql-verb: DELETE
+    put:
+      operationId: PersonalizerClient_create_evaluation
+      description: Create Offline Evaluation. Submit a new Offline Evaluation job.
+      parameters:
+      - name: evaluation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the Offline Evaluation to create. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: evaluations
+      x-stackql-method: create_evaluation
+      x-stackql-verb: INSERT
+  /featureImportances/{feature_importance_id}?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_feature_importance
+      description: Feature Importance. Get the Feature Importance associated with the Id.
+      parameters:
+      - name: feature_importance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the Feature Importance. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: feature_importances
+      x-stackql-method: get_feature_importance
+      x-stackql-verb: SELECT
+    delete:
+      operationId: PersonalizerClient_delete_feature_importance
+      description: Feature Importance. Delete the Feature Importance associated with the Id.
+      parameters:
+      - name: feature_importance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the Feature Importance to delete. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: feature_importances
+      x-stackql-method: delete_feature_importance
+      x-stackql-verb: DELETE
+    put:
+      operationId: PersonalizerClient_create_feature_importance
+      description: Create Feature Importance. Submit a new Feature Importance job.
+      parameters:
+      - name: feature_importance_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id of the Feature Importance to create. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: feature_importances
+      x-stackql-method: create_feature_importance
+      x-stackql-verb: INSERT
+  /logs/properties?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_log_properties
+      description: Log Properties. Get properties of the Personalizer logs.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: log_properties
+      x-stackql-method: get_log_properties
+      x-stackql-verb: SELECT
+  /model?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_model
+      description: Model. Get the model file generated by Personalizer service.
+      parameters:
+      - name: signed
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: True if requesting signed model zip archive, false otherwise. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: models
+      x-stackql-method: get_model
+      x-stackql-verb: SELECT
+    put:
+      operationId: PersonalizerClient_import_model
+      description: Model File. Replace the existing model file for the Personalizer service.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: import_models
+      x-stackql-method: import_model
+      x-stackql-verb: EXEC
+    delete:
+      operationId: PersonalizerClient_reset_model
+      description: Reset Model. Resets the model file generated by Personalizer service.
+      parameters: []
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: reset_models
+      x-stackql-method: reset_model
+      x-stackql-verb: DELETE
+  /model/properties?api-version=2022-09-01-preview:
+    get:
+      operationId: PersonalizerClient_get_model_properties
+      description: Model Properties. Get properties of the model file generated by Personalizer service.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: model_properties
+      x-stackql-method: get_model_properties
+      x-stackql-verb: SELECT
+  /events/{event_id}/reward?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_reward_single_slot_event
+      description: Reward. Report reward between 0 and 1 that resulted from using the action specified in rewardActionId,
+        for the specified event.
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The event id this reward applies to. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: reward_single_slot_events
+      x-stackql-method: reward_single_slot_event
+      x-stackql-verb: EXEC
+  /events/{event_id}/activate?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_activate_single_slot_event
+      description: Activate Event. Report that the specified event was actually used (e.g. by being displayed to
+        the user) and a reward should be expected for it.
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The event ID to be activated. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: activate_single_slot_events
+      x-stackql-method: activate_single_slot_event
+      x-stackql-verb: EXEC
+  /configurations/applyFromEvaluation?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_apply_from_evaluation
+      description: Apply Learning Settings and Model. Apply Learning Settings and model from a pre-existing Offline
+        Evaluation, making them the current online Learning Settings and model and replacing the previous ones.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: apply_from_evaluations
+      x-stackql-method: apply_from_evaluation
+      x-stackql-verb: EXEC
+  /logs?api-version=2022-09-01-preview:
+    delete:
+      operationId: PersonalizerClient_delete_log
+      description: Logs. Delete all logs of Rank and Reward calls stored by Personalizer.
+      parameters: []
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: logs
+      x-stackql-method: delete_log
+      x-stackql-verb: DELETE
+  /multislot/events/{event_id}/reward?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_reward_multi_slot_event
+      description: Reward (MultiSlot). Report reward that resulted from using the action specified in rewardActionId
+        for the slot.
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The event id this reward applies to. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: reward_multi_slot_events
+      x-stackql-method: reward_multi_slot_event
+      x-stackql-verb: EXEC
+  /multislot/events/{event_id}/activate?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_activate_multi_slot_event
+      description: Activate Event (MultiSlot). Report that the specified event was actually used or displayed to
+        the user and a rewards should be expected for it.
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The event ID this activation applies to. Required.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: activate_multi_slot_events
+      x-stackql-method: activate_multi_slot_event
+      x-stackql-verb: EXEC
+  /multislot/rank?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_rank_multi_slot
+      description: Rank (MultiSlot). Submit a Personalizer multi-slot rank request. Receives a context, a list of
+        actions, and a list of slots. Returns which of the provided actions should be used in each slot, in each
+        rewardActionId.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: rank_multi_slots
+      x-stackql-method: rank_multi_slot
+      x-stackql-verb: EXEC
+  /rank?api-version=2022-09-01-preview:
+    post:
+      operationId: PersonalizerClient_rank_single_slot
+      description: Rank. Submit a Personalizer rank request. Receives a context and a list of actions. Returns which
+        of the provided actions should be used by your application, in rewardActionId.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: rank_single_slots
+      x-stackql-method: rank_single_slot
+      x-stackql-verb: EXEC

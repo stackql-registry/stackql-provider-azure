@@ -1,0 +1,617 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Customproviders
+  description: This is the Microsoft Azure Custom Providers Management Client Library.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2018-09-01-preview-stackql-generated
+  x-serviceAlias: customproviders
+  x-sdkPackage: azure-mgmt-customproviders
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    AssociationFlattened:
+      type: object
+      description: Flattened view of Association ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The association id.
+        name:
+          type: string
+          description: The association name.
+        type:
+          type: string
+          description: The association type.
+        targetResourceId:
+          type: string
+          description: The REST resource instance of the target resource for this association.
+        provisioningState:
+          type: string
+          description: 'The provisioning state of the association. Known values are: "Accepted", "Deleting", "Running",
+            "Succeeded", and "Failed".'
+    PagedAssociationFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationFlattened'
+        nextLink:
+          type: string
+    Association:
+      type: object
+      description: The resource definition of this association. Variables are only populated by the server, and
+        will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The association id.
+        name:
+          type: string
+          description: The association name.
+        type:
+          type: string
+          description: The association type.
+        properties:
+          type: object
+          properties:
+            targetResourceId:
+              type: string
+              description: The REST resource instance of the target resource for this association.
+            provisioningState:
+              type: string
+              description: 'The provisioning state of the association. Known values are: "Accepted", "Deleting",
+                "Running", "Succeeded", and "Failed".'
+    CustomRPActionRouteDefinition:
+      type: object
+      description: The route definition for an action implemented by the custom resource provider. All required
+        parameters must be populated in order to send to server.
+      properties:
+        name:
+          type: string
+          description: The name of the route definition. This becomes the name for the ARM extension (e.g. '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomProviders/resourceProviders/{resourceProviderName}/{name}').
+            Required.
+        endpoint:
+          type: string
+          description: The route definition endpoint URI that the custom resource provider will proxy requests to.
+            This can be in the form of a flat URI (e.g. 'https://testendpoint/') or can specify to route via a path
+            (e.g. 'https://testendpoint/{requestPath}'). Required.
+        routingType:
+          type: string
+          description: The routing types that are supported for action requests. "Proxy"
+      required:
+      - name
+      - endpoint
+    CustomRPResourceTypeRouteDefinition:
+      type: object
+      description: The route definition for a resource implemented by the custom resource provider. All required
+        parameters must be populated in order to send to server.
+      properties:
+        name:
+          type: string
+          description: The name of the route definition. This becomes the name for the ARM extension (e.g. '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomProviders/resourceProviders/{resourceProviderName}/{name}').
+            Required.
+        endpoint:
+          type: string
+          description: The route definition endpoint URI that the custom resource provider will proxy requests to.
+            This can be in the form of a flat URI (e.g. 'https://testendpoint/') or can specify to route via a path
+            (e.g. 'https://testendpoint/{requestPath}'). Required.
+        routingType:
+          type: string
+          description: 'The routing types that are supported for resource requests. Known values are: "Proxy" and
+            "Proxy,Cache".'
+      required:
+      - name
+      - endpoint
+    CustomRPValidations:
+      type: object
+      description: A validation to apply on custom resource provider requests. All required parameters must be populated
+        in order to send to server.
+      properties:
+        validationType:
+          type: string
+          description: The type of validation to run against a matching request. "Swagger"
+        specification:
+          type: string
+          description: A link to the validation specification. The specification must be hosted on raw.githubusercontent.com.
+            Required.
+      required:
+      - specification
+    CustomRPManifestFlattened:
+      type: object
+      description: Flattened view of CustomRPManifest ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type.
+        location:
+          type: string
+          description: Resource location. Required.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRPActionRouteDefinition'
+          description: A list of actions that the custom resource provider implements.
+        resourceTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRPResourceTypeRouteDefinition'
+          description: A list of resource types that the custom resource provider implements.
+        validations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRPValidations'
+          description: A list of validations to run on the custom resource provider's requests.
+        provisioningState:
+          type: string
+          description: 'The provisioning state of the resource provider. Known values are: "Accepted", "Deleting",
+            "Running", "Succeeded", and "Failed".'
+    PagedCustomRPManifestFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomRPManifestFlattened'
+        nextLink:
+          type: string
+    CustomRPManifest:
+      type: object
+      description: A manifest file that defines the custom resource provider resources. Variables are only populated
+        by the server, and will be ignored when sending a request. All required parameters must be populated in
+        order to send to server.
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type.
+        location:
+          type: string
+          description: Resource location. Required.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        properties:
+          type: object
+          properties:
+            actions:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRPActionRouteDefinition'
+              description: A list of actions that the custom resource provider implements.
+            resourceTypes:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRPResourceTypeRouteDefinition'
+              description: A list of resource types that the custom resource provider implements.
+            validations:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomRPValidations'
+              description: A list of validations to run on the custom resource provider's requests.
+            provisioningState:
+              type: string
+              description: 'The provisioning state of the resource provider. Known values are: "Accepted", "Deleting",
+                "Running", "Succeeded", and "Failed".'
+      required:
+      - location
+    ResourceProviderOperationDisplay:
+      type: object
+      description: Display metadata associated with the operation.
+      properties:
+        provider:
+          type: string
+          description: 'Resource provider: Microsoft Custom Providers.'
+        resource:
+          type: string
+          description: Resource on which the operation is performed.
+        operation:
+          type: string
+          description: 'Type of operation: get, read, delete, etc.'
+        description:
+          type: string
+          description: Description of this operation.
+    ResourceProviderOperation:
+      type: object
+      description: Supported operations of this resource provider.
+      properties:
+        name:
+          type: string
+          description: Operation name, in format of {provider}/{resource}/{operation}.
+        display:
+          $ref: '#/components/schemas/ResourceProviderOperationDisplay'
+          description: Display metadata associated with the operation.
+    PagedResourceProviderOperation:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceProviderOperation'
+        nextLink:
+          type: string
+paths:
+  /{scope}/providers/Microsoft.CustomProviders/associations/{association_name}?api-version=2018-09-01-preview:
+    get:
+      operationId: Associations_get
+      description: Get an association.
+      parameters:
+      - name: scope
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The scope of the association. Required.
+      - name: association_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the association. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssociationFlattened'
+      x-stackql-resource: associations
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: Associations_begin_create_or_update
+      description: Create or update an association.
+      parameters:
+      - name: scope
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The scope of the association. The scope can be any valid REST resource instance. For example,
+          use '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/Microsoft.Compute/virtualMachines/{vm-name}'
+          for a virtual machine resource. Required.
+      - name: association_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the association. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  type: object
+                  properties:
+                    targetResourceId:
+                      type: string
+                      description: The REST resource instance of the target resource for this association.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Association'
+      x-stackql-resource: associations
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    delete:
+      operationId: Associations_begin_delete
+      description: Delete an association.
+      parameters:
+      - name: scope
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The scope of the association. Required.
+      - name: association_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the association. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: associations
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /{scope}/providers/Microsoft.CustomProviders/associations?api-version=2018-09-01-preview:
+    get:
+      operationId: Associations_list_all
+      description: Gets all association for the given scope.
+      parameters:
+      - name: scope
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The scope of the association. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedAssociationFlattened'
+      x-stackql-resource: associations
+      x-stackql-method: list_all
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CustomProviders/resourceProviders/{resource_provider_name}?api-version=2018-09-01-preview
+  : get:
+      operationId: CustomResourceProvider_get
+      description: Gets the custom resource provider manifest.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource provider. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomRPManifestFlattened'
+      x-stackql-resource: custom_resource_provider
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: CustomResourceProvider_begin_create_or_update
+      description: Creates or updates the custom resource provider.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource provider. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: Resource location. Required.
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+                properties:
+                  type: object
+                  properties:
+                    actions:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CustomRPActionRouteDefinition'
+                      description: A list of actions that the custom resource provider implements.
+                    resourceTypes:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CustomRPResourceTypeRouteDefinition'
+                      description: A list of resource types that the custom resource provider implements.
+                    validations:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CustomRPValidations'
+                      description: A list of validations to run on the custom resource provider's requests.
+              required:
+              - location
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomRPManifest'
+      x-stackql-resource: custom_resource_provider
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+    delete:
+      operationId: CustomResourceProvider_begin_delete
+      description: Deletes the custom resource provider.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource provider. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: custom_resource_provider
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+    patch:
+      operationId: CustomResourceProvider_update
+      description: Updates an existing custom resource provider. The only value that can be updated via PATCH currently
+        is the tags.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource provider. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: object
+                  properties: {}
+                  description: Resource tags.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomRPManifest'
+      x-stackql-resource: custom_resource_provider
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CustomProviders/resourceProviders?api-version=2018-09-01-preview
+  : get:
+      operationId: CustomResourceProvider_list_by_resource_group
+      description: Gets all the custom resource providers within a resource group.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedCustomRPManifestFlattened'
+      x-stackql-resource: custom_resource_provider
+      x-stackql-method: list_by_resource_group
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.CustomProviders/resourceProviders?api-version=2018-09-01-preview:
+    get:
+      operationId: CustomResourceProvider_list_by_subscription
+      description: Gets all the custom resource providers within a subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedCustomRPManifestFlattened'
+      x-stackql-resource: custom_resource_provider
+      x-stackql-method: list_by_subscription
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /providers/Microsoft.CustomProviders/operations?api-version=2018-09-01-preview:
+    get:
+      operationId: customproviders_list
+      description: The list of operations provided by Microsoft CustomProviders.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourceProviderOperation'
+      x-stackql-resource: operations
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value

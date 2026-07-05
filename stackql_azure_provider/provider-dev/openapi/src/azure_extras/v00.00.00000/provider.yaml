@@ -1,0 +1,170 @@
+id: azure_extras
+name: azure_extras
+version: v00.00.00000
+config:
+  auth:
+    type: azure_default
+  snake_case_aliases: true
+providerServices:
+  agrifood:
+    id: agrifood:v00.00.00000
+    name: agrifood
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/agrifood.yaml
+    title: Agri Food Mgmt Client
+    version: v00.00.00000
+    description: APIs documentation for Azure AgFoodPlatform Resource Provider Service.
+  appcomplianceautomation:
+    id: appcomplianceautomation:v00.00.00000
+    name: appcomplianceautomation
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/appcomplianceautomation.yaml
+    title: App Compliance Automation Mgmt Client
+    version: v00.00.00000
+    description: App Compliance Automation Tool for Microsoft 365 API spec.
+  artifactsigning:
+    id: artifactsigning:v00.00.00000
+    name: artifactsigning
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/artifactsigning.yaml
+    title: Artifact Signing Mgmt Client
+    version: v00.00.00000
+    description: Code Signing resource provider api.
+  chaos:
+    id: chaos:v00.00.00000
+    name: chaos
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/chaos.yaml
+    title: Chaos Management Client
+    version: v00.00.00000
+    description: Chaos Management Client.
+  commerce:
+    id: commerce:v00.00.00000
+    name: commerce
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/commerce.yaml
+    title: Usage Management Client
+    version: v00.00.00000
+    description: UsageManagementClient.
+  devhub:
+    id: devhub:v00.00.00000
+    name: devhub
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/devhub.yaml
+    title: Dev Hub Mgmt Client
+    version: v00.00.00000
+    description: The AKS Developer Hub Service Client.
+  devspaces:
+    id: devspaces:v00.00.00000
+    name: devspaces
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/devspaces.yaml
+    title: Dev Spaces Management Client
+    version: v00.00.00000
+    description: Dev Spaces Client.
+  edgeorder:
+    id: edgeorder:v00.00.00000
+    name: edgeorder
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/edgeorder.yaml
+    title: Edge Order Management Client
+    version: v00.00.00000
+    description: The EdgeOrder Client.
+  education:
+    id: education:v00.00.00000
+    name: education
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/education.yaml
+    title: Education Management Client
+    version: v00.00.00000
+    description: Education client provides access to education resources for Azure subscriptions.
+  healthbot:
+    id: healthbot:v00.00.00000
+    name: healthbot
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/healthbot.yaml
+    title: Health Bot Mgmt Client
+    version: v00.00.00000
+    description: Azure Health Bot is a cloud platform that empowers developers in Healthcare organizations to build and deploy their compliant, AI-powered virtual health assistants and health bots, that help them improve processes and reduce costs.
+  healthcareapis:
+    id: healthcareapis:v00.00.00000
+    name: healthcareapis
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/healthcareapis.yaml
+    title: Healthcare Apis Management Client
+    version: v00.00.00000
+    description: HealthcareApisManagementClient.
+  managementpartner:
+    id: managementpartner:v00.00.00000
+    name: managementpartner
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/managementpartner.yaml
+    title: Managementpartner
+    version: v00.00.00000
+    description: This is the Microsoft Azure Management Partner Management Client Library.
+  marketplaceordering:
+    id: marketplaceordering:v00.00.00000
+    name: marketplaceordering
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/marketplaceordering.yaml
+    title: Marketplaceordering
+    version: v00.00.00000
+    description: This is the Microsoft Azure Market Place Ordering Client Library.
+  oep:
+    id: oep:v00.00.00000
+    name: oep
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/oep.yaml
+    title: Oep
+    version: v00.00.00000
+    description: This is the Microsoft Azure Oep Management Client Library.
+  powerplatform:
+    id: powerplatform:v00.00.00000
+    name: powerplatform
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/powerplatform.yaml
+    title: Power Platform Mgmt Client
+    version: v00.00.00000
+    description: // (missing-service-description) Add service description.
+  selfhelp:
+    id: selfhelp:v00.00.00000
+    name: selfhelp
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/selfhelp.yaml
+    title: Self Help Mgmt Client
+    version: v00.00.00000
+    description: Help RP provider.
+  springappdiscovery:
+    id: springappdiscovery:v00.00.00000
+    name: springappdiscovery
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/springappdiscovery.yaml
+    title: Spring App Discovery Mgmt Client
+    version: v00.00.00000
+    description: The Microsoft.OffAzureSpringBoot Rest API spec.
+  testbase:
+    id: testbase:v00.00.00000
+    name: testbase
+    preferred: true
+    service:
+      $ref: azure_extras/v00.00.00000/services/testbase.yaml
+    title: Testbase
+    version: v00.00.00000
+    description: This is the Microsoft Azure Testbase Management Client Library.

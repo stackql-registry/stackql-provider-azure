@@ -1,0 +1,1302 @@
+openapi: 3.0.0
+servers:
+- url: '{ledger_endpoint}'
+  variables:
+    ledger_endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `ledgerEndpoint` parameter.
+info:
+  title: Confidential Ledger Client
+  description: Write and retrieve ledger entries against the Confidential Ledger service.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2024-12-09-preview-stackql-generated
+  x-serviceAlias: confidentialledger_dataplane
+  x-sdkPackage: azure-confidentialledger
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    ConsortiumMember:
+      type: object
+      description: Describes a member of the consortium.
+      properties:
+        certificate:
+          type: string
+          description: PEM-encoded certificate associated with the member. Required.
+        id:
+          type: string
+          description: Identifier assigned to the member. Required.
+      required:
+      - certificate
+      - id
+    PagedConsortiumMember:
+      type: object
+      properties:
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsortiumMember'
+        nextLink:
+          type: string
+    Collection:
+      type: object
+      description: Identifier for collections.
+      properties:
+        collectionId:
+          type: string
+          description: Identifier for the collection. Required.
+      required:
+      - collectionId
+    PagedCollection:
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collection'
+        nextLink:
+          type: string
+    UserDefinedFunctionHook:
+      type: object
+      description: Hook for a user defined function execution.
+      properties:
+        functionId:
+          type: string
+          description: ID of the user defined function to execute. Required.
+        properties:
+          $ref: '#/components/schemas/UserDefinedFunctionExecutionProperties'
+          description: The properties for executing a user defined function.
+      required:
+      - functionId
+    UserDefinedFunctionExecutionProperties:
+      type: object
+      description: The properties for executing a user defined function.
+      properties:
+        arguments:
+          type: array
+          items:
+            type: string
+          description: Runtime arguments of the user defined function. Defaults to an empty list.
+        exportedFunctionName:
+          type: string
+          description: Name of the exported function to execute in the code of the user defined function. Defaults
+            to main.
+        runtimeOptions:
+          $ref: '#/components/schemas/JsRuntimeOptions'
+          description: JS runtime options for user defined endpoints and functions.
+    JsRuntimeOptions:
+      type: object
+      description: JS runtime options for user defined endpoints and functions.
+      properties:
+        log_exception_details:
+          type: boolean
+          description: Whether to log exception details in the runtime.
+        max_cached_interpreters:
+          type: integer
+          description: Maximum number of cached interpreters.
+        max_execution_time_ms:
+          type: integer
+          description: Maximum execution time in milliseconds.
+        max_heap_bytes:
+          type: integer
+          description: Maximum heap size in bytes.
+        max_stack_bytes:
+          type: integer
+          description: Maximum stack size in bytes.
+        return_exception_details:
+          type: boolean
+          description: Whether to return exception details in the response.
+    LedgerEntry:
+      type: object
+      description: An entry in the ledger.
+      properties:
+        contents:
+          type: string
+          description: Contents of the ledger entry. Required.
+        collectionId:
+          type: string
+          description: The collection identifier for this ledger entry.
+        transactionId:
+          type: string
+          description: A unique identifier for the state of the ledger. If returned as part of a LedgerEntry, it
+            indicates the state from which the entry was read.
+        preHooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDefinedFunctionHook'
+          description: List of user defined function hooks to be executed before the ledger entry is written.
+        postHooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDefinedFunctionHook'
+          description: List of user defined function hooks to be executed after the ledger entry is written.
+      required:
+      - contents
+    PagedLedgerEntry:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        nextLink:
+          type: string
+    ConfidentialLedgerUserRoleName:
+      type: string
+      enum:
+      - Administrator
+      - Contributor
+      - Reader
+    LedgerUser:
+      type: object
+      description: Details about a Confidential Ledger user.
+      properties:
+        assignedRole:
+          $ref: '#/components/schemas/ConfidentialLedgerUserRoleName'
+          description: 'Represents an assignable role. Required. Known values are: "Administrator", "Contributor",
+            and "Reader".'
+        userId:
+          type: string
+          description: Identifier for the user. This must either be an AAD object id or a certificate fingerprint.
+      required:
+      - assignedRole
+    PagedLedgerUser:
+      type: object
+      properties:
+        ledgerUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerUser'
+        nextLink:
+          type: string
+    LedgerUserMultipleRoles:
+      type: object
+      description: Details about a Confidential Ledger user.
+      properties:
+        assignedRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfidentialLedgerUserRoleName'
+          description: Represents an assignable role. Required.
+        userId:
+          type: string
+          description: Identifier for the user. This must either be an AAD object id or a certificate fingerprint.
+      required:
+      - assignedRoles
+    PagedLedgerUserMultipleRoles:
+      type: object
+      properties:
+        ledgerUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerUserMultipleRoles'
+        nextLink:
+          type: string
+    UserDefinedFunction:
+      type: object
+      description: A user defined function in the ledger.
+      properties:
+        code:
+          type: string
+          description: Code of the user defined function in JavaScript. Required.
+        id:
+          type: string
+          description: ID of the user defined function.
+      required:
+      - code
+    PagedUserDefinedFunction:
+      type: object
+      properties:
+        functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDefinedFunction'
+        nextLink:
+          type: string
+    Constitution:
+      type: object
+      description: The governance script for the application.
+      properties:
+        digest:
+          type: string
+          description: SHA256 digest of the constitution script. Required.
+        script:
+          type: string
+          description: Contents of the constitution. Required.
+      required:
+      - digest
+      - script
+    ConfidentialLedgerEnclaves:
+      type: object
+      description: Information about the enclaves running the Confidential Ledger.
+      properties:
+        currentNodeId:
+          type: string
+          description: Id of the Confidential Ledger node responding to the request. Required.
+        enclaveQuotes:
+          type: object
+          properties: {}
+          description: Dictionary of enclave quotes, indexed by node id. Required.
+      required:
+      - currentNodeId
+      - enclaveQuotes
+    ConfidentialLedgerQueryState:
+      type: string
+      enum:
+      - Loading
+      - Ready
+    LedgerQueryResult:
+      type: object
+      description: The result of querying for a ledger entry from an older transaction id. The ledger entry is available
+        in the response only if the returned state is Ready.
+      properties:
+        state:
+          $ref: '#/components/schemas/ConfidentialLedgerQueryState'
+          description: 'State of a ledger query. Required. Known values are: "Loading" and "Ready".'
+        entry:
+          $ref: '#/components/schemas/LedgerEntry'
+          description: The ledger entry found as a result of the query. This is only available if the query is in
+            Ready state.
+      required:
+      - state
+    ApplicationClaim:
+      type: object
+      description: A claim of a ledger application.
+      properties:
+        digest:
+          $ref: '#/components/schemas/ClaimDigest'
+          description: An application claim in digested form.
+        kind:
+          $ref: '#/components/schemas/ApplicationClaimKind'
+          description: 'Represents the kind of an application claim. Required. Known values are: "LedgerEntry" and
+            "ClaimDigest".'
+        ledgerEntry:
+          $ref: '#/components/schemas/LedgerEntryClaim'
+          description: An application claim derived from ledger entry data.
+      required:
+      - kind
+    ClaimDigest:
+      type: object
+      description: An application claim in digested form.
+      properties:
+        value:
+          type: string
+          description: The digest of the application claim, in hexadecimal form.
+        protocol:
+          $ref: '#/components/schemas/ApplicationClaimProtocol'
+          description: Represents the protocol to be used to compute the digest of a claim from the given claim
+            data. Required. "LedgerEntryV1"
+      required:
+      - protocol
+    ApplicationClaimProtocol:
+      type: string
+      enum:
+      - LedgerEntryV1
+    ApplicationClaimKind:
+      type: string
+      enum:
+      - LedgerEntry
+      - ClaimDigest
+    LedgerEntryClaim:
+      type: object
+      description: An application claim derived from ledger entry data.
+      properties:
+        collectionId:
+          type: string
+          description: Identifier of a collection.
+        contents:
+          type: string
+          description: Contents of a ledger entry.
+        secretKey:
+          type: string
+          description: Base64-encoded secret key.
+        protocol:
+          $ref: '#/components/schemas/ApplicationClaimProtocol'
+          description: Represents the protocol to be used to compute the digest of a claim from the given claim
+            data. Required. "LedgerEntryV1"
+      required:
+      - protocol
+    ReceiptContents:
+      type: object
+      description: The contents of a receipt.
+      properties:
+        cert:
+          type: string
+          description: Certificate.
+        leaf:
+          type: string
+          description: Leaf.
+        leafComponents:
+          $ref: '#/components/schemas/ReceiptLeafComponents'
+          description: Leaf components of the receipt.
+        nodeId:
+          type: string
+          description: Node identifier. Required.
+        proof:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiptElement'
+          description: Proof. Required.
+        root:
+          type: string
+          description: Root.
+        serviceEndorsements:
+          type: array
+          items:
+            type: string
+          description: Service endorsements.
+        signature:
+          type: string
+          description: The signature of the receipt. Required.
+      required:
+      - nodeId
+      - proof
+      - signature
+    ReceiptLeafComponents:
+      type: object
+      description: Components that make up a receipt leaf node.
+      properties:
+        claimsDigest:
+          type: string
+          description: Claims digest.
+        commitEvidence:
+          type: string
+          description: Commit evidence.
+        writeSetDigest:
+          type: string
+          description: TWrite set digest.
+    ReceiptElement:
+      type: object
+      description: Receipt element.
+      properties:
+        left:
+          type: string
+          description: Left.
+        right:
+          type: string
+          description: Right.
+    TransactionReceipt:
+      type: object
+      description: A receipt certifying the transaction at the specified id.
+      properties:
+        applicationClaims:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationClaim'
+          description: List of application claims.
+        receipt:
+          $ref: '#/components/schemas/ReceiptContents'
+          description: The receipt contents for the transaction.
+        state:
+          $ref: '#/components/schemas/ConfidentialLedgerQueryState'
+          description: 'State of a ledger query. Required. Known values are: "Loading" and "Ready".'
+        transactionId:
+          type: string
+          description: A unique identifier for the state of the ledger. If returned as part of a LedgerEntry, it
+            indicates the state from which the entry was read. Required.
+      required:
+      - state
+      - transactionId
+    TransactionState:
+      type: string
+      enum:
+      - Committed
+      - Pending
+    TransactionStatus:
+      type: object
+      description: Response returned to a query for the transaction status.
+      properties:
+        state:
+          $ref: '#/components/schemas/TransactionState'
+          description: 'Represents the state of the transaction. Required. Known values are: "Committed" and "Pending".'
+        transactionId:
+          type: string
+          description: A unique identifier for the state of the ledger. If returned as part of a LedgerEntry, it
+            indicates the state from which the entry was read. Required.
+      required:
+      - state
+      - transactionId
+    Metadata:
+      type: object
+      description: Metadata for endpoints.
+      properties:
+        endpoints:
+          type: object
+          properties: {}
+          description: A map of path to method endpoints for the path. Required.
+      required:
+      - endpoints
+    ModuleDef:
+      type: object
+      description: Module definition.
+      properties:
+        module:
+          type: string
+          description: Module. Required.
+        name:
+          type: string
+          description: Name. Required.
+      required:
+      - module
+      - name
+    Bundle:
+      type: object
+      description: bundle for the user defined endpoints.
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: Metadata information for the bundle. Required.
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleDef'
+          description: Any object. Required.
+      required:
+      - metadata
+      - modules
+    Role:
+      type: object
+      description: Definition for roles.
+      properties:
+        roleName:
+          type: string
+          description: name of the user defined role.
+        roleActions:
+          type: array
+          items:
+            type: string
+          description: role actions.
+    Roles:
+      type: object
+      description: Roles.
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: Roles. Required.
+      required:
+      - roles
+    LedgerWriteResult:
+      type: object
+      description: Returned as a result of a write to the Confidential Ledger, the transaction id in the response
+        indicates when the write will become durable.
+      properties:
+        collectionId:
+          type: string
+          description: The collection identifier of the ledger entry. Required.
+      required:
+      - collectionId
+    UserDefinedFunctionExecutionResponse:
+      type: object
+      description: The result of a user defined function execution.
+      properties:
+        error:
+          $ref: '#/components/schemas/UserDefinedFunctionExecutionError'
+          description: The error object of a user defined function execution. This is returned only when the user
+            defined function execution throws an exception.
+        result:
+          $ref: '#/components/schemas/UserDefinedFunctionExecutionResult'
+          description: The result object of a user defined function execution. This is returned only when the user
+            defined function executes successfully.
+        status:
+          $ref: '#/components/schemas/UserDefinedFunctionExecutionStatus'
+          description: 'Represents the status of a user defined function execution. Required. Known values are:
+            "Succeeded" and "Failed".'
+      required:
+      - status
+    UserDefinedFunctionExecutionError:
+      type: object
+      description: The error object of a user defined function execution. This is returned only when the user defined
+        function execution throws an exception.
+      properties:
+        message:
+          type: string
+          description: Message indicating the error thrown when executing the function.
+    UserDefinedFunctionExecutionResult:
+      type: object
+      description: The result object of a user defined function execution. This is returned only when the user defined
+        function executes successfully.
+      properties:
+        returnValue:
+          type: string
+          description: String-encoded value returned by the user defined function execution. If the function does
+            not return any value, this is set to an empty string.
+    UserDefinedFunctionExecutionStatus:
+      type: string
+      enum:
+      - Succeeded
+      - Failed
+paths:
+  /app/governance/members?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_list_consortium_members
+      description: Lists the consortium members. Consortium members can manage the Confidential Ledger.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedConsortiumMember'
+      x-stackql-resource: consortium_members
+      x-stackql-method: list_consortium_members
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.members
+  /app/collections?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_list_collections
+      description: Retrieves a list of collection ids present in the Confidential Ledger. Collection ids are user-created
+        collections of ledger entries.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedCollection'
+      x-stackql-resource: collections
+      x-stackql-method: list_collections
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.collections
+  /app/transactions?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_list_ledger_entries
+      description: Gets ledger entries from a collection corresponding to a range. A collection id may optionally
+        be specified. Only entries in the specified (or default) collection will be returned.
+      parameters:
+      - name: collectionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The collection id. Default value is None.
+      - name: fromTransactionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Specify the first transaction ID in a range. Default value is None.
+      - name: toTransactionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Specify the last transaction ID in a range. Default value is None.
+      - name: tag
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Single tag. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLedgerEntry'
+      x-stackql-resource: ledger_entries
+      x-stackql-method: list_ledger_entries
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.entries
+    post:
+      operationId: _ConfidentialLedgerClient_create_ledger_entry
+      description: Writes a ledger entry. A collection id may optionally be specified.
+      parameters:
+      - name: collectionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The collection id. Default value is None.
+      - name: tags
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Comma separated tags. Default value is None.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contents:
+                  type: string
+                  description: Contents of the ledger entry. Required.
+                preHooks:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UserDefinedFunctionHook'
+                  description: List of user defined function hooks to be executed before the ledger entry is written.
+                postHooks:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UserDefinedFunctionHook'
+                  description: List of user defined function hooks to be executed after the ledger entry is written.
+              required:
+              - contents
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerWriteResult'
+      x-stackql-resource: ledger_entries
+      x-stackql-method: create_ledger_entry
+      x-stackql-verb: INSERT
+  /app/users?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_list_users
+      description: Gets details on a list of users. All users' object IDs and single role per user will be returned.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLedgerUser'
+      x-stackql-resource: users
+      x-stackql-method: list_users
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.ledgerUsers
+  /app/ledgerUsers?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_list_ledger_users
+      description: Gets details on a list of users. All users' object IDs and multiple roles will be returned.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLedgerUserMultipleRoles'
+      x-stackql-resource: ledger_users
+      x-stackql-method: list_ledger_users
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.ledgerUsers
+  /app/userDefinedFunctions?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_list_user_defined_functions
+      description: Retrieves a list of user defined functions present in the Confidential Ledger. User defined functions
+        stored in the Confidential Ledger.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedUserDefinedFunction'
+      x-stackql-resource: user_defined_functions
+      x-stackql-method: list_user_defined_functions
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.functions
+  /app/governance/constitution?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_constitution
+      description: Gets the constitution used for governance. The constitution is a script that assesses and applies
+        proposals from consortium members.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Constitution'
+      x-stackql-resource: constitutions
+      x-stackql-method: get_constitution
+      x-stackql-verb: SELECT
+  /app/enclaveQuotes?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_enclave_quotes
+      description: Gets quotes for all nodes of the Confidential Ledger. A quote is an SGX enclave measurement that
+        can be used to verify the validity of a node and its enclave.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfidentialLedgerEnclaves'
+      x-stackql-resource: enclave_quotes
+      x-stackql-method: get_enclave_quotes
+      x-stackql-verb: SELECT
+  /app/transactions/{transaction_id}?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_ledger_entry
+      description: Gets the ledger entry at the specified transaction id. A collection id may optionally be specified
+        to indicate the collection from which to fetch the value. To return older ledger entries, the relevant sections
+        of the ledger must be read from disk and validated. To prevent blocking within the enclave, the response
+        will indicate whether the entry is ready and part of the response, or if the loading is still ongoing.
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a write transaction. Required.
+      - name: collectionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The collection id. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerQueryResult'
+      x-stackql-resource: ledger_entries
+      x-stackql-method: get_ledger_entry
+      x-stackql-verb: SELECT
+  /app/transactions/{transaction_id}/receipt?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_receipt
+      description: Gets a receipt certifying ledger contents at a particular transaction id. Gets a receipt certifying
+        ledger contents at a particular transaction id.
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a write transaction. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionReceipt'
+      x-stackql-resource: receipts
+      x-stackql-method: get_receipt
+      x-stackql-verb: SELECT
+  /app/transactions/{transaction_id}/status?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_transaction_status
+      description: Gets the status of an entry identified by a transaction id. Gets the status of an entry identified
+        by a transaction id.
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a write transaction. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionStatus'
+      x-stackql-resource: transaction_status
+      x-stackql-method: get_transaction_status
+      x-stackql-verb: SELECT
+  /app/transactions/current?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_current_ledger_entry
+      description: Gets the current value available in the ledger. A collection id may optionally be specified.
+      parameters:
+      - name: collectionId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The collection id. Default value is None.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerEntry'
+      x-stackql-resource: current_ledger_entries
+      x-stackql-method: get_current_ledger_entry
+      x-stackql-verb: SELECT
+  /app/users/{user_id}?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_user
+      description: Gets a user. Gets a user.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user id, either an AAD object ID or certificate fingerprint. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerUser'
+      x-stackql-resource: users
+      x-stackql-method: get_user
+      x-stackql-verb: SELECT
+    delete:
+      operationId: _ConfidentialLedgerClient_delete_user
+      description: Deletes a user from the Confidential Ledger. Deletes a user from the Confidential Ledger.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user id, either an AAD object ID or certificate fingerprint. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: users
+      x-stackql-method: delete_user
+      x-stackql-verb: DELETE
+    patch:
+      operationId: _ConfidentialLedgerClient_create_or_update_user
+      description: Adds a user or updates a user's fields. A JSON merge patch is applied for existing users.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user id, either an AAD object ID or certificate fingerprint. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assignedRole:
+                  $ref: '#/components/schemas/ConfidentialLedgerUserRoleName'
+                  description: 'Represents an assignable role. Required. Known values are: "Administrator", "Contributor",
+                    and "Reader".'
+              required:
+              - assignedRole
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerUser'
+      x-stackql-resource: users
+      x-stackql-method: create_or_update_user
+      x-stackql-verb: INSERT
+  /app/ledgerUsers/{user_id}?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_ledger_user
+      description: Gets a user with multiple roles. Gets a user with multiple roles.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user id, either an AAD object ID or certificate fingerprint. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerUserMultipleRoles'
+      x-stackql-resource: ledger_users
+      x-stackql-method: get_ledger_user
+      x-stackql-verb: SELECT
+    delete:
+      operationId: _ConfidentialLedgerClient_delete_ledger_user
+      description: Deletes a user with multiple roles from the Confidential Ledger. Deletes a user with multiple
+        roles from the Confidential Ledger.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user id, either an AAD object ID or certificate fingerprint. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: ledger_users
+      x-stackql-method: delete_ledger_user
+      x-stackql-verb: DELETE
+    patch:
+      operationId: _ConfidentialLedgerClient_create_or_update_ledger_user
+      description: Adds a user or updates a user's fields. A JSON merge patch is applied for existing users.
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user id, either an AAD object ID or certificate fingerprint. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assignedRoles:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ConfidentialLedgerUserRoleName'
+                  description: Represents an assignable role. Required.
+              required:
+              - assignedRoles
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerUserMultipleRoles'
+      x-stackql-resource: ledger_users
+      x-stackql-method: create_or_update_ledger_user
+      x-stackql-verb: INSERT
+  /app/userDefinedEndpoints?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_user_defined_endpoint
+      description: Gets a user defined endpoint. Returns the user defined endpoint in the ACL instance.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+      x-stackql-resource: user_defined_endpoints
+      x-stackql-method: get_user_defined_endpoint
+      x-stackql-verb: SELECT
+    put:
+      operationId: _ConfidentialLedgerClient_create_user_defined_endpoint
+      description: Creates a user defined endpoint. Creates the user defined endpoint in the ACL instance.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  $ref: '#/components/schemas/Metadata'
+                  description: Metadata information for the bundle. Required.
+                modules:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ModuleDef'
+                  description: Any object. Required.
+              required:
+              - metadata
+              - modules
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: user_defined_endpoints
+      x-stackql-method: create_user_defined_endpoint
+      x-stackql-verb: INSERT
+  /app/userDefinedEndpoints/runtimeOptions?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_runtime_options
+      description: Runtime options for user defined endpoints. It returns the runtime options.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsRuntimeOptions'
+      x-stackql-resource: runtime_options
+      x-stackql-method: get_runtime_options
+      x-stackql-verb: SELECT
+    patch:
+      operationId: _ConfidentialLedgerClient_update_runtime_options
+      description: Runtime options for user defined endpoints. Updates the runtime options.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                log_exception_details:
+                  type: boolean
+                  description: Whether to log exception details in the runtime.
+                max_cached_interpreters:
+                  type: integer
+                  description: Maximum number of cached interpreters.
+                max_execution_time_ms:
+                  type: integer
+                  description: Maximum execution time in milliseconds.
+                max_heap_bytes:
+                  type: integer
+                  description: Maximum heap size in bytes.
+                max_stack_bytes:
+                  type: integer
+                  description: Maximum stack size in bytes.
+                return_exception_details:
+                  type: boolean
+                  description: Whether to return exception details in the response.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsRuntimeOptions'
+      x-stackql-resource: runtime_options
+      x-stackql-method: update_runtime_options
+      x-stackql-verb: UPDATE
+  /app/userDefinedEndpoints/modules?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_user_defined_endpoints_module
+      description: Module for user defined endpoints. It gets the module for the user defined endpoint.
+      parameters:
+      - name: module_name
+        in: query
+        required: true
+        schema:
+          type: string
+        description: module name of the user defined endpoint. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleDef'
+      x-stackql-resource: user_defined_endpoints_modules
+      x-stackql-method: get_user_defined_endpoints_module
+      x-stackql-verb: SELECT
+  /app/userDefinedFunctions/{function_id}?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_user_defined_function
+      description: Gets a user defined function. Returns the user defined function in the Confidential Ledger.
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a user defined function. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDefinedFunction'
+      x-stackql-resource: user_defined_functions
+      x-stackql-method: get_user_defined_function
+      x-stackql-verb: SELECT
+    delete:
+      operationId: _ConfidentialLedgerClient_delete_user_defined_function
+      description: Deletes a user defined function from the Confidential Ledger. Deletes a user defined function
+        from the Confidential Ledger.
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a user defined function. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: user_defined_functions
+      x-stackql-method: delete_user_defined_function
+      x-stackql-verb: DELETE
+    put:
+      operationId: _ConfidentialLedgerClient_create_user_defined_function
+      description: Creates a user defined function. Creates the user defined function in the Confidential Ledger.
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a user defined function. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Code of the user defined function in JavaScript. Required.
+              required:
+              - code
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDefinedFunction'
+      x-stackql-resource: user_defined_functions
+      x-stackql-method: create_user_defined_function
+      x-stackql-verb: INSERT
+  /app/roles?api-version=2024-12-09-preview:
+    get:
+      operationId: _ConfidentialLedgerClient_get_user_defined_role
+      description: Gets role actions for user defined roles. user defined roles allow users to define and manage
+        app specific AuthZ policy.
+      parameters:
+      - name: roleName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: user defined role name. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roles'
+      x-stackql-resource: user_defined_roles
+      x-stackql-method: get_user_defined_role
+      x-stackql-verb: SELECT
+    put:
+      operationId: _ConfidentialLedgerClient_create_user_defined_role
+      description: Creates new roles and their actions. User defined roles allow users to define and manage app
+        specific AuthZ policy.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Role'
+                  description: Roles. Required.
+              required:
+              - roles
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: user_defined_roles
+      x-stackql-method: create_user_defined_role
+      x-stackql-verb: INSERT
+    patch:
+      operationId: _ConfidentialLedgerClient_update_user_defined_role
+      description: Patch replaces the allowed action on existing roles,if the desire is to remove an existing action,
+        the role must be deleted and recreated. User defined roles allow users to define and manage app specific
+        AuthZ policy.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roles:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Role'
+                  description: Roles. Required.
+              required:
+              - roles
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: user_defined_roles
+      x-stackql-method: update_user_defined_role
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: _ConfidentialLedgerClient_delete_user_defined_role
+      description: Deletes user defined roles. A user defined role allows the users to create and manage their own
+        role actions using the API.
+      parameters:
+      - name: roleName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: user defined role name. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: user_defined_roles
+      x-stackql-method: delete_user_defined_role
+      x-stackql-verb: DELETE
+  /app/userDefinedFunctions/{function_id}:execute?api-version=2024-12-09-preview:
+    post:
+      operationId: _ConfidentialLedgerClient_execute_user_defined_function
+      description: Executes a user defined function. Executes the user defined function in the Confidential Ledger.
+      parameters:
+      - name: function_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Identifies a user defined function. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                arguments:
+                  type: array
+                  items:
+                    type: string
+                  description: Runtime arguments of the user defined function. Defaults to an empty list.
+                exportedFunctionName:
+                  type: string
+                  description: Name of the exported function to execute in the code of the user defined function.
+                    Defaults to main.
+                runtimeOptions:
+                  $ref: '#/components/schemas/JsRuntimeOptions'
+                  description: JS runtime options for user defined endpoints and functions.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDefinedFunctionExecutionResponse'
+      x-stackql-resource: execute_user_defined_functions
+      x-stackql-method: execute_user_defined_function
+      x-stackql-verb: EXEC

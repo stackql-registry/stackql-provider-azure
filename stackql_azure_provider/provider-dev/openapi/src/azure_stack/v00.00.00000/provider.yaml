@@ -1,0 +1,26 @@
+id: azure_stack
+name: azure_stack
+version: v00.00.00000
+config:
+  auth:
+    type: azure_default
+  snake_case_aliases: true
+providerServices:
+  azurestack:
+    id: azurestack:v00.00.00000
+    name: azurestack
+    preferred: true
+    service:
+      $ref: azure_stack/v00.00.00000/services/azurestack.yaml
+    title: Azure Stack Management Client
+    version: v00.00.00000
+    description: Azure Stack.
+  azurestackhci:
+    id: azurestackhci:v00.00.00000
+    name: azurestackhci
+    preferred: true
+    service:
+      $ref: azure_stack/v00.00.00000/services/azurestackhci.yaml
+    title: Azure Stack H C I Client
+    version: v00.00.00000
+    description: Azure Stack HCI service.

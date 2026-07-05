@@ -1,0 +1,553 @@
+openapi: 3.0.0
+servers:
+- url: https://management.azure.com/
+info:
+  title: Microsoft Serial Console Client
+  description: The Azure Serial Console allows you to access the serial console of a Virtual Machine or VM scale
+    set instance.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2024-07-01-stackql-generated
+  x-serviceAlias: serialconsole
+  x-sdkPackage: azure-mgmt-serialconsole
+  x-plane: mgmt
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    SystemData:
+      type: object
+      description: Metadata pertaining to creation and last modification of the resource.
+      properties:
+        createdBy:
+          type: string
+          description: The identity that created the resource.
+        createdByType:
+          $ref: '#/components/schemas/CreatedByType'
+          description: 'The type of identity that created the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource creation (UTC).
+        lastModifiedBy:
+          type: string
+          description: The identity that last modified the resource.
+        lastModifiedByType:
+          $ref: '#/components/schemas/CreatedByType'
+          description: 'The type of identity that last modified the resource. Known values are: "User", "Application",
+            "ManagedIdentity", and "Key".'
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: The timestamp of resource last modification (UTC).
+    CreatedByType:
+      type: string
+      enum:
+      - User
+      - Application
+      - ManagedIdentity
+      - Key
+    SerialPortProperties:
+      type: object
+      description: The properties of the serial port.
+      properties:
+        state:
+          $ref: '#/components/schemas/SerialPortState'
+          description: 'Specifies whether the port is enabled for a serial console connection. Known values are:
+            "enabled" and "disabled".'
+        connectionState:
+          $ref: '#/components/schemas/SerialPortConnectionState'
+          description: 'Specifies whether the port is currently active. Known values are: "active" and "inactive".'
+    SerialPortState:
+      type: string
+      enum:
+      - enabled
+      - disabled
+    SerialPortConnectionState:
+      type: string
+      enum:
+      - active
+      - inactive
+    SerialPortFlattened:
+      type: object
+      description: Flattened view of SerialPort ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        state:
+          $ref: '#/components/schemas/SerialPortState'
+          description: 'Specifies whether the port is enabled for a serial console connection. Known values are:
+            "enabled" and "disabled".'
+        connectionState:
+          $ref: '#/components/schemas/SerialPortConnectionState'
+          description: 'Specifies whether the port is currently active. Known values are: "active" and "inactive".'
+    SerialPort:
+      type: object
+      description: Serial port.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: '#/components/schemas/SerialPortProperties'
+          description: The properties of the serial port.
+    SerialPortListResultFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/SerialPortFlattened'
+        nextLink:
+          type: string
+    SerialPortConnectResult:
+      type: object
+      description: Serial port connect result.
+      properties:
+        connectionString:
+          type: string
+          description: Connection string to the serial port of the resource.
+    SerialConsoleOperationsValueItem:
+      type: object
+      description: SerialConsoleOperationsValueItem.
+      properties:
+        name:
+          type: string
+          description: ':vartype name: str'
+        isDataAction:
+          type: string
+          description: ':vartype is_data_action: str'
+        display:
+          $ref: '#/components/schemas/SerialConsoleOperationsValueItemDisplay'
+          description: ':vartype display: ~azure.mgmt.serialconsole.models.SerialConsoleOperationsValueItemDisplay'
+    SerialConsoleOperationsValueItemDisplay:
+      type: object
+      description: SerialConsoleOperationsValueItemDisplay.
+      properties:
+        provider:
+          type: string
+          description: ':vartype provider: str'
+        resource:
+          type: string
+          description: ':vartype resource: str'
+        operation:
+          type: string
+          description: ':vartype operation: str'
+        description:
+          type: string
+          description: ':vartype description: str'
+    SerialConsoleOperations:
+      type: object
+      description: Serial Console operations.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/SerialConsoleOperationsValueItem'
+          description: A list of Serial Console operations.
+    SerialConsoleStatusProperties:
+      type: object
+      description: SerialConsoleStatusProperties.
+      properties:
+        disabled:
+          type: boolean
+          description: Whether or not Serial Console is disabled.
+    SerialConsoleStatusFlattened:
+      type: object
+      description: Flattened view of SerialConsoleStatus ('properties' hoisted to the top level).
+      properties:
+        disabled:
+          type: boolean
+          description: Whether or not Serial Console is disabled.
+    DisableSerialConsoleResult:
+      type: object
+      description: Serial Console Disable Result.
+      properties:
+        properties:
+          $ref: '#/components/schemas/DisableSerialConsoleResultProperties'
+          description: ':vartype properties: ~azure.mgmt.serialconsole.models.DisableSerialConsoleResultProperties'
+    DisableSerialConsoleResultProperties:
+      type: object
+      description: DisableSerialConsoleResultProperties.
+      properties:
+        disabled:
+          type: boolean
+          description: Whether or not Serial Console is disabled.
+    EnableSerialConsoleResult:
+      type: object
+      description: Serial Console Enable Result.
+      properties:
+        properties:
+          $ref: '#/components/schemas/EnableSerialConsoleResultProperties'
+          description: ':vartype properties: ~azure.mgmt.serialconsole.models.EnableSerialConsoleResultProperties'
+    EnableSerialConsoleResultProperties:
+      type: object
+      description: EnableSerialConsoleResultProperties.
+      properties:
+        disabled:
+          type: boolean
+          description: Whether or not Serial Console is disabled.
+paths:
+  ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/{resource_provider_namespace}/{parent_resource_type}/{parent_resource}/providers/Microsoft.SerialConsole/serialPorts/{serial_port}?api-version=2024-07-01
+  : get:
+      operationId: SerialPorts_get
+      description: Gets the configured settings for a serial port.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource provider namespace of the parent resource. Required.
+      - name: parent_resource_type
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The resource type of the parent resource. For example: ''virtualMachines'' or ''virtualMachineScaleSets''.
+          Required.'
+      - name: parent_resource
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the parent resource. Required.
+      - name: serial_port
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the serial port to connect to. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialPortFlattened'
+      x-stackql-resource: serial_ports
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+    put:
+      operationId: SerialPorts_create
+      description: Creates or updates a serial port.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource provider namespace of the parent resource. Required.
+      - name: parent_resource_type
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The resource type of the parent resource. For example: ''virtualMachines'' or ''virtualMachineScaleSets''.
+          Required.'
+      - name: parent_resource
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the parent resource. Required.
+      - name: serial_port
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the serial port to connect to. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                properties:
+                  $ref: '#/components/schemas/SerialPortProperties'
+                  description: The properties of the serial port.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialPort'
+      x-stackql-resource: serial_ports
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+  ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/{resource_provider_namespace}/{parent_resource_type}/{parent_resource}/providers/Microsoft.SerialConsole/serialPorts?api-version=2024-07-01
+  : get:
+      operationId: SerialPorts_list
+      description: Lists all of the configured serial ports for a parent resource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource provider namespace of the parent resource. Required.
+      - name: parent_resource_type
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The resource type of the parent resource. For example: ''virtualMachines'' or ''virtualMachineScaleSets''.
+          Required.'
+      - name: parent_resource
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the parent resource. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialPortListResultFlattened'
+      x-stackql-resource: serial_ports
+      x-stackql-method: list
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/serialPorts?api-version=2024-07-01:
+    get:
+      operationId: SerialPorts_list_by_subscriptions
+      description: Handles requests to list all SerialPort resources in a subscription.
+      parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialPortListResultFlattened'
+      x-stackql-resource: serial_ports
+      x-stackql-method: list_by_subscriptions
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
+  ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/{resource_provider_namespace}/{parent_resource_type}/{parent_resource}/providers/Microsoft.SerialConsole/serialPorts/{serial_port}/connect?api-version=2024-07-01
+  : post:
+      operationId: SerialPorts_connect
+      description: Connect to serial port of the target resource.
+      parameters:
+      - name: resource_group_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the resource group. Required.
+      - name: resource_provider_namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The resource provider namespace of the parent resource. Required.
+      - name: parent_resource_type
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The resource type of the parent resource. For example: ''virtualMachines'' or ''virtualMachineScaleSets''.
+          Required.'
+      - name: parent_resource
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the parent resource. Required.
+      - name: serial_port
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the serial port to connect to. Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialPortConnectResult'
+      x-stackql-resource: serial_ports
+      x-stackql-method: connect
+      x-stackql-verb: EXEC
+  /providers/Microsoft.SerialConsole/operations?api-version=2024-07-01:
+    get:
+      operationId: _MicrosoftSerialConsoleClient_list_operations
+      description: Gets a list of Serial Console API operations.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialConsoleOperations'
+      x-stackql-resource: operations
+      x-stackql-method: list_operations
+      x-stackql-verb: SELECT
+  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}?api-version=2024-07-01:
+    get:
+      operationId: _MicrosoftSerialConsoleClient_get_console_status
+      description: Get the disabled status for a subscription. Gets whether or not Serial Console is disabled for
+        a given subscription.
+      parameters:
+      - name: default
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Default parameter. Leave the value as "default". Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SerialConsoleStatusFlattened'
+      x-stackql-resource: console_status
+      x-stackql-method: get_console_status
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
+  ? /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}/disableConsole?api-version=2024-07-01
+  : post:
+      operationId: _MicrosoftSerialConsoleClient_disable_console
+      description: Disable Serial Console for a subscription. Disables the Serial Console service for all VMs and
+        VM scale sets in the provided subscription.
+      parameters:
+      - name: default
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Default parameter. Leave the value as "default". Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisableSerialConsoleResult'
+      x-stackql-resource: disable_consoles
+      x-stackql-method: disable_console
+      x-stackql-verb: EXEC
+  ? /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}/enableConsole?api-version=2024-07-01
+  : post:
+      operationId: _MicrosoftSerialConsoleClient_enable_console
+      description: Enable Serial Console for a subscription. Enables the Serial Console service for all VMs and
+        VM scale sets in the provided subscription.
+      parameters:
+      - name: default
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Default parameter. Leave the value as "default". Required.
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnableSerialConsoleResult'
+      x-stackql-resource: enable_consoles
+      x-stackql-method: enable_console
+      x-stackql-verb: EXEC

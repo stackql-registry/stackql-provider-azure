@@ -1,0 +1,513 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}/contentsafety'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+info:
+  title: Content Safety Client
+  description: ContentSafetyClient.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2023-10-01-stackql-generated
+  x-serviceAlias: ai_contentsafety
+  x-sdkPackage: azure-ai-contentsafety
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas:
+    TextBlocklistItem:
+      type: object
+      description: Item in a TextBlocklist. Readonly variables are only populated by the server, and will be ignored
+        when sending a request. All required parameters must be populated in order to send to server.
+      properties:
+        blocklistItemId:
+          type: string
+          description: The service will generate a BlocklistItemId, which will be a UUID. Required.
+        description:
+          type: string
+          description: BlocklistItem description.
+        text:
+          type: string
+          description: BlocklistItem content. Required.
+      required:
+      - text
+    PagedTextBlocklistItem:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextBlocklistItem'
+        nextLink:
+          type: string
+    TextBlocklist:
+      type: object
+      description: Text Blocklist. All required parameters must be populated in order to send to server.
+      properties:
+        blocklistName:
+          type: string
+          description: Text blocklist name. Required.
+        description:
+          type: string
+          description: Text blocklist description.
+      required:
+      - blocklistName
+    PagedTextBlocklist:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextBlocklist'
+        nextLink:
+          type: string
+    AddOrUpdateTextBlocklistItemsResult:
+      type: object
+      description: The response of adding blocklistItems to the text blocklist. All required parameters must be
+        populated in order to send to server.
+      properties:
+        blocklistItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextBlocklistItem'
+          description: Array of blocklistItems have been added. Required.
+      required:
+      - blocklistItems
+    TextCategory:
+      type: string
+      enum:
+      - Hate
+      - SelfHarm
+      - Sexual
+      - Violence
+    AnalyzeTextOutputType:
+      type: string
+      enum:
+      - FourSeverityLevels
+      - EightSeverityLevels
+    AnalyzeTextResult:
+      type: object
+      description: The text analysis response. All required parameters must be populated in order to send to server.
+      properties:
+        blocklistsMatch:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextBlocklistMatch'
+          description: The blocklist match details.
+        categoriesAnalysis:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextCategoriesAnalysis'
+          description: Analysis result for categories. Required.
+      required:
+      - categoriesAnalysis
+    TextBlocklistMatch:
+      type: object
+      description: The result of blocklist match. All required parameters must be populated in order to send to
+        server.
+      properties:
+        blocklistName:
+          type: string
+          description: The name of the matched blocklist. Required.
+        blocklistItemId:
+          type: string
+          description: The ID of the matched item. Required.
+        blocklistItemText:
+          type: string
+          description: The content of the matched item. Required.
+      required:
+      - blocklistName
+      - blocklistItemId
+      - blocklistItemText
+    TextCategoriesAnalysis:
+      type: object
+      description: Text analysis result. All required parameters must be populated in order to send to server.
+      properties:
+        category:
+          $ref: '#/components/schemas/TextCategory'
+          description: 'The text analysis category. Required. Known values are: "Hate", "SelfHarm", "Sexual", and
+            "Violence".'
+        severity:
+          type: integer
+          description: The value increases with the severity of the input content. The value of this field is determined
+            by the output type specified in the request. The output type could be ‘FourSeverityLevels’ or ‘EightSeverity
+            Levels’, and the output value can be 0, 2, 4, 6 or 0, 1, 2, 3, 4, 5, 6, or 7.
+      required:
+      - category
+    ImageData:
+      type: object
+      description: The image can be either base64 encoded bytes or a blob URL. You can choose only one of these
+        options. If both are provided, the request will be refused. The maximum image size is 2048 x 2048 pixels
+        and should not exceed 4 MB, while the minimum image size is 50 x 50 pixels.
+      properties:
+        content:
+          type: string
+          format: byte
+          description: The Base64 encoding of the image.
+        blobUrl:
+          type: string
+          description: The blob url of the image.
+    ImageCategory:
+      type: string
+      enum:
+      - Hate
+      - SelfHarm
+      - Sexual
+      - Violence
+    AnalyzeImageOutputType:
+      type: string
+      enum:
+      - FourSeverityLevels
+    AnalyzeImageResult:
+      type: object
+      description: The image analysis response. All required parameters must be populated in order to send to server.
+      properties:
+        categoriesAnalysis:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageCategoriesAnalysis'
+          description: Analysis result for categories. Required.
+      required:
+      - categoriesAnalysis
+    ImageCategoriesAnalysis:
+      type: object
+      description: Image analysis result. All required parameters must be populated in order to send to server.
+      properties:
+        category:
+          $ref: '#/components/schemas/ImageCategory'
+          description: 'The image analysis category. Required. Known values are: "Hate", "SelfHarm", "Sexual", and
+            "Violence".'
+        severity:
+          type: integer
+          description: The value increases with the severity of the input content. The value of this field is determined
+            by the output type specified in the request. The output type could be ‘FourSeverityLevels’, and the
+            output value can be 0, 2, 4, 6.
+      required:
+      - category
+paths:
+  /text/blocklists/{blocklist_name}/blocklistItems?api-version=2023-10-01:
+    get:
+      operationId: BlocklistClient_list_text_blocklist_items
+      description: Get All BlocklistItems By blocklistName. Get all blocklistItems in a text blocklist.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      - name: top
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of result items to return. Default value is None.
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of result items to skip. Default value is None.
+      - name: maxpagesize
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedTextBlocklistItem'
+      x-stackql-resource: text_blocklist_items
+      x-stackql-method: list_text_blocklist_items
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  /text/blocklists?api-version=2023-10-01:
+    get:
+      operationId: BlocklistClient_list_text_blocklists
+      description: Get All Text Blocklists. Get all text blocklists details.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedTextBlocklist'
+      x-stackql-resource: text_blocklists
+      x-stackql-method: list_text_blocklists
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+  /text/blocklists/{blocklist_name}?api-version=2023-10-01:
+    get:
+      operationId: BlocklistClient_get_text_blocklist
+      description: Get Text Blocklist By blocklistName. Returns text blocklist details.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextBlocklist'
+      x-stackql-resource: text_blocklists
+      x-stackql-method: get_text_blocklist
+      x-stackql-verb: SELECT
+    patch:
+      operationId: BlocklistClient_create_or_update_text_blocklist
+      description: Create Or Update Text Blocklist. Updates a text blocklist. If the blocklistName does not exist,
+        a new blocklist will be created.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blocklistName:
+                  type: string
+                  description: Text blocklist name. Required.
+                description:
+                  type: string
+                  description: Text blocklist description.
+              required:
+              - blocklistName
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextBlocklist'
+      x-stackql-resource: text_blocklists
+      x-stackql-method: create_or_update_text_blocklist
+      x-stackql-verb: INSERT
+    delete:
+      operationId: BlocklistClient_delete_text_blocklist
+      description: Delete Text Blocklist By blocklistName. Deletes a text blocklist.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: text_blocklists
+      x-stackql-method: delete_text_blocklist
+      x-stackql-verb: DELETE
+  /text/blocklists/{blocklist_name}/blocklistItems/{blocklist_item_id}?api-version=2023-10-01:
+    get:
+      operationId: BlocklistClient_get_text_blocklist_item
+      description: Get BlocklistItem By blocklistName And blocklistItemId. Get blocklistItem by blocklistName and
+        blocklistItemId from a text blocklist.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      - name: blocklist_item_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The service will generate a BlocklistItemId, which will be a UUID. Required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextBlocklistItem'
+      x-stackql-resource: text_blocklist_items
+      x-stackql-method: get_text_blocklist_item
+      x-stackql-verb: SELECT
+  /text/blocklists/{blocklist_name}:addOrUpdateBlocklistItems?api-version=2023-10-01:
+    post:
+      operationId: BlocklistClient_add_or_update_blocklist_items
+      description: Add or update BlocklistItems To Text Blocklist. Add or update blocklistItems to a text blocklist.
+        You can add or update at most 100 blocklistItems in one request.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blocklistItems:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TextBlocklistItem'
+                  description: Array of blocklistItems to add. Required.
+              required:
+              - blocklistItems
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOrUpdateTextBlocklistItemsResult'
+      x-stackql-resource: add_or_update_blocklist_items
+      x-stackql-method: add_or_update_blocklist_items
+      x-stackql-verb: EXEC
+  /text/blocklists/{blocklist_name}:removeBlocklistItems?api-version=2023-10-01:
+    post:
+      operationId: BlocklistClient_remove_blocklist_items
+      description: Remove BlocklistItems From Text Blocklist. Remove blocklistItems from a text blocklist. You can
+        remove at most 100 BlocklistItems in one request.
+      parameters:
+      - name: blocklist_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Text blocklist name. Required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blocklistItemIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of blocklistItemIds to remove. Required.
+              required:
+              - blocklistItemIds
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: remove_blocklist_items
+      x-stackql-method: remove_blocklist_items
+      x-stackql-verb: EXEC
+  /text:analyze?api-version=2023-10-01:
+    post:
+      operationId: ContentSafetyClient_analyze_text
+      description: 'Analyze Text. A synchronous API for the analysis of potentially harmful text content. Currently,
+        it supports four categories: Hate, SelfHarm, Sexual, and Violence.'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The text needs to be analyzed. We support a maximum of 10k Unicode characters (Unicode
+                    code points) in the text of one request. Required.
+                categories:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TextCategory'
+                  description: The categories will be analyzed. If they are not assigned, a default set of analysis
+                    results for the categories will be returned.
+                blocklistNames:
+                  type: array
+                  items:
+                    type: string
+                  description: The names of blocklists.
+                haltOnBlocklistHit:
+                  type: boolean
+                  description: When set to true, further analyses of harmful content will not be performed in cases
+                    where blocklists are hit. When set to false, all analyses of harmful content will be performed,
+                    whether or not blocklists are hit.
+                outputType:
+                  $ref: '#/components/schemas/AnalyzeTextOutputType'
+                  description: 'This refers to the type of text analysis output. If no value is assigned, the default
+                    value will be "FourSeverityLevels". Known values are: "FourSeverityLevels" and "EightSeverityLevels".'
+              required:
+              - text
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeTextResult'
+      x-stackql-resource: analyze_texts
+      x-stackql-method: analyze_text
+      x-stackql-verb: EXEC
+  /image:analyze?api-version=2023-10-01:
+    post:
+      operationId: ContentSafetyClient_analyze_image
+      description: 'Analyze Image. A synchronous API for the analysis of potentially harmful image content. Currently,
+        it supports four categories: Hate, SelfHarm, Sexual, and Violence.'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image:
+                  $ref: '#/components/schemas/ImageData'
+                  description: The image needs to be analyzed. Required.
+                categories:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ImageCategory'
+                  description: The categories will be analyzed. If they are not assigned, a default set of analysis
+                    results for the categories will be returned.
+                outputType:
+                  $ref: '#/components/schemas/AnalyzeImageOutputType'
+                  description: This refers to the type of image analysis output. If no value is assigned, the default
+                    value will be "FourSeverityLevels". "FourSeverityLevels"
+              required:
+              - image
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeImageResult'
+      x-stackql-resource: analyze_images
+      x-stackql-method: analyze_image
+      x-stackql-verb: EXEC

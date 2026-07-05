@@ -1,0 +1,2430 @@
+openapi: 3.0.0
+servers:
+- url: '{endpoint}'
+  variables:
+    endpoint:
+      default: ''
+      description: The service endpoint.
+info:
+  title: Purview Catalog Client
+  description: Purview Catalog Service is a fully managed cloud service whose users can discover the data sources
+    they need and understand the data sources they find. At the same time, Data Catalog helps organizations get
+    more value from their existing investments. This spec defines REST API of Purview Catalog Service.
+  contact:
+    name: StackQL Studios
+    url: https://stackql.io/
+    email: info@stackql.io
+  version: 2022-03-01-preview-stackql-generated
+  x-serviceAlias: purview_catalog
+  x-sdkPackage: azure-purview-catalog
+  x-plane: data
+security:
+- azure_auth:
+  - user_impersonation
+components:
+  securitySchemes:
+    azure_auth:
+      description: Azure Active Directory OAuth2 Flow.
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          scopes:
+            user_impersonation: impersonate your user account
+  schemas: {}
+paths:
+  /collections/{collection}/entity?api-version=2022-03-01-preview:
+    post:
+      operationId: Collection_create_or_update
+      description: 'Creates or updates an entity to a collection. Existing entity is matched using its unique guid
+        if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported.
+        E.g., array>, array>.'
+      parameters:
+      - name: collection
+        in: path
+        required: true
+        schema:
+          type: string
+        description: the collection unique name.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collection
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+  /collections/{collection}/entity/bulk?api-version=2022-03-01-preview:
+    post:
+      operationId: Collection_create_or_update_bulk
+      description: 'Creates or updates entities in bulk to a collection. Existing entity is matched using its unique
+        guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well
+        supported. E.g., array>, array>.'
+      parameters:
+      - name: collection
+        in: path
+        required: true
+        schema:
+          type: string
+        description: the collection unique name.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collection
+      x-stackql-method: create_or_update_bulk
+      x-stackql-verb: INSERT
+  /collections/{collection}/entity/moveHere?api-version=2022-03-01-preview:
+    post:
+      operationId: Collection_move_entities_to_collection
+      description: Move existing entities to the target collection.
+      parameters:
+      - name: collection
+        in: path
+        required: true
+        schema:
+          type: string
+        description: the collection unique name.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: collection
+      x-stackql-method: move_entities_to_collection
+      x-stackql-verb: EXEC
+  /search/query?api-version=2022-03-01-preview:
+    post:
+      operationId: Discovery_query
+      description: Gets data using search.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: discovery
+      x-stackql-method: query
+      x-stackql-verb: EXEC
+  /search/suggest?api-version=2022-03-01-preview:
+    post:
+      operationId: Discovery_suggest
+      description: Get search suggestions by query criteria.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: discovery
+      x-stackql-method: suggest
+      x-stackql-verb: EXEC
+  /browse?api-version=2022-03-01-preview:
+    post:
+      operationId: Discovery_browse
+      description: Browse entities by path or entity type.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: discovery
+      x-stackql-method: browse
+      x-stackql-verb: EXEC
+  /search/autocomplete?api-version=2022-03-01-preview:
+    post:
+      operationId: Discovery_auto_complete
+      description: Get auto complete options.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: discovery
+      x-stackql-method: auto_complete
+      x-stackql-verb: EXEC
+  /atlas/v2/entity/bulk:
+    get:
+      operationId: Entity_list_by_guids
+      description: List entities in bulk identified by its GUIDs.
+      parameters:
+      - name: minExtInfo
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to return minimal information for referred entities. Default value is False.
+      - name: ignoreRelationships
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to ignore relationship attributes. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: list_by_guids
+      x-stackql-verb: SELECT
+    post:
+      operationId: Entity_create_or_update_entities
+      description: 'Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid
+        if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported.
+        E.g., array>, array>.'
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: create_or_update_entities
+      x-stackql-verb: INSERT
+    delete:
+      operationId: Entity_delete_by_guids
+      description: Delete a list of entities in bulk identified by their GUIDs or unique attributes.
+      parameters: []
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_by_guids
+      x-stackql-verb: DELETE
+  /atlas/v2/entity:
+    post:
+      operationId: Entity_create_or_update
+      description: 'Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied
+        or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g.,
+        array>, array>.'
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: create_or_update
+      x-stackql-verb: INSERT
+  /atlas/v2/entity/guid/{guid}:
+    get:
+      operationId: Entity_get_by_guid
+      description: Get complete definition of an entity given its GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: minExtInfo
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to return minimal information for referred entities. Default value is False.
+      - name: ignoreRelationships
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to ignore relationship attributes. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_by_guid
+      x-stackql-verb: SELECT
+    put:
+      operationId: Entity_partial_update_entity_attribute_by_guid
+      description: Update entity partially - create or update entity attribute identified by its GUID. Supports
+        only primitive attribute type and entity references. It does not support updating complex types like arrays,
+        and maps. Null updates are not possible.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The name of the attribute.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: partial_update_entity_attribute_by_guid
+      x-stackql-verb: EXEC
+    delete:
+      operationId: Entity_delete_by_guid
+      description: Delete an entity identified by its GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_by_guid
+      x-stackql-verb: DELETE
+  /atlas/v2/entity/uniqueAttribute/type/{type_name}:
+    get:
+      operationId: Entity_get_by_unique_attributes
+      description: 'Get complete definition of an entity given its type and unique attribute. In addition to the
+        typeName path parameter, attribute key-value pair(s) can be provided in the following format: attr:\=. NOTE:
+        The attrName and attrValue should be unique across entities, eg. qualifiedName. The REST request would look
+        something like this: GET /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: minExtInfo
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to return minimal information for referred entities. Default value is False.
+      - name: ignoreRelationships
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to ignore relationship attributes. Default value is False.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_by_unique_attributes
+      x-stackql-verb: SELECT
+    put:
+      operationId: Entity_partial_update_entity_by_unique_attributes
+      description: 'Update entity partially - Allow a subset of attributes to be updated on an entity which is identified
+        by its type and unique attribute eg: Referenceable.qualifiedName. Null updates are not possible. In addition
+        to the typeName path parameter, attribute key-value pair(s) can be provided in the following format: attr:=.
+        NOTE: The attrName and attrValue should be unique across entities, eg. qualifiedName. The REST request would
+        look something like this: PUT /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: partial_update_entity_by_unique_attributes
+      x-stackql-verb: EXEC
+    delete:
+      operationId: Entity_delete_by_unique_attribute
+      description: 'Delete an entity identified by its type and unique attributes. In addition to the typeName path
+        parameter, attribute key-value pair(s) can be provided in the following format: attr:\=\. NOTE: The attrName
+        and attrValue should be unique across entities, eg. qualifiedName. The REST request would look something
+        like this: DELETE /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_by_unique_attribute
+      x-stackql-verb: DELETE
+  /atlas/v2/entity/guid/{guid}/classification/{classification_name}:
+    get:
+      operationId: Entity_get_classification
+      description: List classifications for a given entity represented by a GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: classification_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the classification.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_classification
+      x-stackql-verb: SELECT
+    delete:
+      operationId: Entity_delete_classification
+      description: Delete a given classification from an existing entity represented by a GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: classification_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the classification.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_classification
+      x-stackql-verb: DELETE
+  /atlas/v2/entity/guid/{guid}/classifications:
+    get:
+      operationId: Entity_get_classifications
+      description: List classifications for a given entity represented by a GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_classifications
+      x-stackql-verb: SELECT
+    post:
+      operationId: Entity_add_classifications
+      description: Add classifications to an existing entity represented by a GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_classifications
+      x-stackql-verb: EXEC
+    put:
+      operationId: Entity_update_classifications
+      description: Update classifications to an existing entity represented by a guid.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: update_classifications
+      x-stackql-verb: UPDATE
+  /atlas/v2/entity/bulk/uniqueAttribute/type/{type_name}:
+    get:
+      operationId: Entity_get_entities_by_unique_attributes
+      description: 'Bulk API to retrieve list of entities identified by its unique attributes. In addition to the
+        typeName path parameter, attribute key-value pair(s) can be provided in the following format typeName=\&attr_1:\=\&attr_2:\=\&attr_3:\=\
+        NOTE: The attrName should be an unique attribute for the given entity-type The REST request would look something
+        like this GET /v2/entity/bulk/uniqueAttribute/type/hive_db?attr_0:qualifiedName=db1@cl1&attr_2:qualifiedName=db2@cl1.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: minExtInfo
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to return minimal information for referred entities. Default value is False.
+      - name: ignoreRelationships
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to ignore relationship attributes. Default value is False.
+      - name: attr_N:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Qualified name of an entity. E.g. to find 2 entities you can set attrs_0:qualifiedName=db1@cl1&attrs_2:qualifiedName=db2@cl1.
+          Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_entities_by_unique_attributes
+      x-stackql-verb: SELECT
+  /atlas/v2/entity/guid/{guid}/header:
+    get:
+      operationId: Entity_get_header
+      description: Get entity header given its GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_header
+      x-stackql-verb: SELECT
+  /atlas/v2/entity/businessmetadata/import/template:
+    get:
+      operationId: Entity_get_sample_business_metadata_template
+      description: Get the sample Template for uploading/creating bulk BusinessMetaData.
+      parameters: []
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: get_sample_business_metadata_template
+      x-stackql-verb: SELECT
+  /atlas/v2/entity/bulk/classification:
+    post:
+      operationId: Entity_add_classification
+      description: Associate a classification to multiple entities in bulk.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_classification
+      x-stackql-verb: EXEC
+  /atlas/v2/entity/uniqueAttribute/type/{type_name}/classification/{classification_name}:
+    delete:
+      operationId: Entity_delete_classification_by_unique_attribute
+      description: Delete a given classification from an entity identified by its type and unique attributes.
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: classification_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the classification.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_classification_by_unique_attribute
+      x-stackql-verb: DELETE
+  /atlas/v2/entity/uniqueAttribute/type/{type_name}/classifications:
+    post:
+      operationId: Entity_add_classifications_by_unique_attribute
+      description: Add classification to the entity identified by its type and unique attributes.
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_classifications_by_unique_attribute
+      x-stackql-verb: EXEC
+    put:
+      operationId: Entity_update_classifications_by_unique_attribute
+      description: Update classification on an entity identified by its type and unique attributes.
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: update_classifications_by_unique_attribute
+      x-stackql-verb: UPDATE
+  /atlas/v2/entity/bulk/setClassifications:
+    post:
+      operationId: Entity_set_classifications
+      description: Set classifications on entities in bulk.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: set_classifications
+      x-stackql-verb: EXEC
+  /atlas/v2/entity/guid/{guid}/businessmetadata:
+    delete:
+      operationId: Entity_delete_business_metadata
+      description: Remove business metadata from an entity.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_business_metadata
+      x-stackql-verb: DELETE
+    post:
+      operationId: Entity_add_or_update_business_metadata
+      description: Add business metadata to an entity.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: isOverwrite
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether to overwrite the existing business metadata on the entity or not, default is false.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_or_update_business_metadata
+      x-stackql-verb: EXEC
+  /atlas/v2/entity/guid/{guid}/businessmetadata/{bm_name}:
+    delete:
+      operationId: Entity_delete_business_metadata_attributes
+      description: Delete business metadata attributes from an entity.
+      parameters:
+      - name: bm_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: BusinessMetadata name.
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_business_metadata_attributes
+      x-stackql-verb: DELETE
+    post:
+      operationId: Entity_add_or_update_business_metadata_attributes
+      description: Add or update business metadata attributes.
+      parameters:
+      - name: bm_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: BusinessMetadata name.
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_or_update_business_metadata_attributes
+      x-stackql-verb: EXEC
+  /atlas/v2/entity/guid/{guid}/labels:
+    delete:
+      operationId: Entity_delete_labels
+      description: delete given labels to a given entity.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_labels
+      x-stackql-verb: DELETE
+    post:
+      operationId: Entity_set_labels
+      description: Set labels to a given entity.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: set_labels
+      x-stackql-verb: EXEC
+    put:
+      operationId: Entity_add_label
+      description: add given labels to a given entity.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_label
+      x-stackql-verb: EXEC
+  /atlas/v2/entity/uniqueAttribute/type/{type_name}/labels:
+    delete:
+      operationId: Entity_delete_labels_by_unique_attribute
+      description: 'Delete given labels to a given entity identified by its type and unique attributes, if labels
+        is null/empty, no labels will be removed. If any labels in labels set are non-existing labels, they will
+        be ignored, only existing labels will be removed. In addition to the typeName path parameter, attribute
+        key-value pair(s) can be provided in the following format: attr:=. NOTE: The attrName and attrValue should
+        be unique across entities, eg. qualifiedName. The REST request would look something like this: DELETE /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: entity
+      x-stackql-method: delete_labels_by_unique_attribute
+      x-stackql-verb: DELETE
+    post:
+      operationId: Entity_set_labels_by_unique_attribute
+      description: 'Set labels to a given entity identified by its type and unique attributes, if labels is null/empty,
+        existing labels will all be removed. In addition to the typeName path parameter, attribute key-value pair(s)
+        can be provided in the following format: attr:=. NOTE: The attrName and attrValue should be unique across
+        entities, eg. qualifiedName. The REST request would look something like this: POST /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: set_labels_by_unique_attribute
+      x-stackql-verb: EXEC
+    put:
+      operationId: Entity_add_labels_by_unique_attribute
+      description: 'Add given labels to a given entity identified by its type and unique attributes, if labels is
+        null/empty, no labels will be added. In addition to the typeName path parameter, attribute key-value pair(s)
+        can be provided in the following format: attr:=. NOTE: The attrName and attrValue should be unique across
+        entities, eg. qualifiedName. The REST request would look something like this: PUT /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: attr:qualifiedName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The qualified name of the entity. Default value is None.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: entity
+      x-stackql-method: add_labels_by_unique_attribute
+      x-stackql-verb: EXEC
+  /atlas/v2/glossary:
+    get:
+      operationId: Glossary_list_glossaries
+      description: Get all glossaries registered with Atlas.
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      - name: ignoreTermsAndCategories
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether ignore terms and categories. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_glossaries
+      x-stackql-verb: SELECT
+    post:
+      operationId: Glossary_create_glossary
+      description: Create a glossary.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: create_glossary
+      x-stackql-verb: INSERT
+  /atlas/v2/glossary/category/{category_guid}/related:
+    get:
+      operationId: Glossary_list_related_categories
+      description: Get all related categories (parent and children). Limit, offset, and sort parameters are currently
+        not being enabled and won't work even they are passed.
+      parameters:
+      - name: category_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the category.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_related_categories
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/category/{category_guid}/terms:
+    get:
+      operationId: Glossary_list_category_terms
+      description: Get all terms associated with the specific category.
+      parameters:
+      - name: category_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the category.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_category_terms
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/terms/{term_guid}/related:
+    get:
+      operationId: Glossary_list_related_terms
+      description: Get all related terms for a specific term by its GUID. Limit, offset, and sort parameters are
+        currently not being enabled and won't work even they are passed.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_related_terms
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/{glossary_guid}/categories:
+    get:
+      operationId: Glossary_list_glossary_categories
+      description: Get the categories belonging to a specific glossary.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_glossary_categories
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/{glossary_guid}/categories/headers:
+    get:
+      operationId: Glossary_list_glossary_categories_headers
+      description: Get the category headers belonging to a specific glossary.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_glossary_categories_headers
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/{glossary_guid}/terms:
+    get:
+      operationId: Glossary_list_glossary_terms
+      description: Get terms belonging to a specific glossary.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_glossary_terms
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/{glossary_guid}/terms/headers:
+    get:
+      operationId: Glossary_list_glossary_term_headers
+      description: Get term headers belonging to a specific glossary.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_glossary_term_headers
+      x-stackql-verb: SELECT
+  /glossary/name/{glossary_name}/terms?api-version=2022-03-01-preview:
+    get:
+      operationId: Glossary_list_terms_by_glossary_name
+      description: Get terms by glossary name.
+      parameters:
+      - name: glossary_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the glossary.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: list_terms_by_glossary_name
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/category/{category_guid}:
+    get:
+      operationId: Glossary_get_glossary_category
+      description: Get specific glossary category by its GUID.
+      parameters:
+      - name: category_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the category.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: get_glossary_category
+      x-stackql-verb: SELECT
+    put:
+      operationId: Glossary_update_glossary_category
+      description: Update the given glossary category by its GUID.
+      parameters:
+      - name: category_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the category.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: update_glossary_category
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Glossary_delete_glossary_category
+      description: Delete a glossary category.
+      parameters:
+      - name: category_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the category.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: glossary
+      x-stackql-method: delete_glossary_category
+      x-stackql-verb: DELETE
+  /atlas/v2/glossary/term/{term_guid}:
+    get:
+      operationId: Glossary_get_glossary_term
+      description: Get a specific glossary term by its GUID.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: get_glossary_term
+      x-stackql-verb: SELECT
+    put:
+      operationId: Glossary_update_glossary_term
+      description: Update the given glossary term by its GUID.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: update_glossary_term
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Glossary_delete_glossary_term
+      description: Delete a glossary term.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: glossary
+      x-stackql-method: delete_glossary_term
+      x-stackql-verb: DELETE
+  /atlas/v2/glossary/terms/{term_guid}/assignedEntities:
+    get:
+      operationId: Glossary_get_entities_assigned_with_term
+      description: Get all related objects assigned with the specified term.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The sort order, ASC (default) or DESC. Default value is "ASC".
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: get_entities_assigned_with_term
+      x-stackql-verb: SELECT
+    post:
+      operationId: Glossary_assign_term_to_entities
+      description: Assign the given term to the provided list of related objects.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: assign_term_to_entities
+      x-stackql-verb: EXEC
+    put:
+      operationId: Glossary_remove_term_assignment_from_entities
+      description: Delete the term assignment for the given list of related objects.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: remove_term_assignment_from_entities
+      x-stackql-verb: EXEC
+    delete:
+      operationId: Glossary_delete_term_assignment_from_entities
+      description: Delete the term assignment for the given list of related objects.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: glossary
+      x-stackql-method: delete_term_assignment_from_entities
+      x-stackql-verb: DELETE
+  /atlas/v2/glossary/{glossary_guid}:
+    get:
+      operationId: Glossary_get_glossary
+      description: Get a specific Glossary by its GUID.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: get_glossary
+      x-stackql-verb: SELECT
+    put:
+      operationId: Glossary_update_glossary
+      description: Update the given glossary.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: update_glossary
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Glossary_delete_glossary
+      description: Delete a glossary.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: glossary
+      x-stackql-method: delete_glossary
+      x-stackql-verb: DELETE
+  /atlas/v2/glossary/{glossary_guid}/detailed:
+    get:
+      operationId: Glossary_get_detailed_glossary
+      description: Get a specific glossary with detailed information.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: get_detailed_glossary
+      x-stackql-verb: SELECT
+  /glossary/terms/import/{operation_guid}?api-version=2022-03-01-preview:
+    get:
+      operationId: Glossary_get_import_csv_operation_status
+      description: Get the status of import csv operation.
+      parameters:
+      - name: operation_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for async operation/job.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: get_import_csv_operation_status
+      x-stackql-verb: SELECT
+  /atlas/v2/glossary/categories:
+    post:
+      operationId: Glossary_create_glossary_categories
+      description: Create glossary category in bulk.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: create_glossary_categories
+      x-stackql-verb: INSERT
+  /atlas/v2/glossary/category:
+    post:
+      operationId: Glossary_create_glossary_category
+      description: Create a glossary category.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: create_glossary_category
+      x-stackql-verb: INSERT
+  /atlas/v2/glossary/category/{category_guid}/partial:
+    put:
+      operationId: Glossary_partial_update_glossary_category
+      description: Update the glossary category partially.
+      parameters:
+      - name: category_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the category.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: partial_update_glossary_category
+      x-stackql-verb: EXEC
+  /atlas/v2/glossary/term:
+    post:
+      operationId: Glossary_create_glossary_term
+      description: Create a glossary term.
+      parameters:
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: create_glossary_term
+      x-stackql-verb: INSERT
+  /atlas/v2/glossary/term/{term_guid}/partial:
+    put:
+      operationId: Glossary_partial_update_glossary_term
+      description: Update the glossary term partially.
+      parameters:
+      - name: term_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary term.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: partial_update_glossary_term
+      x-stackql-verb: EXEC
+  /atlas/v2/glossary/terms:
+    post:
+      operationId: Glossary_create_glossary_terms
+      description: Create glossary terms in bulk.
+      parameters:
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: create_glossary_terms
+      x-stackql-verb: INSERT
+  /atlas/v2/glossary/{glossary_guid}/partial:
+    put:
+      operationId: Glossary_partial_update_glossary
+      description: Update the glossary partially. Some properties such as qualifiedName are not allowed to be updated.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: partial_update_glossary
+      x-stackql-verb: EXEC
+  /glossary/{glossary_guid}/terms/export?api-version=2022-03-01-preview:
+    post:
+      operationId: Glossary_export_glossary_terms_as_csv
+      description: Export Glossary Terms as csv file.
+      parameters:
+      - name: glossary_guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier for glossary.
+      - name: includeTermHierarchy
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include term hierarchy. Default value is False.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: glossary
+      x-stackql-method: export_glossary_terms_as_csv
+      x-stackql-verb: EXEC
+  /atlas/v2/lineage/{guid}:
+    get:
+      operationId: Lineage_get_lineage_graph
+      description: Get lineage info of the entity specified by GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: direction
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'The direction of the lineage, which could be INPUT, OUTPUT or BOTH. Known values are: "BOTH",
+          "INPUT", and "OUTPUT".'
+      - name: depth
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of hops for lineage. Default value is 3.
+      - name: width
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of max expanding width in lineage. Default value is 10.
+      - name: includeParent
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: True to include the parent chain in the response. Default value is None.
+      - name: getDerivedLineage
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: True to include derived lineage in the response. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: lineage
+      x-stackql-method: get_lineage_graph
+      x-stackql-verb: SELECT
+  /atlas/v2/lineage/uniqueAttribute/type/{type_name}:
+    get:
+      operationId: Lineage_get_lineage_by_unique_attribute
+      description: 'Returns lineage info about entity. In addition to the typeName path parameter, attribute key-value
+        pair(s) can be provided in the following format attr:[attrName]=[attrValue] NOTE: The attrName and attrValue
+        should be unique across entities, eg. qualifiedName.'
+      parameters:
+      - name: type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      - name: direction
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'The direction of the lineage, which could be INPUT, OUTPUT or BOTH. Known values are: "BOTH",
+          "INPUT", and "OUTPUT".'
+      - name: depth
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of hops for lineage. Default value is 3.
+      - name: width
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The number of max expanding width in lineage. Default value is 10.
+      - name: includeParent
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: True to include the parent chain in the response. Default value is None.
+      - name: getDerivedLineage
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: True to include derived lineage in the response. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: lineage
+      x-stackql-method: get_lineage_by_unique_attribute
+      x-stackql-verb: SELECT
+  /lineage/{guid}/next/?api-version=2022-03-01-preview:
+    get:
+      operationId: Lineage_next_page_lineage
+      description: Return immediate next page lineage info about entity with pagination.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      - name: direction
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'The direction of the lineage, which could be INPUT, OUTPUT or BOTH. Known values are: "BOTH",
+          "INPUT", and "OUTPUT".'
+      - name: getDerivedLineage
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: True to include derived lineage in the response. Default value is None.
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The offset for pagination purpose. Default value is None.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: The page size - by default there is no paging. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: lineage
+      x-stackql-method: next_page_lineage
+      x-stackql-verb: EXEC
+  /atlas/v2/relationship/guid/{guid}:
+    get:
+      operationId: Relationship_get
+      description: Get relationship information between entities by its GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the relationship.
+      - name: extendedInfo
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Limits whether includes extended information. Default value is None.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: relationship
+      x-stackql-method: get
+      x-stackql-verb: SELECT
+    delete:
+      operationId: Relationship_delete
+      description: Delete a relationship between entities by its GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the relationship.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: relationship
+      x-stackql-method: delete
+      x-stackql-verb: DELETE
+  /atlas/v2/relationship:
+    post:
+      operationId: Relationship_create
+      description: Create a new relationship between entities.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: relationship
+      x-stackql-method: create
+      x-stackql-verb: INSERT
+    put:
+      operationId: Relationship_update
+      description: Update an existing relationship between entities.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: relationship
+      x-stackql-method: update
+      x-stackql-verb: UPDATE
+  /atlas/v2/types/typedefs/headers:
+    get:
+      operationId: Types_list_type_definition_headers
+      description: List all type definitions returned as a list of minimal information header.
+      parameters:
+      - name: includeTermTemplate
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include termtemplatedef when return all typedefs. This is always true when search filter
+          type=term_template. Default value is False.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Typedef name as search filter when get typedefs. Known values are: "enum", "entity", "classification",
+          "relationship", "struct", and "term_template". Default value is None.'
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: list_type_definition_headers
+      x-stackql-verb: SELECT
+  /atlas/v2/types/businessmetadatadef/guid/{guid}:
+    get:
+      operationId: Types_get_business_metadata_def_by_guid
+      description: Get the businessMetadata definition for the given guid.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: businessMetadata guid.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_business_metadata_def_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/businessmetadatadef/name/{name}:
+    get:
+      operationId: Types_get_business_metadata_def_by_name
+      description: Get the businessMetadata definition by it's name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: businessMetadata name.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_business_metadata_def_by_name
+      x-stackql-verb: SELECT
+  /atlas/v2/types/classificationdef/guid/{guid}:
+    get:
+      operationId: Types_get_classification_def_by_guid
+      description: Get the classification definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the classification.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_classification_def_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/classificationdef/name/{name}:
+    get:
+      operationId: Types_get_classification_def_by_name
+      description: Get the classification definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the classification.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_classification_def_by_name
+      x-stackql-verb: SELECT
+  /atlas/v2/types/entitydef/guid/{guid}:
+    get:
+      operationId: Types_get_entity_definition_by_guid
+      description: Get the Entity definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the entity.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_entity_definition_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/entitydef/name/{name}:
+    get:
+      operationId: Types_get_entity_definition_by_name
+      description: Get the entity definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the entity.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_entity_definition_by_name
+      x-stackql-verb: SELECT
+  /atlas/v2/types/enumdef/guid/{guid}:
+    get:
+      operationId: Types_get_enum_def_by_guid
+      description: Get the enum definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the enum.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_enum_def_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/enumdef/name/{name}:
+    get:
+      operationId: Types_get_enum_def_by_name
+      description: Get the enum definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the enum.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_enum_def_by_name
+      x-stackql-verb: SELECT
+  /atlas/v2/types/relationshipdef/guid/{guid}:
+    get:
+      operationId: Types_get_relationship_def_by_guid
+      description: Get the relationship definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the relationship.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_relationship_def_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/relationshipdef/name/{name}:
+    get:
+      operationId: Types_get_relationship_def_by_name
+      description: Get the relationship definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the relationship.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_relationship_def_by_name
+      x-stackql-verb: SELECT
+  /atlas/v2/types/structdef/guid/{guid}:
+    get:
+      operationId: Types_get_struct_def_by_guid
+      description: Get the struct definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the struct.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_struct_def_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/structdef/name/{name}:
+    get:
+      operationId: Types_get_struct_def_by_name
+      description: Get the struct definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the struct.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_struct_def_by_name
+      x-stackql-verb: SELECT
+  /atlas/v2/types/typedef/guid/{guid}:
+    get:
+      operationId: Types_get_type_definition_by_guid
+      description: Get the type definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the type.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_type_definition_by_guid
+      x-stackql-verb: SELECT
+  /atlas/v2/types/typedef/name/{name}:
+    get:
+      operationId: Types_get_type_definition_by_name
+      description: Get the type definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_type_definition_by_name
+      x-stackql-verb: SELECT
+    delete:
+      operationId: Types_delete_type_by_name
+      description: Delete API for type identified by its name.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the type.
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: types
+      x-stackql-method: delete_type_by_name
+      x-stackql-verb: DELETE
+  /atlas/v2/types/typedefs:
+    get:
+      operationId: Types_get_all_type_definitions
+      description: Get all type definitions in Atlas in bulk.
+      parameters:
+      - name: includeTermTemplate
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: Whether include termtemplatedef when return all typedefs. This is always true when search filter
+          type=term_template. Default value is False.
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Typedef name as search filter when get typedefs. Known values are: "enum", "entity", "classification",
+          "relationship", "struct", and "term_template". Default value is None.'
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_all_type_definitions
+      x-stackql-verb: SELECT
+    post:
+      operationId: Types_create_type_definitions
+      description: Create all atlas type definitions in bulk, only new definitions will be created. Any changes
+        to the existing definitions will be discarded.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: create_type_definitions
+      x-stackql-verb: INSERT
+    put:
+      operationId: Types_update_atlas_type_definitions
+      description: Update all types in bulk, changes detected in the type definitions would be persisted.
+      parameters: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: update_atlas_type_definitions
+      x-stackql-verb: UPDATE
+    delete:
+      operationId: Types_delete_type_definitions
+      description: Delete API for all types in bulk.
+      parameters: []
+      responses:
+        '204':
+          description: Success (no content / accepted)
+      x-stackql-resource: types
+      x-stackql-method: delete_type_definitions
+      x-stackql-verb: DELETE
+  /types/termtemplatedef/guid/{guid}?api-version=2022-03-01-preview:
+    get:
+      operationId: Types_get_term_template_def_by_guid
+      description: Get the term template definition for the given GUID.
+      parameters:
+      - name: guid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The globally unique identifier of the term template.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_term_template_def_by_guid
+      x-stackql-verb: SELECT
+  /types/termtemplatedef/name/{name}?api-version=2022-03-01-preview:
+    get:
+      operationId: Types_get_term_template_def_by_name
+      description: Get the term template definition by its name (unique).
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the term template.
+      responses:
+        '200':
+          description: Success
+      x-stackql-resource: types
+      x-stackql-method: get_term_template_def_by_name
+      x-stackql-verb: SELECT
