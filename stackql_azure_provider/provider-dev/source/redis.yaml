@@ -2166,7 +2166,7 @@ paths:
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
-  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cache/redis/{name}/patchSchedules/{default}?api-version=2025-08-01-preview
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cache/redis/{name}/patchSchedules/{default_name}?api-version=2025-08-01-preview
   : get:
       operationId: PatchSchedules_get
       description: Gets the patching schedule of a redis cache.
@@ -2183,7 +2183,7 @@ paths:
         schema:
           type: string
         description: The name of the redis cache. Required.
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -2221,7 +2221,7 @@ paths:
         schema:
           type: string
         description: The name of the redis cache. Required.
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -2270,7 +2270,7 @@ paths:
         schema:
           type: string
         description: The name of the redis cache. Required.
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:

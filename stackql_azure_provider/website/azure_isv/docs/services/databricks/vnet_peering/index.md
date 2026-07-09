@@ -1,9 +1,9 @@
 --- 
-title: v_net_peering
+title: vnet_peering
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - v_net_peering
+  - vnet_peering
   - databricks
   - azure_isv
   - infrastructure-as-code
@@ -19,13 +19,13 @@ import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes, gets or lists a <code>v_net_peering</code> resource.
+Creates, updates, deletes, gets or lists a <code>vnet_peering</code> resource.
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><CopyableCode code="v_net_peering" /></td></tr>
+<tr><td><b>Name</b></td><td><CopyableCode code="vnet_peering" /></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Id</b></td><td><CopyableCode code="azure_isv.databricks.v_net_peering" /></td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure_isv.databricks.vnet_peering" /></td></tr>
 </tbody></table>
 
 ## Fields
@@ -327,7 +327,7 @@ remoteVirtualNetwork,
 systemData,
 type,
 useRemoteGateways
-FROM azure_isv.databricks.v_net_peering
+FROM azure_isv.databricks.vnet_peering
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND workspace_name = '{{ workspace_name }}' -- required
 AND peering_name = '{{ peering_name }}' -- required
@@ -355,7 +355,7 @@ remoteVirtualNetwork,
 systemData,
 type,
 useRemoteGateways
-FROM azure_isv.databricks.v_net_peering
+FROM azure_isv.databricks.vnet_peering
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND workspace_name = '{{ workspace_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
@@ -379,7 +379,7 @@ AND subscription_id = '{{ subscription_id }}' -- required
 Creates vNet Peering for workspace.
 
 ```sql
-INSERT INTO azure_isv.databricks.v_net_peering (
+INSERT INTO azure_isv.databricks.vnet_peering (
 properties,
 resource_group_name,
 workspace_name,
@@ -404,20 +404,20 @@ type
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: v_net_peering
+- name: vnet_peering
   props:
     - name: resource_group_name
       value: "{{ resource_group_name }}"
-      description: Required parameter for the v_net_peering resource.
+      description: Required parameter for the vnet_peering resource.
     - name: workspace_name
       value: "{{ workspace_name }}"
-      description: Required parameter for the v_net_peering resource.
+      description: Required parameter for the vnet_peering resource.
     - name: peering_name
       value: "{{ peering_name }}"
-      description: Required parameter for the v_net_peering resource.
+      description: Required parameter for the vnet_peering resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
-      description: Required parameter for the v_net_peering resource.
+      description: Required parameter for the vnet_peering resource.
     - name: properties
       description: |
         List of properties for vNet Peering. Required.
@@ -457,7 +457,7 @@ type
 Creates vNet Peering for workspace.
 
 ```sql
-REPLACE azure_isv.databricks.v_net_peering
+REPLACE azure_isv.databricks.vnet_peering
 SET 
 properties = '{{ properties }}'
 WHERE 
@@ -490,7 +490,7 @@ type;
 Deletes the workspace vNetPeering.
 
 ```sql
-DELETE FROM azure_isv.databricks.v_net_peering
+DELETE FROM azure_isv.databricks.vnet_peering
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND workspace_name = '{{ workspace_name }}' --required
 AND peering_name = '{{ peering_name }}' --required

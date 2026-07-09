@@ -4,7 +4,8 @@ servers:
   variables:
     fully_qualified_namespace:
       default: ''
-      description: The service endpoint, e.g. value of the client `fullyQualifiedNamespace` parameter.
+      description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the
+        client `fullyQualifiedNamespace` parameter.
 info:
   title: Schema Registry Client
   description: SchemaRegistryClient is a client for registering and retrieving schemas from the Azure Schema Registry

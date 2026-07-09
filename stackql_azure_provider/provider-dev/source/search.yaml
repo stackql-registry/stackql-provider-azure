@@ -1869,7 +1869,7 @@ paths:
       x-stackql-resource: query_keys
       x-stackql-method: create
       x-stackql-verb: INSERT
-  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/deleteQueryKey/{key}?api-version=2026-03-01-preview
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/deleteQueryKey/{key_name}?api-version=2026-03-01-preview
   : delete:
       operationId: QueryKeys_delete
       description: 'Deletes the specified query key. Unlike admin keys, query keys are not regenerated. The process
@@ -1890,7 +1890,7 @@ paths:
         schema:
           type: string
         description: The name of the Azure AI Search service associated with the specified resource group. Required.
-      - name: key
+      - name: key_name
         in: path
         required: true
         schema:

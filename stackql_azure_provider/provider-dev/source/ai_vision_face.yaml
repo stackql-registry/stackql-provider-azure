@@ -1,13 +1,15 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}/face/{api_version}'
+- url: https://{endpoint}/face/{api_version}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+      description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the
+        client `endpoint` parameter.
     api_version:
       default: ''
-      description: The service endpoint, e.g. value of the client `apiVersion` parameter.
+      description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the
+        client `apiVersion` parameter.
 info:
   title: Face Administration Client
   description: FaceAdministrationClient.

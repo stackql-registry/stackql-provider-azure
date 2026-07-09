@@ -28556,7 +28556,7 @@ paths:
       x-stackql-objectKey: $.value
       x-stackql-flatten: list
       x-stackql-flattenKey: value
-  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view}?api-version=2025-05-01
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_list_network_features
       description: Gets all network features used by the app (or deployment slot, if specified). Description for
@@ -28574,7 +28574,7 @@ paths:
         schema:
           type: string
         description: Name of the app. Required.
-      - name: view
+      - name: view_name
         in: path
         required: true
         schema:
@@ -28596,7 +28596,7 @@ paths:
       x-stackql-method: list_network_features
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
-  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view}?api-version=2025-05-01
+  ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_list_network_features_slot
       description: Gets all network features used by the app (or deployment slot, if specified). Description for
@@ -28614,7 +28614,7 @@ paths:
         schema:
           type: string
         description: Name of the app. Required.
-      - name: view
+      - name: view_name
         in: path
         required: true
         schema:

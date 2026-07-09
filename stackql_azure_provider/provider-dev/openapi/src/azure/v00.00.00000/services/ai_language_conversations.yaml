@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}/language"
+  - url: https://{endpoint}/language
     variables:
       endpoint:
         default: ""
-        description: The service endpoint, e.g. value of the client `Endpoint` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `Endpoint` parameter.
 info:
   title: Conversation Analysis Client
   description: The language service conversations API is a suite of natural language processing (NLP) skills that can be used to analyze structured conversations (textual or spoken). The synchronous API in this suite accepts a request and mediates among multiple language projects, such as LUIS Generally Available, Question Answering, Conversational Language Understanding, and then calls the best candidate service to handle the request. At last, it returns a response with the candidate service's response as a payload.\n\n In some cases, this API needs to forward requests and responses between the caller and an upstream service. The asynchronous APIs in this suite enable tasks like Conversation Summarization and Conversational PII detection.

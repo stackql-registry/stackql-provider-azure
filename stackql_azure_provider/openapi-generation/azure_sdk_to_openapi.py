@@ -1139,6 +1139,60 @@ def _element_model_of_value_field(model_index: ModelIndex, envelope: str) -> Opt
 
 
 # --------------------------------------------------------------------------- #
+# mastered naming / verb overrides (provider-dev/config/name-overrides.json)
+# --------------------------------------------------------------------------- #
+#
+# Generic inference gets acronyms wrong occasionally (VNetPeering ->
+# v_net_peering) and some SDK method names carry the same wart verbatim
+# (detach_v_net). The overrides file is the mastered fix-up layer, applied
+# AFTER inference:
+#   - segments:  whole snake-segment rewrites on every resource/method name
+#   - resources: exact renames keyed by '<service>.<resource>'
+#   - methods:   exact renames keyed by '<service>.<resource>.<method>'
+#   - verbs:     SQL verb overrides keyed by '<service>.<resource>.<method>'
+
+_DEFAULT_OVERRIDES_PATH = (
+    Path(__file__).resolve().parents[1] / "provider-dev" / "config" / "name-overrides.json"
+)
+
+
+class NameOverrides:
+    def __init__(self, path: Optional[Path] = None):
+        self.segments: dict[str, str] = {}
+        self.resources: dict[str, str] = {}
+        self.methods: dict[str, str] = {}
+        self.verbs: dict[str, str] = {}
+        self.servers: dict[str, list] = {}
+        p = path or _DEFAULT_OVERRIDES_PATH
+        if p and p.exists():
+            import json
+            doc = json.loads(p.read_text(encoding="utf-8"))
+            self.segments = doc.get("segments") or {}
+            self.resources = doc.get("resources") or {}
+            self.methods = doc.get("methods") or {}
+            self.verbs = doc.get("verbs") or {}
+            self.servers = doc.get("servers") or {}
+
+    def apply_segments(self, name: str) -> str:
+        for seg, repl in self.segments.items():
+            name = re.sub(rf"(^|_){re.escape(seg)}(_|$)", rf"\g<1>{repl}\g<2>", name)
+            # run twice for adjacent occurrences sharing an underscore
+            name = re.sub(rf"(^|_){re.escape(seg)}(_|$)", rf"\g<1>{repl}\g<2>", name)
+        return name
+
+    def resource_name(self, alias: str, resource: str) -> str:
+        resource = self.apply_segments(resource)
+        return self.resources.get(f"{alias}.{resource}", resource)
+
+    def method_name(self, alias: str, resource: str, method: str) -> str:
+        method = self.apply_segments(method)
+        return self.methods.get(f"{alias}.{resource}.{method}", method)
+
+    def verb(self, alias: str, resource: str, method: str, inferred: str) -> str:
+        return self.verbs.get(f"{alias}.{resource}.{method}", inferred)
+
+
+# --------------------------------------------------------------------------- #
 # verb + resource inference
 # --------------------------------------------------------------------------- #
 
@@ -1334,13 +1388,22 @@ def find_client_endpoint(pkg_dir: Path, is_mgmt: bool) -> tuple[str, Optional[di
                 out_tpl = out_tpl.replace("{" + v + "}", "{" + snake + "}")
                 variables[snake] = {
                     "default": "",
-                    "description": f"The service endpoint, e.g. value of the client `{v}` parameter.",
+                    "description": (
+                        f"The service endpoint host (no scheme), e.g. "
+                        f"myaccount.table.cosmos.azure.com:443 - value of the "
+                        f"client `{v}` parameter."
+                    ),
                 }
+            # stackql's request mux requires server templates to carry a
+            # scheme; a bare '{endpoint}' template never resolves ("mux:
+            # path must start with a slash"). Users supply the HOST part.
+            if out_tpl.startswith("{"):
+                out_tpl = "https://" + out_tpl
             return out_tpl, variables
         m = re.search(r"base_url:?\s*(?:str)?\s*=\s*kwargs\.pop\(\s*\"base_url\",\s*\"([^\"]+)\"", text)
         if m:
             return m.group(1), None
-    return "{endpoint}", {"endpoint": {"default": "", "description": "The service endpoint."}}
+    return "https://{endpoint}", {"endpoint": {"default": "", "description": "The service endpoint host (no scheme)."}}
 
 
 def get_client_title(pkg_dir: Path, alias: str) -> tuple[str, str]:
@@ -1395,6 +1458,25 @@ def service_alias_for(pkg_name: str, is_mgmt: bool) -> str:
 # --------------------------------------------------------------------------- #
 
 
+# Path params are wire-neutral (template substitution only), but their names
+# surface in SQL WHERE clauses - a param literally named `table` / `group` /
+# `key` etc collides with the SQL grammar and forces users to quote. Rename
+# with a `_name` suffix at generation time.
+SQL_RESERVED_PATH_PARAMS = {
+    "table", "key", "group", "view", "type", "default", "order", "index",
+    "user", "role", "select", "from", "where", "column", "schema",
+    "database", "value", "values", "set", "left", "right", "join", "case",
+    "end", "if", "function", "call", "add", "drop", "partition",
+}
+
+
+def snake_param(name: str) -> str:
+    s = to_snake(name)
+    if s in SQL_RESERVED_PATH_PARAMS:
+        return s + "_name"
+    return s
+
+
 def snake_path(url: str) -> tuple[str, dict[str, str]]:
     """Snake-case `{placeholders}` in a URL template. Returns (new_url, renames
     keyed by original placeholder)."""
@@ -1402,7 +1484,7 @@ def snake_path(url: str) -> tuple[str, dict[str, str]]:
 
     def _sub(m):
         orig = m.group(1)
-        snake = to_snake(orig)
+        snake = snake_param(orig)
         renames[orig] = snake
         return "{" + snake + "}"
 
@@ -1461,8 +1543,20 @@ def build_spec_for_package(
         method_name = op.name[6:] if op.name.startswith("begin_") else op.name
         resource = infer_resource(op.group, op.name, alias)
         verb = infer_verb(op.name, bf.http_method)
+        # mastered fix-ups (name-overrides.json) applied over the inference
+        resource = OVERRIDES.resource_name(alias, resource)
+        method_name = OVERRIDES.method_name(alias, resource, method_name)
+        verb = OVERRIDES.verb(alias, resource, method_name, verb)
 
         url_snaked, renames = snake_path(bf.url)
+        # Some data-plane builders embed the client endpoint in the operation
+        # URL ("{url}/Tables"). The endpoint belongs in the server template
+        # (already emitted as servers[0].url) - strip the leading placeholder
+        # so the path starts with '/' (stackql's mux requires it) and the
+        # phantom endpoint param is dropped from `parameters` below.
+        url_snaked = re.sub(r"^\{[^{}]+\}", "", url_snaked) or "/"
+        if not url_snaked.startswith("/"):
+            url_snaked = "/" + url_snaked
         path_key = url_snaked
         if bf.api_version:
             sep = "&" if "?" in path_key else "?"
@@ -1477,7 +1571,12 @@ def build_spec_for_package(
             wire = p["wire"]
             loc = p["in"]
             if loc == "path":
-                name = renames.get(wire, to_snake(wire))
+                name = renames.get(wire, snake_param(wire))
+                # endpoint args stripped from the path template are server
+                # variables, not path params - drop them here (users supply
+                # them as server params, e.g. WHERE url = 'https://...')
+                if "{" + name + "}" not in url_snaked:
+                    continue
             else:
                 name = wire
             if (name, loc) in seen_wire:
@@ -1501,7 +1600,7 @@ def build_spec_for_package(
             if group_pascal.endswith(suffix):
                 group_pascal = group_pascal[: -len(suffix)]
                 break
-        op_block["operationId"] = f"{group_pascal or alias}_{op.name}"
+        op_block["operationId"] = f"{group_pascal or alias}_{OVERRIDES.apply_segments(op.name)}"
         desc = doc_summary(op.docstring)
         if desc:
             op_block["description"] = desc
@@ -1644,6 +1743,11 @@ def build_spec_for_package(
     servers = [{"url": server_url}]
     if server_vars:
         servers[0]["variables"] = server_vars
+    # mastered per-service server templates (name-overrides.json `servers`):
+    # data-plane hosts must keep variables to a single DNS label for
+    # stackql's request router to match
+    if alias in OVERRIDES.servers:
+        servers = OVERRIDES.servers[alias]
     spec["servers"] = servers
     spec["info"] = OrderedDict(
         [
@@ -1724,13 +1828,22 @@ def discover_packages() -> list[tuple[Path, str, bool]]:
     return out
 
 
+# module-level so build_spec_for_package sees it; re-initialised in main()
+OVERRIDES = NameOverrides()
+
+
 def main() -> int:
+    global OVERRIDES
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--output-dir", required=True)
     ap.add_argument("--service", action="append", default=[],
                     help="only emit these service aliases (repeatable)")
+    ap.add_argument("--name-overrides", default=None,
+                    help="path to name-overrides.json (default: provider-dev/config/name-overrides.json)")
     ap.add_argument("--list", action="store_true", help="list discovered packages and exit")
     args = ap.parse_args()
+
+    OVERRIDES = NameOverrides(Path(args.name_overrides) if args.name_overrides else None)
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

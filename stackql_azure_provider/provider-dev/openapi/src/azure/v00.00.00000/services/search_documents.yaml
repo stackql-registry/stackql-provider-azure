@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{search_service_name}.search.windows.net
     variables:
-      endpoint:
+      search_service_name:
         default: ""
-        description: The service endpoint, e.g. value of the client `endpoint` parameter.
+        description: Search service name.
 info:
   title: Search Client
   description: SearchClient.
@@ -68,7 +68,7 @@ components:
       methods:
         get_document:
           operation:
-            $ref: "#/paths/~1indexes('{index_name}')~1docs('{key}')?api-version=2026-05-01-preview/get"
+            $ref: "#/paths/~1indexes('{index_name}')~1docs('{key_name}')?api-version=2026-05-01-preview/get"
           response:
             openAPIDocKey: "200"
           request:
@@ -411,12 +411,12 @@ paths:
       responses:
         "200":
           description: Success
-  /indexes('{index_name}')/docs('{key}')?api-version=2026-05-01-preview:
+  /indexes('{index_name}')/docs('{key_name}')?api-version=2026-05-01-preview:
     get:
       operationId: _SearchClient_get_document
       description: Retrieves a document from the index.
       parameters:
-        - name: key
+        - name: key_name
           in: path
           required: true
           schema:

@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{account}.blob.core.windows.net
     variables:
-      endpoint:
+      account:
         default: ""
-        description: The service endpoint.
+        description: Storage account name.
 info:
   title: Blob Client
   description: A client to interact with a specific blob, although that blob may not yet exist. For more optional configuration, please click `here `__.
@@ -772,7 +772,7 @@ components:
       methods:
         create:
           operation:
-            $ref: "#/paths/{url}/put"
+            $ref: "#/paths/~1/put"
           response:
             openAPIDocKey: "200"
           request:
@@ -793,7 +793,7 @@ components:
       methods:
         get_properties:
           operation:
-            $ref: "#/paths/{url}/head"
+            $ref: "#/paths/~1/head"
           response:
             openAPIDocKey: "200"
           request:
@@ -803,14 +803,14 @@ components:
               algorithm: naive
         get_account_info:
           operation:
-            $ref: "#/paths/{url}/get"
+            $ref: "#/paths/~1/get"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         delete:
           operation:
-            $ref: "#/paths/{url}/delete"
+            $ref: "#/paths/~1/delete"
           response:
             openAPIDocKey: "204"
           request:
@@ -820,7 +820,7 @@ components:
               algorithm: naive
         query:
           operation:
-            $ref: "#/paths/{url}/post"
+            $ref: "#/paths/~1/post"
           response:
             openAPIDocKey: "200"
           request:
@@ -835,16 +835,11 @@ components:
         delete:
           - $ref: "#/components/x-stackQL-resources/blob/methods/delete"
 paths:
-  "{url}":
+  /:
     put:
       operationId: AppendBlob_create
       description: The Create Append Blob operation creates a new append blob.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: Content-Length
           in: header
           required: true
@@ -1013,11 +1008,6 @@ paths:
       operationId: Blob_get_properties
       description: The Get Properties operation returns all user-defined metadata, standard HTTP properties, and system properties for the blob. It does not return the content of the blob.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -1109,11 +1099,6 @@ paths:
       operationId: Blob_get_account_info
       description: Returns the sku name and account kind.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -1138,11 +1123,6 @@ paths:
       operationId: Blob_delete
       description: If the storage account's soft delete feature is disabled then, when a blob is deleted, it is permanently removed from the storage account. If the storage account's soft delete feature is enabled, then, when a blob is deleted, it is marked for deletion and becomes inaccessible immediately. However, the blob service retains the blob or snapshot for the number of days specified by the DeleteRetentionPolicy section of [Storage service properties] (Set-Blob-Service-Properties.md). After the specified number of days has passed, the blob's data is permanently removed from the storage account. Note that you continue to be charged for the soft-deleted blob's storage until it is permanently removed. Use the List Blobs API and specify the "include=deleted" query parameter to discover which blobs and snapshots have been soft deleted. You can then use the Undelete Blob API to restore a soft-deleted blob. All other operations on a soft-deleted blob or snapshot causes the service to return an HTTP status code of 404 (ResourceNotFound).
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -1243,11 +1223,6 @@ paths:
       operationId: Blob_query
       description: The Query operation enables users to select/project on blob data by providing simple query expressions.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true

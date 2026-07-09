@@ -2755,7 +2755,7 @@ components:
                   { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
                 {{- end }}
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
-        detach_v_net:
+        detach_vnet:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DBforMySQL~1flexibleServers~1{server_name}~1detachVNet?api-version=2025-06-01-preview/post"
           response:
@@ -4934,7 +4934,7 @@ paths:
                 $ref: "#/components/schemas/PagedServerFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforMySQL/flexibleServers/{server_name}/detachVNet?api-version=2025-06-01-preview:
     post:
-      operationId: Servers_begin_detach_v_net
+      operationId: Servers_begin_detach_vnet
       description: Detach VNet on a server.
       parameters:
         - name: resource_group_name

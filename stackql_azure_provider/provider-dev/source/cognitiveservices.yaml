@@ -10983,13 +10983,13 @@ paths:
       x-stackql-objectKey: $.value
       x-stackql-flatten: list
       x-stackql-flattenKey: value
-  /subscriptions/{subscription_id}/providers/Microsoft.CognitiveServices/quotaTiers/{default}?api-version=2026-05-15-preview:
-    get:
+  ? /subscriptions/{subscription_id}/providers/Microsoft.CognitiveServices/quotaTiers/{default_name}?api-version=2026-05-15-preview
+  : get:
       operationId: QuotaTiers_get
       description: Gets the Quota Tier for a subscription. Gets the Quota Tier information for the given subscription.
         QuotaTiers is a subscription wide resource type. It holds current tier information.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -11016,7 +11016,7 @@ paths:
       description: Updates the Quota Tier resource for a subscription. Update the Quota Tier information for the
         given subscription. QuotaTiers is a subscription wide resource type. It holds current tier information.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -11053,7 +11053,7 @@ paths:
         "tierUpgradePolicy". Update the Quota Tier information for the given subscription. QuotaTiers is a subscription
         wide resource type. It holds current tier information.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:

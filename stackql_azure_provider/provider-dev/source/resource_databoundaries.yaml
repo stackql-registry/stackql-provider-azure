@@ -191,7 +191,7 @@ components:
         nextLink:
           type: string
 paths:
-  /{scope}/providers/Microsoft.Resources/dataBoundaries/{default}?api-version=2024-08-01:
+  /{scope}/providers/Microsoft.Resources/dataBoundaries/{default_name}?api-version=2024-08-01:
     get:
       operationId: DataBoundaries_get_scope
       description: Get data boundary at specified scope.
@@ -202,7 +202,7 @@ paths:
         schema:
           type: string
         description: The fully qualified Azure Resource manager identifier of the resource. Required.
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -219,12 +219,12 @@ paths:
       x-stackql-method: get_scope
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
-  /providers/Microsoft.Resources/dataBoundaries/{default}?api-version=2024-08-01:
+  /providers/Microsoft.Resources/dataBoundaries/{default_name}?api-version=2024-08-01:
     get:
       operationId: DataBoundaries_get_tenant
       description: Get data boundary of tenant.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -245,7 +245,7 @@ paths:
       operationId: DataBoundaries_put
       description: Opt-in tenant to data boundary.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:

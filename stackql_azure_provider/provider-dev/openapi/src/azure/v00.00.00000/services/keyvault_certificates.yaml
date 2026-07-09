@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{vault_base_url}"
+  - url: https://{vault_name}.vault.azure.net
     variables:
-      vault_base_url:
+      vault_name:
         default: ""
-        description: The service endpoint, e.g. value of the client `vaultBaseUrl` parameter.
+        description: Key vault name.
 info:
   title: Certificate Client
   description: A high-level interface for managing a vault's certificates.

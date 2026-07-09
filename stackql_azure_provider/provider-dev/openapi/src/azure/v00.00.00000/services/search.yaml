@@ -1421,7 +1421,7 @@ components:
             mediaType: application/json
         delete:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Search~1searchServices~1{search_service_name}~1deleteQueryKey~1{key}?api-version=2026-03-01-preview/delete"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Search~1searchServices~1{search_service_name}~1deleteQueryKey~1{key_name}?api-version=2026-03-01-preview/delete"
           response:
             openAPIDocKey: "204"
       sqlVerbs:
@@ -2036,7 +2036,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/QueryKey"
-  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/deleteQueryKey/{key}?api-version=2026-03-01-preview:
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/deleteQueryKey/{key_name}?api-version=2026-03-01-preview:
     delete:
       operationId: QueryKeys_delete
       description: "Deletes the specified query key. Unlike admin keys, query keys are not regenerated. The process for regenerating a query key is to delete and then recreate it. Returns 200 (OK) on successful deletion, 204 (No Content) if the service exists but the query keys not found, or 404 (Not Found) if the service is not found. NOTE: The behavior of returning 404 is inconsistent with ARM guidelines. Clients should expect a 204 response in future versions and avoid new dependencies on the 404 response."
@@ -2053,7 +2053,7 @@ paths:
           schema:
             type: string
           description: The name of the Azure AI Search service associated with the specified resource group. Required.
-        - name: key
+        - name: key_name
           in: path
           required: true
           schema:

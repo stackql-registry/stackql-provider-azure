@@ -1401,10 +1401,10 @@ components:
         insert: []
         update: []
         delete: []
-    v_net_peering:
-      id: azure_isv.databricks.v_net_peering
-      name: v_net_peering
-      title: v_net_peering
+    vnet_peering:
+      id: azure_isv.databricks.vnet_peering
+      name: vnet_peering
+      title: vnet_peering
       methods:
         get:
           operation:
@@ -1450,15 +1450,15 @@ components:
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/get"
-          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/list_by_workspace"
+          - $ref: "#/components/x-stackQL-resources/vnet_peering/methods/get"
+          - $ref: "#/components/x-stackQL-resources/vnet_peering/methods/list_by_workspace"
         insert:
-          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/vnet_peering/methods/create_or_update"
         update: []
         replace:
-          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/vnet_peering/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/v_net_peering/methods/delete"
+          - $ref: "#/components/x-stackQL-resources/vnet_peering/methods/delete"
     workspaces:
       id: azure_isv.databricks.workspaces
       name: workspaces

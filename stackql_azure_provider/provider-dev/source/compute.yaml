@@ -20661,7 +20661,7 @@ paths:
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
-  ? /subscriptions/{subscription_id}/providers/Microsoft.Compute/locations/{location}/publishers/{publisher_name}/artifacttypes/vmextension/types/{type}/versions/{version}?api-version=2026-03-01
+  ? /subscriptions/{subscription_id}/providers/Microsoft.Compute/locations/{location}/publishers/{publisher_name}/artifacttypes/vmextension/types/{type_name}/versions/{version}?api-version=2026-03-01
   : get:
       operationId: VirtualMachineExtensionImages_get
       description: Gets a virtual machine extension image.
@@ -20678,7 +20678,7 @@ paths:
         schema:
           type: string
         description: Required.
-      - name: type
+      - name: type_name
         in: path
         required: true
         schema:
@@ -20739,7 +20739,7 @@ paths:
       x-stackql-method: list_types
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
-  ? /subscriptions/{subscription_id}/providers/Microsoft.Compute/locations/{location}/publishers/{publisher_name}/artifacttypes/vmextension/types/{type}/versions?api-version=2026-03-01
+  ? /subscriptions/{subscription_id}/providers/Microsoft.Compute/locations/{location}/publishers/{publisher_name}/artifacttypes/vmextension/types/{type_name}/versions?api-version=2026-03-01
   : get:
       operationId: VirtualMachineExtensionImages_list_versions
       description: Gets a list of virtual machine extension image versions.
@@ -20756,7 +20756,7 @@ paths:
         schema:
           type: string
         description: Required.
-      - name: type
+      - name: type_name
         in: path
         required: true
         schema:

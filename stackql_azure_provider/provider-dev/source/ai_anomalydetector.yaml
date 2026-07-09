@@ -1,13 +1,15 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}/anomalydetector/{api_version}'
+- url: https://{endpoint}/anomalydetector/{api_version}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint, e.g. value of the client `Endpoint` parameter.
+      description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the
+        client `Endpoint` parameter.
     api_version:
       default: ''
-      description: The service endpoint, e.g. value of the client `ApiVersion` parameter.
+      description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the
+        client `ApiVersion` parameter.
 info:
   title: Anomaly Detector Client
   description: The Anomaly Detector API detects anomalies automatically in time series data. It supports two kinds

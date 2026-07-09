@@ -15,6 +15,8 @@ Services are split across **four providers** (a single mega-provider causes regi
 
 Any new SDK package that is not in the map lands in the base `azure` provider; move it by adding an entry to the map and re-running `npm run generate-provider`.
 
+Resource/method names and SQL verbs are inferred from the SDK and then corrected from a second mastered config, `provider-dev/config/name-overrides.json` (segment rewrites like `v_net` -> `vnet`, plus exact per-resource/method rename and verb overrides).
+
 The build runs in two stages, both committed to this repo:
 
 1. **`openapi-generation/azure_sdk_to_openapi.py`** (Python, stdlib `ast` + `pyyaml`) walks every SDK package under `../sdk/`, parses the `build_*_request` functions (URL template, HTTP verb, api-version, parameters), the operation-group classes (docstrings, body models, return types, pagination) and the model modules (typespec `rest_field` and msrest `_attribute_map` styles), and emits one OpenAPI 3.0 spec per service into `provider-dev/source/`. Every operation is stamped with `x-stackql-*` breadcrumbs.
@@ -87,7 +89,10 @@ stackql --registry="$REG" exec "DESCRIBE EXTENDED azure.compute.virtual_machines
 
 ```bash
 npm run start-server
-npm run test-meta-routes -- azure          # repeat for azure_extras / azure_isv / azure_stack
+npm run test-meta-routes -- azure
+npm run test-meta-routes -- azure_extras
+npm run test-meta-routes -- azure_isv
+npm run test-meta-routes -- azure_stack
 npm run stop-server
 ```
 

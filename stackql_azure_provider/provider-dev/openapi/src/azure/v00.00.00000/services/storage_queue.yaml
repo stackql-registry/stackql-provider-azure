@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{url}"
+  - url: https://{account}.queue.core.windows.net
     variables:
-      url:
+      account:
         default: ""
-        description: The service endpoint, e.g. value of the client `url` parameter.
+        description: Storage account name.
 info:
   title: Queues Client
   description: QueuesClient.
@@ -402,21 +402,21 @@ components:
       methods:
         get_properties:
           operation:
-            $ref: "#/paths/?comp=metadata/get"
+            $ref: "#/paths/~1?comp=metadata/get"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         set_metadata:
           operation:
-            $ref: "#/paths/?comp=metadata/put"
+            $ref: "#/paths/~1?comp=metadata/put"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         get_access_policy:
           operation:
-            $ref: "#/paths/?comp=acl/get"
+            $ref: "#/paths/~1?comp=acl/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -424,7 +424,7 @@ components:
             nativeCasing: camel
         set_access_policy:
           operation:
-            $ref: "#/paths/?comp=acl/put"
+            $ref: "#/paths/~1?comp=acl/put"
           response:
             openAPIDocKey: "200"
           request:
@@ -502,7 +502,7 @@ components:
       methods:
         get_properties:
           operation:
-            $ref: "#/paths/?restype=service&comp=properties/get"
+            $ref: "#/paths/~1?restype=service&comp=properties/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -510,7 +510,7 @@ components:
             nativeCasing: camel
         set_properties:
           operation:
-            $ref: "#/paths/?restype=service&comp=properties/put"
+            $ref: "#/paths/~1?restype=service&comp=properties/put"
           response:
             openAPIDocKey: "200"
           request:
@@ -520,7 +520,7 @@ components:
               algorithm: naive
         get_statistics:
           operation:
-            $ref: "#/paths/?restype=service&comp=stats/get"
+            $ref: "#/paths/~1?restype=service&comp=stats/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -528,7 +528,7 @@ components:
             nativeCasing: camel
         get_user_delegation_key:
           operation:
-            $ref: "#/paths/?restype=service&comp=userdelegationkey/post"
+            $ref: "#/paths/~1?restype=service&comp=userdelegationkey/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -539,7 +539,7 @@ components:
               algorithm: naive
         get_queues:
           operation:
-            $ref: "#/paths/?comp=list/get"
+            $ref: "#/paths/~1?comp=list/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -554,7 +554,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/service/methods/set_properties"
         delete: []
 paths:
-  ?comp=metadata:
+  /?comp=metadata:
     get:
       operationId: Queue_get_properties
       description: Returns all user-defined metadata and system properties for the specified queue.
@@ -587,7 +587,7 @@ paths:
       responses:
         "200":
           description: Success
-  ?comp=acl:
+  /?comp=acl:
     get:
       operationId: Queue_get_access_policy
       description: Gets the access policy for the specified queue.
@@ -809,7 +809,7 @@ paths:
       responses:
         "204":
           description: Success (no content / accepted)
-  ?restype=service&comp=properties:
+  /?restype=service&comp=properties:
     get:
       operationId: Service_get_properties
       description: Retrieves properties of a storage account's Queue service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.
@@ -861,7 +861,7 @@ paths:
       responses:
         "200":
           description: Success
-  ?restype=service&comp=stats:
+  /?restype=service&comp=stats:
     get:
       operationId: Service_get_statistics
       description: Retrieves statistics related to replication for the Queue service. It is only available on the secondary location endpoint when read-access geo-redundant replication is enabled for the storage account.
@@ -879,7 +879,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/QueueServiceStats"
-  ?restype=service&comp=userdelegationkey:
+  /?restype=service&comp=userdelegationkey:
     post:
       operationId: Service_get_user_delegation_key
       description: Retrieves a user delegation key for the Queue service. This is only a valid operation when using bearer token authentication.
@@ -915,7 +915,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserDelegationKey"
-  ?comp=list:
+  /?comp=list:
     get:
       operationId: Service_get_queues
       description: Returns a list of queues.

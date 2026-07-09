@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: Document Analysis Client
   description: 'DocumentAnalysisClient analyzes information from documents and images, and classifies documents.

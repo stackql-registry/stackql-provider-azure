@@ -38,18 +38,18 @@ paths:
         schema:
           type: string
         description: The alert name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -76,18 +76,18 @@ paths:
       operationId: Alerts_list_by_data_box_edge_device
       description: Gets all the alerts for a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -115,18 +115,18 @@ paths:
         schema:
           type: string
         description: The bandwidth schedule name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -153,18 +153,18 @@ paths:
       operationId: BandwidthSchedules_list_by_data_box_edge_device
       description: Gets all the bandwidth schedules for a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -186,18 +186,18 @@ paths:
       operationId: Devices_get
       description: Gets the properties of the data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -223,18 +223,18 @@ paths:
       operationId: Devices_update
       description: Modifies a Data Box Edge/Gateway resource.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -330,18 +330,18 @@ paths:
       operationId: Devices_get_extended_information
       description: Gets additional information for the specified data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -368,18 +368,18 @@ paths:
       operationId: Devices_get_network_settings
       description: Gets the network settings of the specified data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -407,18 +407,18 @@ paths:
       description: Gets information about the availability of updates based on the last scan of the device. It also
         gets information about any ongoing download or install jobs on the device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -489,18 +489,18 @@ paths:
       operationId: Devices_upload_certificate
       description: Uploads registration certificate for the device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -540,18 +540,18 @@ paths:
         schema:
           type: string
         description: The job name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -584,18 +584,18 @@ paths:
         schema:
           type: string
         description: The job name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -622,18 +622,18 @@ paths:
       operationId: Orders_get
       description: Gets a specific order by name.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -660,18 +660,18 @@ paths:
       operationId: Orders_list_by_data_box_edge_device
       description: Lists all the orders related to a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -699,18 +699,18 @@ paths:
         schema:
           type: string
         description: The role name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -737,18 +737,18 @@ paths:
       operationId: Roles_list_by_data_box_edge_device
       description: Lists all the roles configured in a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -776,18 +776,18 @@ paths:
         schema:
           type: string
         description: The share name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -814,18 +814,18 @@ paths:
       operationId: Shares_list_by_data_box_edge_device
       description: Lists all the shares in a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -864,18 +864,18 @@ paths:
         schema:
           type: string
         description: The storage account credential name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -902,18 +902,18 @@ paths:
       operationId: StorageAccountCredentials_list_by_data_box_edge_device
       description: Gets all the storage account credentials in a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -941,18 +941,18 @@ paths:
         schema:
           type: string
         description: The trigger name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -979,18 +979,18 @@ paths:
       operationId: Triggers_list_by_data_box_edge_device
       description: Lists all the triggers configured in the device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -1024,18 +1024,18 @@ paths:
         schema:
           type: string
         description: The user name.
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true
@@ -1062,18 +1062,18 @@ paths:
       operationId: Users_list_by_data_box_edge_device
       description: Gets all the users registered on a data box edge/gateway device.
       parameters:
-      - name: device_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The device name.
       - name: resource_group_name
         in: path
         required: true
         schema:
           type: string
         description: The resource group name.
+      - name: device_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The device name.
       - name: subscription_id
         in: path
         required: true

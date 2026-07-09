@@ -29,6 +29,17 @@ Key parsing rules:
 - **Multiapi packages** (v2022_11_01-style dirs): only the lexically-greatest version dir is parsed.
 - **msrest client-side flattening**: dotted `_attribute_map` keys (`properties.provisioningState`) describe *nested wire structure*. `assemble_props` rebuilds the nesting; never emit the dotted key as a property name.
 
+## Mastered naming / verb overrides
+
+Resource names, method names and SQL verbs are INFERRED by stage 1 (`infer_resource` / SDK method names / `infer_verb`) and then FIXED UP from the mastered config **`provider-dev/config/name-overrides.json`**:
+
+- `segments`: whole snake-segment rewrites on every resource/method name (and the method part of operationIds) - fixes acronym splits, e.g. `v_net` -> `vnet` (covers both `to_snake("VNetPeering")` artifacts and SDK-verbatim names like `detach_v_net`)
+- `resources`: exact renames keyed `<service>.<resource>`
+- `methods`: exact renames keyed `<service>.<resource>.<method>`
+- `verbs`: SQL verb overrides keyed `<service>.<resource>.<method>` (SELECT/INSERT/UPDATE/REPLACE/DELETE/EXEC)
+
+Fix naming/verb warts THERE, not in the inference code - then re-run both stages. (The services-to-providers split has its own map: `provider-dev/config/service-provider-map.json`.)
+
 ## Naming and case (casing engine)
 
 Stackql >= v0.10.542's casing engine (any-sdk `pkg/casing`) does the snake<->native conversion. Opt-in flags:
@@ -116,9 +127,19 @@ Docusaurus parses descriptions as MDX. `clean_description()` strips HTML tags, s
 
 A property literally named `items` trips stackql's introspector; renamed `items_` at emit time (`_safe_property_name`). Wire extraction misses renamed columns - acceptable, rare.
 
-### 13. Servers
+### 13. Servers (data-plane rules, live-verified)
 
-mgmt packages: `https://management.azure.com/`. Data-plane packages: the client `_endpoint` template with snake-cased server variables (`{vault_base_url}`, `{endpoint}`) - supplied in queries as server params. Data-plane auth note: `azure_default` acquires ARM-scoped tokens; data-plane services needing other audiences (vault.azure.net etc.) may 401 until stackql supports per-service scopes - specs are correct regardless.
+mgmt packages: `https://management.azure.com/`. Data-plane packages:
+
+- **Server templates MUST carry a scheme and keep variables to a single DNS label** - stackql's request router (kin-openapi gorillamux) cannot match a bare `{url}` template ("mux: path must start with a slash") nor a host variable spanning dots ("FindRoute: no matching operation"). `https://{account}.table.cosmos.azure.com` works; `https://{url}` does not. Mastered per-service templates live in `name-overrides.json` under `servers` (data_tables, keyvault_*, storage_*, appconfiguration_dataplane, search_documents); un-mastered data planes fall back to `https://{endpoint}` and need a template added before they are routable.
+- **Builder URLs that embed the endpoint** (`_url = "{url}/Tables"`) get the leading placeholder stripped into the server and the phantom path param dropped; server variables surface as required params in SHOW METHODS and are supplied in WHERE clauses (`WHERE account = 'myacct'`).
+- **Path params named after SQL reserved words** (`table`, `key`, `group`, `view`, `type`, `default`, ...) are renamed `<name>_name` at generation time (`SQL_RESERVED_PATH_PARAMS`) - path params are wire-neutral, and a bare `table` in a WHERE clause is a parser error.
+- **Data-plane auth is a stackql-core gap (live-verified 2026-07)**: `azure_default` issues ARM-audience tokens only. Cosmos Table rejects them explicitly: "AAD token has an invalid audience. This database account accepts tokens intended for [https://<acct>.documents.azure.com, https://cosmos.azure.com]". The provider's routing/DML wiring is proven to the wire; per-service token scopes (derive from server host, or per-service auth config) need stackql-core support before data-plane ops authenticate.
+- **EXEC on body-less ops with untyped responses** (e.g. data_tables get-entity) does not project a result set in v0.10.542 ("no request body for operation" / "schema unsuitable for select query") - another core-side limitation.
+
+### 13a. Live smoke-test findings (bin/smoke-test.sh, the release gate)
+
+`bin/smoke-test.sh` drives rg -> vnet/subnet -> nic -> VM -> storage -> cosmos + table -> data-plane entity ops, always tearing down (one rg). Environmental gotchas it surfaced: fresh subscriptions have NO resource providers registered (Microsoft.Network/Compute/Storage/DocumentDB must be registered first - 409 MissingSubscriptionRegistration otherwise), and restricted offer types (startup/sponsorship) can be blanket-refused VM capacity (SkuNotAvailable / NotAvailableForSubscription on every small SKU in every region, quota API auto-denies with ContactSupport) - a subscription limitation, not a provider defect. Teardown note: an rg DELETE despatched while a cosmos account inside is still provisioning is rejected; re-delete after the account settles.
 
 ## Things NOT to do
 

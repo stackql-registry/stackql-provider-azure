@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: Data Lake Directory Client
   description: A client to interact with the DataLake directory, even if the directory may not yet exist. For operations
@@ -320,16 +320,11 @@ components:
         nextLink:
           type: string
 paths:
-  '{url}':
+  /:
     get:
       operationId: FileSystem_list_paths
       description: List Paths. List FileSystem paths and their properties.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: recursive
         in: query
         required: true
@@ -412,11 +407,6 @@ paths:
       description: Get FileSystem Properties. All system and user-defined filesystem properties are specified in
         the response headers.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -446,11 +436,6 @@ paths:
       description: Create FileSystem. Create a FileSystem rooted at the specified location. If the FileSystem already
         exists, the operation fails. This operation does not support conditional HTTP requests.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -491,11 +476,6 @@ paths:
       description: Set FileSystem Properties. Set properties for the FileSystem. This operation supports conditional
         HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -572,11 +552,6 @@ paths:
         status code 404 (Not Found) while the filesystem is being deleted. This operation supports conditional HTTP
         requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -638,11 +613,6 @@ paths:
         supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service
         Operations `_.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-lease-action
         in: header
         required: true

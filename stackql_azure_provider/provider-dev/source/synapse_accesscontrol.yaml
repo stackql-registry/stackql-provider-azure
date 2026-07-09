@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: Access Control Client
   description: AccessControlClient.
@@ -152,12 +152,7 @@ paths:
     get:
       operationId: AccessControlClient_get_role_definitions
       description: List roles.
-      parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
+      parameters: []
       responses:
         '200':
           description: Success
@@ -180,11 +175,6 @@ paths:
         schema:
           type: string
         description: Synapse Built-In Role Id.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         '200':
           description: Success
@@ -201,11 +191,6 @@ paths:
       operationId: AccessControlClient_get_role_assignments
       description: List role assignments.
       parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: roleId
         in: query
         required: false
@@ -233,12 +218,7 @@ paths:
     post:
       operationId: AccessControlClient_create_role_assignment
       description: Create role assignment.
-      parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
+      parameters: []
       requestBody:
         required: true
         content:
@@ -267,11 +247,6 @@ paths:
         schema:
           type: string
         description: The ID of the role assignment.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         '200':
           description: Success
@@ -292,11 +267,6 @@ paths:
         schema:
           type: string
         description: The ID of the role assignment.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         '204':
           description: Success (no content / accepted)
@@ -307,12 +277,7 @@ paths:
     post:
       operationId: AccessControlClient_get_caller_role_assignments
       description: List role assignments of the caller.
-      parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
+      parameters: []
       responses:
         '200':
           description: Success
@@ -324,11 +289,6 @@ paths:
       operationId: RoleAssignments_list_role_assignments
       description: List role assignments.
       parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: roleId
         in: query
         required: false
@@ -375,11 +335,6 @@ paths:
         schema:
           type: string
         description: The ID of the role assignment.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         '200':
           description: Success
@@ -400,11 +355,6 @@ paths:
         schema:
           type: string
         description: The ID of the role assignment.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       requestBody:
         required: true
         content:
@@ -444,11 +394,6 @@ paths:
         schema:
           type: string
         description: The ID of the role assignment.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: scope
         in: query
         required: false
@@ -465,12 +410,7 @@ paths:
     post:
       operationId: RoleAssignments_check_principal_access
       description: Check if the given principalId has access to perform list of actions at a given scope.
-      parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
+      parameters: []
       requestBody:
         required: true
         content:
@@ -505,11 +445,6 @@ paths:
       operationId: RoleDefinitions_list_role_definitions
       description: List role definitions.
       parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: isBuiltIn
         in: query
         required: false
@@ -532,12 +467,7 @@ paths:
     get:
       operationId: RoleDefinitions_list_scopes
       description: List rbac scopes.
-      parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
+      parameters: []
       responses:
         '200':
           description: Success
@@ -555,11 +485,6 @@ paths:
         schema:
           type: string
         description: Synapse Built-In Role Definition Id.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         '200':
           description: Success

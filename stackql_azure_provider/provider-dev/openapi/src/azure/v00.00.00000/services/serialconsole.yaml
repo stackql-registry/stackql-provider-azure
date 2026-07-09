@@ -312,7 +312,7 @@ components:
       methods:
         get_console_status:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.SerialConsole~1consoleServices~1{default}?api-version=2024-07-01/get"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.SerialConsole~1consoleServices~1{default_name}?api-version=2024-07-01/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -333,7 +333,7 @@ components:
       methods:
         disable_console:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.SerialConsole~1consoleServices~1{default}~1disableConsole?api-version=2024-07-01/post"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.SerialConsole~1consoleServices~1{default_name}~1disableConsole?api-version=2024-07-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -349,7 +349,7 @@ components:
       methods:
         enable_console:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.SerialConsole~1consoleServices~1{default}~1enableConsole?api-version=2024-07-01/post"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.SerialConsole~1consoleServices~1{default_name}~1enableConsole?api-version=2024-07-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -579,12 +579,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SerialConsoleOperations"
-  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}?api-version=2024-07-01:
+  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default_name}?api-version=2024-07-01:
     get:
       operationId: _MicrosoftSerialConsoleClient_get_console_status
       description: Get the disabled status for a subscription. Gets whether or not Serial Console is disabled for a given subscription.
       parameters:
-        - name: default
+        - name: default_name
           in: path
           required: true
           schema:
@@ -602,12 +602,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SerialConsoleStatusFlattened"
-  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}/disableConsole?api-version=2024-07-01:
+  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default_name}/disableConsole?api-version=2024-07-01:
     post:
       operationId: _MicrosoftSerialConsoleClient_disable_console
       description: Disable Serial Console for a subscription. Disables the Serial Console service for all VMs and VM scale sets in the provided subscription.
       parameters:
-        - name: default
+        - name: default_name
           in: path
           required: true
           schema:
@@ -625,12 +625,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DisableSerialConsoleResult"
-  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}/enableConsole?api-version=2024-07-01:
+  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default_name}/enableConsole?api-version=2024-07-01:
     post:
       operationId: _MicrosoftSerialConsoleClient_enable_console
       description: Enable Serial Console for a subscription. Enables the Serial Console service for all VMs and VM scale sets in the provided subscription.
       parameters:
-        - name: default
+        - name: default_name
           in: path
           required: true
           schema:

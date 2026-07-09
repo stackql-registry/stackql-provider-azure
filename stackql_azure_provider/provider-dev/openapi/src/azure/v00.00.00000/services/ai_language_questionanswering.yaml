@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}/language"
+  - url: https://{endpoint}/language
     variables:
       endpoint:
         default: ""
-        description: The service endpoint, e.g. value of the client `Endpoint` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `Endpoint` parameter.
 info:
   title: Question Answering Client
   description: QuestionAnsweringClient.

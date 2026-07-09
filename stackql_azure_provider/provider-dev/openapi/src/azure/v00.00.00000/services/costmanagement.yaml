@@ -3974,13 +3974,13 @@ components:
             objectKey: $.value
         get_by_scope:
           operation:
-            $ref: "#/paths/~1{scope}~1providers~1Microsoft.CostManagement~1settings~1{type}?api-version=2025-03-01/get"
+            $ref: "#/paths/~1{scope}~1providers~1Microsoft.CostManagement~1settings~1{type_name}?api-version=2025-03-01/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
         create_or_update_by_scope:
           operation:
-            $ref: "#/paths/~1{scope}~1providers~1Microsoft.CostManagement~1settings~1{type}?api-version=2025-03-01/put"
+            $ref: "#/paths/~1{scope}~1providers~1Microsoft.CostManagement~1settings~1{type_name}?api-version=2025-03-01/put"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -3991,7 +3991,7 @@ components:
               algorithm: naive
         delete_by_scope:
           operation:
-            $ref: "#/paths/~1{scope}~1providers~1Microsoft.CostManagement~1settings~1{type}?api-version=2025-03-01/delete"
+            $ref: "#/paths/~1{scope}~1providers~1Microsoft.CostManagement~1settings~1{type_name}?api-version=2025-03-01/delete"
           response:
             openAPIDocKey: "204"
       sqlVerbs:
@@ -6014,7 +6014,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SettingsListResult"
-  /{scope}/providers/Microsoft.CostManagement/settings/{type}?api-version=2025-03-01:
+  /{scope}/providers/Microsoft.CostManagement/settings/{type_name}?api-version=2025-03-01:
     get:
       operationId: Settings_get_by_scope
       description: Get the setting from the given scope by name.
@@ -6025,7 +6025,7 @@ paths:
           schema:
             type: string
           description: undefined. Required.
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:
@@ -6048,7 +6048,7 @@ paths:
           schema:
             type: string
           description: undefined. Required.
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:
@@ -6083,7 +6083,7 @@ paths:
           schema:
             type: string
           description: undefined. Required.
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:

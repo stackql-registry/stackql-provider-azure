@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{account}.file.core.windows.net
     variables:
-      endpoint:
+      account:
         default: ""
-        description: The service endpoint.
+        description: Storage account name.
 info:
   title: Share Directory Client
   description: A client to interact with a specific directory, although it may not yet exist. For operations relating to a specific subdirectory or file in this share, the clients for those entities can also be retrieved using the get_subdirectory_client and get_file_client functions. For more optional configuration, please click `here `__.
@@ -629,7 +629,7 @@ components:
       methods:
         list_files_and_directories_segment:
           operation:
-            $ref: "#/paths/{url}/get"
+            $ref: "#/paths/~1/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -637,14 +637,14 @@ components:
             nativeCasing: camel
         create:
           operation:
-            $ref: "#/paths/{url}/put"
+            $ref: "#/paths/~1/put"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         delete:
           operation:
-            $ref: "#/paths/{url}/delete"
+            $ref: "#/paths/~1/delete"
           response:
             openAPIDocKey: "204"
           request:
@@ -664,7 +664,7 @@ components:
       methods:
         get_properties:
           operation:
-            $ref: "#/paths/{url}/head"
+            $ref: "#/paths/~1/head"
           response:
             openAPIDocKey: "200"
           request:
@@ -684,7 +684,7 @@ components:
       methods:
         get_user_delegation_key:
           operation:
-            $ref: "#/paths/{url}/post"
+            $ref: "#/paths/~1/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -699,16 +699,11 @@ components:
         update: []
         delete: []
 paths:
-  "{url}":
+  /:
     get:
       operationId: Directory_list_files_and_directories_segment
       description: Returns a list of files or directories under the specified share or directory. It lists the contents only for a single level of the directory hierarchy.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -779,11 +774,6 @@ paths:
       operationId: Directory_create
       description: Creates a new directory under the specified share or parent directory.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -885,11 +875,6 @@ paths:
       operationId: Directory_delete
       description: Removes the specified empty directory. Note that the directory must be empty before it can be deleted.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -918,11 +903,6 @@ paths:
       operationId: File_get_properties
       description: Returns all user-defined metadata, standard HTTP properties, and system properties for the file. It does not return the content of the file.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -972,11 +952,6 @@ paths:
       operationId: Service_get_user_delegation_key
       description: Retrieves a user delegation key for the File service. This is only a valid operation when using bearer token authentication.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true

@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{config_store_name}.azconfig.io
   variables:
-    endpoint:
+    config_store_name:
       default: ''
-      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+      description: App Configuration store name.
 info:
   title: Azure App Configuration Client
   description: Represents a client that calls restful API of Azure App Configuration service.
@@ -435,12 +435,12 @@ paths:
       x-stackql-resource: check_key_values
       x-stackql-method: check_key_values
       x-stackql-verb: EXEC
-  /kv/{key}?api-version=2026-04-01:
+  /kv/{key_name}?api-version=2026-04-01:
     get:
       operationId: _AzureAppConfigurationClient_get_key_value
       description: Gets a single key-value. Gets a single key-value.
       parameters:
-      - name: key
+      - name: key_name
         in: path
         required: true
         schema:
@@ -487,7 +487,7 @@ paths:
       operationId: _AzureAppConfigurationClient_delete_key_value
       description: Deletes a key-value. Deletes a key-value.
       parameters:
-      - name: key
+      - name: key_name
         in: path
         required: true
         schema:
@@ -520,7 +520,7 @@ paths:
       description: Requests the headers and status of the given resource. Requests the headers and status of the
         given resource.
       parameters:
-      - name: key
+      - name: key_name
         in: path
         required: true
         schema:
@@ -997,12 +997,12 @@ paths:
       x-stackql-resource: check_revisions
       x-stackql-method: check_revisions
       x-stackql-verb: EXEC
-  /locks/{key}?api-version=2026-04-01:
+  /locks/{key_name}?api-version=2026-04-01:
     put:
       operationId: _AzureAppConfigurationClient_put_lock
       description: Locks a key-value. Locks a key-value.
       parameters:
-      - name: key
+      - name: key_name
         in: path
         required: true
         schema:
@@ -1034,7 +1034,7 @@ paths:
       operationId: _AzureAppConfigurationClient_delete_lock
       description: Unlocks a key-value. Unlocks a key-value.
       parameters:
-      - name: key
+      - name: key_name
         in: path
         required: true
         schema:

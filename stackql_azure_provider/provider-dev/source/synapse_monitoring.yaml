@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: Monitoring Client
   description: MonitoringClient.
@@ -92,11 +92,6 @@ paths:
       operationId: Monitoring_get_spark_job_list
       description: Get list of spark applications for the workspace.
       parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-client-request-id
         in: header
         required: false
@@ -118,11 +113,6 @@ paths:
       operationId: Monitoring_get_sql_job_query_string
       description: Get SQL OD/DW Query for the workspace.
       parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: filter
         in: query
         required: false

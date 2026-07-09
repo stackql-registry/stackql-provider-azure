@@ -32,7 +32,7 @@ total resources: __7__
 </div>
 <div class="providerDocColumn">
 <a href="/services/databricks/private_link_resources/">private_link_resources</a><br />
-<a href="/services/databricks/v_net_peering/">v_net_peering</a><br />
+<a href="/services/databricks/vnet_peering/">vnet_peering</a><br />
 <a href="/services/databricks/workspaces/">workspaces</a>
 </div>
 </div>

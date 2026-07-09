@@ -1650,7 +1650,7 @@ components:
       methods:
         get:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Cache~1redis~1{name}~1patchSchedules~1{default}?api-version=2025-08-01-preview/get"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Cache~1redis~1{name}~1patchSchedules~1{default_name}?api-version=2025-08-01-preview/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -1660,7 +1660,7 @@ components:
               body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         create_or_update:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Cache~1redis~1{name}~1patchSchedules~1{default}?api-version=2025-08-01-preview/put"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Cache~1redis~1{name}~1patchSchedules~1{default_name}?api-version=2025-08-01-preview/put"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -1671,7 +1671,7 @@ components:
               algorithm: naive
         delete:
           operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Cache~1redis~1{name}~1patchSchedules~1{default}?api-version=2025-08-01-preview/delete"
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Cache~1redis~1{name}~1patchSchedules~1{default_name}?api-version=2025-08-01-preview/delete"
           response:
             openAPIDocKey: "204"
         list_by_redis_resource:
@@ -2540,7 +2540,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedOperation"
-  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cache/redis/{name}/patchSchedules/{default}?api-version=2025-08-01-preview:
+  /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cache/redis/{name}/patchSchedules/{default_name}?api-version=2025-08-01-preview:
     get:
       operationId: PatchSchedules_get
       description: Gets the patching schedule of a redis cache.
@@ -2557,7 +2557,7 @@ paths:
           schema:
             type: string
           description: The name of the redis cache. Required.
-        - name: default
+        - name: default_name
           in: path
           required: true
           schema:
@@ -2591,7 +2591,7 @@ paths:
           schema:
             type: string
           description: The name of the redis cache. Required.
-        - name: default
+        - name: default_name
           in: path
           required: true
           schema:
@@ -2637,7 +2637,7 @@ paths:
           schema:
             type: string
           description: The name of the redis cache. Required.
-        - name: default
+        - name: default_name
           in: path
           required: true
           schema:

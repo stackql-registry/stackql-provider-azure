@@ -469,13 +469,13 @@ paths:
       x-stackql-resource: operations
       x-stackql-method: list_operations
       x-stackql-verb: SELECT
-  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}?api-version=2024-07-01:
+  /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default_name}?api-version=2024-07-01:
     get:
       operationId: _MicrosoftSerialConsoleClient_get_console_status
       description: Get the disabled status for a subscription. Gets whether or not Serial Console is disabled for
         a given subscription.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -497,13 +497,13 @@ paths:
       x-stackql-method: get_console_status
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
-  ? /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}/disableConsole?api-version=2024-07-01
+  ? /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default_name}/disableConsole?api-version=2024-07-01
   : post:
       operationId: _MicrosoftSerialConsoleClient_disable_console
       description: Disable Serial Console for a subscription. Disables the Serial Console service for all VMs and
         VM scale sets in the provided subscription.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:
@@ -524,13 +524,13 @@ paths:
       x-stackql-resource: disable_consoles
       x-stackql-method: disable_console
       x-stackql-verb: EXEC
-  ? /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default}/enableConsole?api-version=2024-07-01
+  ? /subscriptions/{subscription_id}/providers/Microsoft.SerialConsole/consoleServices/{default_name}/enableConsole?api-version=2024-07-01
   : post:
       operationId: _MicrosoftSerialConsoleClient_enable_console
       description: Enable Serial Console for a subscription. Enables the Serial Console service for all VMs and
         VM scale sets in the provided subscription.
       parameters:
-      - name: default
+      - name: default_name
         in: path
         required: true
         schema:

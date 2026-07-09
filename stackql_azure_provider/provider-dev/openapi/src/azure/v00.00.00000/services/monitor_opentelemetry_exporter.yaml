@@ -1,13 +1,13 @@
 openapi: 3.0.0
 servers:
-  - url: "{host}/{api_version}"
+  - url: https://{host}/{api_version}
     variables:
       host:
         default: ""
-        description: The service endpoint, e.g. value of the client `host` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `host` parameter.
       api_version:
         default: ""
-        description: The service endpoint, e.g. value of the client `apiVersion` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `apiVersion` parameter.
 info:
   title: Azure Monitor Client
   description: OpenTelemetry Exporter for Azure Monitor.

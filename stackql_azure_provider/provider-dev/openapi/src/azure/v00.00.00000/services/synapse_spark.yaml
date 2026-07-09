@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint.
+        description: The service endpoint host (no scheme).
 info:
   title: Spark Client
   description: SparkClient.
@@ -500,11 +500,6 @@ paths:
       operationId: SparkBatch_get_spark_batch_jobs
       description: List all spark batch jobs which are running under a particular spark pool.
       parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -544,11 +539,6 @@ paths:
       operationId: SparkBatch_create_spark_batch_job
       description: Create new spark batch job.
       parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -637,11 +627,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the batch job.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -675,11 +660,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the batch job.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -698,11 +678,6 @@ paths:
       operationId: SparkSession_get_spark_sessions
       description: List all spark sessions which are running under a particular spark pool.
       parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -742,11 +717,6 @@ paths:
       operationId: SparkSession_create_spark_session
       description: Create new spark session.
       parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -834,11 +804,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -872,11 +837,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -901,11 +861,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -933,11 +888,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -983,11 +933,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -1016,11 +961,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true
@@ -1051,11 +991,6 @@ paths:
           schema:
             type: integer
           description: Identifier for the session.
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
         - name: livy_api_version
           in: path
           required: true

@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint.
+        description: The service endpoint host (no scheme).
 info:
   title: Purview Account Client
   description: Creates a Microsoft.Purview data plane account client.
@@ -146,12 +146,7 @@ paths:
     get:
       operationId: Accounts_get_account_properties
       description: Get an account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -159,12 +154,7 @@ paths:
     get:
       operationId: Accounts_get_access_keys
       description: List the authorization keys associated with this account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -172,12 +162,7 @@ paths:
     get:
       operationId: Accounts_regenerate_access_key
       description: Regenerate the authorization keys associated with this data catalog.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -185,12 +170,7 @@ paths:
     get:
       operationId: Collections_list_collections
       description: List the collections in the account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -198,12 +178,7 @@ paths:
     get:
       operationId: Collections_list_child_collection_names
       description: Lists the child collections names in the collection.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -211,12 +186,7 @@ paths:
     get:
       operationId: Collections_get_collection
       description: Get a collection.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -224,12 +194,7 @@ paths:
     get:
       operationId: Collections_get_collection_path
       description: Gets the parent name and parent friendly name chains that represent the collection path.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -237,12 +202,7 @@ paths:
     get:
       operationId: MetadataPolicy_get
       description: Gets a metadata policy.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -250,12 +210,7 @@ paths:
     get:
       operationId: MetadataPolicy_list_all
       description: List or Get metadata policies.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -263,12 +218,7 @@ paths:
     get:
       operationId: MetadataRoles_list
       description: Lists roles for Purview Account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -276,12 +226,7 @@ paths:
     get:
       operationId: ResourceSetRules_list_resource_set_rules
       description: Get a resource set config service model.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -289,12 +234,7 @@ paths:
     get:
       operationId: ResourceSetRules_get_resource_set_rule
       description: Get a resource set config service model.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success

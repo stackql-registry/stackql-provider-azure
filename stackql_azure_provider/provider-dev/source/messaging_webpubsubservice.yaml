@@ -1,10 +1,11 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint, e.g. value of the client `endpoint` parameter.
+      description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the
+        client `endpoint` parameter.
 info:
   title: Web Pub Sub Service Client
   description: WebPubSubServiceClient.
@@ -61,12 +62,12 @@ components:
       required:
       - token
 paths:
-  /api/hubs/{hub}/groups/{group}/connections?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}/connections?api-version=2024-12-01:
     get:
       operationId: _WebPubSubServiceClient_list_connections_in_group
       description: List connections in a group. List connections in a group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:
@@ -329,13 +330,13 @@ paths:
       x-stackql-resource: remove_connection_from_all_groups
       x-stackql-method: remove_connection_from_all_groups
       x-stackql-verb: DELETE
-  /api/hubs/{hub}/groups/{group}?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}?api-version=2024-12-01:
     head:
       operationId: _WebPubSubServiceClient_group_exists
       description: Check if there are any client connections inside the given group. Check if there are any client
         connections inside the given group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:
@@ -356,12 +357,12 @@ paths:
       x-stackql-resource: group_exists
       x-stackql-method: group_exists
       x-stackql-verb: EXEC
-  /api/hubs/{hub}/groups/{group}/:closeConnections?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}/:closeConnections?api-version=2024-12-01:
     post:
       operationId: _WebPubSubServiceClient_close_group_connections
       description: Close connections in the specific group. Close connections in the specific group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:
@@ -384,12 +385,12 @@ paths:
       x-stackql-resource: close_group_connections
       x-stackql-method: close_group_connections
       x-stackql-verb: EXEC
-  /api/hubs/{hub}/groups/{group}/connections/{connection_id}?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}/connections/{connection_id}?api-version=2024-12-01:
     delete:
       operationId: _WebPubSubServiceClient_remove_connection_from_group
       description: Remove a connection from the target group. Remove a connection from the target group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:
@@ -416,7 +417,7 @@ paths:
       operationId: _WebPubSubServiceClient_add_connection_to_group
       description: Add a connection to the target group. Add a connection to the target group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:
@@ -627,12 +628,12 @@ paths:
       x-stackql-resource: remove_user_from_all_groups
       x-stackql-method: remove_user_from_all_groups
       x-stackql-verb: DELETE
-  /api/hubs/{hub}/users/{user_id}/groups/{group}?api-version=2024-12-01:
+  /api/hubs/{hub}/users/{user_id}/groups/{group_name}?api-version=2024-12-01:
     delete:
       operationId: _WebPubSubServiceClient_remove_user_from_group
       description: Remove a user from the target group. Remove a user from the target group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:
@@ -659,7 +660,7 @@ paths:
       operationId: _WebPubSubServiceClient_add_user_to_group
       description: Add a user to the target group. Add a user to the target group.
       parameters:
-      - name: group
+      - name: group_name
         in: path
         required: true
         schema:

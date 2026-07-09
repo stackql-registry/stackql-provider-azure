@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint.
+        description: The service endpoint host (no scheme).
 info:
   title: Data Lake Directory Client
   description: A client to interact with the DataLake directory, even if the directory may not yet exist. For operations relating to a specific subdirectory or file under the directory, a directory client or file client can be retrieved using the get_sub_directory_client or get_file_client functions.
@@ -325,7 +325,7 @@ components:
       methods:
         list_paths:
           operation:
-            $ref: "#/paths/{url}/get"
+            $ref: "#/paths/~1/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -333,21 +333,21 @@ components:
             nativeCasing: camel
         get_properties:
           operation:
-            $ref: "#/paths/{url}/head"
+            $ref: "#/paths/~1/head"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         create:
           operation:
-            $ref: "#/paths/{url}/put"
+            $ref: "#/paths/~1/put"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         set_properties:
           operation:
-            $ref: "#/paths/{url}/patch"
+            $ref: "#/paths/~1/patch"
           response:
             openAPIDocKey: "200"
           request:
@@ -357,7 +357,7 @@ components:
               algorithm: naive
         delete:
           operation:
-            $ref: "#/paths/{url}/delete"
+            $ref: "#/paths/~1/delete"
           response:
             openAPIDocKey: "204"
           request:
@@ -380,7 +380,7 @@ components:
       methods:
         lease:
           operation:
-            $ref: "#/paths/{url}/post"
+            $ref: "#/paths/~1/post"
           response:
             openAPIDocKey: "200"
           request:
@@ -394,16 +394,11 @@ components:
         update: []
         delete: []
 paths:
-  "{url}":
+  /:
     get:
       operationId: FileSystem_list_paths
       description: List Paths. List FileSystem paths and their properties.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: recursive
           in: query
           required: true
@@ -468,11 +463,6 @@ paths:
       operationId: FileSystem_get_properties
       description: Get FileSystem Properties. All system and user-defined filesystem properties are specified in the response headers.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -497,11 +487,6 @@ paths:
       operationId: FileSystem_create
       description: Create FileSystem. Create a FileSystem rooted at the specified location. If the FileSystem already exists, the operation fails. This operation does not support conditional HTTP requests.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -532,11 +517,6 @@ paths:
       operationId: FileSystem_set_properties
       description: Set FileSystem Properties. Set properties for the FileSystem. This operation supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -596,11 +576,6 @@ paths:
       operationId: FileSystem_delete
       description: Delete FileSystem. Marks the FileSystem for deletion. When a FileSystem is deleted, a FileSystem with the same identifier cannot be created for at least 30 seconds. While the filesystem is being deleted, attempts to create a filesystem with the same identifier will fail with status code 409 (Conflict), with the service returning additional error information indicating that the filesystem is being deleted. All other operations, including operations on any files or directories within the filesystem, will fail with status code 404 (Not Found) while the filesystem is being deleted. This operation supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-version
           in: header
           required: true
@@ -654,11 +629,6 @@ paths:
       operationId: Path_lease
       description: Lease Path. Create and manage a lease to restrict write and delete access to the path. This operation supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.
       parameters:
-        - name: url
-          in: path
-          required: true
-          schema:
-            type: string
         - name: x-ms-lease-action
           in: header
           required: true

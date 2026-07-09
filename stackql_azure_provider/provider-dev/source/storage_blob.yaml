@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{account}.blob.core.windows.net
   variables:
-    endpoint:
+    account:
       default: ''
-      description: The service endpoint.
+      description: Storage account name.
 info:
   title: Blob Client
   description: A client to interact with a specific blob, although that blob may not yet exist. For more optional
@@ -792,16 +792,11 @@ components:
       - SignedVersion
       - Value
 paths:
-  '{url}':
+  /:
     put:
       operationId: AppendBlob_create
       description: The Create Append Blob operation creates a new append blob.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: Content-Length
         in: header
         required: true
@@ -987,11 +982,6 @@ paths:
       description: The Get Properties operation returns all user-defined metadata, standard HTTP properties, and
         system properties for the blob. It does not return the content of the blob.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -1091,11 +1081,6 @@ paths:
       operationId: Blob_get_account_info
       description: Returns the sku name and account kind.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -1133,11 +1118,6 @@ paths:
         can then use the Undelete Blob API to restore a soft-deleted blob. All other operations on a soft-deleted
         blob or snapshot causes the service to return an HTTP status code of 404 (ResourceNotFound).
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true
@@ -1251,11 +1231,6 @@ paths:
       operationId: Blob_query
       description: The Query operation enables users to select/project on blob data by providing simple query expressions.
       parameters:
-      - name: url
-        in: path
-        required: true
-        schema:
-          type: string
       - name: x-ms-version
         in: header
         required: true

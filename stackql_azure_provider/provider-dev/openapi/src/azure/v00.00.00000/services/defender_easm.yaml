@@ -4,7 +4,7 @@ servers:
     variables:
       endpoint:
         default: ""
-        description: The service endpoint, e.g. value of the client `endpoint` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
   title: Easm Client
   description: Defender EASM discovers and maps your digital attack surface to provide an "outside-in" perspective using probes to discover assets. The assets are provided with detailed metadata associated, including vulnerabilities, configurations and web components, allowing customers to view and prioritize external risk. The EASM REST API enables you to develop clients that integrate with your application.

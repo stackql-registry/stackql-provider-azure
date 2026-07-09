@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{url}'
+- url: https://{account}.queue.core.windows.net
   variables:
-    url:
+    account:
       default: ''
-      description: The service endpoint, e.g. value of the client `url` parameter.
+      description: Storage account name.
 info:
   title: Queues Client
   description: QueuesClient.
@@ -401,7 +401,7 @@ components:
       - maxResults
       - nextMarker
 paths:
-  ?comp=metadata:
+  /?comp=metadata:
     get:
       operationId: Queue_get_properties
       description: Returns all user-defined metadata and system properties for the specified queue.
@@ -442,7 +442,7 @@ paths:
       x-stackql-resource: queue
       x-stackql-method: set_metadata
       x-stackql-verb: REPLACE
-  ?comp=acl:
+  /?comp=acl:
     get:
       operationId: Queue_get_access_policy
       description: Gets the access policy for the specified queue.
@@ -714,7 +714,7 @@ paths:
       x-stackql-resource: queue
       x-stackql-method: delete_message
       x-stackql-verb: DELETE
-  ?restype=service&comp=properties:
+  /?restype=service&comp=properties:
     get:
       operationId: Service_get_properties
       description: Retrieves properties of a storage account's Queue service, including properties for Storage Analytics
@@ -776,7 +776,7 @@ paths:
       x-stackql-resource: service
       x-stackql-method: set_properties
       x-stackql-verb: REPLACE
-  ?restype=service&comp=stats:
+  /?restype=service&comp=stats:
     get:
       operationId: Service_get_statistics
       description: Retrieves statistics related to replication for the Queue service. It is only available on the
@@ -799,7 +799,7 @@ paths:
       x-stackql-resource: service
       x-stackql-method: get_statistics
       x-stackql-verb: SELECT
-  ?restype=service&comp=userdelegationkey:
+  /?restype=service&comp=userdelegationkey:
     post:
       operationId: Service_get_user_delegation_key
       description: Retrieves a user delegation key for the Queue service. This is only a valid operation when using
@@ -840,7 +840,7 @@ paths:
       x-stackql-resource: service
       x-stackql-method: get_user_delegation_key
       x-stackql-verb: EXEC
-  ?comp=list:
+  /?comp=list:
     get:
       operationId: Service_get_queues
       description: Returns a list of queues.

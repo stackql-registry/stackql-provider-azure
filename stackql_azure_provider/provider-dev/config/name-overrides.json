@@ -1,0 +1,135 @@
+{
+  "_comment": [
+    "Mastered naming and verb overrides, applied by stage 1",
+    "(openapi-generation/azure_sdk_to_openapi.py) after its generic inference.",
+    "",
+    "segments:  whole snake-segment rewrites applied to every resource and",
+    "           method name (fixes acronym splits like VNet -> v_net).",
+    "resources: exact renames keyed by '<service>.<resource>'.",
+    "methods:   exact renames keyed by '<service>.<resource>.<method>'.",
+    "verbs:     SQL verb overrides keyed by '<service>.<resource>.<method>',",
+    "           value one of SELECT | INSERT | UPDATE | REPLACE | DELETE | EXEC.",
+    "servers:   per-service server template overrides (list of OpenAPI server",
+    "           objects). Needed for data planes: stackql's request router",
+    "           (kin-openapi gorillamux) cannot match a host VARIABLE spanning",
+    "           multiple DNS labels, so templates must keep the variable to a",
+    "           single label: https://{account}.table.cosmos.azure.com works,",
+    "           https://{url} does not."
+  ],
+  "segments": {
+    "v_net": "vnet"
+  },
+  "resources": {},
+  "methods": {},
+  "verbs": {},
+  "servers": {
+    "data_tables": [
+      {
+        "url": "https://{account}.table.cosmos.azure.com",
+        "variables": {
+          "account": {
+            "default": "",
+            "description": "Cosmos DB Table API account name."
+          }
+        }
+      },
+      {
+        "url": "https://{account}.table.core.windows.net",
+        "variables": {
+          "account": {
+            "default": "",
+            "description": "Storage account name (Azure Table Storage)."
+          }
+        }
+      }
+    ],
+    "keyvault_keys": [
+      {
+        "url": "https://{vault_name}.vault.azure.net",
+        "variables": {
+          "vault_name": {
+            "default": "",
+            "description": "Key vault name."
+          }
+        }
+      }
+    ],
+    "keyvault_secrets": [
+      {
+        "url": "https://{vault_name}.vault.azure.net",
+        "variables": {
+          "vault_name": {
+            "default": "",
+            "description": "Key vault name."
+          }
+        }
+      }
+    ],
+    "keyvault_certificates": [
+      {
+        "url": "https://{vault_name}.vault.azure.net",
+        "variables": {
+          "vault_name": {
+            "default": "",
+            "description": "Key vault name."
+          }
+        }
+      }
+    ],
+    "appconfiguration_dataplane": [
+      {
+        "url": "https://{config_store_name}.azconfig.io",
+        "variables": {
+          "config_store_name": {
+            "default": "",
+            "description": "App Configuration store name."
+          }
+        }
+      }
+    ],
+    "storage_blob": [
+      {
+        "url": "https://{account}.blob.core.windows.net",
+        "variables": {
+          "account": {
+            "default": "",
+            "description": "Storage account name."
+          }
+        }
+      }
+    ],
+    "storage_file_share": [
+      {
+        "url": "https://{account}.file.core.windows.net",
+        "variables": {
+          "account": {
+            "default": "",
+            "description": "Storage account name."
+          }
+        }
+      }
+    ],
+    "storage_queue": [
+      {
+        "url": "https://{account}.queue.core.windows.net",
+        "variables": {
+          "account": {
+            "default": "",
+            "description": "Storage account name."
+          }
+        }
+      }
+    ],
+    "search_documents": [
+      {
+        "url": "https://{search_service_name}.search.windows.net",
+        "variables": {
+          "search_service_name": {
+            "default": "",
+            "description": "Search service name."
+          }
+        }
+      }
+    ]
+  }
+}

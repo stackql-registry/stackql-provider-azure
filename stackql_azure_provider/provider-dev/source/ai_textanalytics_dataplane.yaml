@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: _ S D K Client
   description: 'The Azure Cognitive Service for Language is a cloud-based service that provides Natural Language

@@ -4282,7 +4282,7 @@ paths:
       x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforMySQL/flexibleServers/{server_name}/detachVNet?api-version=2025-06-01-preview
   : post:
-      operationId: Servers_begin_detach_v_net
+      operationId: Servers_begin_detach_vnet
       description: Detach VNet on a server.
       parameters:
       - name: resource_group_name
@@ -4321,7 +4321,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Server'
       x-stackql-resource: servers
-      x-stackql-method: detach_v_net
+      x-stackql-method: detach_vnet
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforMySQL/flexibleServers/{server_name}/failover?api-version=2025-06-01-preview
   : post:

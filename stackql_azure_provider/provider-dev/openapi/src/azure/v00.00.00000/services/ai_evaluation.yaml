@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint, e.g. value of the client `endpoint` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
   title: Evaluation Service One D P Client
   description: Use Azure AI Evaluation SDK to assess the performance of your generative AI applications. Generative AI application generations are quantitatively measured with mathematical based metrics, AI-assisted quality and safety metrics. Metrics are defined as `evaluators`. Built-in or custom evaluators can provide comprehensive insights into the application's capabilities and limitations.
@@ -2032,7 +2032,7 @@ components:
             openAPIDocKey: "200"
         get_jail_break_dataset_with_type:
           operation:
-            $ref: "#/paths/~1simulation~1jailbreak~1{type}?api-version=2022-11-01-preview/get"
+            $ref: "#/paths/~1simulation~1jailbreak~1{type_name}?api-version=2022-11-01-preview/get"
           response:
             openAPIDocKey: "200"
         get_attack_objectives:
@@ -2050,7 +2050,7 @@ components:
             openAPIDocKey: "200"
         get_template_parameters_with_type:
           operation:
-            $ref: "#/paths/~1simulation~1template~1parameters~1{type}?api-version=2022-11-01-preview/get"
+            $ref: "#/paths/~1simulation~1template~1parameters~1{type_name}?api-version=2022-11-01-preview/get"
           response:
             openAPIDocKey: "200"
         get_template_parameters:
@@ -2131,7 +2131,7 @@ components:
             nativeCasing: camel
         get_jail_break_dataset_with_type:
           operation:
-            $ref: "#/paths/~1redTeams~1simulation~1jailbreak~1{type}?api-version=2025-11-15-preview/get"
+            $ref: "#/paths/~1redTeams~1simulation~1jailbreak~1{type_name}?api-version=2025-11-15-preview/get"
           response:
             openAPIDocKey: "200"
         get_attack_objectives:
@@ -2149,7 +2149,7 @@ components:
             openAPIDocKey: "200"
         get_template_parameters_with_type:
           operation:
-            $ref: "#/paths/~1redTeams~1simulation~1template~1parameters~1{type}?api-version=2025-11-15-preview/get"
+            $ref: "#/paths/~1redTeams~1simulation~1template~1parameters~1{type_name}?api-version=2025-11-15-preview/get"
           response:
             openAPIDocKey: "200"
         get_template_parameters:
@@ -3774,12 +3774,12 @@ paths:
       responses:
         "200":
           description: Success
-  /simulation/jailbreak/{type}?api-version=2022-11-01-preview:
+  /simulation/jailbreak/{type_name}?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_jail_break_dataset_with_type
       description: Get the jailbreak dataset with type.
       parameters:
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:
@@ -3826,12 +3826,12 @@ paths:
       responses:
         "200":
           description: Success
-  /simulation/template/parameters/{type}?api-version=2022-11-01-preview:
+  /simulation/template/parameters/{type_name}?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_template_parameters_with_type
       description: Get template parameters with type.
       parameters:
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:
@@ -4083,12 +4083,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PagedRedTeam"
-  /redTeams/simulation/jailbreak/{type}?api-version=2025-11-15-preview:
+  /redTeams/simulation/jailbreak/{type_name}?api-version=2025-11-15-preview:
     get:
       operationId: RedTeams_get_jail_break_dataset_with_type
       description: Get the jailbreak dataset with type.
       parameters:
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:
@@ -4141,12 +4141,12 @@ paths:
       responses:
         "200":
           description: Success
-  /redTeams/simulation/template/parameters/{type}?api-version=2025-11-15-preview:
+  /redTeams/simulation/template/parameters/{type_name}?api-version=2025-11-15-preview:
     get:
       operationId: RedTeams_get_template_parameters_with_type
       description: Get template parameters with type.
       parameters:
-        - name: type
+        - name: type_name
           in: path
           required: true
           schema:

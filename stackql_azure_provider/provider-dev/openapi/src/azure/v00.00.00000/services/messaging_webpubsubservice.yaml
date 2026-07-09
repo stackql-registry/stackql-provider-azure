@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint, e.g. value of the client `endpoint` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
   title: Web Pub Sub Service Client
   description: WebPubSubServiceClient.
@@ -68,7 +68,7 @@ components:
       methods:
         list_connections_in_group:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group}~1connections?api-version=2024-12-01/get"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group_name}~1connections?api-version=2024-12-01/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -229,7 +229,7 @@ components:
       methods:
         group_exists:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group}?api-version=2024-12-01/head"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group_name}?api-version=2024-12-01/head"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -245,7 +245,7 @@ components:
       methods:
         close_group_connections:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group}~1:closeConnections?api-version=2024-12-01/post"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group_name}~1:closeConnections?api-version=2024-12-01/post"
           response:
             openAPIDocKey: "200"
           request:
@@ -262,7 +262,7 @@ components:
       methods:
         remove_connection_from_group:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group}~1connections~1{connection_id}?api-version=2024-12-01/delete"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group_name}~1connections~1{connection_id}?api-version=2024-12-01/delete"
           response:
             openAPIDocKey: "204"
       sqlVerbs:
@@ -278,7 +278,7 @@ components:
       methods:
         add_connection_to_group:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group}~1connections~1{connection_id}?api-version=2024-12-01/put"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1groups~1{group_name}~1connections~1{connection_id}?api-version=2024-12-01/put"
           response:
             openAPIDocKey: "200"
       sqlVerbs:
@@ -395,7 +395,7 @@ components:
       methods:
         remove_user_from_group:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1users~1{user_id}~1groups~1{group}?api-version=2024-12-01/delete"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1users~1{user_id}~1groups~1{group_name}?api-version=2024-12-01/delete"
           response:
             openAPIDocKey: "204"
       sqlVerbs:
@@ -411,7 +411,7 @@ components:
       methods:
         add_user_to_group:
           operation:
-            $ref: "#/paths/~1api~1hubs~1{hub}~1users~1{user_id}~1groups~1{group}?api-version=2024-12-01/put"
+            $ref: "#/paths/~1api~1hubs~1{hub}~1users~1{user_id}~1groups~1{group_name}?api-version=2024-12-01/put"
           response:
             openAPIDocKey: "200"
       sqlVerbs:
@@ -420,12 +420,12 @@ components:
         update: []
         delete: []
 paths:
-  /api/hubs/{hub}/groups/{group}/connections?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}/connections?api-version=2024-12-01:
     get:
       operationId: _WebPubSubServiceClient_list_connections_in_group
       description: List connections in a group. List connections in a group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:
@@ -652,12 +652,12 @@ paths:
       responses:
         "204":
           description: Success (no content / accepted)
-  /api/hubs/{hub}/groups/{group}?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}?api-version=2024-12-01:
     head:
       operationId: _WebPubSubServiceClient_group_exists
       description: Check if there are any client connections inside the given group. Check if there are any client connections inside the given group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:
@@ -675,12 +675,12 @@ paths:
             application/json:
               schema:
                 type: boolean
-  /api/hubs/{hub}/groups/{group}/:closeConnections?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}/:closeConnections?api-version=2024-12-01:
     post:
       operationId: _WebPubSubServiceClient_close_group_connections
       description: Close connections in the specific group. Close connections in the specific group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:
@@ -700,12 +700,12 @@ paths:
       responses:
         "200":
           description: Success
-  /api/hubs/{hub}/groups/{group}/connections/{connection_id}?api-version=2024-12-01:
+  /api/hubs/{hub}/groups/{group_name}/connections/{connection_id}?api-version=2024-12-01:
     delete:
       operationId: _WebPubSubServiceClient_remove_connection_from_group
       description: Remove a connection from the target group. Remove a connection from the target group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:
@@ -729,7 +729,7 @@ paths:
       operationId: _WebPubSubServiceClient_add_connection_to_group
       description: Add a connection to the target group. Add a connection to the target group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:
@@ -911,12 +911,12 @@ paths:
       responses:
         "204":
           description: Success (no content / accepted)
-  /api/hubs/{hub}/users/{user_id}/groups/{group}?api-version=2024-12-01:
+  /api/hubs/{hub}/users/{user_id}/groups/{group_name}?api-version=2024-12-01:
     delete:
       operationId: _WebPubSubServiceClient_remove_user_from_group
       description: Remove a user from the target group. Remove a user from the target group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:
@@ -940,7 +940,7 @@ paths:
       operationId: _WebPubSubServiceClient_add_user_to_group
       description: Add a user to the target group. Add a user to the target group.
       parameters:
-        - name: group
+        - name: group_name
           in: path
           required: true
           schema:

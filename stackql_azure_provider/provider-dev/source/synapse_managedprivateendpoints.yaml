@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: _ S D K Client
   description: This is the Microsoft Azure Synapse Managed Private Endpoints Client Library.
@@ -147,11 +147,6 @@ paths:
         schema:
           type: string
         description: Managed private endpoint name.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: managed_virtual_network_name
         in: path
         required: true
@@ -179,11 +174,6 @@ paths:
         schema:
           type: string
         description: Managed private endpoint name.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: managed_virtual_network_name
         in: path
         required: true
@@ -219,11 +209,6 @@ paths:
         schema:
           type: string
         description: Managed private endpoint name.
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: managed_virtual_network_name
         in: path
         required: true
@@ -241,11 +226,6 @@ paths:
       operationId: ManagedPrivateEndpoints_list
       description: List Managed Private Endpoints.
       parameters:
-      - name: endpoint
-        in: path
-        required: true
-        schema:
-          type: string
       - name: managed_virtual_network_name
         in: path
         required: true

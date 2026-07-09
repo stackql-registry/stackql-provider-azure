@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-- url: '{endpoint}'
+- url: https://{endpoint}
   variables:
     endpoint:
       default: ''
-      description: The service endpoint.
+      description: The service endpoint host (no scheme).
 info:
   title: Servicefabric Dataplane
   description: This is the Microsoft Azure Service Fabric Client Library.
@@ -4299,30 +4299,30 @@ paths:
       description: Gets the logs from the container. Gets the logs for the container of the specified code package
         of the service replica.
       parameters:
-      - name: application_resource_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the application.
       - name: service_resource_name
         in: path
         required: true
         schema:
           type: string
         description: The identity of the service.
-      - name: code_package_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The name of code package of the service.
       - name: replica_name
         in: path
         required: true
         schema:
           type: string
         description: Service Fabric replica name.
+      - name: code_package_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of code package of the service.
+      - name: application_resource_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the application.
       - name: Tail
         in: query
         required: false
@@ -4782,18 +4782,18 @@ paths:
       description: Gets the Service resource with the given name. Gets the information about the Service resource
         with the given name. The information include the description and other properties of the Service.
       parameters:
-      - name: application_resource_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the application.
       - name: service_resource_name
         in: path
         required: true
         schema:
           type: string
         description: The identity of the service.
+      - name: application_resource_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the application.
       responses:
         '200':
           description: Success
@@ -4834,12 +4834,6 @@ paths:
         replica with the given name. The information include the description and other properties of the service
         replica.
       parameters:
-      - name: application_resource_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the application.
       - name: service_resource_name
         in: path
         required: true
@@ -4852,6 +4846,12 @@ paths:
         schema:
           type: string
         description: Service Fabric replica name.
+      - name: application_resource_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the application.
       responses:
         '200':
           description: Success
@@ -4868,18 +4868,18 @@ paths:
       description: Lists all the replicas of a service. Gets the information about all replicas of a service. The
         information include the description and other properties of the service replica.
       parameters:
-      - name: application_resource_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the application.
       - name: service_resource_name
         in: path
         required: true
         schema:
           type: string
         description: The identity of the service.
+      - name: application_resource_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the application.
       responses:
         '200':
           description: Success
@@ -6035,12 +6035,6 @@ paths:
         schema:
           type: string
         description: The version of the application type.
-      - name: application_type_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The name of the application type.
       - name: ServiceManifestName
         in: query
         required: true
@@ -6048,6 +6042,12 @@ paths:
           type: string
         description: The name of a service manifest registered as part of an application type in a Service Fabric
           cluster.
+      - name: application_type_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the application type.
       - name: timeout
         in: query
         required: false
@@ -6951,15 +6951,6 @@ paths:
       description: Gets the information about the specific service belonging to the Service Fabric application.
         Returns the information about the specified service belonging to the specified Service Fabric application.
       parameters:
-      - name: service_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the service. This ID is typically the full name of the service without the
-          'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
-          For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
-          in 6.0+ and "myapp/app1/svc1" in previous versions.
       - name: application_id
         in: path
         required: true
@@ -6969,6 +6960,15 @@ paths:
           the 'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the application name is "fabric:/myapp/app1", the application identity would be "myapp~app1"
           in 6.0+ and "myapp/app1" in previous versions.
+      - name: service_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the service. This ID is typically the full name of the service without the
+          'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
+          For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
+          in 6.0+ and "myapp/app1/svc1" in previous versions.
       - name: timeout
         in: query
         required: false
@@ -7720,18 +7720,18 @@ paths:
       description: Gets the information about a replica of a Service Fabric partition. The response includes the
         ID, role, status, health, node name, uptime, and other details about the replica.
       parameters:
-      - name: replica_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identifier of the replica.
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
+      - name: replica_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the replica.
       - name: timeout
         in: query
         required: false
@@ -7758,18 +7758,18 @@ paths:
         the health of a Service Fabric replica. Use EventsHealthStateFilter to filter the collection of health events
         reported on the replica based on the health state.
       parameters:
-      - name: replica_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identifier of the replica.
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
+      - name: replica_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the replica.
       - name: EventsHealthStateFilter
         in: query
         required: false
@@ -7814,18 +7814,18 @@ paths:
         evaluate the health. This API only uses 'ConsiderWarningAsError' field of the ApplicationHealthPolicy. The
         rest of the fields are ignored while evaluating the health of the replica.
       parameters:
-      - name: replica_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identifier of the replica.
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
+      - name: replica_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the replica.
       - name: EventsHealthStateFilter
         in: query
         required: false
@@ -7938,6 +7938,12 @@ paths:
         operation, current service operation start date time, partition ID, replica/instance ID, reported load,
         and other information.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: node_name
         in: path
         required: true
@@ -7950,12 +7956,6 @@ paths:
         schema:
           type: string
         description: The identifier of the replica.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: timeout
         in: query
         required: false
@@ -7983,18 +7983,18 @@ paths:
         operation, current service operation start date time, partition ID, replica/instance ID, reported load,
         and other information.
       parameters:
-      - name: node_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The name of the node.
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
+      - name: node_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the node.
       - name: timeout
         in: query
         required: false
@@ -8297,6 +8297,13 @@ paths:
       description: Gets the container logs for container deployed on a Service Fabric node. Gets the container logs
         for container deployed on a Service Fabric node for the given code package.
       parameters:
+      - name: ServiceManifestName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The name of a service manifest registered as part of an application type in a Service Fabric
+          cluster.
       - name: node_name
         in: path
         required: true
@@ -8319,13 +8326,6 @@ paths:
           type: string
         description: The name of code package specified in service manifest registered as part of an application
           type in a Service Fabric cluster.
-      - name: ServiceManifestName
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The name of a service manifest registered as part of an application type in a Service Fabric
-          cluster.
       - name: Tail
         in: query
         required: false
@@ -8829,6 +8829,12 @@ paths:
       description: Gets the progress of a partition data loss operation started using the StartDataLoss API. Gets
         the progress of a data loss operation started with StartDataLoss, using the OperationId.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: OperationId
         in: query
         required: true
@@ -8845,12 +8851,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: timeout
         in: query
         required: false
@@ -8876,6 +8876,12 @@ paths:
       description: Gets the progress of a quorum loss operation on a partition started using the StartQuorumLoss
         API. Gets the progress of a quorum loss operation started with StartQuorumLoss, using the provided OperationId.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: OperationId
         in: query
         required: true
@@ -8892,12 +8898,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: timeout
         in: query
         required: false
@@ -8923,6 +8923,12 @@ paths:
       description: Gets the progress of a PartitionRestart operation started using StartPartitionRestart. Gets the
         progress of a PartitionRestart started with StartPartitionRestart using the provided OperationId.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: OperationId
         in: query
         required: true
@@ -8939,12 +8945,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: timeout
         in: query
         required: false
@@ -9816,18 +9816,18 @@ paths:
       description: Gets the specified Service Fabric property. Gets the specified Service Fabric property under
         a given name. This will always return both value and metadata.
       parameters:
-      - name: name_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The Service Fabric name, without the 'fabric:' URI scheme.
       - name: PropertyName
         in: query
         required: true
         schema:
           type: string
         description: Specifies the name of the property to get.
+      - name: name_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The Service Fabric name, without the 'fabric:' URI scheme.
       - name: timeout
         in: query
         required: false
@@ -9894,18 +9894,18 @@ paths:
       description: Deletes the specified Service Fabric property. Deletes the specified Service Fabric property
         under a given name. A property must be created before it can be deleted.
       parameters:
-      - name: name_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The Service Fabric name, without the 'fabric:' URI scheme.
       - name: PropertyName
         in: query
         required: true
         schema:
           type: string
         description: Specifies the name of the property to get.
+      - name: name_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The Service Fabric name, without the 'fabric:' URI scheme.
       - name: timeout
         in: query
         required: false
@@ -9926,18 +9926,18 @@ paths:
       operationId: ServiceFabricClientAPIs_get_cluster_event_list
       description: Gets all Cluster-related events. The response is list of ClusterEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: StartTimeUtc
         in: query
         required: true
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -9978,18 +9978,18 @@ paths:
       operationId: ServiceFabricClientAPIs_get_containers_event_list
       description: Gets all Containers-related events. The response is list of ContainerInstanceEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: StartTimeUtc
         in: query
         required: true
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10030,6 +10030,12 @@ paths:
       operationId: ServiceFabricClientAPIs_get_node_event_list
       description: Gets a Node-related events. The response is list of NodeEvent objects.
       parameters:
+      - name: StartTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: node_name
         in: path
         required: true
@@ -10042,12 +10048,6 @@ paths:
         schema:
           type: string
         description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
-      - name: StartTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10088,18 +10088,18 @@ paths:
       operationId: ServiceFabricClientAPIs_get_nodes_event_list
       description: Gets all Nodes-related Events. The response is list of NodeEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: StartTimeUtc
         in: query
         required: true
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10140,6 +10140,12 @@ paths:
       operationId: ServiceFabricClientAPIs_get_application_event_list
       description: Gets an Application-related events. The response is list of ApplicationEvent objects.
       parameters:
+      - name: StartTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: application_id
         in: path
         required: true
@@ -10155,12 +10161,6 @@ paths:
         schema:
           type: string
         description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
-      - name: StartTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10201,18 +10201,18 @@ paths:
       operationId: ServiceFabricClientAPIs_get_applications_event_list
       description: Gets all Applications-related events. The response is list of ApplicationEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: StartTimeUtc
         in: query
         required: true
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10253,6 +10253,12 @@ paths:
       operationId: ServiceFabricClientAPIs_get_service_event_list
       description: Gets a Service-related events. The response is list of ServiceEvent objects.
       parameters:
+      - name: StartTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: service_id
         in: path
         required: true
@@ -10268,12 +10274,6 @@ paths:
         schema:
           type: string
         description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
-      - name: StartTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10314,18 +10314,18 @@ paths:
       operationId: ServiceFabricClientAPIs_get_services_event_list
       description: Gets all Services-related events. The response is list of ServiceEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: StartTimeUtc
         in: query
         required: true
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10366,12 +10366,6 @@ paths:
       operationId: ServiceFabricClientAPIs_get_partition_event_list
       description: Gets a Partition-related events. The response is list of PartitionEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: partition_id
         in: path
         required: true
@@ -10384,6 +10378,12 @@ paths:
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10424,18 +10424,18 @@ paths:
       operationId: ServiceFabricClientAPIs_get_partitions_event_list
       description: Gets all Partitions-related events. The response is list of PartitionEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: StartTimeUtc
         in: query
         required: true
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -10476,18 +10476,6 @@ paths:
       operationId: ServiceFabricClientAPIs_get_partition_replica_event_list
       description: Gets a Partition Replica-related events. The response is list of ReplicaEvent objects.
       parameters:
-      - name: replica_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identifier of the replica.
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: partition_id
         in: path
         required: true
@@ -10500,6 +10488,18 @@ paths:
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: replica_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the replica.
       - name: timeout
         in: query
         required: false
@@ -10540,12 +10540,6 @@ paths:
       operationId: ServiceFabricClientAPIs_get_partition_replicas_event_list
       description: Gets all Replicas-related events for a Partition. The response is list of ReplicaEvent objects.
       parameters:
-      - name: EndTimeUtc
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: partition_id
         in: path
         required: true
@@ -10558,6 +10552,12 @@ paths:
         schema:
           type: string
         description: The start time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
+      - name: EndTimeUtc
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The end time of a lookup query in ISO UTC yyyy-MM-ddTHH:mm:ssZ.
       - name: timeout
         in: query
         required: false
@@ -12665,18 +12665,18 @@ paths:
         can be omitted, and in that case replica is moved to a random node. If IgnoreConstraints parameter is specified
         and set to true, then secondary will be moved regardless of the constraints.
       parameters:
-      - name: CurrentNodeName
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The name of the source node for secondary replica move.
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
+      - name: CurrentNodeName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The name of the source node for secondary replica move.
       - name: NewNodeName
         in: query
         required: false
@@ -12791,6 +12791,12 @@ paths:
         moved to a random node. If IgnoreConstraints parameter is specified and set to true, then instance will
         be moved regardless of the constraints.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: service_id
         in: path
         required: true
@@ -12800,12 +12806,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: CurrentNodeName
         in: query
         required: false
@@ -12851,6 +12851,12 @@ paths:
         auxiliary replica is moved to a random node. If IgnoreConstraints parameter is specified and set to true,
         then auxiliary will be moved regardless of the constraints.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: service_id
         in: path
         required: true
@@ -12860,12 +12866,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: CurrentNodeName
         in: query
         required: false
@@ -13162,18 +13162,18 @@ paths:
         number. To see whether the report was applied in the health store, run GetReplicaHealth and check that the
         report appears in the HealthEvents section.
       parameters:
-      - name: replica_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identifier of the replica.
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
+      - name: replica_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identifier of the replica.
       - name: ServiceKind
         in: query
         required: false
@@ -13245,6 +13245,12 @@ paths:
         of a persisted service running on a node. Warning - There are no safety checks performed when this API is
         used. Incorrect use of this API can lead to availability loss for stateful services.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: node_name
         in: path
         required: true
@@ -13257,12 +13263,6 @@ paths:
         schema:
           type: string
         description: The identifier of the replica.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: timeout
         in: query
         required: false
@@ -13289,6 +13289,12 @@ paths:
         to data loss for stateful services. In addition, the forceRemove flag impacts all other replicas hosted
         in the same process.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
       - name: node_name
         in: path
         required: true
@@ -13301,12 +13307,6 @@ paths:
         schema:
           type: string
         description: The identifier of the replica.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: ForceRemove
         in: query
         required: false
@@ -13536,12 +13536,13 @@ paths:
       description: Invoke container API on a container deployed on a Service Fabric node. Invoke container API on
         a container deployed on a Service Fabric node for the given code package.
       parameters:
-      - name: node_name
-        in: path
+      - name: CodePackageName
+        in: query
         required: true
         schema:
           type: string
-        description: The name of the node.
+        description: The name of code package specified in service manifest registered as part of an application
+          type in a Service Fabric cluster.
       - name: application_id
         in: path
         required: true
@@ -13551,6 +13552,12 @@ paths:
           the 'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the application name is "fabric:/myapp/app1", the application identity would be "myapp~app1"
           in 6.0+ and "myapp/app1" in previous versions.
+      - name: CodePackageInstanceId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: ID that uniquely identifies a code package instance deployed on a service fabric node.
       - name: ServiceManifestName
         in: query
         required: true
@@ -13558,19 +13565,12 @@ paths:
           type: string
         description: The name of a service manifest registered as part of an application type in a Service Fabric
           cluster.
-      - name: CodePackageInstanceId
-        in: query
+      - name: node_name
+        in: path
         required: true
         schema:
           type: string
-        description: ID that uniquely identifies a code package instance deployed on a service fabric node.
-      - name: CodePackageName
-        in: query
-        required: true
-        schema:
-          type: string
-        description: The name of code package specified in service manifest registered as part of an application
-          type in a Service Fabric cluster.
+        description: The name of the node.
       - name: timeout
         in: query
         required: false
@@ -14010,6 +14010,12 @@ paths:
           type: string
         description: A GUID generated by the user for a file uploading. It identifies an image store upload session
           which keeps track of all file chunks until it is committed.
+      - name: content_path
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Relative path to file or folder in the image store from its root.
       - name: Content-Range
         in: header
         required: true
@@ -14019,12 +14025,6 @@ paths:
           and sent with a request. The format should looks like "bytes {First-Byte-Position}-{Last-Byte-Position}/{File-Length}".
           For example, Content-Range:bytes 300-5000/20000 indicates that user is sending bytes 300 through 5,000
           and the total file length is 20,000 bytes.
-      - name: content_path
-        in: path
-        required: true
-        schema:
-          type: string
-        description: Relative path to file or folder in the image store from its root.
       - name: timeout
         in: query
         required: false
@@ -14130,6 +14130,19 @@ paths:
         It will not restore data if the command has progressed far enough to cause data loss. Call the GetDataLossProgress
         API with the same OperationId to return information on the operation started with this API.'
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
+      - name: DataLossMode
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'This enum is passed to the StartDataLoss API to indicate what type of data loss to induce.
+          Possible values include: ''Invalid'', ''PartialDataLoss'', ''FullDataLoss'''
       - name: OperationId
         in: query
         required: true
@@ -14146,19 +14159,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
-      - name: DataLossMode
-        in: query
-        required: true
-        schema:
-          type: string
-        description: 'This enum is passed to the StartDataLoss API to indicate what type of data loss to induce.
-          Possible values include: ''Invalid'', ''PartialDataLoss'', ''FullDataLoss'''
       - name: timeout
         in: query
         required: false
@@ -14182,6 +14182,27 @@ paths:
         information on the operation started with this API. This can only be called on stateful persisted (HasPersistedState==true)
         services. Do not use this API on stateless services or stateful in-memory only services.
       parameters:
+      - name: OperationId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: A GUID that identifies a call of this API. This is passed into the corresponding GetProgress
+          API
+      - name: QuorumLossMode
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'This enum is passed to the StartQuorumLoss API to indicate what type of quorum loss to induce.
+          Possible values include: ''Invalid'', ''QuorumReplicas'', ''AllReplicas'''
+      - name: QuorumLossDuration
+        in: query
+        required: true
+        schema:
+          type: integer
+        description: The amount of time for which the partition will be kept in quorum loss. This must be specified
+          in seconds.
       - name: service_id
         in: path
         required: true
@@ -14191,33 +14212,12 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: QuorumLossMode
-        in: query
-        required: true
-        schema:
-          type: string
-        description: 'This enum is passed to the StartQuorumLoss API to indicate what type of quorum loss to induce.
-          Possible values include: ''Invalid'', ''QuorumReplicas'', ''AllReplicas'''
       - name: partition_id
         in: path
         required: true
         schema:
           type: string
         description: The identity of the partition.
-      - name: QuorumLossDuration
-        in: query
-        required: true
-        schema:
-          type: integer
-        description: The amount of time for which the partition will be kept in quorum loss. This must be specified
-          in seconds.
-      - name: OperationId
-        in: query
-        required: true
-        schema:
-          type: string
-        description: A GUID that identifies a call of this API. This is passed into the corresponding GetProgress
-          API
       - name: timeout
         in: query
         required: false
@@ -14241,6 +14241,19 @@ paths:
         be AllReplicasOrInstances. Call the GetPartitionRestartProgress API using the same OperationId to get the
         progress.
       parameters:
+      - name: partition_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The identity of the partition.
+      - name: RestartPartitionMode
+        in: query
+        required: true
+        schema:
+          type: string
+        description: 'Describe which partitions to restart. Possible values include: ''Invalid'', ''AllReplicasOrInstances'',
+          ''OnlyActiveSecondaries'''
       - name: OperationId
         in: query
         required: true
@@ -14257,19 +14270,6 @@ paths:
           'fabric:' URI scheme. Starting from version 6.0, hierarchical names are delimited with the "~" character.
           For example, if the service name is "fabric:/myapp/app1/svc1", the service identity would be "myapp~app1~svc1"
           in 6.0+ and "myapp/app1/svc1" in previous versions.
-      - name: RestartPartitionMode
-        in: query
-        required: true
-        schema:
-          type: string
-        description: 'Describe which partitions to restart. Possible values include: ''Invalid'', ''AllReplicasOrInstances'',
-          ''OnlyActiveSecondaries'''
-      - name: partition_id
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The identity of the partition.
       - name: timeout
         in: query
         required: false
@@ -14294,25 +14294,12 @@ paths:
         returns the node may not have finished transitioning yet. Call GetNodeTransitionProgress with the same OperationId
         to get the progress of the operation.
       parameters:
-      - name: node_name
-        in: path
-        required: true
-        schema:
-          type: string
-        description: The name of the node.
       - name: NodeInstanceId
         in: query
         required: true
         schema:
           type: string
         description: The node instance ID of the target node. This can be determined through GetNodeInfo API.
-      - name: StopDurationInSeconds
-        in: query
-        required: true
-        schema:
-          type: integer
-        description: The duration, in seconds, to keep the node stopped. The minimum value is 600, the maximum is
-          14400. After this time expires, the node will automatically come back up.
       - name: OperationId
         in: query
         required: true
@@ -14320,6 +14307,12 @@ paths:
           type: string
         description: A GUID that identifies a call of this API. This is passed into the corresponding GetProgress
           API
+      - name: node_name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the node.
       - name: NodeTransitionType
         in: query
         required: true
@@ -14328,6 +14321,13 @@ paths:
         description: 'Indicates the type of transition to perform. NodeTransitionType.Start will start a stopped
           node. NodeTransitionType.Stop will stop a node that is up. Possible values include: ''Invalid'', ''Start'',
           ''Stop'''
+      - name: StopDurationInSeconds
+        in: query
+        required: true
+        schema:
+          type: integer
+        description: The duration, in seconds, to keep the node stopped. The minimum value is 600, the maximum is
+          14400. After this time expires, the node will automatically come back up.
       - name: timeout
         in: query
         required: false

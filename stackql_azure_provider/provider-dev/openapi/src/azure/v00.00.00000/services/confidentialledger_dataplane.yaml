@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{ledger_endpoint}"
+  - url: https://{ledger_endpoint}
     variables:
       ledger_endpoint:
         default: ""
-        description: The service endpoint, e.g. value of the client `ledgerEndpoint` parameter.
+        description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `ledgerEndpoint` parameter.
 info:
   title: Confidential Ledger Client
   description: Write and retrieve ledger entries against the Confidential Ledger service.

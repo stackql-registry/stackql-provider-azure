@@ -1,10 +1,15 @@
 openapi: 3.0.0
 servers:
-- url: '{url}'
+- url: https://{account}.table.cosmos.azure.com
   variables:
-    url:
+    account:
       default: ''
-      description: The service endpoint, e.g. value of the client `url` parameter.
+      description: Cosmos DB Table API account name.
+- url: https://{account}.table.core.windows.net
+  variables:
+    account:
+      default: ''
+      description: Storage account name (Azure Table Storage).
 info:
   title: Tables Base Client
   description: Base class for TableClient
@@ -355,13 +360,13 @@ paths:
       x-stackql-resource: service
       x-stackql-method: get_statistics
       x-stackql-verb: SELECT
-  /{table}?comp=acl:
+  /{table_name}?comp=acl:
     get:
       operationId: Table_get_access_policy
       description: Retrieves details about any stored access policies specified on the table that may be used with
         Shared Access Signatures.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -387,7 +392,7 @@ paths:
       operationId: Table_set_access_policy
       description: Sets stored access policies for the table that may be used with Shared Access Signatures.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -518,12 +523,12 @@ paths:
       x-stackql-resource: table
       x-stackql-method: create
       x-stackql-verb: INSERT
-  /Tables('{table}'):
+  /Tables('{table_name}'):
     delete:
       operationId: Table_delete
       description: Deletes an existing table.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -535,12 +540,12 @@ paths:
       x-stackql-resource: table
       x-stackql-method: delete
       x-stackql-verb: DELETE
-  /{table}():
+  /{table_name}():
     get:
       operationId: Table_query_entities
       description: Queries entities under the given table.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -601,12 +606,12 @@ paths:
       x-stackql-resource: table
       x-stackql-method: query_entities
       x-stackql-verb: EXEC
-  /{table}(PartitionKey='{partition_key}',RowKey='{row_key}'):
+  /{table_name}(PartitionKey='{partition_key}',RowKey='{row_key}'):
     get:
       operationId: Table_query_entity_with_partition_and_row_key
       description: Retrieve a single entity.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -661,7 +666,7 @@ paths:
       operationId: Table_update_entity
       description: Update entity in a table.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -695,7 +700,7 @@ paths:
       operationId: Table_merge_entity
       description: Merge entity in a table.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -729,7 +734,7 @@ paths:
       operationId: Table_delete_entity
       description: Deletes the specified entity in a table.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:
@@ -759,12 +764,12 @@ paths:
       x-stackql-resource: table
       x-stackql-method: delete_entity
       x-stackql-verb: DELETE
-  /{table}:
+  /{table_name}:
     post:
       operationId: Table_insert_entity
       description: Insert entity in a table.
       parameters:
-      - name: table
+      - name: table_name
         in: path
         required: true
         schema:

@@ -1,10 +1,15 @@
 openapi: 3.0.0
 servers:
-  - url: "{url}"
+  - url: https://{account}.table.cosmos.azure.com
     variables:
-      url:
+      account:
         default: ""
-        description: The service endpoint, e.g. value of the client `url` parameter.
+        description: Cosmos DB Table API account name.
+  - url: https://{account}.table.core.windows.net
+    variables:
+      account:
+        default: ""
+        description: Storage account name (Azure Table Storage).
 info:
   title: Tables Base Client
   description: Base class for TableClient
@@ -308,7 +313,7 @@ components:
       methods:
         get_access_policy:
           operation:
-            $ref: "#/paths/~1{table}?comp=acl/get"
+            $ref: "#/paths/~1{table_name}?comp=acl/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -316,7 +321,7 @@ components:
             nativeCasing: camel
         set_access_policy:
           operation:
-            $ref: "#/paths/~1{table}?comp=acl/put"
+            $ref: "#/paths/~1{table_name}?comp=acl/put"
           response:
             openAPIDocKey: "200"
           request:
@@ -345,12 +350,12 @@ components:
               algorithm: naive
         delete:
           operation:
-            $ref: "#/paths/~1Tables('{table}')/delete"
+            $ref: "#/paths/~1Tables('{table_name}')/delete"
           response:
             openAPIDocKey: "204"
         query_entities:
           operation:
-            $ref: "#/paths/~1{table}()/get"
+            $ref: "#/paths/~1{table_name}()/get"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
@@ -358,35 +363,35 @@ components:
             nativeCasing: camel
         query_entity_with_partition_and_row_key:
           operation:
-            $ref: "#/paths/~1{table}(PartitionKey='{partition_key}',RowKey='{row_key}')/get"
+            $ref: "#/paths/~1{table_name}(PartitionKey='{partition_key}',RowKey='{row_key}')/get"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         update_entity:
           operation:
-            $ref: "#/paths/~1{table}(PartitionKey='{partition_key}',RowKey='{row_key}')/put"
+            $ref: "#/paths/~1{table_name}(PartitionKey='{partition_key}',RowKey='{row_key}')/put"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         merge_entity:
           operation:
-            $ref: "#/paths/~1{table}(PartitionKey='{partition_key}',RowKey='{row_key}')/patch"
+            $ref: "#/paths/~1{table_name}(PartitionKey='{partition_key}',RowKey='{row_key}')/patch"
           response:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
         delete_entity:
           operation:
-            $ref: "#/paths/~1{table}(PartitionKey='{partition_key}',RowKey='{row_key}')/delete"
+            $ref: "#/paths/~1{table_name}(PartitionKey='{partition_key}',RowKey='{row_key}')/delete"
           response:
             openAPIDocKey: "204"
           request:
             nativeCasing: camel
         insert_entity:
           operation:
-            $ref: "#/paths/~1{table}/post"
+            $ref: "#/paths/~1{table_name}/post"
           response:
             openAPIDocKey: "200"
           request:
@@ -474,12 +479,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TableServiceStats"
-  /{table}?comp=acl:
+  /{table_name}?comp=acl:
     get:
       operationId: Table_get_access_policy
       description: Retrieves details about any stored access policies specified on the table that may be used with Shared Access Signatures.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -502,7 +507,7 @@ paths:
       operationId: Table_set_access_policy
       description: Sets stored access policies for the table that may be used with Shared Access Signatures.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -617,12 +622,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TableResponse"
-  /Tables('{table}'):
+  /Tables('{table_name}'):
     delete:
       operationId: Table_delete
       description: Deletes an existing table.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -631,12 +636,12 @@ paths:
       responses:
         "204":
           description: Success (no content / accepted)
-  /{table}():
+  /{table_name}():
     get:
       operationId: Table_query_entities
       description: Queries entities under the given table.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -691,12 +696,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TableEntityQueryResponse"
-  /{table}(PartitionKey='{partition_key}',RowKey='{row_key}'):
+  /{table_name}(PartitionKey='{partition_key}',RowKey='{row_key}'):
     get:
       operationId: Table_query_entity_with_partition_and_row_key
       description: Retrieve a single entity.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -745,7 +750,7 @@ paths:
       operationId: Table_update_entity
       description: Update entity in a table.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -776,7 +781,7 @@ paths:
       operationId: Table_merge_entity
       description: Merge entity in a table.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -807,7 +812,7 @@ paths:
       operationId: Table_delete_entity
       description: Deletes the specified entity in a table.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:
@@ -834,12 +839,12 @@ paths:
       responses:
         "204":
           description: Success (no content / accepted)
-  /{table}:
+  /{table_name}:
     post:
       operationId: Table_insert_entity
       description: Insert entity in a table.
       parameters:
-        - name: table
+        - name: table_name
           in: path
           required: true
           schema:

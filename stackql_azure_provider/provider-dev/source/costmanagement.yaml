@@ -5776,7 +5776,7 @@ paths:
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
-  /{scope}/providers/Microsoft.CostManagement/settings/{type}?api-version=2025-03-01:
+  /{scope}/providers/Microsoft.CostManagement/settings/{type_name}?api-version=2025-03-01:
     get:
       operationId: Settings_get_by_scope
       description: Get the setting from the given scope by name.
@@ -5787,7 +5787,7 @@ paths:
         schema:
           type: string
         description: undefined. Required.
-      - name: type
+      - name: type_name
         in: path
         required: true
         schema:
@@ -5813,7 +5813,7 @@ paths:
         schema:
           type: string
         description: undefined. Required.
-      - name: type
+      - name: type_name
         in: path
         required: true
         schema:
@@ -5853,7 +5853,7 @@ paths:
         schema:
           type: string
         description: undefined. Required.
-      - name: type
+      - name: type_name
         in: path
         required: true
         schema:

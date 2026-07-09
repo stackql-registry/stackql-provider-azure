@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint.
+        description: The service endpoint host (no scheme).
 info:
   title: Sms Client
   description: A client to interact with the AzureCommunicationService Sms gateway. This client provides operations to send an SMS via a phone number.
@@ -109,12 +109,7 @@ paths:
     post:
       operationId: Sms_send
       description: Sends a SMS message from a phone number that belongs to the authenticated account. Sends a SMS message from a phone number that belongs to the authenticated account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       requestBody:
         required: true
         content:

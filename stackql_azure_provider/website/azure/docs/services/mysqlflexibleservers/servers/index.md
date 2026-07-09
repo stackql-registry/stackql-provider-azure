@@ -607,7 +607,7 @@ The following methods are available for this resource:
     <td>Deletes a server.</td>
 </tr>
 <tr>
-    <td><a href="#detach_v_net"><CopyableCode code="detach_v_net" /></a></td>
+    <td><a href="#detach_vnet"><CopyableCode code="detach_vnet" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-server_name"><code>server_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
@@ -1036,9 +1036,9 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="detach_v_net"
+    defaultValue="detach_vnet"
     values={[
-        { label: 'detach_v_net', value: 'detach_v_net' },
+        { label: 'detach_vnet', value: 'detach_vnet' },
         { label: 'failover', value: 'failover' },
         { label: 'reset_gtid', value: 'reset_gtid' },
         { label: 'restart', value: 'restart' },
@@ -1047,12 +1047,12 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'validate_estimate_high_availability', value: 'validate_estimate_high_availability' }
     ]}
 >
-<TabItem value="detach_v_net">
+<TabItem value="detach_vnet">
 
 Detach VNet on a server.
 
 ```sql
-EXEC azure.mysqlflexibleservers.servers.detach_v_net 
+EXEC azure.mysqlflexibleservers.servers.detach_vnet 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @server_name='{{ server_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 

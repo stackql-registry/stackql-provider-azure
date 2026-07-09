@@ -1,10 +1,10 @@
 openapi: 3.0.0
 servers:
-  - url: "{endpoint}"
+  - url: https://{endpoint}
     variables:
       endpoint:
         default: ""
-        description: The service endpoint.
+        description: The service endpoint host (no scheme).
 info:
   title: Purview Scanning Client
   description: Creates a Microsoft.Scanning management client.
@@ -236,12 +236,7 @@ paths:
     get:
       operationId: ClassificationRules_get
       description: Get a classification rule.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -249,12 +244,7 @@ paths:
     get:
       operationId: ClassificationRules_list_all
       description: List classification rules in Account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -262,12 +252,7 @@ paths:
     get:
       operationId: ClassificationRules_list_versions_by_classification_rule_name
       description: Lists the rule versions of a classification rule.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -275,12 +260,7 @@ paths:
     get:
       operationId: ClassificationRules_tag_classification_version
       description: Sets Classification Action on a specific classification rule version.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -288,12 +268,7 @@ paths:
     get:
       operationId: DataSources_get
       description: Get a data source.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -301,12 +276,7 @@ paths:
     get:
       operationId: DataSources_list_all
       description: List data sources in Data catalog.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -314,12 +284,7 @@ paths:
     get:
       operationId: Filters_get
       description: Get a filter.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -327,12 +292,7 @@ paths:
     get:
       operationId: KeyVaultConnections_get
       description: Gets key vault information.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -340,12 +300,7 @@ paths:
     get:
       operationId: KeyVaultConnections_list_all
       description: List key vault connections in account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -353,12 +308,7 @@ paths:
     get:
       operationId: ScanResult_list_scan_history
       description: Lists the scan history of a scan.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -366,12 +316,7 @@ paths:
     get:
       operationId: ScanResult_run_scan
       description: Runs the scan.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -379,12 +324,7 @@ paths:
     get:
       operationId: ScanResult_cancel_scan
       description: Cancels a scan.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -392,12 +332,7 @@ paths:
     get:
       operationId: ScanRulesets_get
       description: Get a scan ruleset.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -405,12 +340,7 @@ paths:
     get:
       operationId: ScanRulesets_list_all
       description: List scan rulesets in Data catalog.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -418,12 +348,7 @@ paths:
     get:
       operationId: Scans_get
       description: Gets a scan information.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -431,12 +356,7 @@ paths:
     get:
       operationId: Scans_list_by_data_source
       description: List scans in data source.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -444,12 +364,7 @@ paths:
     get:
       operationId: SystemScanRulesets_get
       description: Get a system scan ruleset for a data source.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -457,12 +372,7 @@ paths:
     get:
       operationId: SystemScanRulesets_list_all
       description: List all system scan rulesets for an account.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -470,12 +380,7 @@ paths:
     get:
       operationId: SystemScanRulesets_list_versions_by_data_source
       description: List system scan ruleset versions in Data catalog.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -483,12 +388,7 @@ paths:
     get:
       operationId: SystemScanRulesets_get_by_version
       description: Get a scan ruleset by version.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -496,12 +396,7 @@ paths:
     get:
       operationId: SystemScanRulesets_get_latest
       description: Get the latest version of a system scan ruleset.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
@@ -509,12 +404,7 @@ paths:
     get:
       operationId: Triggers_get_trigger
       description: Gets trigger information.
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
+      parameters: []
       responses:
         "200":
           description: Success
