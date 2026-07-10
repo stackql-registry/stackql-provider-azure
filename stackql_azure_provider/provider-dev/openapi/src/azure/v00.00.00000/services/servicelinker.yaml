@@ -753,7 +753,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourcegroups~1{resource_group_name}~1providers~1Microsoft.ServiceLinker~1locations~1{location}~1dryruns~1{dryrun_name}?api-version=2024-07-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         validate:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourcegroups~1{resource_group_name}~1providers~1Microsoft.ServiceLinker~1locations~1{location}~1connectors~1{connector_name}~1validate?api-version=2024-07-01-preview/post"
@@ -778,15 +778,12 @@ components:
           - $ref: "#/components/x-stackQL-resources/connector/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/connector/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/connector/methods/create_dryrun"
         update:
           - $ref: "#/components/x-stackQL-resources/connector/methods/update"
-          - $ref: "#/components/x-stackQL-resources/connector/methods/update_dryrun"
         replace:
           - $ref: "#/components/x-stackQL-resources/connector/methods/create_or_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/connector/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/connector/methods/delete_dryrun"
     linker:
       id: azure.servicelinker.linker
       name: linker
@@ -942,7 +939,7 @@ components:
           operation:
             $ref: "#/paths/~1{resource_uri}~1providers~1Microsoft.ServiceLinker~1dryruns~1{dryrun_name}?api-version=2024-07-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         generate_configurations:
           operation:
             $ref: "#/paths/~1{resource_uri}~1providers~1Microsoft.ServiceLinker~1linkers~1{linker_name}~1generateConfigurations?api-version=2024-07-01-preview/post"
@@ -958,12 +955,9 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/linkers/methods/get_dryrun"
           - $ref: "#/components/x-stackQL-resources/linkers/methods/list_dryrun"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/linkers/methods/create_dryrun"
-        update:
-          - $ref: "#/components/x-stackQL-resources/linkers/methods/update_dryrun"
-        delete:
-          - $ref: "#/components/x-stackQL-resources/linkers/methods/delete_dryrun"
+        insert: []
+        update: []
+        delete: []
     operations:
       id: azure.servicelinker.operations
       name: operations
@@ -1433,8 +1427,8 @@ paths:
             type: string
           description: The name of dryrun. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.ServiceLinker/locations/{location}/connectors/{connector_name}/validate?api-version=2024-07-01-preview:
     post:
       operationId: Connector_begin_validate
@@ -1910,8 +1904,8 @@ paths:
             type: string
           description: The name of dryrun. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /{resource_uri}/providers/Microsoft.ServiceLinker/linkers/{linker_name}/generateConfigurations?api-version=2024-07-01-preview:
     post:
       operationId: Linkers_generate_configurations

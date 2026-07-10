@@ -1420,15 +1420,6 @@ components:
           description: Managed identity.
       required:
       - location
-    FleetCredentialResults:
-      type: object
-      description: The Credential results response.
-      properties:
-        kubeconfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/FleetCredentialResult'
-          description: Array of base64-encoded Kubernetes configuration files.
     FleetCredentialResult:
       type: object
       description: One credential result item.
@@ -1440,6 +1431,15 @@ components:
           type: string
           format: byte
           description: Base64-encoded Kubernetes configuration file.
+    FleetCredentialResults:
+      type: object
+      description: The Credential results response.
+      properties:
+        kubeconfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/FleetCredentialResult'
+          description: Array of base64-encoded Kubernetes configuration files.
     GateProperties:
       type: object
       description: A Gate controls the progression during a staged rollout, e.g. in an Update Run.
@@ -3271,7 +3271,7 @@ paths:
                 $ref: '#/components/schemas/FleetCredentialResults'
       x-stackql-resource: fleets
       x-stackql-method: list_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/fleets/{fleet_name}/gates/{gate_name}?api-version=2026-03-02-preview
   : get:
       operationId: Gates_get

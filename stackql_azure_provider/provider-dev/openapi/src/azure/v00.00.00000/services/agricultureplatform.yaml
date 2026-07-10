@@ -348,17 +348,6 @@ components:
           description: The SKU (Stock Keeping Unit) assigned to this resource.
       required:
         - location
-    AvailableAgriSolutionListResult:
-      type: object
-      description: The list of available agri solutions.
-      properties:
-        solutions:
-          type: array
-          items:
-            $ref: "#/components/schemas/DataManagerForAgricultureSolution"
-          description: Agri solutions list. Required.
-      required:
-        - solutions
     DataManagerForAgricultureSolution:
       type: object
       description: Data Manager for Agriculture solution.
@@ -415,6 +404,17 @@ components:
       required:
         - saasOfferId
         - publisherId
+    AvailableAgriSolutionListResult:
+      type: object
+      description: The list of available agri solutions.
+      properties:
+        solutions:
+          type: array
+          items:
+            $ref: "#/components/schemas/DataManagerForAgricultureSolution"
+          description: Agri solutions list. Required.
+      required:
+        - solutions
     AgriServiceResourceUpdateProperties:
       type: object
       description: The updatable properties of the AgriServiceResource.

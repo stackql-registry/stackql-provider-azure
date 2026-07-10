@@ -417,29 +417,6 @@ components:
               description: Contains global configuration for the web services in the cluster.
       required:
       - location
-    OperationalizationClusterCredentials:
-      type: object
-      description: Credentials to resources in the cluster.
-      properties:
-        storageAccount:
-          $ref: '#/components/schemas/StorageAccountCredentials'
-          description: Credentials for the Storage Account.
-        containerRegistry:
-          $ref: '#/components/schemas/ContainerRegistryCredentials'
-          description: Credentials for Azure Container Registry.
-        containerService:
-          $ref: '#/components/schemas/ContainerServiceCredentials'
-          description: Credentials for Azure Container Service.
-        appInsights:
-          $ref: '#/components/schemas/AppInsightsCredentials'
-          description: Credentials for Azure AppInsights.
-        serviceAuthConfiguration:
-          $ref: '#/components/schemas/ServiceAuthConfiguration'
-          description: Global authorization keys for all user services deployed in cluster. These are used if the
-            service does not have auth keys.
-        sslConfiguration:
-          $ref: '#/components/schemas/SslConfiguration'
-          description: The SSL configuration for the services.
     StorageAccountCredentials:
       type: object
       description: Access information for the storage account. Variables are only populated by the server, and will
@@ -496,6 +473,29 @@ components:
           type: string
           description: The AppInsights instrumentation key. This is not returned in response of GET/PUT on the resource.
             To see this please call listKeys API.
+    OperationalizationClusterCredentials:
+      type: object
+      description: Credentials to resources in the cluster.
+      properties:
+        storageAccount:
+          $ref: '#/components/schemas/StorageAccountCredentials'
+          description: Credentials for the Storage Account.
+        containerRegistry:
+          $ref: '#/components/schemas/ContainerRegistryCredentials'
+          description: Credentials for Azure Container Registry.
+        containerService:
+          $ref: '#/components/schemas/ContainerServiceCredentials'
+          description: Credentials for Azure Container Service.
+        appInsights:
+          $ref: '#/components/schemas/AppInsightsCredentials'
+          description: Credentials for Azure AppInsights.
+        serviceAuthConfiguration:
+          $ref: '#/components/schemas/ServiceAuthConfiguration'
+          description: Global authorization keys for all user services deployed in cluster. These are used if the
+            service does not have auth keys.
+        sslConfiguration:
+          $ref: '#/components/schemas/SslConfiguration'
+          description: The SSL configuration for the services.
     CheckSystemServicesUpdatesAvailableResponse:
       type: object
       description: Information about updates available for system services in a cluster. Variables are only populated
@@ -818,7 +818,7 @@ paths:
                 $ref: '#/components/schemas/OperationalizationClusterCredentials'
       x-stackql-resource: operationalization_clusters
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.MachineLearningCompute/operationalizationClusters/{cluster_name}/checkSystemServicesUpdatesAvailable?api-version=2017-08-01-preview
   : post:
       operationId: OperationalizationClusters_check_system_services_updates_available
@@ -850,7 +850,7 @@ paths:
                 $ref: '#/components/schemas/CheckSystemServicesUpdatesAvailableResponse'
       x-stackql-resource: operationalization_clusters
       x-stackql-method: check_system_services_updates_available
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.MachineLearningCompute/operationalizationClusters/{cluster_name}/updateSystemServices?api-version=2017-08-01-preview
   : post:
       operationId: OperationalizationClusters_begin_update_system_services

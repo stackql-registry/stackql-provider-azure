@@ -2068,6 +2068,11 @@ components:
           items:
             type: string
           description: The list of supported task types.
+    NameCheckFailureReason:
+      type: string
+      enum:
+        - AlreadyExists
+        - Invalid
     NameAvailabilityResponse:
       type: object
       description: Indicates whether a proposed resource name is available.
@@ -2081,11 +2086,6 @@ components:
         message:
           type: string
           description: The localized reason why the name is not available, if nameAvailable is false.
-    NameCheckFailureReason:
-      type: string
-      enum:
-        - AlreadyExists
-        - Invalid
     SqlMigrationServiceProperties:
       type: object
       description: The SQL Migration Service properties.
@@ -2295,18 +2295,6 @@ components:
             $ref: "#/components/schemas/DatabaseMigrationFlattened"
         nextLink:
           type: string
-    IntegrationRuntimeMonitoringData:
-      type: object
-      description: Integration Runtime Monitoring Data.
-      properties:
-        name:
-          type: string
-          description: The name of Integration Runtime.
-        nodes:
-          type: array
-          items:
-            $ref: "#/components/schemas/NodeMonitoringData"
-          description: Integration Runtime node monitoring data.
     NodeMonitoringData:
       type: object
       description: NodeMonitoringData.
@@ -2339,6 +2327,18 @@ components:
         receivedBytes:
           type: number
           description: Received bytes on the integration runtime node.
+    IntegrationRuntimeMonitoringData:
+      type: object
+      description: Integration Runtime Monitoring Data.
+      properties:
+        name:
+          type: string
+          description: The name of Integration Runtime.
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/NodeMonitoringData"
+          description: Integration Runtime node monitoring data.
     RegenAuthKeys:
       type: object
       description: An authentication key to regenerate.
@@ -3215,6 +3215,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/services/methods/get"
           - $ref: "#/components/x-stackQL-resources/services/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/services/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/services/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/services/methods/create_or_update"

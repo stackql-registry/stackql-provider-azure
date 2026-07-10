@@ -51,18 +51,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_rasterize_job"><CopyableCode code="create_rasterize_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a ImageProcessing Rasterize job.</td>
-</tr>
-<tr>
     <td><a href="#get_rasterize_job"><CopyableCode code="get_rasterize_job" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get ImageProcessing Rasterize job's details.</td>
+</tr>
+<tr>
+    <td><a href="#create_rasterize_job"><CopyableCode code="create_rasterize_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a ImageProcessing Rasterize job.</td>
 </tr>
 </tbody>
 </table>
@@ -83,63 +83,23 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>JobId provided by user. Required.</td>
 </tr>
 </tbody>
 </table>
-
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_rasterize_job"
-    values={[
-        { label: 'create_rasterize_job', value: 'create_rasterize_job' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_rasterize_job">
-
-Create a ImageProcessing Rasterize job.
-
-```sql
-INSERT INTO azure.agrifood_farming.image_processing (
-job_id,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: image_processing
-  props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the image_processing resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the image_processing resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
 
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_rasterize_job"
     values={[
-        { label: 'get_rasterize_job', value: 'get_rasterize_job' }
+        { label: 'get_rasterize_job', value: 'get_rasterize_job' },
+        { label: 'create_rasterize_job', value: 'create_rasterize_job' }
     ]}
 >
 <TabItem value="get_rasterize_job">
@@ -148,6 +108,17 @@ Get ImageProcessing Rasterize job's details.
 
 ```sql
 EXEC azure.agrifood_farming.image_processing.get_rasterize_job 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_rasterize_job">
+
+Create a ImageProcessing Rasterize job.
+
+```sql
+EXEC azure.agrifood_farming.image_processing.create_rasterize_job 
 @job_id='{{ job_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

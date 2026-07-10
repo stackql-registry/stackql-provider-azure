@@ -865,15 +865,11 @@ components:
           - $ref: "#/components/x-stackQL-resources/schedulers/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/schedulers/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/schedulers/methods/create_or_update_private_endpoint_connection"
         update:
-          - $ref: "#/components/x-stackQL-resources/schedulers/methods/update_private_endpoint_connection"
           - $ref: "#/components/x-stackQL-resources/schedulers/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/schedulers/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/schedulers/methods/create_or_update_private_endpoint_connection"
         delete:
-          - $ref: "#/components/x-stackQL-resources/schedulers/methods/delete_private_endpoint_connection"
           - $ref: "#/components/x-stackQL-resources/schedulers/methods/delete"
     task_hubs:
       id: azure.durabletask.task_hubs

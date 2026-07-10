@@ -134,13 +134,6 @@ components:
       enum:
       - SSH
       - WAC
-    EndpointAccessResource:
-      type: object
-      description: The endpoint access for the target resource.
-      properties:
-        relay:
-          $ref: '#/components/schemas/RelayNamespaceAccessProperties'
-          description: Azure relay hybrid connection access properties.
     RelayNamespaceAccessProperties:
       type: object
       description: Azure relay hybrid connection access properties.
@@ -167,16 +160,13 @@ components:
       - namespaceName
       - namespaceNameSuffix
       - hybridConnectionName
-    IngressGatewayResource:
+    EndpointAccessResource:
       type: object
-      description: The ingress gateway access credentials.
+      description: The endpoint access for the target resource.
       properties:
         relay:
           $ref: '#/components/schemas/RelayNamespaceAccessProperties'
           description: Azure relay hybrid connection access properties.
-        ingress:
-          $ref: '#/components/schemas/IngressProfileProperties'
-          description: Ingress gateway profile.
     IngressProfileProperties:
       type: object
       description: Ingress gateway profile.
@@ -203,6 +193,16 @@ components:
       required:
       - serverId
       - tenantId
+    IngressGatewayResource:
+      type: object
+      description: The ingress gateway access credentials.
+      properties:
+        relay:
+          $ref: '#/components/schemas/RelayNamespaceAccessProperties'
+          description: Azure relay hybrid connection access properties.
+        ingress:
+          $ref: '#/components/schemas/IngressProfileProperties'
+          description: Ingress gateway profile.
     ManagedProxyResource:
       type: object
       description: Managed Proxy.
@@ -1051,7 +1051,7 @@ paths:
                 $ref: '#/components/schemas/EndpointAccessResource'
       x-stackql-resource: endpoints
       x-stackql-method: list_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /{resource_uri}/providers/Microsoft.HybridConnectivity/endpoints/{endpoint_name}/listIngressGatewayCredentials?api-version=2024-12-01
   : post:
       operationId: Endpoints_list_ingress_gateway_credentials
@@ -1095,7 +1095,7 @@ paths:
                 $ref: '#/components/schemas/IngressGatewayResource'
       x-stackql-resource: endpoints
       x-stackql-method: list_ingress_gateway_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /{resource_uri}/providers/Microsoft.HybridConnectivity/endpoints/{endpoint_name}/listManagedProxyDetails?api-version=2024-12-01
   : post:
       operationId: Endpoints_list_managed_proxy_details
@@ -1141,7 +1141,7 @@ paths:
                 $ref: '#/components/schemas/ManagedProxyResource'
       x-stackql-resource: endpoints
       x-stackql-method: list_managed_proxy_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.HybridConnectivity/generateAwsTemplate?api-version=2024-12-01:
     post:
       operationId: GenerateAwsTemplate_post
@@ -1569,7 +1569,7 @@ paths:
                 $ref: '#/components/schemas/ServiceConfigurationResource'
       x-stackql-resource: service_configurations
       x-stackql-method: create_orupdate
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: ServiceConfigurations_update
       description: Update the service details in the service configurations of the target resource.

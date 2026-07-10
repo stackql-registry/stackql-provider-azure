@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#report_deployed_service_package_health"><CopyableCode code="report_deployed_service_package_health" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-service_package_name"><code>service_package_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-SourceId"><code>SourceId</code></a>, <a href="#parameter-Property"><code>Property</code></a>, <a href="#parameter-HealthState"><code>HealthState</code></a></td>
+    <td><a href="#parameter-service_package_name"><code>service_package_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-SourceId"><code>SourceId</code></a>, <a href="#parameter-Property"><code>Property</code></a>, <a href="#parameter-HealthState"><code>HealthState</code></a></td>
     <td><a href="#parameter-Immediate"><code>Immediate</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Sends a health report on the Service Fabric deployed service package. Reports health state of the service package of the application deployed on a Service Fabric node. The report must contain the information about the source of the health report and property on which it is reported. The report is sent to a Service Fabric gateway Service, which forwards to the health store. The report may be accepted by the gateway, but rejected by the health store after extra validation. For example, the health store may reject the report because of an invalid parameter, like a stale sequence number. To see whether the report was applied in the health store, get deployed service package health and check that the report appears in the HealthEvents section.</td>
 </tr>
@@ -81,7 +81,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -120,9 +120,9 @@ Sends a health report on the Service Fabric deployed service package. Reports he
 
 ```sql
 EXEC azure.servicefabric_dataplane.report_deployed_service_package_healths.report_deployed_service_package_health 
-@node_name='{{ node_name }}' --required, 
-@application_id='{{ application_id }}' --required, 
 @service_package_name='{{ service_package_name }}' --required, 
+@application_id='{{ application_id }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @Immediate={{ Immediate }}, 
 @timeout='{{ timeout }}' 

@@ -82,7 +82,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#list_connections_in_group"><CopyableCode code="list_connections_in_group" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-group"><code>group</code></a>, <a href="#parameter-hub"><code>hub</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-group_name"><code>group_name</code></a>, <a href="#parameter-hub"><code>hub</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-maxpagesize"><code>maxpagesize</code></a>, <a href="#parameter-top"><code>top</code></a>, <a href="#parameter-continuationToken"><code>continuationToken</code></a></td>
     <td>List connections in a group. List connections in a group.</td>
 </tr>
@@ -105,10 +105,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
-<tr id="parameter-group">
-    <td><CopyableCode code="group" /></td>
+<tr id="parameter-group_name">
+    <td><CopyableCode code="group_name" /></td>
     <td><code>string</code></td>
     <td>Target group name, whose length should be greater than 0 and less than 1025. Required.</td>
 </tr>
@@ -152,7 +152,7 @@ SELECT
 connectionId,
 userId
 FROM azure.messaging_webpubsubservice.connections_in_groups
-WHERE group = '{{ group }}' -- required
+WHERE group_name = '{{ group_name }}' -- required
 AND hub = '{{ hub }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND maxpagesize = '{{ maxpagesize }}'

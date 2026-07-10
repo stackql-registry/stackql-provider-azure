@@ -905,6 +905,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/communications_no_subscription/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/communications_no_subscription/methods/get"
           - $ref: "#/components/x-stackQL-resources/communications_no_subscription/methods/list"
         insert:
@@ -968,6 +969,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/communications/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/communications/methods/get"
           - $ref: "#/components/x-stackQL-resources/communications/methods/list"
         insert:
@@ -1312,6 +1314,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/support_tickets_no_subscription/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/support_tickets_no_subscription/methods/get"
           - $ref: "#/components/x-stackQL-resources/support_tickets_no_subscription/methods/list"
         insert:
@@ -1387,6 +1390,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/support_tickets/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/support_tickets/methods/get"
           - $ref: "#/components/x-stackQL-resources/support_tickets/methods/list"
         insert:

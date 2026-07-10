@@ -983,4 +983,4 @@ paths:
                 $ref: '#/components/schemas/UserDelegationKey'
       x-stackql-resource: service
       x-stackql-method: get_user_delegation_key
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

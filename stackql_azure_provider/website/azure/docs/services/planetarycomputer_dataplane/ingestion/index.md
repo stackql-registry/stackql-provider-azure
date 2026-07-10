@@ -434,20 +434,6 @@ The following methods are available for this resource:
     <td>Create a new ingestion.</td>
 </tr>
 <tr>
-    <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-ingestion_id"><code>ingestion_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a new run of an ingestion.</td>
-</tr>
-<tr>
-    <td><a href="#create_source"><CopyableCode code="create_source" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
-    <td></td>
-    <td>Create a new ingestion source in a geo-catalog.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-ingestion_id"><code>ingestion_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-importType"><code>importType</code></a></td>
@@ -455,25 +441,11 @@ The following methods are available for this resource:
     <td>Update an existing ingestion.</td>
 </tr>
 <tr>
-    <td><a href="#replace_source"><CopyableCode code="replace_source" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
-    <td></td>
-    <td>Update an existing ingestion source in a geo-catalog.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-ingestion_id"><code>ingestion_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete an ingestion from a catalog. All runs of the ingestion will be deleted. Ingestion must not have any runs in progress or queued.</td>
-</tr>
-<tr>
-    <td><a href="#delete_source"><CopyableCode code="delete_source" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete an ingestion source from a geo-catalog.</td>
 </tr>
 <tr>
     <td><a href="#cancel_operation"><CopyableCode code="cancel_operation" /></a></td>
@@ -497,6 +469,13 @@ The following methods are available for this resource:
     <td>Get the runs of an ingestion.</td>
 </tr>
 <tr>
+    <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-ingestion_id"><code>ingestion_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a new run of an ingestion.</td>
+</tr>
+<tr>
     <td><a href="#list_sources"><CopyableCode code="list_sources" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -504,11 +483,32 @@ The following methods are available for this resource:
     <td>Get ingestion sources in a geo-catalog.</td>
 </tr>
 <tr>
+    <td><a href="#create_source"><CopyableCode code="create_source" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
+    <td></td>
+    <td>Create a new ingestion source in a geo-catalog.</td>
+</tr>
+<tr>
     <td><a href="#list_managed_identities"><CopyableCode code="list_managed_identities" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get all managed identities with access to storage accounts configured for a geo-catalog.</td>
+</tr>
+<tr>
+    <td><a href="#replace_source"><CopyableCode code="replace_source" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
+    <td></td>
+    <td>Update an existing ingestion source in a geo-catalog.</td>
+</tr>
+<tr>
+    <td><a href="#delete_source"><CopyableCode code="delete_source" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete an ingestion source from a geo-catalog.</td>
 </tr>
 </tbody>
 </table>
@@ -534,7 +534,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-id">
     <td><CopyableCode code="id" /></td>
@@ -729,8 +729,6 @@ AND status = '{{ status }}'
     defaultValue="create"
     values={[
         { label: 'create', value: 'create' },
-        { label: 'create_run', value: 'create_run' },
-        { label: 'create_source', value: 'create_source' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -771,52 +769,6 @@ status
 ;
 ```
 </TabItem>
-<TabItem value="create_run">
-
-Create a new run of an ingestion.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.ingestion (
-collection_id,
-ingestion_id,
-endpoint
-)
-SELECT 
-'{{ collection_id }}',
-'{{ ingestion_id }}',
-'{{ endpoint }}'
-RETURNING
-id,
-creationTime,
-keepOriginalAssets,
-operation,
-parentRunId,
-skipExistingItems,
-sourceCatalogUrl
-;
-```
-</TabItem>
-<TabItem value="create_source">
-
-Create a new ingestion source in a geo-catalog.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.ingestion (
-id,
-kind,
-endpoint
-)
-SELECT 
-'{{ id }}' /* required */,
-'{{ kind }}' /* required */,
-'{{ endpoint }}'
-RETURNING
-id,
-created,
-kind
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -827,9 +779,6 @@ kind
       description: Required parameter for the ingestion resource.
     - name: endpoint
       value: "{{ endpoint }}"
-      description: Required parameter for the ingestion resource.
-    - name: ingestion_id
-      value: "{{ ingestion_id }}"
       description: Required parameter for the ingestion resource.
     - name: importType
       value: "{{ importType }}"
@@ -856,14 +805,6 @@ kind
       value: {{ keepOriginalAssets }}
       description: |
         Keep original source assets.
-    - name: id
-      value: "{{ id }}"
-      description: |
-        Ingestion source id. Required.
-    - name: kind
-      value: "{{ kind }}"
-      description: |
-        Discriminator for the ingestion source. Required. Known values are: "SasToken" and "BlobManagedIdentity".
 `}</CodeBlock>
 
 </TabItem>
@@ -911,44 +852,12 @@ status;
 </Tabs>
 
 
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="replace_source"
-    values={[
-        { label: 'replace_source', value: 'replace_source' }
-    ]}
->
-<TabItem value="replace_source">
-
-Update an existing ingestion source in a geo-catalog.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.ingestion
-SET 
-id = '{{ id }}',
-kind = '{{ kind }}'
-WHERE 
-id = '{{ id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND id = '{{ id }}' --required
-AND kind = '{{ kind }}' --required
-RETURNING
-id,
-created,
-kind;
-```
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
     defaultValue="delete"
     values={[
         { label: 'delete', value: 'delete' },
-        { label: 'delete_source', value: 'delete_source' },
         { label: 'cancel_operation', value: 'cancel_operation' },
         { label: 'cancel_all_operations', value: 'cancel_all_operations' }
     ]}
@@ -961,17 +870,6 @@ Delete an ingestion from a catalog. All runs of the ingestion will be deleted. I
 DELETE FROM azure.planetarycomputer_dataplane.ingestion
 WHERE collection_id = '{{ collection_id }}' --required
 AND ingestion_id = '{{ ingestion_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_source">
-
-Delete an ingestion source from a geo-catalog.
-
-```sql
-DELETE FROM azure.planetarycomputer_dataplane.ingestion
-WHERE id = '{{ id }}' --required
 AND endpoint = '{{ endpoint }}' --required
 ;
 ```
@@ -1006,8 +904,12 @@ WHERE endpoint = '{{ endpoint }}' --required
     defaultValue="list_runs"
     values={[
         { label: 'list_runs', value: 'list_runs' },
+        { label: 'create_run', value: 'create_run' },
         { label: 'list_sources', value: 'list_sources' },
-        { label: 'list_managed_identities', value: 'list_managed_identities' }
+        { label: 'create_source', value: 'create_source' },
+        { label: 'list_managed_identities', value: 'list_managed_identities' },
+        { label: 'replace_source', value: 'replace_source' },
+        { label: 'delete_source', value: 'delete_source' }
     ]}
 >
 <TabItem value="list_runs">
@@ -1024,6 +926,18 @@ EXEC azure.planetarycomputer_dataplane.ingestion.list_runs
 ;
 ```
 </TabItem>
+<TabItem value="create_run">
+
+Create a new run of an ingestion.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.ingestion.create_run 
+@collection_id='{{ collection_id }}' --required, 
+@ingestion_id='{{ ingestion_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="list_sources">
 
 Get ingestion sources in a geo-catalog.
@@ -1036,12 +950,54 @@ EXEC azure.planetarycomputer_dataplane.ingestion.list_sources
 ;
 ```
 </TabItem>
+<TabItem value="create_source">
+
+Create a new ingestion source in a geo-catalog.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.ingestion.create_source 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="list_managed_identities">
 
 Get all managed identities with access to storage accounts configured for a geo-catalog.
 
 ```sql
 EXEC azure.planetarycomputer_dataplane.ingestion.list_managed_identities 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="replace_source">
+
+Update an existing ingestion source in a geo-catalog.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.ingestion.replace_source 
+@id='{{ id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_source">
+
+Delete an ingestion source from a geo-catalog.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.ingestion.delete_source 
+@id='{{ id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

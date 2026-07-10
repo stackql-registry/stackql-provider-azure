@@ -1346,19 +1346,6 @@ components:
           type: string
           format: date-time
           description: Link connection landing zone credential expire time.
-    LinkConnectionQueryTableStatus:
-      type: object
-      description: LinkConnectionQueryTableStatus.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkTableStatus'
-          description: Link tables' status.
-        continuationToken:
-          type: object
-          properties: {}
-          description: Continuation token to query table status.
     LinkTableStatus:
       type: object
       description: LinkTableStatus.
@@ -1394,6 +1381,19 @@ components:
           type: string
           format: date-time
           description: Link table last transaction commit time.
+    LinkConnectionQueryTableStatus:
+      type: object
+      description: LinkConnectionQueryTableStatus.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkTableStatus'
+          description: Link tables' status.
+        continuationToken:
+          type: object
+          properties: {}
+          description: Continuation token to query table status.
     LinkedServiceResourceFlattened:
       type: object
       description: Flattened view of LinkedServiceResource ('properties' hoisted to the top level).
@@ -2122,21 +2122,6 @@ components:
             null otherwise.
       required:
       - value
-    ActivityRunsQueryResponse:
-      type: object
-      description: A list activity runs. All required parameters must be populated in order to send to Azure.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityRun'
-          description: List of activity runs. Required.
-        continuationToken:
-          type: string
-          description: The continuation token for getting the next page of results, if any remaining results exist,
-            null otherwise.
-      required:
-      - value
     ActivityRun:
       type: object
       description: Information about an activity run in a pipeline. Variables are only populated by the server,
@@ -2190,6 +2175,21 @@ components:
           type: object
           properties: {}
           description: The error if any from the activity run.
+    ActivityRunsQueryResponse:
+      type: object
+      description: A list activity runs. All required parameters must be populated in order to send to Azure.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityRun'
+          description: List of activity runs. Required.
+        continuationToken:
+          type: string
+          description: The continuation token for getting the next page of results, if any remaining results exist,
+            null otherwise.
+      required:
+      - value
     RunNotebookResult:
       type: object
       description: Result of run notebook.
@@ -3304,21 +3304,6 @@ components:
           description: Properties of the trigger. Required.
       required:
       - properties
-    TriggerRunsQueryResponse:
-      type: object
-      description: A list of trigger runs. All required parameters must be populated in order to send to Azure.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/TriggerRun'
-          description: List of trigger runs. Required.
-        continuationToken:
-          type: string
-          description: The continuation token for getting the next page of results, if any remaining results exist,
-            null otherwise.
-      required:
-      - value
     TriggerRun:
       type: object
       description: Trigger runs. Variables are only populated by the server, and will be ignored when sending a
@@ -3356,6 +3341,21 @@ components:
           type: object
           properties: {}
           description: List of pipeline name and run Id triggered by the trigger run.
+    TriggerRunsQueryResponse:
+      type: object
+      description: A list of trigger runs. All required parameters must be populated in order to send to Azure.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerRun'
+          description: List of trigger runs. Required.
+        continuationToken:
+          type: string
+          description: The continuation token for getting the next page of results, if any remaining results exist,
+            null otherwise.
+      required:
+      - value
     GitHubAccessTokenResponse:
       type: object
       description: GitHubAccessTokenResponse.
@@ -3715,7 +3715,8 @@ paths:
                 $ref: '#/components/schemas/PagedDataFlowDebugSessionInfo'
       x-stackql-resource: data_flow_debug_session
       x-stackql-method: query_data_flow_debug_sessions_by_workspace
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /addDataFlowToDebugSession?api-version=2020-12-01:
     post:
       operationId: DataFlowDebugSession_add_data_flow
@@ -4635,7 +4636,7 @@ paths:
                 $ref: '#/components/schemas/LinkConnectionQueryTableStatus'
       x-stackql-resource: link_connection
       x-stackql-method: query_table_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /linkconnections/{link_connection_name}/updateLandingZoneCredential?api-version=2023-04-18-preview:
     post:
       operationId: LinkConnection_update_landing_zone_credential
@@ -5347,7 +5348,7 @@ paths:
                 $ref: '#/components/schemas/PipelineRunsQueryResponse'
       x-stackql-resource: pipeline_run
       x-stackql-method: query_pipeline_runs_by_workspace
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /pipelines/{pipeline_name}/pipelineruns/{run_id}/queryActivityruns?api-version=2020-12-01:
     post:
       operationId: PipelineRun_query_activity_runs
@@ -5405,7 +5406,7 @@ paths:
                 $ref: '#/components/schemas/ActivityRunsQueryResponse'
       x-stackql-resource: pipeline_run
       x-stackql-method: query_activity_runs
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /pipelineruns/{run_id}/cancel?api-version=2020-12-01:
     post:
       operationId: PipelineRun_cancel_pipeline_run
@@ -6195,7 +6196,7 @@ paths:
                 $ref: '#/components/schemas/TriggerSubscriptionOperationStatus'
       x-stackql-resource: trigger
       x-stackql-method: get_event_subscription_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /triggers/{trigger_name}/subscribeToEvents?api-version=2020-12-01:
     post:
       operationId: Trigger_begin_subscribe_trigger_to_events
@@ -6363,10 +6364,10 @@ paths:
                 $ref: '#/components/schemas/TriggerRunsQueryResponse'
       x-stackql-resource: trigger_run
       x-stackql-method: query_trigger_runs_by_workspace
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /getGitHubAccessToken?api-version=2020-12-01:
     post:
-      operationId: WorkspaceGitRepoManagement_get_git_hub_access_token
+      operationId: WorkspaceGitRepoManagement_get_github_access_token
       description: Get the GitHub access token.
       parameters:
       - name: x-ms-client-request-id
@@ -6404,8 +6405,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/GitHubAccessTokenResponse'
       x-stackql-resource: workspace_git_repo_management
-      x-stackql-method: get_git_hub_access_token
-      x-stackql-verb: EXEC
+      x-stackql-method: get_github_access_token
+      x-stackql-verb: SELECT
   /workspace?api-version=2020-12-01:
     get:
       operationId: Workspace_get

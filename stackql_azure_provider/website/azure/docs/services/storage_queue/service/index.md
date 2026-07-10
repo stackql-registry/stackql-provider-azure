@@ -92,35 +92,35 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves properties of a storage account's Queue service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.</td>
 </tr>
 <tr>
     <td><a href="#set_properties"><CopyableCode code="set_properties" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Sets properties for a storage account's Queue service endpoint, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.</td>
 </tr>
 <tr>
     <td><a href="#get_statistics"><CopyableCode code="get_statistics" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves statistics related to replication for the Queue service. It is only available on the secondary location endpoint when read-access geo-redundant replication is enabled for the storage account.</td>
 </tr>
 <tr>
     <td><a href="#get_user_delegation_key"><CopyableCode code="get_user_delegation_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-expiry"><code>expiry</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a>, <a href="#parameter-expiry"><code>expiry</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves a user delegation key for the Queue service. This is only a valid operation when using bearer token authentication.</td>
 </tr>
 <tr>
     <td><a href="#get_queues"><CopyableCode code="get_queues" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-prefix"><code>prefix</code></a>, <a href="#parameter-marker"><code>marker</code></a>, <a href="#parameter-maxresults"><code>maxresults</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-include"><code>include</code></a></td>
     <td>Returns a list of queues.</td>
 </tr>
@@ -140,10 +140,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `url` parameter. (default: )</td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-include">
     <td><CopyableCode code="include" /></td>
@@ -192,36 +192,9 @@ hourMetrics,
 logging,
 minuteMetrics
 FROM azure.storage_queue.service
-WHERE url = '{{ url }}' -- required
+WHERE account = '{{ account }}' -- required
 AND timeout = '{{ timeout }}'
 ;
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="set_properties"
-    values={[
-        { label: 'set_properties', value: 'set_properties' }
-    ]}
->
-<TabItem value="set_properties">
-
-Sets properties for a storage account's Queue service endpoint, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.
-
-```sql
-REPLACE azure.storage_queue.service
-SET 
-logging = '{{ logging }}',
-hourMetrics = '{{ hourMetrics }}',
-minuteMetrics = '{{ minuteMetrics }}',
-cors = '{{ cors }}'
-WHERE 
-url = '{{ url }}' --required
-AND timeout = '{{ timeout}}';
 ```
 </TabItem>
 </Tabs>
@@ -230,20 +203,39 @@ AND timeout = '{{ timeout}}';
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_statistics"
+    defaultValue="set_properties"
     values={[
+        { label: 'set_properties', value: 'set_properties' },
         { label: 'get_statistics', value: 'get_statistics' },
         { label: 'get_user_delegation_key', value: 'get_user_delegation_key' },
         { label: 'get_queues', value: 'get_queues' }
     ]}
 >
+<TabItem value="set_properties">
+
+Sets properties for a storage account's Queue service endpoint, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.
+
+```sql
+EXEC azure.storage_queue.service.set_properties 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}' 
+@@json=
+'{
+"logging": "{{ logging }}", 
+"hourMetrics": "{{ hourMetrics }}", 
+"minuteMetrics": "{{ minuteMetrics }}", 
+"cors": "{{ cors }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_statistics">
 
 Retrieves statistics related to replication for the Queue service. It is only available on the secondary location endpoint when read-access geo-redundant replication is enabled for the storage account.
 
 ```sql
 EXEC azure.storage_queue.service.get_statistics 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}'
 ;
 ```
@@ -254,7 +246,7 @@ Retrieves a user delegation key for the Queue service. This is only a valid oper
 
 ```sql
 EXEC azure.storage_queue.service.get_user_delegation_key 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}' 
 @@json=
 '{
@@ -271,7 +263,7 @@ Returns a list of queues.
 
 ```sql
 EXEC azure.storage_queue.service.get_queues 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @prefix='{{ prefix }}', 
 @marker='{{ marker }}', 
 @maxresults='{{ maxresults }}', 

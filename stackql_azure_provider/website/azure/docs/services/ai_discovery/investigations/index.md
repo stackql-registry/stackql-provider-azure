@@ -268,13 +268,6 @@ The following methods are available for this resource:
     <td>Updates an Investigation.</td>
 </tr>
 <tr>
-    <td><a href="#update_discovery_engine"><CopyableCode code="update_discovery_engine" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-project_name"><code>project_name</code></a>, <a href="#parameter-investigation_name"><code>investigation_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update the discovery engine for an investigation. This will create the discovery engine if it does not already exist.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-project_name"><code>project_name</code></a>, <a href="#parameter-investigation_name"><code>investigation_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -301,6 +294,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-project_name"><code>project_name</code></a>, <a href="#parameter-investigation_name"><code>investigation_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get the discovery engine for an investigation.</td>
+</tr>
+<tr>
+    <td><a href="#update_discovery_engine"><CopyableCode code="update_discovery_engine" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-project_name"><code>project_name</code></a>, <a href="#parameter-investigation_name"><code>investigation_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update the discovery engine for an investigation. This will create the discovery engine if it does not already exist.</td>
 </tr>
 <tr>
     <td><a href="#get_discovery_engine_memory"><CopyableCode code="get_discovery_engine_memory" /></a></td>
@@ -342,7 +342,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-investigation_name">
     <td><CopyableCode code="investigation_name" /></td>
@@ -542,43 +542,6 @@ tags
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_discovery_engine"
-    values={[
-        { label: 'update_discovery_engine', value: 'update_discovery_engine' }
-    ]}
->
-<TabItem value="update_discovery_engine">
-
-Update the discovery engine for an investigation. This will create the discovery engine if it does not already exist.
-
-```sql
-UPDATE azure.ai_discovery.investigations
-SET 
-discoveryEngineStatus = '{{ discoveryEngineStatus }}',
-systemPrompt = '{{ systemPrompt }}',
-configuration = '{{ configuration }}'
-WHERE 
-project_name = '{{ project_name }}' --required
-AND investigation_name = '{{ investigation_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-configuration,
-createdAt,
-createdBy,
-createdByType,
-discoveryEngineStatus,
-lastModifiedAt,
-lastModifiedBy,
-lastModifiedByType,
-systemPrompt;
-```
-</TabItem>
-</Tabs>
-
-
 ## `REPLACE` examples
 
 <Tabs
@@ -649,6 +612,7 @@ AND endpoint = '{{ endpoint }}' --required
     values={[
         { label: 'create_or_replace', value: 'create_or_replace' },
         { label: 'get_discovery_engine', value: 'get_discovery_engine' },
+        { label: 'update_discovery_engine', value: 'update_discovery_engine' },
         { label: 'get_discovery_engine_memory', value: 'get_discovery_engine_memory' },
         { label: 'start_discovery_engine', value: 'start_discovery_engine' },
         { label: 'stop_discovery_engine', value: 'stop_discovery_engine' }
@@ -681,6 +645,24 @@ EXEC azure.ai_discovery.investigations.get_discovery_engine
 @project_name='{{ project_name }}' --required, 
 @investigation_name='{{ investigation_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_discovery_engine">
+
+Update the discovery engine for an investigation. This will create the discovery engine if it does not already exist.
+
+```sql
+EXEC azure.ai_discovery.investigations.update_discovery_engine 
+@project_name='{{ project_name }}' --required, 
+@investigation_name='{{ investigation_name }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"discoveryEngineStatus": "{{ discoveryEngineStatus }}", 
+"systemPrompt": "{{ systemPrompt }}", 
+"configuration": "{{ configuration }}"
+}'
 ;
 ```
 </TabItem>

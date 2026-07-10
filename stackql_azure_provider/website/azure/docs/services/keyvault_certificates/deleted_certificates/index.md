@@ -187,21 +187,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deleted_certificate"><CopyableCode code="get_deleted_certificate" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Retrieves information about the specified deleted certificate. The GetDeletedCertificate operation retrieves the deleted certificate information plus its attributes, such as retention interval, scheduled permanent deletion and the current deletion recovery level. This operation requires the certificates/get permission.</td>
 </tr>
 <tr>
     <td><a href="#get_deleted_certificates"><CopyableCode code="get_deleted_certificates" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a>, <a href="#parameter-includePending"><code>includePending</code></a></td>
     <td>Lists the deleted certificates in the specified vault currently available for recovery. The GetDeletedCertificates operation retrieves the certificates in the current vault which are in a deleted state and ready for recovery or purging. This operation includes deletion-specific information. This operation requires the certificates/get/list permission. This operation can only be enabled on soft-delete enabled vaults.</td>
 </tr>
 <tr>
     <td><a href="#purge_deleted_certificate"><CopyableCode code="purge_deleted_certificate" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Permanently deletes the specified deleted certificate. The PurgeDeletedCertificate operation performs an irreversible deletion of the specified certificate, without possibility for recovery. The operation is not available if the recovery level does not specify 'Purgeable'. This operation requires the certificate/purge permission.</td>
 </tr>
@@ -226,10 +226,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the certificate. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-includePending">
     <td><CopyableCode code="includePending" /></td>
@@ -274,7 +274,7 @@ tags,
 x5t
 FROM azure.keyvault_certificates.deleted_certificates
 WHERE certificate_name = '{{ certificate_name }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -292,7 +292,7 @@ scheduledPurgeDate,
 tags,
 x5t
 FROM azure.keyvault_certificates.deleted_certificates
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 AND includePending = '{{ includePending }}'
 ;
@@ -316,7 +316,7 @@ Permanently deletes the specified deleted certificate. The PurgeDeletedCertifica
 ```sql
 DELETE FROM azure.keyvault_certificates.deleted_certificates
 WHERE certificate_name = '{{ certificate_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>

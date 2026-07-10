@@ -144,13 +144,6 @@ The following methods are available for this resource:
     <td>Gets the entire set of tags on a resource or subscription. Gets the entire set of tags on a resource or subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_value"><CopyableCode code="create_or_update_value" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-tag_value"><code>tag_value</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -172,13 +165,6 @@ The following methods are available for this resource:
     <td>Selectively updates the set of tags on a resource or subscription. This operation allows replacing, merging or selectively deleting tags on the specified resource or subscription. The specified entity can have a maximum of 50 tags at the end of the operation. The 'replace' option replaces the entire set of existing tags with a new set. The 'merge' option allows adding tags with new names and updating the values of tags with existing names. The 'delete' option allows selectively deleting tags based on given names or name/value pairs.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_value"><CopyableCode code="create_or_update_value" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-tag_value"><code>tag_value</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -193,13 +179,6 @@ The following methods are available for this resource:
     <td>Creates or updates the entire set of tags on a resource or subscription. This operation allows adding or replacing the entire set of tags on the specified resource or subscription. The specified entity can have a maximum of 50 tags.</td>
 </tr>
 <tr>
-    <td><a href="#delete_value"><CopyableCode code="delete_value" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-tag_value"><code>tag_value</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a predefined tag value for a predefined tag name. This operation allows deleting a value from the list of predefined values for an existing predefined tag name. The value being deleted must not be in use as a tag value for the given tag name for any resource.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -212,6 +191,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-scope"><code>scope</code></a></td>
     <td></td>
     <td>Deletes the entire set of tags on a resource or subscription. Deletes the entire set of tags on a resource or subscription.</td>
+</tr>
+<tr>
+    <td><a href="#delete_value"><CopyableCode code="delete_value" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-tag_value"><code>tag_value</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a predefined tag value for a predefined tag name. This operation allows deleting a value from the list of predefined values for an existing predefined tag name. The value being deleted must not be in use as a tag value for the given tag name for any resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_value"><CopyableCode code="create_or_update_value" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-tag_name"><code>tag_name</code></a>, <a href="#parameter-tag_value"><code>tag_value</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.</td>
 </tr>
 </tbody>
 </table>
@@ -247,7 +240,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-tag_value">
     <td><CopyableCode code="tag_value" /></td>
     <td><code>string</code></td>
-    <td>The value of the tag to delete. Required.</td>
+    <td>The value of the tag to create. Required.</td>
 </tr>
 </tbody>
 </table>
@@ -298,35 +291,13 @@ WHERE scope = '{{ scope }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_value"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_value', value: 'create_or_update_value' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'create_or_update_at_scope', value: 'create_or_update_at_scope' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_value">
-
-Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.
-
-```sql
-INSERT INTO azure.resource.tags (
-tag_name,
-tag_value,
-subscription_id
-)
-SELECT 
-'{{ tag_name }}',
-'{{ tag_value }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-count,
-tagValue
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates a predefined tag name. This operation allows adding a name to the list of predefined tag names for the given subscription. A tag name can have a maximum of 512 characters and is case-insensitive. Tag names cannot have the following prefixes which are reserved for Azure use: 'microsoft', 'azure', 'windows'.
@@ -375,9 +346,6 @@ type
   props:
     - name: tag_name
       value: "{{ tag_name }}"
-      description: Required parameter for the tags resource.
-    - name: tag_value
-      value: "{{ tag_value }}"
       description: Required parameter for the tags resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -429,31 +397,12 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_value"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_value', value: 'create_or_update_value' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'create_or_update_at_scope', value: 'create_or_update_at_scope' }
     ]}
 >
-<TabItem value="create_or_update_value">
-
-Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.
-
-```sql
-REPLACE azure.resource.tags
-SET 
--- No updatable properties
-WHERE 
-tag_name = '{{ tag_name }}' --required
-AND tag_value = '{{ tag_value }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-count,
-tagValue;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates a predefined tag name. This operation allows adding a name to the list of predefined tag names for the given subscription. A tag name can have a maximum of 512 characters and is case-insensitive. Tag names cannot have the following prefixes which are reserved for Azure use: 'microsoft', 'azure', 'windows'.
@@ -497,25 +446,12 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_value"
+    defaultValue="delete"
     values={[
-        { label: 'delete_value', value: 'delete_value' },
         { label: 'delete', value: 'delete' },
         { label: 'delete_at_scope', value: 'delete_at_scope' }
     ]}
 >
-<TabItem value="delete_value">
-
-Deletes a predefined tag value for a predefined tag name. This operation allows deleting a value from the list of predefined values for an existing predefined tag name. The value being deleted must not be in use as a tag value for the given tag name for any resource.
-
-```sql
-DELETE FROM azure.resource.tags
-WHERE tag_name = '{{ tag_name }}' --required
-AND tag_value = '{{ tag_value }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a predefined tag name. This operation allows deleting a name from the list of predefined tag names for the given subscription. The name being deleted must not be in use as a tag name for any resource. All predefined values for the given name must have already been deleted.
@@ -534,6 +470,42 @@ Deletes the entire set of tags on a resource or subscription. Deletes the entire
 ```sql
 DELETE FROM azure.resource.tags
 WHERE scope = '{{ scope }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="delete_value"
+    values={[
+        { label: 'delete_value', value: 'delete_value' },
+        { label: 'create_or_update_value', value: 'create_or_update_value' }
+    ]}
+>
+<TabItem value="delete_value">
+
+Deletes a predefined tag value for a predefined tag name. This operation allows deleting a value from the list of predefined values for an existing predefined tag name. The value being deleted must not be in use as a tag value for the given tag name for any resource.
+
+```sql
+EXEC azure.resource.tags.delete_value 
+@tag_name='{{ tag_name }}' --required, 
+@tag_value='{{ tag_value }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_value">
+
+Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.
+
+```sql
+EXEC azure.resource.tags.create_or_update_value 
+@tag_name='{{ tag_name }}' --required, 
+@tag_value='{{ tag_value }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

@@ -785,6 +785,11 @@ components:
         error:
           $ref: '#/components/schemas/ErrorMessage'
           description: Error message containing code, description and details.
+    NameUnavailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     NameAvailabilityInfo:
       type: object
       description: Description of name availability.
@@ -798,11 +803,6 @@ components:
         message:
           type: string
           description: message containing a detailed reason name is unavailable.
-    NameUnavailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: OperationDisplay.
@@ -1505,7 +1505,8 @@ paths:
                 $ref: '#/components/schemas/PagedSharedAccessSignatureAuthorizationRuleAccessRightsDescription'
       x-stackql-resource: iot_dps_resource
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Devices/provisioningServices/{provisioning_service_name}/keys/{key_name}/listkeys
   : post:
       operationId: IotDpsResource_list_keys_for_key_name
@@ -1538,7 +1539,7 @@ paths:
                 $ref: '#/components/schemas/SharedAccessSignatureAuthorizationRuleAccessRightsDescription'
       x-stackql-resource: iot_dps_resource
       x-stackql-method: list_keys_for_key_name
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Devices/provisioningServices/{resource_name}/privateLinkResources?api-version=2025-02-01-preview
   : get:
       operationId: IotDpsResource_list_private_link_resources
@@ -1774,7 +1775,7 @@ paths:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
       x-stackql-resource: iot_dps_resource
       x-stackql-method: create_or_update_private_endpoint_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: IotDpsResource_begin_delete_private_endpoint_connection
       description: Delete private endpoint connection with the specified name.
@@ -1811,7 +1812,7 @@ paths:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
       x-stackql-resource: iot_dps_resource
       x-stackql-method: delete_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/providers/Microsoft.Devices/checkProvisioningServiceNameAvailability?api-version=2025-02-01-preview
   : post:
       operationId: IotDpsResource_check_provisioning_service_name_availability
@@ -1844,7 +1845,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityInfo'
       x-stackql-resource: iot_dps_resource
       x-stackql-method: check_provisioning_service_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Devices/operations?api-version=2025-02-01-preview:
     get:
       operationId: iothubprovisioningservices_list

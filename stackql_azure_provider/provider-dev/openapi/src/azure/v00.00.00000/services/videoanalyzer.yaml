@@ -1421,6 +1421,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/edge_modules/methods/list_provisioning_token"
           - $ref: "#/components/x-stackQL-resources/edge_modules/methods/get"
           - $ref: "#/components/x-stackQL-resources/edge_modules/methods/list"
         insert:
@@ -1537,7 +1538,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/locations/methods/check_name_availability"
         insert: []
         update: []
         delete: []
@@ -2033,6 +2035,12 @@ paths:
       operationId: AccessPolicies_get
       description: Retrieves an existing access policy resource. Retrieves an existing access policy resource with the given name.
       parameters:
+        - name: access_policy_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Access Policy name.
         - name: account_name
           in: path
           required: true
@@ -2045,12 +2053,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: access_policy_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Access Policy name.
         - name: subscription_id
           in: path
           required: true
@@ -2067,6 +2069,12 @@ paths:
       operationId: AccessPolicies_create_or_update
       description: Creates a new access policy resource or updates an existing one. Creates a new access policy resource or updates an existing one with the given name.
       parameters:
+        - name: access_policy_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Access Policy name.
         - name: account_name
           in: path
           required: true
@@ -2079,12 +2087,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: access_policy_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Access Policy name.
         - name: subscription_id
           in: path
           required: true
@@ -2115,6 +2117,12 @@ paths:
       operationId: AccessPolicies_delete
       description: Deletes an existing access policy resource. Deletes an existing access policy resource with the given name.
       parameters:
+        - name: access_policy_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Access Policy name.
         - name: account_name
           in: path
           required: true
@@ -2127,12 +2135,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: access_policy_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Access Policy name.
         - name: subscription_id
           in: path
           required: true
@@ -2145,6 +2147,12 @@ paths:
       operationId: AccessPolicies_update
       description: Updates individual properties of an existing access policy resource. Updates individual properties of an existing access policy resource with the given name.
       parameters:
+        - name: access_policy_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Access Policy name.
         - name: account_name
           in: path
           required: true
@@ -2157,12 +2165,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: access_policy_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Access Policy name.
         - name: subscription_id
           in: path
           required: true
@@ -2229,18 +2231,18 @@ paths:
       operationId: EdgeModules_get
       description: Retrieves an existing edge module resource. Retrieves an existing edge module resource with the given name.
       parameters:
-        - name: account_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Azure Video Analyzer account name.
         - name: edge_module_name
           in: path
           required: true
           schema:
             type: string
           description: The Edge Module name.
+        - name: account_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Azure Video Analyzer account name.
         - name: resource_group_name
           in: path
           required: true
@@ -2263,18 +2265,18 @@ paths:
       operationId: EdgeModules_create_or_update
       description: Creates a new edge module or updates an existing one. Creates a new edge module or updates an existing one. An edge module resource enables a single instance of an Azure Video Analyzer IoT edge module to interact with the Video Analyzer Account. This is used for authorization and also to make sure that the particular edge module instance only has access to the data it requires from the Azure Video Analyzer service. A new edge module resource should be created for every new instance of an Azure Video Analyzer edge module deployed to you Azure IoT edge environment. Edge module resources can be deleted if the specific module is not in use anymore.
       parameters:
-        - name: account_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Azure Video Analyzer account name.
         - name: edge_module_name
           in: path
           required: true
           schema:
             type: string
           description: The Edge Module name.
+        - name: account_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Azure Video Analyzer account name.
         - name: resource_group_name
           in: path
           required: true
@@ -2303,18 +2305,18 @@ paths:
       operationId: EdgeModules_delete
       description: Deletes an existing edge module resource. Deletes an existing edge module resource. Deleting the edge module resource will prevent an Azure Video Analyzer IoT edge module which was previously initiated with the module provisioning token from communicating with the cloud.
       parameters:
-        - name: account_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Azure Video Analyzer account name.
         - name: edge_module_name
           in: path
           required: true
           schema:
             type: string
           description: The Edge Module name.
+        - name: account_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Azure Video Analyzer account name.
         - name: resource_group_name
           in: path
           required: true
@@ -2369,18 +2371,18 @@ paths:
       operationId: EdgeModules_list_provisioning_token
       description: Creates a new provisioning token. Creates a new provisioning token. A provisioning token allows for a single instance of Azure Video analyzer IoT edge module to be initialized and authorized to the cloud account. The provisioning token itself is short lived and it is only used for the initial handshake between IoT edge module and the cloud. After the initial handshake, the IoT edge module will agree on a set of authentication keys which will be auto-rotated as long as the module is able to periodically connect to the cloud. A new provisioning token can be generated for the same IoT edge module in case the module state lost or reset.
       parameters:
-        - name: account_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The Azure Video Analyzer account name.
         - name: edge_module_name
           in: path
           required: true
           schema:
             type: string
           description: The Edge Module name.
+        - name: account_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The Azure Video Analyzer account name.
         - name: resource_group_name
           in: path
           required: true
@@ -2416,6 +2418,12 @@ paths:
       operationId: LivePipelineOperationStatuses_get
       description: Get the operation status. Get the operation status of a live pipeline.
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2434,12 +2442,6 @@ paths:
           schema:
             type: string
           description: The operation ID.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2457,6 +2459,12 @@ paths:
       operationId: LivePipelines_get
       description: Retrieves a specific live pipeline by name. Retrieves a specific live pipeline by name. If a live pipeline with that name has been previously created, the call will return the JSON representation of that instance.
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2469,12 +2477,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2491,6 +2493,12 @@ paths:
       operationId: LivePipelines_create_or_update
       description: Creates or updates a live pipeline. Creates a new live pipeline or updates an existing one, with the given name.
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2503,12 +2511,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2545,6 +2547,12 @@ paths:
       operationId: LivePipelines_delete
       description: Deletes a live pipeline. Deletes a live pipeline with the given name.
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2557,12 +2565,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2575,6 +2577,12 @@ paths:
       operationId: LivePipelines_update
       description: "Updates an existing live pipeline. Updates an existing live pipeline with the given name. Properties that can be updated include: description, bitrateKbps, and parameter definitions. Only the description can be updated while the live pipeline is active."
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2587,12 +2595,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2671,6 +2673,12 @@ paths:
       operationId: LivePipelines_begin_activate
       description: Activates a live pipeline. Activates a live pipeline with the given name.
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2683,12 +2691,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2702,6 +2704,12 @@ paths:
       operationId: LivePipelines_begin_deactivate
       description: Deactivates a live pipeline. Deactivates a live pipeline with the given name.
       parameters:
+        - name: live_pipeline_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Live pipeline unique identifier.
         - name: account_name
           in: path
           required: true
@@ -2714,12 +2722,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: live_pipeline_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Live pipeline unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -2767,6 +2769,12 @@ paths:
       operationId: OperationResults_get
       description: Get operation result. Get private endpoint connection operation result.
       parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Private endpoint connection name.
         - name: account_name
           in: path
           required: true
@@ -2785,12 +2793,6 @@ paths:
           schema:
             type: string
           description: Operation Id.
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Private endpoint connection name.
         - name: subscription_id
           in: path
           required: true
@@ -2808,6 +2810,12 @@ paths:
       operationId: OperationStatuses_get
       description: Get operation status. Get private endpoint connection operation status.
       parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Private endpoint connection name.
         - name: account_name
           in: path
           required: true
@@ -2826,12 +2834,6 @@ paths:
           schema:
             type: string
           description: Operation Id.
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Private endpoint connection name.
         - name: subscription_id
           in: path
           required: true
@@ -2867,18 +2869,18 @@ paths:
           schema:
             type: string
           description: The Azure Video Analyzer account name.
-        - name: pipeline_job_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The pipeline job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
+        - name: pipeline_job_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The pipeline job name.
         - name: operation_id
           in: path
           required: true
@@ -2908,18 +2910,18 @@ paths:
           schema:
             type: string
           description: The Azure Video Analyzer account name.
-        - name: pipeline_job_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The pipeline job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
+        - name: pipeline_job_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The pipeline job name.
         - name: subscription_id
           in: path
           required: true
@@ -2942,18 +2944,18 @@ paths:
           schema:
             type: string
           description: The Azure Video Analyzer account name.
-        - name: pipeline_job_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The pipeline job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
+        - name: pipeline_job_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The pipeline job name.
         - name: subscription_id
           in: path
           required: true
@@ -2994,18 +2996,18 @@ paths:
           schema:
             type: string
           description: The Azure Video Analyzer account name.
-        - name: pipeline_job_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The pipeline job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
+        - name: pipeline_job_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The pipeline job name.
         - name: subscription_id
           in: path
           required: true
@@ -3024,18 +3026,18 @@ paths:
           schema:
             type: string
           description: The Azure Video Analyzer account name.
-        - name: pipeline_job_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The pipeline job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
+        - name: pipeline_job_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The pipeline job name.
         - name: subscription_id
           in: path
           required: true
@@ -3118,18 +3120,18 @@ paths:
           schema:
             type: string
           description: The Azure Video Analyzer account name.
-        - name: pipeline_job_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The pipeline job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
+        - name: pipeline_job_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The pipeline job name.
         - name: subscription_id
           in: path
           required: true
@@ -3143,6 +3145,12 @@ paths:
       operationId: PipelineTopologies_get
       description: Retrieves a specific pipeline topology by name. Retrieves a specific pipeline topology by name. If a topology with that name has been previously created, the call will return the JSON representation of that topology.
       parameters:
+        - name: pipeline_topology_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Pipeline topology unique identifier.
         - name: account_name
           in: path
           required: true
@@ -3155,12 +3163,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: pipeline_topology_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Pipeline topology unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -3177,6 +3179,12 @@ paths:
       operationId: PipelineTopologies_create_or_update
       description: Creates or updates a pipeline topology. Creates a new pipeline topology or updates an existing one, with the given name. A pipeline topology describes the processing steps to be applied when processing content for a particular outcome. The topology should be defined according to the scenario to be achieved and can be reused across many pipeline instances which share the same processing characteristics.
       parameters:
+        - name: pipeline_topology_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Pipeline topology unique identifier.
         - name: account_name
           in: path
           required: true
@@ -3189,12 +3197,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: pipeline_topology_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Pipeline topology unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -3246,6 +3248,12 @@ paths:
       operationId: PipelineTopologies_delete
       description: Deletes a pipeline topology. Deletes a pipeline topology with the given name. This method should be called after all instances of the topology have been stopped and deleted.
       parameters:
+        - name: pipeline_topology_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Pipeline topology unique identifier.
         - name: account_name
           in: path
           required: true
@@ -3258,12 +3266,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: pipeline_topology_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Pipeline topology unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -3276,6 +3278,12 @@ paths:
       operationId: PipelineTopologies_update
       description: "Updates an existing pipeline topology. Updates an existing pipeline topology with the given name. If the associated live pipelines or pipeline jobs are in active or processing state, respectively, then only the description can be updated. Else, the properties that can be updated include: description, parameter declarations, sources, processors, and sinks."
       parameters:
+        - name: pipeline_topology_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Pipeline topology unique identifier.
         - name: account_name
           in: path
           required: true
@@ -3288,12 +3296,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: pipeline_topology_name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Pipeline topology unique identifier.
         - name: subscription_id
           in: path
           required: true
@@ -3384,6 +3386,12 @@ paths:
       operationId: PrivateEndpointConnections_get
       description: Get private endpoint connection. Get private endpoint connection under video analyzer account.
       parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Private endpoint connection name.
         - name: account_name
           in: path
           required: true
@@ -3396,12 +3404,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Private endpoint connection name.
         - name: subscription_id
           in: path
           required: true
@@ -3418,6 +3420,12 @@ paths:
       operationId: PrivateEndpointConnections_create_or_update
       description: Update private endpoint connection. Update private endpoint connection state under video analyzer account.
       parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Private endpoint connection name.
         - name: account_name
           in: path
           required: true
@@ -3430,12 +3438,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Private endpoint connection name.
         - name: subscription_id
           in: path
           required: true
@@ -3466,6 +3468,12 @@ paths:
       operationId: PrivateEndpointConnections_delete
       description: Delete private endpoint connection. Delete private endpoint connection under video analyzer account.
       parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Private endpoint connection name.
         - name: account_name
           in: path
           required: true
@@ -3478,12 +3486,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Private endpoint connection name.
         - name: subscription_id
           in: path
           required: true
@@ -3526,6 +3528,12 @@ paths:
       operationId: PrivateLinkResources_get
       description: Get group ID. Get group ID for video analyzer account.
       parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Name of the private link resource (Group ID).
         - name: account_name
           in: path
           required: true
@@ -3538,12 +3546,6 @@ paths:
           schema:
             type: string
           description: The name of the resource group. The name is case insensitive.
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Name of the private link resource (Group ID).
         - name: subscription_id
           in: path
           required: true
@@ -3590,18 +3592,18 @@ paths:
       operationId: VideoAnalyzerOperationResults_get
       description: Get operation result. Get video analyzer operation result.
       parameters:
-        - name: operation_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Operation Id.
         - name: location_name
           in: path
           required: true
           schema:
             type: string
           description: Location name.
+        - name: operation_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Operation Id.
         - name: subscription_id
           in: path
           required: true
@@ -3619,18 +3621,18 @@ paths:
       operationId: VideoAnalyzerOperationStatuses_get
       description: Get operation status. Get video analyzer operation status.
       parameters:
-        - name: operation_id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Operation Id.
         - name: location_name
           in: path
           required: true
           schema:
             type: string
           description: Location name.
+        - name: operation_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Operation Id.
         - name: subscription_id
           in: path
           required: true

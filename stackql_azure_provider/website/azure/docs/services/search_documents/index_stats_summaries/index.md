@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#list_index_stats_summary"><CopyableCode code="list_index_stats_summary" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$skip"><code>$skip</code></a>, <a href="#parameter-$count"><code>$count</code></a></td>
     <td>Retrieves a summary of statistics for all indexes in the search service.</td>
 </tr>
@@ -73,10 +73,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>Search service name. (default: )</td>
 </tr>
 <tr id="parameter-$count">
     <td><CopyableCode code="$count" /></td>
@@ -110,7 +110,7 @@ Retrieves a summary of statistics for all indexes in the search service.
 
 ```sql
 EXEC azure.search_documents.index_stats_summaries.list_index_stats_summary 
-@endpoint='{{ endpoint }}' --required, 
+@search_service_name='{{ search_service_name }}' --required, 
 @$top='{{ $top }}', 
 @$skip='{{ $skip }}', 
 @$count={{ $count }}

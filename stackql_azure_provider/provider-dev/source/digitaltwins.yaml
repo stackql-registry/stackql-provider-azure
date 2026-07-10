@@ -1062,7 +1062,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: digital_twins
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.DigitalTwins/operations?api-version=2023-01-31:
     get:
       operationId: digitaltwins_list

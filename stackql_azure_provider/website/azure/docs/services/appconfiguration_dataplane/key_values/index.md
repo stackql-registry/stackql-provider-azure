@@ -177,21 +177,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_key_value"><CopyableCode code="get_key_value" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-key"><code>key</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-label"><code>label</code></a>, <a href="#parameter-$Select"><code>$Select</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a>, <a href="#parameter-Accept-Datetime"><code>Accept-Datetime</code></a></td>
     <td>Gets a single key-value. Gets a single key-value.</td>
 </tr>
 <tr>
     <td><a href="#get_key_values"><CopyableCode code="get_key_values" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-key"><code>key</code></a>, <a href="#parameter-label"><code>label</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a>, <a href="#parameter-After"><code>After</code></a>, <a href="#parameter-Accept-Datetime"><code>Accept-Datetime</code></a>, <a href="#parameter-$Select"><code>$Select</code></a>, <a href="#parameter-snapshot"><code>snapshot</code></a></td>
     <td>Gets a list of key-values. Gets a list of key-values.</td>
 </tr>
 <tr>
     <td><a href="#delete_key_value"><CopyableCode code="delete_key_value" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-key"><code>key</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-label"><code>label</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Deletes a key-value. Deletes a key-value.</td>
 </tr>
@@ -211,13 +211,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-config_store_name">
+    <td><CopyableCode code="config_store_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>App Configuration store name. (default: )</td>
 </tr>
-<tr id="parameter-key">
-    <td><CopyableCode code="key" /></td>
+<tr id="parameter-key_name">
+    <td><CopyableCode code="key_name" /></td>
     <td><code>string</code></td>
     <td>The key of the key-value to delete. Required.</td>
 </tr>
@@ -284,8 +284,8 @@ locked,
 tags,
 value
 FROM azure.appconfiguration_dataplane.key_values
-WHERE key = '{{ key }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
+WHERE key_name = '{{ key_name }}' -- required
+AND config_store_name = '{{ config_store_name }}' -- required
 AND label = '{{ label }}'
 AND $Select = '{{ $Select }}'
 AND Sync-Token = '{{ Sync-Token }}'
@@ -309,7 +309,7 @@ locked,
 tags,
 value
 FROM azure.appconfiguration_dataplane.key_values
-WHERE endpoint = '{{ endpoint }}' -- required
+WHERE config_store_name = '{{ config_store_name }}' -- required
 AND key = '{{ key }}'
 AND label = '{{ label }}'
 AND Sync-Token = '{{ Sync-Token }}'
@@ -337,8 +337,8 @@ Deletes a key-value. Deletes a key-value.
 
 ```sql
 DELETE FROM azure.appconfiguration_dataplane.key_values
-WHERE key = '{{ key }}' --required
-AND endpoint = '{{ endpoint }}' --required
+WHERE key_name = '{{ key_name }}' --required
+AND config_store_name = '{{ config_store_name }}' --required
 AND label = '{{ label }}'
 AND Sync-Token = '{{ Sync-Token }}'
 ;

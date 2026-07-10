@@ -2988,7 +2988,6 @@ components:
         replace:
           - $ref: "#/components/x-stackQL-resources/private_accesses/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/private_accesses/methods/delete_a_private_endpoint_connection"
           - $ref: "#/components/x-stackQL-resources/private_accesses/methods/delete"
     scenario_configurations:
       id: azure_extras.chaos.scenario_configurations

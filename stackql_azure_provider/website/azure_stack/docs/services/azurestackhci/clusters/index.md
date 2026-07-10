@@ -728,13 +728,6 @@ The following methods are available for this resource:
     <td>Create an HCI cluster.</td>
 </tr>
 <tr>
-    <td><a href="#create_identity"><CopyableCode code="create_identity" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create cluster identity.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -761,6 +754,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Upload certificate.</td>
+</tr>
+<tr>
+    <td><a href="#create_identity"><CopyableCode code="create_identity" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create cluster identity.</td>
 </tr>
 <tr>
     <td><a href="#extend_software_assurance_benefit"><CopyableCode code="extend_software_assurance_benefit" /></a></td>
@@ -999,7 +999,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create"
     values={[
         { label: 'create', value: 'create' },
-        { label: 'create_identity', value: 'create_identity' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -1037,25 +1036,6 @@ properties,
 systemData,
 tags,
 type
-;
-```
-</TabItem>
-<TabItem value="create_identity">
-
-Create cluster identity.
-
-```sql
-INSERT INTO azure_stack.azurestackhci.clusters (
-resource_group_name,
-cluster_name,
-subscription_id
-)
-SELECT 
-'{{ resource_group_name }}',
-'{{ cluster_name }}',
-'{{ subscription_id }}'
-RETURNING
-properties
 ;
 ```
 </TabItem>
@@ -1289,6 +1269,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'update_secrets_locations', value: 'update_secrets_locations' },
         { label: 'upload_certificate', value: 'upload_certificate' },
+        { label: 'create_identity', value: 'create_identity' },
         { label: 'extend_software_assurance_benefit', value: 'extend_software_assurance_benefit' },
         { label: 'change_ring', value: 'change_ring' },
         { label: 'trigger_log_collection', value: 'trigger_log_collection' },
@@ -1324,6 +1305,18 @@ EXEC azure_stack.azurestackhci.clusters.upload_certificate
 '{
 "properties": "{{ properties }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="create_identity">
+
+Create cluster identity.
+
+```sql
+EXEC azure_stack.azurestackhci.clusters.create_identity 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@cluster_name='{{ cluster_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

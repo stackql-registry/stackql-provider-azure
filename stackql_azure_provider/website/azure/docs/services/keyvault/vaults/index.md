@@ -460,13 +460,6 @@ The following methods are available for this resource:
     <td>Create or update a key vault in the specified subscription.</td>
 </tr>
 <tr>
-    <td><a href="#update_access_policy"><CopyableCode code="update_access_policy" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-operation_kind"><code>operation_kind</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update access policies in a key vault in the specified subscription.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -488,13 +481,6 @@ The following methods are available for this resource:
     <td>Deletes the specified Azure key vault.</td>
 </tr>
 <tr>
-    <td><a href="#purge_deleted"><CopyableCode code="purge_deleted" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Permanently deletes the specified vault. aka Purges the deleted Azure key vault.</td>
-</tr>
-<tr>
     <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -507,6 +493,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets information about the deleted vaults in a subscription.</td>
+</tr>
+<tr>
+    <td><a href="#update_access_policy"><CopyableCode code="update_access_policy" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-operation_kind"><code>operation_kind</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update access policies in a key vault in the specified subscription.</td>
+</tr>
+<tr>
+    <td><a href="#purge_deleted"><CopyableCode code="purge_deleted" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Permanently deletes the specified vault. aka Purges the deleted Azure key vault.</td>
 </tr>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
@@ -814,34 +814,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_access_policy"
+    defaultValue="update"
     values={[
-        { label: 'update_access_policy', value: 'update_access_policy' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_access_policy">
-
-Update access policies in a key vault in the specified subscription.
-
-```sql
-UPDATE azure.keyvault.vaults
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND vault_name = '{{ vault_name }}' --required
-AND operation_kind = '{{ operation_kind }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Update a key vault in the specified subscription.
@@ -910,8 +887,7 @@ type;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'purge_deleted', value: 'purge_deleted' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -926,18 +902,6 @@ AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="purge_deleted">
-
-Permanently deletes the specified vault. aka Purges the deleted Azure key vault.
-
-```sql
-DELETE FROM azure.keyvault.vaults
-WHERE vault_name = '{{ vault_name }}' --required
-AND location = '{{ location }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
@@ -948,6 +912,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_by_subscription', value: 'list_by_subscription' },
         { label: 'list_deleted', value: 'list_deleted' },
+        { label: 'update_access_policy', value: 'update_access_policy' },
+        { label: 'purge_deleted', value: 'purge_deleted' },
         { label: 'check_name_availability', value: 'check_name_availability' }
     ]}
 >
@@ -968,6 +934,35 @@ Gets information about the deleted vaults in a subscription.
 
 ```sql
 EXEC azure.keyvault.vaults.list_deleted 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_access_policy">
+
+Update access policies in a key vault in the specified subscription.
+
+```sql
+EXEC azure.keyvault.vaults.update_access_policy 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@vault_name='{{ vault_name }}' --required, 
+@operation_kind='{{ operation_kind }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="purge_deleted">
+
+Permanently deletes the specified vault. aka Purges the deleted Azure key vault.
+
+```sql
+EXEC azure.keyvault.vaults.purge_deleted 
+@vault_name='{{ vault_name }}' --required, 
+@location='{{ location }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

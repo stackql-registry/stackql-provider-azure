@@ -286,6 +286,11 @@ components:
           $ref: '#/components/schemas/EnablementStatus'
           description: 'When enabled, this feature allows the workspace to use local auth(through access key) for
             authentication of test runs. Known values are: "Enabled" and "Disabled".'
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -299,11 +304,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: Localized display information for and operation. Readonly variables are only populated by the
@@ -763,7 +763,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: accounts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.AzurePlaywrightService/operations?api-version=2024-12-01:
     get:
       operationId: playwrighttesting_list

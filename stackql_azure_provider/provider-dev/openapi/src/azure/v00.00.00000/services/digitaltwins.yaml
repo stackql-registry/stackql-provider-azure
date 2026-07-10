@@ -735,6 +735,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/digital_twins/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/digital_twins/methods/get"
           - $ref: "#/components/x-stackQL-resources/digital_twins/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/digital_twins/methods/list"

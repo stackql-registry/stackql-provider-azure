@@ -339,19 +339,6 @@ components:
           description: Identity for the resource.
       required:
       - location
-    ApplianceListCredentialResults:
-      type: object
-      description: The List Cluster User Credential appliance.
-      properties:
-        hybridConnectionConfig:
-          $ref: '#/components/schemas/HybridConnectionConfig'
-          description: Contains the REP (rendezvous endpoint) and “Listener” access token from notification service
-            (NS).
-        kubeconfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplianceCredentialKubeconfig'
-          description: The list of appliance kubeconfigs.
     HybridConnectionConfig:
       type: object
       description: Contains the REP (rendezvous endpoint) and “Listener” access token from notification service
@@ -384,6 +371,19 @@ components:
       enum:
       - clusterUser
       - clusterCustomerUser
+    ApplianceListCredentialResults:
+      type: object
+      description: The List Cluster User Credential appliance.
+      properties:
+        hybridConnectionConfig:
+          $ref: '#/components/schemas/HybridConnectionConfig'
+          description: Contains the REP (rendezvous endpoint) and “Listener” access token from notification service
+            (NS).
+        kubeconfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplianceCredentialKubeconfig'
+          description: The list of appliance kubeconfigs.
     ApplianceListKeysResults:
       type: object
       description: The List Cluster Keys Results appliance.
@@ -759,7 +759,7 @@ paths:
                 $ref: '#/components/schemas/ApplianceListCredentialResults'
       x-stackql-resource: appliances
       x-stackql-method: list_cluster_user_credential
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ResourceConnector/appliances/{resource_name}/listkeys?api-version=2025-03-01-preview
   : post:
       operationId: Appliances_list_keys
@@ -798,7 +798,7 @@ paths:
                 $ref: '#/components/schemas/ApplianceListKeysResults'
       x-stackql-resource: appliances
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.ResourceConnector/operations?api-version=2025-03-01-preview:
     get:
       operationId: Appliances_list_operations

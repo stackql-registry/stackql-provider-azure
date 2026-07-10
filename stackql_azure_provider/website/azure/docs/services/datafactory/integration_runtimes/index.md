@@ -166,13 +166,6 @@ The following methods are available for this resource:
     <td>Creates or updates an integration runtime.</td>
 </tr>
 <tr>
-    <td><a href="#create_linked_integration_runtime"><CopyableCode code="create_linked_integration_runtime" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a linked integration runtime entry in a shared integration runtime.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -270,6 +263,13 @@ The following methods are available for this resource:
     <td></td>
     <td>Remove all linked integration runtimes under specific data factory in a self-hosted integration runtime.</td>
 </tr>
+<tr>
+    <td><a href="#create_linked_integration_runtime"><CopyableCode code="create_linked_integration_runtime" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a linked integration runtime entry in a shared integration runtime.</td>
+</tr>
 </tbody>
 </table>
 
@@ -366,7 +366,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_linked_integration_runtime', value: 'create_linked_integration_runtime' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -398,36 +397,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_linked_integration_runtime">
-
-Create a linked integration runtime entry in a shared integration runtime.
-
-```sql
-INSERT INTO azure.datafactory.integration_runtimes (
-name,
-subscriptionId,
-dataFactoryName,
-dataFactoryLocation,
-resource_group_name,
-factory_name,
-integration_runtime_name,
-subscription_id
-)
-SELECT 
-'{{ name }}',
-'{{ subscriptionId }}',
-'{{ dataFactoryName }}',
-'{{ dataFactoryLocation }}',
-'{{ resource_group_name }}',
-'{{ factory_name }}',
-'{{ integration_runtime_name }}',
-'{{ subscription_id }}'
-RETURNING
-name,
-properties
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -451,22 +420,6 @@ properties
       value:
         type: "{{ type }}"
         description: "{{ description }}"
-    - name: name
-      value: "{{ name }}"
-      description: |
-        The name of the linked integration runtime.
-    - name: subscriptionId
-      value: "{{ subscriptionId }}"
-      description: |
-        The ID of the subscription that the linked integration runtime belongs to.
-    - name: dataFactoryName
-      value: "{{ dataFactoryName }}"
-      description: |
-        The name of the data factory that the linked integration runtime belongs to.
-    - name: dataFactoryLocation
-      value: "{{ dataFactoryLocation }}"
-      description: |
-        The location of the data factory that the linked integration runtime belongs to.
 `}</CodeBlock>
 
 </TabItem>
@@ -580,7 +533,8 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'stop', value: 'stop' },
         { label: 'sync_credentials', value: 'sync_credentials' },
         { label: 'upgrade', value: 'upgrade' },
-        { label: 'remove_links', value: 'remove_links' }
+        { label: 'remove_links', value: 'remove_links' },
+        { label: 'create_linked_integration_runtime', value: 'create_linked_integration_runtime' }
     ]}
 >
 <TabItem value="list_outbound_network_dependencies_endpoints">
@@ -730,6 +684,26 @@ EXEC azure.datafactory.integration_runtimes.remove_links
 @@json=
 '{
 "factoryName": "{{ factoryName }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_linked_integration_runtime">
+
+Create a linked integration runtime entry in a shared integration runtime.
+
+```sql
+EXEC azure.datafactory.integration_runtimes.create_linked_integration_runtime 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@factory_name='{{ factory_name }}' --required, 
+@integration_runtime_name='{{ integration_runtime_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"subscriptionId": "{{ subscriptionId }}", 
+"dataFactoryName": "{{ dataFactoryName }}", 
+"dataFactoryLocation": "{{ dataFactoryLocation }}"
 }'
 ;
 ```

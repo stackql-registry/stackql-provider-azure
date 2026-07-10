@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_product_serial_number"><CopyableCode code="create_product_serial_number" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>create_product_serial_number.</td>
-</tr>
-<tr>
     <td><a href="#list_cloud_manager_tenants"><CopyableCode code="list_cloud_manager_tenants" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -77,6 +70,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>list_support_info.</td>
+</tr>
+<tr>
+    <td><a href="#create_product_serial_number"><CopyableCode code="create_product_serial_number" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>create_product_serial_number.</td>
 </tr>
 </tbody>
 </table>
@@ -102,44 +102,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_product_serial_number"
-    values={[
-        { label: 'create_product_serial_number', value: 'create_product_serial_number' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_product_serial_number">
-
-create_product_serial_number.
-
-```sql
-INSERT INTO azure_isv.paloaltonetworksngfw.palo_alto_networks_cloudngfw_operations (
-subscription_id
-)
-SELECT 
-'{{ subscription_id }}'
-RETURNING
-status
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: palo_alto_networks_cloudngfw_operations
-  props:
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the palo_alto_networks_cloudngfw_operations resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -147,7 +109,8 @@ status
     values={[
         { label: 'list_cloud_manager_tenants', value: 'list_cloud_manager_tenants' },
         { label: 'list_product_serial_number_status', value: 'list_product_serial_number_status' },
-        { label: 'list_support_info', value: 'list_support_info' }
+        { label: 'list_support_info', value: 'list_support_info' },
+        { label: 'create_product_serial_number', value: 'create_product_serial_number' }
     ]}
 >
 <TabItem value="list_cloud_manager_tenants">
@@ -176,6 +139,16 @@ list_support_info.
 
 ```sql
 EXEC azure_isv.paloaltonetworksngfw.palo_alto_networks_cloudngfw_operations.list_support_info 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_product_serial_number">
+
+create_product_serial_number.
+
+```sql
+EXEC azure_isv.paloaltonetworksngfw.palo_alto_networks_cloudngfw_operations.create_product_serial_number 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

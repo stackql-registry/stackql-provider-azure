@@ -76,12 +76,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-api_version">
     <td><CopyableCode code="api_version" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `apiVersion` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `apiVersion` parameter. (default: )</td>
 </tr>
 <tr id="parameter-host">
     <td><CopyableCode code="host" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `host` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `host` parameter. (default: )</td>
 </tr>
 </tbody>
 </table>

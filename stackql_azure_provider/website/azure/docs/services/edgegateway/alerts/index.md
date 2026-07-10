@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Gets an alert by name.</td>
 </tr>
 <tr>
     <td><a href="#list_by_data_box_edge_device"><CopyableCode code="list_by_data_box_edge_device" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Gets all the alerts for a data box edge/gateway device.</td>
 </tr>
@@ -124,8 +124,8 @@ Gets an alert by name.
 ```sql
 EXEC azure.edgegateway.alerts.get_raw 
 @name='{{ name }}' --required, 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;
@@ -137,8 +137,8 @@ Gets all the alerts for a data box edge/gateway device.
 
 ```sql
 EXEC azure.edgegateway.alerts.list_by_data_box_edge_device 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;

@@ -734,7 +734,7 @@ paths:
                 $ref: '#/components/schemas/ApplyUpdate'
       x-stackql-resource: apply_updates
       x-stackql-method: create_or_update_or_cancel
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.Maintenance/applyUpdates?api-version=2023-10-01-preview:
     get:
       operationId: ApplyUpdates_list
@@ -920,7 +920,7 @@ paths:
                 $ref: '#/components/schemas/ApplyUpdate'
       x-stackql-resource: apply_updates
       x-stackql-method: create_or_update_parent
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Maintenance/configurationAssignments/{configuration_assignment_name}?api-version=2023-10-01-preview
   : get:
       operationId: ConfigurationAssignmentsForResourceGroup_get
@@ -1606,7 +1606,7 @@ paths:
                 $ref: '#/components/schemas/ConfigurationAssignment'
       x-stackql-resource: configuration_assignments
       x-stackql-method: create_or_update_parent
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: ConfigurationAssignments_delete_parent
       description: Unregister configuration for resource.
@@ -1667,7 +1667,7 @@ paths:
                 $ref: '#/components/schemas/ConfigurationAssignment'
       x-stackql-resource: configuration_assignments
       x-stackql-method: delete_parent
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.Maintenance/configurationAssignments?api-version=2023-10-01-preview:
     get:
       operationId: ConfigurationAssignmentsWithinSubscription_list

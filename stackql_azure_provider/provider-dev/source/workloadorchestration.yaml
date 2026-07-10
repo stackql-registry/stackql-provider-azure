@@ -2947,7 +2947,7 @@ paths:
                 $ref: '#/components/schemas/ConfigTemplateVersion'
       x-stackql-resource: config_templates
       x-stackql-method: create_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/configTemplates/{config_template_name}/removeVersion?api-version=2025-06-01
   : post:
       operationId: ConfigTemplates_remove_version
@@ -5022,7 +5022,7 @@ paths:
                 $ref: '#/components/schemas/SchemaVersion'
       x-stackql-resource: schemas
       x-stackql-method: create_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/schemas/{schema_name}/removeVersion?api-version=2025-06-01
   : post:
       operationId: Schemas_remove_version
@@ -5707,7 +5707,7 @@ paths:
                 $ref: '#/components/schemas/SolutionTemplateVersion'
       x-stackql-resource: solution_templates
       x-stackql-method: create_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/solutionTemplates/{solution_template_name}/removeVersion?api-version=2025-06-01
   : post:
       operationId: SolutionTemplates_begin_remove_version

@@ -169,13 +169,6 @@ The following methods are available for this resource:
     <td>Returns a list of labels in the given workspace.</td>
 </tr>
 <tr>
-    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-label_name"><code>label_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a Label.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-label_name"><code>label_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -188,6 +181,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-label_name"><code>label_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a Label.</td>
+</tr>
+<tr>
+    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-label_name"><code>label_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a Label.</td>
 </tr>
 </tbody>
 </table>
@@ -281,69 +281,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_and_update"
-    values={[
-        { label: 'create_and_update', value: 'create_and_update' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_and_update">
-
-Create or update a Label.
-
-```sql
-INSERT INTO azure.defendereasm.labels (
-properties,
-resource_group_name,
-workspace_name,
-label_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ workspace_name }}',
-'{{ label_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: labels
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the labels resource.
-    - name: workspace_name
-      value: "{{ workspace_name }}"
-      description: Required parameter for the labels resource.
-    - name: label_name
-      value: "{{ label_name }}"
-      description: Required parameter for the labels resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the labels resource.
-    - name: properties
-      value:
-        displayName: "{{ displayName }}"
-        color: "{{ color }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -394,6 +331,34 @@ WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND workspace_name = '{{ workspace_name }}' --required
 AND label_name = '{{ label_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_and_update"
+    values={[
+        { label: 'create_and_update', value: 'create_and_update' }
+    ]}
+>
+<TabItem value="create_and_update">
+
+Create or update a Label.
+
+```sql
+EXEC azure.defendereasm.labels.create_and_update 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@workspace_name='{{ workspace_name }}' --required, 
+@label_name='{{ label_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

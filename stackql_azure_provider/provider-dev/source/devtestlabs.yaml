@@ -2173,15 +2173,6 @@ components:
             $ref: '#/components/schemas/OperationMetadata'
         nextLink:
           type: string
-    PagedSchedule:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule'
-        nextLink:
-          type: string
     SecretFlattened:
       type: object
       description: Flattened view of Secret ('properties' hoisted to the top level).
@@ -2365,6 +2356,32 @@ components:
             uniqueIdentifier:
               type: string
               description: The unique immutable identifier of a resource (Guid).
+    ApplicableScheduleFlattened:
+      type: object
+      description: Flattened view of ApplicableSchedule ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The identifier of the resource.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource.
+        location:
+          type: string
+          description: The location of the resource.
+        tags:
+          type: object
+          properties: {}
+          description: The tags of the resource.
+        labVmsShutdown:
+          $ref: '#/components/schemas/Schedule'
+          description: The auto-shutdown schedule, if one has been set at the lab or lab resource level.
+        labVmsStartup:
+          $ref: '#/components/schemas/Schedule'
+          description: The auto-startup schedule, if one has been set at the lab or lab resource level.
     IdentityProperties:
       type: object
       description: Properties of a managed identity.
@@ -5607,7 +5624,8 @@ paths:
                 $ref: '#/components/schemas/PagedLabVhd'
       x-stackql-resource: labs
       x-stackql-method: list_vhds
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{name}/claimAnyVm?api-version=2018-09-15
   : post:
       operationId: Labs_begin_claim_any_vm
@@ -5763,7 +5781,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: labs
       x-stackql-method: create_environment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{name}/exportResourceUsage?api-version=2018-09-15
   : post:
       operationId: Labs_begin_export_resource_usage
@@ -6826,10 +6844,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedSchedule'
+                $ref: '#/components/schemas/PagedScheduleFlattened'
       x-stackql-resource: schedules
       x-stackql-method: list_applicable
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/schedules/{name}/execute?api-version=2018-09-15
   : post:
       operationId: Schedules_begin_execute
@@ -7802,10 +7823,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApplicableSchedule'
+                $ref: '#/components/schemas/ApplicableScheduleFlattened'
       x-stackql-resource: service_fabrics
       x-stackql-method: list_applicable_schedules
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/users/{user_name}/servicefabrics/{name}/start?api-version=2018-09-15
   : post:
       operationId: ServiceFabrics_begin_start
@@ -8920,10 +8942,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApplicableSchedule'
+                $ref: '#/components/schemas/ApplicableScheduleFlattened'
       x-stackql-resource: virtual_machines
       x-stackql-method: list_applicable_schedules
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/virtualmachines/{name}/getRdpFileContents?api-version=2018-09-15
   : post:
       operationId: VirtualMachines_get_rdp_file_contents
@@ -8961,7 +8984,7 @@ paths:
                 $ref: '#/components/schemas/RdpConnection'
       x-stackql-resource: virtual_machines
       x-stackql-method: get_rdp_file_contents
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/virtualmachines/{name}/addDataDisk?api-version=2018-09-15
   : post:
       operationId: VirtualMachines_begin_add_data_disk

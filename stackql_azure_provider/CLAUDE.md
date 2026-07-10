@@ -97,7 +97,12 @@ No `allOf` / `oneOf` / `anyOf` / `additionalProperties`. Maps emit `{type: objec
 
 ### 5. sqlVerbs - dedupe, canonical preference, ordering
 
-Within each `(resource, sqlVerb)` bucket: candidates sort canonical-name-first (`get` < `list` < `list_by_*` for select; `delete` first for delete; `create*` first for insert), then dedupe by required-params signature (first wins, rest demoted to EXEC-only `methods` entries), then survivors sort by `requiredParams.length` DESC (most specific first for router precedence). `verifySignatureUniqueness` hard-fails the build on any surviving collision.
+Two hard rules, applied across the board:
+
+1. **Ordering**: within every `(resource, sqlVerb)` bucket, methods are ordered by number of required params, HIGHEST first (most descriptive signature leads). stackql's router picks the first satisfiable method, so a rg-scoped query routes to `list_by_resource_group`, not subscription-wide `list`. Uniform for ALL verbs.
+2. **Uniqueness**: no two methods on the same sqlVerb for a resource may share a required-params signature. Enforced twice: the dedupe pass (candidates sort canonical-name-first so the canonical method survives a signature tie; losers demote to EXEC-only `methods` entries) and the `verifySignatureUniqueness` build guard, which hard-fails stage 2. test-meta-routes re-asserts it at runtime.
+
+Supporting invariant (stage 1, sub-object demotion): mutation-shaped methods whose trailing noun does not address the resource itself (`create_or_update_immutability_policy` on blob_containers, `update_table_throughput` on table_resources, `delete_instances` on VMSS, `update_entity` on data-plane tables) are EXEC-only - mutation buckets contain only methods that mutate the resource, otherwise a longer-signature sub-object sibling would capture the resource's own DML under rule 1 (live-verified failure mode). `tags` counts as a field update on the resource (`update_tags` stays UPDATE); qualifier tails (`_by_*`, `_in_*`) count as no noun; noun matching is loose across singular/plural/group-prefix forms (`create_update_table` targets `table_resources`, `set_secret` targets `secrets`). `create_update_*` (cosmos naming) registers under replace as well as insert, like `create_or_update`.
 
 ### 6. stackql name-inference guard (`_raw` renames)
 

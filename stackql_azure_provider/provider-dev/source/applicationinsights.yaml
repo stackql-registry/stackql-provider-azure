@@ -2502,7 +2502,7 @@ paths:
                 $ref: '#/components/schemas/ComponentLinkedStorageAccounts'
       x-stackql-resource: component_linked_storage_accounts
       x-stackql-method: create_and_update
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: ComponentLinkedStorageAccounts_update
       description: Update linked storage accounts for an Application Insights component.
@@ -3518,7 +3518,7 @@ paths:
                 $ref: '#/components/schemas/LiveTokenResponse'
       x-stackql-resource: live_token
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Insights/operations?api-version=2021-03-08:
     get:
       operationId: applicationinsights_list
@@ -4195,7 +4195,7 @@ paths:
                 $ref: '#/components/schemas/WorkItemConfiguration'
       x-stackql-resource: work_item_configurations
       x-stackql-method: update_item
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Insights/workbooktemplates/{resource_name}?api-version=2020-11-20
   : get:
       operationId: WorkbookTemplates_get

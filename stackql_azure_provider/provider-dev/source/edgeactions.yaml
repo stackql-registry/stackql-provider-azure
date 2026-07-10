@@ -919,7 +919,7 @@ paths:
                 $ref: '#/components/schemas/VersionCode'
       x-stackql-resource: edge_action_versions
       x-stackql-method: get_version_code
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/edgeActions/{edge_action_name}/versions/{version}/deployVersionCode?api-version=2025-12-01-preview
   : post:
       operationId: EdgeActionVersions_begin_deploy_version_code

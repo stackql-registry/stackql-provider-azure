@@ -7169,7 +7169,7 @@ paths:
                 $ref: '#/components/schemas/PrivateIpAddressProperties'
       x-stackql-resource: cloud_vm_clusters
       x-stackql-method: list_private_ip_addresses
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Oracle.Database/cloudVmClusters/{cloudvmclustername}/addVms?api-version=2025-09-01
   : post:
       operationId: CloudVmClusters_begin_add_vms
@@ -9191,7 +9191,7 @@ paths:
                 $ref: '#/components/schemas/CloudAccountDetails'
       x-stackql-resource: oracle_subscriptions
       x-stackql-method: list_cloud_account_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Oracle.Database/oracleSubscriptions/default/listSaasSubscriptionDetails?api-version=2025-09-01
   : post:
       operationId: OracleSubscriptions_begin_list_saas_subscription_details
@@ -9211,7 +9211,7 @@ paths:
                 $ref: '#/components/schemas/SaasSubscriptionDetails'
       x-stackql-resource: oracle_subscriptions
       x-stackql-method: list_saas_subscription_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Oracle.Database/oracleSubscriptions/default/listActivationLinks?api-version=2025-09-01
   : post:
       operationId: OracleSubscriptions_begin_list_activation_links
@@ -9231,7 +9231,7 @@ paths:
                 $ref: '#/components/schemas/ActivationLinks'
       x-stackql-resource: oracle_subscriptions
       x-stackql-method: list_activation_links
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Oracle.Database/oracleSubscriptions/default/addAzureSubscriptions?api-version=2025-09-01
   : post:
       operationId: OracleSubscriptions_begin_add_azure_subscriptions

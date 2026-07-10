@@ -77,77 +77,77 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_access_policy"><CopyableCode code="get_access_policy" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves details about any stored access policies specified on the table that may be used with Shared Access Signatures.</td>
 </tr>
 <tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-$format"><code>$format</code></a>, <a href="#parameter-Prefer"><code>Prefer</code></a></td>
     <td>Creates a new table under the given account.</td>
 </tr>
 <tr>
-    <td><a href="#update_entity"><CopyableCode code="update_entity" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-url"><code>url</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Update entity in a table.</td>
-</tr>
-<tr>
-    <td><a href="#set_access_policy"><CopyableCode code="set_access_policy" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-url"><code>url</code></a>, <a href="#parameter-identifiers"><code>identifiers</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Sets stored access policies for the table that may be used with Shared Access Signatures.</td>
-</tr>
-<tr>
-    <td><a href="#delete_entity"><CopyableCode code="delete_entity" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-url"><code>url</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Deletes the specified entity in a table.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td></td>
     <td>Deletes an existing table.</td>
 </tr>
 <tr>
+    <td><a href="#set_access_policy"><CopyableCode code="set_access_policy" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-account"><code>account</code></a>, <a href="#parameter-identifiers"><code>identifiers</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Sets stored access policies for the table that may be used with Shared Access Signatures.</td>
+</tr>
+<tr>
     <td><a href="#query"><CopyableCode code="query" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-$format"><code>$format</code></a>, <a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-NextTableName"><code>NextTableName</code></a></td>
     <td>Queries tables under the given account.</td>
 </tr>
 <tr>
     <td><a href="#query_entities"><CopyableCode code="query_entities" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-$format"><code>$format</code></a>, <a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-NextPartitionKey"><code>NextPartitionKey</code></a>, <a href="#parameter-NextRowKey"><code>NextRowKey</code></a></td>
     <td>Queries entities under the given table.</td>
 </tr>
 <tr>
     <td><a href="#query_entity_with_partition_and_row_key"><CopyableCode code="query_entity_with_partition_and_row_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-$format"><code>$format</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$filter"><code>$filter</code></a></td>
     <td>Retrieve a single entity.</td>
 </tr>
 <tr>
+    <td><a href="#update_entity"><CopyableCode code="update_entity" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-account"><code>account</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Update entity in a table.</td>
+</tr>
+<tr>
     <td><a href="#merge_entity"><CopyableCode code="merge_entity" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Merge entity in a table.</td>
 </tr>
 <tr>
+    <td><a href="#delete_entity"><CopyableCode code="delete_entity" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-partition_key"><code>partition_key</code></a>, <a href="#parameter-row_key"><code>row_key</code></a>, <a href="#parameter-account"><code>account</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Deletes the specified entity in a table.</td>
+</tr>
+<tr>
     <td><a href="#insert_entity"><CopyableCode code="insert_entity" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-table"><code>table</code></a>, <a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-$format"><code>$format</code></a>, <a href="#parameter-Prefer"><code>Prefer</code></a></td>
     <td>Insert entity in a table.</td>
 </tr>
@@ -167,6 +167,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
+    <td><code>string</code></td>
+    <td>Cosmos DB Table API account name. (default: )</td>
+</tr>
 <tr id="parameter-partition_key">
     <td><CopyableCode code="partition_key" /></td>
     <td><code>string</code></td>
@@ -177,15 +182,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The row key of the entity. Required.</td>
 </tr>
-<tr id="parameter-table">
-    <td><CopyableCode code="table" /></td>
+<tr id="parameter-table_name">
+    <td><CopyableCode code="table_name" /></td>
     <td><code>string</code></td>
     <td>The name of the table. Required.</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `url` parameter. (default: )</td>
 </tr>
 <tr id="parameter-$filter">
     <td><CopyableCode code="$filter" /></td>
@@ -251,8 +251,8 @@ Retrieves details about any stored access policies specified on the table that m
 SELECT
 identifiers
 FROM azure.data_tables.table
-WHERE table = '{{ table }}' -- required
-AND url = '{{ url }}' -- required
+WHERE table_name = '{{ table_name }}' -- required
+AND account = '{{ account }}' -- required
 AND timeout = '{{ timeout }}'
 ;
 ```
@@ -277,14 +277,14 @@ Creates a new table under the given account.
 INSERT INTO azure.data_tables.table (
 TableName,
 odata,
-url,
+account,
 $format,
 Prefer
 )
 SELECT 
 '{{ TableName }}',
 '{{ odata }}',
-'{{ url }}',
+'{{ account }}',
 '{{ $format }}',
 '{{ Prefer }}'
 RETURNING
@@ -298,8 +298,8 @@ odata
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: table
   props:
-    - name: url
-      value: "{{ url }}"
+    - name: account
+      value: "{{ account }}"
       description: Required parameter for the table resource.
     - name: TableName
       value: "{{ TableName }}"
@@ -324,90 +324,22 @@ odata
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_entity"
-    values={[
-        { label: 'update_entity', value: 'update_entity' }
-    ]}
->
-<TabItem value="update_entity">
-
-Update entity in a table.
-
-```sql
-UPDATE azure.data_tables.table
-SET 
--- No updatable properties
-WHERE 
-table = '{{ table }}' --required
-AND partition_key = '{{ partition_key }}' --required
-AND row_key = '{{ row_key }}' --required
-AND url = '{{ url }}' --required
-AND timeout = '{{ timeout}}';
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="set_access_policy"
-    values={[
-        { label: 'set_access_policy', value: 'set_access_policy' }
-    ]}
->
-<TabItem value="set_access_policy">
-
-Sets stored access policies for the table that may be used with Shared Access Signatures.
-
-```sql
-REPLACE azure.data_tables.table
-SET 
-identifiers = '{{ identifiers }}'
-WHERE 
-table = '{{ table }}' --required
-AND url = '{{ url }}' --required
-AND identifiers = '{{ identifiers }}' --required
-AND timeout = '{{ timeout}}';
-```
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_entity"
+    defaultValue="delete"
     values={[
-        { label: 'delete_entity', value: 'delete_entity' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_entity">
-
-Deletes the specified entity in a table.
-
-```sql
-DELETE FROM azure.data_tables.table
-WHERE table = '{{ table }}' --required
-AND partition_key = '{{ partition_key }}' --required
-AND row_key = '{{ row_key }}' --required
-AND url = '{{ url }}' --required
-AND timeout = '{{ timeout }}'
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an existing table.
 
 ```sql
 DELETE FROM azure.data_tables.table
-WHERE table = '{{ table }}' --required
-AND url = '{{ url }}' --required
+WHERE table_name = '{{ table_name }}' --required
+AND account = '{{ account }}' --required
 ;
 ```
 </TabItem>
@@ -417,22 +349,41 @@ AND url = '{{ url }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="query"
+    defaultValue="set_access_policy"
     values={[
+        { label: 'set_access_policy', value: 'set_access_policy' },
         { label: 'query', value: 'query' },
         { label: 'query_entities', value: 'query_entities' },
         { label: 'query_entity_with_partition_and_row_key', value: 'query_entity_with_partition_and_row_key' },
+        { label: 'update_entity', value: 'update_entity' },
         { label: 'merge_entity', value: 'merge_entity' },
+        { label: 'delete_entity', value: 'delete_entity' },
         { label: 'insert_entity', value: 'insert_entity' }
     ]}
 >
+<TabItem value="set_access_policy">
+
+Sets stored access policies for the table that may be used with Shared Access Signatures.
+
+```sql
+EXEC azure.data_tables.table.set_access_policy 
+@table_name='{{ table_name }}' --required, 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}' 
+@@json=
+'{
+"identifiers": "{{ identifiers }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="query">
 
 Queries tables under the given account.
 
 ```sql
 EXEC azure.data_tables.table.query 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @$format='{{ $format }}', 
 @$top='{{ $top }}', 
 @$select='{{ $select }}', 
@@ -447,8 +398,8 @@ Queries entities under the given table.
 
 ```sql
 EXEC azure.data_tables.table.query_entities 
-@table='{{ table }}' --required, 
-@url='{{ url }}' --required, 
+@table_name='{{ table_name }}' --required, 
+@account='{{ account }}' --required, 
 @$format='{{ $format }}', 
 @$top='{{ $top }}', 
 @$select='{{ $select }}', 
@@ -465,14 +416,28 @@ Retrieve a single entity.
 
 ```sql
 EXEC azure.data_tables.table.query_entity_with_partition_and_row_key 
-@table='{{ table }}' --required, 
+@table_name='{{ table_name }}' --required, 
 @partition_key='{{ partition_key }}' --required, 
 @row_key='{{ row_key }}' --required, 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}', 
 @$format='{{ $format }}', 
 @$select='{{ $select }}', 
 @$filter='{{ $filter }}'
+;
+```
+</TabItem>
+<TabItem value="update_entity">
+
+Update entity in a table.
+
+```sql
+EXEC azure.data_tables.table.update_entity 
+@table_name='{{ table_name }}' --required, 
+@partition_key='{{ partition_key }}' --required, 
+@row_key='{{ row_key }}' --required, 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}'
 ;
 ```
 </TabItem>
@@ -482,10 +447,24 @@ Merge entity in a table.
 
 ```sql
 EXEC azure.data_tables.table.merge_entity 
-@table='{{ table }}' --required, 
+@table_name='{{ table_name }}' --required, 
 @partition_key='{{ partition_key }}' --required, 
 @row_key='{{ row_key }}' --required, 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}'
+;
+```
+</TabItem>
+<TabItem value="delete_entity">
+
+Deletes the specified entity in a table.
+
+```sql
+EXEC azure.data_tables.table.delete_entity 
+@table_name='{{ table_name }}' --required, 
+@partition_key='{{ partition_key }}' --required, 
+@row_key='{{ row_key }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}'
 ;
 ```
@@ -496,8 +475,8 @@ Insert entity in a table.
 
 ```sql
 EXEC azure.data_tables.table.insert_entity 
-@table='{{ table }}' --required, 
-@url='{{ url }}' --required, 
+@table_name='{{ table_name }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}', 
 @$format='{{ $format }}', 
 @Prefer='{{ Prefer }}'

@@ -305,24 +305,6 @@ components:
               type: string
               format: date-time
               description: When the catalog was last synced.
-    SyncErrorDetails:
-      type: object
-      description: Synchronization error details. Variables are only populated by the server, and will be ignored
-        when sending a request.
-      properties:
-        operationError:
-          $ref: '#/components/schemas/CatalogErrorDetails'
-          description: Error information for the overall synchronization operation.
-        conflicts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogConflictError'
-          description: Catalog items that have conflicting names.
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/CatalogSyncError'
-          description: Errors that occured during synchronization.
     CatalogErrorDetails:
       type: object
       description: Catalog error details.
@@ -357,6 +339,24 @@ components:
           items:
             $ref: '#/components/schemas/CatalogErrorDetails'
           description: Errors associated with the file.
+    SyncErrorDetails:
+      type: object
+      description: Synchronization error details. Variables are only populated by the server, and will be ignored
+        when sending a request.
+      properties:
+        operationError:
+          $ref: '#/components/schemas/CatalogErrorDetails'
+          description: Error information for the overall synchronization operation.
+        conflicts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogConflictError'
+          description: Catalog items that have conflicting names.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogSyncError'
+          description: Errors that occured during synchronization.
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -2653,7 +2653,7 @@ paths:
                 $ref: '#/components/schemas/SyncErrorDetails'
       x-stackql-resource: catalogs
       x-stackql-method: get_sync_error_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevCenter/devcenters/{dev_center_name}/catalogs/{catalog_name}/sync?api-version=2024-02-01
   : post:
       operationId: Catalogs_begin_sync
@@ -3598,7 +3598,7 @@ paths:
                 $ref: '#/components/schemas/CatalogResourceValidationErrorDetails'
       x-stackql-resource: environment_definitions
       x-stackql-method: get_error_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevCenter/devcenters/{dev_center_name}/environmentTypes/{environment_type_name}?api-version=2024-02-01
   : get:
       operationId: EnvironmentTypes_get
@@ -5125,7 +5125,7 @@ paths:
                 $ref: '#/components/schemas/CatalogResourceValidationErrorDetails'
       x-stackql-resource: project_catalog_environment_definitions
       x-stackql-method: get_error_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevCenter/projects/{project_name}/catalogs/{catalog_name}?api-version=2024-02-01
   : get:
       operationId: ProjectCatalogs_get
@@ -5399,7 +5399,7 @@ paths:
                 $ref: '#/components/schemas/SyncErrorDetails'
       x-stackql-resource: project_catalogs
       x-stackql-method: get_sync_error_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevCenter/projects/{project_name}/catalogs/{catalog_name}/sync?api-version=2024-02-01
   : post:
       operationId: ProjectCatalogs_begin_sync

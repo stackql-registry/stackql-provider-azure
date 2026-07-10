@@ -4730,15 +4730,6 @@ components:
           description: This is primarily used to expose different UI experiences in the portal for different kinds.
       required:
         - location
-    CredentialResults:
-      type: object
-      description: The list credential result response.
-      properties:
-        kubeconfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/CredentialResult"
-          description: Base64-encoded Kubernetes configuration file.
     CredentialResult:
       type: object
       description: The credential result response.
@@ -4749,6 +4740,15 @@ components:
         value:
           type: string
           format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    CredentialResults:
+      type: object
+      description: The list credential result response.
+      properties:
+        kubeconfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/CredentialResult"
           description: Base64-encoded Kubernetes configuration file.
     EndpointDependency:
       type: object
@@ -5052,9 +5052,17 @@ components:
           items:
             $ref: "#/components/schemas/KubernetesVersion"
           description: Array of AKS supported Kubernetes versions.
-    ManagedClusterAccessProfile:
+    AccessProfile:
       type: object
-      description: Managed cluster Access Profile.
+      description: Profile for enabling a user to access a managed cluster.
+      properties:
+        kubeConfig:
+          type: string
+          format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    ManagedClusterAccessProfileFlattened:
+      type: object
+      description: Flattened view of ManagedClusterAccessProfile ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -5075,15 +5083,6 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: "#/components/schemas/AccessProfile"
-          description: AccessProfile of a managed cluster.
-      required:
-        - location
-    AccessProfile:
-      type: object
-      description: Profile for enabling a user to access a managed cluster.
-      properties:
         kubeConfig:
           type: string
           format: byte
@@ -6236,7 +6235,6 @@ components:
         replace:
           - $ref: "#/components/x-stackQL-resources/agent_pools/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/agent_pools/methods/delete_machines"
           - $ref: "#/components/x-stackQL-resources/agent_pools/methods/delete"
     container_service:
       id: azure.containerservice.container_service
@@ -6897,6 +6895,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         get_command_result:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ContainerService~1managedClusters~1{resource_name}~1commandResults~1{command_id}?api-version=2026-04-02-preview/get"
@@ -7025,6 +7027,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/managed_clusters/methods/get_access_profile"
           - $ref: "#/components/x-stackQL-resources/managed_clusters/methods/get_command_result"
           - $ref: "#/components/x-stackQL-resources/managed_clusters/methods/get_mesh_upgrade_profile"
           - $ref: "#/components/x-stackQL-resources/managed_clusters/methods/get"
@@ -9408,7 +9411,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ManagedClusterAccessProfile"
+                $ref: "#/components/schemas/ManagedClusterAccessProfileFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/commandResults/{command_id}?api-version=2026-04-02-preview:
     get:
       operationId: ManagedClusters_get_command_result

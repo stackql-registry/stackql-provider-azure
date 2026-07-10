@@ -1025,25 +1025,6 @@ components:
             notebookInfo:
               $ref: "#/components/schemas/NotebookResourceInfo"
               description: The notebook info of Azure ML workspace.
-    ListWorkspaceKeysResult:
-      type: object
-      description: ListWorkspaceKeysResult. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        userStorageKey:
-          type: string
-          description: ":vartype user_storage_key: str"
-        userStorageResourceId:
-          type: string
-          description: ":vartype user_storage_resource_id: str"
-        appInsightsInstrumentationKey:
-          type: string
-          description: ":vartype app_insights_instrumentation_key: str"
-        containerRegistryCredentials:
-          $ref: "#/components/schemas/RegistryListCredentialsResult"
-          description: ":vartype container_registry_credentials: ~azure.mgmt.machinelearningservices.models.RegistryListCredentialsResult"
-        notebookAccessKeys:
-          $ref: "#/components/schemas/NotebookListCredentialsResult"
-          description: ":vartype notebook_access_keys: ~azure.mgmt.machinelearningservices.models.NotebookListCredentialsResult"
     RegistryListCredentialsResult:
       type: object
       description: RegistryListCredentialsResult. Variables are only populated by the server, and will be ignored when sending a request.
@@ -1079,6 +1060,25 @@ components:
         secondaryAccessKey:
           type: string
           description: ":vartype secondary_access_key: str"
+    ListWorkspaceKeysResult:
+      type: object
+      description: ListWorkspaceKeysResult. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        userStorageKey:
+          type: string
+          description: ":vartype user_storage_key: str"
+        userStorageResourceId:
+          type: string
+          description: ":vartype user_storage_resource_id: str"
+        appInsightsInstrumentationKey:
+          type: string
+          description: ":vartype app_insights_instrumentation_key: str"
+        containerRegistryCredentials:
+          $ref: "#/components/schemas/RegistryListCredentialsResult"
+          description: ":vartype container_registry_credentials: ~azure.mgmt.machinelearningservices.models.RegistryListCredentialsResult"
+        notebookAccessKeys:
+          $ref: "#/components/schemas/NotebookListCredentialsResult"
+          description: ":vartype notebook_access_keys: ~azure.mgmt.machinelearningservices.models.NotebookListCredentialsResult"
     SkuSettings:
       type: object
       description: Describes Workspace Sku details and features. Variables are only populated by the server, and will be ignored when sending a request.
@@ -1258,6 +1258,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.nodes
         list_keys:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.MachineLearningServices~1workspaces~1{workspace_name}~1computes~1{compute_name}~1listKeys?api-version=2020-08-01/post"

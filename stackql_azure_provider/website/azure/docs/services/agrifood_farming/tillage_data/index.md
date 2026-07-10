@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-tillageDataId"><code>tillageDataId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create cascade delete job for tillage data resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-party_id"><code>party_id</code></a>, <a href="#parameter-tillage_data_id"><code>tillage_data_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -106,6 +99,13 @@ The following methods are available for this resource:
     <td></td>
     <td>Get cascade delete job for tillage data resource.</td>
 </tr>
+<tr>
+    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-tillageDataId"><code>tillageDataId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create cascade delete job for tillage data resource.</td>
+</tr>
 </tbody>
 </table>
 
@@ -125,12 +125,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job Id supplied by end user. Required.</td>
 </tr>
 <tr id="parameter-partyId">
     <td><CopyableCode code="partyId" /></td>
@@ -243,32 +243,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_cascade_delete_job"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_cascade_delete_job">
-
-Create cascade delete job for tillage data resource.
-
-```sql
-INSERT INTO azure.agrifood_farming.tillage_data (
-job_id,
-partyId,
-tillageDataId,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ partyId }}',
-'{{ tillageDataId }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates an tillage data resource under a particular party.
@@ -291,23 +271,14 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: tillage_data
   props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the tillage_data resource.
-    - name: partyId
-      value: "{{ partyId }}"
-      description: Required parameter for the tillage_data resource.
-    - name: tillageDataId
-      value: "{{ tillageDataId }}"
-      description: Required parameter for the tillage_data resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the tillage_data resource.
     - name: party_id
       value: "{{ party_id }}"
       description: Required parameter for the tillage_data resource.
     - name: tillage_data_id
       value: "{{ tillage_data_id }}"
+      description: Required parameter for the tillage_data resource.
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the tillage_data resource.
 `}</CodeBlock>
 
@@ -371,7 +342,8 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'get_raw', value: 'get_raw' },
         { label: 'list_raw', value: 'list_raw' },
         { label: 'list_by_party_id', value: 'list_by_party_id' },
-        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' }
+        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' },
+        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' }
     ]}
 >
 <TabItem value="get_raw">
@@ -448,6 +420,19 @@ Get cascade delete job for tillage data resource.
 ```sql
 EXEC azure.agrifood_farming.tillage_data.get_cascade_delete_job_details 
 @job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_cascade_delete_job">
+
+Create cascade delete job for tillage data resource.
+
+```sql
+EXEC azure.agrifood_farming.tillage_data.create_cascade_delete_job 
+@job_id='{{ job_id }}' --required, 
+@partyId='{{ partyId }}' --required, 
+@tillageDataId='{{ tillageDataId }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

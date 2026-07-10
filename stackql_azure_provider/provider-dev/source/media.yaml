@@ -355,16 +355,6 @@ components:
           items:
             type: string
           description: The list of Asset container SAS URLs.
-    ListStreamingLocatorsResponse:
-      type: object
-      description: The Streaming Locators associated with this Asset. Variables are only populated by the server,
-        and will be ignored when sending a request.
-      properties:
-        streamingLocators:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetStreamingLocator'
-          description: The list of Streaming Locators.
     AssetStreamingLocator:
       type: object
       description: Properties of the Streaming Locator. Variables are only populated by the server, and will be
@@ -397,19 +387,16 @@ components:
         defaultContentKeyPolicyName:
           type: string
           description: Name of the default ContentKeyPolicy used by this Streaming Locator.
-    StorageEncryptedAssetDecryptionData:
+    ListStreamingLocatorsResponse:
       type: object
-      description: Data needed to decrypt asset files encrypted with legacy storage encryption.
+      description: The Streaming Locators associated with this Asset. Variables are only populated by the server,
+        and will be ignored when sending a request.
       properties:
-        key:
-          type: string
-          format: byte
-          description: The Asset File storage encryption key.
-        assetFileEncryptionMetadata:
+        streamingLocators:
           type: array
           items:
-            $ref: '#/components/schemas/AssetFileEncryptionMetadata'
-          description: Asset File encryption metadata.
+            $ref: '#/components/schemas/AssetStreamingLocator'
+          description: The list of Streaming Locators.
     AssetFileEncryptionMetadata:
       type: object
       description: The Asset File Storage encryption metadata. All required parameters must be populated in order
@@ -426,6 +413,19 @@ components:
           description: The Asset File Id. Required.
       required:
       - assetFileId
+    StorageEncryptedAssetDecryptionData:
+      type: object
+      description: Data needed to decrypt asset files encrypted with legacy storage encryption.
+      properties:
+        key:
+          type: string
+          format: byte
+          description: The Asset File storage encryption key.
+        assetFileEncryptionMetadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetFileEncryptionMetadata'
+          description: Asset File encryption metadata.
     ContentKeyPolicyOption:
       type: object
       description: Represents a policy option. Variables are only populated by the server, and will be ignored when
@@ -1700,13 +1700,6 @@ components:
               description: The Private Endpoint Connections created for the Media Service account.
       required:
       - location
-    EdgePolicies:
-      type: object
-      description: EdgePolicies.
-      properties:
-        usageDataCollectionPolicy:
-          $ref: '#/components/schemas/EdgeUsageDataCollectionPolicy'
-          description: ':vartype usage_data_collection_policy: ~azure.mgmt.media.models.EdgeUsageDataCollectionPolicy'
     EdgeUsageDataCollectionPolicy:
       type: object
       description: EdgeUsageDataCollectionPolicy.
@@ -1737,6 +1730,13 @@ components:
         token:
           type: string
           description: SAS token needed to interact with Event Hub.
+    EdgePolicies:
+      type: object
+      description: EdgePolicies.
+      properties:
+        usageDataCollectionPolicy:
+          $ref: '#/components/schemas/EdgeUsageDataCollectionPolicy'
+          description: ':vartype usage_data_collection_policy: ~azure.mgmt.media.models.EdgeUsageDataCollectionPolicy'
     TrackBase:
       type: object
       description: 'Base type for concrete track types. A derived type must be used to represent the Track. You
@@ -2459,20 +2459,6 @@ components:
           items:
             $ref: '#/components/schemas/StreamingLocatorContentKey'
           description: ContentKeys used by current Streaming Locator.
-    ListPathsResponse:
-      type: object
-      description: Class of response for listPaths action.
-      properties:
-        streamingPaths:
-          type: array
-          items:
-            $ref: '#/components/schemas/StreamingPath'
-          description: Streaming Paths supported by current Streaming Locator.
-        downloadPaths:
-          type: array
-          items:
-            type: string
-          description: Download Paths supported by current Streaming Locator.
     StreamingPath:
       type: object
       description: Class of paths for streaming. All required parameters must be populated in order to send to Azure.
@@ -2492,6 +2478,20 @@ components:
       required:
       - streamingProtocol
       - encryptionScheme
+    ListPathsResponse:
+      type: object
+      description: Class of response for listPaths action.
+      properties:
+        streamingPaths:
+          type: array
+          items:
+            $ref: '#/components/schemas/StreamingPath'
+          description: Streaming Paths supported by current Streaming Locator.
+        downloadPaths:
+          type: array
+          items:
+            type: string
+          description: Download Paths supported by current Streaming Locator.
     StreamingLocator:
       type: object
       description: A Streaming Locator resource. Variables are only populated by the server, and will be ignored
@@ -3756,7 +3756,7 @@ paths:
                 $ref: '#/components/schemas/AssetContainerSas'
       x-stackql-resource: assets
       x-stackql-method: list_container_sas
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaServices/{account_name}/assets/{asset_name}/listStreamingLocators?api-version=2022-08-01
   : post:
       operationId: Assets_list_streaming_locators
@@ -3794,7 +3794,7 @@ paths:
                 $ref: '#/components/schemas/ListStreamingLocatorsResponse'
       x-stackql-resource: assets
       x-stackql-method: list_streaming_locators
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaServices/{account_name}/assets/{asset_name}/getEncryptionKey?api-version=2022-08-01
   : post:
       operationId: Assets_get_encryption_key
@@ -3833,7 +3833,7 @@ paths:
                 $ref: '#/components/schemas/StorageEncryptedAssetDecryptionData'
       x-stackql-resource: assets
       x-stackql-method: get_encryption_key
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaServices/{account_name}/contentKeyPolicies/{content_key_policy_name}?api-version=2022-08-01
   : get:
       operationId: ContentKeyPolicies_get
@@ -4109,7 +4109,7 @@ paths:
                 $ref: '#/components/schemas/ContentKeyPolicyProperties'
       x-stackql-resource: content_key_policies
       x-stackql-method: get_policy_properties_with_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaServices/{account_name}/transforms/{transform_name}/jobs/{job_name}?api-version=2022-07-01
   : get:
       operationId: Jobs_get
@@ -5310,7 +5310,7 @@ paths:
                 $ref: '#/components/schemas/EntityNameAvailabilityCheckOutput'
       x-stackql-resource: locations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Media/locations/{location_name}/mediaServicesOperationResults/{operation_id}?api-version=2021-11-01
   : get:
       operationId: MediaServicesOperationResults_get
@@ -5667,7 +5667,7 @@ paths:
                 $ref: '#/components/schemas/EdgePolicies'
       x-stackql-resource: mediaservices
       x-stackql-method: list_edge_policies
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaservices/{account_name}/syncStorageKeys?api-version=2021-11-01
   : post:
       operationId: Mediaservices_sync_storage_keys
@@ -6837,7 +6837,7 @@ paths:
                 $ref: '#/components/schemas/ListContentKeysResponse'
       x-stackql-resource: streaming_locators
       x-stackql-method: list_content_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaServices/{account_name}/streamingLocators/{streaming_locator_name}/listPaths?api-version=2022-08-01
   : post:
       operationId: StreamingLocators_list_paths
@@ -6875,7 +6875,7 @@ paths:
                 $ref: '#/components/schemas/ListPathsResponse'
       x-stackql-resource: streaming_locators
       x-stackql-method: list_paths
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Media/mediaServices/{account_name}/streamingPolicies/{streaming_policy_name}?api-version=2022-08-01
   : get:
       operationId: StreamingPolicies_get

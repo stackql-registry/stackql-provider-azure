@@ -547,22 +547,6 @@ components:
           description: Identity for the resource.
       required:
       - location
-    DeletedRunbook:
-      type: object
-      description: Definition of deleted runbook.
-      properties:
-        properties:
-          $ref: '#/components/schemas/DeletedRunbookProperties'
-          description: Gets or sets the runbook properties.
-        id:
-          type: string
-          description: The resource id.
-        name:
-          type: string
-          description: Gets or sets name of the resource.
-        location:
-          type: string
-          description: Gets or sets the location of the resource.
     DeletedRunbookProperties:
       type: object
       description: Definition of the deleted runbook property.
@@ -587,13 +571,46 @@ components:
           type: string
           format: date-time
           description: Gets or sets the last modified time.
-    PagedDeletedRunbook:
+    DeletedRunbookFlattened:
+      type: object
+      description: Flattened view of DeletedRunbook ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The resource id.
+        name:
+          type: string
+          description: Gets or sets name of the resource.
+        location:
+          type: string
+          description: Gets or sets the location of the resource.
+        runbookId:
+          type: string
+          description: Gets or sets the Runbook Id.
+        runbookType:
+          type: string
+          description: Type of the runbook.
+        runtime:
+          type: string
+          description: Gets or sets runtime of the runbook.
+        runtimeEnvironment:
+          type: string
+          description: Environment of the runbook.
+        creationTime:
+          type: string
+          format: date-time
+          description: Gets or sets the creation time.
+        deletionTime:
+          type: string
+          format: date-time
+          description: Gets or sets the last modified time.
+    PagedDeletedRunbookFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/DeletedRunbook'
+            $ref: '#/components/schemas/DeletedRunbookFlattened'
         nextLink:
           type: string
     AutomationAccountUpdateProperties:
@@ -2280,15 +2297,6 @@ components:
             $ref: '#/components/schemas/JobStreamFlattened'
         nextLink:
           type: string
-    KeyListResult:
-      type: object
-      description: KeyListResult.
-      properties:
-        keys:
-          type: array
-          items:
-            $ref: '#/components/schemas/Key'
-          description: Lists the automation keys.
     Key:
       type: object
       description: Automation key which is used to register a DSC Node.
@@ -2312,6 +2320,15 @@ components:
       enum:
       - Read
       - Full
+    KeyListResult:
+      type: object
+      description: KeyListResult.
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/Key'
+          description: Lists the automation keys.
     LinkedWorkspace:
       type: object
       description: Definition of the linked workspace.
@@ -5928,10 +5945,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedDeletedRunbook'
+                $ref: '#/components/schemas/PagedDeletedRunbookFlattened'
       x-stackql-resource: automation_account
       x-stackql-method: list_deleted_runbooks
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/certificates/{certificate_name}?api-version=2024-10-23
   : get:
       operationId: Certificate_get
@@ -7020,9 +7040,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: dsc_configuration
       x-stackql-method: get_content
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/nodeConfigurations/{node_configuration_name}?api-version=2024-10-23
   : get:
       operationId: DscNodeConfiguration_get
@@ -8118,9 +8146,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: job
       x-stackql-method: get_output
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/jobs/{job_name}/runbookContent?api-version=2024-10-23
   : get:
       operationId: Job_get_runbook_content
@@ -8158,9 +8194,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: job
       x-stackql-method: get_runbook_content
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/jobs/{job_name}/suspend?api-version=2024-10-23
   : post:
       operationId: Job_suspend
@@ -8578,7 +8622,7 @@ paths:
                 $ref: '#/components/schemas/KeyListResult'
       x-stackql-resource: keys
       x-stackql-method: list_by_automation_account
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/linkedWorkspace?api-version=2024-10-23
   : get:
       operationId: LinkedWorkspace_get
@@ -8992,9 +9036,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: node_reports
       x-stackql-method: get_content
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/objectDataTypes/{type_name}/fields?api-version=2024-10-23
   : get:
       operationId: ObjectDataTypes_list_fields_by_type
@@ -10009,9 +10061,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: runbook_draft
       x-stackql-method: get_content
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
     put:
       operationId: RunbookDraft_begin_replace_content
       description: Replaces the runbook draft content.
@@ -10044,7 +10104,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: runbook_draft
       x-stackql-method: replace_content
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/runbooks/{runbook_name}/draft/undoEdit?api-version=2024-10-23
   : post:
       operationId: RunbookDraft_undo_edit
@@ -10337,9 +10397,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: runbook
       x-stackql-method: get_content
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Automation/automationAccounts/{automation_account_name}/runbooks/{runbook_name}/publish?api-version=2024-10-23
   : post:
       operationId: Runbook_begin_publish

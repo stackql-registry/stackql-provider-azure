@@ -1193,6 +1193,11 @@ components:
             $ref: "#/components/schemas/DeletedManagedHsmFlattened"
         nextLink:
           type: string
+    Reason:
+      type: string
+      enum:
+        - AccountNameInvalid
+        - AlreadyExists
     CheckMhsmNameAvailabilityResult:
       type: object
       description: The CheckMhsmNameAvailability operation response.
@@ -1206,11 +1211,6 @@ components:
         message:
           type: string
           description: An error message explaining the Reason value in more detail.
-    Reason:
-      type: string
-      enum:
-        - AccountNameInvalid
-        - AlreadyExists
     OperationDisplay:
       type: object
       description: Display metadata associated with the operation.
@@ -2314,8 +2314,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/keys/methods/get_version"
           - $ref: "#/components/x-stackQL-resources/keys/methods/get"
           - $ref: "#/components/x-stackQL-resources/keys/methods/list"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/keys/methods/create_if_not_exist"
+        insert: []
         update: []
         delete: []
     mhsm_private_endpoint_connections:
@@ -2492,8 +2491,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/managed_hsm_keys/methods/get_version"
           - $ref: "#/components/x-stackQL-resources/managed_hsm_keys/methods/get"
           - $ref: "#/components/x-stackQL-resources/managed_hsm_keys/methods/list"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/managed_hsm_keys/methods/create_if_not_exist"
+        insert: []
         update: []
         delete: []
     managed_hsms:
@@ -2621,6 +2619,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/get"
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/get_deleted"
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/check_mhsm_name_availability"
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/create_or_update"
@@ -2630,7 +2629,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/create_or_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/managed_hsms/methods/purge_deleted"
     operations:
       id: azure.keyvault.operations
       name: operations
@@ -2951,18 +2949,17 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/vaults/methods/get"
           - $ref: "#/components/x-stackQL-resources/vaults/methods/get_deleted"
+          - $ref: "#/components/x-stackQL-resources/vaults/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/vaults/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/vaults/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/vaults/methods/create_or_update"
         update:
-          - $ref: "#/components/x-stackQL-resources/vaults/methods/update_access_policy"
           - $ref: "#/components/x-stackQL-resources/vaults/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/vaults/methods/create_or_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/vaults/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/vaults/methods/purge_deleted"
 paths:
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.KeyVault/vaults/{vault_name}/keys/{key_name}?api-version=2026-02-01:
     get:

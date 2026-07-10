@@ -176,6 +176,13 @@ The following methods are available for this resource:
     <td>Creates/Updates a particular access policy assignment for a database.</td>
 </tr>
 <tr>
+    <td><a href="#create_update"><CopyableCode code="create_update" /></a></td>
+    <td><CopyableCode code="replace" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-access_policy_assignment_name"><code>access_policy_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates/Updates a particular access policy assignment for a database.</td>
+</tr>
+<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-access_policy_assignment_name"><code>access_policy_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -349,6 +356,39 @@ type
           objectId: "{{ objectId }}"
 `}</CodeBlock>
 
+</TabItem>
+</Tabs>
+
+
+## `REPLACE` examples
+
+<Tabs
+    defaultValue="create_update"
+    values={[
+        { label: 'create_update', value: 'create_update' }
+    ]}
+>
+<TabItem value="create_update">
+
+Creates/Updates a particular access policy assignment for a database.
+
+```sql
+REPLACE azure_isv.redisenterprise.access_policy_assignment
+SET 
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND cluster_name = '{{ cluster_name }}' --required
+AND database_name = '{{ database_name }}' --required
+AND access_policy_assignment_name = '{{ access_policy_assignment_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+properties,
+systemData,
+type;
+```
 </TabItem>
 </Tabs>
 

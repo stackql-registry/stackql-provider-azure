@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a cascade delete job for specified party.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-party_id"><code>party_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -99,6 +92,13 @@ The following methods are available for this resource:
     <td></td>
     <td>Get a cascade delete job for specified party.</td>
 </tr>
+<tr>
+    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a cascade delete job for specified party.</td>
+</tr>
 </tbody>
 </table>
 
@@ -118,12 +118,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job ID supplied by end user. Required.</td>
 </tr>
 <tr id="parameter-partyId">
     <td><CopyableCode code="partyId" /></td>
@@ -166,30 +166,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_cascade_delete_job"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_cascade_delete_job">
-
-Create a cascade delete job for specified party.
-
-```sql
-INSERT INTO azure.agrifood_farming.parties (
-job_id,
-partyId,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ partyId }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a party resource.
@@ -210,17 +192,11 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: parties
   props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the parties resource.
-    - name: partyId
-      value: "{{ partyId }}"
+    - name: party_id
+      value: "{{ party_id }}"
       description: Required parameter for the parties resource.
     - name: endpoint
       value: "{{ endpoint }}"
-      description: Required parameter for the parties resource.
-    - name: party_id
-      value: "{{ party_id }}"
       description: Required parameter for the parties resource.
 `}</CodeBlock>
 
@@ -281,7 +257,8 @@ AND endpoint = '{{ endpoint }}' --required
     values={[
         { label: 'get_raw', value: 'get_raw' },
         { label: 'list_raw', value: 'list_raw' },
-        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' }
+        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' },
+        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' }
     ]}
 >
 <TabItem value="get_raw">
@@ -317,6 +294,18 @@ Get a cascade delete job for specified party.
 ```sql
 EXEC azure.agrifood_farming.parties.get_cascade_delete_job_details 
 @job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_cascade_delete_job">
+
+Create a cascade delete job for specified party.
+
+```sql
+EXEC azure.agrifood_farming.parties.create_cascade_delete_job 
+@job_id='{{ job_id }}' --required, 
+@partyId='{{ partyId }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

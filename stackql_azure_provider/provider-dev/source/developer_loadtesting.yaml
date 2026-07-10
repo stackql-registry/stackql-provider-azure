@@ -619,20 +619,6 @@ components:
           items:
             type: string
           description: The dimension values. Maximum values can be 20.
-    TimeSeriesElement:
-      type: object
-      description: The time series returned when a data query is performed.
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricValue'
-          description: An array of data points representing the metric values.
-        dimensionValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/DimensionValue'
-          description: The dimension values.
     MetricValue:
       type: object
       description: Represents a metric value.
@@ -654,6 +640,20 @@ components:
         value:
           type: string
           description: The value of the dimension.
+    TimeSeriesElement:
+      type: object
+      description: The time series returned when a data query is performed.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricValue'
+          description: An array of data points representing the metric values.
+        dimensionValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/DimensionValue'
+          description: The dimension values.
     PagedTimeSeriesElement:
       type: object
       properties:
@@ -2167,9 +2167,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: metric_dimension_values
       x-stackql-method: list_metric_dimension_values
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list_paged
   /test-runs/{test_run_id}/metrics?api-version=2025-11-01-preview:
     post:
       operationId: _LoadTestRunClient_list_metrics
@@ -2237,7 +2253,8 @@ paths:
                 $ref: '#/components/schemas/PagedTimeSeriesElement'
       x-stackql-resource: metrics
       x-stackql-method: list_metrics
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /test-runs?api-version=2025-11-01-preview:
     get:
       operationId: _LoadTestRunClient_list_test_runs

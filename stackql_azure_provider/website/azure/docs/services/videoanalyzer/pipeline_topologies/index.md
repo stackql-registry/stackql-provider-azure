@@ -152,42 +152,42 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves a specific pipeline topology by name. Retrieves a specific pipeline topology by name. If a topology with that name has been previously created, the call will return the JSON representation of that topology.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$top"><code>$top</code></a></td>
     <td>Retrieves a list of pipeline topologies. Retrieves a list of pipeline topologies that have been added to the account, if any, along with their JSON representation.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
     <td></td>
     <td>Creates or updates a pipeline topology. Creates a new pipeline topology or updates an existing one, with the given name. A pipeline topology describes the processing steps to be applied when processing content for a particular outcome. The topology should be defined according to the scenario to be achieved and can be reused across many pipeline instances which share the same processing characteristics.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates an existing pipeline topology. Updates an existing pipeline topology with the given name. If the associated live pipelines or pipeline jobs are in active or processing state, respectively, then only the description can be updated. Else, the properties that can be updated include: description, parameter declarations, sources, processors, and sinks.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
     <td></td>
     <td>Creates or updates a pipeline topology. Creates a new pipeline topology or updates an existing one, with the given name. A pipeline topology describes the processing steps to be applied when processing content for a particular outcome. The topology should be defined according to the scenario to be achieved and can be reused across many pipeline instances which share the same processing characteristics.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_topology_name"><code>pipeline_topology_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a pipeline topology. Deletes a pipeline topology with the given name. This method should be called after all instances of the topology have been stopped and deleted.</td>
 </tr>
@@ -267,9 +267,9 @@ sources,
 systemData,
 type
 FROM azure.videoanalyzer.pipeline_topologies
-WHERE pipeline_topology_name = '{{ pipeline_topology_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND pipeline_topology_name = '{{ pipeline_topology_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -283,8 +283,8 @@ SELECT
 @nextLink,
 value
 FROM azure.videoanalyzer.pipeline_topologies
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $filter = '{{ $filter }}'
 AND $top = '{{ $top }}'
@@ -312,18 +312,18 @@ INSERT INTO azure.videoanalyzer.pipeline_topologies (
 kind,
 sku,
 properties,
+resource_group_name,
 pipeline_topology_name,
 account_name,
-resource_group_name,
 subscription_id
 )
 SELECT 
 '{{ kind }}' /* required */,
 '{{ sku }}' /* required */,
 '{{ properties }}',
+'{{ resource_group_name }}',
 '{{ pipeline_topology_name }}',
 '{{ account_name }}',
-'{{ resource_group_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -341,14 +341,14 @@ type
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: pipeline_topologies
   props:
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
+      description: Required parameter for the pipeline_topologies resource.
     - name: pipeline_topology_name
       value: "{{ pipeline_topology_name }}"
       description: Required parameter for the pipeline_topologies resource.
     - name: account_name
       value: "{{ account_name }}"
-      description: Required parameter for the pipeline_topologies resource.
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
       description: Required parameter for the pipeline_topologies resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -405,9 +405,9 @@ kind = '{{ kind }}',
 sku = '{{ sku }}',
 properties = '{{ properties }}'
 WHERE 
-pipeline_topology_name = '{{ pipeline_topology_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND pipeline_topology_name = '{{ pipeline_topology_name }}' --required
 AND account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -441,9 +441,9 @@ kind = '{{ kind }}',
 sku = '{{ sku }}',
 properties = '{{ properties }}'
 WHERE 
-pipeline_topology_name = '{{ pipeline_topology_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND pipeline_topology_name = '{{ pipeline_topology_name }}' --required
 AND account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 AND kind = '{{ kind }}' --required
 AND sku = '{{ sku }}' --required
@@ -474,9 +474,9 @@ Deletes a pipeline topology. Deletes a pipeline topology with the given name. Th
 
 ```sql
 DELETE FROM azure.videoanalyzer.pipeline_topologies
-WHERE pipeline_topology_name = '{{ pipeline_topology_name }}' --required
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND pipeline_topology_name = '{{ pipeline_topology_name }}' --required
 AND account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```

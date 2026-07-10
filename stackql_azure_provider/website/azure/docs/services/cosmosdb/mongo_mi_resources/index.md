@@ -231,39 +231,39 @@ The following methods are available for this resource:
     <td>Retrieves the list of all Azure Cosmos DB MongoMI Role Definitions.</td>
 </tr>
 <tr>
-    <td><a href="#create_update_mongo_mi_role_definition"><CopyableCode code="create_update_mongo_mi_role_definition" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB MongoMI Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_mongo_mi_role_assignment"><CopyableCode code="create_update_mongo_mi_role_assignment" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB MongoMI Role Assignment.</td>
-</tr>
-<tr>
-    <td><a href="#delete_mongo_mi_role_definition"><CopyableCode code="delete_mongo_mi_role_definition" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB MongoMI Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#delete_mongo_mi_role_assignment"><CopyableCode code="delete_mongo_mi_role_assignment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB MongoMI Role Assignment.</td>
-</tr>
-<tr>
     <td><a href="#list_mongo_mi_role_assignments"><CopyableCode code="list_mongo_mi_role_assignments" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves the list of all Azure Cosmos DB MongoMI Role Assignments.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_mongo_mi_role_definition"><CopyableCode code="create_update_mongo_mi_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB MongoMI Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#delete_mongo_mi_role_definition"><CopyableCode code="delete_mongo_mi_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB MongoMI Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_mongo_mi_role_assignment"><CopyableCode code="create_update_mongo_mi_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB MongoMI Role Assignment.</td>
+</tr>
+<tr>
+    <td><a href="#delete_mongo_mi_role_assignment"><CopyableCode code="delete_mongo_mi_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB MongoMI Role Assignment.</td>
 </tr>
 </tbody>
 </table>
@@ -385,148 +385,16 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_update_mongo_mi_role_definition"
-    values={[
-        { label: 'create_update_mongo_mi_role_definition', value: 'create_update_mongo_mi_role_definition' },
-        { label: 'create_update_mongo_mi_role_assignment', value: 'create_update_mongo_mi_role_assignment' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_update_mongo_mi_role_definition">
-
-Creates or updates an Azure Cosmos DB MongoMI Role Definition.
-
-```sql
-INSERT INTO azure.cosmosdb.mongo_mi_resources (
-properties,
-resource_group_name,
-account_name,
-role_definition_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_definition_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_mongo_mi_role_assignment">
-
-Creates or updates an Azure Cosmos DB MongoMI Role Assignment.
-
-```sql
-INSERT INTO azure.cosmosdb.mongo_mi_resources (
-properties,
-resource_group_name,
-account_name,
-role_assignment_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_assignment_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: mongo_mi_resources
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the mongo_mi_resources resource.
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the mongo_mi_resources resource.
-    - name: role_definition_id
-      value: "{{ role_definition_id }}"
-      description: Required parameter for the mongo_mi_resources resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the mongo_mi_resources resource.
-    - name: role_assignment_id
-      value: "{{ role_assignment_id }}"
-      description: Required parameter for the mongo_mi_resources resource.
-    - name: properties
-      description: |
-        Properties to create and update an Azure Cosmos DB MongoMI Role Assignment.
-      value:
-        roleDefinitionId: "{{ roleDefinitionId }}"
-        scope: "{{ scope }}"
-        principalId: "{{ principalId }}"
-        provisioningState: "{{ provisioningState }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_mongo_mi_role_definition"
-    values={[
-        { label: 'delete_mongo_mi_role_definition', value: 'delete_mongo_mi_role_definition' },
-        { label: 'delete_mongo_mi_role_assignment', value: 'delete_mongo_mi_role_assignment' }
-    ]}
->
-<TabItem value="delete_mongo_mi_role_definition">
-
-Deletes an existing Azure Cosmos DB MongoMI Role Definition.
-
-```sql
-DELETE FROM azure.cosmosdb.mongo_mi_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_definition_id = '{{ role_definition_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_mongo_mi_role_assignment">
-
-Deletes an existing Azure Cosmos DB MongoMI Role Assignment.
-
-```sql
-DELETE FROM azure.cosmosdb.mongo_mi_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_assignment_id = '{{ role_assignment_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="list_mongo_mi_role_assignments"
     values={[
-        { label: 'list_mongo_mi_role_assignments', value: 'list_mongo_mi_role_assignments' }
+        { label: 'list_mongo_mi_role_assignments', value: 'list_mongo_mi_role_assignments' },
+        { label: 'create_update_mongo_mi_role_definition', value: 'create_update_mongo_mi_role_definition' },
+        { label: 'delete_mongo_mi_role_definition', value: 'delete_mongo_mi_role_definition' },
+        { label: 'create_update_mongo_mi_role_assignment', value: 'create_update_mongo_mi_role_assignment' },
+        { label: 'delete_mongo_mi_role_assignment', value: 'delete_mongo_mi_role_assignment' }
     ]}
 >
 <TabItem value="list_mongo_mi_role_assignments">
@@ -537,6 +405,66 @@ Retrieves the list of all Azure Cosmos DB MongoMI Role Assignments.
 EXEC azure.cosmosdb.mongo_mi_resources.list_mongo_mi_role_assignments 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_mongo_mi_role_definition">
+
+Creates or updates an Azure Cosmos DB MongoMI Role Definition.
+
+```sql
+EXEC azure.cosmosdb.mongo_mi_resources.create_update_mongo_mi_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_mongo_mi_role_definition">
+
+Deletes an existing Azure Cosmos DB MongoMI Role Definition.
+
+```sql
+EXEC azure.cosmosdb.mongo_mi_resources.delete_mongo_mi_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_mongo_mi_role_assignment">
+
+Creates or updates an Azure Cosmos DB MongoMI Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.mongo_mi_resources.create_update_mongo_mi_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_mongo_mi_role_assignment">
+
+Deletes an existing Azure Cosmos DB MongoMI Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.mongo_mi_resources.delete_mongo_mi_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

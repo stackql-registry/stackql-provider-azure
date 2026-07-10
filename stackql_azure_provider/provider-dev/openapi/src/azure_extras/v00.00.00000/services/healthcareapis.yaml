@@ -1493,6 +1493,11 @@ components:
         publicNetworkAccess:
           $ref: "#/components/schemas/PublicNetworkAccess"
           description: 'Control permission for data plane traffic coming from public networks while private endpoint is enabled. Known values are: "Enabled" and "Disabled".'
+    ServiceNameUnavailabilityReason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
     ServicesNameAvailabilityInfo:
       type: object
       description: The properties indicating whether a given service name is available.
@@ -1506,11 +1511,6 @@ components:
         message:
           type: string
           description: The detailed reason message.
-    ServiceNameUnavailabilityReason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
     PagedPrivateLinkResourceDescriptionFlattened:
       type: object
       properties:
@@ -2107,6 +2107,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/services/methods/get"
+          - $ref: "#/components/x-stackQL-resources/services/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/services/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/services/methods/list"
         insert:

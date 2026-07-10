@@ -167,7 +167,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Quota Tier for a subscription. Gets the Quota Tier information for the given subscription. QuotaTiers is a subscription wide resource type. It holds current tier information.</td>
 </tr>
@@ -181,21 +181,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates the Quota Tier resource for a subscription. Update the Quota Tier information for the given subscription. QuotaTiers is a subscription wide resource type. It holds current tier information.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates the Quota Tier resource for a subscription. The only properties that can be updated are "tierUpgradePolicy". Update the Quota Tier information for the given subscription. QuotaTiers is a subscription wide resource type. It holds current tier information.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates the Quota Tier resource for a subscription. Update the Quota Tier information for the given subscription. QuotaTiers is a subscription wide resource type. It holds current tier information.</td>
 </tr>
@@ -215,8 +215,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-default">
-    <td><CopyableCode code="default" /></td>
+<tr id="parameter-default_name">
+    <td><CopyableCode code="default_name" /></td>
     <td><code>string</code></td>
     <td>Default parameter. Leave the value as default. Required.</td>
 </tr>
@@ -252,7 +252,7 @@ tierUpgradeEligibilityInfo,
 tierUpgradePolicy,
 type
 FROM azure.cognitiveservices.quota_tiers
-WHERE default = '{{ default }}' -- required
+WHERE default_name = '{{ default_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -295,12 +295,12 @@ Updates the Quota Tier resource for a subscription. Update the Quota Tier inform
 ```sql
 INSERT INTO azure.cognitiveservices.quota_tiers (
 properties,
-default,
+default_name,
 subscription_id
 )
 SELECT 
 '{{ properties }}',
-'{{ default }}',
+'{{ default_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -316,8 +316,8 @@ type
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: quota_tiers
   props:
-    - name: default
-      value: "{{ default }}"
+    - name: default_name
+      value: "{{ default_name }}"
       description: Required parameter for the quota_tiers resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -357,7 +357,7 @@ UPDATE azure.cognitiveservices.quota_tiers
 SET 
 properties = '{{ properties }}'
 WHERE 
-default = '{{ default }}' --required
+default_name = '{{ default_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -387,7 +387,7 @@ REPLACE azure.cognitiveservices.quota_tiers
 SET 
 properties = '{{ properties }}'
 WHERE 
-default = '{{ default }}' --required
+default_name = '{{ default_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,

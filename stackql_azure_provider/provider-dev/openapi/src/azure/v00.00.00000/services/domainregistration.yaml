@@ -771,6 +771,11 @@ components:
         kind:
           type: string
           description: Kind of resource.
+    DomainType:
+      type: string
+      enum:
+        - Regular
+        - SoftDeleted
     DomainAvailabilityCheckResult:
       type: object
       description: Domain availability check result.
@@ -784,11 +789,6 @@ components:
         domainType:
           $ref: "#/components/schemas/DomainType"
           description: 'Valid values are Regular domain: Azure will charge the full price of domain registration, SoftDeleted: Purchasing this domain will simply restore it and this operation will not cost anything. Known values are: "Regular" and "SoftDeleted".'
-    DomainType:
-      type: string
-      enum:
-        - Regular
-        - SoftDeleted
     TopLevelDomainProperties:
       type: object
       description: TopLevelDomain resource specific properties.
@@ -982,6 +982,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -1023,7 +1024,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DomainRegistration~1domains~1{domain_name}~1domainOwnershipIdentifiers~1{name}?api-version=2024-11-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_control_center_sso_request:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.DomainRegistration~1generateSsoRequest?api-version=2024-11-01/post"
@@ -1060,15 +1061,11 @@ components:
           - $ref: "#/components/x-stackQL-resources/domains/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/domains/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/domains/methods/create_or_update_ownership_identifier"
         update:
-          - $ref: "#/components/x-stackQL-resources/domains/methods/update_ownership_identifier"
           - $ref: "#/components/x-stackQL-resources/domains/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/domains/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/domains/methods/create_or_update_ownership_identifier"
         delete:
-          - $ref: "#/components/x-stackQL-resources/domains/methods/delete_ownership_identifier"
           - $ref: "#/components/x-stackQL-resources/domains/methods/delete"
     top_level_domains:
       id: azure.domainregistration.top_level_domains
@@ -1107,6 +1104,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -1538,8 +1536,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/providers/Microsoft.DomainRegistration/generateSsoRequest?api-version=2024-11-01:
     post:
       operationId: Domains_get_control_center_sso_request

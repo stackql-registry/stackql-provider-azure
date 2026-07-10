@@ -53,21 +53,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_knowledge_base"><CopyableCode code="create_knowledge_base" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Creates a new knowledge base.</td>
 </tr>
 <tr>
     <td><a href="#list_knowledge_bases"><CopyableCode code="list_knowledge_bases" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Lists all knowledge bases available for a search service.</td>
 </tr>
 <tr>
     <td><a href="#get_knowledge_base"><CopyableCode code="get_knowledge_base" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves a knowledge base definition.</td>
 </tr>
@@ -87,15 +87,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
-</tr>
 <tr id="parameter-knowledge_base_name">
     <td><CopyableCode code="knowledge_base_name" /></td>
     <td><code>string</code></td>
     <td>The name of the knowledge base. Required.</td>
+</tr>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
+    <td><code>string</code></td>
+    <td>Search service name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -115,10 +115,10 @@ Creates a new knowledge base.
 
 ```sql
 INSERT INTO azure.search_documents.knowledge_bases (
-endpoint
+search_service_name
 )
 SELECT 
-'{{ endpoint }}'
+'{{ search_service_name }}'
 ;
 ```
 </TabItem>
@@ -127,8 +127,8 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: knowledge_bases
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: search_service_name
+      value: "{{ search_service_name }}"
       description: Required parameter for the knowledge_bases resource.
 `}</CodeBlock>
 
@@ -151,7 +151,7 @@ Lists all knowledge bases available for a search service.
 
 ```sql
 EXEC azure.search_documents.knowledge_bases.list_knowledge_bases 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>
@@ -162,7 +162,7 @@ Retrieves a knowledge base definition.
 ```sql
 EXEC azure.search_documents.knowledge_bases.get_knowledge_base 
 @knowledge_base_name='{{ knowledge_base_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

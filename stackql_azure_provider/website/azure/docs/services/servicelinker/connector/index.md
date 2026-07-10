@@ -298,25 +298,11 @@ The following methods are available for this resource:
     <td>Create or update Connector resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_dryrun"><CopyableCode code="create_dryrun" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
-    <td></td>
-    <td>create a dryrun job to do necessary check before actual creation.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-connector_name"><code>connector_name</code></a></td>
     <td></td>
     <td>Operation to update an existing Connector.</td>
-</tr>
-<tr>
-    <td><a href="#update_dryrun"><CopyableCode code="update_dryrun" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
-    <td></td>
-    <td>update a dryrun job to do necessary check before actual creation.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
@@ -333,18 +319,32 @@ The following methods are available for this resource:
     <td>Delete a Connector.</td>
 </tr>
 <tr>
-    <td><a href="#delete_dryrun"><CopyableCode code="delete_dryrun" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
-    <td></td>
-    <td>delete a dryrun job.</td>
-</tr>
-<tr>
     <td><a href="#list_dryrun"><CopyableCode code="list_dryrun" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>list dryrun jobs.</td>
+</tr>
+<tr>
+    <td><a href="#create_dryrun"><CopyableCode code="create_dryrun" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
+    <td></td>
+    <td>create a dryrun job to do necessary check before actual creation.</td>
+</tr>
+<tr>
+    <td><a href="#update_dryrun"><CopyableCode code="update_dryrun" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
+    <td></td>
+    <td>update a dryrun job to do necessary check before actual creation.</td>
+</tr>
+<tr>
+    <td><a href="#delete_dryrun"><CopyableCode code="delete_dryrun" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
+    <td></td>
+    <td>delete a dryrun job.</td>
 </tr>
 <tr>
     <td><a href="#validate"><CopyableCode code="validate" /></a></td>
@@ -498,7 +498,6 @@ AND location = '{{ location }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_dryrun', value: 'create_dryrun' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -529,33 +528,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_dryrun">
-
-create a dryrun job to do necessary check before actual creation.
-
-```sql
-INSERT INTO azure.servicelinker.connector (
-properties,
-subscription_id,
-resource_group_name,
-location,
-dryrun_name
-)
-SELECT 
-'{{ properties }}',
-'{{ subscription_id }}',
-'{{ resource_group_name }}',
-'{{ location }}',
-'{{ dryrun_name }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -573,13 +545,51 @@ type
     - name: connector_name
       value: "{{ connector_name }}"
       description: Required parameter for the connector resource.
-    - name: dryrun_name
-      value: "{{ dryrun_name }}"
-      description: Required parameter for the connector resource.
     - name: properties
       value:
-        parameters:
-          actionName: "{{ actionName }}"
+        targetService:
+          type: "{{ type }}"
+        authInfo:
+          authType: "{{ authType }}"
+          authMode: "{{ authMode }}"
+        clientType: "{{ clientType }}"
+        vNetSolution:
+          type: "{{ type }}"
+          deleteOrUpdateBehavior: "{{ deleteOrUpdateBehavior }}"
+        secretStore:
+          keyVaultId: "{{ keyVaultId }}"
+          keyVaultSecretName: "{{ keyVaultSecretName }}"
+        scope: "{{ scope }}"
+        publicNetworkSolution:
+          deleteOrUpdateBehavior: "{{ deleteOrUpdateBehavior }}"
+          action: "{{ action }}"
+          firewallRules:
+            ipRanges:
+              - "{{ ipRanges }}"
+            azureServices: "{{ azureServices }}"
+            callerClientIP: "{{ callerClientIP }}"
+        configurationInfo:
+          deleteOrUpdateBehavior: "{{ deleteOrUpdateBehavior }}"
+          action: "{{ action }}"
+          customizedKeys: "{{ customizedKeys }}"
+          daprProperties:
+            version: "{{ version }}"
+            componentType: "{{ componentType }}"
+            secretStoreComponent: "{{ secretStoreComponent }}"
+            metadata:
+              - name: "{{ name }}"
+                value: "{{ value }}"
+                secretRef: "{{ secretRef }}"
+                description: "{{ description }}"
+                required: "{{ required }}"
+            scopes:
+              - "{{ scopes }}"
+            runtimeVersion: "{{ runtimeVersion }}"
+            bindingComponentDirection: "{{ bindingComponentDirection }}"
+          additionalConfigurations: "{{ additionalConfigurations }}"
+          additionalConnectionStringProperties: "{{ additionalConnectionStringProperties }}"
+          configurationStore:
+            appConfigurationId: "{{ appConfigurationId }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -591,8 +601,7 @@ type
 <Tabs
     defaultValue="update"
     values={[
-        { label: 'update', value: 'update' },
-        { label: 'update_dryrun', value: 'update_dryrun' }
+        { label: 'update', value: 'update' }
     ]}
 >
 <TabItem value="update">
@@ -608,27 +617,6 @@ subscription_id = '{{ subscription_id }}' --required
 AND resource_group_name = '{{ resource_group_name }}' --required
 AND location = '{{ location }}' --required
 AND connector_name = '{{ connector_name }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_dryrun">
-
-update a dryrun job to do necessary check before actual creation.
-
-```sql
-UPDATE azure.servicelinker.connector
-SET 
-properties = '{{ properties }}'
-WHERE 
-subscription_id = '{{ subscription_id }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND location = '{{ location }}' --required
-AND dryrun_name = '{{ dryrun_name }}' --required
 RETURNING
 id,
 name,
@@ -677,8 +665,7 @@ type;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'delete_dryrun', value: 'delete_dryrun' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -694,19 +681,6 @@ AND connector_name = '{{ connector_name }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_dryrun">
-
-delete a dryrun job.
-
-```sql
-DELETE FROM azure.servicelinker.connector
-WHERE subscription_id = '{{ subscription_id }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND location = '{{ location }}' --required
-AND dryrun_name = '{{ dryrun_name }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
@@ -716,6 +690,9 @@ AND dryrun_name = '{{ dryrun_name }}' --required
     defaultValue="list_dryrun"
     values={[
         { label: 'list_dryrun', value: 'list_dryrun' },
+        { label: 'create_dryrun', value: 'create_dryrun' },
+        { label: 'update_dryrun', value: 'update_dryrun' },
+        { label: 'delete_dryrun', value: 'delete_dryrun' },
         { label: 'validate', value: 'validate' },
         { label: 'generate_configurations', value: 'generate_configurations' }
     ]}
@@ -729,6 +706,53 @@ EXEC azure.servicelinker.connector.list_dryrun
 @subscription_id='{{ subscription_id }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @location='{{ location }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_dryrun">
+
+create a dryrun job to do necessary check before actual creation.
+
+```sql
+EXEC azure.servicelinker.connector.create_dryrun 
+@subscription_id='{{ subscription_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@location='{{ location }}' --required, 
+@dryrun_name='{{ dryrun_name }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_dryrun">
+
+update a dryrun job to do necessary check before actual creation.
+
+```sql
+EXEC azure.servicelinker.connector.update_dryrun 
+@subscription_id='{{ subscription_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@location='{{ location }}' --required, 
+@dryrun_name='{{ dryrun_name }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_dryrun">
+
+delete a dryrun job.
+
+```sql
+EXEC azure.servicelinker.connector.delete_dryrun 
+@subscription_id='{{ subscription_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@location='{{ location }}' --required, 
+@dryrun_name='{{ dryrun_name }}' --required
 ;
 ```
 </TabItem>

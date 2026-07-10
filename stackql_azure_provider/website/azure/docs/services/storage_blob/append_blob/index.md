@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-Content-Length"><code>Content-Length</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-Content-Length"><code>Content-Length</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-blob-content-type"><code>x-ms-blob-content-type</code></a>, <a href="#parameter-x-ms-blob-content-encoding"><code>x-ms-blob-content-encoding</code></a>, <a href="#parameter-x-ms-blob-content-language"><code>x-ms-blob-content-language</code></a>, <a href="#parameter-x-ms-blob-content-md5"><code>x-ms-blob-content-md5</code></a>, <a href="#parameter-x-ms-blob-cache-control"><code>x-ms-blob-cache-control</code></a>, <a href="#parameter-x-ms-meta"><code>x-ms-meta</code></a>, <a href="#parameter-x-ms-lease-id"><code>x-ms-lease-id</code></a>, <a href="#parameter-x-ms-blob-content-disposition"><code>x-ms-blob-content-disposition</code></a>, <a href="#parameter-x-ms-encryption-key"><code>x-ms-encryption-key</code></a>, <a href="#parameter-x-ms-encryption-key-sha256"><code>x-ms-encryption-key-sha256</code></a>, <a href="#parameter-x-ms-encryption-algorithm"><code>x-ms-encryption-algorithm</code></a>, <a href="#parameter-x-ms-encryption-scope"><code>x-ms-encryption-scope</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a>, <a href="#parameter-If-None-Match"><code>If-None-Match</code></a>, <a href="#parameter-x-ms-if-tags"><code>x-ms-if-tags</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-x-ms-tags"><code>x-ms-tags</code></a>, <a href="#parameter-x-ms-immutability-policy-until-date"><code>x-ms-immutability-policy-until-date</code></a>, <a href="#parameter-x-ms-immutability-policy-mode"><code>x-ms-immutability-policy-mode</code></a>, <a href="#parameter-x-ms-legal-hold"><code>x-ms-legal-hold</code></a></td>
     <td>The Create Append Blob operation creates a new append blob.</td>
 </tr>
@@ -78,15 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>integer</code></td>
     <td>The length of the request. Required.</td>
 </tr>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -232,10 +227,9 @@ blobContentMD5,
 blobContentEncoding,
 blobContentLanguage,
 blobContentDisposition,
-url,
 Content-Length,
 x-ms-version,
-endpoint,
+account,
 timeout,
 x-ms-blob-content-type,
 x-ms-blob-content-encoding,
@@ -267,10 +261,9 @@ SELECT
 '{{ blobContentEncoding }}',
 '{{ blobContentLanguage }}',
 '{{ blobContentDisposition }}',
-'{{ url }}',
 '{{ Content-Length }}',
 '{{ x-ms-version }}',
-'{{ endpoint }}',
+'{{ account }}',
 '{{ timeout }}',
 '{{ x-ms-blob-content-type }}',
 '{{ x-ms-blob-content-encoding }}',
@@ -302,17 +295,14 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: append_blob
   props:
-    - name: url
-      value: "{{ url }}"
-      description: Required parameter for the append_blob resource.
     - name: Content-Length
       value: {{ Content-Length }}
       description: Required parameter for the append_blob resource.
     - name: x-ms-version
       value: "{{ x-ms-version }}"
       description: Required parameter for the append_blob resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: account
+      value: "{{ account }}"
       description: Required parameter for the append_blob resource.
     - name: blobCacheControl
       value: "{{ blobCacheControl }}"

@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_index"><CopyableCode code="create_index" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Creates a new search index.</td>
 </tr>
 <tr>
     <td><a href="#get_index"><CopyableCode code="get_index" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves an index definition.</td>
 </tr>
@@ -80,15 +80,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
-</tr>
 <tr id="parameter-index_name">
     <td><CopyableCode code="index_name" /></td>
     <td><code>string</code></td>
     <td>The name of the index. Required.</td>
+</tr>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
+    <td><code>string</code></td>
+    <td>Search service name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -108,10 +108,10 @@ Creates a new search index.
 
 ```sql
 INSERT INTO azure.search_documents.indexes (
-endpoint
+search_service_name
 )
 SELECT 
-'{{ endpoint }}'
+'{{ search_service_name }}'
 ;
 ```
 </TabItem>
@@ -120,8 +120,8 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: indexes
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: search_service_name
+      value: "{{ search_service_name }}"
       description: Required parameter for the indexes resource.
 `}</CodeBlock>
 
@@ -144,7 +144,7 @@ Retrieves an index definition.
 ```sql
 EXEC azure.search_documents.indexes.get_index 
 @index_name='{{ index_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

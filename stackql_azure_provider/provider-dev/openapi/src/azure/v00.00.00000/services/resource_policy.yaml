@@ -752,20 +752,15 @@ components:
         properties:
           $ref: "#/components/schemas/PolicyDefinitionVersionProperties"
           description: The policy definition version properties.
-    PolicyDefinitionVersionListResult:
+    PolicyDefinitionVersionListResultFlattened:
       type: object
-      description: The response of a PolicyDefinitionVersion list operation.
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/PolicyDefinitionVersion"
-          description: The PolicyDefinitionVersion items on this page. Required.
+            $ref: "#/components/schemas/PolicyDefinitionVersionFlattened"
         nextLink:
           type: string
-          description: The link to the next page of items.
-      required:
-        - value
     PolicyDefinitionProperties:
       type: object
       description: The policy definition properties.
@@ -1310,20 +1305,15 @@ components:
         properties:
           $ref: "#/components/schemas/PolicySetDefinitionVersionProperties"
           description: The policy set definition version properties.
-    PolicySetDefinitionVersionListResult:
+    PolicySetDefinitionVersionListResultFlattened:
       type: object
-      description: The response of a PolicySetDefinitionVersion list operation.
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/PolicySetDefinitionVersion"
-          description: The PolicySetDefinitionVersion items on this page. Required.
+            $ref: "#/components/schemas/PolicySetDefinitionVersionFlattened"
         nextLink:
           type: string
-          description: The link to the next page of items.
-      required:
-        - value
     PolicySetDefinitionProperties:
       type: object
       description: The policy set definition properties.
@@ -2033,6 +2023,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         list_by_management_group:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Management~1managementGroups~1{management_group_name}~1providers~1Microsoft.Authorization~1policyDefinitions~1{policy_definition_name}~1versions?api-version=2026-01-01-preview/get"
@@ -2075,12 +2075,32 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         list_all_at_management_group:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Management~1managementGroups~1{management_group_name}~1providers~1Microsoft.Authorization~1listPolicyDefinitionVersions?api-version=2026-01-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         get_built_in:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Authorization~1policyDefinitions~1{policy_definition_name}~1versions~1{policy_definition_version}?api-version=2026-01-01-preview/get"
@@ -2124,7 +2144,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/list"
           - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/list_by_management_group"
           - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/get_built_in"
+          - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/list_all"
           - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/list_built_in"
+          - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/list_all_at_management_group"
+          - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/list_all_builtins"
         insert:
           - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/create_or_update"
           - $ref: "#/components/x-stackQL-resources/policy_definition_versions/methods/create_or_update_at_management_group"
@@ -2589,6 +2612,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         list_by_management_group:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Management~1managementGroups~1{management_group_name}~1providers~1Microsoft.Authorization~1policySetDefinitions~1{policy_set_definition_name}~1versions?api-version=2026-01-01-preview/get"
@@ -2631,12 +2664,32 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         list_all_at_management_group:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Management~1managementGroups~1{management_group_name}~1providers~1Microsoft.Authorization~1listPolicySetDefinitionVersions?api-version=2026-01-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         get_built_in:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Authorization~1policySetDefinitions~1{policy_set_definition_name}~1versions~1{policy_definition_version}?api-version=2026-01-01-preview/get"
@@ -2684,7 +2737,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/list"
           - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/list_by_management_group"
           - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/get_built_in"
+          - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/list_all"
           - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/list_built_in"
+          - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/list_all_at_management_group"
+          - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/list_all_builtins"
         insert:
           - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/create_or_update"
           - $ref: "#/components/x-stackQL-resources/policy_set_definition_versions/methods/create_or_update_at_management_group"
@@ -3664,7 +3720,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PolicyDefinitionVersionListResult"
+                $ref: "#/components/schemas/PolicyDefinitionVersionListResultFlattened"
   /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/policyDefinitions/{policy_definition_name}/versions?api-version=2026-01-01-preview:
     get:
       operationId: PolicyDefinitionVersions_list_by_management_group
@@ -3730,7 +3786,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PolicyDefinitionVersionListResult"
+                $ref: "#/components/schemas/PolicyDefinitionVersionListResultFlattened"
   /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/listPolicyDefinitionVersions?api-version=2026-01-01-preview:
     post:
       operationId: PolicyDefinitionVersions_list_all_at_management_group
@@ -3748,7 +3804,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PolicyDefinitionVersionListResult"
+                $ref: "#/components/schemas/PolicyDefinitionVersionListResultFlattened"
   /providers/Microsoft.Authorization/policyDefinitions/{policy_definition_name}/versions/{policy_definition_version}?api-version=2026-01-01-preview:
     get:
       operationId: PolicyDefinitionVersions_get_built_in
@@ -4744,7 +4800,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PolicySetDefinitionVersionListResult"
+                $ref: "#/components/schemas/PolicySetDefinitionVersionListResultFlattened"
   /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/policySetDefinitions/{policy_set_definition_name}/versions?api-version=2026-01-01-preview:
     get:
       operationId: PolicySetDefinitionVersions_list_by_management_group
@@ -4822,7 +4878,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PolicySetDefinitionVersionListResult"
+                $ref: "#/components/schemas/PolicySetDefinitionVersionListResultFlattened"
   /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/listPolicySetDefinitionVersions?api-version=2026-01-01-preview:
     post:
       operationId: PolicySetDefinitionVersions_list_all_at_management_group
@@ -4840,7 +4896,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PolicySetDefinitionVersionListResult"
+                $ref: "#/components/schemas/PolicySetDefinitionVersionListResultFlattened"
   /providers/Microsoft.Authorization/policySetDefinitions/{policy_set_definition_name}/versions/{policy_definition_version}?api-version=2026-01-01-preview:
     get:
       operationId: PolicySetDefinitionVersions_get_built_in

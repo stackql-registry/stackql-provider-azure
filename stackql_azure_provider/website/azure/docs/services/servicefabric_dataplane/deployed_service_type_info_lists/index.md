@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_service_type_info_list"><CopyableCode code="get_deployed_service_type_info_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the list containing the information about service types from the applications deployed on a node in a Service Fabric cluster. Gets the list containing the information about service types from the applications deployed on a node in a Service Fabric cluster. The response includes the name of the service type, its registration status, the code package that registered it and activation ID of the service package.</td>
 </tr>
@@ -81,7 +81,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -115,8 +115,8 @@ Gets the list containing the information about service types from the applicatio
 
 ```sql
 EXEC azure.servicefabric_dataplane.deployed_service_type_info_lists.get_deployed_service_type_info_list 
-@node_name='{{ node_name }}' --required, 
 @application_id='{{ application_id }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @ServiceManifestName='{{ ServiceManifestName }}', 
 @timeout='{{ timeout }}'

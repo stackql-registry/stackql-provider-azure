@@ -219,18 +219,18 @@ The following methods are available for this resource:
     <td>List ProtectionGroup resources by CloudAccount.</td>
 </tr>
 <tr>
-    <td><a href="#create_orupdate"><CopyableCode code="create_orupdate" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-protection_group_name"><code>protection_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a ProtectionGroup.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-protection_group_name"><code>protection_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a ProtectionGroup.</td>
+</tr>
+<tr>
+    <td><a href="#create_orupdate"><CopyableCode code="create_orupdate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-protection_group_name"><code>protection_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a ProtectionGroup.</td>
 </tr>
 <tr>
     <td><a href="#stop_backup"><CopyableCode code="stop_backup" /></a></td>
@@ -362,85 +362,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_orupdate"
-    values={[
-        { label: 'create_orupdate', value: 'create_orupdate' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_orupdate">
-
-Create a ProtectionGroup.
-
-```sql
-INSERT INTO azure_isv.commvaultcontentstore.protection_groups (
-properties,
-resource_group_name,
-cloud_account_name,
-protection_group_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ cloud_account_name }}',
-'{{ protection_group_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: protection_groups
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the protection_groups resource.
-    - name: cloud_account_name
-      value: "{{ cloud_account_name }}"
-      description: Required parameter for the protection_groups resource.
-    - name: protection_group_name
-      value: "{{ protection_group_name }}"
-      description: Required parameter for the protection_groups resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the protection_groups resource.
-    - name: properties
-      description: |
-        The resource-specific properties for this resource.
-      value:
-        dataSourceType: "{{ dataSourceType }}"
-        plan: "{{ plan }}"
-        resources:
-          manual:
-            - "{{ manual }}"
-          matchRules:
-            rules:
-              - property: "{{ property }}"
-                operator: "{{ operator }}"
-                value: "{{ value }}"
-            matchType: "{{ matchType }}"
-        protectionStatus: "{{ protectionStatus }}"
-        numberOfProtectedItems: {{ numberOfProtectedItems }}
-        lastBackUpTime: {{ lastBackUpTime }}
-        backupActivityStatus: "{{ backupActivityStatus }}"
-        provisioningState: "{{ provisioningState }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
@@ -468,14 +389,32 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="stop_backup"
+    defaultValue="create_orupdate"
     values={[
+        { label: 'create_orupdate', value: 'create_orupdate' },
         { label: 'stop_backup', value: 'stop_backup' },
         { label: 'restore', value: 'restore' },
         { label: 'resume_backup', value: 'resume_backup' },
         { label: 'backup', value: 'backup' }
     ]}
 >
+<TabItem value="create_orupdate">
+
+Create a ProtectionGroup.
+
+```sql
+EXEC azure_isv.commvaultcontentstore.protection_groups.create_orupdate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@cloud_account_name='{{ cloud_account_name }}' --required, 
+@protection_group_name='{{ protection_group_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="stop_backup">
 
 Stop Backup for a Protection Group.

@@ -60,7 +60,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-key"><code>key</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes the specified query key. Unlike admin keys, query keys are not regenerated. The process for regenerating a query key is to delete and then recreate it. Returns 200 (OK) on successful deletion, 204 (No Content) if the service exists but the query keys not found, or 404 (Not Found) if the service is not found. NOTE: The behavior of returning 404 is inconsistent with ARM guidelines. Clients should expect a 204 response in future versions and avoid new dependencies on the 404 response.</td>
 </tr>
@@ -87,8 +87,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-key">
-    <td><CopyableCode code="key" /></td>
+<tr id="parameter-key_name">
+    <td><CopyableCode code="key_name" /></td>
     <td><code>string</code></td>
     <td>The query key to be deleted. Query keys are identified by value, not by name. Required.</td>
 </tr>
@@ -185,7 +185,7 @@ Deletes the specified query key. Unlike admin keys, query keys are not regenerat
 DELETE FROM azure.search.query_keys
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND search_service_name = '{{ search_service_name }}' --required
-AND key = '{{ key }}' --required
+AND key_name = '{{ key_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```

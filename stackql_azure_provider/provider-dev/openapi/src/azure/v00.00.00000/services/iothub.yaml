@@ -1555,6 +1555,11 @@ components:
           description: EventHub consumer group name. Required.
       required:
         - name
+    IotHubNameUnavailabilityReason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
     IotHubNameAvailabilityInfo:
       type: object
       description: The properties indicating whether a given IoT hub name is available.
@@ -1568,11 +1573,6 @@ components:
         message:
           type: string
           description: The detailed reason message.
-    IotHubNameUnavailabilityReason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
     OperationDisplay:
       type: object
       description: The object that represents the operation.
@@ -1918,6 +1918,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         list_event_hub_consumer_groups:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Devices~1IotHubs~1{resource_name}~1eventHubEndpoints~1{event_hub_endpoint_name}~1ConsumerGroups?api-version=2026-03-01-preview/get"
@@ -1985,7 +1986,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Devices~1IotHubs~1{resource_name}~1eventHubEndpoints~1{event_hub_endpoint_name}~1ConsumerGroups~1{name}?api-version=2026-03-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         test_all_routes:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.Devices~1IotHubs~1{iot_hub_name}~1routing~1routes~1$testall?api-version=2026-03-01-preview/post"
@@ -2046,19 +2047,19 @@ components:
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/get_event_hub_consumer_group"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/list_event_hub_consumer_groups"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/get_job"
+          - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/get_keys_for_key_name"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/get"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/get_endpoint_health"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/list_by_subscription"
         insert:
-          - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/create_event_hub_consumer_group"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/create_or_update"
         update:
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/delete_event_hub_consumer_group"
           - $ref: "#/components/x-stackQL-resources/iot_hub_resource/methods/delete"
     operations:
       id: azure.iothub.operations
@@ -3030,8 +3031,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Devices/IotHubs/{iot_hub_name}/routing/routes/$testall?api-version=2026-03-01-preview:
     post:
       operationId: IotHubResource_test_all_routes

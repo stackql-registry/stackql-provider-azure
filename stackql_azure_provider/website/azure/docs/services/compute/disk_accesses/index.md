@@ -335,13 +335,6 @@ The following methods are available for this resource:
     <td>Creates or updates a disk access resource.</td>
 </tr>
 <tr>
-    <td><a href="#update_a_private_endpoint_connection"><CopyableCode code="update_a_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Approve or reject a private endpoint connection under disk access resource, this can't be used to create a new private endpoint connection.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -354,13 +347,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates or updates a disk access resource.</td>
-</tr>
-<tr>
-    <td><a href="#delete_a_private_endpoint_connection"><CopyableCode code="delete_a_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a private endpoint connection under a disk access resource.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -382,6 +368,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the private link resources possible under disk access resource.</td>
+</tr>
+<tr>
+    <td><a href="#update_a_private_endpoint_connection"><CopyableCode code="update_a_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Approve or reject a private endpoint connection under disk access resource, this can't be used to create a new private endpoint connection.</td>
+</tr>
+<tr>
+    <td><a href="#delete_a_private_endpoint_connection"><CopyableCode code="delete_a_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-disk_access_name"><code>disk_access_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a private endpoint connection under a disk access resource.</td>
 </tr>
 </tbody>
 </table>
@@ -628,33 +628,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_a_private_endpoint_connection"
+    defaultValue="update"
     values={[
-        { label: 'update_a_private_endpoint_connection', value: 'update_a_private_endpoint_connection' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_a_private_endpoint_connection">
-
-Approve or reject a private endpoint connection under disk access resource, this can't be used to create a new private endpoint connection.
-
-```sql
-UPDATE azure.compute.disk_accesses
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND disk_access_name = '{{ disk_access_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Updates (patches) a disk access resource.
@@ -722,25 +700,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_a_private_endpoint_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_a_private_endpoint_connection', value: 'delete_a_private_endpoint_connection' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_a_private_endpoint_connection">
-
-Deletes a private endpoint connection under a disk access resource.
-
-```sql
-DELETE FROM azure.compute.disk_accesses
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND disk_access_name = '{{ disk_access_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a disk access resource.
@@ -762,7 +726,9 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_private_endpoint_connections"
     values={[
         { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' },
-        { label: 'get_private_link_resources', value: 'get_private_link_resources' }
+        { label: 'get_private_link_resources', value: 'get_private_link_resources' },
+        { label: 'update_a_private_endpoint_connection', value: 'update_a_private_endpoint_connection' },
+        { label: 'delete_a_private_endpoint_connection', value: 'delete_a_private_endpoint_connection' }
     ]}
 >
 <TabItem value="list_private_endpoint_connections">
@@ -785,6 +751,36 @@ Gets the private link resources possible under disk access resource.
 EXEC azure.compute.disk_accesses.get_private_link_resources 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @disk_access_name='{{ disk_access_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_a_private_endpoint_connection">
+
+Approve or reject a private endpoint connection under disk access resource, this can't be used to create a new private endpoint connection.
+
+```sql
+EXEC azure.compute.disk_accesses.update_a_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@disk_access_name='{{ disk_access_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_a_private_endpoint_connection">
+
+Deletes a private endpoint connection under a disk access resource.
+
+```sql
+EXEC azure.compute.disk_accesses.delete_a_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@disk_access_name='{{ disk_access_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

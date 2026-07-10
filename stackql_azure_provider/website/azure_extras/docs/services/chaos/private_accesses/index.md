@@ -339,13 +339,6 @@ The following methods are available for this resource:
     <td>Create or update a private access.</td>
 </tr>
 <tr>
-    <td><a href="#delete_a_private_endpoint_connection"><CopyableCode code="delete_a_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_access_name"><code>private_access_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a private endpoint connection under a private access resource.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_access_name"><code>private_access_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -365,6 +358,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_access_name"><code>private_access_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the private link resources possible under private access resource.</td>
+</tr>
+<tr>
+    <td><a href="#delete_a_private_endpoint_connection"><CopyableCode code="delete_a_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_access_name"><code>private_access_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a private endpoint connection under a private access resource.</td>
 </tr>
 </tbody>
 </table>
@@ -679,25 +679,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_a_private_endpoint_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_a_private_endpoint_connection', value: 'delete_a_private_endpoint_connection' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_a_private_endpoint_connection">
-
-Deletes a private endpoint connection under a private access resource.
-
-```sql
-DELETE FROM azure_extras.chaos.private_accesses
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND private_access_name = '{{ private_access_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a private access.
@@ -719,7 +705,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_private_endpoint_connections"
     values={[
         { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' },
-        { label: 'get_private_link_resources', value: 'get_private_link_resources' }
+        { label: 'get_private_link_resources', value: 'get_private_link_resources' },
+        { label: 'delete_a_private_endpoint_connection', value: 'delete_a_private_endpoint_connection' }
     ]}
 >
 <TabItem value="list_private_endpoint_connections">
@@ -742,6 +729,19 @@ Gets the private link resources possible under private access resource.
 EXEC azure_extras.chaos.private_accesses.get_private_link_resources 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @private_access_name='{{ private_access_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_a_private_endpoint_connection">
+
+Deletes a private endpoint connection under a private access resource.
+
+```sql
+EXEC azure_extras.chaos.private_accesses.delete_a_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_access_name='{{ private_access_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

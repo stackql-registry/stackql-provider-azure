@@ -3168,7 +3168,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: storage_sync_services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.StorageSync/storageSyncServices/{storage_sync_service_name}/syncGroups/{sync_group_name}?api-version=2020-09-01
   : get:
       operationId: SyncGroups_get

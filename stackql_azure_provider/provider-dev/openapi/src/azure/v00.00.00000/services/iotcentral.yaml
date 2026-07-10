@@ -147,6 +147,16 @@ components:
       required:
         - location
         - sku
+    AppTemplateLocations:
+      type: object
+      description: IoT Central Application Template Locations. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The ID of the location.
+        displayName:
+          type: string
+          description: The display name of the location.
     AppTemplate:
       type: object
       description: IoT Central Application Template. Variables are only populated by the server, and will be ignored when sending a request.
@@ -177,16 +187,6 @@ components:
           items:
             $ref: "#/components/schemas/AppTemplateLocations"
           description: A list of locations that support the template.
-    AppTemplateLocations:
-      type: object
-      description: IoT Central Application Template Locations. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: The ID of the location.
-        displayName:
-          type: string
-          description: The display name of the location.
     PagedAppTemplate:
       type: object
       properties:
@@ -332,6 +332,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         check_name_availability:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.IoTCentral~1checkNameAvailability?api-version=2021-06-01/post"
@@ -358,6 +359,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/apps/methods/get"
           - $ref: "#/components/x-stackQL-resources/apps/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/apps/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/apps/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/apps/methods/create_or_update"

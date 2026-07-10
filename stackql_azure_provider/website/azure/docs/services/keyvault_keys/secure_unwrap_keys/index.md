@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#secure_unwrap_key"><CopyableCode code="secure_unwrap_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-alg"><code>alg</code></a>, <a href="#parameter-value"><code>value</code></a>, <a href="#parameter-target"><code>target</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-alg"><code>alg</code></a>, <a href="#parameter-value"><code>value</code></a>, <a href="#parameter-target"><code>target</code></a></td>
     <td></td>
     <td>Securely unwraps a previously wrapped symmetric key using a specified key, ensuring TEE attestation via Microsoft Azure Attestation (MAA) before unwrapping. The SECURE UNWRAP operation supports decryption of a symmetric key using the target key encryption key. This operation is the reverse of the SECURE WRAP operation. The SECURE UNWRAP operation applies to asymmetric and symmetric keys stored in Azure Key Vault since it uses the private portion of the key. This operation requires the keys/unwrapKey permission. The SECURE UNWRAP operation ensures that MAA (Microsoft Azure Attestation Service) is used to attest the TEE (Trusted Execution Environment) before the key is unwrapped.</td>
 </tr>
@@ -83,10 +83,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The version of the key. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -107,7 +107,7 @@ Securely unwraps a previously wrapped symmetric key using a specified key, ensur
 EXEC azure.keyvault_keys.secure_unwrap_keys.secure_unwrap_key 
 @key_name='{{ key_name }}' --required, 
 @key_version='{{ key_version }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "alg": "{{ alg }}", 

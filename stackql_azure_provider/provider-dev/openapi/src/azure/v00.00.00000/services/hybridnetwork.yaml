@@ -2645,8 +2645,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/proxy_artifact/methods/get"
           - $ref: "#/components/x-stackQL-resources/proxy_artifact/methods/list"
         insert: []
-        update:
-          - $ref: "#/components/x-stackQL-resources/proxy_artifact/methods/update_state"
+        update: []
         delete: []
     publishers:
       id: azure.hybridnetwork.publishers

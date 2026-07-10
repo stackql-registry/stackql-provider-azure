@@ -246,13 +246,6 @@ The following methods are available for this resource:
     <td>Creates or updates a pipeline.</td>
 </tr>
 <tr>
-    <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-pipeline_name"><code>pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td><a href="#parameter-referencePipelineRunId"><code>referencePipelineRunId</code></a>, <a href="#parameter-isRecovery"><code>isRecovery</code></a>, <a href="#parameter-startActivityName"><code>startActivityName</code></a>, <a href="#parameter-startFromFailure"><code>startFromFailure</code></a></td>
-    <td>Creates a run of a pipeline.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-pipeline_name"><code>pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
@@ -265,6 +258,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-pipeline_name"><code>pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a pipeline.</td>
+</tr>
+<tr>
+    <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-pipeline_name"><code>pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-referencePipelineRunId"><code>referencePipelineRunId</code></a>, <a href="#parameter-isRecovery"><code>isRecovery</code></a>, <a href="#parameter-startActivityName"><code>startActivityName</code></a>, <a href="#parameter-startFromFailure"><code>startFromFailure</code></a></td>
+    <td>Creates a run of a pipeline.</td>
 </tr>
 </tbody>
 </table>
@@ -398,7 +398,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_run', value: 'create_run' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -427,35 +426,6 @@ etag,
 properties,
 systemData,
 type
-;
-```
-</TabItem>
-<TabItem value="create_run">
-
-Creates a run of a pipeline.
-
-```sql
-INSERT INTO azure.datafactory.pipelines (
-resource_group_name,
-factory_name,
-pipeline_name,
-subscription_id,
-referencePipelineRunId,
-isRecovery,
-startActivityName,
-startFromFailure
-)
-SELECT 
-'{{ resource_group_name }}',
-'{{ factory_name }}',
-'{{ pipeline_name }}',
-'{{ subscription_id }}',
-'{{ referencePipelineRunId }}',
-'{{ isRecovery }}',
-'{{ startActivityName }}',
-'{{ startFromFailure }}'
-RETURNING
-runId
 ;
 ```
 </TabItem>
@@ -499,22 +469,6 @@ runId
         policy:
           elapsedTimeMetric:
             duration: "{{ duration }}"
-    - name: referencePipelineRunId
-      value: "{{ referencePipelineRunId }}"
-      description: The pipeline run identifier. If run ID is specified the parameters of the specified run will be used to create a new run. Default value is None.
-      description: The pipeline run identifier. If run ID is specified the parameters of the specified run will be used to create a new run. Default value is None.
-    - name: isRecovery
-      value: {{ isRecovery }}
-      description: Recovery mode flag. If recovery mode is set to true, the specified referenced pipeline run and the new run will be grouped under the same groupId. Default value is None.
-      description: Recovery mode flag. If recovery mode is set to true, the specified referenced pipeline run and the new run will be grouped under the same groupId. Default value is None.
-    - name: startActivityName
-      value: "{{ startActivityName }}"
-      description: In recovery mode, the rerun will start from this activity. If not specified, all activities will run. Default value is None.
-      description: In recovery mode, the rerun will start from this activity. If not specified, all activities will run. Default value is None.
-    - name: startFromFailure
-      value: {{ startFromFailure }}
-      description: In recovery mode, if set to true, the rerun will start from failed activities. The property will be used only if startActivityName is not specified. Default value is None.
-      description: In recovery mode, if set to true, the rerun will start from failed activities. The property will be used only if startActivityName is not specified. Default value is None.
 `}</CodeBlock>
 
 </TabItem>
@@ -573,6 +527,34 @@ WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND factory_name = '{{ factory_name }}' --required
 AND pipeline_name = '{{ pipeline_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_run"
+    values={[
+        { label: 'create_run', value: 'create_run' }
+    ]}
+>
+<TabItem value="create_run">
+
+Creates a run of a pipeline.
+
+```sql
+EXEC azure.datafactory.pipelines.create_run 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@factory_name='{{ factory_name }}' --required, 
+@pipeline_name='{{ pipeline_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required, 
+@referencePipelineRunId='{{ referencePipelineRunId }}', 
+@isRecovery={{ isRecovery }}, 
+@startActivityName='{{ startActivityName }}', 
+@startFromFailure={{ startFromFailure }}
 ;
 ```
 </TabItem>

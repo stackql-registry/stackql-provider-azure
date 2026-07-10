@@ -1894,7 +1894,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: disaster_recovery_configs
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/disasterRecoveryConfigs/{alias}/authorizationRules/{authorization_rule_name}?api-version=2022-10-01-preview
   : get:
       operationId: DisasterRecoveryConfigs_get_authorization_rule
@@ -2068,7 +2068,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: disaster_recovery_configs
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/migrationConfigurations/{config_name}?api-version=2022-10-01-preview
   : get:
       operationId: MigrationConfigs_get
@@ -2161,7 +2161,7 @@ paths:
                 $ref: '#/components/schemas/MigrationConfigProperties'
       x-stackql-resource: migration_configs
       x-stackql-method: create_and_start_migration
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MigrationConfigs_delete
       description: Deletes a MigrationConfiguration.
@@ -2677,7 +2677,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: namespaces
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/networkRuleSets/default?api-version=2022-10-01-preview
   : get:
       operationId: Namespaces_get_network_rule_set
@@ -2771,7 +2771,7 @@ paths:
                 $ref: '#/components/schemas/NetworkRuleSet'
       x-stackql-resource: namespaces
       x-stackql-method: create_or_update_network_rule_set
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/AuthorizationRules/{authorization_rule_name}?api-version=2022-10-01-preview
   : get:
       operationId: Namespaces_get_authorization_rule
@@ -2862,7 +2862,7 @@ paths:
                 $ref: '#/components/schemas/SBAuthorizationRule'
       x-stackql-resource: namespaces
       x-stackql-method: create_or_update_authorization_rule
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: Namespaces_delete_authorization_rule
       description: 'Deletes a namespace authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639417.aspx'
@@ -2891,11 +2891,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: namespaces
       x-stackql-method: delete_authorization_rule
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/AuthorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2022-10-01-preview
   : post:
       operationId: Namespaces_regenerate_keys
@@ -2983,7 +2983,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: namespaces
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.ServiceBus/operations?api-version=2022-10-01-preview:
     get:
       operationId: servicebus_list
@@ -3514,7 +3514,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: queues
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/queues/{queue_name}/authorizationRules/{authorization_rule_name}?api-version=2022-10-01-preview
   : get:
       operationId: Queues_get_authorization_rule
@@ -3617,7 +3617,7 @@ paths:
                 $ref: '#/components/schemas/SBAuthorizationRule'
       x-stackql-resource: queues
       x-stackql-method: create_or_update_authorization_rule
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: Queues_delete_authorization_rule
       description: 'Deletes a queue authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt705609.aspx'
@@ -3652,11 +3652,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: queues
       x-stackql-method: delete_authorization_rule
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/queues/{queue_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2022-10-01-preview
   : post:
       operationId: Queues_regenerate_keys
@@ -4488,7 +4488,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: topics
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/topics/{topic_name}/authorizationRules/{authorization_rule_name}?api-version=2022-10-01-preview
   : get:
       operationId: Topics_get_authorization_rule
@@ -4591,7 +4591,7 @@ paths:
                 $ref: '#/components/schemas/SBAuthorizationRule'
       x-stackql-resource: topics
       x-stackql-method: create_or_update_authorization_rule
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: Topics_delete_authorization_rule
       description: 'Deletes a topic authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720681.aspx'
@@ -4626,11 +4626,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: topics
       x-stackql-method: delete_authorization_rule
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/topics/{topic_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2022-10-01-preview
   : post:
       operationId: Topics_regenerate_keys

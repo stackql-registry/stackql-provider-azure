@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_code_package_info_list"><CopyableCode code="get_deployed_code_package_info_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the list of code packages deployed on a Service Fabric node. Gets the list of code packages deployed on a Service Fabric node for the given application.</td>
 </tr>
@@ -81,7 +81,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -120,8 +120,8 @@ Gets the list of code packages deployed on a Service Fabric node. Gets the list 
 
 ```sql
 EXEC azure.servicefabric_dataplane.deployed_code_package_info_lists.get_deployed_code_package_info_list 
-@node_name='{{ node_name }}' --required, 
 @application_id='{{ application_id }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @ServiceManifestName='{{ ServiceManifestName }}', 
 @CodePackageName='{{ CodePackageName }}', 

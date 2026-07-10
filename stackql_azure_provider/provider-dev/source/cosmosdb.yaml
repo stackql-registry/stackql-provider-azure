@@ -2777,15 +2777,6 @@ components:
         secondaryMasterKey:
           type: string
           description: Base 64 encoded value of the secondary read-write key.
-    DatabaseAccountListConnectionStringsResult:
-      type: object
-      description: The connection strings for the given database account.
-      properties:
-        connectionStrings:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseAccountConnectionString'
-          description: An array that contains the connection strings for the Cosmos DB account.
     DatabaseAccountConnectionString:
       type: object
       description: Connection string for the Cosmos DB account.
@@ -2823,6 +2814,15 @@ components:
       - SqlDedicatedGateway
       - GremlinV2
       - Undefined
+    DatabaseAccountListConnectionStringsResult:
+      type: object
+      description: The connection strings for the given database account.
+      properties:
+        connectionStrings:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseAccountConnectionString'
+          description: An array that contains the connection strings for the Cosmos DB account.
     DatabaseAccountListReadOnlyKeysResult:
       type: object
       description: The read-only access keys for the given database account.
@@ -3974,13 +3974,6 @@ components:
         identity:
           $ref: '#/components/schemas/ManagedServiceIdentity'
           description: Identity for the resource.
-    BackupInformation:
-      type: object
-      description: Backup information of a resource.
-      properties:
-        continuousBackupInformation:
-          $ref: '#/components/schemas/ContinuousBackupInformation'
-          description: Information about the status of continuous backups.
     ContinuousBackupInformation:
       type: object
       description: Information about the status of continuous backups.
@@ -3988,6 +3981,13 @@ components:
         latestRestorableTimestamp:
           type: string
           description: The latest restorable timestamp for a resource.
+    BackupInformation:
+      type: object
+      description: Backup information of a resource.
+      properties:
+        continuousBackupInformation:
+          $ref: '#/components/schemas/ContinuousBackupInformation'
+          description: Information about the status of continuous backups.
     GremlinRoleDefinitionResource:
       type: object
       description: Parameters to create and update an Azure Cosmos DB Gremlin Role Definition.
@@ -8334,7 +8334,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: cassandra_resources
       x-stackql-method: update_cassandra_keyspace_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/cassandraKeyspaces/{keyspace_name}/tables/{table_name}/throughputSettings/default?api-version=2026-03-15
   : get:
       operationId: CassandraResources_get_cassandra_table_throughput
@@ -8450,7 +8450,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: cassandra_resources
       x-stackql-method: update_cassandra_table_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/cassandraKeyspaces/{keyspace_name}?api-version=2026-03-15
   : get:
       operationId: CassandraResources_get_cassandra_keyspace
@@ -8554,7 +8554,7 @@ paths:
                 $ref: '#/components/schemas/CassandraKeyspaceGetResults'
       x-stackql-resource: cassandra_resources
       x-stackql-method: create_update_cassandra_keyspace
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: CassandraResources_begin_delete_cassandra_keyspace
       description: Deletes an existing Azure Cosmos DB Cassandra keyspace.
@@ -8587,7 +8587,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: cassandra_resources
       x-stackql-method: delete_cassandra_keyspace
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/cassandraKeyspaces/{keyspace_name}/tables/{table_name}?api-version=2026-03-15
   : get:
       operationId: CassandraResources_get_cassandra_table
@@ -8702,7 +8702,7 @@ paths:
                 $ref: '#/components/schemas/CassandraTableGetResults'
       x-stackql-resource: cassandra_resources
       x-stackql-method: create_update_cassandra_table
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: CassandraResources_begin_delete_cassandra_table
       description: Deletes an existing Azure Cosmos DB Cassandra table.
@@ -8741,7 +8741,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: cassandra_resources
       x-stackql-method: delete_cassandra_table
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/cassandraRoleDefinitions/{role_definition_id}?api-version=2026-03-15
   : get:
       operationId: CassandraResources_get_cassandra_role_definition
@@ -8828,7 +8828,7 @@ paths:
                 $ref: '#/components/schemas/CassandraRoleDefinitionResource'
       x-stackql-resource: cassandra_resources
       x-stackql-method: create_update_cassandra_role_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: CassandraResources_begin_delete_cassandra_role_definition
       description: Deletes an existing Azure Cosmos DB Cassandra Role Definition.
@@ -8861,7 +8861,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: cassandra_resources
       x-stackql-method: delete_cassandra_role_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/cassandraRoleAssignments/{role_assignment_id}?api-version=2026-03-15
   : get:
       operationId: CassandraResources_get_cassandra_role_assignment
@@ -8948,7 +8948,7 @@ paths:
                 $ref: '#/components/schemas/CassandraRoleAssignmentResource'
       x-stackql-resource: cassandra_resources
       x-stackql-method: create_update_cassandra_role_assignment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: CassandraResources_begin_delete_cassandra_role_assignment
       description: Deletes an existing Azure Cosmos DB Cassandra Role Assignment.
@@ -8981,7 +8981,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: cassandra_resources
       x-stackql-method: delete_cassandra_role_assignment
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/cassandraKeyspaces/{keyspace_name}/throughputSettings/default/migrateToAutoscale?api-version=2026-03-15
   : post:
       operationId: CassandraResources_begin_migrate_cassandra_keyspace_to_autoscale
@@ -9830,7 +9830,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseAccountListKeysResult'
       x-stackql-resource: database_accounts
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/listConnectionStrings?api-version=2026-03-15
   : post:
       operationId: DatabaseAccounts_list_connection_strings
@@ -9862,7 +9862,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseAccountListConnectionStringsResult'
       x-stackql-resource: database_accounts
       x-stackql-method: list_connection_strings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/readonlykeys?api-version=2026-03-15
   : post:
       operationId: DatabaseAccounts_list_read_only_keys
@@ -9894,7 +9894,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseAccountListReadOnlyKeysResult'
       x-stackql-resource: database_accounts
       x-stackql-method: list_read_only_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
     get:
       operationId: DatabaseAccounts_get_read_only_keys
       description: Lists the read-only access keys for the specified Azure Cosmos DB database account.
@@ -11194,7 +11194,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: gremlin_resources
       x-stackql-method: update_gremlin_database_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/gremlinDatabases/{database_name}/graphs/{graph_name}/throughputSettings/default?api-version=2026-03-15
   : get:
       operationId: GremlinResources_get_gremlin_graph_throughput
@@ -11310,7 +11310,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: gremlin_resources
       x-stackql-method: update_gremlin_graph_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/gremlinDatabases/{database_name}?api-version=2026-03-15
   : get:
       operationId: GremlinResources_get_gremlin_database
@@ -11414,7 +11414,7 @@ paths:
                 $ref: '#/components/schemas/GremlinDatabaseGetResults'
       x-stackql-resource: gremlin_resources
       x-stackql-method: create_update_gremlin_database
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: GremlinResources_begin_delete_gremlin_database
       description: Deletes an existing Azure Cosmos DB Gremlin database.
@@ -11447,7 +11447,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: gremlin_resources
       x-stackql-method: delete_gremlin_database
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/gremlinDatabases/{database_name}/graphs/{graph_name}?api-version=2026-03-15
   : get:
       operationId: GremlinResources_get_gremlin_graph
@@ -11562,7 +11562,7 @@ paths:
                 $ref: '#/components/schemas/GremlinGraphGetResults'
       x-stackql-resource: gremlin_resources
       x-stackql-method: create_update_gremlin_graph
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: GremlinResources_begin_delete_gremlin_graph
       description: Deletes an existing Azure Cosmos DB Gremlin graph.
@@ -11601,7 +11601,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: gremlin_resources
       x-stackql-method: delete_gremlin_graph
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/gremlinRoleDefinitions/{role_definition_id}?api-version=2026-03-15
   : get:
       operationId: GremlinResources_get_gremlin_role_definition
@@ -11688,7 +11688,7 @@ paths:
                 $ref: '#/components/schemas/GremlinRoleDefinitionResource'
       x-stackql-resource: gremlin_resources
       x-stackql-method: create_update_gremlin_role_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: GremlinResources_begin_delete_gremlin_role_definition
       description: Deletes an existing Azure Cosmos DB Gremlin Role Definition.
@@ -11721,7 +11721,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: gremlin_resources
       x-stackql-method: delete_gremlin_role_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/gremlinRoleAssignments/{role_assignment_id}?api-version=2026-03-15
   : get:
       operationId: GremlinResources_get_gremlin_role_assignment
@@ -11808,7 +11808,7 @@ paths:
                 $ref: '#/components/schemas/GremlinRoleAssignmentResource'
       x-stackql-resource: gremlin_resources
       x-stackql-method: create_update_gremlin_role_assignment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: GremlinResources_begin_delete_gremlin_role_assignment
       description: Deletes an existing Azure Cosmos DB Gremlin Role Assignment.
@@ -11841,7 +11841,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: gremlin_resources
       x-stackql-method: delete_gremlin_role_assignment
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/gremlinDatabases/{database_name}/throughputSettings/default/migrateToAutoscale?api-version=2026-03-15
   : post:
       operationId: GremlinResources_begin_migrate_gremlin_database_to_autoscale
@@ -12059,7 +12059,7 @@ paths:
                 $ref: '#/components/schemas/BackupInformation'
       x-stackql-resource: gremlin_resources
       x-stackql-method: retrieve_continuous_backup_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.DocumentDB/locations/{location}?api-version=2026-03-15:
     get:
       operationId: Locations_get
@@ -12359,7 +12359,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: update_mongo_db_database_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongodbDatabases/{database_name}/collections/{collection_name}/throughputSettings/default?api-version=2026-03-15
   : get:
       operationId: MongoDBResources_get_mongo_db_collection_throughput
@@ -12475,7 +12475,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: update_mongo_db_collection_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongodbDatabases/{database_name}?api-version=2026-03-15
   : get:
       operationId: MongoDBResources_get_mongo_db_database
@@ -12579,7 +12579,7 @@ paths:
                 $ref: '#/components/schemas/MongoDBDatabaseGetResults'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: create_update_mongo_db_database
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MongoDBResources_begin_delete_mongo_db_database
       description: Deletes an existing Azure Cosmos DB MongoDB database.
@@ -12612,7 +12612,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: mongo_db_resources
       x-stackql-method: delete_mongo_db_database
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongodbDatabases/{database_name}/collections/{collection_name}?api-version=2026-03-15
   : get:
       operationId: MongoDBResources_get_mongo_db_collection
@@ -12727,7 +12727,7 @@ paths:
                 $ref: '#/components/schemas/MongoDBCollectionGetResults'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: create_update_mongo_db_collection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MongoDBResources_begin_delete_mongo_db_collection
       description: Deletes an existing Azure Cosmos DB MongoDB Collection.
@@ -12766,7 +12766,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: mongo_db_resources
       x-stackql-method: delete_mongo_db_collection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongodbRoleDefinitions/{mongo_role_definition_id}?api-version=2026-03-15
   : get:
       operationId: MongoDBResources_get_mongo_role_definition
@@ -12853,7 +12853,7 @@ paths:
                 $ref: '#/components/schemas/MongoRoleDefinitionGetResults'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: create_update_mongo_role_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MongoDBResources_begin_delete_mongo_role_definition
       description: Deletes an existing Azure Cosmos DB Mongo Role Definition.
@@ -12886,7 +12886,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: mongo_db_resources
       x-stackql-method: delete_mongo_role_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongodbUserDefinitions/{mongo_user_definition_id}?api-version=2026-03-15
   : get:
       operationId: MongoDBResources_get_mongo_user_definition
@@ -12973,7 +12973,7 @@ paths:
                 $ref: '#/components/schemas/MongoUserDefinitionGetResults'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: create_update_mongo_user_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MongoDBResources_begin_delete_mongo_user_definition
       description: Deletes an existing Azure Cosmos DB Mongo User Definition.
@@ -13006,7 +13006,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: mongo_db_resources
       x-stackql-method: delete_mongo_user_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongodbDatabases/{database_name}/throughputSettings/default/migrateToAutoscale?api-version=2026-03-15
   : post:
       operationId: MongoDBResources_begin_migrate_mongo_db_database_to_autoscale
@@ -13224,7 +13224,7 @@ paths:
                 $ref: '#/components/schemas/BackupInformation'
       x-stackql-resource: mongo_db_resources
       x-stackql-method: retrieve_continuous_backup_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongoMIRoleDefinitions?api-version=2026-03-15
   : get:
       operationId: MongoMIResources_list_mongo_mi_role_definitions
@@ -13381,7 +13381,7 @@ paths:
                 $ref: '#/components/schemas/MongoMIRoleDefinitionResource'
       x-stackql-resource: mongo_mi_resources
       x-stackql-method: create_update_mongo_mi_role_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MongoMIResources_begin_delete_mongo_mi_role_definition
       description: Deletes an existing Azure Cosmos DB MongoMI Role Definition.
@@ -13414,7 +13414,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: mongo_mi_resources
       x-stackql-method: delete_mongo_mi_role_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/mongoMIRoleAssignments/{role_assignment_id}?api-version=2026-03-15
   : get:
       operationId: MongoMIResources_get_mongo_mi_role_assignment
@@ -13501,7 +13501,7 @@ paths:
                 $ref: '#/components/schemas/MongoMIRoleAssignmentResource'
       x-stackql-resource: mongo_mi_resources
       x-stackql-method: create_update_mongo_mi_role_assignment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: MongoMIResources_begin_delete_mongo_mi_role_assignment
       description: Deletes an existing Azure Cosmos DB MongoMI Role Assignment.
@@ -13534,7 +13534,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: mongo_mi_resources
       x-stackql-method: delete_mongo_mi_role_assignment
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/notebookWorkspaces/{notebook_workspace_name}?api-version=2026-03-15
   : get:
       operationId: NotebookWorkspaces_get
@@ -13722,7 +13722,7 @@ paths:
                 $ref: '#/components/schemas/NotebookWorkspaceConnectionInfoResult'
       x-stackql-resource: notebook_workspaces
       x-stackql-method: list_connection_info
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/notebookWorkspaces/{notebook_workspace_name}/regenerateAuthToken?api-version=2026-03-15
   : post:
       operationId: NotebookWorkspaces_begin_regenerate_auth_token
@@ -15492,7 +15492,7 @@ paths:
                 $ref: '#/components/schemas/SqlDatabaseGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_database
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_database
       description: Deletes an existing Azure Cosmos DB SQL database.
@@ -15525,7 +15525,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_database
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/throughputSettings/default?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_database_throughput
@@ -15629,7 +15629,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: update_sql_database_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/containers/{container_name}/throughputSettings/default?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_container_throughput
@@ -15744,7 +15744,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: update_sql_container_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/clientEncryptionKeys/{client_encryption_key_name}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_client_encryption_key
@@ -15845,7 +15845,7 @@ paths:
                 $ref: '#/components/schemas/ClientEncryptionKeyGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_client_encryption_key
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/containers/{container_name}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_container
@@ -15960,7 +15960,7 @@ paths:
                 $ref: '#/components/schemas/SqlContainerGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_container
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_container
       description: Deletes an existing Azure Cosmos DB SQL container.
@@ -15999,7 +15999,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_container
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/containers/{container_name}/storedProcedures/{stored_procedure_name}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_stored_procedure
@@ -16126,7 +16126,7 @@ paths:
                 $ref: '#/components/schemas/SqlStoredProcedureGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_stored_procedure
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_stored_procedure
       description: Deletes an existing Azure Cosmos DB SQL storedProcedure.
@@ -16171,7 +16171,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_stored_procedure
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/containers/{container_name}/userDefinedFunctions/{user_defined_function_name}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_user_defined_function
@@ -16298,7 +16298,7 @@ paths:
                 $ref: '#/components/schemas/SqlUserDefinedFunctionGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_user_defined_function
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_user_defined_function
       description: Deletes an existing Azure Cosmos DB SQL userDefinedFunction.
@@ -16343,7 +16343,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_user_defined_function
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/containers/{container_name}/triggers/{trigger_name}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_trigger
@@ -16470,7 +16470,7 @@ paths:
                 $ref: '#/components/schemas/SqlTriggerGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_trigger
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_trigger
       description: Deletes an existing Azure Cosmos DB SQL trigger.
@@ -16515,7 +16515,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_trigger
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlRoleDefinitions/{role_definition_id}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_role_definition
@@ -16601,7 +16601,7 @@ paths:
                 $ref: '#/components/schemas/SqlRoleDefinitionGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_role_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_role_definition
       description: Deletes an existing Azure Cosmos DB SQL Role Definition.
@@ -16634,7 +16634,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_role_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlRoleAssignments/{role_assignment_id}?api-version=2026-03-15
   : get:
       operationId: SqlResources_get_sql_role_assignment
@@ -16720,7 +16720,7 @@ paths:
                 $ref: '#/components/schemas/SqlRoleAssignmentGetResults'
       x-stackql-resource: sql_resources
       x-stackql-method: create_update_sql_role_assignment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SqlResources_begin_delete_sql_role_assignment
       description: Deletes an existing Azure Cosmos DB SQL Role Assignment.
@@ -16753,7 +16753,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sql_resources
       x-stackql-method: delete_sql_role_assignment
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/sqlDatabases/{database_name}/throughputSettings/default/migrateToAutoscale?api-version=2026-03-15
   : post:
       operationId: SqlResources_begin_migrate_sql_database_to_autoscale
@@ -16971,7 +16971,7 @@ paths:
                 $ref: '#/components/schemas/BackupInformation'
       x-stackql-resource: sql_resources
       x-stackql-method: retrieve_continuous_backup_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/tables?api-version=2026-03-15
   : get:
       operationId: TableResources_list_tables
@@ -17180,7 +17180,7 @@ paths:
                 $ref: '#/components/schemas/ThroughputSettingsGetResults'
       x-stackql-resource: table_resources
       x-stackql-method: update_table_throughput
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/tables/{table_name}?api-version=2026-03-15
   : get:
       operationId: TableResources_get_table
@@ -17403,7 +17403,7 @@ paths:
                 $ref: '#/components/schemas/TableRoleDefinitionResource'
       x-stackql-resource: table_resources
       x-stackql-method: create_update_table_role_definition
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: TableResources_begin_delete_table_role_definition
       description: Deletes an existing Azure Cosmos DB Table Role Definition.
@@ -17436,7 +17436,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: table_resources
       x-stackql-method: delete_table_role_definition
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/tableRoleAssignments/{role_assignment_id}?api-version=2026-03-15
   : get:
       operationId: TableResources_get_table_role_assignment
@@ -17523,7 +17523,7 @@ paths:
                 $ref: '#/components/schemas/TableRoleAssignmentResource'
       x-stackql-resource: table_resources
       x-stackql-method: create_update_table_role_assignment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: TableResources_begin_delete_table_role_assignment
       description: Deletes an existing Azure Cosmos DB Table Role Assignment.
@@ -17556,7 +17556,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: table_resources
       x-stackql-method: delete_table_role_assignment
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/{account_name}/tables/{table_name}/throughputSettings/default/migrateToAutoscale?api-version=2026-03-15
   : post:
       operationId: TableResources_begin_migrate_table_to_autoscale
@@ -17680,4 +17680,4 @@ paths:
                 $ref: '#/components/schemas/BackupInformation'
       x-stackql-resource: table_resources
       x-stackql-method: retrieve_continuous_backup_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

@@ -1412,6 +1412,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
         list_deleted:
@@ -1468,7 +1469,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/configuration_stores/methods/update"
         delete:
           - $ref: "#/components/x-stackQL-resources/configuration_stores/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/configuration_stores/methods/purge_deleted"
     key_values:
       id: azure.appconfiguration.key_values
       name: key_values
@@ -1600,6 +1600,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/operations/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/operations/methods/list"
         insert: []
         update: []

@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#wrap_key"><CopyableCode code="wrap_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-alg"><code>alg</code></a>, <a href="#parameter-value"><code>value</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-alg"><code>alg</code></a>, <a href="#parameter-value"><code>value</code></a></td>
     <td></td>
     <td>Wraps a symmetric key using a specified key. The WRAP operation supports encryption of a symmetric key using a key encryption key that has previously been stored in an Azure Key Vault. The WRAP operation is only strictly necessary for symmetric keys stored in Azure Key Vault since protection with an asymmetric key can be performed using the public portion of the key. This operation is supported for asymmetric keys as a convenience for callers that have a key-reference but do not have access to the public key material. This operation requires the keys/wrapKey permission.</td>
 </tr>
@@ -83,10 +83,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The version of the key. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -107,7 +107,7 @@ Wraps a symmetric key using a specified key. The WRAP operation supports encrypt
 EXEC azure.keyvault_keys.wrap_keys.wrap_key 
 @key_name='{{ key_name }}' --required, 
 @key_version='{{ key_version }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "alg": "{{ alg }}", 

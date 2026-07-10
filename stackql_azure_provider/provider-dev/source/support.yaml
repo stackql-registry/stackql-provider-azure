@@ -1099,7 +1099,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: communications_no_subscription
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Support/supportTickets/{support_ticket_name}/communications/{communication_name}?api-version=2024-04-01
   : get:
       operationId: Communications_get
@@ -1278,7 +1278,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: communications
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Support/fileWorkspaces/{file_workspace_name}?api-version=2024-04-01:
     get:
       operationId: FileWorkspacesNoSubscription_get
@@ -2022,7 +2022,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: support_tickets_no_subscription
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.Support/supportTickets/{support_ticket_name}?api-version=2024-04-01:
     get:
       operationId: SupportTickets_get
@@ -2302,4 +2302,4 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: support_tickets
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

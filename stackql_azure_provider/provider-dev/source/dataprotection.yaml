@@ -1581,25 +1581,6 @@ components:
         excelFileBlobSasKey:
           type: string
           description: SAS key to access the ExcelFile blob.
-    AzureBackupJobResource:
-      type: object
-      description: AzureBackup Job Resource Class.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/AzureBackupJob'
-          description: AzureBackupJobResource properties.
     AzureBackupJob:
       type: object
       description: AzureBackup Job Class.
@@ -1803,53 +1784,6 @@ components:
           description: Error details for the warning. Required.
       required:
       - warning
-    PagedAzureBackupJobResource:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/AzureBackupJobResource'
-        nextLink:
-          type: string
-    AzureBackupRecoveryPointResource:
-      type: object
-      description: Azure backup recoveryPoint resource.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/AzureBackupRecoveryPoint'
-          description: AzureBackupRecoveryPointResource properties.
-    AzureBackupRecoveryPoint:
-      type: object
-      description: 'Azure backup recoveryPoint. You probably want to use the sub-classes and not this class directly.
-        Known sub-classes are: AzureBackupDiscreteRecoveryPoint'
-      properties:
-        objectType:
-          type: string
-          description: Required. Default value is None.
-      required:
-      - objectType
-    PagedAzureBackupRecoveryPointResource:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/AzureBackupRecoveryPointResource'
-        nextLink:
-          type: string
     AzureBackupJobResourceFlattened:
       type: object
       description: Flattened view of AzureBackupJobResource ('properties' hoisted to the top level).
@@ -1976,6 +1910,44 @@ components:
             $ref: '#/components/schemas/AzureBackupJobResourceFlattened'
         nextLink:
           type: string
+    AzureBackupRecoveryPoint:
+      type: object
+      description: 'Azure backup recoveryPoint. You probably want to use the sub-classes and not this class directly.
+        Known sub-classes are: AzureBackupDiscreteRecoveryPoint'
+      properties:
+        objectType:
+          type: string
+          description: Required. Default value is None.
+      required:
+      - objectType
+    AzureBackupRecoveryPointResourceFlattened:
+      type: object
+      description: Flattened view of AzureBackupRecoveryPointResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        objectType:
+          type: string
+          description: Required. Default value is None.
+    PagedAzureBackupRecoveryPointResourceFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/AzureBackupRecoveryPointResourceFlattened'
+        nextLink:
+          type: string
     Error:
       type: object
       description: The resource management error response.
@@ -2052,34 +2024,6 @@ components:
           type: string
           description: This property will be used as the discriminator for deciding the specific types in the polymorphic
             chain of types. Required. Default value is None.
-    AzureBackupRecoveryPointResourceFlattened:
-      type: object
-      description: Flattened view of AzureBackupRecoveryPointResource ('properties' hoisted to the top level).
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        objectType:
-          type: string
-          description: Required. Default value is None.
-    PagedAzureBackupRecoveryPointResourceFlattened:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/AzureBackupRecoveryPointResourceFlattened'
-        nextLink:
-          type: string
     ResourceGuard:
       type: object
       description: ResourceGuard.
@@ -2232,25 +2176,6 @@ components:
       - OperationalStore
       - VaultStore
       - ArchiveStore
-    AzureBackupFindRestorableTimeRangesResponseResource:
-      type: object
-      description: List Restore Ranges Response.
-      properties:
-        id:
-          type: string
-          description: Resource Id represents the complete path to the resource.
-        name:
-          type: string
-          description: Resource name associated with the resource.
-        type:
-          type: string
-          description: Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Metadata pertaining to creation and last modification of the resource.
-        properties:
-          $ref: '#/components/schemas/AzureBackupFindRestorableTimeRangesResponse'
-          description: AzureBackupFindRestorableTimeRangesResponseResource properties.
     AzureBackupFindRestorableTimeRangesResponse:
       type: object
       description: List Restore Ranges Response.
@@ -2279,6 +2204,31 @@ components:
       required:
       - startTime
       - endTime
+    AzureBackupFindRestorableTimeRangesResponseResourceFlattened:
+      type: object
+      description: Flattened view of AzureBackupFindRestorableTimeRangesResponseResource ('properties' hoisted to
+        the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id represents the complete path to the resource.
+        name:
+          type: string
+          description: Resource name associated with the resource.
+        type:
+          type: string
+          description: Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Metadata pertaining to creation and last modification of the resource.
+        restorableTimeRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestorableTimeRange'
+          description: Returns the Restore Ranges available on the Backup Instance.
+        objectType:
+          type: string
+          description: ':vartype object_type: str'
 paths:
   /{resource_id}/providers/Microsoft.DataProtection/backupInstances?api-version=2026-03-01:
     get:
@@ -3628,7 +3578,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: backup_vaults
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.DataProtection/locations/{location}/checkFeatureSupport?api-version=2026-03-01
   : post:
       operationId: DataProtection_check_feature_support
@@ -3667,7 +3617,7 @@ paths:
                 $ref: '#/components/schemas/FeatureValidationResponseBase'
       x-stackql-resource: data_protection
       x-stackql-method: check_feature_support
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.DataProtection/operations?api-version=2026-03-01:
     get:
       operationId: DataProtectionOperations_list
@@ -4184,10 +4134,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AzureBackupJobResource'
+                $ref: '#/components/schemas/AzureBackupJobResourceFlattened'
       x-stackql-resource: fetch_cross_region_restore_job
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataProtection/locations/{location}/fetchCrossRegionRestoreJobs?api-version=2026-03-01
   : post:
       operationId: FetchCrossRegionRestoreJobs_list
@@ -4238,10 +4189,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedAzureBackupJobResource'
+                $ref: '#/components/schemas/PagedAzureBackupJobResourceFlattened'
       x-stackql-resource: fetch_cross_region_restore_jobs
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataProtection/locations/{location}/fetchSecondaryRecoveryPoints?api-version=2026-03-01
   : post:
       operationId: FetchSecondaryRecoveryPoints_list
@@ -4296,10 +4250,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedAzureBackupRecoveryPointResource'
+                $ref: '#/components/schemas/PagedAzureBackupRecoveryPointResourceFlattened'
       x-stackql-resource: fetch_secondary_recovery_points
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataProtection/backupVaults/{vault_name}/backupJobs/{job_id}?api-version=2026-03-01
   : get:
       operationId: Jobs_get
@@ -5309,7 +5266,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AzureBackupFindRestorableTimeRangesResponseResource'
+                $ref: '#/components/schemas/AzureBackupFindRestorableTimeRangesResponseResourceFlattened'
       x-stackql-resource: restorable_time_ranges
       x-stackql-method: find
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton

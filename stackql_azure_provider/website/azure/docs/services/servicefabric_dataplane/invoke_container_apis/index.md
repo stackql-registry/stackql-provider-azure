@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#invoke_container_api"><CopyableCode code="invoke_container_api" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-CodePackageInstanceId"><code>CodePackageInstanceId</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-UriPath"><code>UriPath</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-CodePackageInstanceId"><code>CodePackageInstanceId</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-UriPath"><code>UriPath</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Invoke container API on a container deployed on a Service Fabric node. Invoke container API on a container deployed on a Service Fabric node for the given code package.</td>
 </tr>
@@ -96,7 +96,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -125,11 +125,11 @@ Invoke container API on a container deployed on a Service Fabric node. Invoke co
 
 ```sql
 EXEC azure.servicefabric_dataplane.invoke_container_apis.invoke_container_api 
-@node_name='{{ node_name }}' --required, 
 @application_id='{{ application_id }}' --required, 
-@ServiceManifestName='{{ ServiceManifestName }}' --required, 
-@CodePackageInstanceId='{{ CodePackageInstanceId }}' --required, 
 @CodePackageName='{{ CodePackageName }}' --required, 
+@CodePackageInstanceId='{{ CodePackageInstanceId }}' --required, 
+@node_name='{{ node_name }}' --required, 
+@ServiceManifestName='{{ ServiceManifestName }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}' 
 @@json=

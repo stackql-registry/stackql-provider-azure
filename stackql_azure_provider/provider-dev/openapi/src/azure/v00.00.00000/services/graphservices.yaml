@@ -252,8 +252,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/accounts/methods/get"
           - $ref: "#/components/x-stackQL-resources/accounts/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/accounts/methods/list_by_subscription"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/accounts/methods/create_and_update"
+        insert: []
         update:
           - $ref: "#/components/x-stackQL-resources/accounts/methods/update"
         delete:

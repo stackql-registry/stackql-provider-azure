@@ -456,55 +456,6 @@ components:
             $ref: '#/components/schemas/ProductFlattened'
         nextLink:
           type: string
-    ExtendedProduct:
-      type: object
-      description: Extended description about the product required for installing it into Azure Stack. Variables
-        are only populated by the server, and will be ignored when sending a request.
-      properties:
-        galleryPackageBlobSasUri:
-          type: string
-          description: The URI to the .azpkg file that provides information required for showing product in the
-            gallery.
-        productKind:
-          type: string
-          description: Specifies the kind of the product (virtualMachine or virtualMachineExtension).
-        properties:
-          type: object
-          properties:
-            computeRole:
-              type: string
-              description: 'Specifies kind of compute role included in the package. Known values are: "None", "IaaS",
-                and "PaaS".'
-            isSystemExtension:
-              type: boolean
-              description: Specifies if product is a Virtual Machine Extension.
-            supportMultipleExtensions:
-              type: boolean
-              description: Indicates if specified product supports multiple extensions.
-            version:
-              type: string
-              description: Specifies product version.
-            vmOsType:
-              type: string
-              description: 'Specifies operating system used by the product. Known values are: "None", "Windows",
-                and "Linux".'
-            vmScaleSetEnabled:
-              type: boolean
-              description: Indicates if virtual machine Scale Set is enabled in the specified product.
-            sourceBlob:
-              type: object
-              properties:
-                uri:
-                  type: string
-                  description: The URI.
-            osDiskImage:
-              $ref: '#/components/schemas/OsDiskImage'
-              description: OS disk image used by product.
-            dataDiskImages:
-              type: array
-              items:
-                $ref: '#/components/schemas/DataDiskImage'
-              description: List of attached data disks.
     OsDiskImage:
       type: object
       description: OS disk image. Variables are only populated by the server, and will be ignored when sending a
@@ -527,6 +478,51 @@ components:
         sourceBlobSasUri:
           type: string
           description: SAS key for source blob.
+    ExtendedProductFlattened:
+      type: object
+      description: Flattened view of ExtendedProduct ('properties' hoisted to the top level).
+      properties:
+        galleryPackageBlobSasUri:
+          type: string
+          description: The URI to the .azpkg file that provides information required for showing product in the
+            gallery.
+        productKind:
+          type: string
+          description: Specifies the kind of the product (virtualMachine or virtualMachineExtension).
+        computeRole:
+          type: string
+          description: 'Specifies kind of compute role included in the package. Known values are: "None", "IaaS",
+            and "PaaS".'
+        isSystemExtension:
+          type: boolean
+          description: Specifies if product is a Virtual Machine Extension.
+        supportMultipleExtensions:
+          type: boolean
+          description: Indicates if specified product supports multiple extensions.
+        version:
+          type: string
+          description: Specifies product version.
+        vmOsType:
+          type: string
+          description: 'Specifies operating system used by the product. Known values are: "None", "Windows", and
+            "Linux".'
+        vmScaleSetEnabled:
+          type: boolean
+          description: Indicates if virtual machine Scale Set is enabled in the specified product.
+        sourceBlob:
+          type: object
+          properties:
+            uri:
+              type: string
+              description: The URI.
+        osDiskImage:
+          $ref: '#/components/schemas/OsDiskImage'
+          description: OS disk image used by product.
+        dataDiskImages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataDiskImage'
+          description: List of attached data disks.
     DeviceConfiguration:
       type: object
       description: Device Configuration. Variables are only populated by the server, and will be ignored when sending
@@ -617,18 +613,15 @@ components:
             compatibility:
               $ref: '#/components/schemas/Compatibility'
               description: Product compatibility with current device.
-    ProductList:
+    ProductListFlattened:
       type: object
-      description: Pageable list of products.
       properties:
-        nextLink:
-          type: string
-          description: URI to the next page.
         value:
           type: array
           items:
-            $ref: '#/components/schemas/Product'
-          description: List of products.
+            $ref: '#/components/schemas/ProductFlattened'
+        nextLink:
+          type: string
     MarketplaceProductLogUpdate:
       type: object
       description: Update details for product log. Variables are only populated by the server, and will be ignored
@@ -1329,10 +1322,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExtendedProduct'
+                $ref: '#/components/schemas/ExtendedProductFlattened'
       x-stackql-resource: products
       x-stackql-method: list_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/getProducts?api-version=2020-06-01-preview
   : post:
       operationId: Products_get_products
@@ -1373,10 +1367,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductList'
+                $ref: '#/components/schemas/ProductListFlattened'
       x-stackql-resource: products
       x-stackql-method: get_products
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/getProduct?api-version=2020-06-01-preview
   : post:
       operationId: Products_get_product
@@ -1417,10 +1414,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                $ref: '#/components/schemas/ProductFlattened'
       x-stackql-resource: products
       x-stackql-method: get_product
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/products/{product_name}/uploadProductLog?api-version=2020-06-01-preview
   : post:
       operationId: Products_upload_log
@@ -1708,7 +1706,7 @@ paths:
                 $ref: '#/components/schemas/ActivationKeyResult'
       x-stackql-resource: registrations
       x-stackql-method: get_activation_key
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.AzureStack/registrations/{registration_name}/enableRemoteManagement
   : post:
       operationId: Registrations_enable_remote_management

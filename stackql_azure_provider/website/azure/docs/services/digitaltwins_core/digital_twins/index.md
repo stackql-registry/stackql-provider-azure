@@ -97,32 +97,11 @@ The following methods are available for this resource:
     <td>Retrieves all incoming relationship for a digital twin. Status codes: * 200 OK * 400 Bad Request * InvalidArgument - The digital twin id is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found.</td>
 </tr>
 <tr>
-    <td><a href="#update_relationship"><CopyableCode code="update_relationship" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-relationship_id"><code>relationship_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
-    <td>Updates the properties on a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * InvalidRelationship - The relationship is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - The relationship content is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 409 Conflict * RelationshipAlreadyExists - The relationship already exists. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
-</tr>
-<tr>
-    <td><a href="#update_component"><CopyableCode code="update_component" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-component_path"><code>component_path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
-    <td>Updates a component on a digital twin. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id, component path, or payload is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - Applying the patch results in an invalid digital twin. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
     <td>Updates a digital twin. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or payload is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - Applying the patch results in an invalid digital twin. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
-</tr>
-<tr>
-    <td><a href="#delete_relationship"><CopyableCode code="delete_relationship" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-relationship_id"><code>relationship_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
-    <td>Deletes a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -167,11 +146,32 @@ The following methods are available for this resource:
     <td>Adds a relationship between two digital twins. Status codes: * 200 OK * 400 Bad Request * InvalidArgument - The digital twin id, relationship id, or payload is invalid. * InvalidRelationship - The relationship is invalid. * OperationNotAllowed - The relationship cannot connect to the same digital twin. * ValidationFailed - The relationship content is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * TargetTwinNotFound - The digital twin target of the relationship was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
 </tr>
 <tr>
+    <td><a href="#delete_relationship"><CopyableCode code="delete_relationship" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-relationship_id"><code>relationship_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
+    <td>Deletes a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
+</tr>
+<tr>
+    <td><a href="#update_relationship"><CopyableCode code="update_relationship" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-relationship_id"><code>relationship_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
+    <td>Updates the properties on a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * InvalidRelationship - The relationship is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - The relationship content is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 409 Conflict * RelationshipAlreadyExists - The relationship already exists. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
+</tr>
+<tr>
     <td><a href="#get_component"><CopyableCode code="get_component" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-component_path"><code>component_path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a></td>
     <td>Retrieves a component from a digital twin. Status codes: * 200 OK * 400 Bad Request * InvalidArgument - The digital twin id or component path is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * ComponentNotFound - The component path was not found.</td>
+</tr>
+<tr>
+    <td><a href="#update_component"><CopyableCode code="update_component" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-id"><code>id</code></a>, <a href="#parameter-component_path"><code>component_path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a></td>
+    <td>Updates a component on a digital twin. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id, component path, or payload is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - Applying the patch results in an invalid digital twin. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.</td>
 </tr>
 <tr>
     <td><a href="#send_telemetry"><CopyableCode code="send_telemetry" /></a></td>
@@ -216,7 +216,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-id">
     <td><CopyableCode code="id" /></td>
@@ -293,51 +293,11 @@ AND tracestate = '{{ tracestate }}'
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_relationship"
+    defaultValue="update"
     values={[
-        { label: 'update_relationship', value: 'update_relationship' },
-        { label: 'update_component', value: 'update_component' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_relationship">
-
-Updates the properties on a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * InvalidRelationship - The relationship is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - The relationship content is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 409 Conflict * RelationshipAlreadyExists - The relationship already exists. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
-
-```sql
-UPDATE azure.digitaltwins_core.digital_twins
-SET 
-traceparent = '{{ traceparent }}',
-tracestate = '{{ tracestate }}',
-If-Match = '{{ If-Match }}'
-WHERE 
-id = '{{ id }}' --required
-AND relationship_id = '{{ relationship_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND traceparent = '{{ traceparent}}'
-AND tracestate = '{{ tracestate}}'
-AND If-Match = '{{ If-Match}}';
-```
-</TabItem>
-<TabItem value="update_component">
-
-Updates a component on a digital twin. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id, component path, or payload is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - Applying the patch results in an invalid digital twin. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
-
-```sql
-UPDATE azure.digitaltwins_core.digital_twins
-SET 
-traceparent = '{{ traceparent }}',
-tracestate = '{{ tracestate }}',
-If-Match = '{{ If-Match }}'
-WHERE 
-id = '{{ id }}' --required
-AND component_path = '{{ component_path }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND traceparent = '{{ traceparent}}'
-AND tracestate = '{{ tracestate}}'
-AND If-Match = '{{ If-Match}}';
-```
-</TabItem>
 <TabItem value="update">
 
 Updates a digital twin. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or payload is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - Applying the patch results in an invalid digital twin. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
@@ -362,27 +322,11 @@ AND If-Match = '{{ If-Match}}';
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_relationship"
+    defaultValue="delete"
     values={[
-        { label: 'delete_relationship', value: 'delete_relationship' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_relationship">
-
-Deletes a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
-
-```sql
-DELETE FROM azure.digitaltwins_core.digital_twins
-WHERE id = '{{ id }}' --required
-AND relationship_id = '{{ relationship_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND traceparent = '{{ traceparent }}'
-AND tracestate = '{{ tracestate }}'
-AND If-Match = '{{ If-Match }}'
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a digital twin. All relationships referencing the digital twin must already be deleted. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id is invalid. * RelationshipsNotDeleted - The digital twin contains relationships. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
@@ -410,7 +354,10 @@ AND If-Match = '{{ If-Match }}'
         { label: 'add', value: 'add' },
         { label: 'get_relationship_by_id', value: 'get_relationship_by_id' },
         { label: 'add_relationship', value: 'add_relationship' },
+        { label: 'delete_relationship', value: 'delete_relationship' },
+        { label: 'update_relationship', value: 'update_relationship' },
         { label: 'get_component', value: 'get_component' },
+        { label: 'update_component', value: 'update_component' },
         { label: 'send_telemetry', value: 'send_telemetry' },
         { label: 'send_component_telemetry', value: 'send_component_telemetry' }
     ]}
@@ -512,6 +459,48 @@ EXEC azure.digitaltwins_core.digital_twins.add_relationship
 ;
 ```
 </TabItem>
+<TabItem value="delete_relationship">
+
+Deletes a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
+
+```sql
+EXEC azure.digitaltwins_core.digital_twins.delete_relationship 
+@id='{{ id }}' --required, 
+@relationship_id='{{ relationship_id }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@traceparent='{{ traceparent }}', 
+@tracestate='{{ tracestate }}', 
+@If-Match='{{ If-Match }}' 
+@@json=
+'{
+"traceparent": "{{ traceparent }}", 
+"tracestate": "{{ tracestate }}", 
+"If-Match": "{{ If-Match }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_relationship">
+
+Updates the properties on a relationship between two digital twins. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id or relationship id is invalid. * InvalidRelationship - The relationship is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - The relationship content is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * RelationshipNotFound - The relationship was not found. * 409 Conflict * RelationshipAlreadyExists - The relationship already exists. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
+
+```sql
+EXEC azure.digitaltwins_core.digital_twins.update_relationship 
+@id='{{ id }}' --required, 
+@relationship_id='{{ relationship_id }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@traceparent='{{ traceparent }}', 
+@tracestate='{{ tracestate }}', 
+@If-Match='{{ If-Match }}' 
+@@json=
+'{
+"traceparent": "{{ traceparent }}", 
+"tracestate": "{{ tracestate }}", 
+"If-Match": "{{ If-Match }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_component">
 
 Retrieves a component from a digital twin. Status codes: * 200 OK * 400 Bad Request * InvalidArgument - The digital twin id or component path is invalid. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * ComponentNotFound - The component path was not found.
@@ -527,6 +516,27 @@ EXEC azure.digitaltwins_core.digital_twins.get_component
 '{
 "traceparent": "{{ traceparent }}", 
 "tracestate": "{{ tracestate }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_component">
+
+Updates a component on a digital twin. Status codes: * 204 No Content * 400 Bad Request * InvalidArgument - The digital twin id, component path, or payload is invalid. * JsonPatchInvalid - The JSON Patch provided is invalid. * ValidationFailed - Applying the patch results in an invalid digital twin. * 404 Not Found * DigitalTwinNotFound - The digital twin was not found. * 412 Precondition Failed * PreconditionFailed - The precondition check (If-Match or If-None-Match) failed.
+
+```sql
+EXEC azure.digitaltwins_core.digital_twins.update_component 
+@id='{{ id }}' --required, 
+@component_path='{{ component_path }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@traceparent='{{ traceparent }}', 
+@tracestate='{{ tracestate }}', 
+@If-Match='{{ If-Match }}' 
+@@json=
+'{
+"traceparent": "{{ traceparent }}", 
+"tracestate": "{{ tracestate }}", 
+"If-Match": "{{ If-Match }}"
 }'
 ;
 ```

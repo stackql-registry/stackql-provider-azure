@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_alias"><CopyableCode code="create_alias" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Creates a new search alias.</td>
 </tr>
 <tr>
     <td><a href="#get_alias"><CopyableCode code="get_alias" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-alias_name"><code>alias_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-alias_name"><code>alias_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves an alias definition.</td>
 </tr>
@@ -85,10 +85,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the alias. Required.</td>
 </tr>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>Search service name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -108,10 +108,10 @@ Creates a new search alias.
 
 ```sql
 INSERT INTO azure.search_documents.alias (
-endpoint
+search_service_name
 )
 SELECT 
-'{{ endpoint }}'
+'{{ search_service_name }}'
 ;
 ```
 </TabItem>
@@ -120,8 +120,8 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: alias
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: search_service_name
+      value: "{{ search_service_name }}"
       description: Required parameter for the alias resource.
 `}</CodeBlock>
 
@@ -144,7 +144,7 @@ Retrieves an alias definition.
 ```sql
 EXEC azure.search_documents.alias.get_alias 
 @alias_name='{{ alias_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

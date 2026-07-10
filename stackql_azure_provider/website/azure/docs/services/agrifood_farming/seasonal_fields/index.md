@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-seasonalFieldId"><code>seasonalFieldId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a cascade delete job for specified seasonal field.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-party_id"><code>party_id</code></a>, <a href="#parameter-seasonal_field_id"><code>seasonal_field_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -106,6 +99,13 @@ The following methods are available for this resource:
     <td></td>
     <td>Get cascade delete job for specified seasonal field.</td>
 </tr>
+<tr>
+    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-seasonalFieldId"><code>seasonalFieldId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a cascade delete job for specified seasonal field.</td>
+</tr>
 </tbody>
 </table>
 
@@ -125,12 +125,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job ID supplied by end user. Required.</td>
 </tr>
 <tr id="parameter-partyId">
     <td><CopyableCode code="partyId" /></td>
@@ -183,32 +183,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_cascade_delete_job"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_cascade_delete_job">
-
-Create a cascade delete job for specified seasonal field.
-
-```sql
-INSERT INTO azure.agrifood_farming.seasonal_fields (
-job_id,
-partyId,
-seasonalFieldId,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ partyId }}',
-'{{ seasonalFieldId }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or Updates a seasonal field resource under a particular party.
@@ -231,23 +211,14 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: seasonal_fields
   props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the seasonal_fields resource.
-    - name: partyId
-      value: "{{ partyId }}"
-      description: Required parameter for the seasonal_fields resource.
-    - name: seasonalFieldId
-      value: "{{ seasonalFieldId }}"
-      description: Required parameter for the seasonal_fields resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the seasonal_fields resource.
     - name: party_id
       value: "{{ party_id }}"
       description: Required parameter for the seasonal_fields resource.
     - name: seasonal_field_id
       value: "{{ seasonal_field_id }}"
+      description: Required parameter for the seasonal_fields resource.
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the seasonal_fields resource.
 `}</CodeBlock>
 
@@ -311,7 +282,8 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'get_raw', value: 'get_raw' },
         { label: 'list_raw', value: 'list_raw' },
         { label: 'list_by_party_id', value: 'list_by_party_id' },
-        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' }
+        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' },
+        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' }
     ]}
 >
 <TabItem value="get_raw">
@@ -364,6 +336,19 @@ Get cascade delete job for specified seasonal field.
 ```sql
 EXEC azure.agrifood_farming.seasonal_fields.get_cascade_delete_job_details 
 @job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_cascade_delete_job">
+
+Create a cascade delete job for specified seasonal field.
+
+```sql
+EXEC azure.agrifood_farming.seasonal_fields.create_cascade_delete_job 
+@job_id='{{ job_id }}' --required, 
+@partyId='{{ partyId }}' --required, 
+@seasonalFieldId='{{ seasonalFieldId }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

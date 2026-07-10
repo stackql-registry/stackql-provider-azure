@@ -239,6 +239,11 @@ components:
         location:
           type: string
           description: Resource location.
+    Reason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameResult:
       type: object
       description: The result returned from a check name availability request.
@@ -257,11 +262,6 @@ components:
           $ref: '#/components/schemas/Reason'
           description: 'Message providing the reason why the given name is invalid. Known values are: "Invalid"
             and "AlreadyExists".'
-    Reason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     ClusterPrincipalProperties:
       type: object
       description: A class representing cluster principal property.
@@ -1627,6 +1627,12 @@ components:
             $ref: '#/components/schemas/Database'
         nextLink:
           type: string
+    DatabasePrincipalType:
+      type: string
+      enum:
+      - App
+      - Group
+      - User
     DatabasePrincipal:
       type: object
       description: A class representing database principal entity.
@@ -1657,12 +1663,6 @@ components:
       - role
       - name
       - type
-    DatabasePrincipalType:
-      type: string
-      enum:
-      - App
-      - Group
-      - User
     PagedDatabasePrincipal:
       type: object
       properties:
@@ -2396,7 +2396,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: attached_database_configurations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/principalAssignments/{principal_assignment_name}?api-version=2025-02-14
   : get:
       operationId: ClusterPrincipalAssignments_get
@@ -2599,7 +2599,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: cluster_principal_assignments
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}?api-version=2025-02-14
   : get:
       operationId: Clusters_get
@@ -2898,7 +2898,8 @@ paths:
                 $ref: '#/components/schemas/PagedFollowerDatabaseDefinition'
       x-stackql-resource: clusters
       x-stackql-method: list_follower_databases
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/skus?api-version=2025-02-14
   : get:
       operationId: Clusters_list_skus_by_resource
@@ -2998,7 +2999,8 @@ paths:
                 $ref: '#/components/schemas/PagedCalloutPolicy'
       x-stackql-resource: clusters
       x-stackql-method: list_callout_policies
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/listLanguageExtensions?api-version=2025-02-14
   : post:
       operationId: Clusters_list_language_extensions
@@ -3030,7 +3032,8 @@ paths:
                 $ref: '#/components/schemas/PagedLanguageExtension'
       x-stackql-resource: clusters
       x-stackql-method: list_language_extensions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /subscriptions/{subscription_id}/providers/Microsoft.Kusto/skus?api-version=2025-02-14:
     get:
       operationId: Clusters_list_skus
@@ -3435,7 +3438,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: clusters
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/databases/{database_name}/dataConnections/{data_connection_name}?api-version=2025-02-14
   : get:
       operationId: DataConnections_get
@@ -3781,7 +3784,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: data_connections
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/databases/{database_name}/inviteFollower?api-version=2025-02-14
   : post:
       operationId: Database_invite_follower
@@ -4067,7 +4070,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: database_principal_assignments
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/databases/{database_name}?api-version=2025-02-14
   : get:
       operationId: Databases_get
@@ -4343,7 +4346,8 @@ paths:
                 $ref: '#/components/schemas/PagedDatabasePrincipal'
       x-stackql-resource: databases
       x-stackql-method: list_principals
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/databases/{database_name}/addPrincipals?api-version=2025-02-14
   : post:
       operationId: Databases_add_principals
@@ -4492,7 +4496,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: databases
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/managedPrivateEndpoints/{managed_private_endpoint_name}?api-version=2025-02-14
   : get:
       operationId: ManagedPrivateEndpoints_get
@@ -4742,7 +4746,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: managed_private_endpoints
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Kusto/operations?api-version=2025-02-14:
     get:
       operationId: kusto_list
@@ -5297,7 +5301,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: sandbox_custom_images
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Kusto/clusters/{cluster_name}/databases/{database_name}/scripts/{script_name}?api-version=2025-02-14
   : get:
       operationId: Scripts_get
@@ -5583,7 +5587,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: scripts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.Kusto/locations/{location}/skus?api-version=2025-02-14:
     get:
       operationId: Skus_list

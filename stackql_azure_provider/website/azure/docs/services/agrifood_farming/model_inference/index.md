@@ -51,18 +51,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_biomass_model_job"><CopyableCode code="create_biomass_model_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a Biomass Model job.</td>
-</tr>
-<tr>
     <td><a href="#get_biomass_model_job"><CopyableCode code="get_biomass_model_job" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get Biomass Model job's details.</td>
+</tr>
+<tr>
+    <td><a href="#create_biomass_model_job"><CopyableCode code="create_biomass_model_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a Biomass Model job.</td>
 </tr>
 <tr>
     <td><a href="#get_sensor_placement_model_job"><CopyableCode code="get_sensor_placement_model_job" /></a></td>
@@ -111,7 +111,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
@@ -121,53 +121,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_biomass_model_job"
-    values={[
-        { label: 'create_biomass_model_job', value: 'create_biomass_model_job' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_biomass_model_job">
-
-Create a Biomass Model job.
-
-```sql
-INSERT INTO azure.agrifood_farming.model_inference (
-job_id,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: model_inference
-  props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the model_inference resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the model_inference resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_biomass_model_job"
     values={[
         { label: 'get_biomass_model_job', value: 'get_biomass_model_job' },
+        { label: 'create_biomass_model_job', value: 'create_biomass_model_job' },
         { label: 'get_sensor_placement_model_job', value: 'get_sensor_placement_model_job' },
         { label: 'create_sensor_placement_model_job', value: 'create_sensor_placement_model_job' },
         { label: 'get_soil_moisture_model_job', value: 'get_soil_moisture_model_job' },
@@ -180,6 +140,17 @@ Get Biomass Model job's details.
 
 ```sql
 EXEC azure.agrifood_farming.model_inference.get_biomass_model_job 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_biomass_model_job">
+
+Create a Biomass Model job.
+
+```sql
+EXEC azure.agrifood_farming.model_inference.create_biomass_model_job 
 @job_id='{{ job_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

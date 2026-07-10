@@ -87,14 +87,6 @@ components:
       required:
         - id
         - isDataAction
-    CheckPrincipalAccessResponse:
-      type: object
-      description: Check access response details.
-      properties:
-        accessDecisions:
-          type: array
-          items:
-            $ref: "#/components/schemas/CheckAccessDecision"
     CheckAccessDecision:
       type: object
       description: Check access response details.
@@ -105,6 +97,14 @@ components:
           type: string
         roleAssignment:
           $ref: "#/components/schemas/RoleAssignmentDetails"
+    CheckPrincipalAccessResponse:
+      type: object
+      description: Check access response details.
+      properties:
+        accessDecisions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CheckAccessDecision"
     SynapseRbacPermission:
       type: object
       description: Synapse role definition details.
@@ -216,7 +216,7 @@ components:
           operation:
             $ref: "#/paths/~1rbac~1roleAssignments~1{role_assignment_id}?api-version=2020-02-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         list_role_assignments:
           operation:
             $ref: "#/paths/~1roleAssignments?api-version=2020-12-01/get"
@@ -239,13 +239,13 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/role_assignments/methods/check_principal_access"
           - $ref: "#/components/x-stackQL-resources/role_assignments/methods/get_role_assignment_by_id"
           - $ref: "#/components/x-stackQL-resources/role_assignments/methods/list_role_assignments"
         insert:
           - $ref: "#/components/x-stackQL-resources/role_assignments/methods/create_role_assignment"
         update: []
-        delete:
-          - $ref: "#/components/x-stackQL-resources/role_assignments/methods/delete_role_assignment_by_id"
+        delete: []
     caller_role_assignments:
       id: azure.synapse_accesscontrol.caller_role_assignments
       name: caller_role_assignments
@@ -366,8 +366,8 @@ paths:
             type: string
           description: The ID of the role assignment.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /rbac/getMyAssignedRoles?api-version=2020-02-01-preview:
     post:
       operationId: AccessControlClient_get_caller_role_assignments
@@ -483,8 +483,8 @@ paths:
             type: string
           description: Scope of the Synapse Built-in Role.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /checkAccessSynapseRbac?api-version=2020-12-01:
     post:
       operationId: RoleAssignments_check_principal_access

@@ -157,49 +157,49 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_certificate"><CopyableCode code="get_certificate" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-certificate_version"><code>certificate_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-certificate_version"><code>certificate_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Gets information about a certificate. Gets information about a specific certificate. This operation requires the certificates/get permission.</td>
 </tr>
 <tr>
     <td><a href="#get_certificates"><CopyableCode code="get_certificates" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a>, <a href="#parameter-includePending"><code>includePending</code></a></td>
     <td>List certificates in a specified key vault. The GetCertificates operation returns the set of certificates resources in the specified key vault. This operation requires the certificates/list permission.</td>
 </tr>
 <tr>
     <td><a href="#create_certificate"><CopyableCode code="create_certificate" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Creates a new certificate. If this is the first version, the certificate resource is created. This operation requires the certificates/create permission.</td>
 </tr>
 <tr>
     <td><a href="#update_certificate"><CopyableCode code="update_certificate" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-certificate_version"><code>certificate_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-certificate_version"><code>certificate_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Updates the specified attributes associated with the given certificate. The UpdateCertificate operation applies the specified update on the given certificate; the only elements updated are the certificate's attributes. This operation requires the certificates/update permission.</td>
 </tr>
 <tr>
     <td><a href="#delete_certificate"><CopyableCode code="delete_certificate" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Deletes a certificate from a specified key vault. Deletes all versions of a certificate object along with its associated policy. Delete certificate cannot be used to remove individual versions of a certificate object. This operation requires the certificates/delete permission.</td>
 </tr>
 <tr>
     <td><a href="#backup_certificate"><CopyableCode code="backup_certificate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Backs up the specified certificate. Requests that a backup of the specified certificate be downloaded to the client. All versions of the certificate will be downloaded. This operation requires the certificates/backup permission.</td>
 </tr>
 <tr>
     <td><a href="#restore_certificate"><CopyableCode code="restore_certificate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-value"><code>value</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-value"><code>value</code></a></td>
     <td></td>
     <td>Restores a backed up certificate to a vault. Restores a backed up certificate, and all its versions, to a vault. This operation requires the certificates/restore permission.</td>
 </tr>
@@ -229,10 +229,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The version of the certificate. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-includePending">
     <td><CopyableCode code="includePending" /></td>
@@ -275,7 +275,7 @@ x5t
 FROM azure.keyvault_certificates.certificates
 WHERE certificate_name = '{{ certificate_name }}' -- required
 AND certificate_version = '{{ certificate_version }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -290,7 +290,7 @@ attributes,
 tags,
 x5t
 FROM azure.keyvault_certificates.certificates
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 AND includePending = '{{ includePending }}'
 ;
@@ -319,7 +319,7 @@ attributes,
 tags,
 preserveCertOrder,
 certificate_name,
-vault_base_url
+vault_name
 )
 SELECT 
 '{{ policy }}',
@@ -327,7 +327,7 @@ SELECT
 '{{ tags }}',
 {{ preserveCertOrder }},
 '{{ certificate_name }}',
-'{{ vault_base_url }}'
+'{{ vault_name }}'
 RETURNING
 id,
 request_id,
@@ -350,8 +350,8 @@ target
     - name: certificate_name
       value: "{{ certificate_name }}"
       description: Required parameter for the certificates resource.
-    - name: vault_base_url
-      value: "{{ vault_base_url }}"
+    - name: vault_name
+      value: "{{ vault_name }}"
       description: Required parameter for the certificates resource.
     - name: policy
       description: |
@@ -451,7 +451,7 @@ tags = '{{ tags }}'
 WHERE 
 certificate_name = '{{ certificate_name }}' --required
 AND certificate_version = '{{ certificate_version }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 RETURNING
 id,
 attributes,
@@ -483,7 +483,7 @@ Deletes a certificate from a specified key vault. Deletes all versions of a cert
 ```sql
 DELETE FROM azure.keyvault_certificates.certificates
 WHERE certificate_name = '{{ certificate_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>
@@ -506,7 +506,7 @@ Backs up the specified certificate. Requests that a backup of the specified cert
 ```sql
 EXEC azure.keyvault_certificates.certificates.backup_certificate 
 @certificate_name='{{ certificate_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>
@@ -516,7 +516,7 @@ Restores a backed up certificate to a vault. Restores a backed up certificate, a
 
 ```sql
 EXEC azure.keyvault_certificates.certificates.restore_certificate 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "value": "{{ value }}"

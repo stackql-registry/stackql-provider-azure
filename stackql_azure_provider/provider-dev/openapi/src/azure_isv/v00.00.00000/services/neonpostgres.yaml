@@ -974,6 +974,13 @@ components:
           description: The resource-specific properties for this resource.
       required:
         - location
+    PgVersion:
+      type: object
+      description: PostgreSQL Version model.
+      properties:
+        version:
+          type: integer
+          description: The major PostgreSQL version number.
     PgVersionsResult:
       type: object
       description: Response model for PostgreSQL versions.
@@ -985,13 +992,6 @@ components:
           description: List of PostgreSQL versions. Required.
       required:
         - versions
-    PgVersion:
-      type: object
-      description: PostgreSQL Version model.
-      properties:
-        version:
-          type: integer
-          description: The major PostgreSQL version number.
     ProjectFlattened:
       type: object
       description: Flattened view of Project ('properties' hoisted to the top level).

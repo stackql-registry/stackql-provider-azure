@@ -189,6 +189,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -201,7 +202,9 @@ components:
             openAPIDocKey: "200"
             mediaType: application/json
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/carbon_service/methods/query_carbon_emission_reports"
+          - $ref: "#/components/x-stackQL-resources/carbon_service/methods/query_carbon_emission_data_available_date_range"
         insert: []
         update: []
         delete: []

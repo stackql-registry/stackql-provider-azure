@@ -156,12 +156,9 @@ components:
               algorithm: naive
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/devices/methods/create_or_update_security_settings"
+        insert: []
         update:
           - $ref: "#/components/x-stackQL-resources/devices/methods/update"
-        replace:
-          - $ref: "#/components/x-stackQL-resources/devices/methods/create_or_update_security_settings"
         delete: []
     jobs:
       id: azure.edgegateway.jobs
@@ -334,18 +331,18 @@ paths:
       operationId: Alerts_get
       description: Gets an alert by name.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The alert name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The alert name.
         - name: device_name
           in: path
           required: true
@@ -405,18 +402,18 @@ paths:
       operationId: BandwidthSchedules_get
       description: Gets the properties of the specified bandwidth schedule.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The bandwidth schedule name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The bandwidth schedule name.
         - name: device_name
           in: path
           required: true
@@ -785,18 +782,18 @@ paths:
       operationId: Jobs_get
       description: Gets the details of a specified job on a data box edge/gateway device.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The job name.
         - name: device_name
           in: path
           required: true
@@ -826,18 +823,18 @@ paths:
       operationId: OperationsStatus_get
       description: Gets the details of a specified job on a data box edge/gateway device.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The job name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The job name.
         - name: device_name
           in: path
           required: true
@@ -932,18 +929,18 @@ paths:
       operationId: Roles_get
       description: Gets a specific role by name.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The role name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The role name.
         - name: device_name
           in: path
           required: true
@@ -1003,18 +1000,18 @@ paths:
       operationId: Shares_get
       description: Gets a share by name.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The share name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The share name.
         - name: device_name
           in: path
           required: true
@@ -1082,18 +1079,18 @@ paths:
       operationId: StorageAccountCredentials_get
       description: Gets the properties of the specified storage account credential.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The storage account credential name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The storage account credential name.
         - name: device_name
           in: path
           required: true
@@ -1153,18 +1150,18 @@ paths:
       operationId: Triggers_get
       description: Get a specific trigger by name.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The trigger name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The trigger name.
         - name: device_name
           in: path
           required: true
@@ -1230,18 +1227,18 @@ paths:
       operationId: Users_get
       description: Gets the properties of the specified user.
       parameters:
-        - name: name
-          in: path
-          required: true
-          schema:
-            type: string
-          description: The user name.
         - name: resource_group_name
           in: path
           required: true
           schema:
             type: string
           description: The resource group name.
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The user name.
         - name: device_name
           in: path
           required: true

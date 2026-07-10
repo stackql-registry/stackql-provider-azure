@@ -256,13 +256,6 @@ The following methods are available for this resource:
     <td>Returns list of accounts belonging to a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update account resource.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -275,6 +268,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a account resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update account resource.</td>
 </tr>
 </tbody>
 </table>
@@ -386,81 +386,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_and_update"
-    values={[
-        { label: 'create_and_update', value: 'create_and_update' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_and_update">
-
-Create or update account resource.
-
-```sql
-INSERT INTO azure.graphservices.accounts (
-location,
-tags,
-properties,
-resource_group_name,
-resource_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ resource_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: accounts
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the accounts resource.
-    - name: resource_name
-      value: "{{ resource_name }}"
-      description: Required parameter for the accounts resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the accounts resource.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        Location of the resource.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        resource tags.
-    - name: properties
-      description: |
-        Property bag from billing account. Required.
-      value:
-        provisioningState: "{{ provisioningState }}"
-        appId: "{{ appId }}"
-        billingPlanId: "{{ billingPlanId }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -511,6 +436,35 @@ DELETE FROM azure.graphservices.accounts
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND resource_name = '{{ resource_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_and_update"
+    values={[
+        { label: 'create_and_update', value: 'create_and_update' }
+    ]}
+>
+<TabItem value="create_and_update">
+
+Create or update account resource.
+
+```sql
+EXEC azure.graphservices.accounts.create_and_update 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

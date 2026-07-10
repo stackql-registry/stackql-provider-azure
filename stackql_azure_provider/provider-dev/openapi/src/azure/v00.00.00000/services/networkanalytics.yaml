@@ -436,21 +436,6 @@ components:
             $ref: "#/components/schemas/DataProductFlattened"
         nextLink:
           type: string
-    ListRoleAssignments:
-      type: object
-      description: list role assignments. All required parameters must be populated in order to send to Azure.
-      properties:
-        count:
-          type: integer
-          description: Count of role assignments. Required.
-        roleAssignmentResponse:
-          type: array
-          items:
-            $ref: "#/components/schemas/RoleAssignmentDetail"
-          description: list of role assignments. Required.
-      required:
-        - count
-        - roleAssignmentResponse
     RoleAssignmentDetail:
       type: object
       description: The details for role assignment response. All required parameters must be populated in order to send to Azure.
@@ -486,6 +471,21 @@ components:
         - principalType
         - role
         - roleAssignmentId
+    ListRoleAssignments:
+      type: object
+      description: list role assignments. All required parameters must be populated in order to send to Azure.
+      properties:
+        count:
+          type: integer
+          description: Count of role assignments. Required.
+        roleAssignmentResponse:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoleAssignmentDetail"
+          description: list of role assignments. Required.
+      required:
+        - count
+        - roleAssignmentResponse
     DataProduct:
       type: object
       description: The data product resource. Variables are only populated by the server, and will be ignored when sending a request. All required parameters must be populated in order to send to Azure.

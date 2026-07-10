@@ -1100,7 +1100,7 @@ paths:
                 $ref: '#/components/schemas/EkmProxyInfo'
       x-stackql-resource: check_ekm_connections
       x-stackql-method: check_ekm_connection
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /ekm/create?api-version=2026-01-01-preview:
     post:
       operationId: _KeyVaultClient_create_ekm_connection

@@ -2099,15 +2099,6 @@ components:
             $ref: "#/components/schemas/OperationMetadata"
         nextLink:
           type: string
-    PagedSchedule:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/Schedule"
-        nextLink:
-          type: string
     SecretFlattened:
       type: object
       description: Flattened view of Secret ('properties' hoisted to the top level).
@@ -2289,6 +2280,32 @@ components:
             uniqueIdentifier:
               type: string
               description: The unique immutable identifier of a resource (Guid).
+    ApplicableScheduleFlattened:
+      type: object
+      description: Flattened view of ApplicableSchedule ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The identifier of the resource.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource.
+        location:
+          type: string
+          description: The location of the resource.
+        tags:
+          type: object
+          properties: {}
+          description: The tags of the resource.
+        labVmsShutdown:
+          $ref: "#/components/schemas/Schedule"
+          description: The auto-shutdown schedule, if one has been set at the lab or lab resource level.
+        labVmsStartup:
+          $ref: "#/components/schemas/Schedule"
+          description: The auto-startup schedule, if one has been set at the lab or lab resource level.
     IdentityProperties:
       type: object
       description: Properties of a managed identity.
@@ -3673,6 +3690,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         claim_any_vm:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DevTestLab~1labs~1{name}~1claimAnyVm?api-version=2018-09-15/post"
@@ -3984,6 +4002,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         execute:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DevTestLab~1labs~1{lab_name}~1schedules~1{name}~1execute?api-version=2018-09-15/post"
@@ -4207,6 +4235,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         start:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DevTestLab~1labs~1{lab_name}~1users~1{user_name}~1servicefabrics~1{name}~1start?api-version=2018-09-15/post"
@@ -4472,6 +4504,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         get_rdp_file_contents:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DevTestLab~1labs~1{lab_name}~1virtualmachines~1{name}~1getRdpFileContents?api-version=2018-09-15/post"
@@ -8020,7 +8056,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedSchedule"
+                $ref: "#/components/schemas/PagedScheduleFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/schedules/{name}/execute?api-version=2018-09-15:
     post:
       operationId: Schedules_begin_execute
@@ -8915,7 +8951,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApplicableSchedule"
+                $ref: "#/components/schemas/ApplicableScheduleFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/users/{user_name}/servicefabrics/{name}/start?api-version=2018-09-15:
     post:
       operationId: ServiceFabrics_begin_start
@@ -9941,7 +9977,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApplicableSchedule"
+                $ref: "#/components/schemas/ApplicableScheduleFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevTestLab/labs/{lab_name}/virtualmachines/{name}/getRdpFileContents?api-version=2018-09-15:
     post:
       operationId: VirtualMachines_get_rdp_file_contents

@@ -347,7 +347,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_if_not_exist"><CopyableCode code="create_if_not_exist" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
     <td>Creates the first version of a new key if it does not exist. If it already exists, then the existing key is returned without any write operations being performed. This API does not create subsequent versions, and does not update existing keys.</td>
@@ -503,13 +503,13 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_if_not_exist"
     values={[
         { label: 'create_if_not_exist', value: 'create_if_not_exist' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'list_versions', value: 'list_versions' }
     ]}
 >
 <TabItem value="create_if_not_exist">
@@ -517,100 +517,19 @@ AND subscription_id = '{{ subscription_id }}' -- required
 Creates the first version of a new key if it does not exist. If it already exists, then the existing key is returned without any write operations being performed. This API does not create subsequent versions, and does not update existing keys.
 
 ```sql
-INSERT INTO azure.keyvault.keys (
-tags,
-properties,
-resource_group_name,
-vault_name,
-key_name,
-subscription_id
-)
-SELECT 
-'{{ tags }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ vault_name }}',
-'{{ key_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type
+EXEC azure.keyvault.keys.create_if_not_exist 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@vault_name='{{ vault_name }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: keys
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the keys resource.
-    - name: vault_name
-      value: "{{ vault_name }}"
-      description: Required parameter for the keys resource.
-    - name: key_name
-      value: "{{ key_name }}"
-      description: Required parameter for the keys resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the keys resource.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        The tags that will be assigned to the key.
-    - name: properties
-      description: |
-        The properties of the key to be created. Required.
-      value:
-        attributes:
-          enabled: {{ enabled }}
-          nbf: {{ nbf }}
-          exp: {{ exp }}
-          created: {{ created }}
-          updated: {{ updated }}
-          recoveryLevel: "{{ recoveryLevel }}"
-          exportable: {{ exportable }}
-        kty: "{{ kty }}"
-        keyOps:
-          - "{{ keyOps }}"
-        keySize: {{ keySize }}
-        curveName: "{{ curveName }}"
-        keyUri: "{{ keyUri }}"
-        keyUriWithVersion: "{{ keyUriWithVersion }}"
-        rotationPolicy:
-          attributes:
-            created: {{ created }}
-            updated: {{ updated }}
-            expiryTime: "{{ expiryTime }}"
-          lifetimeActions:
-            - trigger:
-                timeAfterCreate: "{{ timeAfterCreate }}"
-                timeBeforeExpiry: "{{ timeBeforeExpiry }}"
-              action:
-                type: "{{ type }}"
-        release_policy:
-          contentType: "{{ contentType }}"
-          data: "{{ data }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_versions"
-    values={[
-        { label: 'list_versions', value: 'list_versions' }
-    ]}
->
 <TabItem value="list_versions">
 
 Lists the keys in the specified key vault.

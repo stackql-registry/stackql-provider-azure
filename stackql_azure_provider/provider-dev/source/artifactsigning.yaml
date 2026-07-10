@@ -414,6 +414,11 @@ components:
         name:
           $ref: '#/components/schemas/SkuName'
           description: 'Name of the SKU. Known values are: "Basic" and "Premium".'
+    NameUnavailabilityReason:
+      type: string
+      enum:
+      - AccountNameInvalid
+      - AlreadyExists
     CheckNameAvailabilityResult:
       type: object
       description: The CheckNameAvailability operation response.
@@ -429,11 +434,6 @@ components:
         message:
           type: string
           description: An error message explaining the Reason value in more detail.
-    NameUnavailabilityReason:
-      type: string
-      enum:
-      - AccountNameInvalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: Localized display information for an operation.
@@ -941,7 +941,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: code_signing_accounts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.CodeSigning/operations?api-version=2026-05-15-preview:
     get:
       operationId: artifactsigning_list

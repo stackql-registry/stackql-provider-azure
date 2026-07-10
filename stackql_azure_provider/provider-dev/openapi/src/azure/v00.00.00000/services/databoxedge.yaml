@@ -1212,25 +1212,6 @@ components:
           items:
             $ref: "#/components/schemas/NetworkAdapter"
           description: The network adapter list on the device.
-    DataBoxEdgeDeviceExtendedInfo:
-      type: object
-      description: The extended Info of the Data Box Edge/Gateway device.
-      properties:
-        id:
-          type: string
-          description: The path ID that uniquely identifies the object.
-        name:
-          type: string
-          description: The object name.
-        type:
-          type: string
-          description: The hierarchical type of the object.
-        properties:
-          $ref: "#/components/schemas/DataBoxEdgeDeviceExtendedInfoProperties"
-          description: The extended info properties.
-        systemData:
-          $ref: "#/components/schemas/SystemData"
-          description: Metadata pertaining to creation and last modification of DataBoxEdgeDevice.
     DataBoxEdgeDeviceExtendedInfoProperties:
       type: object
       description: The properties of the Data Box Edge/Gateway device extended info.
@@ -1296,6 +1277,68 @@ components:
         - None
         - Cloud
         - FileShare
+    DataBoxEdgeDeviceExtendedInfoFlattened:
+      type: object
+      description: Flattened view of DataBoxEdgeDeviceExtendedInfo ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The path ID that uniquely identifies the object.
+        name:
+          type: string
+          description: The object name.
+        type:
+          type: string
+          description: The hierarchical type of the object.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Metadata pertaining to creation and last modification of DataBoxEdgeDevice.
+        encryptionKeyThumbprint:
+          type: string
+          description: The digital signature of encrypted certificate.
+        encryptionKey:
+          type: string
+          description: The public part of the encryption certificate. Client uses this to encrypt any secret.
+        resourceKey:
+          type: string
+          description: The Resource ID of the Resource.
+        clientSecretStoreId:
+          type: string
+          description: The Key Vault ARM Id for client secrets.
+        clientSecretStoreUrl:
+          type: string
+          description: The url to access the Client Key Vault.
+        channelIntegrityKeyName:
+          type: string
+          description: The name of Channel Integrity Key stored in the Client Key Vault.
+        channelIntegrityKeyVersion:
+          type: string
+          description: The version of Channel Integrity Key stored in the Client Key Vault.
+        keyVaultSyncStatus:
+          $ref: "#/components/schemas/KeyVaultSyncStatus"
+          description: 'Key vault sync status. Known values are: "KeyVaultSynced", "KeyVaultSyncFailed", "KeyVaultNotConfigured", "KeyVaultSyncPending", "KeyVaultSyncing", and "KeyVaultNotSynced".'
+        deviceSecrets:
+          type: object
+          properties: {}
+          description: Device secrets, will be returned only with ODataFilter $expand=deviceSecrets.
+        clusterWitnessType:
+          $ref: "#/components/schemas/ClusterWitnessType"
+          description: 'Cluster Witness Type. Known values are: "None", "Cloud", and "FileShare".'
+        fileShareWitnessLocation:
+          type: string
+          description: The witness location of file share.
+        fileShareWitnessUsername:
+          type: string
+          description: The username of file share.
+        cloudWitnessStorageAccountName:
+          type: string
+          description: The Cloud Witness Storage account name.
+        cloudWitnessContainerName:
+          type: string
+          description: The Container for cloud witness in the storage account.
+        cloudWitnessStorageEndpoint:
+          type: string
+          description: The Azure service endpoint of the cloud witness storage account.
     UpdateSummaryProperties:
       type: object
       description: The device update information summary.
@@ -1629,6 +1672,25 @@ components:
         - None
         - AES256
         - RSAES_PKCS1_v_1_5
+    DataBoxEdgeDeviceExtendedInfo:
+      type: object
+      description: The extended Info of the Data Box Edge/Gateway device.
+      properties:
+        id:
+          type: string
+          description: The path ID that uniquely identifies the object.
+        name:
+          type: string
+          description: The object name.
+        type:
+          type: string
+          description: The hierarchical type of the object.
+        properties:
+          $ref: "#/components/schemas/DataBoxEdgeDeviceExtendedInfoProperties"
+          description: The extended info properties.
+        systemData:
+          $ref: "#/components/schemas/SystemData"
+          description: Metadata pertaining to creation and last modification of DataBoxEdgeDevice.
     RawCertificateData:
       type: object
       description: Raw Certificate Data.
@@ -2585,16 +2647,16 @@ components:
         kind:
           type: string
           description: It specify the order api version.
-    DCAccessCode:
-      type: object
-      description: DC Access code in the case of Self Managed Shipping.
-      properties:
-        properties:
-          $ref: "#/components/schemas/DCAccessCodeProperties"
-          description: DCAccessCode properties.
     DCAccessCodeProperties:
       type: object
       description: DCAccessCode Properties.
+      properties:
+        authCode:
+          type: string
+          description: DCAccess Code for the Self Managed shipment.
+    DCAccessCodeFlattened:
+      type: object
+      description: Flattened view of DCAccessCode ('properties' hoisted to the top level).
       properties:
         authCode:
           type: string
@@ -3563,6 +3625,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         get_update_summary:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataBoxEdge~1dataBoxEdgeDevices~1{device_name}~1updateSummary~1default?api-version=2023-12-01/get"
@@ -3633,12 +3699,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/devices/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/devices/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/devices/methods/create_or_update_security_settings"
         update:
           - $ref: "#/components/x-stackQL-resources/devices/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/devices/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/devices/methods/create_or_update_security_settings"
         delete:
           - $ref: "#/components/x-stackQL-resources/devices/methods/delete"
     diagnostic_settings:
@@ -3692,8 +3756,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/diagnostic_settings/methods/get_diagnostic_proactive_log_collection_settings"
         insert: []
-        update:
-          - $ref: "#/components/x-stackQL-resources/diagnostic_settings/methods/update_diagnostic_proactive_log_collection_settings"
+        update: []
         delete: []
     jobs:
       id: azure.databoxedge.jobs
@@ -3901,6 +3964,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/orders/methods/get"
@@ -5184,7 +5251,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DataBoxEdgeDeviceExtendedInfo"
+                $ref: "#/components/schemas/DataBoxEdgeDeviceExtendedInfoFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/{device_name}/updateSummary/default?api-version=2023-12-01:
     get:
       operationId: Devices_get_update_summary
@@ -5990,7 +6057,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DCAccessCode"
+                $ref: "#/components/schemas/DCAccessCodeFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/{device_name}/roles/{name}?api-version=2023-12-01:
     get:
       operationId: Roles_get

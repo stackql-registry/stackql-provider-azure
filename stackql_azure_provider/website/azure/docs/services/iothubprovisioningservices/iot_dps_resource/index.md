@@ -701,13 +701,6 @@ The following methods are available for this resource:
     <td>Create or update the metadata of the provisioning service. The usual pattern to modify a property is to retrieve the provisioning service metadata and security metadata, and then combine them with the modified values in a new body to update the provisioning service.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_private_endpoint_connection"><CopyableCode code="create_or_update_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update the status of a private endpoint connection with the specified name.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provisioning_service_name"><code>provisioning_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -720,20 +713,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provisioning_service_name"><code>provisioning_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-properties"><code>properties</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
     <td></td>
     <td>Create or update the metadata of the provisioning service. The usual pattern to modify a property is to retrieve the provisioning service metadata and security metadata, and then combine them with the modified values in a new body to update the provisioning service.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_private_endpoint_connection"><CopyableCode code="create_or_update_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update the status of a private endpoint connection with the specified name.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete private endpoint connection with the specified name.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -769,6 +748,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List private endpoint connection properties.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_private_endpoint_connection"><CopyableCode code="create_or_update_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update the status of a private endpoint connection with the specified name.</td>
+</tr>
+<tr>
+    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete private endpoint connection with the specified name.</td>
 </tr>
 <tr>
     <td><a href="#check_provisioning_service_name_availability"><CopyableCode code="check_provisioning_service_name_availability" /></a></td>
@@ -1051,7 +1044,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -1101,33 +1093,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_private_endpoint_connection">
-
-Create or update the status of a private endpoint connection with the specified name.
-
-```sql
-INSERT INTO azure.iothubprovisioningservices.iot_dps_resource (
-properties,
-resource_group_name,
-resource_name,
-private_endpoint_connection_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ resource_name }}',
-'{{ private_endpoint_connection_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -1141,12 +1106,6 @@ type
       description: Required parameter for the iot_dps_resource resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
-      description: Required parameter for the iot_dps_resource resource.
-    - name: resource_name
-      value: "{{ resource_name }}"
-      description: Required parameter for the iot_dps_resource resource.
-    - name: private_endpoint_connection_name
-      value: "{{ private_endpoint_connection_name }}"
       description: Required parameter for the iot_dps_resource resource.
     - name: tags
       value: "{{ tags }}"
@@ -1170,14 +1129,55 @@ type
         The subscription id of the resource.
     - name: properties
       description: |
-        The properties of a private endpoint connection. Required.
+        Service specific properties for a provisioning service. Required.
       value:
-        privateEndpoint:
-          id: "{{ id }}"
-        privateLinkServiceConnectionState:
-          status: "{{ status }}"
-          description: "{{ description }}"
-          actionsRequired: "{{ actionsRequired }}"
+        state: "{{ state }}"
+        publicNetworkAccess: "{{ publicNetworkAccess }}"
+        ipFilterRules:
+          - filterName: "{{ filterName }}"
+            action: "{{ action }}"
+            ipMask: "{{ ipMask }}"
+            target: "{{ target }}"
+        privateEndpointConnections:
+          - id: "{{ id }}"
+            name: "{{ name }}"
+            type: "{{ type }}"
+            systemData:
+              createdBy: "{{ createdBy }}"
+              createdByType: "{{ createdByType }}"
+              createdAt: "{{ createdAt }}"
+              lastModifiedBy: "{{ lastModifiedBy }}"
+              lastModifiedByType: "{{ lastModifiedByType }}"
+              lastModifiedAt: "{{ lastModifiedAt }}"
+            properties:
+              privateEndpoint:
+                id: "{{ id }}"
+              privateLinkServiceConnectionState:
+                status: "{{ status }}"
+                description: "{{ description }}"
+                actionsRequired: "{{ actionsRequired }}"
+        provisioningState: "{{ provisioningState }}"
+        iotHubs:
+          - applyAllocationPolicy: {{ applyAllocationPolicy }}
+            allocationWeight: {{ allocationWeight }}
+            name: "{{ name }}"
+            connectionString: "{{ connectionString }}"
+            location: "{{ location }}"
+        deviceRegistryNamespace:
+          resourceId: "{{ resourceId }}"
+          authenticationType: "{{ authenticationType }}"
+          selectedUserAssignedIdentityResourceId: "{{ selectedUserAssignedIdentityResourceId }}"
+        allocationPolicy: "{{ allocationPolicy }}"
+        serviceOperationsHostName: "{{ serviceOperationsHostName }}"
+        deviceProvisioningHostName: "{{ deviceProvisioningHostName }}"
+        idScope: "{{ idScope }}"
+        authorizationPolicies:
+          - keyName: "{{ keyName }}"
+            primaryKey: "{{ primaryKey }}"
+            secondaryKey: "{{ secondaryKey }}"
+            rights: "{{ rights }}"
+        enableDataResidency: {{ enableDataResidency }}
+        portalOperationsHostName: "{{ portalOperationsHostName }}"
     - name: sku
       description: |
         Sku info for a provisioning Service. Required.
@@ -1242,8 +1242,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1283,53 +1282,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_private_endpoint_connection">
-
-Create or update the status of a private endpoint connection with the specified name.
-
-```sql
-REPLACE azure.iothubprovisioningservices.iot_dps_resource
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_private_endpoint_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_private_endpoint_connection">
-
-Delete private endpoint connection with the specified name.
-
-```sql
-DELETE FROM azure.iothubprovisioningservices.iot_dps_resource
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes the Provisioning Service.
@@ -1353,6 +1316,8 @@ AND resource_group_name = '{{ resource_group_name }}' --required
         { label: 'list_keys', value: 'list_keys' },
         { label: 'list_keys_for_key_name', value: 'list_keys_for_key_name' },
         { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' },
+        { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' },
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'check_provisioning_service_name_availability', value: 'check_provisioning_service_name_availability' }
     ]}
 >
@@ -1398,6 +1363,36 @@ List private endpoint connection properties.
 EXEC azure.iothubprovisioningservices.iot_dps_resource.list_private_endpoint_connections 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @resource_name='{{ resource_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_private_endpoint_connection">
+
+Create or update the status of a private endpoint connection with the specified name.
+
+```sql
+EXEC azure.iothubprovisioningservices.iot_dps_resource.create_or_update_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_private_endpoint_connection">
+
+Delete private endpoint connection with the specified name.
+
+```sql
+EXEC azure.iothubprovisioningservices.iot_dps_resource.delete_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

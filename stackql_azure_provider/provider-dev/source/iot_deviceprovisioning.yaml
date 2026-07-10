@@ -99,7 +99,7 @@ paths:
           description: Success
       x-stackql-resource: device_registration_state
       x-stackql-method: query
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /enrollmentGroups/{id}?api-version=2021-10-01:
     get:
       operationId: EnrollmentGroup_get
@@ -178,7 +178,7 @@ paths:
           description: Success
       x-stackql-resource: enrollment_group
       x-stackql-method: get_attestation_mechanism
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /enrollmentGroups?api-version=2021-10-01:
     post:
       operationId: EnrollmentGroup_run_bulk_operation
@@ -277,7 +277,7 @@ paths:
           description: Success
       x-stackql-resource: enrollment
       x-stackql-method: get_attestation_mechanism
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /enrollments?api-version=2021-10-01:
     post:
       operationId: Enrollment_run_bulk_operation

@@ -406,6 +406,20 @@ components:
             $ref: '#/components/schemas/AFDEndpointFlattened'
         nextLink:
           type: string
+    UsageUnit:
+      type: string
+      enum:
+      - Count
+    UsageName:
+      type: object
+      description: The usage names.
+      properties:
+        value:
+          type: string
+          description: A string describing the resource name.
+        localizedValue:
+          type: string
+          description: A localized string describing the resource name.
     Usage:
       type: object
       description: Describes resource usage.
@@ -430,20 +444,6 @@ components:
       - currentValue
       - limit
       - name
-    UsageUnit:
-      type: string
-      enum:
-      - Count
-    UsageName:
-      type: object
-      description: The usage names.
-      properties:
-        value:
-          type: string
-          description: A string describing the resource name.
-        localizedValue:
-          type: string
-          description: A localized string describing the resource name.
     PagedUsage:
       type: object
       properties:
@@ -2000,6 +2000,10 @@ components:
             $ref: '#/components/schemas/EndpointFlattened'
         nextLink:
           type: string
+    ResourceUsageUnit:
+      type: string
+      enum:
+      - count
     ResourceUsage:
       type: object
       description: Output of check resource usage API.
@@ -2016,10 +2020,6 @@ components:
         limit:
           type: integer
           description: Quota of the specified resource type.
-    ResourceUsageUnit:
-      type: string
-      enum:
-      - count
     PagedResourceUsage:
       type: object
       properties:
@@ -4897,7 +4897,8 @@ paths:
                 $ref: '#/components/schemas/PagedUsage'
       x-stackql-resource: afd_endpoints
       x-stackql-method: list_resource_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/afdEndpoints/{endpoint_name}/purge?api-version=2025-12-01
   : post:
       operationId: AFDEndpoints_begin_purge_content
@@ -4952,7 +4953,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: afd_endpoints
       x-stackql-method: purge_content
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/afdEndpoints/{endpoint_name}/validateCustomDomain?api-version=2025-12-01
   : post:
       operationId: AFDEndpoints_validate_custom_domain
@@ -5249,7 +5250,8 @@ paths:
                 $ref: '#/components/schemas/PagedUsage'
       x-stackql-resource: afd_origin_groups
       x-stackql-method: list_resource_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/originGroups/{origin_group_name}/origins/{origin_name}?api-version=2025-12-01
   : get:
       operationId: AFDOrigins_get
@@ -5518,7 +5520,8 @@ paths:
                 $ref: '#/components/schemas/PagedUsage'
       x-stackql-resource: afd_profiles
       x-stackql-method: list_resource_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/checkEndpointNameAvailability?api-version=2025-12-01
   : post:
       operationId: AFDProfiles_check_endpoint_name_availability
@@ -5573,7 +5576,7 @@ paths:
                 $ref: '#/components/schemas/CheckEndpointNameAvailabilityOutput'
       x-stackql-resource: afd_profiles
       x-stackql-method: check_endpoint_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/checkHostNameAvailability?api-version=2025-12-01
   : post:
       operationId: AFDProfiles_check_host_name_availability
@@ -5619,7 +5622,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: afd_profiles
       x-stackql-method: check_host_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/validateSecret?api-version=2025-12-01
   : post:
       operationId: AFDProfiles_validate_secret
@@ -6302,7 +6305,8 @@ paths:
                 $ref: '#/components/schemas/PagedResourceUsage'
       x-stackql-resource: endpoints
       x-stackql-method: list_resource_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/endpoints/{endpoint_name}/start?api-version=2025-12-01
   : post:
       operationId: Endpoints_begin_start
@@ -6430,7 +6434,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: endpoints
       x-stackql-method: purge_content
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/endpoints/{endpoint_name}/load?api-version=2025-12-01
   : post:
       operationId: Endpoints_begin_load_content
@@ -7775,7 +7779,7 @@ paths:
                 $ref: '#/components/schemas/SupportedOptimizationTypesListResult'
       x-stackql-resource: profiles
       x-stackql-method: list_supported_optimization_types
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/checkResourceUsage?api-version=2025-12-01
   : post:
       operationId: Profiles_list_resource_usage
@@ -7809,7 +7813,8 @@ paths:
                 $ref: '#/components/schemas/PagedResourceUsage'
       x-stackql-resource: profiles
       x-stackql-method: list_resource_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/migrationCommit?api-version=2025-12-01
   : post:
       operationId: Profiles_begin_migration_commit
@@ -8099,7 +8104,8 @@ paths:
                 $ref: '#/components/schemas/PagedResourceUsage'
       x-stackql-resource: resource_usage
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/afdEndpoints/{endpoint_name}/routes/{route_name}?api-version=2025-12-01
   : get:
       operationId: Routes_get
@@ -8539,7 +8545,8 @@ paths:
                 $ref: '#/components/schemas/PagedUsage'
       x-stackql-resource: rule_sets
       x-stackql-method: list_resource_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cdn/profiles/{profile_name}/ruleSets/{rule_set_name}/rules/{rule_name}?api-version=2025-12-01
   : get:
       operationId: Rules_get
@@ -9187,7 +9194,7 @@ paths:
                 $ref: '#/components/schemas/CheckEndpointNameAvailabilityOutput'
       x-stackql-resource: check_endpoint_name_availabilities
       x-stackql-method: check_endpoint_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Cdn/checkNameAvailability?api-version=2025-12-01:
     post:
       operationId: _CdnManagementClient_check_name_availability
@@ -9220,7 +9227,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: check_name_availabilities
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.Cdn/checkNameAvailability?api-version=2025-12-01:
     post:
       operationId: _CdnManagementClient_check_name_availability_with_subscription
@@ -9258,7 +9265,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: check_name_availability_with_subscriptions
       x-stackql-method: check_name_availability_with_subscription
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.Cdn/validateProbe?api-version=2025-12-01:
     post:
       operationId: _CdnManagementClient_validate_probe

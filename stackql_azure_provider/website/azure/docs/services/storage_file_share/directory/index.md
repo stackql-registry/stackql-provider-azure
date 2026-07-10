@@ -127,21 +127,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#list_files_and_directories_segment"><CopyableCode code="list_files_and_directories_segment" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-prefix"><code>prefix</code></a>, <a href="#parameter-sharesnapshot"><code>sharesnapshot</code></a>, <a href="#parameter-marker"><code>marker</code></a>, <a href="#parameter-maxresults"><code>maxresults</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-include"><code>include</code></a>, <a href="#parameter-x-ms-file-extended-info"><code>x-ms-file-extended-info</code></a>, <a href="#parameter-x-ms-allow-trailing-dot"><code>x-ms-allow-trailing-dot</code></a>, <a href="#parameter-x-ms-file-request-intent"><code>x-ms-file-request-intent</code></a></td>
     <td>Returns a list of files or directories under the specified share or directory. It lists the contents only for a single level of the directory hierarchy.</td>
 </tr>
 <tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-meta"><code>x-ms-meta</code></a>, <a href="#parameter-x-ms-file-permission"><code>x-ms-file-permission</code></a>, <a href="#parameter-x-ms-file-permission-format"><code>x-ms-file-permission-format</code></a>, <a href="#parameter-x-ms-file-permission-key"><code>x-ms-file-permission-key</code></a>, <a href="#parameter-x-ms-file-attributes"><code>x-ms-file-attributes</code></a>, <a href="#parameter-x-ms-file-creation-time"><code>x-ms-file-creation-time</code></a>, <a href="#parameter-x-ms-file-last-write-time"><code>x-ms-file-last-write-time</code></a>, <a href="#parameter-x-ms-file-change-time"><code>x-ms-file-change-time</code></a>, <a href="#parameter-x-ms-owner"><code>x-ms-owner</code></a>, <a href="#parameter-x-ms-group"><code>x-ms-group</code></a>, <a href="#parameter-x-ms-mode"><code>x-ms-mode</code></a>, <a href="#parameter-x-ms-file-property-semantics"><code>x-ms-file-property-semantics</code></a>, <a href="#parameter-x-ms-allow-trailing-dot"><code>x-ms-allow-trailing-dot</code></a>, <a href="#parameter-x-ms-file-request-intent"><code>x-ms-file-request-intent</code></a></td>
     <td>Creates a new directory under the specified share or parent directory.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-allow-trailing-dot"><code>x-ms-allow-trailing-dot</code></a>, <a href="#parameter-x-ms-file-request-intent"><code>x-ms-file-request-intent</code></a></td>
     <td>Removes the specified empty directory. Note that the directory must be empty before it can be deleted.</td>
 </tr>
@@ -161,15 +161,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -310,9 +305,8 @@ ServiceEndpoint,
 ShareName,
 ShareSnapshot
 FROM azure.storage_file_share.directory
-WHERE url = '{{ url }}' -- required
-AND x-ms-version = '{{ x-ms-version }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
+WHERE x-ms-version = '{{ x-ms-version }}' -- required
+AND account = '{{ account }}' -- required
 AND prefix = '{{ prefix }}'
 AND sharesnapshot = '{{ sharesnapshot }}'
 AND marker = '{{ marker }}'
@@ -343,9 +337,8 @@ Creates a new directory under the specified share or parent directory.
 
 ```sql
 INSERT INTO azure.storage_file_share.directory (
-url,
 x-ms-version,
-endpoint,
+account,
 timeout,
 x-ms-meta,
 x-ms-file-permission,
@@ -363,9 +356,8 @@ x-ms-allow-trailing-dot,
 x-ms-file-request-intent
 )
 SELECT 
-'{{ url }}',
 '{{ x-ms-version }}',
-'{{ endpoint }}',
+'{{ account }}',
 '{{ timeout }}',
 '{{ x-ms-meta }}',
 '{{ x-ms-file-permission }}',
@@ -389,14 +381,11 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: directory
   props:
-    - name: url
-      value: "{{ url }}"
-      description: Required parameter for the directory resource.
     - name: x-ms-version
       value: "{{ x-ms-version }}"
       description: Required parameter for the directory resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: account
+      value: "{{ account }}"
       description: Required parameter for the directory resource.
     - name: timeout
       value: {{ timeout }}
@@ -474,9 +463,8 @@ Removes the specified empty directory. Note that the directory must be empty bef
 
 ```sql
 DELETE FROM azure.storage_file_share.directory
-WHERE url = '{{ url }}' --required
-AND x-ms-version = '{{ x-ms-version }}' --required
-AND endpoint = '{{ endpoint }}' --required
+WHERE x-ms-version = '{{ x-ms-version }}' --required
+AND account = '{{ account }}' --required
 AND timeout = '{{ timeout }}'
 AND x-ms-allow-trailing-dot = '{{ x-ms-allow-trailing-dot }}'
 AND x-ms-file-request-intent = '{{ x-ms-file-request-intent }}'

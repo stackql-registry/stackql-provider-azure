@@ -327,7 +327,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get a Video Analyzer account. Get the details of the specified Video Analyzer account.</td>
 </tr>
@@ -348,21 +348,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Create or update a Video Analyzer account. Create or update an instance of a Video Analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Create or update a Video Analyzer account. Create or update an instance of a Video Analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a Video Analyzer account. Delete the specified Video Analyzer account.</td>
 </tr>
@@ -432,8 +432,8 @@ systemData,
 tags,
 type
 FROM azure.videoanalyzer.video_analyzers
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -509,13 +509,13 @@ Create or update a Video Analyzer account. Create or update an instance of a Vid
 
 ```sql
 INSERT INTO azure.videoanalyzer.video_analyzers (
-account_name,
 resource_group_name,
+account_name,
 subscription_id
 )
 SELECT 
-'{{ account_name }}',
 '{{ resource_group_name }}',
+'{{ account_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -534,11 +534,11 @@ type
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: video_analyzers
   props:
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the video_analyzers resource.
     - name: resource_group_name
       value: "{{ resource_group_name }}"
+      description: Required parameter for the video_analyzers resource.
+    - name: account_name
+      value: "{{ account_name }}"
       description: Required parameter for the video_analyzers resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -566,8 +566,8 @@ REPLACE azure.videoanalyzer.video_analyzers
 SET 
 -- No updatable properties
 WHERE 
-account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -597,8 +597,8 @@ Delete a Video Analyzer account. Delete the specified Video Analyzer account.
 
 ```sql
 DELETE FROM azure.videoanalyzer.video_analyzers
-WHERE account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```

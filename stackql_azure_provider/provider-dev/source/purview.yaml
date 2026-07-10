@@ -880,7 +880,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: accounts
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Purview/accounts/{account_name}/addRootCollectionAdmin?api-version=2021-07-01
   : post:
       operationId: Accounts_add_root_collection_admin
@@ -952,7 +952,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: accounts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Purview/getDefaultAccount?api-version=2021-07-01:
     get:
       operationId: DefaultAccounts_get

@@ -423,7 +423,7 @@ paths:
                 $ref: '#/components/schemas/WorkspaceCollectionAccessKeys'
       x-stackql-resource: workspace_collections
       x-stackql-method: get_access_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.PowerBI/locations/{location}/checkNameAvailability?api-version=2016-01-29
   : post:
       operationId: WorkspaceCollections_check_name_availability
@@ -462,7 +462,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResponse'
       x-stackql-resource: workspace_collections
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PowerBI/workspaceCollections/{workspace_collection_name}/regenerateKey?api-version=2016-01-29
   : post:
       operationId: WorkspaceCollections_regenerate_key

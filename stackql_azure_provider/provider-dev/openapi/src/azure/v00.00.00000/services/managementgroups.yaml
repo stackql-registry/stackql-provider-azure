@@ -26,22 +26,6 @@ components:
           scopes:
             user_impersonation: impersonate your user account
   schemas:
-    EntityInfo:
-      type: object
-      description: The entity.
-      properties:
-        id:
-          type: string
-          description: The fully qualified ID for the entity. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000.
-        type:
-          type: string
-          description: The type of the resource. For example, Microsoft.Management/managementGroups.
-        name:
-          type: string
-          description: The name of the entity. For example, 00000000-0000-0000-0000-000000000000.
-        properties:
-          $ref: "#/components/schemas/EntityInfoProperties"
-          description: The generic properties of an entity.
     EntityInfoProperties:
       type: object
       description: The generic properties of an entity.
@@ -94,13 +78,60 @@ components:
         - view
         - edit
         - delete
-    PagedEntityInfo:
+    EntityInfoFlattened:
+      type: object
+      description: Flattened view of EntityInfo ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: The fully qualified ID for the entity. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000.
+        type:
+          type: string
+          description: The type of the resource. For example, Microsoft.Management/managementGroups.
+        name:
+          type: string
+          description: The name of the entity. For example, 00000000-0000-0000-0000-000000000000.
+        tenantId:
+          type: string
+          description: The AAD Tenant ID associated with the entity. For example, 00000000-0000-0000-0000-000000000000.
+        displayName:
+          type: string
+          description: The friendly name of the management group.
+        parent:
+          $ref: "#/components/schemas/EntityParentGroupInfo"
+          description: (Optional) The ID of the parent management group.
+        permissions:
+          $ref: "#/components/schemas/Permissions"
+          description: 'The users specific permissions to this item. Known values are: "noaccess", "view", "edit", and "delete".'
+        inheritedPermissions:
+          $ref: "#/components/schemas/Permissions"
+          description: 'The users specific permissions to this item. Known values are: "noaccess", "view", "edit", and "delete".'
+        numberOfDescendants:
+          type: integer
+          description: Number of Descendants.
+        numberOfChildren:
+          type: integer
+          description: Number of children is the number of Groups and Subscriptions that are exactly one level underneath the current Group.
+        numberOfChildGroups:
+          type: integer
+          description: Number of children is the number of Groups that are exactly one level underneath the current Group.
+        parentDisplayNameChain:
+          type: array
+          items:
+            type: string
+          description: The parent display name chain from the root group to the immediate parent.
+        parentNameChain:
+          type: array
+          items:
+            type: string
+          description: The parent name chain from the root group to the immediate parent.
+    PagedEntityInfoFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/EntityInfo"
+            $ref: "#/components/schemas/EntityInfoFlattened"
         nextLink:
           type: string
     SystemData:
@@ -674,6 +705,11 @@ components:
             $ref: "#/components/schemas/Operation"
         nextLink:
           type: string
+    Reason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
     CheckNameAvailabilityResult:
       type: object
       description: Describes the result of the request to check management group name availability.
@@ -687,11 +723,6 @@ components:
         message:
           type: string
           description: Required if nameAvailable == false. Localized. If reason == invalid, provide the user with the reason why the given name is invalid, and provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists, explain that is already in use, and direct them to select a different name.
-    Reason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
     TenantBackfillStatusResult:
       type: object
       description: The tenant backfill status.
@@ -717,16 +748,27 @@ components:
       name: entities
       title: entities
       methods:
-        list_raw:
+        list:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.Management~1getEntities?api-version=2023-04-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/entities/methods/list"
         insert: []
         update: []
         delete: []
@@ -979,7 +1021,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/check_name_availabilities/methods/check_name_availability"
         insert: []
         update: []
         delete: []
@@ -1081,7 +1124,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedEntityInfo"
+                $ref: "#/components/schemas/PagedEntityInfoFlattened"
   /providers/Microsoft.Management/managementGroups/{group_id}/settings/default?api-version=2023-04-01:
     get:
       operationId: HierarchySettings_get

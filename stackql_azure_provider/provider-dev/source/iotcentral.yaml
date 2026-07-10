@@ -158,6 +158,17 @@ components:
       required:
       - location
       - sku
+    AppTemplateLocations:
+      type: object
+      description: IoT Central Application Template Locations. Variables are only populated by the server, and will
+        be ignored when sending a request.
+      properties:
+        id:
+          type: string
+          description: The ID of the location.
+        displayName:
+          type: string
+          description: The display name of the location.
     AppTemplate:
       type: object
       description: IoT Central Application Template. Variables are only populated by the server, and will be ignored
@@ -189,17 +200,6 @@ components:
           items:
             $ref: '#/components/schemas/AppTemplateLocations'
           description: A list of locations that support the template.
-    AppTemplateLocations:
-      type: object
-      description: IoT Central Application Template Locations. Variables are only populated by the server, and will
-        be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: The ID of the location.
-        displayName:
-          type: string
-          description: The display name of the location.
     PagedAppTemplate:
       type: object
       properties:
@@ -531,7 +531,8 @@ paths:
                 $ref: '#/components/schemas/PagedAppTemplate'
       x-stackql-resource: apps
       x-stackql-method: list_templates
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /subscriptions/{subscription_id}/providers/Microsoft.IoTCentral/checkNameAvailability?api-version=2021-06-01:
     post:
       operationId: Apps_check_name_availability
@@ -566,7 +567,7 @@ paths:
                 $ref: '#/components/schemas/AppAvailabilityInfo'
       x-stackql-resource: apps
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.IoTCentral/checkSubdomainAvailability?api-version=2021-06-01:
     post:
       operationId: Apps_check_subdomain_availability
@@ -601,7 +602,7 @@ paths:
                 $ref: '#/components/schemas/AppAvailabilityInfo'
       x-stackql-resource: apps
       x-stackql-method: check_subdomain_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.IoTCentral/operations?api-version=2021-06-01:
     get:
       operationId: iotcentral_list

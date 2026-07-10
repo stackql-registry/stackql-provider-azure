@@ -87,7 +87,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_operation_details"><CopyableCode code="get_operation_details" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-snapshot"><code>snapshot</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-snapshot"><code>snapshot</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td></td>
     <td>Gets the state of a long running operation. Gets the state of a long running operation.</td>
 </tr>
@@ -107,10 +107,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-config_store_name">
+    <td><CopyableCode code="config_store_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>App Configuration store name. (default: )</td>
 </tr>
 <tr id="parameter-snapshot">
     <td><CopyableCode code="snapshot" /></td>
@@ -139,7 +139,7 @@ error,
 status
 FROM azure.appconfiguration_dataplane.operation_details
 WHERE snapshot = '{{ snapshot }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
+AND config_store_name = '{{ config_store_name }}' -- required
 ;
 ```
 </TabItem>

@@ -113,7 +113,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_operation"><CopyableCode code="create_operation" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-scope"><code>scope</code></a></td>
     <td></td>
     <td>This API is the replacement for all previously release Usage Details APIs. Request to generate a cost details report for the provided date range, billing period (Only enterprise customers) or Invoice Id asynchronously at a certain scope. The initial call to request a report will return a 202 with a 'Location' and 'Retry-After' header. The 'Location' header will provide the endpoint to poll to get the result of the report generation. The 'Retry-After' provides the duration to wait before polling for the generated report. A call to poll the report operation will provide a 202 response with a 'Location' header if the operation is still in progress. Once the report generation operation completes, the polling endpoint will provide a 200 response along with details on the report blob(s) that are available for download. The details on the file(s) available for download will be available in the polling response body. To Understand cost details (formerly known as usage details) fields found in files ,see `https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields `_.</td>
@@ -177,13 +177,12 @@ AND operation_id = '{{ operation_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_operation"
     values={[
-        { label: 'create_operation', value: 'create_operation' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'create_operation', value: 'create_operation' }
     ]}
 >
 <TabItem value="create_operation">
@@ -191,58 +190,16 @@ AND operation_id = '{{ operation_id }}' -- required
 This API is the replacement for all previously release Usage Details APIs. Request to generate a cost details report for the provided date range, billing period (Only enterprise customers) or Invoice Id asynchronously at a certain scope. The initial call to request a report will return a 202 with a 'Location' and 'Retry-After' header. The 'Location' header will provide the endpoint to poll to get the result of the report generation. The 'Retry-After' provides the duration to wait before polling for the generated report. A call to poll the report operation will provide a 202 response with a 'Location' header if the operation is still in progress. Once the report generation operation completes, the polling endpoint will provide a 200 response along with details on the report blob(s) that are available for download. The details on the file(s) available for download will be available in the polling response body. To Understand cost details (formerly known as usage details) fields found in files ,see `https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields `_.
 
 ```sql
-INSERT INTO azure.costmanagement.generate_cost_details_report (
-metric,
-timePeriod,
-billingPeriod,
-invoiceId,
-scope
-)
-SELECT 
-'{{ metric }}',
-'{{ timePeriod }}',
-'{{ billingPeriod }}',
-'{{ invoiceId }}',
-'{{ scope }}'
-RETURNING
-id,
-name,
-error,
-manifest,
-status,
-type,
-validTill
+EXEC azure.costmanagement.generate_cost_details_report.create_operation 
+@scope='{{ scope }}' --required 
+@@json=
+'{
+"metric": "{{ metric }}", 
+"timePeriod": "{{ timePeriod }}", 
+"billingPeriod": "{{ billingPeriod }}", 
+"invoiceId": "{{ invoiceId }}"
+}'
 ;
 ```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: generate_cost_details_report
-  props:
-    - name: scope
-      value: "{{ scope }}"
-      description: Required parameter for the generate_cost_details_report resource.
-    - name: metric
-      value: "{{ metric }}"
-      description: |
-        The type of the detailed report. By default ActualCost is provided. Known values are: "ActualCost" and "AmortizedCost".
-      valid_values: ['ActualCost', 'AmortizedCost']
-    - name: timePeriod
-      description: |
-        The specific date range of cost details requested for the report. This parameter cannot be used alongside either the invoiceId or billingPeriod parameters. If a timePeriod, invoiceId or billingPeriod parameter is not provided in the request body the API will return the current month's cost. API only allows data to be pulled for 1 month or less and no older than 13 months. If no timePeriod or billingPeriod or invoiceId is provided the API defaults to the open month time period.
-      value:
-        start: "{{ start }}"
-        end: "{{ end }}"
-    - name: billingPeriod
-      value: "{{ billingPeriod }}"
-      description: |
-        This parameter can be used only by Enterprise Agreement customers. Use the YearMonth(e.g. 202008) format. This parameter cannot be used alongside either the invoiceId or timePeriod parameters. If a timePeriod, invoiceId or billingPeriod parameter is not provided in the request body the API will return the current month's cost.
-    - name: invoiceId
-      value: "{{ invoiceId }}"
-      description: |
-        This parameter can only be used by Microsoft Customer Agreement customers. Additionally, it can only be used at the Billing Profile or Customer scope. This parameter cannot be used alongside either the billingPeriod or timePeriod parameters. If a timePeriod, invoiceId or billingPeriod parameter is not provided in the request body the API will return the current month's cost.
-`}</CodeBlock>
-
 </TabItem>
 </Tabs>

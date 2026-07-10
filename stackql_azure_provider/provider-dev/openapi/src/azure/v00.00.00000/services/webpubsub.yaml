@@ -1591,6 +1591,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/web_pub_sub/methods/list_replica_skus"
+          - $ref: "#/components/x-stackQL-resources/web_pub_sub/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/web_pub_sub/methods/get"
           - $ref: "#/components/x-stackQL-resources/web_pub_sub/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/web_pub_sub/methods/list_by_subscription"

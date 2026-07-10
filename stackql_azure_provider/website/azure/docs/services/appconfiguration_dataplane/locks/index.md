@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#delete_lock"><CopyableCode code="delete_lock" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-key"><code>key</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-label"><code>label</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Unlocks a key-value. Unlocks a key-value.</td>
 </tr>
 <tr>
     <td><a href="#put_lock"><CopyableCode code="put_lock" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key"><code>key</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-label"><code>label</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Locks a key-value. Locks a key-value.</td>
 </tr>
@@ -80,13 +80,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-config_store_name">
+    <td><CopyableCode code="config_store_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>App Configuration store name. (default: )</td>
 </tr>
-<tr id="parameter-key">
-    <td><CopyableCode code="key" /></td>
+<tr id="parameter-key_name">
+    <td><CopyableCode code="key_name" /></td>
     <td><code>string</code></td>
     <td>The key of the key-value to lock. Required.</td>
 </tr>
@@ -117,8 +117,8 @@ Unlocks a key-value. Unlocks a key-value.
 
 ```sql
 DELETE FROM azure.appconfiguration_dataplane.locks
-WHERE key = '{{ key }}' --required
-AND endpoint = '{{ endpoint }}' --required
+WHERE key_name = '{{ key_name }}' --required
+AND config_store_name = '{{ config_store_name }}' --required
 AND label = '{{ label }}'
 AND Sync-Token = '{{ Sync-Token }}'
 ;
@@ -141,8 +141,8 @@ Locks a key-value. Locks a key-value.
 
 ```sql
 EXEC azure.appconfiguration_dataplane.locks.put_lock 
-@key='{{ key }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@config_store_name='{{ config_store_name }}' --required, 
 @label='{{ label }}', 
 @Sync-Token='{{ Sync-Token }}'
 ;

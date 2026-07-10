@@ -3631,18 +3631,6 @@ components:
             $ref: '#/components/schemas/GitHubOwnerFlattened'
         nextLink:
           type: string
-    GitHubOwnerListResponse:
-      type: object
-      description: List of RP resources which supports pagination.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/GitHubOwner'
-          description: The GitHubOwner items on this page.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
     GitHubOwner:
       type: object
       description: GitHub Owner resource.
@@ -3662,6 +3650,18 @@ components:
         properties:
           $ref: '#/components/schemas/GitHubOwnerProperties'
           description: GitHub Owner properties.
+    GitHubOwnerListResponse:
+      type: object
+      description: List of RP resources which supports pagination.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/GitHubOwner'
+          description: The GitHubOwner items on this page.
+        nextLink:
+          type: string
+          description: The link to the next page of items.
     GitHubRepositoryProperties:
       type: object
       description: GitHub Repository properties.
@@ -3856,18 +3856,6 @@ components:
             $ref: '#/components/schemas/GitLabGroupFlattened'
         nextLink:
           type: string
-    GitLabGroupListResponse:
-      type: object
-      description: List of RP resources which supports pagination.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/GitLabGroup'
-          description: The GitLabGroup items on this page.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
     GitLabGroup:
       type: object
       description: GitLab Group resource.
@@ -3887,6 +3875,18 @@ components:
         properties:
           $ref: '#/components/schemas/GitLabGroupProperties'
           description: GitLab Group properties.
+    GitLabGroupListResponse:
+      type: object
+      description: List of RP resources which supports pagination.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/GitLabGroup'
+          description: The GitLabGroup items on this page.
+        nextLink:
+          type: string
+          description: The link to the next page of items.
     GitLabProjectProperties:
       type: object
       description: GitLab Project properties.
@@ -10951,7 +10951,7 @@ paths:
                 $ref: '#/components/schemas/AzureDevOpsOrgListResponse'
       x-stackql-resource: azure_dev_ops_orgs
       x-stackql-method: list_available
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Security/securityConnectors/{security_connector_name}/devops/default/azureDevOpsOrgs/{org_name}/projects/{project_name}?api-version=2025-11-01-preview
   : get:
       operationId: AzureDevOpsProjects_get
@@ -12325,7 +12325,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: git_hub_issues
+      x-stackql-resource: github_issues
       x-stackql-method: create
       x-stackql-verb: INSERT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Security/securityConnectors/{security_connector_name}/devops/default/gitHubOwners/{owner_name}?api-version=2025-11-01-preview
@@ -12363,7 +12363,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOwnerFlattened'
-      x-stackql-resource: git_hub_owners
+      x-stackql-resource: github_owners
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -12397,7 +12397,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubOwnerFlattened'
-      x-stackql-resource: git_hub_owners
+      x-stackql-resource: github_owners
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -12433,9 +12433,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOwnerListResponse'
-      x-stackql-resource: git_hub_owners
+      x-stackql-resource: github_owners
       x-stackql-method: list_available
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Security/securityConnectors/{security_connector_name}/devops/default/gitHubOwners/{owner_name}/repos/{repo_name}?api-version=2025-11-01-preview
   : get:
       operationId: GitHubRepos_get
@@ -12477,7 +12477,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubRepositoryFlattened'
-      x-stackql-resource: git_hub_repos
+      x-stackql-resource: github_repos
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -12517,7 +12517,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubRepositoryFlattened'
-      x-stackql-resource: git_hub_repos
+      x-stackql-resource: github_repos
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -12631,7 +12631,7 @@ paths:
                 $ref: '#/components/schemas/GitLabGroupListResponse'
       x-stackql-resource: git_lab_groups
       x-stackql-method: list_available
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Security/securityConnectors/{security_connector_name}/devops/default/gitLabGroups/{group_fq_name}/projects/{project_name}?api-version=2025-11-01-preview
   : get:
       operationId: GitLabProjects_get
@@ -12758,7 +12758,7 @@ paths:
                 $ref: '#/components/schemas/GitLabGroupListResponse'
       x-stackql-resource: git_lab_subgroups
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /{scope}/providers/Microsoft.Security/assessments/{assessment_name}/governanceAssignments/{assignment_key}?api-version=2022-01-01-preview
   : get:
       operationId: GovernanceAssignments_get

@@ -5403,7 +5403,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/action_groups/methods/list_by_subscription_id"
         insert:
           - $ref: "#/components/x-stackQL-resources/action_groups/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/action_groups/methods/create_notifications_at_action_group_resource_level"
         update:
           - $ref: "#/components/x-stackQL-resources/action_groups/methods/update"
         replace:

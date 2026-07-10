@@ -113,7 +113,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#update_put"><CopyableCode code="update_put" /></a></td>
-    <td><CopyableCode code="update" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update the config server.</td>
@@ -197,12 +197,14 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `UPDATE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="update_put"
     values={[
-        { label: 'update_put', value: 'update_put' }
+        { label: 'update_put', value: 'update_put' },
+        { label: 'update_patch', value: 'update_patch' },
+        { label: 'validate', value: 'validate' }
     ]}
 >
 <TabItem value="update_put">
@@ -210,33 +212,17 @@ AND subscription_id = '{{ subscription_id }}' -- required
 Update the config server.
 
 ```sql
-UPDATE azure.appplatform.config_servers
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND service_name = '{{ service_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
+EXEC azure.appplatform.config_servers.update_put 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@service_name='{{ service_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
 ```
 </TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="update_patch"
-    values={[
-        { label: 'update_patch', value: 'update_patch' },
-        { label: 'validate', value: 'validate' }
-    ]}
->
 <TabItem value="update_patch">
 
 Update the config server.

@@ -4105,7 +4105,8 @@ paths:
                 $ref: '#/components/schemas/RegistrationTokenList'
       x-stackql-resource: host_pools
       x-stackql-method: list_registration_tokens
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DesktopVirtualization/hostPools/{host_pool_name}/retrieveRegistrationToken?api-version=2024-04-03
   : post:
       operationId: HostPools_retrieve_registration_token
@@ -4137,7 +4138,7 @@ paths:
                 $ref: '#/components/schemas/RegistrationInfo'
       x-stackql-resource: host_pools
       x-stackql-method: retrieve_registration_token
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.DesktopVirtualization/hostPools/{host_pool_name}/msixPackages/{msix_package_full_name}?api-version=2024-04-03
   : get:
       operationId: MSIXPackages_get

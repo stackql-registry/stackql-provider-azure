@@ -1877,18 +1877,6 @@ components:
           description: "[Required] Additional attributes of the entity. Required."
       required:
         - properties
-    AgentReferenceResourceArmPaginatedResult:
-      type: object
-      description: A paginated list of Agent Reference entities.
-      properties:
-        nextLink:
-          type: string
-          description: The link to the next page of Agent Reference objects. If null, there are no additional pages.
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/AgentReference"
-          description: An array of objects of type Agent Reference.
     AgentReference:
       type: object
       description: Agent Reference resource.
@@ -1910,6 +1898,18 @@ components:
           description: "[Required] Additional attributes of the entity. Required."
       required:
         - properties
+    AgentReferenceResourceArmPaginatedResult:
+      type: object
+      description: A paginated list of Agent Reference entities.
+      properties:
+        nextLink:
+          type: string
+          description: The link to the next page of Agent Reference objects. If null, there are no additional pages.
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgentReference"
+          description: An array of objects of type Agent Reference.
     AgentDeploymentProperties:
       type: object
       description: "Type representing an agent deployment as a management construct. You probably want to use the sub-classes and not this class directly. Known sub-classes are: HostedAgentDeployment, ManagedAgentDeployment"
@@ -6202,18 +6202,11 @@ components:
           - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/list_plans_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/create_or_update_association"
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/create_or_update_plan"
-        update:
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/update_plan"
+        update: []
         replace:
           - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/create_or_update_association"
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/create_or_update_plan"
         delete:
           - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/delete_association"
-          - $ref: "#/components/x-stackQL-resources/commitment_plans/methods/delete_plan"
     commitment_tiers:
       id: azure.cognitiveservices.commitment_tiers
       name: commitment_tiers
@@ -7970,13 +7963,15 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/check_sku_availabilities/methods/check_sku_availability"
         insert: []
         update: []
         delete: []
@@ -7997,7 +7992,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/check_domain_availabilities/methods/check_domain_availability"
         insert: []
         update: []
         delete: []

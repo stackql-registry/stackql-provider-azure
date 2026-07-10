@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#release"><CopyableCode code="release" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-target"><code>target</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-target"><code>target</code></a></td>
     <td></td>
     <td>Releases a key. The release key operation is applicable to all key types. The target key must be marked exportable. This operation requires the keys/release permission.</td>
 </tr>
@@ -83,10 +83,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>Adding the version parameter retrieves a specific version of a key. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -107,7 +107,7 @@ Releases a key. The release key operation is applicable to all key types. The ta
 EXEC azure.keyvault_keys.releases.release 
 @key_name='{{ key_name }}' --required, 
 @key_version='{{ key_version }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "target": "{{ target }}", 

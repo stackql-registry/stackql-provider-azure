@@ -1228,7 +1228,7 @@ paths:
                 $ref: '#/components/schemas/TrafficManagerNameAvailability'
       x-stackql-resource: profiles
       x-stackql-method: check_traffic_manager_relative_dns_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Network/checkTrafficManagerNameAvailabilityV2?api-version=2024-04-01-preview
   : post:
       operationId: Profiles_check_traffic_manager_name_availability_v2
@@ -1261,7 +1261,7 @@ paths:
                 $ref: '#/components/schemas/TrafficManagerNameAvailability'
       x-stackql-resource: profiles
       x-stackql-method: check_traffic_manager_name_availability_v2
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Network/trafficManagerUserMetricsKeys/default?api-version=2024-04-01-preview
   : get:
       operationId: TrafficManagerUserMetricsKeys_get

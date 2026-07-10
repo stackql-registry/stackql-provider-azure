@@ -559,13 +559,6 @@ The following methods are available for this resource:
     <td>Deletes a configuration store.</td>
 </tr>
 <tr>
-    <td><a href="#purge_deleted"><CopyableCode code="purge_deleted" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Permanently deletes the specified configuration store.</td>
-</tr>
-<tr>
     <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -585,6 +578,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Regenerates an access key for the specified configuration store.</td>
+</tr>
+<tr>
+    <td><a href="#purge_deleted"><CopyableCode code="purge_deleted" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Permanently deletes the specified configuration store.</td>
 </tr>
 </tbody>
 </table>
@@ -943,8 +943,7 @@ type;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'purge_deleted', value: 'purge_deleted' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -954,18 +953,6 @@ Deletes a configuration store.
 ```sql
 DELETE FROM azure.appconfiguration.configuration_stores
 WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND config_store_name = '{{ config_store_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="purge_deleted">
-
-Permanently deletes the specified configuration store.
-
-```sql
-DELETE FROM azure.appconfiguration.configuration_stores
-WHERE location = '{{ location }}' --required
 AND config_store_name = '{{ config_store_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
@@ -981,7 +968,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_keys', value: 'list_keys' },
         { label: 'list_deleted', value: 'list_deleted' },
-        { label: 'regenerate_key', value: 'regenerate_key' }
+        { label: 'regenerate_key', value: 'regenerate_key' },
+        { label: 'purge_deleted', value: 'purge_deleted' }
     ]}
 >
 <TabItem value="list_keys">
@@ -1020,6 +1008,18 @@ EXEC azure.appconfiguration.configuration_stores.regenerate_key
 '{
 "id": "{{ id }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="purge_deleted">
+
+Permanently deletes the specified configuration store.
+
+```sql
+EXEC azure.appconfiguration.configuration_stores.purge_deleted 
+@location='{{ location }}' --required, 
+@config_store_name='{{ config_store_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

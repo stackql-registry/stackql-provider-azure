@@ -122,21 +122,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_certificate_operation"><CopyableCode code="get_certificate_operation" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Gets the creation operation of a certificate. Gets the creation operation associated with a specified certificate. This operation requires the certificates/get permission.</td>
 </tr>
 <tr>
     <td><a href="#update_certificate_operation"><CopyableCode code="update_certificate_operation" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-cancellation_requested"><code>cancellation_requested</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-cancellation_requested"><code>cancellation_requested</code></a></td>
     <td></td>
     <td>Updates a certificate operation. Updates a certificate creation operation that is already in progress. This operation requires the certificates/update permission.</td>
 </tr>
 <tr>
     <td><a href="#delete_certificate_operation"><CopyableCode code="delete_certificate_operation" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Deletes the creation operation for a specific certificate. Deletes the creation operation for a specified certificate that is in the process of being created. The certificate is no longer created. This operation requires the certificates/update permission.</td>
 </tr>
@@ -161,10 +161,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the certificate. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -195,7 +195,7 @@ status_details,
 target
 FROM azure.keyvault_certificates.certificate_operations
 WHERE certificate_name = '{{ certificate_name }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -220,7 +220,7 @@ SET
 cancellation_requested = {{ cancellation_requested }}
 WHERE 
 certificate_name = '{{ certificate_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 AND cancellation_requested = {{ cancellation_requested }} --required
 RETURNING
 id,
@@ -253,7 +253,7 @@ Deletes the creation operation for a specific certificate. Deletes the creation 
 ```sql
 DELETE FROM azure.keyvault_certificates.certificate_operations
 WHERE certificate_name = '{{ certificate_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>

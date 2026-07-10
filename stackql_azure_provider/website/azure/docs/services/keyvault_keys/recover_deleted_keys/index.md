@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#recover_deleted_key"><CopyableCode code="recover_deleted_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Recovers the deleted key to its latest version. The Recover Deleted Key operation is applicable for deleted keys in soft-delete enabled vaults. It recovers the deleted key back to its latest version under /keys. An attempt to recover an non-deleted key will return an error. Consider this the inverse of the delete operation on soft-delete enabled vaults. This operation requires the keys/recover permission.</td>
 </tr>
@@ -78,10 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the deleted key. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Recovers the deleted key to its latest version. The Recover Deleted Key operatio
 ```sql
 EXEC azure.keyvault_keys.recover_deleted_keys.recover_deleted_key 
 @key_name='{{ key_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>

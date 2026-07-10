@@ -385,144 +385,18 @@ The following methods are available for this resource:
     <td>Get Collections. List all collections in the GeoCatalog instance.</td>
 </tr>
 <tr>
-    <td><a href="#create_collection"><CopyableCode code="create_collection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-description"><code>description</code></a>, <a href="#parameter-links"><code>links</code></a>, <a href="#parameter-license"><code>license</code></a>, <a href="#parameter-extent"><code>extent</code></a></td>
-    <td></td>
-    <td>Create Collection. Create a new collection in the GeoCatalog instance.</td>
-</tr>
-<tr>
-    <td><a href="#create_render_option"><CopyableCode code="create_render_option" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Add Collection Render Option. Add a render option for a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#create_queryables"><CopyableCode code="create_queryables" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
-    <td></td>
-    <td>Set Collection Queryables. Set queryables for a collection given a list of queryable definitions.</td>
-</tr>
-<tr>
-    <td><a href="#create_collection_asset"><CopyableCode code="create_collection_asset" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-data"><code>data</code></a>, <a href="#parameter-file"><code>file</code></a></td>
-    <td></td>
-    <td>Create Collection Asset. Create a new asset in the Collection metadata and write the associated file to managed storage.</td>
-</tr>
-<tr>
-    <td><a href="#create_item"><CopyableCode code="create_item" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Create a new STAC item or a set of items in a collection.</td>
-</tr>
-<tr>
-    <td><a href="#update_item"><CopyableCode code="update_item" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-geometry"><code>geometry</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-bbox"><code>bbox</code></a>, <a href="#parameter-properties"><code>properties</code></a>, <a href="#parameter-assets"><code>assets</code></a></td>
-    <td></td>
-    <td>Update a STAC item in a collection.</td>
-</tr>
-<tr>
-    <td><a href="#replace_item"><CopyableCode code="replace_item" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-geometry"><code>geometry</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-bbox"><code>bbox</code></a>, <a href="#parameter-properties"><code>properties</code></a>, <a href="#parameter-assets"><code>assets</code></a></td>
-    <td></td>
-    <td>Replace a STAC item in a collection.</td>
-</tr>
-<tr>
-    <td><a href="#replace_collection"><CopyableCode code="replace_collection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-description"><code>description</code></a>, <a href="#parameter-links"><code>links</code></a>, <a href="#parameter-license"><code>license</code></a>, <a href="#parameter-extent"><code>extent</code></a></td>
-    <td></td>
-    <td>Replace Collection. Replace an existing collection in the GeoCatalog instance.</td>
-</tr>
-<tr>
     <td><a href="#replace_mosaic"><CopyableCode code="replace_mosaic" /></a></td>
-    <td><CopyableCode code="replace" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-mosaic_id"><code>mosaic_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-cql"><code>cql</code></a></td>
     <td></td>
     <td>Update Collection Mosaic. Update a mosaic definition from a given collection.</td>
 </tr>
 <tr>
-    <td><a href="#replace_render_option"><CopyableCode code="replace_render_option" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-render_option_id"><code>render_option_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Update Collection Render Option. Update a render option for a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#replace_collection_asset"><CopyableCode code="replace_collection_asset" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-asset_id"><code>asset_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-data"><code>data</code></a>, <a href="#parameter-file"><code>file</code></a></td>
-    <td></td>
-    <td>Update Collection Asset. Update an existing asset in a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#replace_queryable"><CopyableCode code="replace_queryable" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-queryable_name"><code>queryable_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
-    <td></td>
-    <td>Update Collection Queryables. Updates a queryable given a queryable definition and corresponding collection id.</td>
-</tr>
-<tr>
-    <td><a href="#replace_tile_settings"><CopyableCode code="replace_tile_settings" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-minZoom"><code>minZoom</code></a>, <a href="#parameter-maxItemsPerTile"><code>maxItemsPerTile</code></a></td>
-    <td></td>
-    <td>Update Collection Tile Settings. Update the tile settings for a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#replace_partition_type"><CopyableCode code="replace_partition_type" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create Partitiontype. Updates partition type for a GeoCatalog Collection. This will determine the partitioning scheme for items within the database, and can only be set before any items are loaded. Ideal partitioning schemes result in partitions of roughly 100k items each. The default partitioning scheme is "none" which does not partition items.</td>
-</tr>
-<tr>
     <td><a href="#delete_mosaic"><CopyableCode code="delete_mosaic" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-mosaic_id"><code>mosaic_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete Collection Mosaic. Delete a mosaic definition from a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_render_option"><CopyableCode code="delete_render_option" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-render_option_id"><code>render_option_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete Collection Render Option. Delete a render option for a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_item"><CopyableCode code="delete_item" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete a STAC item from a collection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_collection_asset"><CopyableCode code="delete_collection_asset" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-asset_id"><code>asset_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete Collection Asset. Delete an asset from a given collection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_queryable"><CopyableCode code="delete_queryable" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-queryable_name"><code>queryable_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete Queryables. Delete queryables by name for specified collection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_collection"><CopyableCode code="delete_collection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete Collection. Delete a collection in the GeoCatalog instance.</td>
 </tr>
 <tr>
     <td><a href="#get_mosaics"><CopyableCode code="get_mosaics" /></a></td>
@@ -546,6 +420,27 @@ The following methods are available for this resource:
     <td>Get Collection. Get a collection in the GeoCatalog instance.</td>
 </tr>
 <tr>
+    <td><a href="#replace_collection"><CopyableCode code="replace_collection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-description"><code>description</code></a>, <a href="#parameter-links"><code>links</code></a>, <a href="#parameter-license"><code>license</code></a>, <a href="#parameter-extent"><code>extent</code></a></td>
+    <td></td>
+    <td>Replace Collection. Replace an existing collection in the GeoCatalog instance.</td>
+</tr>
+<tr>
+    <td><a href="#delete_collection"><CopyableCode code="delete_collection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete Collection. Delete a collection in the GeoCatalog instance.</td>
+</tr>
+<tr>
+    <td><a href="#create_collection"><CopyableCode code="create_collection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-description"><code>description</code></a>, <a href="#parameter-links"><code>links</code></a>, <a href="#parameter-license"><code>license</code></a>, <a href="#parameter-extent"><code>extent</code></a></td>
+    <td></td>
+    <td>Create Collection. Create a new collection in the GeoCatalog instance.</td>
+</tr>
+<tr>
     <td><a href="#get_partition_type"><CopyableCode code="get_partition_type" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -553,11 +448,39 @@ The following methods are available for this resource:
     <td>Get Partitiontype. Get the partitiontype for a GeoCatalog Collection.</td>
 </tr>
 <tr>
+    <td><a href="#replace_partition_type"><CopyableCode code="replace_partition_type" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create Partitiontype. Updates partition type for a GeoCatalog Collection. This will determine the partitioning scheme for items within the database, and can only be set before any items are loaded. Ideal partitioning schemes result in partitions of roughly 100k items each. The default partitioning scheme is "none" which does not partition items.</td>
+</tr>
+<tr>
+    <td><a href="#replace_render_option"><CopyableCode code="replace_render_option" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-render_option_id"><code>render_option_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
+    <td></td>
+    <td>Update Collection Render Option. Update a render option for a given collection.</td>
+</tr>
+<tr>
+    <td><a href="#delete_render_option"><CopyableCode code="delete_render_option" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-render_option_id"><code>render_option_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete Collection Render Option. Delete a render option for a given collection.</td>
+</tr>
+<tr>
     <td><a href="#get_render_options"><CopyableCode code="get_render_options" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get Collection Render Options. Get all render options for a given collection.</td>
+</tr>
+<tr>
+    <td><a href="#create_render_option"><CopyableCode code="create_render_option" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
+    <td></td>
+    <td>Add Collection Render Option. Add a render option for a given collection.</td>
 </tr>
 <tr>
     <td><a href="#get_collection_thumbnail"><CopyableCode code="get_collection_thumbnail" /></a></td>
@@ -574,6 +497,13 @@ The following methods are available for this resource:
     <td>Get Collection Tile Settings. Get the tile settings for a given collection.</td>
 </tr>
 <tr>
+    <td><a href="#replace_tile_settings"><CopyableCode code="replace_tile_settings" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-minZoom"><code>minZoom</code></a>, <a href="#parameter-maxItemsPerTile"><code>maxItemsPerTile</code></a></td>
+    <td></td>
+    <td>Update Collection Tile Settings. Update the tile settings for a given collection.</td>
+</tr>
+<tr>
     <td><a href="#get_conformance_classes"><CopyableCode code="get_conformance_classes" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -588,11 +518,39 @@ The following methods are available for this resource:
     <td>Landing Page. Return the STAC landing page.</td>
 </tr>
 <tr>
+    <td><a href="#replace_item"><CopyableCode code="replace_item" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-geometry"><code>geometry</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-bbox"><code>bbox</code></a>, <a href="#parameter-properties"><code>properties</code></a>, <a href="#parameter-assets"><code>assets</code></a></td>
+    <td></td>
+    <td>Replace a STAC item in a collection.</td>
+</tr>
+<tr>
+    <td><a href="#delete_item"><CopyableCode code="delete_item" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete a STAC item from a collection.</td>
+</tr>
+<tr>
+    <td><a href="#update_item"><CopyableCode code="update_item" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-geometry"><code>geometry</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-bbox"><code>bbox</code></a>, <a href="#parameter-properties"><code>properties</code></a>, <a href="#parameter-assets"><code>assets</code></a></td>
+    <td></td>
+    <td>Update a STAC item in a collection.</td>
+</tr>
+<tr>
     <td><a href="#get_item_collection"><CopyableCode code="get_item_collection" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-limit"><code>limit</code></a>, <a href="#parameter-bbox"><code>bbox</code></a>, <a href="#parameter-datetime"><code>datetime</code></a>, <a href="#parameter-sign"><code>sign</code></a>, <a href="#parameter-duration"><code>duration</code></a>, <a href="#parameter-token"><code>token</code></a></td>
     <td>Fetch features of the feature collection with id `collectionId`. Every feature in a dataset belongs to a collection. A dataset may consist of multiple feature collections. A feature collection is often a collection of features of a similar type, based on a common schema.</td>
+</tr>
+<tr>
+    <td><a href="#create_item"><CopyableCode code="create_item" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td></td>
+    <td>Create a new STAC item or a set of items in a collection.</td>
 </tr>
 <tr>
     <td><a href="#get_queryables"><CopyableCode code="get_queryables" /></a></td>
@@ -607,6 +565,48 @@ The following methods are available for this resource:
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Collection Queryables. List all queryables in a given collection.</td>
+</tr>
+<tr>
+    <td><a href="#create_queryables"><CopyableCode code="create_queryables" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
+    <td></td>
+    <td>Set Collection Queryables. Set queryables for a collection given a list of queryable definitions.</td>
+</tr>
+<tr>
+    <td><a href="#create_collection_asset"><CopyableCode code="create_collection_asset" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-data"><code>data</code></a>, <a href="#parameter-file"><code>file</code></a></td>
+    <td></td>
+    <td>Create Collection Asset. Create a new asset in the Collection metadata and write the associated file to managed storage.</td>
+</tr>
+<tr>
+    <td><a href="#replace_collection_asset"><CopyableCode code="replace_collection_asset" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-asset_id"><code>asset_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-data"><code>data</code></a>, <a href="#parameter-file"><code>file</code></a></td>
+    <td></td>
+    <td>Update Collection Asset. Update an existing asset in a given collection.</td>
+</tr>
+<tr>
+    <td><a href="#delete_collection_asset"><CopyableCode code="delete_collection_asset" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-asset_id"><code>asset_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete Collection Asset. Delete an asset from a given collection.</td>
+</tr>
+<tr>
+    <td><a href="#replace_queryable"><CopyableCode code="replace_queryable" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-queryable_name"><code>queryable_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
+    <td></td>
+    <td>Update Collection Queryables. Updates a queryable given a queryable definition and corresponding collection id.</td>
+</tr>
+<tr>
+    <td><a href="#delete_queryable"><CopyableCode code="delete_queryable" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-queryable_name"><code>queryable_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete Queryables. Delete queryables by name for specified collection.</td>
 </tr>
 <tr>
     <td><a href="#search"><CopyableCode code="search" /></a></td>
@@ -639,12 +639,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-collection_id">
     <td><CopyableCode code="collection_id" /></td>
     <td><code>string</code></td>
-    <td>Collection ID. Required.</td>
+    <td>Unique identifier for the STAC collection. Required.</td>
 </tr>
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-item_id">
     <td><CopyableCode code="item_id" /></td>
@@ -824,784 +824,77 @@ AND duration = '{{ duration }}'
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
-    defaultValue="create_collection"
+    defaultValue="replace_mosaic"
     values={[
+        { label: 'replace_mosaic', value: 'replace_mosaic' },
+        { label: 'delete_mosaic', value: 'delete_mosaic' },
+        { label: 'get_mosaics', value: 'get_mosaics' },
+        { label: 'add_mosaic', value: 'add_mosaic' },
+        { label: 'get_collection', value: 'get_collection' },
+        { label: 'replace_collection', value: 'replace_collection' },
+        { label: 'delete_collection', value: 'delete_collection' },
         { label: 'create_collection', value: 'create_collection' },
+        { label: 'get_partition_type', value: 'get_partition_type' },
+        { label: 'replace_partition_type', value: 'replace_partition_type' },
+        { label: 'replace_render_option', value: 'replace_render_option' },
+        { label: 'delete_render_option', value: 'delete_render_option' },
+        { label: 'get_render_options', value: 'get_render_options' },
         { label: 'create_render_option', value: 'create_render_option' },
+        { label: 'get_collection_thumbnail', value: 'get_collection_thumbnail' },
+        { label: 'get_tile_settings', value: 'get_tile_settings' },
+        { label: 'replace_tile_settings', value: 'replace_tile_settings' },
+        { label: 'get_conformance_classes', value: 'get_conformance_classes' },
+        { label: 'get_landing_page', value: 'get_landing_page' },
+        { label: 'replace_item', value: 'replace_item' },
+        { label: 'delete_item', value: 'delete_item' },
+        { label: 'update_item', value: 'update_item' },
+        { label: 'get_item_collection', value: 'get_item_collection' },
+        { label: 'create_item', value: 'create_item' },
+        { label: 'get_queryables', value: 'get_queryables' },
+        { label: 'get_collection_queryables', value: 'get_collection_queryables' },
         { label: 'create_queryables', value: 'create_queryables' },
         { label: 'create_collection_asset', value: 'create_collection_asset' },
-        { label: 'create_item', value: 'create_item' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_collection">
-
-Create Collection. Create a new collection in the GeoCatalog instance.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.stac (
-msft:_created,
-msft:_updated,
-msft:short_description,
-stac_extensions,
-id,
-description,
-stac_version,
-links,
-title,
-type,
-assets,
-item_assets,
-license,
-extent,
-keywords,
-providers,
-summaries,
-endpoint
-)
-SELECT 
-'{{ msft:_created }}',
-'{{ msft:_updated }}',
-'{{ msft:short_description }}',
-'{{ stac_extensions }}',
-'{{ id }}' /* required */,
-'{{ description }}' /* required */,
-'{{ stac_version }}',
-'{{ links }}' /* required */,
-'{{ title }}',
-'{{ type }}',
-'{{ assets }}',
-'{{ item_assets }}',
-'{{ license }}' /* required */,
-'{{ extent }}' /* required */,
-'{{ keywords }}',
-'{{ providers }}',
-'{{ summaries }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="create_render_option">
-
-Add Collection Render Option. Add a render option for a given collection.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.stac (
-id,
-name,
-description,
-type,
-options,
-vectorOptions,
-minZoom,
-legend,
-conditions,
-collection_id,
-endpoint
-)
-SELECT 
-'{{ id }}' /* required */,
-'{{ name }}' /* required */,
-'{{ description }}',
-'{{ type }}',
-'{{ options }}',
-'{{ vectorOptions }}',
-{{ minZoom }},
-'{{ legend }}',
-'{{ conditions }}',
-'{{ collection_id }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-conditions,
-description,
-legend,
-minZoom,
-options,
-type,
-vectorOptions
-;
-```
-</TabItem>
-<TabItem value="create_queryables">
-
-Set Collection Queryables. Set queryables for a collection given a list of queryable definitions.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.stac (
-name,
-definition,
-create_index,
-data_type,
-collection_id,
-endpoint
-)
-SELECT 
-'{{ name }}' /* required */,
-'{{ definition }}' /* required */,
-{{ create_index }},
-'{{ data_type }}',
-'{{ collection_id }}',
-'{{ endpoint }}'
-RETURNING
-name,
-create_index,
-data_type,
-definition
-;
-```
-</TabItem>
-<TabItem value="create_collection_asset">
-
-Create Collection Asset. Create a new asset in the Collection metadata and write the associated file to managed storage.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.stac (
-data,
-file,
-collection_id,
-endpoint
-)
-SELECT 
-'{{ data }}' /* required */,
-'{{ file }}' /* required */,
-'{{ collection_id }}',
-'{{ endpoint }}'
-RETURNING
-id,
-assets,
-description,
-extent,
-item_assets,
-keywords,
-license,
-links,
-msft:_created,
-msft:_updated,
-msft:short_description,
-providers,
-stac_extensions,
-stac_version,
-summaries,
-title,
-type
-;
-```
-</TabItem>
-<TabItem value="create_item">
-
-Create a new STAC item or a set of items in a collection.
-
-```sql
-INSERT INTO azure.planetarycomputer_dataplane.stac (
-type,
-stac_version,
-links,
-msft:_created,
-msft:_updated,
-msft:short_description,
-stac_extensions,
-collection_id,
-endpoint
-)
-SELECT 
-'{{ type }}' /* required */,
-'{{ stac_version }}',
-'{{ links }}',
-'{{ msft:_created }}',
-'{{ msft:_updated }}',
-'{{ msft:short_description }}',
-'{{ stac_extensions }}',
-'{{ collection_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: stac
-  props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the stac resource.
-    - name: collection_id
-      value: "{{ collection_id }}"
-      description: Required parameter for the stac resource.
-    - name: msft:_created
-      value: "{{ msft:_created }}"
-      description: |
-        MSFT Created.
-    - name: msft:_updated
-      value: "{{ msft:_updated }}"
-      description: |
-        MSFT Updated.
-    - name: msft:short_description
-      value: "{{ msft:short_description }}"
-      description: |
-        MSFT Short Description.
-    - name: stac_extensions
-      value:
-        - "{{ stac_extensions }}"
-      description: |
-        URLs to STAC extensions implemented by this STAC resource.
-    - name: id
-      value: "{{ id }}"
-      description: |
-        Unique identifier for the render option. Required.
-    - name: description
-      value: "{{ description }}"
-      description: |
-        A longer description of the render option that can be used to explain its content.
-    - name: stac_version
-      value: "{{ stac_version }}"
-      description: |
-        Stac Version.
-    - name: links
-      description: |
-        Links to related resources and endpoints.
-      value:
-        - rel: "{{ rel }}"
-          title: "{{ title }}"
-          type: "{{ type }}"
-          href: "{{ href }}"
-          hreflang: "{{ hreflang }}"
-          length: {{ length }}
-          method: "{{ method }}"
-          headers: "{{ headers }}"
-          body: "{{ body }}"
-          merge: {{ merge }}
-    - name: title
-      value: "{{ title }}"
-      description: |
-        Human-readable title for the collection.
-    - name: type
-      value: "{{ type }}"
-      description: |
-        Discriminator property for StacItemOrStacItemCollection. Required. Known values are: "Feature" and "FeatureCollection".
-    - name: assets
-      value: "{{ assets }}"
-      description: |
-        Assets.
-    - name: item_assets
-      value: "{{ item_assets }}"
-      description: |
-        Item Assets See the \`Item Assets Definition Extension Specification \`_.
-    - name: license
-      value: "{{ license }}"
-      description: |
-        License identifier for the collection data. Required.
-    - name: extent
-      description: |
-        Spatial and temporal extent of the collection. Required.
-      value:
-        spatial:
-          bbox:
-            - "{{ bbox }}"
-        temporal:
-          interval:
-            - "{{ interval }}"
-    - name: keywords
-      value:
-        - "{{ keywords }}"
-      description: |
-        Keywords describing the collection.
-    - name: providers
-      description: |
-        Organizations or individuals who provide the collection data.
-      value:
-        - name: "{{ name }}"
-          description: "{{ description }}"
-          roles: "{{ roles }}"
-          url: "{{ url }}"
-    - name: summaries
-      value: "{{ summaries }}"
-      description: |
-        Summaries See the \`STAC Collection Spec \`_.
-    - name: name
-      value: "{{ name }}"
-      description: |
-        Name of the queryable field. Required.
-    - name: options
-      value: "{{ options }}"
-      description: |
-        A URL query-string encoded string of TiTiler rendering options. Valid only for \`raster-tile\` types. See \`Query Parameters \`_.
-    - name: vectorOptions
-      description: |
-        Options for rendering vector tiles. Valid only for \`vt-polygon\` and \`vt-line\` types.
-      value:
-        tilejsonKey: "{{ tilejsonKey }}"
-        sourceLayer: "{{ sourceLayer }}"
-        fillColor: "{{ fillColor }}"
-        strokeColor: "{{ strokeColor }}"
-        strokeWidth: {{ strokeWidth }}
-        filter:
-          - "{{ filter }}"
-    - name: minZoom
-      value: {{ minZoom }}
-      description: |
-        Minimum zoom level at which to display this layer.
-    - name: legend
-      description: |
-        Legend configuration for this render option.
-      value:
-        type: "{{ type }}"
-        labels:
-          - "{{ labels }}"
-        trimStart: {{ trimStart }}
-        trimEnd: {{ trimEnd }}
-        scaleFactor: {{ scaleFactor }}
-    - name: conditions
-      description: |
-        A list of property/value conditions that must be in the active mosaic CQL for this render option to be enabled.
-      value:
-        - property: "{{ property }}"
-          value: "{{ value }}"
-    - name: definition
-      value: "{{ definition }}"
-      description: |
-        Metadata for the queryable field. Required.
-    - name: create_index
-      value: {{ create_index }}
-      description: |
-        Whether to create a database index for this field.
-    - name: data_type
-      value: "{{ data_type }}"
-      description: |
-        Data type of the queryable field. Known values are: "string", "number", "boolean", "timestamp", and "date".
-      valid_values: ['string', 'number', 'boolean', 'timestamp', 'date']
-    - name: data
-      description: |
-        Asset metadata. Required.
-      value:
-        key: "{{ key }}"
-        type: "{{ type }}"
-        roles:
-          - "{{ roles }}"
-        title: "{{ title }}"
-        description: "{{ description }}"
-    - name: file
-      value: "{{ file }}"
-      description: |
-        Binary file content to be uploaded. Required.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_item"
-    values={[
-        { label: 'update_item', value: 'update_item' }
-    ]}
->
-<TabItem value="update_item">
-
-Update a STAC item in a collection.
-
-```sql
-UPDATE azure.planetarycomputer_dataplane.stac
-SET 
-type = '{{ type }}',
-stac_version = '{{ stac_version }}',
-links = '{{ links }}',
-msft:_created = '{{ msft:_created }}',
-msft:_updated = '{{ msft:_updated }}',
-msft:short_description = '{{ msft:short_description }}',
-stac_extensions = '{{ stac_extensions }}',
-geometry = '{{ geometry }}',
-id = '{{ id }}',
-collection = '{{ collection }}',
-bbox = '{{ bbox }}',
-properties = '{{ properties }}',
-assets = '{{ assets }}',
-_msft:ts = '{{ _msft:ts }}',
-_msft:etag = '{{ _msft:etag }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND item_id = '{{ item_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND type = '{{ type }}' --required
-AND geometry = '{{ geometry }}' --required
-AND id = '{{ id }}' --required
-AND bbox = '{{ bbox }}' --required
-AND properties = '{{ properties }}' --required
-AND assets = '{{ assets }}' --required;
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="replace_item"
-    values={[
-        { label: 'replace_item', value: 'replace_item' },
-        { label: 'replace_collection', value: 'replace_collection' },
-        { label: 'replace_mosaic', value: 'replace_mosaic' },
-        { label: 'replace_render_option', value: 'replace_render_option' },
         { label: 'replace_collection_asset', value: 'replace_collection_asset' },
+        { label: 'delete_collection_asset', value: 'delete_collection_asset' },
         { label: 'replace_queryable', value: 'replace_queryable' },
-        { label: 'replace_tile_settings', value: 'replace_tile_settings' },
-        { label: 'replace_partition_type', value: 'replace_partition_type' }
+        { label: 'delete_queryable', value: 'delete_queryable' },
+        { label: 'search', value: 'search' }
     ]}
 >
-<TabItem value="replace_item">
-
-Replace a STAC item in a collection.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-type = '{{ type }}',
-stac_version = '{{ stac_version }}',
-links = '{{ links }}',
-msft:_created = '{{ msft:_created }}',
-msft:_updated = '{{ msft:_updated }}',
-msft:short_description = '{{ msft:short_description }}',
-stac_extensions = '{{ stac_extensions }}',
-geometry = '{{ geometry }}',
-id = '{{ id }}',
-collection = '{{ collection }}',
-bbox = '{{ bbox }}',
-properties = '{{ properties }}',
-assets = '{{ assets }}',
-_msft:ts = '{{ _msft:ts }}',
-_msft:etag = '{{ _msft:etag }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND item_id = '{{ item_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND type = '{{ type }}' --required
-AND geometry = '{{ geometry }}' --required
-AND id = '{{ id }}' --required
-AND bbox = '{{ bbox }}' --required
-AND properties = '{{ properties }}' --required
-AND assets = '{{ assets }}' --required;
-```
-</TabItem>
-<TabItem value="replace_collection">
-
-Replace Collection. Replace an existing collection in the GeoCatalog instance.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-msft:_created = '{{ msft:_created }}',
-msft:_updated = '{{ msft:_updated }}',
-msft:short_description = '{{ msft:short_description }}',
-stac_extensions = '{{ stac_extensions }}',
-id = '{{ id }}',
-description = '{{ description }}',
-stac_version = '{{ stac_version }}',
-links = '{{ links }}',
-title = '{{ title }}',
-type = '{{ type }}',
-assets = '{{ assets }}',
-item_assets = '{{ item_assets }}',
-license = '{{ license }}',
-extent = '{{ extent }}',
-keywords = '{{ keywords }}',
-providers = '{{ providers }}',
-summaries = '{{ summaries }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND id = '{{ id }}' --required
-AND description = '{{ description }}' --required
-AND links = '{{ links }}' --required
-AND license = '{{ license }}' --required
-AND extent = '{{ extent }}' --required
-RETURNING
-id,
-assets,
-description,
-extent,
-item_assets,
-keywords,
-license,
-links,
-msft:_created,
-msft:_updated,
-msft:short_description,
-providers,
-stac_extensions,
-stac_version,
-summaries,
-title,
-type;
-```
-</TabItem>
 <TabItem value="replace_mosaic">
 
 Update Collection Mosaic. Update a mosaic definition from a given collection.
 
 ```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-id = '{{ id }}',
-name = '{{ name }}',
-description = '{{ description }}',
-cql = '{{ cql }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND mosaic_id = '{{ mosaic_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND id = '{{ id }}' --required
-AND name = '{{ name }}' --required
-AND cql = '{{ cql }}' --required
-RETURNING
-id,
-name,
-cql,
-description;
+EXEC azure.planetarycomputer_dataplane.stac.replace_mosaic 
+@collection_id='{{ collection_id }}' --required, 
+@mosaic_id='{{ mosaic_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"name": "{{ name }}", 
+"description": "{{ description }}", 
+"cql": "{{ cql }}"
+}'
+;
 ```
 </TabItem>
-<TabItem value="replace_render_option">
-
-Update Collection Render Option. Update a render option for a given collection.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-id = '{{ id }}',
-name = '{{ name }}',
-description = '{{ description }}',
-type = '{{ type }}',
-options = '{{ options }}',
-vectorOptions = '{{ vectorOptions }}',
-minZoom = {{ minZoom }},
-legend = '{{ legend }}',
-conditions = '{{ conditions }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND render_option_id = '{{ render_option_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND id = '{{ id }}' --required
-AND name = '{{ name }}' --required
-RETURNING
-id,
-name,
-conditions,
-description,
-legend,
-minZoom,
-options,
-type,
-vectorOptions;
-```
-</TabItem>
-<TabItem value="replace_collection_asset">
-
-Update Collection Asset. Update an existing asset in a given collection.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-data = '{{ data }}',
-file = '{{ file }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND asset_id = '{{ asset_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND data = '{{ data }}' --required
-AND file = '{{ file }}' --required
-RETURNING
-id,
-assets,
-description,
-extent,
-item_assets,
-keywords,
-license,
-links,
-msft:_created,
-msft:_updated,
-msft:short_description,
-providers,
-stac_extensions,
-stac_version,
-summaries,
-title,
-type;
-```
-</TabItem>
-<TabItem value="replace_queryable">
-
-Update Collection Queryables. Updates a queryable given a queryable definition and corresponding collection id.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-name = '{{ name }}',
-definition = '{{ definition }}',
-create_index = {{ create_index }},
-data_type = '{{ data_type }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND queryable_name = '{{ queryable_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND name = '{{ name }}' --required
-AND definition = '{{ definition }}' --required
-RETURNING
-name,
-create_index,
-data_type,
-definition;
-```
-</TabItem>
-<TabItem value="replace_tile_settings">
-
-Update Collection Tile Settings. Update the tile settings for a given collection.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-minZoom = {{ minZoom }},
-maxItemsPerTile = {{ maxItemsPerTile }},
-defaultLocation = '{{ defaultLocation }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND minZoom = '{{ minZoom }}' --required
-AND maxItemsPerTile = '{{ maxItemsPerTile }}' --required
-RETURNING
-defaultLocation,
-maxItemsPerTile,
-minZoom;
-```
-</TabItem>
-<TabItem value="replace_partition_type">
-
-Create Partitiontype. Updates partition type for a GeoCatalog Collection. This will determine the partitioning scheme for items within the database, and can only be set before any items are loaded. Ideal partitioning schemes result in partitions of roughly 100k items each. The default partitioning scheme is "none" which does not partition items.
-
-```sql
-REPLACE azure.planetarycomputer_dataplane.stac
-SET 
-scheme = '{{ scheme }}'
-WHERE 
-collection_id = '{{ collection_id }}' --required
-AND endpoint = '{{ endpoint }}' --required;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_mosaic"
-    values={[
-        { label: 'delete_mosaic', value: 'delete_mosaic' },
-        { label: 'delete_render_option', value: 'delete_render_option' },
-        { label: 'delete_item', value: 'delete_item' },
-        { label: 'delete_collection_asset', value: 'delete_collection_asset' },
-        { label: 'delete_queryable', value: 'delete_queryable' },
-        { label: 'delete_collection', value: 'delete_collection' }
-    ]}
->
 <TabItem value="delete_mosaic">
 
 Delete Collection Mosaic. Delete a mosaic definition from a given collection.
 
 ```sql
-DELETE FROM azure.planetarycomputer_dataplane.stac
-WHERE collection_id = '{{ collection_id }}' --required
-AND mosaic_id = '{{ mosaic_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.planetarycomputer_dataplane.stac.delete_mosaic 
+@collection_id='{{ collection_id }}' --required, 
+@mosaic_id='{{ mosaic_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_render_option">
-
-Delete Collection Render Option. Delete a render option for a given collection.
-
-```sql
-DELETE FROM azure.planetarycomputer_dataplane.stac
-WHERE collection_id = '{{ collection_id }}' --required
-AND render_option_id = '{{ render_option_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_item">
-
-Delete a STAC item from a collection.
-
-```sql
-DELETE FROM azure.planetarycomputer_dataplane.stac
-WHERE collection_id = '{{ collection_id }}' --required
-AND item_id = '{{ item_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_collection_asset">
-
-Delete Collection Asset. Delete an asset from a given collection.
-
-```sql
-DELETE FROM azure.planetarycomputer_dataplane.stac
-WHERE collection_id = '{{ collection_id }}' --required
-AND asset_id = '{{ asset_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_queryable">
-
-Delete Queryables. Delete queryables by name for specified collection.
-
-```sql
-DELETE FROM azure.planetarycomputer_dataplane.stac
-WHERE collection_id = '{{ collection_id }}' --required
-AND queryable_name = '{{ queryable_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_collection">
-
-Delete Collection. Delete a collection in the GeoCatalog instance.
-
-```sql
-DELETE FROM azure.planetarycomputer_dataplane.stac
-WHERE collection_id = '{{ collection_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="get_mosaics"
-    values={[
-        { label: 'get_mosaics', value: 'get_mosaics' },
-        { label: 'add_mosaic', value: 'add_mosaic' },
-        { label: 'get_collection', value: 'get_collection' },
-        { label: 'get_partition_type', value: 'get_partition_type' },
-        { label: 'get_render_options', value: 'get_render_options' },
-        { label: 'get_collection_thumbnail', value: 'get_collection_thumbnail' },
-        { label: 'get_tile_settings', value: 'get_tile_settings' },
-        { label: 'get_conformance_classes', value: 'get_conformance_classes' },
-        { label: 'get_landing_page', value: 'get_landing_page' },
-        { label: 'get_item_collection', value: 'get_item_collection' },
-        { label: 'get_queryables', value: 'get_queryables' },
-        { label: 'get_collection_queryables', value: 'get_collection_queryables' },
-        { label: 'search', value: 'search' }
-    ]}
->
 <TabItem value="get_mosaics">
 
 Get Collection Mosaics. Get the mosaic definitions for a given collection.
@@ -1644,6 +937,78 @@ EXEC azure.planetarycomputer_dataplane.stac.get_collection
 ;
 ```
 </TabItem>
+<TabItem value="replace_collection">
+
+Replace Collection. Replace an existing collection in the GeoCatalog instance.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_collection 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"msft:_created": "{{ msft:_created }}", 
+"msft:_updated": "{{ msft:_updated }}", 
+"msft:short_description": "{{ msft:short_description }}", 
+"stac_extensions": "{{ stac_extensions }}", 
+"id": "{{ id }}", 
+"description": "{{ description }}", 
+"stac_version": "{{ stac_version }}", 
+"links": "{{ links }}", 
+"title": "{{ title }}", 
+"type": "{{ type }}", 
+"assets": "{{ assets }}", 
+"item_assets": "{{ item_assets }}", 
+"license": "{{ license }}", 
+"extent": "{{ extent }}", 
+"keywords": "{{ keywords }}", 
+"providers": "{{ providers }}", 
+"summaries": "{{ summaries }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_collection">
+
+Delete Collection. Delete a collection in the GeoCatalog instance.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.delete_collection 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_collection">
+
+Create Collection. Create a new collection in the GeoCatalog instance.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.create_collection 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"msft:_created": "{{ msft:_created }}", 
+"msft:_updated": "{{ msft:_updated }}", 
+"msft:short_description": "{{ msft:short_description }}", 
+"stac_extensions": "{{ stac_extensions }}", 
+"id": "{{ id }}", 
+"description": "{{ description }}", 
+"stac_version": "{{ stac_version }}", 
+"links": "{{ links }}", 
+"title": "{{ title }}", 
+"type": "{{ type }}", 
+"assets": "{{ assets }}", 
+"item_assets": "{{ item_assets }}", 
+"license": "{{ license }}", 
+"extent": "{{ extent }}", 
+"keywords": "{{ keywords }}", 
+"providers": "{{ providers }}", 
+"summaries": "{{ summaries }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_partition_type">
 
 Get Partitiontype. Get the partitiontype for a GeoCatalog Collection.
@@ -1651,6 +1016,57 @@ Get Partitiontype. Get the partitiontype for a GeoCatalog Collection.
 ```sql
 EXEC azure.planetarycomputer_dataplane.stac.get_partition_type 
 @collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="replace_partition_type">
+
+Create Partitiontype. Updates partition type for a GeoCatalog Collection. This will determine the partitioning scheme for items within the database, and can only be set before any items are loaded. Ideal partitioning schemes result in partitions of roughly 100k items each. The default partitioning scheme is "none" which does not partition items.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_partition_type 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"scheme": "{{ scheme }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="replace_render_option">
+
+Update Collection Render Option. Update a render option for a given collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_render_option 
+@collection_id='{{ collection_id }}' --required, 
+@render_option_id='{{ render_option_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"name": "{{ name }}", 
+"description": "{{ description }}", 
+"type": "{{ type }}", 
+"options": "{{ options }}", 
+"vectorOptions": "{{ vectorOptions }}", 
+"minZoom": {{ minZoom }}, 
+"legend": "{{ legend }}", 
+"conditions": "{{ conditions }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_render_option">
+
+Delete Collection Render Option. Delete a render option for a given collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.delete_render_option 
+@collection_id='{{ collection_id }}' --required, 
+@render_option_id='{{ render_option_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```
@@ -1663,6 +1079,29 @@ Get Collection Render Options. Get all render options for a given collection.
 EXEC azure.planetarycomputer_dataplane.stac.get_render_options 
 @collection_id='{{ collection_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_render_option">
+
+Add Collection Render Option. Add a render option for a given collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.create_render_option 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"name": "{{ name }}", 
+"description": "{{ description }}", 
+"type": "{{ type }}", 
+"options": "{{ options }}", 
+"vectorOptions": "{{ vectorOptions }}", 
+"minZoom": {{ minZoom }}, 
+"legend": "{{ legend }}", 
+"conditions": "{{ conditions }}"
+}'
 ;
 ```
 </TabItem>
@@ -1688,6 +1127,23 @@ EXEC azure.planetarycomputer_dataplane.stac.get_tile_settings
 ;
 ```
 </TabItem>
+<TabItem value="replace_tile_settings">
+
+Update Collection Tile Settings. Update the tile settings for a given collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_tile_settings 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"minZoom": {{ minZoom }}, 
+"maxItemsPerTile": {{ maxItemsPerTile }}, 
+"defaultLocation": "{{ defaultLocation }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_conformance_classes">
 
 Conformance Classes. Returns the STAC conformance classes.
@@ -1708,6 +1164,78 @@ EXEC azure.planetarycomputer_dataplane.stac.get_landing_page
 ;
 ```
 </TabItem>
+<TabItem value="replace_item">
+
+Replace a STAC item in a collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_item 
+@collection_id='{{ collection_id }}' --required, 
+@item_id='{{ item_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"type": "{{ type }}", 
+"stac_version": "{{ stac_version }}", 
+"links": "{{ links }}", 
+"msft:_created": "{{ msft:_created }}", 
+"msft:_updated": "{{ msft:_updated }}", 
+"msft:short_description": "{{ msft:short_description }}", 
+"stac_extensions": "{{ stac_extensions }}", 
+"geometry": "{{ geometry }}", 
+"id": "{{ id }}", 
+"collection": "{{ collection }}", 
+"bbox": "{{ bbox }}", 
+"properties": "{{ properties }}", 
+"assets": "{{ assets }}", 
+"_msft:ts": "{{ _msft:ts }}", 
+"_msft:etag": "{{ _msft:etag }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_item">
+
+Delete a STAC item from a collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.delete_item 
+@collection_id='{{ collection_id }}' --required, 
+@item_id='{{ item_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_item">
+
+Update a STAC item in a collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.update_item 
+@collection_id='{{ collection_id }}' --required, 
+@item_id='{{ item_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"type": "{{ type }}", 
+"stac_version": "{{ stac_version }}", 
+"links": "{{ links }}", 
+"msft:_created": "{{ msft:_created }}", 
+"msft:_updated": "{{ msft:_updated }}", 
+"msft:short_description": "{{ msft:short_description }}", 
+"stac_extensions": "{{ stac_extensions }}", 
+"geometry": "{{ geometry }}", 
+"id": "{{ id }}", 
+"collection": "{{ collection }}", 
+"bbox": "{{ bbox }}", 
+"properties": "{{ properties }}", 
+"assets": "{{ assets }}", 
+"_msft:ts": "{{ _msft:ts }}", 
+"_msft:etag": "{{ _msft:etag }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_item_collection">
 
 Fetch features of the feature collection with id `collectionId`. Every feature in a dataset belongs to a collection. A dataset may consist of multiple feature collections. A feature collection is often a collection of features of a similar type, based on a common schema.
@@ -1722,6 +1250,27 @@ EXEC azure.planetarycomputer_dataplane.stac.get_item_collection
 @sign='{{ sign }}', 
 @duration='{{ duration }}', 
 @token='{{ token }}'
+;
+```
+</TabItem>
+<TabItem value="create_item">
+
+Create a new STAC item or a set of items in a collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.create_item 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"type": "{{ type }}", 
+"stac_version": "{{ stac_version }}", 
+"links": "{{ links }}", 
+"msft:_created": "{{ msft:_created }}", 
+"msft:_updated": "{{ msft:_updated }}", 
+"msft:short_description": "{{ msft:short_description }}", 
+"stac_extensions": "{{ stac_extensions }}"
+}'
 ;
 ```
 </TabItem>
@@ -1742,6 +1291,100 @@ Collection Queryables. List all queryables in a given collection.
 ```sql
 EXEC azure.planetarycomputer_dataplane.stac.get_collection_queryables 
 @collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_queryables">
+
+Set Collection Queryables. Set queryables for a collection given a list of queryable definitions.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.create_queryables 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"definition": "{{ definition }}", 
+"create_index": {{ create_index }}, 
+"data_type": "{{ data_type }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_collection_asset">
+
+Create Collection Asset. Create a new asset in the Collection metadata and write the associated file to managed storage.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.create_collection_asset 
+@collection_id='{{ collection_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"data": "{{ data }}", 
+"file": "{{ file }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="replace_collection_asset">
+
+Update Collection Asset. Update an existing asset in a given collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_collection_asset 
+@collection_id='{{ collection_id }}' --required, 
+@asset_id='{{ asset_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"data": "{{ data }}", 
+"file": "{{ file }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_collection_asset">
+
+Delete Collection Asset. Delete an asset from a given collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.delete_collection_asset 
+@collection_id='{{ collection_id }}' --required, 
+@asset_id='{{ asset_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="replace_queryable">
+
+Update Collection Queryables. Updates a queryable given a queryable definition and corresponding collection id.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.replace_queryable 
+@collection_id='{{ collection_id }}' --required, 
+@queryable_name='{{ queryable_name }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"definition": "{{ definition }}", 
+"create_index": {{ create_index }}, 
+"data_type": "{{ data_type }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_queryable">
+
+Delete Queryables. Delete queryables by name for specified collection.
+
+```sql
+EXEC azure.planetarycomputer_dataplane.stac.delete_queryable 
+@collection_id='{{ collection_id }}' --required, 
+@queryable_name='{{ queryable_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

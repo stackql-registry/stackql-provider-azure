@@ -51,53 +51,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_or_update_entities"><CopyableCode code="create_or_update_entities" /></a></td>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
-    <td>Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.</td>
+    <td>Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.</td>
 </tr>
 <tr>
-    <td><a href="#update_classifications"><CopyableCode code="update_classifications" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update classifications to an existing entity represented by a guid.</td>
-</tr>
-<tr>
-    <td><a href="#update_classifications_by_unique_attribute"><CopyableCode code="update_classifications_by_unique_attribute" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-attr:qualifiedName"><code>attr:qualifiedName</code></a></td>
-    <td>Update classification on an entity identified by its type and unique attributes.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_entities"><CopyableCode code="create_or_update_entities" /></a></td>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
-    <td>Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.</td>
-</tr>
-<tr>
-    <td><a href="#delete_classification"><CopyableCode code="delete_classification" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-classification_name"><code>classification_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete a given classification from an existing entity represented by a GUID.</td>
-</tr>
-<tr>
-    <td><a href="#delete_classification_by_unique_attribute"><CopyableCode code="delete_classification_by_unique_attribute" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-classification_name"><code>classification_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-attr:qualifiedName"><code>attr:qualifiedName</code></a></td>
-    <td>Delete a given classification from an entity identified by its type and unique attributes.</td>
-</tr>
-<tr>
-    <td><a href="#delete_business_metadata_attributes"><CopyableCode code="delete_business_metadata_attributes" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-bm_name"><code>bm_name</code></a>, <a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete business metadata attributes from an entity.</td>
+    <td>Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.</td>
 </tr>
 <tr>
     <td><a href="#delete_by_guid"><CopyableCode code="delete_by_guid" /></a></td>
@@ -128,11 +93,11 @@ The following methods are available for this resource:
     <td>List entities in bulk identified by its GUIDs.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><a href="#create_or_update_entities"><CopyableCode code="create_or_update_entities" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
-    <td>Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.</td>
+    <td>Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.</td>
 </tr>
 <tr>
     <td><a href="#get_by_guid"><CopyableCode code="get_by_guid" /></a></td>
@@ -170,6 +135,13 @@ The following methods are available for this resource:
     <td>List classifications for a given entity represented by a GUID.</td>
 </tr>
 <tr>
+    <td><a href="#delete_classification"><CopyableCode code="delete_classification" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-classification_name"><code>classification_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete a given classification from an existing entity represented by a GUID.</td>
+</tr>
+<tr>
     <td><a href="#get_classifications"><CopyableCode code="get_classifications" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -182,6 +154,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Add classifications to an existing entity represented by a GUID.</td>
+</tr>
+<tr>
+    <td><a href="#update_classifications"><CopyableCode code="update_classifications" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update classifications to an existing entity represented by a guid.</td>
 </tr>
 <tr>
     <td><a href="#get_entities_by_unique_attributes"><CopyableCode code="get_entities_by_unique_attributes" /></a></td>
@@ -212,11 +191,25 @@ The following methods are available for this resource:
     <td>Associate a classification to multiple entities in bulk.</td>
 </tr>
 <tr>
+    <td><a href="#delete_classification_by_unique_attribute"><CopyableCode code="delete_classification_by_unique_attribute" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-classification_name"><code>classification_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-attr:qualifiedName"><code>attr:qualifiedName</code></a></td>
+    <td>Delete a given classification from an entity identified by its type and unique attributes.</td>
+</tr>
+<tr>
     <td><a href="#add_classifications_by_unique_attribute"><CopyableCode code="add_classifications_by_unique_attribute" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-attr:qualifiedName"><code>attr:qualifiedName</code></a></td>
     <td>Add classification to the entity identified by its type and unique attributes.</td>
+</tr>
+<tr>
+    <td><a href="#update_classifications_by_unique_attribute"><CopyableCode code="update_classifications_by_unique_attribute" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-attr:qualifiedName"><code>attr:qualifiedName</code></a></td>
+    <td>Update classification on an entity identified by its type and unique attributes.</td>
 </tr>
 <tr>
     <td><a href="#set_classifications"><CopyableCode code="set_classifications" /></a></td>
@@ -238,6 +231,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-isOverwrite"><code>isOverwrite</code></a></td>
     <td>Add business metadata to an entity.</td>
+</tr>
+<tr>
+    <td><a href="#delete_business_metadata_attributes"><CopyableCode code="delete_business_metadata_attributes" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-bm_name"><code>bm_name</code></a>, <a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete business metadata attributes from an entity.</td>
 </tr>
 <tr>
     <td><a href="#add_or_update_business_metadata_attributes"><CopyableCode code="add_or_update_business_metadata_attributes" /></a></td>
@@ -317,7 +317,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-guid">
     <td><CopyableCode code="guid" /></td>
@@ -365,15 +365,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_entities"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_entities', value: 'create_or_update_entities' },
+        { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_entities">
+<TabItem value="create_or_update">
 
-Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.
+Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.
 
 ```sql
 INSERT INTO azure.purview_catalog.entity (
@@ -398,56 +398,17 @@ SELECT
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_classifications"
-    values={[
-        { label: 'update_classifications', value: 'update_classifications' },
-        { label: 'update_classifications_by_unique_attribute', value: 'update_classifications_by_unique_attribute' }
-    ]}
->
-<TabItem value="update_classifications">
-
-Update classifications to an existing entity represented by a guid.
-
-```sql
-UPDATE azure.purview_catalog.entity
-SET 
--- No updatable properties
-WHERE 
-guid = '{{ guid }}' --required
-AND endpoint = '{{ endpoint }}' --required;
-```
-</TabItem>
-<TabItem value="update_classifications_by_unique_attribute">
-
-Update classification on an entity identified by its type and unique attributes.
-
-```sql
-UPDATE azure.purview_catalog.entity
-SET 
--- No updatable properties
-WHERE 
-type_name = '{{ type_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND attr:qualifiedName = '{{ attr:qualifiedName}}';
-```
-</TabItem>
-</Tabs>
-
-
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_entities"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_entities', value: 'create_or_update_entities' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_entities">
+<TabItem value="create_or_update">
 
-Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.
+Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.
 
 ```sql
 REPLACE azure.purview_catalog.entity
@@ -463,53 +424,13 @@ endpoint = '{{ endpoint }}' --required;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_classification"
+    defaultValue="delete_by_guid"
     values={[
-        { label: 'delete_classification', value: 'delete_classification' },
-        { label: 'delete_classification_by_unique_attribute', value: 'delete_classification_by_unique_attribute' },
-        { label: 'delete_business_metadata_attributes', value: 'delete_business_metadata_attributes' },
         { label: 'delete_by_guid', value: 'delete_by_guid' },
         { label: 'delete_by_unique_attribute', value: 'delete_by_unique_attribute' },
         { label: 'delete_by_guids', value: 'delete_by_guids' }
     ]}
 >
-<TabItem value="delete_classification">
-
-Delete a given classification from an existing entity represented by a GUID.
-
-```sql
-DELETE FROM azure.purview_catalog.entity
-WHERE guid = '{{ guid }}' --required
-AND classification_name = '{{ classification_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_classification_by_unique_attribute">
-
-Delete a given classification from an entity identified by its type and unique attributes.
-
-```sql
-DELETE FROM azure.purview_catalog.entity
-WHERE type_name = '{{ type_name }}' --required
-AND classification_name = '{{ classification_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND attr:qualifiedName = '{{ attr:qualifiedName }}'
-;
-```
-</TabItem>
-<TabItem value="delete_business_metadata_attributes">
-
-Delete business metadata attributes from an entity.
-
-```sql
-DELETE FROM azure.purview_catalog.entity
-WHERE bm_name = '{{ bm_name }}' --required
-AND guid = '{{ guid }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete_by_guid">
 
 Delete an entity identified by its GUID.
@@ -552,22 +473,27 @@ WHERE endpoint = '{{ endpoint }}' --required
     defaultValue="list_by_guids"
     values={[
         { label: 'list_by_guids', value: 'list_by_guids' },
-        { label: 'create_or_update', value: 'create_or_update' },
+        { label: 'create_or_update_entities', value: 'create_or_update_entities' },
         { label: 'get_by_guid', value: 'get_by_guid' },
         { label: 'partial_update_entity_attribute_by_guid', value: 'partial_update_entity_attribute_by_guid' },
         { label: 'get_by_unique_attributes', value: 'get_by_unique_attributes' },
         { label: 'partial_update_entity_by_unique_attributes', value: 'partial_update_entity_by_unique_attributes' },
         { label: 'get_classification', value: 'get_classification' },
+        { label: 'delete_classification', value: 'delete_classification' },
         { label: 'get_classifications', value: 'get_classifications' },
         { label: 'add_classifications', value: 'add_classifications' },
+        { label: 'update_classifications', value: 'update_classifications' },
         { label: 'get_entities_by_unique_attributes', value: 'get_entities_by_unique_attributes' },
         { label: 'get_header', value: 'get_header' },
         { label: 'get_sample_business_metadata_template', value: 'get_sample_business_metadata_template' },
         { label: 'add_classification', value: 'add_classification' },
+        { label: 'delete_classification_by_unique_attribute', value: 'delete_classification_by_unique_attribute' },
         { label: 'add_classifications_by_unique_attribute', value: 'add_classifications_by_unique_attribute' },
+        { label: 'update_classifications_by_unique_attribute', value: 'update_classifications_by_unique_attribute' },
         { label: 'set_classifications', value: 'set_classifications' },
         { label: 'delete_business_metadata', value: 'delete_business_metadata' },
         { label: 'add_or_update_business_metadata', value: 'add_or_update_business_metadata' },
+        { label: 'delete_business_metadata_attributes', value: 'delete_business_metadata_attributes' },
         { label: 'add_or_update_business_metadata_attributes', value: 'add_or_update_business_metadata_attributes' },
         { label: 'delete_labels', value: 'delete_labels' },
         { label: 'set_labels', value: 'set_labels' },
@@ -589,12 +515,12 @@ EXEC azure.purview_catalog.entity.list_by_guids
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update">
+<TabItem value="create_or_update_entities">
 
-Create or update an entity in Atlas. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.
+Create or update entities in Atlas in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;.
 
 ```sql
-EXEC azure.purview_catalog.entity.create_or_update 
+EXEC azure.purview_catalog.entity.create_or_update_entities 
 @endpoint='{{ endpoint }}' --required
 ;
 ```
@@ -662,6 +588,18 @@ EXEC azure.purview_catalog.entity.get_classification
 ;
 ```
 </TabItem>
+<TabItem value="delete_classification">
+
+Delete a given classification from an existing entity represented by a GUID.
+
+```sql
+EXEC azure.purview_catalog.entity.delete_classification 
+@guid='{{ guid }}' --required, 
+@classification_name='{{ classification_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_classifications">
 
 List classifications for a given entity represented by a GUID.
@@ -679,6 +617,17 @@ Add classifications to an existing entity represented by a GUID.
 
 ```sql
 EXEC azure.purview_catalog.entity.add_classifications 
+@guid='{{ guid }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_classifications">
+
+Update classifications to an existing entity represented by a guid.
+
+```sql
+EXEC azure.purview_catalog.entity.update_classifications 
 @guid='{{ guid }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
@@ -729,12 +678,37 @@ EXEC azure.purview_catalog.entity.add_classification
 ;
 ```
 </TabItem>
+<TabItem value="delete_classification_by_unique_attribute">
+
+Delete a given classification from an entity identified by its type and unique attributes.
+
+```sql
+EXEC azure.purview_catalog.entity.delete_classification_by_unique_attribute 
+@type_name='{{ type_name }}' --required, 
+@classification_name='{{ classification_name }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@attr:qualifiedName='{{ attr:qualifiedName }}'
+;
+```
+</TabItem>
 <TabItem value="add_classifications_by_unique_attribute">
 
 Add classification to the entity identified by its type and unique attributes.
 
 ```sql
 EXEC azure.purview_catalog.entity.add_classifications_by_unique_attribute 
+@type_name='{{ type_name }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@attr:qualifiedName='{{ attr:qualifiedName }}'
+;
+```
+</TabItem>
+<TabItem value="update_classifications_by_unique_attribute">
+
+Update classification on an entity identified by its type and unique attributes.
+
+```sql
+EXEC azure.purview_catalog.entity.update_classifications_by_unique_attribute 
 @type_name='{{ type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @attr:qualifiedName='{{ attr:qualifiedName }}'
@@ -771,6 +745,18 @@ EXEC azure.purview_catalog.entity.add_or_update_business_metadata
 @guid='{{ guid }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @isOverwrite={{ isOverwrite }}
+;
+```
+</TabItem>
+<TabItem value="delete_business_metadata_attributes">
+
+Delete business metadata attributes from an entity.
+
+```sql
+EXEC azure.purview_catalog.entity.delete_business_metadata_attributes 
+@bm_name='{{ bm_name }}' --required, 
+@guid='{{ guid }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#start_node_transition"><CopyableCode code="start_node_transition" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-NodeInstanceId"><code>NodeInstanceId</code></a>, <a href="#parameter-StopDurationInSeconds"><code>StopDurationInSeconds</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-NodeTransitionType"><code>NodeTransitionType</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-StopDurationInSeconds"><code>StopDurationInSeconds</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-NodeTransitionType"><code>NodeTransitionType</code></a>, <a href="#parameter-NodeInstanceId"><code>NodeInstanceId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Starts or stops a cluster node. Starts or stops a cluster node. A cluster node is a process, not the OS instance itself. To start a node, pass in "Start" for the NodeTransitionType parameter. To stop a node, pass in "Stop" for the NodeTransitionType parameter. This API starts the operation - when the API returns the node may not have finished transitioning yet. Call GetNodeTransitionProgress with the same OperationId to get the progress of the operation.</td>
 </tr>
@@ -96,7 +96,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -125,11 +125,11 @@ Starts or stops a cluster node. Starts or stops a cluster node. A cluster node i
 
 ```sql
 EXEC azure.servicefabric_dataplane.start_node_transitions.start_node_transition 
-@node_name='{{ node_name }}' --required, 
-@NodeInstanceId='{{ NodeInstanceId }}' --required, 
 @StopDurationInSeconds='{{ StopDurationInSeconds }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @OperationId='{{ OperationId }}' --required, 
 @NodeTransitionType='{{ NodeTransitionType }}' --required, 
+@NodeInstanceId='{{ NodeInstanceId }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'
 ;

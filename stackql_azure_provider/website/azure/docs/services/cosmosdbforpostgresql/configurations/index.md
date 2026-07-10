@@ -281,18 +281,18 @@ The following methods are available for this resource:
     <td>List all the configurations of a cluster.</td>
 </tr>
 <tr>
-    <td><a href="#update_on_coordinator"><CopyableCode code="update_on_coordinator" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-configuration_name"><code>configuration_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates configuration of coordinator in a cluster.</td>
-</tr>
-<tr>
     <td><a href="#get_coordinator"><CopyableCode code="get_coordinator" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-configuration_name"><code>configuration_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets information of a configuration for coordinator.</td>
+</tr>
+<tr>
+    <td><a href="#update_on_coordinator"><CopyableCode code="update_on_coordinator" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-configuration_name"><code>configuration_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates configuration of coordinator in a cluster.</td>
 </tr>
 <tr>
     <td><a href="#get_node"><CopyableCode code="get_node" /></a></td>
@@ -438,44 +438,13 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_on_coordinator"
-    values={[
-        { label: 'update_on_coordinator', value: 'update_on_coordinator' }
-    ]}
->
-<TabItem value="update_on_coordinator">
-
-Updates configuration of coordinator in a cluster.
-
-```sql
-UPDATE azure.cosmosdbforpostgresql.configurations
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND cluster_name = '{{ cluster_name }}' --required
-AND configuration_name = '{{ configuration_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_coordinator"
     values={[
         { label: 'get_coordinator', value: 'get_coordinator' },
+        { label: 'update_on_coordinator', value: 'update_on_coordinator' },
         { label: 'get_node', value: 'get_node' },
         { label: 'update_on_node', value: 'update_on_node' }
     ]}
@@ -490,6 +459,23 @@ EXEC azure.cosmosdbforpostgresql.configurations.get_coordinator
 @cluster_name='{{ cluster_name }}' --required, 
 @configuration_name='{{ configuration_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_on_coordinator">
+
+Updates configuration of coordinator in a cluster.
+
+```sql
+EXEC azure.cosmosdbforpostgresql.configurations.update_on_coordinator 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@cluster_name='{{ cluster_name }}' --required, 
+@configuration_name='{{ configuration_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

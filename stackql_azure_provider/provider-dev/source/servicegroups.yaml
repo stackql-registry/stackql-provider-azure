@@ -123,20 +123,6 @@ components:
         parent:
           $ref: '#/components/schemas/ParentServiceGroupProperties'
           description: The details of the parent serviceGroup.
-    ServiceGroupCollectionResponse:
-      type: object
-      description: Response holding an array of service groups and a nextLink that supports pagination.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceGroup'
-          description: The ServiceGroup items on this page. Required.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
-      required:
-      - value
     ServiceGroup:
       type: object
       description: The serviceGroup details.
@@ -163,6 +149,20 @@ components:
           type: object
           properties: {}
           description: The serviceGroup tags.
+    ServiceGroupCollectionResponse:
+      type: object
+      description: Response holding an array of service groups and a nextLink that supports pagination.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceGroup'
+          description: The ServiceGroup items on this page. Required.
+        nextLink:
+          type: string
+          description: The link to the next page of items.
+      required:
+      - value
 paths:
   /providers/Microsoft.Management/serviceGroups/{service_group_name}?api-version=2024-02-01-preview:
     get:
@@ -296,4 +296,4 @@ paths:
                 $ref: '#/components/schemas/ServiceGroupCollectionResponse'
       x-stackql-resource: service_groups
       x-stackql-method: list_ancestors
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

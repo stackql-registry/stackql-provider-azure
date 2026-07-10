@@ -117,7 +117,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_application_info"><CopyableCode code="get_deployed_application_info" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-IncludeHealthState"><code>IncludeHealthState</code></a></td>
     <td>Gets the information about an application deployed on a Service Fabric node. This query returns system application information if the application ID provided is for system application. Results encompass deployed applications in active, activating, and downloading states. This query requires that the node name corresponds to a node on the cluster. The query fails if the provided node name does not point to any active Service Fabric nodes on the cluster.</td>
 </tr>
@@ -145,7 +145,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -189,8 +189,8 @@ TypeName,
 TypeVersion,
 WorkDirectory
 FROM azure.servicefabric_dataplane.deployed_application_infos
-WHERE node_name = '{{ node_name }}' -- required
-AND application_id = '{{ application_id }}' -- required
+WHERE application_id = '{{ application_id }}' -- required
+AND node_name = '{{ node_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 AND IncludeHealthState = '{{ IncludeHealthState }}'

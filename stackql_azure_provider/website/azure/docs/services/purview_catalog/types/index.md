@@ -51,34 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_type_definitions"><CopyableCode code="create_type_definitions" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create all atlas type definitions in bulk, only new definitions will be created. Any changes to the existing definitions will be discarded.</td>
-</tr>
-<tr>
-    <td><a href="#update_atlas_type_definitions"><CopyableCode code="update_atlas_type_definitions" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update all types in bulk, changes detected in the type definitions would be persisted.</td>
-</tr>
-<tr>
-    <td><a href="#delete_type_by_name"><CopyableCode code="delete_type_by_name" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete API for type identified by its name.</td>
-</tr>
-<tr>
-    <td><a href="#delete_type_definitions"><CopyableCode code="delete_type_definitions" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete API for all types in bulk.</td>
-</tr>
-<tr>
     <td><a href="#list_type_definition_headers"><CopyableCode code="list_type_definition_headers" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -184,11 +156,39 @@ The following methods are available for this resource:
     <td>Get the type definition by its name (unique).</td>
 </tr>
 <tr>
+    <td><a href="#delete_type_by_name"><CopyableCode code="delete_type_by_name" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete API for type identified by its name.</td>
+</tr>
+<tr>
     <td><a href="#get_all_type_definitions"><CopyableCode code="get_all_type_definitions" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-includeTermTemplate"><code>includeTermTemplate</code></a>, <a href="#parameter-type"><code>type</code></a></td>
     <td>Get all type definitions in Atlas in bulk.</td>
+</tr>
+<tr>
+    <td><a href="#create_type_definitions"><CopyableCode code="create_type_definitions" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create all atlas type definitions in bulk, only new definitions will be created. Any changes to the existing definitions will be discarded.</td>
+</tr>
+<tr>
+    <td><a href="#update_atlas_type_definitions"><CopyableCode code="update_atlas_type_definitions" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update all types in bulk, changes detected in the type definitions would be persisted.</td>
+</tr>
+<tr>
+    <td><a href="#delete_type_definitions"><CopyableCode code="delete_type_definitions" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete API for all types in bulk.</td>
 </tr>
 <tr>
     <td><a href="#get_term_template_def_by_guid"><CopyableCode code="get_term_template_def_by_guid" /></a></td>
@@ -223,7 +223,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-guid">
     <td><CopyableCode code="guid" /></td>
@@ -248,98 +248,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_type_definitions"
-    values={[
-        { label: 'create_type_definitions', value: 'create_type_definitions' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_type_definitions">
-
-Create all atlas type definitions in bulk, only new definitions will be created. Any changes to the existing definitions will be discarded.
-
-```sql
-INSERT INTO azure.purview_catalog.types (
-endpoint
-)
-SELECT 
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: types
-  props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the types resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_atlas_type_definitions"
-    values={[
-        { label: 'update_atlas_type_definitions', value: 'update_atlas_type_definitions' }
-    ]}
->
-<TabItem value="update_atlas_type_definitions">
-
-Update all types in bulk, changes detected in the type definitions would be persisted.
-
-```sql
-UPDATE azure.purview_catalog.types
-SET 
--- No updatable properties
-WHERE 
-endpoint = '{{ endpoint }}' --required;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_type_by_name"
-    values={[
-        { label: 'delete_type_by_name', value: 'delete_type_by_name' },
-        { label: 'delete_type_definitions', value: 'delete_type_definitions' }
-    ]}
->
-<TabItem value="delete_type_by_name">
-
-Delete API for type identified by its name.
-
-```sql
-DELETE FROM azure.purview_catalog.types
-WHERE name = '{{ name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_type_definitions">
-
-Delete API for all types in bulk.
-
-```sql
-DELETE FROM azure.purview_catalog.types
-WHERE endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -360,7 +268,11 @@ WHERE endpoint = '{{ endpoint }}' --required
         { label: 'get_struct_def_by_name', value: 'get_struct_def_by_name' },
         { label: 'get_type_definition_by_guid', value: 'get_type_definition_by_guid' },
         { label: 'get_type_definition_by_name', value: 'get_type_definition_by_name' },
+        { label: 'delete_type_by_name', value: 'delete_type_by_name' },
         { label: 'get_all_type_definitions', value: 'get_all_type_definitions' },
+        { label: 'create_type_definitions', value: 'create_type_definitions' },
+        { label: 'update_atlas_type_definitions', value: 'update_atlas_type_definitions' },
+        { label: 'delete_type_definitions', value: 'delete_type_definitions' },
         { label: 'get_term_template_def_by_guid', value: 'get_term_template_def_by_guid' },
         { label: 'get_term_template_def_by_name', value: 'get_term_template_def_by_name' }
     ]}
@@ -531,6 +443,17 @@ EXEC azure.purview_catalog.types.get_type_definition_by_name
 ;
 ```
 </TabItem>
+<TabItem value="delete_type_by_name">
+
+Delete API for type identified by its name.
+
+```sql
+EXEC azure.purview_catalog.types.delete_type_by_name 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_all_type_definitions">
 
 Get all type definitions in Atlas in bulk.
@@ -540,6 +463,36 @@ EXEC azure.purview_catalog.types.get_all_type_definitions
 @endpoint='{{ endpoint }}' --required, 
 @includeTermTemplate={{ includeTermTemplate }}, 
 @type='{{ type }}'
+;
+```
+</TabItem>
+<TabItem value="create_type_definitions">
+
+Create all atlas type definitions in bulk, only new definitions will be created. Any changes to the existing definitions will be discarded.
+
+```sql
+EXEC azure.purview_catalog.types.create_type_definitions 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_atlas_type_definitions">
+
+Update all types in bulk, changes detected in the type definitions would be persisted.
+
+```sql
+EXEC azure.purview_catalog.types.update_atlas_type_definitions 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_type_definitions">
+
+Delete API for all types in bulk.
+
+```sql
+EXEC azure.purview_catalog.types.delete_type_definitions 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

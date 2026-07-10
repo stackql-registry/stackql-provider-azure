@@ -217,18 +217,39 @@ components:
         required:
           type: boolean
           description: Whether required the constraints of the bot meta data.
-    ServiceProviderResponseList:
+    ServiceProviderFlattened:
       type: object
-      description: The list of bot service providers response. Variables are only populated by the server, and will be ignored when sending a request.
+      description: Flattened view of ServiceProvider ('properties' hoisted to the top level).
       properties:
-        nextLink:
+        id:
           type: string
-          description: The link used to get the next page of bot service providers.
+          description: Id for Service Provider.
+        displayName:
+          type: string
+          description: Display Name of the Service Provider.
+        serviceProviderName:
+          type: string
+          description: Name of the Service Provider.
+        devPortalUrl:
+          type: string
+          description: URL of Dev Portal.
+        iconUrl:
+          type: string
+          description: The URL of icon.
+        parameters:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceProviderParameter"
+          description: The list of parameters for the Service Provider.
+    ServiceProviderResponseListFlattened:
+      type: object
+      properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/ServiceProvider"
-          description: Gets the list of bot service providers and their properties.
+            $ref: "#/components/schemas/ServiceProviderFlattened"
+        nextLink:
+          type: string
     ConnectionSetting:
       type: object
       description: Bot channel resource definition. Variables are only populated by the server, and will be ignored when sending a request.
@@ -714,58 +735,6 @@ components:
             $ref: "#/components/schemas/BotChannelFlattened"
         nextLink:
           type: string
-    ListChannelWithKeysResponse:
-      type: object
-      description: The ARM channel of list channel with keys operation response. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: Specifies the resource ID.
-        name:
-          type: string
-          description: Specifies the name of the resource.
-        location:
-          type: string
-          description: Specifies the location of the resource.
-        type:
-          type: string
-          description: Specifies the type of the resource.
-        tags:
-          type: object
-          properties: {}
-          description: Contains resource tags defined as key/value pairs.
-        sku:
-          $ref: "#/components/schemas/Sku"
-          description: Gets or sets the SKU of the resource.
-        kind:
-          type: string
-          description: 'Required. Gets or sets the Kind of the resource. Known values are: "sdk", "designer", "bot", "function", and "azurebot".'
-        etag:
-          type: string
-          description: Entity Tag.
-        zones:
-          type: array
-          items:
-            type: string
-          description: Entity zones.
-        properties:
-          $ref: "#/components/schemas/Channel"
-          description: The set of properties specific to bot channel resource.
-        resource:
-          $ref: "#/components/schemas/Channel"
-          description: The set of properties specific to bot channel resource.
-        setting:
-          $ref: "#/components/schemas/ChannelSettings"
-          description: Channel settings.
-        provisioningState:
-          type: string
-          description: Provisioning state of the resource.
-        entityTag:
-          type: string
-          description: Entity tag of the resource.
-        changedTime:
-          type: string
-          description: Changed time of the resource.
     ChannelSettings:
       type: object
       description: Channel settings definition.
@@ -868,6 +837,58 @@ components:
       required:
         - siteName
         - isEnabled
+    ListChannelWithKeysResponseFlattened:
+      type: object
+      description: Flattened view of ListChannelWithKeysResponse ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Specifies the resource ID.
+        name:
+          type: string
+          description: Specifies the name of the resource.
+        location:
+          type: string
+          description: Specifies the location of the resource.
+        type:
+          type: string
+          description: Specifies the type of the resource.
+        tags:
+          type: object
+          properties: {}
+          description: Contains resource tags defined as key/value pairs.
+        sku:
+          $ref: "#/components/schemas/Sku"
+          description: Gets or sets the SKU of the resource.
+        kind:
+          type: string
+          description: 'Required. Gets or sets the Kind of the resource. Known values are: "sdk", "designer", "bot", "function", and "azurebot".'
+        etag:
+          type: string
+          description: Entity Tag.
+        zones:
+          type: array
+          items:
+            type: string
+          description: Entity zones.
+        resource:
+          $ref: "#/components/schemas/Channel"
+          description: The set of properties specific to bot channel resource.
+        setting:
+          $ref: "#/components/schemas/ChannelSettings"
+          description: Channel settings.
+        provisioningState:
+          type: string
+          description: Provisioning state of the resource.
+        entityTag:
+          type: string
+          description: Entity tag of the resource.
+        changedTime:
+          type: string
+          description: Changed time of the resource.
+        channelName:
+          type: string
+          description: The channel name. Required.
     BotChannel:
       type: object
       description: Bot channel resource definition. Variables are only populated by the server, and will be ignored when sending a request.
@@ -1193,16 +1214,31 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
         list_with_secrets:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.BotService~1botServices~1{resource_name}~1connections~1{connection_name}~1listWithSecrets?api-version=2022-09-15/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/bot_connection/methods/get"
           - $ref: "#/components/x-stackQL-resources/bot_connection/methods/list_by_bot_service"
+          - $ref: "#/components/x-stackQL-resources/bot_connection/methods/list_service_providers"
         insert:
           - $ref: "#/components/x-stackQL-resources/bot_connection/methods/create"
         update:
@@ -1299,6 +1335,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/bots/methods/get"
           - $ref: "#/components/x-stackQL-resources/bots/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/bots/methods/list"
+          - $ref: "#/components/x-stackQL-resources/bots/methods/get_check_name_availability"
         insert:
           - $ref: "#/components/x-stackQL-resources/bots/methods/create"
         update:
@@ -1369,6 +1406,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/channels/methods/get"
@@ -1413,8 +1454,7 @@ components:
             mediaType: application/json
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/email/methods/create_sign_in_url"
+        insert: []
         update: []
         delete: []
     host_settings:
@@ -1552,12 +1592,12 @@ components:
         insert: []
         update: []
         delete: []
-    qn_a_maker_endpoint_keys:
-      id: azure.botservice.qn_a_maker_endpoint_keys
-      name: qn_a_maker_endpoint_keys
-      title: qn_a_maker_endpoint_keys
+    qna_maker_endpoint_keys:
+      id: azure.botservice.qna_maker_endpoint_keys
+      name: qna_maker_endpoint_keys
+      title: qna_maker_endpoint_keys
       methods:
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.BotService~1listQnAMakerEndpointKeys?api-version=2022-09-15/post"
           response:
@@ -1569,7 +1609,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/qna_maker_endpoint_keys/methods/get"
         insert: []
         update: []
         delete: []
@@ -1804,7 +1845,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ServiceProviderResponseList"
+                $ref: "#/components/schemas/ServiceProviderResponseListFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.BotService/botServices/{resource_name}/connections/{connection_name}/listWithSecrets?api-version=2022-09-15:
     post:
       operationId: BotConnection_list_with_secrets
@@ -1839,7 +1880,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConnectionSetting"
+                $ref: "#/components/schemas/ConnectionSettingFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.BotService/botServices/{resource_name}?api-version=2022-09-15:
     get:
       operationId: Bots_get
@@ -2286,7 +2327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListChannelWithKeysResponse"
+                $ref: "#/components/schemas/ListChannelWithKeysResponseFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.BotService/botServices/{resource_name}/channels/{channel_name}/regeneratekeys?api-version=2022-09-15:
     post:
       operationId: DirectLine_regenerate_keys

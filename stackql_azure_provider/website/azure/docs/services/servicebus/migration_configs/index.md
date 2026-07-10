@@ -199,18 +199,18 @@ The following methods are available for this resource:
     <td>Gets all migrationConfigurations.</td>
 </tr>
 <tr>
-    <td><a href="#create_and_start_migration"><CopyableCode code="create_and_start_migration" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-config_name"><code>config_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates Migration configuration and starts migration of entities from Standard to Premium namespace.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-config_name"><code>config_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a MigrationConfiguration.</td>
+</tr>
+<tr>
+    <td><a href="#create_and_start_migration"><CopyableCode code="create_and_start_migration" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-config_name"><code>config_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates Migration configuration and starts migration of entities from Standard to Premium namespace.</td>
 </tr>
 <tr>
     <td><a href="#complete_migration"><CopyableCode code="complete_migration" /></a></td>
@@ -324,70 +324,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_and_start_migration"
-    values={[
-        { label: 'create_and_start_migration', value: 'create_and_start_migration' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_and_start_migration">
-
-Creates Migration configuration and starts migration of entities from Standard to Premium namespace.
-
-```sql
-INSERT INTO azure.servicebus.migration_configs (
-properties,
-resource_group_name,
-namespace_name,
-config_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ config_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: migration_configs
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the migration_configs resource.
-    - name: namespace_name
-      value: "{{ namespace_name }}"
-      description: Required parameter for the migration_configs resource.
-    - name: config_name
-      value: "{{ config_name }}"
-      description: Required parameter for the migration_configs resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the migration_configs resource.
-    - name: properties
-      value:
-        targetNamespace: "{{ targetNamespace }}"
-        postMigrationName: "{{ postMigrationName }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
@@ -415,12 +351,30 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="complete_migration"
+    defaultValue="create_and_start_migration"
     values={[
+        { label: 'create_and_start_migration', value: 'create_and_start_migration' },
         { label: 'complete_migration', value: 'complete_migration' },
         { label: 'revert', value: 'revert' }
     ]}
 >
+<TabItem value="create_and_start_migration">
+
+Creates Migration configuration and starts migration of entities from Standard to Premium namespace.
+
+```sql
+EXEC azure.servicebus.migration_configs.create_and_start_migration 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@config_name='{{ config_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="complete_migration">
 
 This operation Completes Migration of entities by pointing the connection strings to Premium namespace and any entities created after the operation will be under Premium Namespace. CompleteMigration operation will fail when entity migration is in-progress.

@@ -33,19 +33,6 @@ components:
         id:
           type: string
           description: Resource Id.
-    DnsResourceReferenceResult:
-      type: object
-      description: Represents the properties of the Dns Resource Reference Result.
-      properties:
-        properties:
-          type: object
-          properties:
-            dnsResourceReferences:
-              type: array
-              items:
-                $ref: '#/components/schemas/DnsResourceReference'
-              description: The result of dns resource reference request. A list of dns resource references for each
-                of the azure resource in the request.
     DnsResourceReference:
       type: object
       description: Represents a single Azure resource and its referencing DNS records.
@@ -58,6 +45,16 @@ components:
         targetResource:
           $ref: '#/components/schemas/SubResource'
           description: A reference to an azure resource from where the dns resource value is taken.
+    DnsResourceReferenceResultFlattened:
+      type: object
+      description: Flattened view of DnsResourceReferenceResult ('properties' hoisted to the top level).
+      properties:
+        dnsResourceReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/DnsResourceReference'
+          description: The result of dns resource reference request. A list of dns resource references for each
+            of the azure resource in the request.
     ARecord:
       type: object
       description: An A record.
@@ -496,10 +493,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DnsResourceReferenceResult'
+                $ref: '#/components/schemas/DnsResourceReferenceResultFlattened'
       x-stackql-resource: dns_resource_reference
       x-stackql-method: get_by_target_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/dnsZones/{zone_name}/{record_type}/{relative_record_set_name}?api-version=2018-05-01
   : get:
       operationId: RecordSets_get

@@ -52,8 +52,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#purge_content"><CopyableCode code="purge_content" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-front_door_name"><code>front_door_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-front_door_name"><code>front_door_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-contentPaths"><code>contentPaths</code></a></td>
     <td></td>
     <td>Removes a content from Front Door.</td>
 </tr>
@@ -91,7 +91,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `DELETE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="purge_content"
@@ -104,10 +104,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Removes a content from Front Door.
 
 ```sql
-DELETE FROM azure.frontdoor.endpoints
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND front_door_name = '{{ front_door_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
+EXEC azure.frontdoor.endpoints.purge_content 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@front_door_name='{{ front_door_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"contentPaths": "{{ contentPaths }}"
+}'
 ;
 ```
 </TabItem>

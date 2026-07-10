@@ -207,21 +207,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_snapshot"><CopyableCode code="get_snapshot" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-$Select"><code>$Select</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Gets a single key-value snapshot. Gets a single key-value snapshot.</td>
 </tr>
 <tr>
     <td><a href="#get_snapshots"><CopyableCode code="get_snapshots" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-After"><code>After</code></a>, <a href="#parameter-$Select"><code>$Select</code></a>, <a href="#parameter-status"><code>status</code></a>, <a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Gets a list of key-value snapshots. Gets a list of key-value snapshots.</td>
 </tr>
 <tr>
     <td><a href="#create_snapshot"><CopyableCode code="create_snapshot" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-filters"><code>filters</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a>, <a href="#parameter-filters"><code>filters</code></a></td>
     <td><a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Creates a key-value snapshot. Creates a key-value snapshot.</td>
 </tr>
@@ -241,10 +241,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-config_store_name">
+    <td><CopyableCode code="config_store_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>App Configuration store name. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -308,7 +308,7 @@ status,
 tags
 FROM azure.appconfiguration_dataplane.snapshots
 WHERE name = '{{ name }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
+AND config_store_name = '{{ config_store_name }}' -- required
 AND $Select = '{{ $Select }}'
 AND Sync-Token = '{{ Sync-Token }}'
 ;
@@ -333,7 +333,7 @@ size,
 status,
 tags
 FROM azure.appconfiguration_dataplane.snapshots
-WHERE endpoint = '{{ endpoint }}' -- required
+WHERE config_store_name = '{{ config_store_name }}' -- required
 AND name = '{{ name }}'
 AND After = '{{ After }}'
 AND $Select = '{{ $Select }}'
@@ -366,7 +366,7 @@ retention_period,
 tags,
 description,
 name,
-endpoint,
+config_store_name,
 Sync-Token
 )
 SELECT 
@@ -376,7 +376,7 @@ SELECT
 '{{ tags }}',
 '{{ description }}',
 '{{ name }}',
-'{{ endpoint }}',
+'{{ config_store_name }}',
 '{{ Sync-Token }}'
 RETURNING
 name,
@@ -402,8 +402,8 @@ tags
     - name: name
       value: "{{ name }}"
       description: Required parameter for the snapshots resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: config_store_name
+      value: "{{ config_store_name }}"
       description: Required parameter for the snapshots resource.
     - name: filters
       description: |

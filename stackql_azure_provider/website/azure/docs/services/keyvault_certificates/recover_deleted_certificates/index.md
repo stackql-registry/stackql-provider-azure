@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#recover_deleted_certificate"><CopyableCode code="recover_deleted_certificate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Recovers the deleted certificate back to its current version under /certificates. The RecoverDeletedCertificate operation performs the reversal of the Delete operation. The operation is applicable in vaults enabled for soft-delete, and must be issued during the retention interval (available in the deleted certificate's attributes). This operation requires the certificates/recover permission.</td>
 </tr>
@@ -78,10 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the deleted certificate. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Recovers the deleted certificate back to its current version under /certificates
 ```sql
 EXEC azure.keyvault_certificates.recover_deleted_certificates.recover_deleted_certificate 
 @certificate_name='{{ certificate_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>

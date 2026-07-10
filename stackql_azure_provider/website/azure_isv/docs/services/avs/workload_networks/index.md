@@ -725,146 +725,6 @@ The following methods are available for this resource:
     <td>Get a WorkloadNetwork.</td>
 </tr>
 <tr>
-    <td><a href="#create_dhcp"><CopyableCode code="create_dhcp" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dhcp_id"><code>dhcp_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkDhcp.</td>
-</tr>
-<tr>
-    <td><a href="#create_dns_service"><CopyableCode code="create_dns_service" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_service_id"><code>dns_service_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkDnsService.</td>
-</tr>
-<tr>
-    <td><a href="#create_dns_zone"><CopyableCode code="create_dns_zone" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_zone_id"><code>dns_zone_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkDnsZone.</td>
-</tr>
-<tr>
-    <td><a href="#create_port_mirroring"><CopyableCode code="create_port_mirroring" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-port_mirroring_id"><code>port_mirroring_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkPortMirroring.</td>
-</tr>
-<tr>
-    <td><a href="#create_public_ip"><CopyableCode code="create_public_ip" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-public_ip_id"><code>public_ip_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkPublicIP.</td>
-</tr>
-<tr>
-    <td><a href="#create_segments"><CopyableCode code="create_segments" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-segment_id"><code>segment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkSegment.</td>
-</tr>
-<tr>
-    <td><a href="#create_vm_group"><CopyableCode code="create_vm_group" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-vm_group_id"><code>vm_group_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a WorkloadNetworkVMGroup.</td>
-</tr>
-<tr>
-    <td><a href="#update_dhcp"><CopyableCode code="update_dhcp" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dhcp_id"><code>dhcp_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a WorkloadNetworkDhcp.</td>
-</tr>
-<tr>
-    <td><a href="#update_dns_service"><CopyableCode code="update_dns_service" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_service_id"><code>dns_service_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a WorkloadNetworkDnsService.</td>
-</tr>
-<tr>
-    <td><a href="#update_dns_zone"><CopyableCode code="update_dns_zone" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_zone_id"><code>dns_zone_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a WorkloadNetworkDnsZone.</td>
-</tr>
-<tr>
-    <td><a href="#update_port_mirroring"><CopyableCode code="update_port_mirroring" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-port_mirroring_id"><code>port_mirroring_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a WorkloadNetworkPortMirroring.</td>
-</tr>
-<tr>
-    <td><a href="#update_segments"><CopyableCode code="update_segments" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-segment_id"><code>segment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a WorkloadNetworkSegment.</td>
-</tr>
-<tr>
-    <td><a href="#update_vm_group"><CopyableCode code="update_vm_group" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-vm_group_id"><code>vm_group_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a WorkloadNetworkVMGroup.</td>
-</tr>
-<tr>
-    <td><a href="#delete_dhcp"><CopyableCode code="delete_dhcp" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dhcp_id"><code>dhcp_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkDhcp.</td>
-</tr>
-<tr>
-    <td><a href="#delete_dns_service"><CopyableCode code="delete_dns_service" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-dns_service_id"><code>dns_service_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkDnsService.</td>
-</tr>
-<tr>
-    <td><a href="#delete_dns_zone"><CopyableCode code="delete_dns_zone" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-dns_zone_id"><code>dns_zone_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkDnsZone.</td>
-</tr>
-<tr>
-    <td><a href="#delete_port_mirroring"><CopyableCode code="delete_port_mirroring" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-port_mirroring_id"><code>port_mirroring_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkPortMirroring.</td>
-</tr>
-<tr>
-    <td><a href="#delete_public_ip"><CopyableCode code="delete_public_ip" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-public_ip_id"><code>public_ip_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkPublicIP.</td>
-</tr>
-<tr>
-    <td><a href="#delete_segment"><CopyableCode code="delete_segment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-segment_id"><code>segment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkSegment.</td>
-</tr>
-<tr>
-    <td><a href="#delete_vm_group"><CopyableCode code="delete_vm_group" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vm_group_id"><code>vm_group_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a WorkloadNetworkVMGroup.</td>
-</tr>
-<tr>
     <td><a href="#list_dhcp"><CopyableCode code="list_dhcp" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -926,6 +786,146 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List WorkloadNetworkVMGroup resources by WorkloadNetwork.</td>
+</tr>
+<tr>
+    <td><a href="#create_dhcp"><CopyableCode code="create_dhcp" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dhcp_id"><code>dhcp_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkDhcp.</td>
+</tr>
+<tr>
+    <td><a href="#update_dhcp"><CopyableCode code="update_dhcp" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dhcp_id"><code>dhcp_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a WorkloadNetworkDhcp.</td>
+</tr>
+<tr>
+    <td><a href="#delete_dhcp"><CopyableCode code="delete_dhcp" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dhcp_id"><code>dhcp_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkDhcp.</td>
+</tr>
+<tr>
+    <td><a href="#create_dns_service"><CopyableCode code="create_dns_service" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_service_id"><code>dns_service_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkDnsService.</td>
+</tr>
+<tr>
+    <td><a href="#update_dns_service"><CopyableCode code="update_dns_service" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_service_id"><code>dns_service_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a WorkloadNetworkDnsService.</td>
+</tr>
+<tr>
+    <td><a href="#delete_dns_service"><CopyableCode code="delete_dns_service" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-dns_service_id"><code>dns_service_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkDnsService.</td>
+</tr>
+<tr>
+    <td><a href="#create_dns_zone"><CopyableCode code="create_dns_zone" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_zone_id"><code>dns_zone_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkDnsZone.</td>
+</tr>
+<tr>
+    <td><a href="#update_dns_zone"><CopyableCode code="update_dns_zone" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-dns_zone_id"><code>dns_zone_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a WorkloadNetworkDnsZone.</td>
+</tr>
+<tr>
+    <td><a href="#delete_dns_zone"><CopyableCode code="delete_dns_zone" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-dns_zone_id"><code>dns_zone_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkDnsZone.</td>
+</tr>
+<tr>
+    <td><a href="#create_port_mirroring"><CopyableCode code="create_port_mirroring" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-port_mirroring_id"><code>port_mirroring_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkPortMirroring.</td>
+</tr>
+<tr>
+    <td><a href="#update_port_mirroring"><CopyableCode code="update_port_mirroring" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-port_mirroring_id"><code>port_mirroring_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a WorkloadNetworkPortMirroring.</td>
+</tr>
+<tr>
+    <td><a href="#delete_port_mirroring"><CopyableCode code="delete_port_mirroring" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-port_mirroring_id"><code>port_mirroring_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkPortMirroring.</td>
+</tr>
+<tr>
+    <td><a href="#create_public_ip"><CopyableCode code="create_public_ip" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-public_ip_id"><code>public_ip_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkPublicIP.</td>
+</tr>
+<tr>
+    <td><a href="#delete_public_ip"><CopyableCode code="delete_public_ip" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-public_ip_id"><code>public_ip_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkPublicIP.</td>
+</tr>
+<tr>
+    <td><a href="#create_segments"><CopyableCode code="create_segments" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-segment_id"><code>segment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkSegment.</td>
+</tr>
+<tr>
+    <td><a href="#update_segments"><CopyableCode code="update_segments" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-segment_id"><code>segment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a WorkloadNetworkSegment.</td>
+</tr>
+<tr>
+    <td><a href="#delete_segment"><CopyableCode code="delete_segment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-segment_id"><code>segment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkSegment.</td>
+</tr>
+<tr>
+    <td><a href="#create_vm_group"><CopyableCode code="create_vm_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-vm_group_id"><code>vm_group_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a WorkloadNetworkVMGroup.</td>
+</tr>
+<tr>
+    <td><a href="#update_vm_group"><CopyableCode code="update_vm_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-vm_group_id"><code>vm_group_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a WorkloadNetworkVMGroup.</td>
+</tr>
+<tr>
+    <td><a href="#delete_vm_group"><CopyableCode code="delete_vm_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vm_group_id"><code>vm_group_id</code></a>, <a href="#parameter-private_cloud_name"><code>private_cloud_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a WorkloadNetworkVMGroup.</td>
 </tr>
 <tr>
     <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
@@ -1262,511 +1262,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_dhcp"
-    values={[
-        { label: 'create_dhcp', value: 'create_dhcp' },
-        { label: 'create_dns_service', value: 'create_dns_service' },
-        { label: 'create_dns_zone', value: 'create_dns_zone' },
-        { label: 'create_port_mirroring', value: 'create_port_mirroring' },
-        { label: 'create_public_ip', value: 'create_public_ip' },
-        { label: 'create_segments', value: 'create_segments' },
-        { label: 'create_vm_group', value: 'create_vm_group' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_dhcp">
-
-Create a WorkloadNetworkDhcp.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-dhcp_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ dhcp_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_dns_service">
-
-Create a WorkloadNetworkDnsService.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-dns_service_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ dns_service_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_dns_zone">
-
-Create a WorkloadNetworkDnsZone.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-dns_zone_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ dns_zone_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_port_mirroring">
-
-Create a WorkloadNetworkPortMirroring.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-port_mirroring_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ port_mirroring_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_public_ip">
-
-Create a WorkloadNetworkPublicIP.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-public_ip_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ public_ip_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_segments">
-
-Create a WorkloadNetworkSegment.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-segment_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ segment_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_vm_group">
-
-Create a WorkloadNetworkVMGroup.
-
-```sql
-INSERT INTO azure_isv.avs.workload_networks (
-properties,
-resource_group_name,
-private_cloud_name,
-vm_group_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ private_cloud_name }}',
-'{{ vm_group_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: workload_networks
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the workload_networks resource.
-    - name: private_cloud_name
-      value: "{{ private_cloud_name }}"
-      description: Required parameter for the workload_networks resource.
-    - name: dhcp_id
-      value: "{{ dhcp_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: dns_service_id
-      value: "{{ dns_service_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: dns_zone_id
-      value: "{{ dns_zone_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: port_mirroring_id
-      value: "{{ port_mirroring_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: public_ip_id
-      value: "{{ public_ip_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: segment_id
-      value: "{{ segment_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: vm_group_id
-      value: "{{ vm_group_id }}"
-      description: Required parameter for the workload_networks resource.
-    - name: properties
-      description: |
-        The resource-specific properties for this resource.
-      value:
-        displayName: "{{ displayName }}"
-        members:
-          - "{{ members }}"
-        status: "{{ status }}"
-        provisioningState: "{{ provisioningState }}"
-        revision: {{ revision }}
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_dhcp"
-    values={[
-        { label: 'update_dhcp', value: 'update_dhcp' },
-        { label: 'update_dns_service', value: 'update_dns_service' },
-        { label: 'update_dns_zone', value: 'update_dns_zone' },
-        { label: 'update_port_mirroring', value: 'update_port_mirroring' },
-        { label: 'update_segments', value: 'update_segments' },
-        { label: 'update_vm_group', value: 'update_vm_group' }
-    ]}
->
-<TabItem value="update_dhcp">
-
-Update a WorkloadNetworkDhcp.
-
-```sql
-UPDATE azure_isv.avs.workload_networks
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND dhcp_id = '{{ dhcp_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_dns_service">
-
-Update a WorkloadNetworkDnsService.
-
-```sql
-UPDATE azure_isv.avs.workload_networks
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND dns_service_id = '{{ dns_service_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_dns_zone">
-
-Update a WorkloadNetworkDnsZone.
-
-```sql
-UPDATE azure_isv.avs.workload_networks
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND dns_zone_id = '{{ dns_zone_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_port_mirroring">
-
-Update a WorkloadNetworkPortMirroring.
-
-```sql
-UPDATE azure_isv.avs.workload_networks
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND port_mirroring_id = '{{ port_mirroring_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_segments">
-
-Update a WorkloadNetworkSegment.
-
-```sql
-UPDATE azure_isv.avs.workload_networks
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND segment_id = '{{ segment_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_vm_group">
-
-Update a WorkloadNetworkVMGroup.
-
-```sql
-UPDATE azure_isv.avs.workload_networks
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND vm_group_id = '{{ vm_group_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_dhcp"
-    values={[
-        { label: 'delete_dhcp', value: 'delete_dhcp' },
-        { label: 'delete_dns_service', value: 'delete_dns_service' },
-        { label: 'delete_dns_zone', value: 'delete_dns_zone' },
-        { label: 'delete_port_mirroring', value: 'delete_port_mirroring' },
-        { label: 'delete_public_ip', value: 'delete_public_ip' },
-        { label: 'delete_segment', value: 'delete_segment' },
-        { label: 'delete_vm_group', value: 'delete_vm_group' }
-    ]}
->
-<TabItem value="delete_dhcp">
-
-Delete a WorkloadNetworkDhcp.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND dhcp_id = '{{ dhcp_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_dns_service">
-
-Delete a WorkloadNetworkDnsService.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND dns_service_id = '{{ dns_service_id }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_dns_zone">
-
-Delete a WorkloadNetworkDnsZone.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND dns_zone_id = '{{ dns_zone_id }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_port_mirroring">
-
-Delete a WorkloadNetworkPortMirroring.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND port_mirroring_id = '{{ port_mirroring_id }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_public_ip">
-
-Delete a WorkloadNetworkPublicIP.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND public_ip_id = '{{ public_ip_id }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_segment">
-
-Delete a WorkloadNetworkSegment.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND segment_id = '{{ segment_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_vm_group">
-
-Delete a WorkloadNetworkVMGroup.
-
-```sql
-DELETE FROM azure_isv.avs.workload_networks
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND vm_group_id = '{{ vm_group_id }}' --required
-AND private_cloud_name = '{{ private_cloud_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -1781,6 +1276,26 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_segments', value: 'list_segments' },
         { label: 'list_virtual_machines', value: 'list_virtual_machines' },
         { label: 'list_vm_groups', value: 'list_vm_groups' },
+        { label: 'create_dhcp', value: 'create_dhcp' },
+        { label: 'update_dhcp', value: 'update_dhcp' },
+        { label: 'delete_dhcp', value: 'delete_dhcp' },
+        { label: 'create_dns_service', value: 'create_dns_service' },
+        { label: 'update_dns_service', value: 'update_dns_service' },
+        { label: 'delete_dns_service', value: 'delete_dns_service' },
+        { label: 'create_dns_zone', value: 'create_dns_zone' },
+        { label: 'update_dns_zone', value: 'update_dns_zone' },
+        { label: 'delete_dns_zone', value: 'delete_dns_zone' },
+        { label: 'create_port_mirroring', value: 'create_port_mirroring' },
+        { label: 'update_port_mirroring', value: 'update_port_mirroring' },
+        { label: 'delete_port_mirroring', value: 'delete_port_mirroring' },
+        { label: 'create_public_ip', value: 'create_public_ip' },
+        { label: 'delete_public_ip', value: 'delete_public_ip' },
+        { label: 'create_segments', value: 'create_segments' },
+        { label: 'update_segments', value: 'update_segments' },
+        { label: 'delete_segment', value: 'delete_segment' },
+        { label: 'create_vm_group', value: 'create_vm_group' },
+        { label: 'update_vm_group', value: 'update_vm_group' },
+        { label: 'delete_vm_group', value: 'delete_vm_group' },
         { label: 'list_raw', value: 'list_raw' }
     ]}
 >
@@ -1887,6 +1402,318 @@ List WorkloadNetworkVMGroup resources by WorkloadNetwork.
 ```sql
 EXEC azure_isv.avs.workload_networks.list_vm_groups 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_dhcp">
+
+Create a WorkloadNetworkDhcp.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_dhcp 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dhcp_id='{{ dhcp_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_dhcp">
+
+Update a WorkloadNetworkDhcp.
+
+```sql
+EXEC azure_isv.avs.workload_networks.update_dhcp 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dhcp_id='{{ dhcp_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_dhcp">
+
+Delete a WorkloadNetworkDhcp.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_dhcp 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dhcp_id='{{ dhcp_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_dns_service">
+
+Create a WorkloadNetworkDnsService.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_dns_service 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dns_service_id='{{ dns_service_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_dns_service">
+
+Update a WorkloadNetworkDnsService.
+
+```sql
+EXEC azure_isv.avs.workload_networks.update_dns_service 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dns_service_id='{{ dns_service_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_dns_service">
+
+Delete a WorkloadNetworkDnsService.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_dns_service 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@dns_service_id='{{ dns_service_id }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_dns_zone">
+
+Create a WorkloadNetworkDnsZone.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_dns_zone 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dns_zone_id='{{ dns_zone_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_dns_zone">
+
+Update a WorkloadNetworkDnsZone.
+
+```sql
+EXEC azure_isv.avs.workload_networks.update_dns_zone 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@dns_zone_id='{{ dns_zone_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_dns_zone">
+
+Delete a WorkloadNetworkDnsZone.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_dns_zone 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@dns_zone_id='{{ dns_zone_id }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_port_mirroring">
+
+Create a WorkloadNetworkPortMirroring.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_port_mirroring 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@port_mirroring_id='{{ port_mirroring_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_port_mirroring">
+
+Update a WorkloadNetworkPortMirroring.
+
+```sql
+EXEC azure_isv.avs.workload_networks.update_port_mirroring 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@port_mirroring_id='{{ port_mirroring_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_port_mirroring">
+
+Delete a WorkloadNetworkPortMirroring.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_port_mirroring 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@port_mirroring_id='{{ port_mirroring_id }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_public_ip">
+
+Create a WorkloadNetworkPublicIP.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_public_ip 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@public_ip_id='{{ public_ip_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_public_ip">
+
+Delete a WorkloadNetworkPublicIP.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_public_ip 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@public_ip_id='{{ public_ip_id }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_segments">
+
+Create a WorkloadNetworkSegment.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_segments 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@segment_id='{{ segment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_segments">
+
+Update a WorkloadNetworkSegment.
+
+```sql
+EXEC azure_isv.avs.workload_networks.update_segments 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@segment_id='{{ segment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_segment">
+
+Delete a WorkloadNetworkSegment.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_segment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@segment_id='{{ segment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_vm_group">
+
+Create a WorkloadNetworkVMGroup.
+
+```sql
+EXEC azure_isv.avs.workload_networks.create_vm_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@vm_group_id='{{ vm_group_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_vm_group">
+
+Update a WorkloadNetworkVMGroup.
+
+```sql
+EXEC azure_isv.avs.workload_networks.update_vm_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@private_cloud_name='{{ private_cloud_name }}' --required, 
+@vm_group_id='{{ vm_group_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_vm_group">
+
+Delete a WorkloadNetworkVMGroup.
+
+```sql
+EXEC azure_isv.avs.workload_networks.delete_vm_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@vm_group_id='{{ vm_group_id }}' --required, 
 @private_cloud_name='{{ private_cloud_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;

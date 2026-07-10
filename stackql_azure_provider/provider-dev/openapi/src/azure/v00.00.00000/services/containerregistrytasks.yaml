@@ -1284,7 +1284,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/registries/methods/get_build_source_upload_url"
         insert: []
         update: []
         delete: []
@@ -1415,6 +1416,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/task_runs/methods/get"
@@ -1489,6 +1494,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/tasks/methods/get"
@@ -2227,7 +2236,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TaskRun"
+                $ref: "#/components/schemas/TaskRunFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/tasks/{task_name}?api-version=2025-03-01-preview:
     get:
       operationId: Tasks_get
@@ -2463,4 +2472,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Task"
+                $ref: "#/components/schemas/TaskFlattened"

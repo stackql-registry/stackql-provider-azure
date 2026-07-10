@@ -1062,7 +1062,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/locations/methods/check_name_availability"
         insert: []
         update: []
         delete: []

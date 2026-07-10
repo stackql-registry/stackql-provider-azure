@@ -313,6 +313,13 @@ The following methods are available for this resource:
     <td>Update some of the properties of a managed Cassandra data center.</td>
 </tr>
 <tr>
+    <td><a href="#create_update"><CopyableCode code="create_update" /></a></td>
+    <td><CopyableCode code="replace" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-data_center_name"><code>data_center_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a managed Cassandra data center. When updating, overwrite all properties. To update only some properties, use PATCH.</td>
+</tr>
+<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-data_center_name"><code>data_center_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -544,6 +551,38 @@ Update some of the properties of a managed Cassandra data center.
 
 ```sql
 UPDATE azure.cosmosdb.cassandra_data_centers
+SET 
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND cluster_name = '{{ cluster_name }}' --required
+AND data_center_name = '{{ data_center_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+properties,
+systemData,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `REPLACE` examples
+
+<Tabs
+    defaultValue="create_update"
+    values={[
+        { label: 'create_update', value: 'create_update' }
+    ]}
+>
+<TabItem value="create_update">
+
+Create or update a managed Cassandra data center. When updating, overwrite all properties. To update only some properties, use PATCH.
+
+```sql
+REPLACE azure.cosmosdb.cassandra_data_centers
 SET 
 properties = '{{ properties }}'
 WHERE 

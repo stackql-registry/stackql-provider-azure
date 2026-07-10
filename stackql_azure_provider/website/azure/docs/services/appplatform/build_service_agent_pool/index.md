@@ -160,7 +160,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#update_put"><CopyableCode code="update_put" /></a></td>
-    <td><CopyableCode code="update" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-build_service_name"><code>build_service_name</code></a>, <a href="#parameter-agent_pool_name"><code>agent_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Create or update build service agent pool.</td>
@@ -262,7 +262,7 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `UPDATE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="update_put"
@@ -275,21 +275,17 @@ AND subscription_id = '{{ subscription_id }}' -- required
 Create or update build service agent pool.
 
 ```sql
-UPDATE azure.appplatform.build_service_agent_pool
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND service_name = '{{ service_name }}' --required
-AND build_service_name = '{{ build_service_name }}' --required
-AND agent_pool_name = '{{ agent_pool_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
+EXEC azure.appplatform.build_service_agent_pool.update_put 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@service_name='{{ service_name }}' --required, 
+@build_service_name='{{ build_service_name }}' --required, 
+@agent_pool_name='{{ agent_pool_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
 ```
 </TabItem>
 </Tabs>

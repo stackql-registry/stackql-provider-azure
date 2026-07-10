@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#import_key"><CopyableCode code="import_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-key"><code>key</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-key"><code>key</code></a></td>
     <td></td>
     <td>Imports an externally created key, stores it, and returns key parameters and attributes to the client. The import key operation may be used to import any key type into an Azure Key Vault. If the named key already exists, Azure Key Vault creates a new version of the key. This operation requires the keys/import permission.</td>
 </tr>
@@ -78,10 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>Name for the imported key. The value you provide may be copied globally for the purpose of running the service. The value provided should not include personally identifiable or sensitive information. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Imports an externally created key, stores it, and returns key parameters and att
 ```sql
 EXEC azure.keyvault_keys.import_keys.import_key 
 @key_name='{{ key_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "Hsm": {{ Hsm }}, 

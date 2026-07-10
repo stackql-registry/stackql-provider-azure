@@ -379,34 +379,6 @@ The following methods are available for this resource:
     <td>Gets the list of supported countries. Gets the list of supported countries.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_reservation"><CopyableCode code="create_or_update_reservation" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-reservation_id"><code>reservation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Creates or updates a reservation by its ID. Adds and removes phone numbers from the reservation with the given ID. The response will be the updated state of the reservation. Phone numbers can be reserved by including them in the payload. If a number is already in the reservation, it will be ignored. To remove a phone number, set it explicitly to null in the request payload. This operation is idempotent. If a reservation with the same ID already exists, it will be updated, otherwise a new one is created. Only reservations with 'active' status can be updated. Updating a reservation will extend the expiration time of the reservation to 15 minutes after the last change, up to a maximum of 2 hours from creation time. Partial success is possible, in which case the response will have a 207 status code.</td>
-</tr>
-<tr>
-    <td><a href="#update_capabilities"><CopyableCode code="update_capabilities" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-phone_number"><code>phone_number</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Updates the capabilities of a phone number. Updates the capabilities of a phone number.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_reservation"><CopyableCode code="create_or_update_reservation" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-reservation_id"><code>reservation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Creates or updates a reservation by its ID. Adds and removes phone numbers from the reservation with the given ID. The response will be the updated state of the reservation. Phone numbers can be reserved by including them in the payload. If a number is already in the reservation, it will be ignored. To remove a phone number, set it explicitly to null in the request payload. This operation is idempotent. If a reservation with the same ID already exists, it will be updated, otherwise a new one is created. Only reservations with 'active' status can be updated. Updating a reservation will extend the expiration time of the reservation to 15 minutes after the last change, up to a maximum of 2 hours from creation time. Partial success is possible, in which case the response will have a 207 status code.</td>
-</tr>
-<tr>
-    <td><a href="#delete_reservation"><CopyableCode code="delete_reservation" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-reservation_id"><code>reservation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Deletes a reservation by its ID. Deletes the reservation with the given ID. Any phone number in the reservation will be released and made available for others to purchase. Only reservations with 'active' status can be deleted.</td>
-</tr>
-<tr>
     <td><a href="#release_phone_number"><CopyableCode code="release_phone_number" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-phone_number"><code>phone_number</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -442,6 +414,20 @@ The following methods are available for this resource:
     <td>Gets the list of all purchased phone numbers. Gets the list of all purchased phone numbers.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_reservation"><CopyableCode code="create_or_update_reservation" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-reservation_id"><code>reservation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Creates or updates a reservation by its ID. Adds and removes phone numbers from the reservation with the given ID. The response will be the updated state of the reservation. Phone numbers can be reserved by including them in the payload. If a number is already in the reservation, it will be ignored. To remove a phone number, set it explicitly to null in the request payload. This operation is idempotent. If a reservation with the same ID already exists, it will be updated, otherwise a new one is created. Only reservations with 'active' status can be updated. Updating a reservation will extend the expiration time of the reservation to 15 minutes after the last change, up to a maximum of 2 hours from creation time. Partial success is possible, in which case the response will have a 207 status code.</td>
+</tr>
+<tr>
+    <td><a href="#delete_reservation"><CopyableCode code="delete_reservation" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-reservation_id"><code>reservation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Deletes a reservation by its ID. Deletes the reservation with the given ID. Any phone number in the reservation will be released and made available for others to purchase. Only reservations with 'active' status can be deleted.</td>
+</tr>
+<tr>
     <td><a href="#browse_available_numbers"><CopyableCode code="browse_available_numbers" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-country_code"><code>country_code</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-phoneNumberType"><code>phoneNumberType</code></a></td>
@@ -468,6 +454,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Purchases phone numbers. Purchases phone numbers.</td>
+</tr>
+<tr>
+    <td><a href="#update_capabilities"><CopyableCode code="update_capabilities" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-phone_number"><code>phone_number</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Updates the capabilities of a phone number. Updates the capabilities of a phone number.</td>
 </tr>
 <tr>
     <td><a href="#operator_information_search"><CopyableCode code="operator_information_search" /></a></td>
@@ -500,7 +493,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-operation_id">
     <td><CopyableCode code="operation_id" /></td>
@@ -515,7 +508,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-phone_number">
     <td><CopyableCode code="phone_number" /></td>
     <td><code>string</code></td>
-    <td>Phone number to be released, e.g. +11234567890. Required.</td>
+    <td>The phone number id in E.164 format. The leading plus can be either + or encoded as %2B, e.g. +11234567890. Required.</td>
 </tr>
 <tr id="parameter-reservation_id">
     <td><CopyableCode code="reservation_id" /></td>
@@ -719,142 +712,15 @@ AND accept-language = '{{ accept-language }}'
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_or_update_reservation"
-    values={[
-        { label: 'create_or_update_reservation', value: 'create_or_update_reservation' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_or_update_reservation">
-
-Creates or updates a reservation by its ID. Adds and removes phone numbers from the reservation with the given ID. The response will be the updated state of the reservation. Phone numbers can be reserved by including them in the payload. If a number is already in the reservation, it will be ignored. To remove a phone number, set it explicitly to null in the request payload. This operation is idempotent. If a reservation with the same ID already exists, it will be updated, otherwise a new one is created. Only reservations with 'active' status can be updated. Updating a reservation will extend the expiration time of the reservation to 15 minutes after the last change, up to a maximum of 2 hours from creation time. Partial success is possible, in which case the response will have a 207 status code.
-
-```sql
-INSERT INTO azure.communication_phonenumbers.phone_numbers (
-phoneNumbers,
-reservation_id,
-endpoint
-)
-SELECT 
-'{{ phoneNumbers }}',
-'{{ reservation_id }}',
-'{{ endpoint }}'
-RETURNING
-id,
-expiresAt,
-phoneNumbers,
-status
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: phone_numbers
-  props:
-    - name: reservation_id
-      value: "{{ reservation_id }}"
-      description: Required parameter for the phone_numbers resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the phone_numbers resource.
-    - name: phoneNumbers
-      value: "{{ phoneNumbers }}"
-      description: |
-        A dictionary containing the reservation phone numbers. The key is the ID of the phone number (digits only) and values are AvailablePhoneNumber objects. Not populated when retrieving PhoneNumbersReservation collections.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_capabilities"
-    values={[
-        { label: 'update_capabilities', value: 'update_capabilities' }
-    ]}
->
-<TabItem value="update_capabilities">
-
-Updates the capabilities of a phone number. Updates the capabilities of a phone number.
-
-```sql
-UPDATE azure.communication_phonenumbers.phone_numbers
-SET 
-calling = '{{ calling }}',
-sms = '{{ sms }}'
-WHERE 
-phone_number = '{{ phone_number }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-id,
-assignmentType,
-capabilities,
-cost,
-countryCode,
-phoneNumber,
-phoneNumberType,
-purchaseDate;
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="create_or_update_reservation"
-    values={[
-        { label: 'create_or_update_reservation', value: 'create_or_update_reservation' }
-    ]}
->
-<TabItem value="create_or_update_reservation">
-
-Creates or updates a reservation by its ID. Adds and removes phone numbers from the reservation with the given ID. The response will be the updated state of the reservation. Phone numbers can be reserved by including them in the payload. If a number is already in the reservation, it will be ignored. To remove a phone number, set it explicitly to null in the request payload. This operation is idempotent. If a reservation with the same ID already exists, it will be updated, otherwise a new one is created. Only reservations with 'active' status can be updated. Updating a reservation will extend the expiration time of the reservation to 15 minutes after the last change, up to a maximum of 2 hours from creation time. Partial success is possible, in which case the response will have a 207 status code.
-
-```sql
-REPLACE azure.communication_phonenumbers.phone_numbers
-SET 
-phoneNumbers = '{{ phoneNumbers }}'
-WHERE 
-reservation_id = '{{ reservation_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-id,
-expiresAt,
-phoneNumbers,
-status;
-```
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_reservation"
+    defaultValue="release_phone_number"
     values={[
-        { label: 'delete_reservation', value: 'delete_reservation' },
         { label: 'release_phone_number', value: 'release_phone_number' },
         { label: 'cancel_operation', value: 'cancel_operation' }
     ]}
 >
-<TabItem value="delete_reservation">
-
-Deletes a reservation by its ID. Deletes the reservation with the given ID. Any phone number in the reservation will be released and made available for others to purchase. Only reservations with 'active' status can be deleted.
-
-```sql
-DELETE FROM azure.communication_phonenumbers.phone_numbers
-WHERE reservation_id = '{{ reservation_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="release_phone_number">
 
 Releases a purchased phone number. Releases a purchased phone number.
@@ -888,10 +754,13 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'list_offerings', value: 'list_offerings' },
         { label: 'list_reservations', value: 'list_reservations' },
         { label: 'list_phone_numbers', value: 'list_phone_numbers' },
+        { label: 'create_or_update_reservation', value: 'create_or_update_reservation' },
+        { label: 'delete_reservation', value: 'delete_reservation' },
         { label: 'browse_available_numbers', value: 'browse_available_numbers' },
         { label: 'purchase_reservation', value: 'purchase_reservation' },
         { label: 'search_available_phone_numbers', value: 'search_available_phone_numbers' },
         { label: 'purchase_phone_numbers', value: 'purchase_phone_numbers' },
+        { label: 'update_capabilities', value: 'update_capabilities' },
         { label: 'operator_information_search', value: 'operator_information_search' }
     ]}
 >
@@ -931,6 +800,32 @@ EXEC azure.communication_phonenumbers.phone_numbers.list_phone_numbers
 @endpoint='{{ endpoint }}' --required, 
 @skip='{{ skip }}', 
 @top='{{ top }}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_reservation">
+
+Creates or updates a reservation by its ID. Adds and removes phone numbers from the reservation with the given ID. The response will be the updated state of the reservation. Phone numbers can be reserved by including them in the payload. If a number is already in the reservation, it will be ignored. To remove a phone number, set it explicitly to null in the request payload. This operation is idempotent. If a reservation with the same ID already exists, it will be updated, otherwise a new one is created. Only reservations with 'active' status can be updated. Updating a reservation will extend the expiration time of the reservation to 15 minutes after the last change, up to a maximum of 2 hours from creation time. Partial success is possible, in which case the response will have a 207 status code.
+
+```sql
+EXEC azure.communication_phonenumbers.phone_numbers.create_or_update_reservation 
+@reservation_id='{{ reservation_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"phoneNumbers": "{{ phoneNumbers }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_reservation">
+
+Deletes a reservation by its ID. Deletes the reservation with the given ID. Any phone number in the reservation will be released and made available for others to purchase. Only reservations with 'active' status can be deleted.
+
+```sql
+EXEC azure.communication_phonenumbers.phone_numbers.delete_reservation 
+@reservation_id='{{ reservation_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
@@ -997,6 +892,22 @@ EXEC azure.communication_phonenumbers.phone_numbers.purchase_phone_numbers
 '{
 "searchId": "{{ searchId }}", 
 "agreeToNotResell": {{ agreeToNotResell }}
+}'
+;
+```
+</TabItem>
+<TabItem value="update_capabilities">
+
+Updates the capabilities of a phone number. Updates the capabilities of a phone number.
+
+```sql
+EXEC azure.communication_phonenumbers.phone_numbers.update_capabilities 
+@phone_number='{{ phone_number }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"calling": "{{ calling }}", 
+"sms": "{{ sms }}"
 }'
 ;
 ```

@@ -728,15 +728,6 @@ components:
           items:
             $ref: '#/components/schemas/Plan'
           description: The array of plans.
-    ManagedIdentityTokenResult:
-      type: object
-      description: The array of managed identity tokens.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/ManagedIdentityToken'
-          description: The array of managed identity tokens.
     ManagedIdentityToken:
       type: object
       description: The managed identity token for the managed app resource.
@@ -766,6 +757,15 @@ components:
         tokenType:
           type: string
           description: The type of the token.
+    ManagedIdentityTokenResult:
+      type: object
+      description: The array of managed identity tokens.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManagedIdentityToken'
+          description: The array of managed identity tokens.
     PlanPatchable:
       type: object
       description: Plan for the managed application.
@@ -1690,7 +1690,7 @@ paths:
                 $ref: '#/components/schemas/AllowedUpgradePlansResult'
       x-stackql-resource: applications
       x-stackql-method: list_allowed_upgrade_plans
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Solutions/applications/{application_name}/listTokens?api-version=2021-07-01
   : post:
       operationId: Applications_list_tokens
@@ -1737,7 +1737,7 @@ paths:
                 $ref: '#/components/schemas/ManagedIdentityTokenResult'
       x-stackql-resource: applications
       x-stackql-method: list_tokens
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{application_id}?api-version=2021-07-01:
     get:
       operationId: Applications_get_by_id

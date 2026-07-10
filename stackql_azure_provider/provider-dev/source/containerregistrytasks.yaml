@@ -1479,7 +1479,7 @@ paths:
                 $ref: '#/components/schemas/AgentPoolQueueStatus'
       x-stackql-resource: agent_pools
       x-stackql-method: get_queue_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/listBuildSourceUploadUrl?api-version=2025-03-01-preview
   : post:
       operationId: Registries_get_build_source_upload_url
@@ -1511,7 +1511,7 @@ paths:
                 $ref: '#/components/schemas/SourceUploadDefinition'
       x-stackql-resource: registries
       x-stackql-method: get_build_source_upload_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/scheduleRun?api-version=2025-03-01-preview
   : post:
       operationId: Registries_schedule_run
@@ -1738,7 +1738,7 @@ paths:
                 $ref: '#/components/schemas/RunGetLogResult'
       x-stackql-resource: runs
       x-stackql-method: get_log_sas_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/runs/{run_id}/cancel?api-version=2025-03-01-preview
   : post:
       operationId: Runs_cancel
@@ -2024,10 +2024,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskRun'
+                $ref: '#/components/schemas/TaskRunFlattened'
       x-stackql-resource: task_runs
       x-stackql-method: get_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/tasks/{task_name}?api-version=2025-03-01-preview
   : get:
       operationId: Tasks_get
@@ -2282,7 +2283,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Task'
+                $ref: '#/components/schemas/TaskFlattened'
       x-stackql-resource: tasks
       x-stackql-method: get_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton

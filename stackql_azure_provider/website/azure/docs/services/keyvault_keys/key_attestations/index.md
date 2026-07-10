@@ -97,7 +97,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_key_attestation"><CopyableCode code="get_key_attestation" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Gets the public part of a stored key along with its attestation blob. The get key attestation operation returns the key along with its attestation blob. This operation requires the keys/get permission.</td>
 </tr>
@@ -127,10 +127,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>Adding the version parameter retrieves attestation blob for specific version of a key. This URI fragment is optional. If not specified, the latest version of the key attestation blob is returned. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -157,7 +157,7 @@ tags
 FROM azure.keyvault_keys.key_attestations
 WHERE key_name = '{{ key_name }}' -- required
 AND key_version = '{{ key_version }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>

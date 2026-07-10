@@ -132,15 +132,6 @@ components:
           description: Kind of matching policy to be applied. Required. "Prebuilt"
       required:
         - kind
-    AnswersResult:
-      type: object
-      description: Represents List of Question Answers.
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: "#/components/schemas/KnowledgeBaseAnswer"
-          description: Represents Answer Result list.
     KnowledgeBaseAnswer:
       type: object
       description: Represents knowledge base answer.
@@ -213,6 +204,15 @@ components:
         length:
           type: integer
           description: The length of the answer span.
+    AnswersResult:
+      type: object
+      description: Represents List of Question Answers.
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: "#/components/schemas/KnowledgeBaseAnswer"
+          description: Represents Answer Result list.
     TextDocument:
       type: object
       description: Represent input text record to be queried.
@@ -232,15 +232,6 @@ components:
         - TextElements_v8
         - UnicodeCodePoint
         - Utf16CodeUnit
-    AnswersFromTextResult:
-      type: object
-      description: Represents the answer results.
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: "#/components/schemas/TextAnswer"
-          description: Represents the answer results.
     TextAnswer:
       type: object
       description: Represents answer result.
@@ -263,6 +254,15 @@ components:
         length:
           type: integer
           description: The length of the sentence.
+    AnswersFromTextResult:
+      type: object
+      description: Represents the answer results.
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: "#/components/schemas/TextAnswer"
+          description: Represents the answer results.
   x-stackQL-resources:
     answers:
       id: azure.ai_language_questionanswering.answers
@@ -281,7 +281,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/answers/methods/get_answers"
         insert: []
         update: []
         delete: []
@@ -302,7 +303,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/answers_from_texts/methods/get_answers_from_text"
         insert: []
         update: []
         delete: []

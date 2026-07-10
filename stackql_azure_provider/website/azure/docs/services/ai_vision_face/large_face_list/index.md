@@ -178,25 +178,11 @@ The following methods are available for this resource:
     <td>Create an empty Large Face List with user-specified largeFaceListId, name, an optional userData and recognitionModel. Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/create-large-face-list for more details.</td>
 </tr>
 <tr>
-    <td><a href="#update_face"><CopyableCode code="update_face" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-large_face_list_id"><code>large_face_list_id</code></a>, <a href="#parameter-persisted_face_id"><code>persisted_face_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
-    <td></td>
-    <td>Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list-face for more details.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-large_face_list_id"><code>large_face_list_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
     <td></td>
     <td>Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list for more details.</td>
-</tr>
-<tr>
-    <td><a href="#delete_face"><CopyableCode code="delete_face" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-large_face_list_id"><code>large_face_list_id</code></a>, <a href="#parameter-persisted_face_id"><code>persisted_face_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
-    <td></td>
-    <td>Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/delete-large-face-list-face for more details.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -211,6 +197,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-large_face_list_id"><code>large_face_list_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
     <td></td>
     <td>Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/get-large-face-list-training-status for more details.</td>
+</tr>
+<tr>
+    <td><a href="#delete_face"><CopyableCode code="delete_face" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-large_face_list_id"><code>large_face_list_id</code></a>, <a href="#parameter-persisted_face_id"><code>persisted_face_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
+    <td></td>
+    <td>Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/delete-large-face-list-face for more details.</td>
+</tr>
+<tr>
+    <td><a href="#update_face"><CopyableCode code="update_face" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-large_face_list_id"><code>large_face_list_id</code></a>, <a href="#parameter-persisted_face_id"><code>persisted_face_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
+    <td></td>
+    <td>Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list-face for more details.</td>
 </tr>
 <tr>
     <td><a href="#get_faces"><CopyableCode code="get_faces" /></a></td>
@@ -252,12 +252,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-api_version">
     <td><CopyableCode code="api_version" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `apiVersion` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `apiVersion` parameter. (default: )</td>
 </tr>
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-large_face_list_id">
     <td><CopyableCode code="large_face_list_id" /></td>
@@ -417,27 +417,11 @@ SELECT
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_face"
+    defaultValue="update"
     values={[
-        { label: 'update_face', value: 'update_face' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_face">
-
-Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list-face for more details.
-
-```sql
-UPDATE azure.ai_vision_face.large_face_list
-SET 
--- No updatable properties
-WHERE 
-large_face_list_id = '{{ large_face_list_id }}' --required
-AND persisted_face_id = '{{ persisted_face_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND api_version = '{{ api_version }}' --required;
-```
-</TabItem>
 <TabItem value="update">
 
 Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list for more details.
@@ -458,25 +442,11 @@ AND api_version = '{{ api_version }}' --required;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_face"
+    defaultValue="delete"
     values={[
-        { label: 'delete_face', value: 'delete_face' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_face">
-
-Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/delete-large-face-list-face for more details.
-
-```sql
-DELETE FROM azure.ai_vision_face.large_face_list
-WHERE large_face_list_id = '{{ large_face_list_id }}' --required
-AND persisted_face_id = '{{ persisted_face_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND api_version = '{{ api_version }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a face from a Large Face List by specified largeFaceListId and persistedFaceId. Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/delete-large-face-list for more details.
@@ -498,6 +468,8 @@ AND api_version = '{{ api_version }}' --required
     defaultValue="get_training_status"
     values={[
         { label: 'get_training_status', value: 'get_training_status' },
+        { label: 'delete_face', value: 'delete_face' },
+        { label: 'update_face', value: 'update_face' },
         { label: 'get_faces', value: 'get_faces' },
         { label: 'add_face_from_url', value: 'add_face_from_url' },
         { label: 'train', value: 'train' }
@@ -510,6 +482,32 @@ Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/g
 ```sql
 EXEC azure.ai_vision_face.large_face_list.get_training_status 
 @large_face_list_id='{{ large_face_list_id }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@api_version='{{ api_version }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_face">
+
+Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/delete-large-face-list-face for more details.
+
+```sql
+EXEC azure.ai_vision_face.large_face_list.delete_face 
+@large_face_list_id='{{ large_face_list_id }}' --required, 
+@persisted_face_id='{{ persisted_face_id }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@api_version='{{ api_version }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_face">
+
+Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list-face for more details.
+
+```sql
+EXEC azure.ai_vision_face.large_face_list.update_face 
+@large_face_list_id='{{ large_face_list_id }}' --required, 
+@persisted_face_id='{{ persisted_face_id }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @api_version='{{ api_version }}' --required
 ;

@@ -226,13 +226,6 @@ The following methods are available for this resource:
     <td>Returns a list of workspaces under the given subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Create or update a Workspace.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -245,6 +238,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a Workspace.</td>
+</tr>
+<tr>
+    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>Create or update a Workspace.</td>
 </tr>
 </tbody>
 </table>
@@ -350,72 +350,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_and_update"
-    values={[
-        { label: 'create_and_update', value: 'create_and_update' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_and_update">
-
-Create or update a Workspace.
-
-```sql
-INSERT INTO azure.defendereasm.workspaces (
-tags,
-location,
-resource_group_name,
-workspace_name,
-subscription_id
-)
-SELECT 
-'{{ tags }}',
-'{{ location }}' /* required */,
-'{{ resource_group_name }}',
-'{{ workspace_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: workspaces
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the workspaces resource.
-    - name: workspace_name
-      value: "{{ workspace_name }}"
-      description: Required parameter for the workspaces resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the workspaces resource.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Resource tags.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        The geo-location where the resource lives. Required.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -466,6 +400,34 @@ DELETE FROM azure.defendereasm.workspaces
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND workspace_name = '{{ workspace_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_and_update"
+    values={[
+        { label: 'create_and_update', value: 'create_and_update' }
+    ]}
+>
+<TabItem value="create_and_update">
+
+Create or update a Workspace.
+
+```sql
+EXEC azure.defendereasm.workspaces.create_and_update 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@workspace_name='{{ workspace_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"location": "{{ location }}"
+}'
 ;
 ```
 </TabItem>

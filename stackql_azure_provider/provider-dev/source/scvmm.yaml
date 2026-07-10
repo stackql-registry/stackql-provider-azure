@@ -2426,7 +2426,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: virtual_machine_instances
       x-stackql-method: create_checkpoint
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /{resource_uri}/providers/Microsoft.ScVmm/virtualMachineInstances/default/deleteCheckpoint?api-version=2023-10-07:
     post:
       operationId: VirtualMachineInstances_begin_delete_checkpoint
@@ -2454,7 +2454,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: virtual_machine_instances
       x-stackql-method: delete_checkpoint
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /{resource_uri}/providers/Microsoft.ScVmm/virtualMachineInstances/default/restart?api-version=2023-10-07:
     post:
       operationId: VirtualMachineInstances_begin_restart

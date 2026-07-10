@@ -397,22 +397,6 @@ components:
       type: object
       description: Return dataset's statistics.
       properties: {}
-    StacItemStatisticsGeoJson:
-      type: object
-      description: STAC Item representing a spatiotemporal asset with statistical information.
-      properties:
-        geometry:
-          $ref: '#/components/schemas/Geometry'
-          description: Geometry object defining the feature's shape. Required.
-        type:
-          $ref: '#/components/schemas/FeatureType'
-          description: GeoJSON type identifier for Feature. Required. "Feature"
-        properties:
-          $ref: '#/components/schemas/StacItemStatisticsGeoJsonProperties'
-          description: Feature properties.
-      required:
-      - geometry
-      - type
     StacItemStatisticsGeoJsonProperties:
       type: object
       description: Properties for STAC Item statistics GeoJSON Feature.
@@ -423,6 +407,20 @@ components:
           description: Statistical information for each band in the asset. Required.
       required:
       - statistics
+    StacItemStatisticsGeoJsonFlattened:
+      type: object
+      description: Flattened view of StacItemStatisticsGeoJson ('properties' hoisted to the top level).
+      properties:
+        geometry:
+          $ref: '#/components/schemas/Geometry'
+          description: Geometry object defining the feature's shape. Required.
+        type:
+          $ref: '#/components/schemas/FeatureType'
+          description: GeoJSON type identifier for Feature. Required. "Feature"
+        statistics:
+          type: object
+          properties: {}
+          description: Statistical information for each band in the asset. Required.
     TileAddressingScheme:
       type: string
       enum:
@@ -1901,9 +1899,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: data
       x-stackql-method: get_tile_matrices
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /data/legend/classmap/{classmap_name}?api-version=2026-04-15:
     get:
       operationId: Data_get_class_map_legend
@@ -4184,9 +4196,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: data
       x-stackql-method: get_item_available_assets
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /data/mosaic/collections/{collection_id}/items/{item_id}/asset_statistics?api-version=2026-04-15:
     get:
       operationId: Data_get_item_asset_statistics
@@ -4735,10 +4761,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StacItemStatisticsGeoJson'
+                $ref: '#/components/schemas/StacItemStatisticsGeoJsonFlattened'
       x-stackql-resource: data
       x-stackql-method: get_item_feature_statistics
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   /data/mosaic/collections/{collection_id}/items/{item_id}/tilejson.json?api-version=2026-04-15:
     get:
       operationId: Data_get_item_tile_json
@@ -17997,7 +18024,7 @@ paths:
                 $ref: '#/components/schemas/IngestionRun'
       x-stackql-resource: ingestion
       x-stackql-method: create_run
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /inma/ingestion-sources?api-version=2026-04-15:
     get:
       operationId: Ingestion_list_sources
@@ -18056,7 +18083,7 @@ paths:
                 $ref: '#/components/schemas/IngestionSource'
       x-stackql-resource: ingestion
       x-stackql-method: create_source
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /inma/ingestion-sources/managed-identities?api-version=2026-04-15:
     get:
       operationId: Ingestion_list_managed_identities
@@ -18200,7 +18227,7 @@ paths:
                 $ref: '#/components/schemas/IngestionSource'
       x-stackql-resource: ingestion
       x-stackql-method: replace_source
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Ingestion_delete_source
       description: Delete an ingestion source from a geo-catalog.
@@ -18212,11 +18239,11 @@ paths:
           type: string
         description: Ingestion source id. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: ingestion
       x-stackql-method: delete_source
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /sas/sign?api-version=2026-04-15:
     get:
       operationId: Sas_get_url
@@ -18392,7 +18419,7 @@ paths:
                 $ref: '#/components/schemas/StacMosaic'
       x-stackql-resource: stac
       x-stackql-method: replace_mosaic
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Stac_delete_mosaic
       description: Delete Collection Mosaic. Delete a mosaic definition from a given collection.
@@ -18410,11 +18437,11 @@ paths:
           type: string
         description: Unique identifier for the mosaic configuration. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: stac
       x-stackql-method: delete_mosaic
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/configurations/mosaics?api-version=2026-04-15:
     get:
       operationId: Stac_get_mosaics
@@ -18612,7 +18639,7 @@ paths:
                 $ref: '#/components/schemas/StacCollection'
       x-stackql-resource: stac
       x-stackql-method: replace_collection
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Stac_begin_delete_collection
       description: Delete Collection. Delete a collection in the GeoCatalog instance.
@@ -18628,7 +18655,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: stac
       x-stackql-method: delete_collection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /stac/collections?api-version=2026-04-15:
     get:
       operationId: Stac_get_collections
@@ -18743,7 +18770,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: stac
       x-stackql-method: create_collection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/configurations/partition-type?api-version=2026-04-15:
     get:
       operationId: Stac_get_partition_type
@@ -18794,7 +18821,7 @@ paths:
           description: Success
       x-stackql-resource: stac
       x-stackql-method: replace_partition_type
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/configurations/render-options/{render_option_id}?api-version=2026-04-15:
     get:
       operationId: Stac_get_render_option
@@ -18889,7 +18916,7 @@ paths:
                 $ref: '#/components/schemas/RenderOption'
       x-stackql-resource: stac
       x-stackql-method: replace_render_option
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Stac_delete_render_option
       description: Delete Collection Render Option. Delete a render option for a given collection.
@@ -18907,11 +18934,11 @@ paths:
           type: string
         description: Unique identifier for the render option. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: stac
       x-stackql-method: delete_render_option
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/configurations/render-options?api-version=2026-04-15:
     get:
       operationId: Stac_get_render_options
@@ -18994,7 +19021,7 @@ paths:
                 $ref: '#/components/schemas/RenderOption'
       x-stackql-resource: stac
       x-stackql-method: create_render_option
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/thumbnail?api-version=2026-04-15:
     get:
       operationId: Stac_get_collection_thumbnail
@@ -19073,7 +19100,7 @@ paths:
                 $ref: '#/components/schemas/TileSettings'
       x-stackql-resource: stac
       x-stackql-method: replace_tile_settings
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /stac/conformance?api-version=2026-04-15:
     get:
       operationId: Stac_get_conformance_classes
@@ -19235,7 +19262,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: stac
       x-stackql-method: replace_item
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Stac_begin_delete_item
       description: Delete a STAC item from a collection.
@@ -19257,7 +19284,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: stac
       x-stackql-method: delete_item
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: Stac_begin_update_item
       description: Update a STAC item in a collection.
@@ -19348,7 +19375,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: stac
       x-stackql-method: update_item
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/items?api-version=2026-04-15:
     get:
       operationId: Stac_get_item_collection
@@ -19486,7 +19513,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: stac
       x-stackql-method: create_item
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /stac/queryables?api-version=2026-04-15:
     get:
       operationId: Stac_get_queryables
@@ -19566,7 +19593,7 @@ paths:
                 $ref: '#/components/schemas/StacQueryable'
       x-stackql-resource: stac
       x-stackql-method: create_queryables
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/assets?api-version=2026-04-15:
     post:
       operationId: Stac_create_collection_asset
@@ -19605,7 +19632,7 @@ paths:
                 $ref: '#/components/schemas/StacCollection'
       x-stackql-resource: stac
       x-stackql-method: create_collection_asset
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/assets/{asset_id}?api-version=2026-04-15:
     put:
       operationId: Stac_replace_collection_asset
@@ -19649,7 +19676,7 @@ paths:
                 $ref: '#/components/schemas/StacCollection'
       x-stackql-resource: stac
       x-stackql-method: replace_collection_asset
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Stac_delete_collection_asset
       description: Delete Collection Asset. Delete an asset from a given collection.
@@ -19675,7 +19702,7 @@ paths:
                 $ref: '#/components/schemas/StacCollection'
       x-stackql-resource: stac
       x-stackql-method: delete_collection_asset
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /stac/collections/{collection_id}/queryables/{queryable_name}?api-version=2026-04-15:
     put:
       operationId: Stac_replace_queryable
@@ -19727,7 +19754,7 @@ paths:
                 $ref: '#/components/schemas/StacQueryable'
       x-stackql-resource: stac
       x-stackql-method: replace_queryable
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
     delete:
       operationId: Stac_delete_queryable
       description: Delete Queryables. Delete queryables by name for specified collection.
@@ -19745,11 +19772,11 @@ paths:
           type: string
         description: Name of the queryable property to operate on. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: stac
       x-stackql-method: delete_queryable
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /stac/search?api-version=2026-04-15:
     post:
       operationId: Stac_search
@@ -19841,4 +19868,4 @@ paths:
                 $ref: '#/components/schemas/StacItemCollection'
       x-stackql-resource: stac
       x-stackql-method: search
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

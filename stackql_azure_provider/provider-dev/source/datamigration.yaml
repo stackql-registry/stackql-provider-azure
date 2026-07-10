@@ -2169,6 +2169,11 @@ components:
           items:
             type: string
           description: The list of supported task types.
+    NameCheckFailureReason:
+      type: string
+      enum:
+      - AlreadyExists
+      - Invalid
     NameAvailabilityResponse:
       type: object
       description: Indicates whether a proposed resource name is available.
@@ -2183,11 +2188,6 @@ components:
         message:
           type: string
           description: The localized reason why the name is not available, if nameAvailable is false.
-    NameCheckFailureReason:
-      type: string
-      enum:
-      - AlreadyExists
-      - Invalid
     SqlMigrationServiceProperties:
       type: object
       description: The SQL Migration Service properties.
@@ -2405,18 +2405,6 @@ components:
             $ref: '#/components/schemas/DatabaseMigrationFlattened'
         nextLink:
           type: string
-    IntegrationRuntimeMonitoringData:
-      type: object
-      description: Integration Runtime Monitoring Data.
-      properties:
-        name:
-          type: string
-          description: The name of Integration Runtime.
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NodeMonitoringData'
-          description: Integration Runtime node monitoring data.
     NodeMonitoringData:
       type: object
       description: NodeMonitoringData.
@@ -2449,6 +2437,18 @@ components:
         receivedBytes:
           type: number
           description: Received bytes on the integration runtime node.
+    IntegrationRuntimeMonitoringData:
+      type: object
+      description: Integration Runtime Monitoring Data.
+      properties:
+        name:
+          type: string
+          description: The name of Integration Runtime.
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeMonitoringData'
+          description: Integration Runtime node monitoring data.
     RegenAuthKeys:
       type: object
       description: An authentication key to regenerate.
@@ -4960,7 +4960,7 @@ paths:
                 $ref: '#/components/schemas/DataMigrationServiceStatusResponse'
       x-stackql-resource: services
       x-stackql-method: check_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{group_name}/providers/Microsoft.DataMigration/services/{service_name}/start?api-version=2025-09-01-preview
   : post:
       operationId: Services_begin_start
@@ -5065,7 +5065,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityResponse'
       x-stackql-resource: services
       x-stackql-method: check_children_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.DataMigration/locations/{location}/checkNameAvailability?api-version=2025-09-01-preview
   : post:
       operationId: Services_check_name_availability
@@ -5105,7 +5105,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityResponse'
       x-stackql-resource: services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataMigration/sqlMigrationServices/{sql_migration_service_name}?api-version=2025-09-01-preview
   : get:
       operationId: SqlMigrationServices_get
@@ -5339,7 +5339,7 @@ paths:
                 $ref: '#/components/schemas/AuthenticationKeys'
       x-stackql-resource: sql_migration_services
       x-stackql-method: list_auth_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataMigration/sqlMigrationServices/{sql_migration_service_name}/listMigrations?api-version=2025-09-01-preview
   : get:
       operationId: SqlMigrationServices_list_migrations
@@ -5407,7 +5407,7 @@ paths:
                 $ref: '#/components/schemas/IntegrationRuntimeMonitoringData'
       x-stackql-resource: sql_migration_services
       x-stackql-method: list_monitoring_data
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataMigration/sqlMigrationServices/{sql_migration_service_name}/regenerateAuthKeys?api-version=2025-09-01-preview
   : post:
       operationId: SqlMigrationServices_regenerate_auth_keys
@@ -5500,7 +5500,7 @@ paths:
                 $ref: '#/components/schemas/DeleteNode'
       x-stackql-resource: sql_migration_services
       x-stackql-method: delete_node
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{group_name}/providers/Microsoft.DataMigration/services/{service_name}/projects/{project_name}/tasks/{task_name}?api-version=2025-09-01-preview
   : get:
       operationId: Tasks_get

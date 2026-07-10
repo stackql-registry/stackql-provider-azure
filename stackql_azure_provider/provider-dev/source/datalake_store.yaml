@@ -1160,7 +1160,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityInformation'
       x-stackql-resource: accounts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeStore/accounts/{account_name}/firewallRules/{firewall_rule_name}?api-version=2016-11-01
   : get:
       operationId: FirewallRules_get

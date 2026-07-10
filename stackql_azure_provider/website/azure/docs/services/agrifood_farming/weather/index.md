@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_data_delete_job"><CopyableCode code="create_data_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a weather data delete job.</td>
-</tr>
-<tr>
     <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-boundaryId"><code>boundaryId</code></a>, <a href="#parameter-extensionId"><code>extensionId</code></a>, <a href="#parameter-weatherDataType"><code>weatherDataType</code></a>, <a href="#parameter-granularity"><code>granularity</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -70,6 +63,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get weather data delete job.</td>
+</tr>
+<tr>
+    <td><a href="#create_data_delete_job"><CopyableCode code="create_data_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a weather data delete job.</td>
 </tr>
 <tr>
     <td><a href="#get_data_ingestion_job_details"><CopyableCode code="get_data_ingestion_job_details" /></a></td>
@@ -109,7 +109,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-extensionId">
     <td><CopyableCode code="extensionId" /></td>
@@ -154,47 +154,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_data_delete_job"
-    values={[
-        { label: 'create_data_delete_job', value: 'create_data_delete_job' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_data_delete_job">
-
-Create a weather data delete job.
-
-```sql
-INSERT INTO azure.agrifood_farming.weather (
-job_id,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: weather
-  props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the weather resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the weather resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -202,6 +161,7 @@ SELECT
     values={[
         { label: 'list_raw', value: 'list_raw' },
         { label: 'get_data_delete_job_details', value: 'get_data_delete_job_details' },
+        { label: 'create_data_delete_job', value: 'create_data_delete_job' },
         { label: 'get_data_ingestion_job_details', value: 'get_data_ingestion_job_details' },
         { label: 'create_data_ingestion_job', value: 'create_data_ingestion_job' }
     ]}
@@ -230,6 +190,17 @@ Get weather data delete job.
 
 ```sql
 EXEC azure.agrifood_farming.weather.get_data_delete_job_details 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_data_delete_job">
+
+Create a weather data delete job.
+
+```sql
+EXEC azure.agrifood_farming.weather.create_data_delete_job 
 @job_id='{{ job_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

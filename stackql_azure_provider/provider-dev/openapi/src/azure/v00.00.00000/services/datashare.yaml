@@ -1748,6 +1748,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
         list_synchronization_details:
@@ -1756,6 +1757,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -1767,6 +1769,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
         cancel_synchronization:
@@ -1793,6 +1796,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/share_subscriptions/methods/list_synchronization_details"
           - $ref: "#/components/x-stackQL-resources/share_subscriptions/methods/get"
           - $ref: "#/components/x-stackQL-resources/share_subscriptions/methods/list_by_account"
         insert:
@@ -1856,6 +1860,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -1867,6 +1872,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
       sqlVerbs:

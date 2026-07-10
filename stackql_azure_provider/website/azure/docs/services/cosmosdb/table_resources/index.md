@@ -310,25 +310,11 @@ The following methods are available for this resource:
     <td>Create or update an Azure Cosmos DB Table.</td>
 </tr>
 <tr>
-    <td><a href="#create_update_table_role_definition"><CopyableCode code="create_update_table_role_definition" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB Table Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_table_role_assignment"><CopyableCode code="create_update_table_role_assignment" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB Table Role Assignment.</td>
-</tr>
-<tr>
-    <td><a href="#update_table_throughput"><CopyableCode code="update_table_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
+    <td><a href="#create_update_table"><CopyableCode code="create_update_table" /></a></td>
+    <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB Table.</td>
+    <td>Create or update an Azure Cosmos DB Table.</td>
 </tr>
 <tr>
     <td><a href="#delete_table"><CopyableCode code="delete_table" /></a></td>
@@ -336,20 +322,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes an existing Azure Cosmos DB Table.</td>
-</tr>
-<tr>
-    <td><a href="#delete_table_role_definition"><CopyableCode code="delete_table_role_definition" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Table Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#delete_table_role_assignment"><CopyableCode code="delete_table_role_assignment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Table Role Assignment.</td>
 </tr>
 <tr>
     <td><a href="#list_table_role_definitions"><CopyableCode code="list_table_role_definitions" /></a></td>
@@ -366,11 +338,46 @@ The following methods are available for this resource:
     <td>Retrieves the list of all Azure Cosmos DB Table Role Assignments.</td>
 </tr>
 <tr>
+    <td><a href="#update_table_throughput"><CopyableCode code="update_table_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB Table.</td>
+</tr>
+<tr>
     <td><a href="#get_table"><CopyableCode code="get_table" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Tables under an existing Azure Cosmos DB database account with the provided name.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_table_role_definition"><CopyableCode code="create_update_table_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB Table Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#delete_table_role_definition"><CopyableCode code="delete_table_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Table Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_table_role_assignment"><CopyableCode code="create_update_table_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB Table Role Assignment.</td>
+</tr>
+<tr>
+    <td><a href="#delete_table_role_assignment"><CopyableCode code="delete_table_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Table Role Assignment.</td>
 </tr>
 <tr>
     <td><a href="#migrate_table_to_autoscale"><CopyableCode code="migrate_table_to_autoscale" /></a></td>
@@ -549,8 +556,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_update_table"
     values={[
         { label: 'create_update_table', value: 'create_update_table' },
-        { label: 'create_update_table_role_definition', value: 'create_update_table_role_definition' },
-        { label: 'create_update_table_role_assignment', value: 'create_update_table_role_assignment' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -590,60 +595,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_update_table_role_definition">
-
-Creates or updates an Azure Cosmos DB Table Role Definition.
-
-```sql
-INSERT INTO azure.cosmosdb.table_resources (
-properties,
-resource_group_name,
-account_name,
-role_definition_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_definition_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_table_role_assignment">
-
-Creates or updates an Azure Cosmos DB Table Role Assignment.
-
-```sql
-INSERT INTO azure.cosmosdb.table_resources (
-properties,
-resource_group_name,
-account_name,
-role_assignment_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_assignment_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -660,12 +611,6 @@ type
       description: Required parameter for the table_resources resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
-      description: Required parameter for the table_resources resource.
-    - name: role_definition_id
-      value: "{{ role_definition_id }}"
-      description: Required parameter for the table_resources resource.
-    - name: role_assignment_id
-      value: "{{ role_assignment_id }}"
       description: Required parameter for the table_resources resource.
     - name: location
       value: "{{ location }}"
@@ -685,32 +630,39 @@ type
         userAssignedIdentities: "{{ userAssignedIdentities }}"
     - name: properties
       description: |
-        Properties to create and update an Azure Cosmos DB Table Role Assignment.
+        Properties to create and update Azure Cosmos DB Table. Required.
       value:
-        roleDefinitionId: "{{ roleDefinitionId }}"
-        scope: "{{ scope }}"
-        principalId: "{{ principalId }}"
-        provisioningState: "{{ provisioningState }}"
+        resource:
+          id: "{{ id }}"
+          restoreParameters:
+            restoreSource: "{{ restoreSource }}"
+            restoreTimestampInUtc: "{{ restoreTimestampInUtc }}"
+            restoreWithTtlDisabled: {{ restoreWithTtlDisabled }}
+          createMode: "{{ createMode }}"
+        options:
+          throughput: {{ throughput }}
+          autoscaleSettings:
+            maxThroughput: {{ maxThroughput }}
 `}</CodeBlock>
 
 </TabItem>
 </Tabs>
 
 
-## `UPDATE` examples
+## `REPLACE` examples
 
 <Tabs
-    defaultValue="update_table_throughput"
+    defaultValue="create_update_table"
     values={[
-        { label: 'update_table_throughput', value: 'update_table_throughput' }
+        { label: 'create_update_table', value: 'create_update_table' }
     ]}
 >
-<TabItem value="update_table_throughput">
+<TabItem value="create_update_table">
 
-Update RUs per second of an Azure Cosmos DB Table.
+Create or update an Azure Cosmos DB Table.
 
 ```sql
-UPDATE azure.cosmosdb.table_resources
+REPLACE azure.cosmosdb.table_resources
 SET 
 location = '{{ location }}',
 tags = '{{ tags }}',
@@ -741,9 +693,7 @@ type;
 <Tabs
     defaultValue="delete_table"
     values={[
-        { label: 'delete_table', value: 'delete_table' },
-        { label: 'delete_table_role_definition', value: 'delete_table_role_definition' },
-        { label: 'delete_table_role_assignment', value: 'delete_table_role_assignment' }
+        { label: 'delete_table', value: 'delete_table' }
     ]}
 >
 <TabItem value="delete_table">
@@ -759,32 +709,6 @@ AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_table_role_definition">
-
-Deletes an existing Azure Cosmos DB Table Role Definition.
-
-```sql
-DELETE FROM azure.cosmosdb.table_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_definition_id = '{{ role_definition_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_table_role_assignment">
-
-Deletes an existing Azure Cosmos DB Table Role Assignment.
-
-```sql
-DELETE FROM azure.cosmosdb.table_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_assignment_id = '{{ role_assignment_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
@@ -795,7 +719,12 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_table_role_definitions', value: 'list_table_role_definitions' },
         { label: 'list_table_role_assignments', value: 'list_table_role_assignments' },
+        { label: 'update_table_throughput', value: 'update_table_throughput' },
         { label: 'get_table', value: 'get_table' },
+        { label: 'create_update_table_role_definition', value: 'create_update_table_role_definition' },
+        { label: 'delete_table_role_definition', value: 'delete_table_role_definition' },
+        { label: 'create_update_table_role_assignment', value: 'create_update_table_role_assignment' },
+        { label: 'delete_table_role_assignment', value: 'delete_table_role_assignment' },
         { label: 'migrate_table_to_autoscale', value: 'migrate_table_to_autoscale' },
         { label: 'migrate_table_to_manual_throughput', value: 'migrate_table_to_manual_throughput' },
         { label: 'retrieve_continuous_backup_information', value: 'retrieve_continuous_backup_information' }
@@ -825,6 +754,26 @@ EXEC azure.cosmosdb.table_resources.list_table_role_assignments
 ;
 ```
 </TabItem>
+<TabItem value="update_table_throughput">
+
+Update RUs per second of an Azure Cosmos DB Table.
+
+```sql
+EXEC azure.cosmosdb.table_resources.update_table_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@table_name='{{ table_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_table">
 
 Gets the Tables under an existing Azure Cosmos DB database account with the provided name.
@@ -834,6 +783,66 @@ EXEC azure.cosmosdb.table_resources.get_table
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @table_name='{{ table_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_table_role_definition">
+
+Creates or updates an Azure Cosmos DB Table Role Definition.
+
+```sql
+EXEC azure.cosmosdb.table_resources.create_update_table_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_table_role_definition">
+
+Deletes an existing Azure Cosmos DB Table Role Definition.
+
+```sql
+EXEC azure.cosmosdb.table_resources.delete_table_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_table_role_assignment">
+
+Creates or updates an Azure Cosmos DB Table Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.table_resources.create_update_table_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_table_role_assignment">
+
+Deletes an existing Azure Cosmos DB Table Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.table_resources.delete_table_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

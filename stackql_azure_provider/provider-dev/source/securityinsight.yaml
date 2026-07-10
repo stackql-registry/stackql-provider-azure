@@ -1701,18 +1701,6 @@ components:
       - Bookmark
       - SecurityAlert
       - Anomaly
-    EntityTimelineResponse:
-      type: object
-      description: The entity timeline result operation response.
-      properties:
-        metaData:
-          $ref: '#/components/schemas/TimelineResultsMetadata'
-          description: The metadata from the timeline operation results.
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityTimelineItem'
-          description: The timeline result values.
     TimelineResultsMetadata:
       type: object
       description: Expansion result metadata.
@@ -1775,6 +1763,18 @@ components:
             and "Anomaly".'
       required:
       - kind
+    EntityTimelineResponse:
+      type: object
+      description: The entity timeline result operation response.
+      properties:
+        metaData:
+          $ref: '#/components/schemas/TimelineResultsMetadata'
+          description: The metadata from the timeline operation results.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityTimelineItem'
+          description: The timeline result values.
     PagedEntity:
       type: object
       properties:
@@ -1784,18 +1784,6 @@ components:
             $ref: '#/components/schemas/Entity'
         nextLink:
           type: string
-    EntityGetInsightsResponse:
-      type: object
-      description: The Get Insights result operation response.
-      properties:
-        metaData:
-          $ref: '#/components/schemas/GetInsightsResultsMetadata'
-          description: The metadata from the get insights operation results.
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityInsightItem'
-          description: The insights result values.
     GetInsightsResultsMetadata:
       type: object
       description: Get Insights result metadata.
@@ -1886,6 +1874,18 @@ components:
         name:
           type: string
           description: the name of the column.
+    EntityGetInsightsResponse:
+      type: object
+      description: The Get Insights result operation response.
+      properties:
+        metaData:
+          $ref: '#/components/schemas/GetInsightsResultsMetadata'
+          description: The metadata from the get insights operation results.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityInsightItem'
+          description: The insights result values.
     EntityExpandResponse:
       type: object
       description: The entity expansion result operation response.
@@ -3478,17 +3478,135 @@ components:
       - Resolved
       - Dismissed
       - InProgress
-    IncidentAlertList:
+    SecurityAlertFlattened:
       type: object
-      description: List of incident alerts.
+      description: Flattened view of SecurityAlert ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: The kind of the entity. Required. Entity represents security alert in the system.
+        additionalData:
+          type: object
+          properties: {}
+          description: A bag of custom fields that should be part of the entity and will be presented to the user.
+        friendlyName:
+          type: string
+          description: The graph item display name which is a short humanly readable description of the graph item
+            instance. This property is optional and might be system generated.
+        alertDisplayName:
+          type: string
+          description: The display name of the alert.
+        alertType:
+          type: string
+          description: The type name of the alert.
+        compromisedEntity:
+          type: string
+          description: Display name of the main entity being reported on.
+        confidenceLevel:
+          $ref: '#/components/schemas/ConfidenceLevel'
+          description: 'The confidence level of this alert. Known values are: "Unknown", "Low", and "High".'
+        confidenceReasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityAlertPropertiesConfidenceReasonsItem'
+          description: The confidence reasons.
+        confidenceScore:
+          type: number
+          description: The confidence score of the alert.
+        confidenceScoreStatus:
+          $ref: '#/components/schemas/ConfidenceScoreStatus'
+          description: 'The confidence score calculation status, i.e. indicating if score calculation is pending
+            for this alert, not applicable or final. Known values are: "NotApplicable", "InProcess", "NotFinal",
+            and "Final".'
+        description:
+          type: string
+          description: Alert description.
+        endTimeUtc:
+          type: string
+          format: date-time
+          description: The impact end time of the alert (the time of the last event contributing to the alert).
+        intent:
+          $ref: '#/components/schemas/KillChainIntent'
+          description: 'Holds the alert intent stage(s) mapping for this alert. Known values are: "Unknown", "Probing",
+            "Exploitation", "Persistence", "PrivilegeEscalation", "DefenseEvasion", "CredentialAccess", "Discovery",
+            "LateralMovement", "Execution", "Collection", "Exfiltration", "CommandAndControl", and "Impact".'
+        providerAlertId:
+          type: string
+          description: The identifier of the alert inside the product which generated the alert.
+        processingEndTime:
+          type: string
+          format: date-time
+          description: The time the alert was made available for consumption.
+        productComponentName:
+          type: string
+          description: The name of a component inside the product which generated the alert.
+        productName:
+          type: string
+          description: The name of the product which published this alert.
+        productVersion:
+          type: string
+          description: The version of the product generating the alert.
+        remediationSteps:
+          type: array
+          items:
+            type: string
+          description: Manual action items to take to remediate the alert.
+        severity:
+          $ref: '#/components/schemas/AlertSeverity'
+          description: 'The severity of the alert. Known values are: "High", "Medium", "Low", and "Informational".'
+        startTimeUtc:
+          type: string
+          format: date-time
+          description: The impact start time of the alert (the time of the first event contributing to the alert).
+        status:
+          $ref: '#/components/schemas/AlertStatus'
+          description: 'The lifecycle status of the alert. Known values are: "Unknown", "New", "Resolved", "Dismissed",
+            and "InProgress".'
+        systemAlertId:
+          type: string
+          description: Holds the product identifier of the alert for the product.
+        tactics:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttackTactic'
+          description: The tactics of the alert.
+        timeGenerated:
+          type: string
+          format: date-time
+          description: The time the alert was generated.
+        vendorName:
+          type: string
+          description: The name of the vendor that raise the alert.
+        alertLink:
+          type: string
+          description: The uri link of the alert.
+        resourceIdentifiers:
+          type: array
+          items:
+            type: object
+            properties: {}
+          description: The list of resource identifiers of the alert.
+    IncidentAlertListFlattened:
+      type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/SecurityAlert'
-          description: Array of incident alerts. Required.
-      required:
-      - value
+            $ref: '#/components/schemas/SecurityAlertFlattened'
+        nextLink:
+          type: string
     HuntingBookmark:
       type: object
       description: Represents a Hunting bookmark entity.
@@ -3566,31 +3684,80 @@ components:
       required:
       - displayName
       - query
-    IncidentBookmarkList:
+    HuntingBookmarkFlattened:
       type: object
-      description: List of incident bookmarks.
+      description: Flattened view of HuntingBookmark ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: The kind of the entity. Required. Entity represents bookmark in the system.
+        additionalData:
+          type: object
+          properties: {}
+          description: A bag of custom fields that should be part of the entity and will be presented to the user.
+        friendlyName:
+          type: string
+          description: The graph item display name which is a short humanly readable description of the graph item
+            instance. This property is optional and might be system generated.
+        created:
+          type: string
+          format: date-time
+          description: The time the bookmark was created.
+        createdBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: Describes a user that created the bookmark.
+        displayName:
+          type: string
+          description: The display name of the bookmark. Required.
+        eventTime:
+          type: string
+          format: date-time
+          description: The time of the event.
+        labels:
+          type: array
+          items:
+            type: string
+          description: List of labels relevant to this bookmark.
+        notes:
+          type: string
+          description: The notes of the bookmark.
+        query:
+          type: string
+          description: The query of the bookmark. Required.
+        queryResult:
+          type: string
+          description: The query result of the bookmark.
+        updated:
+          type: string
+          format: date-time
+          description: The last time the bookmark was updated.
+        updatedBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: Describes a user that updated the bookmark.
+        incidentInfo:
+          $ref: '#/components/schemas/IncidentInfo'
+          description: Describes an incident that relates to bookmark.
+    IncidentBookmarkListFlattened:
+      type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/HuntingBookmark'
-          description: Array of incident bookmarks. Required.
-      required:
-      - value
-    IncidentEntitiesResponse:
-      type: object
-      description: The incident related entities response.
-      properties:
-        entities:
-          type: array
-          items:
-            $ref: '#/components/schemas/Entity'
-          description: Array of the incident related entities.
-        metaData:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncidentEntitiesResultsMetadata'
-          description: The metadata from the incident related entities results.
+            $ref: '#/components/schemas/HuntingBookmarkFlattened'
+        nextLink:
+          type: string
     IncidentEntitiesResultsMetadata:
       type: object
       description: Information of a specific aggregation in the incident related entities result.
@@ -3607,6 +3774,20 @@ components:
       required:
       - entityKind
       - count
+    IncidentEntitiesResponse:
+      type: object
+      description: The incident related entities response.
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+          description: Array of the incident related entities.
+        metaData:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentEntitiesResultsMetadata'
+          description: The metadata from the incident related entities results.
     MetadataProperties:
       type: object
       description: Metadata property bag.
@@ -5411,33 +5592,6 @@ components:
       enum:
       - ASC
       - DESC
-    TIObject:
-      type: object
-      description: 'Represents a threat intelligence object in Azure Security Insights. You probably want to use
-        the sub-classes and not this class directly. Known sub-classes are: AttackPattern, Identity, Indicator,
-        Relationship, ThreatActor'
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/TIObjectCommonProperties'
-          description: The properties of the TI object.
-        kind:
-          type: string
-          description: 'The kind of the TI object. Required. Known values are: "AttackPattern", "Identity", "Indicator",
-            "Relationship", and "ThreatActor".'
-      required:
-      - kind
     TIObjectCommonProperties:
       type: object
       description: Describes properties common to all threat intelligence objects.
@@ -5490,13 +5644,71 @@ components:
         source:
           type: string
           description: ':vartype source: str'
-    PagedTIObject:
+    TIObjectFlattened:
+      type: object
+      description: Flattened view of TIObject ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: 'The kind of the TI object. Required. Known values are: "AttackPattern", "Identity", "Indicator",
+            "Relationship", and "ThreatActor".'
+        data:
+          type: object
+          properties: {}
+          description: The core STIX object that this TI object represents.
+        createdBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The UserInfo of the user/entity which originally created this TI object.
+        source:
+          type: string
+          description: The source name for this TI object.
+        firstIngestedTimeUtc:
+          type: string
+          format: date-time
+          description: The timestamp for the first time this object was ingested.
+        lastIngestedTimeUtc:
+          type: string
+          format: date-time
+          description: The timestamp for the last time this object was ingested.
+        ingestionRulesVersion:
+          type: string
+          description: The ID of the rules version that was active when this TI object was last ingested.
+        lastUpdateMethod:
+          type: string
+          description: The name of the method/application that initiated the last write to this TI object.
+        lastModifiedBy:
+          $ref: '#/components/schemas/UserInfo'
+          description: The UserInfo of the user/entity which last modified this TI object.
+        lastUpdatedDateTimeUtc:
+          type: string
+          format: date-time
+          description: The timestamp for the last time this TI object was updated.
+        relationshipHints:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelationshipHint'
+          description: A dictionary used to help follow relationships from this object to other STIX objects. The
+            keys are field names from the STIX object (in the 'data' field), and the values are lists of sources
+            that can be prepended to the object ID in order to efficiently locate the target TI object.
+    PagedTIObjectFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/TIObject'
+            $ref: '#/components/schemas/TIObjectFlattened'
         nextLink:
           type: string
     RecommendationPatchProperties:
@@ -6346,31 +6558,6 @@ components:
         stateCode:
           type: string
           description: The abbreviated name for the state this IP address is located in.
-    EnrichmentDomainWhois:
-      type: object
-      description: Whois information for a given domain and associated metadata.
-      properties:
-        domain:
-          type: string
-          description: The domain for this whois record.
-        server:
-          type: string
-          description: The hostname of this registrar's whois server.
-        created:
-          type: string
-          format: date-time
-          description: The timestamp at which this record was created.
-        updated:
-          type: string
-          format: date-time
-          description: The timestamp at which this record was last updated.
-        expires:
-          type: string
-          format: date-time
-          description: The timestamp at which this record will expire.
-        parsedWhois:
-          $ref: '#/components/schemas/EnrichmentDomainWhoisDetails'
-          description: The whois record for a given domain.
     EnrichmentDomainWhoisDetails:
       type: object
       description: The whois record for a given domain.
@@ -6465,6 +6652,31 @@ components:
         email:
           type: string
           description: The email address for this contact.
+    EnrichmentDomainWhois:
+      type: object
+      description: Whois information for a given domain and associated metadata.
+      properties:
+        domain:
+          type: string
+          description: The domain for this whois record.
+        server:
+          type: string
+          description: The hostname of this registrar's whois server.
+        created:
+          type: string
+          format: date-time
+          description: The timestamp at which this record was created.
+        updated:
+          type: string
+          format: date-time
+          description: The timestamp at which this record was last updated.
+        expires:
+          type: string
+          format: date-time
+          description: The timestamp at which this record will expire.
+        parsedWhois:
+          $ref: '#/components/schemas/EnrichmentDomainWhoisDetails'
+          description: The whois record for a given domain.
 paths:
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/alertRules/{rule_id}/actions/{action_id}?api-version=2025-07-01-preview
   : get:
@@ -8540,7 +8752,7 @@ paths:
                 $ref: '#/components/schemas/EntityTimelineResponse'
       x-stackql-resource: entities_get_timeline
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/entities/{entity_id}?api-version=2025-07-01-preview
   : get:
       operationId: Entities_get
@@ -8676,7 +8888,7 @@ paths:
                 $ref: '#/components/schemas/EntityGetInsightsResponse'
       x-stackql-resource: entities
       x-stackql-method: get_insights
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/entities/{entity_identifier}/runPlaybook?api-version=2025-07-01-preview
   : post:
       operationId: Entities_run_playbook
@@ -10929,10 +11141,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IncidentAlertList'
+                $ref: '#/components/schemas/IncidentAlertListFlattened'
       x-stackql-resource: incidents
       x-stackql-method: list_alerts
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/incidents/{incident_id}/bookmarks?api-version=2025-07-01-preview
   : post:
       operationId: Incidents_list_bookmarks
@@ -10967,10 +11182,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IncidentBookmarkList'
+                $ref: '#/components/schemas/IncidentBookmarkListFlattened'
       x-stackql-resource: incidents
       x-stackql-method: list_bookmarks
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/incidents/{incident_id}/entities?api-version=2025-07-01-preview
   : post:
       operationId: Incidents_list_entities
@@ -11008,7 +11226,7 @@ paths:
                 $ref: '#/components/schemas/IncidentEntitiesResponse'
       x-stackql-resource: incidents
       x-stackql-method: list_entities
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/incidents/{incident_identifier}/runPlaybook?api-version=2025-07-01-preview
   : post:
       operationId: Incidents_run_playbook
@@ -12194,7 +12412,8 @@ paths:
                 $ref: '#/components/schemas/PagedRepo'
       x-stackql-resource: source_control
       x-stackql-method: list_repositories
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/sourcecontrols/{source_control_id}?api-version=2025-07-01-preview
   : get:
       operationId: SourceControls_get
@@ -12683,7 +12902,7 @@ paths:
                 $ref: '#/components/schemas/ThreatIntelligenceInformation'
       x-stackql-resource: threat_intelligence_indicator
       x-stackql-method: create_indicator
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2025-07-01-preview
   : post:
       operationId: ThreatIntelligenceIndicator_query_indicators
@@ -12773,7 +12992,8 @@ paths:
                 $ref: '#/components/schemas/PagedThreatIntelligenceInformation'
       x-stackql-resource: threat_intelligence_indicator
       x-stackql-method: query_indicators
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators?api-version=2025-07-01-preview
   : get:
       operationId: ThreatIntelligenceIndicators_list
@@ -12934,10 +13154,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedTIObject'
+                $ref: '#/components/schemas/PagedTIObjectFlattened'
       x-stackql-resource: threat_intelligence
       x-stackql-method: query
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/triggeredAnalyticsRuleRuns/{rule_run_id}?api-version=2025-07-01-preview
   : get:
       operationId: TriggeredAnalyticsRuleRun_get
@@ -14258,7 +14481,7 @@ paths:
                 $ref: '#/components/schemas/EnrichmentIpGeodata'
       x-stackql-resource: geodatas
       x-stackql-method: list_geodata_by_ip
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/providers/Microsoft.SecurityInsights/enrichment/{enrichment_type}/listWhoisByDomain?api-version=2025-07-01-preview
   : post:
       operationId: _SecurityInsightsMgmtClient_list_whois_by_domain
@@ -14306,4 +14529,4 @@ paths:
                 $ref: '#/components/schemas/EnrichmentDomainWhois'
       x-stackql-resource: whois
       x-stackql-method: list_whois_by_domain
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

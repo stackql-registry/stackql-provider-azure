@@ -698,7 +698,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/random_bytes/methods/get_random_bytes"
         insert: []
         update: []
         delete: []

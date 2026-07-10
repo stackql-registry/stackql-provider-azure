@@ -276,16 +276,9 @@ The following methods are available for this resource:
     <td>List a redteam by name.</td>
 </tr>
 <tr>
-    <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-numTurns"><code>numTurns</code></a>, <a href="#parameter-attackStrategies"><code>attackStrategies</code></a>, <a href="#parameter-simulationOnly"><code>simulationOnly</code></a>, <a href="#parameter-riskCategories"><code>riskCategories</code></a>, <a href="#parameter-target"><code>target</code></a></td>
-    <td></td>
-    <td>Creates a redteam run.</td>
-</tr>
-<tr>
     <td><a href="#get_jail_break_dataset_with_type"><CopyableCode code="get_jail_break_dataset_with_type" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get the jailbreak dataset with type.</td>
 </tr>
@@ -299,7 +292,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_template_parameters_with_type"><CopyableCode code="get_template_parameters_with_type" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get template parameters with type.</td>
 </tr>
@@ -316,6 +309,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get the template parameters image.</td>
+</tr>
+<tr>
+    <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-numTurns"><code>numTurns</code></a>, <a href="#parameter-attackStrategies"><code>attackStrategies</code></a>, <a href="#parameter-simulationOnly"><code>simulationOnly</code></a>, <a href="#parameter-riskCategories"><code>riskCategories</code></a>, <a href="#parameter-target"><code>target</code></a></td>
+    <td></td>
+    <td>Creates a redteam run.</td>
 </tr>
 <tr>
     <td><a href="#upload_run"><CopyableCode code="upload_run" /></a></td>
@@ -364,7 +364,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -386,8 +386,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>Risk category for the attack objectives. Required.</td>
 </tr>
-<tr id="parameter-type">
-    <td><CopyableCode code="type" /></td>
+<tr id="parameter-type_name">
+    <td><CopyableCode code="type_name" /></td>
     <td><code>string</code></td>
     <td>Type for the template parameters. Required.</td>
 </tr>
@@ -509,119 +509,6 @@ AND maxpagesize = '{{ maxpagesize }}'
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_run"
-    values={[
-        { label: 'create_run', value: 'create_run' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_run">
-
-Creates a redteam run.
-
-```sql
-INSERT INTO azure.ai_evaluation.red_teams (
-id,
-displayName,
-numTurns,
-attackStrategies,
-simulationOnly,
-riskCategories,
-applicationScenario,
-tags,
-properties,
-target,
-endpoint
-)
-SELECT 
-'{{ id }}' /* required */,
-'{{ displayName }}',
-{{ numTurns }} /* required */,
-'{{ attackStrategies }}' /* required */,
-{{ simulationOnly }} /* required */,
-'{{ riskCategories }}' /* required */,
-'{{ applicationScenario }}',
-'{{ tags }}',
-'{{ properties }}',
-'{{ target }}' /* required */,
-'{{ endpoint }}'
-RETURNING
-id,
-applicationScenario,
-attackStrategies,
-displayName,
-numTurns,
-outputs,
-properties,
-riskCategories,
-simulationOnly,
-status,
-systemData,
-tags,
-target
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: red_teams
-  props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the red_teams resource.
-    - name: id
-      value: "{{ id }}"
-      description: |
-        Identifier of the red team. Required.
-    - name: displayName
-      value: "{{ displayName }}"
-      description: |
-        Display name of the red-team scan.
-    - name: numTurns
-      value: {{ numTurns }}
-      description: |
-        Number of simulation rounds. Required.
-    - name: attackStrategies
-      value:
-        - "{{ attackStrategies }}"
-      description: |
-        List of attack strategies or nested lists of attack strategies. Required.
-    - name: simulationOnly
-      value: {{ simulationOnly }}
-      description: |
-        Simulation-only or Simulation + Evaluation. Default false, if true the scan outputs conversation not evaluation result. Required.
-    - name: riskCategories
-      value:
-        - "{{ riskCategories }}"
-      description: |
-        List of risk categories to generate attack objectives for. Required.
-    - name: applicationScenario
-      value: "{{ applicationScenario }}"
-      description: |
-        Application scenario for the red team operation, to generate scenario specific attacks.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Red team's tags. Unlike properties, tags are fully mutable.
-    - name: properties
-      value: "{{ properties }}"
-      description: |
-        Red team's properties. Unlike tags, properties are add-only. Once added, a property cannot be removed.
-    - name: target
-      description: |
-        Target configuration for the red-team run. Required.
-      value:
-        type: "{{ type }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -632,6 +519,7 @@ target
         { label: 'get_template_parameters_with_type', value: 'get_template_parameters_with_type' },
         { label: 'get_template_parameters', value: 'get_template_parameters' },
         { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
+        { label: 'create_run', value: 'create_run' },
         { label: 'upload_run', value: 'upload_run' },
         { label: 'upload_update_run', value: 'upload_update_run' },
         { label: 'submit_simulation', value: 'submit_simulation' },
@@ -644,7 +532,7 @@ Get the jailbreak dataset with type.
 
 ```sql
 EXEC azure.ai_evaluation.red_teams.get_jail_break_dataset_with_type 
-@type='{{ type }}' --required, 
+@type_name='{{ type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```
@@ -665,7 +553,7 @@ Get template parameters with type.
 
 ```sql
 EXEC azure.ai_evaluation.red_teams.get_template_parameters_with_type 
-@type='{{ type }}' --required, 
+@type_name='{{ type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```
@@ -688,6 +576,29 @@ Get the template parameters image.
 EXEC azure.ai_evaluation.red_teams.get_template_parameters_image 
 @path='{{ path }}' --required, 
 @endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_run">
+
+Creates a redteam run.
+
+```sql
+EXEC azure.ai_evaluation.red_teams.create_run 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"displayName": "{{ displayName }}", 
+"numTurns": {{ numTurns }}, 
+"attackStrategies": "{{ attackStrategies }}", 
+"simulationOnly": {{ simulationOnly }}, 
+"riskCategories": "{{ riskCategories }}", 
+"applicationScenario": "{{ applicationScenario }}", 
+"tags": "{{ tags }}", 
+"properties": "{{ properties }}", 
+"target": "{{ target }}"
+}'
 ;
 ```
 </TabItem>

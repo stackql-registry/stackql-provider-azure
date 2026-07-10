@@ -944,13 +944,6 @@ The following methods are available for this resource:
     <td>Create or update a VM scale set.</td>
 </tr>
 <tr>
-    <td><a href="#delete_instances"><CopyableCode code="delete_instances" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vm_scale_set_name"><code>vm_scale_set_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td><a href="#parameter-forceDeletion"><code>forceDeletion</code></a></td>
-    <td>Deletes virtual machines in a VM scale set.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vm_scale_set_name"><code>vm_scale_set_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -998,6 +991,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vm_scale_set_name"><code>vm_scale_set_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-hibernate"><code>hibernate</code></a></td>
     <td>Deallocates specific virtual machines in a VM scale set. Shuts down the virtual machines and releases the compute resources. You are not billed for the compute resources that this virtual machine scale set deallocates.</td>
+</tr>
+<tr>
+    <td><a href="#delete_instances"><CopyableCode code="delete_instances" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vm_scale_set_name"><code>vm_scale_set_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-instanceIds"><code>instanceIds</code></a></td>
+    <td><a href="#parameter-forceDeletion"><code>forceDeletion</code></a></td>
+    <td>Deletes virtual machines in a VM scale set.</td>
 </tr>
 <tr>
     <td><a href="#force_recovery_service_fabric_platform_update_domain_walk"><CopyableCode code="force_recovery_service_fabric_platform_update_domain_walk" /></a></td>
@@ -1132,7 +1132,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-forceDeletion">
     <td><CopyableCode code="forceDeletion" /></td>
     <td><code>boolean</code></td>
-    <td>Optional parameter to force delete a VM scale set. (Feature in Preview). Default value is None.</td>
+    <td>Optional parameter to force delete virtual machines from the VM scale set. (Feature in Preview). Default value is None.</td>
 </tr>
 <tr id="parameter-hibernate">
     <td><CopyableCode code="hibernate" /></td>
@@ -1898,25 +1898,11 @@ zones;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_instances"
+    defaultValue="delete"
     values={[
-        { label: 'delete_instances', value: 'delete_instances' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_instances">
-
-Deletes virtual machines in a VM scale set.
-
-```sql
-DELETE FROM azure.compute.virtual_machine_scale_sets
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND vm_scale_set_name = '{{ vm_scale_set_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND forceDeletion = '{{ forceDeletion }}'
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a VM scale set.
@@ -1944,6 +1930,7 @@ AND forceDeletion = '{{ forceDeletion }}'
         { label: 'approve_rolling_upgrade', value: 'approve_rolling_upgrade' },
         { label: 'convert_to_single_placement_group', value: 'convert_to_single_placement_group' },
         { label: 'deallocate', value: 'deallocate' },
+        { label: 'delete_instances', value: 'delete_instances' },
         { label: 'force_recovery_service_fabric_platform_update_domain_walk', value: 'force_recovery_service_fabric_platform_update_domain_walk' },
         { label: 'update_instances', value: 'update_instances' },
         { label: 'perform_maintenance', value: 'perform_maintenance' },
@@ -2036,6 +2023,23 @@ EXEC azure.compute.virtual_machine_scale_sets.deallocate
 @vm_scale_set_name='{{ vm_scale_set_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @hibernate={{ hibernate }} 
+@@json=
+'{
+"instanceIds": "{{ instanceIds }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_instances">
+
+Deletes virtual machines in a VM scale set.
+
+```sql
+EXEC azure.compute.virtual_machine_scale_sets.delete_instances 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@vm_scale_set_name='{{ vm_scale_set_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required, 
+@forceDeletion={{ forceDeletion }} 
 @@json=
 '{
 "instanceIds": "{{ instanceIds }}"

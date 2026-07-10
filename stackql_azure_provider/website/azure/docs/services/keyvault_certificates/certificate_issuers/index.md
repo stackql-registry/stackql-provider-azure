@@ -122,35 +122,35 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_certificate_issuer"><CopyableCode code="get_certificate_issuer" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Lists the specified certificate issuer. The GetCertificateIssuer operation returns the specified certificate issuer resources in the specified key vault. This operation requires the certificates/manageissuers/getissuers permission.</td>
 </tr>
 <tr>
     <td><a href="#get_certificate_issuers"><CopyableCode code="get_certificate_issuers" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a></td>
     <td>List certificate issuers for a specified key vault. The GetCertificateIssuers operation returns the set of certificate issuer resources in the specified key vault. This operation requires the certificates/manageissuers/getissuers permission.</td>
 </tr>
 <tr>
     <td><a href="#update_certificate_issuer"><CopyableCode code="update_certificate_issuer" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Updates the specified certificate issuer. The UpdateCertificateIssuer operation performs an update on the specified certificate issuer entity. This operation requires the certificates/setissuers permission.</td>
 </tr>
 <tr>
     <td><a href="#set_certificate_issuer"><CopyableCode code="set_certificate_issuer" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-provider"><code>provider</code></a></td>
+    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-provider"><code>provider</code></a></td>
     <td></td>
     <td>Sets the specified certificate issuer. The SetCertificateIssuer operation adds or updates the specified certificate issuer. This operation requires the certificates/setissuers permission.</td>
 </tr>
 <tr>
     <td><a href="#delete_certificate_issuer"><CopyableCode code="delete_certificate_issuer" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-issuer_name"><code>issuer_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Deletes the specified certificate issuer. The DeleteCertificateIssuer operation permanently removes the specified certificate issuer from the vault. This operation requires the certificates/manageissuers/deleteissuers permission.</td>
 </tr>
@@ -175,10 +175,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the issuer. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-maxresults">
     <td><CopyableCode code="maxresults" /></td>
@@ -210,7 +210,7 @@ org_details,
 provider
 FROM azure.keyvault_certificates.certificate_issuers
 WHERE issuer_name = '{{ issuer_name }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -223,7 +223,7 @@ SELECT
 id,
 provider
 FROM azure.keyvault_certificates.certificate_issuers
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 ;
 ```
@@ -252,7 +252,7 @@ org_details = '{{ org_details }}',
 attributes = '{{ attributes }}'
 WHERE 
 issuer_name = '{{ issuer_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 RETURNING
 id,
 attributes,
@@ -285,7 +285,7 @@ org_details = '{{ org_details }}',
 attributes = '{{ attributes }}'
 WHERE 
 issuer_name = '{{ issuer_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 AND provider = '{{ provider }}' --required
 RETURNING
 id,
@@ -313,7 +313,7 @@ Deletes the specified certificate issuer. The DeleteCertificateIssuer operation 
 ```sql
 DELETE FROM azure.keyvault_certificates.certificate_issuers
 WHERE issuer_name = '{{ issuer_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>

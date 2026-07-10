@@ -1043,7 +1043,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: check_name_availabilities
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DeviceUpdate/accounts/{account_name}/instances/{instance_name}?api-version=2023-07-01
   : get:
       operationId: Instances_get

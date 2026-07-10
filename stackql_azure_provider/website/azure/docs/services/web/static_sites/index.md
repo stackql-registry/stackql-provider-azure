@@ -1086,74 +1086,11 @@ The following methods are available for this resource:
     <td>Get all Static Sites for a subscription. Description for Get all Static Sites for a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_build_database_connection"><CopyableCode code="create_or_update_build_database_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update_static_site"><CopyableCode code="create_or_update_static_site" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates a new static site in an existing resource group, or updates an existing static site. Description for Creates a new static site in an existing resource group, or updates an existing static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_database_connection"><CopyableCode code="create_or_update_database_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a database connection for a static site. Description for Create or update a database connection for a static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_basic_auth"><CopyableCode code="create_or_update_basic_auth" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-basic_auth_name"><code>basic_auth_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds or updates basic auth for a static site. Description for Adds or updates basic auth for a static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_static_site_custom_domain"><CopyableCode code="create_or_update_static_site_custom_domain" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new static site custom domain in an existing resource group and static site. Description for Creates a new static site custom domain in an existing resource group and static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_static_site_build_app_settings"><CopyableCode code="create_or_update_static_site_build_app_settings" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates the app settings of a static site build. Description for Creates or updates the app settings of a static site build.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_static_site_app_settings"><CopyableCode code="create_or_update_static_site_app_settings" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates the app settings of a static site. Description for Creates or updates the app settings of a static site.</td>
-</tr>
-<tr>
-    <td><a href="#update_build_database_connection"><CopyableCode code="update_build_database_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.</td>
-</tr>
-<tr>
-    <td><a href="#update_static_site_user"><CopyableCode code="update_static_site_user" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-authprovider"><code>authprovider</code></a>, <a href="#parameter-userid"><code>userid</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates a user entry with the listed roles. Description for Updates a user entry with the listed roles.</td>
-</tr>
-<tr>
-    <td><a href="#update_database_connection"><CopyableCode code="update_database_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a database connection for a static site. Description for Create or update a database connection for a static site.</td>
 </tr>
 <tr>
     <td><a href="#update_static_site"><CopyableCode code="update_static_site" /></a></td>
@@ -1163,67 +1100,11 @@ The following methods are available for this resource:
     <td>Creates a new static site in an existing resource group, or updates an existing static site. Description for Creates a new static site in an existing resource group, or updates an existing static site.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_build_database_connection"><CopyableCode code="create_or_update_build_database_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update_static_site"><CopyableCode code="create_or_update_static_site" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates a new static site in an existing resource group, or updates an existing static site. Description for Creates a new static site in an existing resource group, or updates an existing static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_database_connection"><CopyableCode code="create_or_update_database_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a database connection for a static site. Description for Create or update a database connection for a static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_basic_auth"><CopyableCode code="create_or_update_basic_auth" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-basic_auth_name"><code>basic_auth_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds or updates basic auth for a static site. Description for Adds or updates basic auth for a static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_static_site_custom_domain"><CopyableCode code="create_or_update_static_site_custom_domain" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new static site custom domain in an existing resource group and static site. Description for Creates a new static site custom domain in an existing resource group and static site.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_static_site_build_app_settings"><CopyableCode code="create_or_update_static_site_build_app_settings" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates the app settings of a static site build. Description for Creates or updates the app settings of a static site build.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_static_site_app_settings"><CopyableCode code="create_or_update_static_site_app_settings" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates the app settings of a static site. Description for Creates or updates the app settings of a static site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_build_database_connection"><CopyableCode code="delete_build_database_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a database connection for a static site build. Delete a database connection for a static site build.</td>
-</tr>
-<tr>
-    <td><a href="#delete_static_site_user"><CopyableCode code="delete_static_site_user" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-authprovider"><code>authprovider</code></a>, <a href="#parameter-userid"><code>userid</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes the user entry from the static site. Description for Deletes the user entry from the static site.</td>
 </tr>
 <tr>
     <td><a href="#detach_user_provided_function_app_from_static_site_build"><CopyableCode code="detach_user_provided_function_app_from_static_site_build" /></a></td>
@@ -1238,34 +1119,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-linked_backend_name"><code>linked_backend_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-isCleaningAuthConfig"><code>isCleaningAuthConfig</code></a></td>
     <td>Unlink a backend from a static site build. Unlink a backend from a static site build.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_static_site_build"><CopyableCode code="delete_static_site_build" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a static site build. Description for Deletes a static site build.</td>
-</tr>
-<tr>
-    <td><a href="#delete_database_connection"><CopyableCode code="delete_database_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a database connection for a static site. Delete a database connection for a static site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_static_site_custom_domain"><CopyableCode code="delete_static_site_custom_domain" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a custom domain. Description for Deletes a custom domain.</td>
 </tr>
 <tr>
     <td><a href="#detach_user_provided_function_app_from_static_site"><CopyableCode code="detach_user_provided_function_app_from_static_site" /></a></td>
@@ -1359,6 +1212,13 @@ The following methods are available for this resource:
     <td>Approves or rejects a private endpoint connection. Description for Approves or rejects a private endpoint connection.</td>
 </tr>
 <tr>
+    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
+</tr>
+<tr>
     <td><a href="#get_private_endpoint_connection_list"><CopyableCode code="get_private_endpoint_connection_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1394,6 +1254,13 @@ The following methods are available for this resource:
     <td>Gets the details of a static site build. Description for Gets the details of a static site build.</td>
 </tr>
 <tr>
+    <td><a href="#delete_static_site_build"><CopyableCode code="delete_static_site_build" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a static site build. Description for Deletes a static site build.</td>
+</tr>
+<tr>
     <td><a href="#get_static_site_builds"><CopyableCode code="get_static_site_builds" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1408,6 +1275,27 @@ The following methods are available for this resource:
     <td>Returns details of database connections for a static site build. Returns details of database connections for a static site build.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_build_database_connection"><CopyableCode code="create_or_update_build_database_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.</td>
+</tr>
+<tr>
+    <td><a href="#update_build_database_connection"><CopyableCode code="update_build_database_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.</td>
+</tr>
+<tr>
+    <td><a href="#delete_build_database_connection"><CopyableCode code="delete_build_database_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a database connection for a static site build. Delete a database connection for a static site build.</td>
+</tr>
+<tr>
     <td><a href="#get_build_database_connections"><CopyableCode code="get_build_database_connections" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1420,6 +1308,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns details of a database connection for a static site build by name. Returns details of a database connection for a static site build by name.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_database_connection"><CopyableCode code="create_or_update_database_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a database connection for a static site. Description for Create or update a database connection for a static site.</td>
+</tr>
+<tr>
+    <td><a href="#update_database_connection"><CopyableCode code="update_database_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a database connection for a static site. Description for Create or update a database connection for a static site.</td>
+</tr>
+<tr>
+    <td><a href="#delete_database_connection"><CopyableCode code="delete_database_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-database_connection_name"><code>database_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a database connection for a static site. Delete a database connection for a static site.</td>
 </tr>
 <tr>
     <td><a href="#get_database_connections"><CopyableCode code="get_database_connections" /></a></td>
@@ -1464,6 +1373,27 @@ The following methods are available for this resource:
     <td>Gets the details of the user provided function apps registered with a static site. Description for Gets the details of the user provided function apps registered with a static site.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_basic_auth"><CopyableCode code="create_or_update_basic_auth" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-basic_auth_name"><code>basic_auth_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds or updates basic auth for a static site. Description for Adds or updates basic auth for a static site.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_static_site_custom_domain"><CopyableCode code="create_or_update_static_site_custom_domain" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new static site custom domain in an existing resource group and static site. Description for Creates a new static site custom domain in an existing resource group and static site.</td>
+</tr>
+<tr>
+    <td><a href="#delete_static_site_custom_domain"><CopyableCode code="delete_static_site_custom_domain" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a custom domain. Description for Deletes a custom domain.</td>
+</tr>
+<tr>
     <td><a href="#link_backend"><CopyableCode code="link_backend" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-linked_backend_name"><code>linked_backend_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1490,6 +1420,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns details of all backends linked to a static site build. Returns details of all backends linked to a static site build.</td>
+</tr>
+<tr>
+    <td><a href="#delete_static_site_user"><CopyableCode code="delete_static_site_user" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-authprovider"><code>authprovider</code></a>, <a href="#parameter-userid"><code>userid</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes the user entry from the static site. Description for Deletes the user entry from the static site.</td>
+</tr>
+<tr>
+    <td><a href="#update_static_site_user"><CopyableCode code="update_static_site_user" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-authprovider"><code>authprovider</code></a>, <a href="#parameter-userid"><code>userid</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates a user entry with the listed roles. Description for Updates a user entry with the listed roles.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_static_site_app_settings"><CopyableCode code="create_or_update_static_site_app_settings" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates the app settings of a static site. Description for Creates or updates the app settings of a static site.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update_static_site_function_app_settings"><CopyableCode code="create_or_update_static_site_function_app_settings" /></a></td>
@@ -1525,6 +1476,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deploys zipped content to a static site. Description for Deploys zipped content to a static site.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_static_site_build_app_settings"><CopyableCode code="create_or_update_static_site_build_app_settings" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates the app settings of a static site build. Description for Creates or updates the app settings of a static site build.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update_static_site_build_function_app_settings"><CopyableCode code="create_or_update_static_site_build_function_app_settings" /></a></td>
@@ -1587,7 +1545,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-authprovider">
     <td><CopyableCode code="authprovider" /></td>
     <td><code>string</code></td>
-    <td>The auth provider for the users. Required.</td>
+    <td>Required.</td>
 </tr>
 <tr id="parameter-basic_auth_name">
     <td><CopyableCode code="basic_auth_name" /></td>
@@ -2016,50 +1974,12 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_build_database_connection"
+    defaultValue="create_or_update_static_site"
     values={[
-        { label: 'create_or_update_build_database_connection', value: 'create_or_update_build_database_connection' },
         { label: 'create_or_update_static_site', value: 'create_or_update_static_site' },
-        { label: 'create_or_update_database_connection', value: 'create_or_update_database_connection' },
-        { label: 'create_or_update_basic_auth', value: 'create_or_update_basic_auth' },
-        { label: 'create_or_update_static_site_custom_domain', value: 'create_or_update_static_site_custom_domain' },
-        { label: 'create_or_update_static_site_build_app_settings', value: 'create_or_update_static_site_build_app_settings' },
-        { label: 'create_or_update_static_site_app_settings', value: 'create_or_update_static_site_app_settings' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_build_database_connection">
-
-Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.
-
-```sql
-INSERT INTO azure.web.static_sites (
-properties,
-kind,
-resource_group_name,
-name,
-environment_name,
-database_connection_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ environment_name }}',
-'{{ database_connection_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update_static_site">
 
 Creates a new static site in an existing resource group, or updates an existing static site. Description for Creates a new static site in an existing resource group, or updates an existing static site.
@@ -2100,152 +2020,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_database_connection">
-
-Create or update a database connection for a static site. Description for Create or update a database connection for a static site.
-
-```sql
-INSERT INTO azure.web.static_sites (
-properties,
-kind,
-resource_group_name,
-name,
-database_connection_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ database_connection_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_basic_auth">
-
-Adds or updates basic auth for a static site. Description for Adds or updates basic auth for a static site.
-
-```sql
-INSERT INTO azure.web.static_sites (
-properties,
-kind,
-resource_group_name,
-name,
-basic_auth_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ basic_auth_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_static_site_custom_domain">
-
-Creates a new static site custom domain in an existing resource group and static site. Description for Creates a new static site custom domain in an existing resource group and static site.
-
-```sql
-INSERT INTO azure.web.static_sites (
-kind,
-properties,
-resource_group_name,
-name,
-domain_name,
-subscription_id
-)
-SELECT 
-'{{ kind }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ domain_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_static_site_build_app_settings">
-
-Creates or updates the app settings of a static site build. Description for Creates or updates the app settings of a static site build.
-
-```sql
-INSERT INTO azure.web.static_sites (
-kind,
-properties,
-resource_group_name,
-name,
-environment_name,
-subscription_id
-)
-SELECT 
-'{{ kind }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ environment_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_static_site_app_settings">
-
-Creates or updates the app settings of a static site. Description for Creates or updates the app settings of a static site.
-
-```sql
-INSERT INTO azure.web.static_sites (
-kind,
-properties,
-resource_group_name,
-name,
-subscription_id
-)
-SELECT 
-'{{ kind }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -2257,29 +2031,9 @@ type
     - name: name
       value: "{{ name }}"
       description: Required parameter for the static_sites resource.
-    - name: environment_name
-      value: "{{ environment_name }}"
-      description: Required parameter for the static_sites resource.
-    - name: database_connection_name
-      value: "{{ database_connection_name }}"
-      description: Required parameter for the static_sites resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the static_sites resource.
-    - name: basic_auth_name
-      value: "{{ basic_auth_name }}"
-      description: Required parameter for the static_sites resource.
-    - name: domain_name
-      value: "{{ domain_name }}"
-      description: Required parameter for the static_sites resource.
-    - name: properties
-      value: "{{ properties }}"
-      description: |
-        Settings.
-    - name: kind
-      value: "{{ kind }}"
-      description: |
-        Kind of resource.
     - name: tags
       value: "{{ tags }}"
       description: |
@@ -2288,6 +2042,140 @@ type
       value: "{{ location }}"
       description: |
         The geo-location where the resource lives. Required.
+    - name: properties
+      description: |
+        Core resource properties.
+      value:
+        defaultHostname: "{{ defaultHostname }}"
+        repositoryUrl: "{{ repositoryUrl }}"
+        branch: "{{ branch }}"
+        customDomains:
+          - "{{ customDomains }}"
+        repositoryToken: "{{ repositoryToken }}"
+        buildProperties:
+          appLocation: "{{ appLocation }}"
+          apiLocation: "{{ apiLocation }}"
+          appArtifactLocation: "{{ appArtifactLocation }}"
+          outputLocation: "{{ outputLocation }}"
+          appBuildCommand: "{{ appBuildCommand }}"
+          apiBuildCommand: "{{ apiBuildCommand }}"
+          skipGithubActionWorkflowGeneration: {{ skipGithubActionWorkflowGeneration }}
+          githubActionSecretNameOverride: "{{ githubActionSecretNameOverride }}"
+        privateEndpointConnections:
+          - id: "{{ id }}"
+            name: "{{ name }}"
+            type: "{{ type }}"
+            location: "{{ location }}"
+            tags: "{{ tags }}"
+            plan:
+              name: "{{ name }}"
+              publisher: "{{ publisher }}"
+              product: "{{ product }}"
+              promotionCode: "{{ promotionCode }}"
+              version: "{{ version }}"
+            properties:
+              id: "{{ id }}"
+              name: "{{ name }}"
+              kind: "{{ kind }}"
+              type: "{{ type }}"
+              properties:
+                provisioningState: "{{ provisioningState }}"
+                privateEndpoint:
+                  id: "{{ id }}"
+                privateLinkServiceConnectionState:
+                  status: "{{ status }}"
+                  description: "{{ description }}"
+                  actionsRequired: "{{ actionsRequired }}"
+                ipAddresses:
+                  - "{{ ipAddresses }}"
+            sku:
+              name: "{{ name }}"
+              tier: "{{ tier }}"
+              size: "{{ size }}"
+              family: "{{ family }}"
+              capacity: {{ capacity }}
+              skuCapacity:
+                minimum: {{ minimum }}
+                maximum: {{ maximum }}
+                elasticMaximum: {{ elasticMaximum }}
+                default: {{ default }}
+                scaleType: "{{ scaleType }}"
+              locations:
+                - "{{ locations }}"
+              capabilities:
+                - name: "{{ name }}"
+                  value: "{{ value }}"
+                  reason: "{{ reason }}"
+            status: "{{ status }}"
+            error:
+              extendedCode: "{{ extendedCode }}"
+              messageTemplate: "{{ messageTemplate }}"
+              parameters:
+                - "{{ parameters }}"
+              innerErrors:
+                - extendedCode: "{{ extendedCode }}"
+                  messageTemplate: "{{ messageTemplate }}"
+                  parameters: "{{ parameters }}"
+                  innerErrors: "{{ innerErrors }}"
+                  details: "{{ details }}"
+                  target: "{{ target }}"
+                  code: "{{ code }}"
+                  message: "{{ message }}"
+              details:
+                - extendedCode: "{{ extendedCode }}"
+                  messageTemplate: "{{ messageTemplate }}"
+                  parameters: "{{ parameters }}"
+                  innerErrors: "{{ innerErrors }}"
+                  details: "{{ details }}"
+                  target: "{{ target }}"
+                  code: "{{ code }}"
+                  message: "{{ message }}"
+              target: "{{ target }}"
+              code: "{{ code }}"
+              message: "{{ message }}"
+            identity:
+              type: "{{ type }}"
+              tenantId: "{{ tenantId }}"
+              principalId: "{{ principalId }}"
+              userAssignedIdentities: "{{ userAssignedIdentities }}"
+            zones: "{{ zones }}"
+        stagingEnvironmentPolicy: "{{ stagingEnvironmentPolicy }}"
+        allowConfigFileUpdates: {{ allowConfigFileUpdates }}
+        templateProperties:
+          templateRepositoryUrl: "{{ templateRepositoryUrl }}"
+          owner: "{{ owner }}"
+          repositoryName: "{{ repositoryName }}"
+          description: "{{ description }}"
+          isPrivate: {{ isPrivate }}
+        contentDistributionEndpoint: "{{ contentDistributionEndpoint }}"
+        keyVaultReferenceIdentity: "{{ keyVaultReferenceIdentity }}"
+        userProvidedFunctionApps:
+          - id: "{{ id }}"
+            name: "{{ name }}"
+            kind: "{{ kind }}"
+            type: "{{ type }}"
+            properties:
+              functionAppResourceId: "{{ functionAppResourceId }}"
+              functionAppRegion: "{{ functionAppRegion }}"
+              createdOn: "{{ createdOn }}"
+        linkedBackends:
+          - backendResourceId: "{{ backendResourceId }}"
+            region: "{{ region }}"
+            createdOn: "{{ createdOn }}"
+            provisioningState: "{{ provisioningState }}"
+        provider: "{{ provider }}"
+        enterpriseGradeCdnStatus: "{{ enterpriseGradeCdnStatus }}"
+        publicNetworkAccess: "{{ publicNetworkAccess }}"
+        databaseConnections:
+          - resourceId: "{{ resourceId }}"
+            connectionIdentity: "{{ connectionIdentity }}"
+            region: "{{ region }}"
+            configurationFiles: "{{ configurationFiles }}"
+            name: "{{ name }}"
+    - name: kind
+      value: "{{ kind }}"
+      description: |
+        Kind of resource.
     - name: sku
       description: |
         Description of a SKU for a scalable resource.
@@ -2326,82 +2214,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_build_database_connection"
+    defaultValue="update_static_site"
     values={[
-        { label: 'update_build_database_connection', value: 'update_build_database_connection' },
-        { label: 'update_static_site_user', value: 'update_static_site_user' },
-        { label: 'update_database_connection', value: 'update_database_connection' },
         { label: 'update_static_site', value: 'update_static_site' }
     ]}
 >
-<TabItem value="update_build_database_connection">
-
-Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.
-
-```sql
-UPDATE azure.web.static_sites
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND environment_name = '{{ environment_name }}' --required
-AND database_connection_name = '{{ database_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_static_site_user">
-
-Updates a user entry with the listed roles. Description for Updates a user entry with the listed roles.
-
-```sql
-UPDATE azure.web.static_sites
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND authprovider = '{{ authprovider }}' --required
-AND userid = '{{ userid }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-type;
-```
-</TabItem>
-<TabItem value="update_database_connection">
-
-Create or update a database connection for a static site. Description for Create or update a database connection for a static site.
-
-```sql
-UPDATE azure.web.static_sites
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND database_connection_name = '{{ database_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="update_static_site">
 
 Creates a new static site in an existing resource group, or updates an existing static site. Description for Creates a new static site in an existing resource group, or updates an existing static site.
@@ -2434,41 +2251,11 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_build_database_connection"
+    defaultValue="create_or_update_static_site"
     values={[
-        { label: 'create_or_update_build_database_connection', value: 'create_or_update_build_database_connection' },
-        { label: 'create_or_update_static_site', value: 'create_or_update_static_site' },
-        { label: 'create_or_update_database_connection', value: 'create_or_update_database_connection' },
-        { label: 'create_or_update_basic_auth', value: 'create_or_update_basic_auth' },
-        { label: 'create_or_update_static_site_custom_domain', value: 'create_or_update_static_site_custom_domain' },
-        { label: 'create_or_update_static_site_build_app_settings', value: 'create_or_update_static_site_build_app_settings' },
-        { label: 'create_or_update_static_site_app_settings', value: 'create_or_update_static_site_app_settings' }
+        { label: 'create_or_update_static_site', value: 'create_or_update_static_site' }
     ]}
 >
-<TabItem value="create_or_update_build_database_connection">
-
-Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.
-
-```sql
-REPLACE azure.web.static_sites
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND environment_name = '{{ environment_name }}' --required
-AND database_connection_name = '{{ database_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update_static_site">
 
 Creates a new static site in an existing resource group, or updates an existing static site. Description for Creates a new static site in an existing resource group, or updates an existing static site.
@@ -2500,167 +2287,21 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_database_connection">
-
-Create or update a database connection for a static site. Description for Create or update a database connection for a static site.
-
-```sql
-REPLACE azure.web.static_sites
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND database_connection_name = '{{ database_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_basic_auth">
-
-Adds or updates basic auth for a static site. Description for Adds or updates basic auth for a static site.
-
-```sql
-REPLACE azure.web.static_sites
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND basic_auth_name = '{{ basic_auth_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_static_site_custom_domain">
-
-Creates a new static site custom domain in an existing resource group and static site. Description for Creates a new static site custom domain in an existing resource group and static site.
-
-```sql
-REPLACE azure.web.static_sites
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_name = '{{ domain_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_static_site_build_app_settings">
-
-Creates or updates the app settings of a static site build. Description for Creates or updates the app settings of a static site build.
-
-```sql
-REPLACE azure.web.static_sites
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND environment_name = '{{ environment_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_static_site_app_settings">
-
-Creates or updates the app settings of a static site. Description for Creates or updates the app settings of a static site.
-
-```sql
-REPLACE azure.web.static_sites
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_build_database_connection"
+    defaultValue="detach_user_provided_function_app_from_static_site_build"
     values={[
-        { label: 'delete_build_database_connection', value: 'delete_build_database_connection' },
-        { label: 'delete_static_site_user', value: 'delete_static_site_user' },
         { label: 'detach_user_provided_function_app_from_static_site_build', value: 'detach_user_provided_function_app_from_static_site_build' },
         { label: 'unlink_backend_from_build', value: 'unlink_backend_from_build' },
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
-        { label: 'delete_static_site_build', value: 'delete_static_site_build' },
-        { label: 'delete_database_connection', value: 'delete_database_connection' },
-        { label: 'delete_static_site_custom_domain', value: 'delete_static_site_custom_domain' },
         { label: 'detach_user_provided_function_app_from_static_site', value: 'detach_user_provided_function_app_from_static_site' },
         { label: 'unlink_backend', value: 'unlink_backend' },
         { label: 'delete_static_site', value: 'delete_static_site' }
     ]}
 >
-<TabItem value="delete_build_database_connection">
-
-Delete a database connection for a static site build. Delete a database connection for a static site build.
-
-```sql
-DELETE FROM azure.web.static_sites
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND environment_name = '{{ environment_name }}' --required
-AND database_connection_name = '{{ database_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_static_site_user">
-
-Deletes the user entry from the static site. Description for Deletes the user entry from the static site.
-
-```sql
-DELETE FROM azure.web.static_sites
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND authprovider = '{{ authprovider }}' --required
-AND userid = '{{ userid }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="detach_user_provided_function_app_from_static_site_build">
 
 Detach the user provided function app from the static site build. Description for Detach the user provided function app from the static site build.
@@ -2687,58 +2328,6 @@ AND environment_name = '{{ environment_name }}' --required
 AND linked_backend_name = '{{ linked_backend_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 AND isCleaningAuthConfig = '{{ isCleaningAuthConfig }}'
-;
-```
-</TabItem>
-<TabItem value="delete_private_endpoint_connection">
-
-Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
-
-```sql
-DELETE FROM azure.web.static_sites
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_static_site_build">
-
-Deletes a static site build. Description for Deletes a static site build.
-
-```sql
-DELETE FROM azure.web.static_sites
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND environment_name = '{{ environment_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_database_connection">
-
-Delete a database connection for a static site. Delete a database connection for a static site.
-
-```sql
-DELETE FROM azure.web.static_sites
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND database_connection_name = '{{ database_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_static_site_custom_domain">
-
-Deletes a custom domain. Description for Deletes a custom domain.
-
-```sql
-DELETE FROM azure.web.static_sites
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_name = '{{ domain_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
@@ -2799,30 +2388,45 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_basic_auth', value: 'list_basic_auth' },
         { label: 'list_static_site_custom_domains', value: 'list_static_site_custom_domains' },
         { label: 'approve_or_reject_private_endpoint_connection', value: 'approve_or_reject_private_endpoint_connection' },
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'get_private_endpoint_connection_list', value: 'get_private_endpoint_connection_list' },
         { label: 'get_static_site', value: 'get_static_site' },
         { label: 'get_private_link_resources', value: 'get_private_link_resources' },
         { label: 'get_database_connections_with_details', value: 'get_database_connections_with_details' },
         { label: 'get_static_site_build', value: 'get_static_site_build' },
+        { label: 'delete_static_site_build', value: 'delete_static_site_build' },
         { label: 'get_static_site_builds', value: 'get_static_site_builds' },
         { label: 'get_build_database_connections_with_details', value: 'get_build_database_connections_with_details' },
+        { label: 'create_or_update_build_database_connection', value: 'create_or_update_build_database_connection' },
+        { label: 'update_build_database_connection', value: 'update_build_database_connection' },
+        { label: 'delete_build_database_connection', value: 'delete_build_database_connection' },
         { label: 'get_build_database_connections', value: 'get_build_database_connections' },
         { label: 'get_build_database_connection_with_details', value: 'get_build_database_connection_with_details' },
+        { label: 'create_or_update_database_connection', value: 'create_or_update_database_connection' },
+        { label: 'update_database_connection', value: 'update_database_connection' },
+        { label: 'delete_database_connection', value: 'delete_database_connection' },
         { label: 'get_database_connections', value: 'get_database_connections' },
         { label: 'get_database_connection_with_details', value: 'get_database_connection_with_details' },
         { label: 'register_user_provided_function_app_with_static_site_build', value: 'register_user_provided_function_app_with_static_site_build' },
         { label: 'get_user_provided_function_apps_for_static_site_build', value: 'get_user_provided_function_apps_for_static_site_build' },
         { label: 'register_user_provided_function_app_with_static_site', value: 'register_user_provided_function_app_with_static_site' },
         { label: 'get_user_provided_function_apps_for_static_site', value: 'get_user_provided_function_apps_for_static_site' },
+        { label: 'create_or_update_basic_auth', value: 'create_or_update_basic_auth' },
+        { label: 'create_or_update_static_site_custom_domain', value: 'create_or_update_static_site_custom_domain' },
+        { label: 'delete_static_site_custom_domain', value: 'delete_static_site_custom_domain' },
         { label: 'link_backend', value: 'link_backend' },
         { label: 'get_linked_backends', value: 'get_linked_backends' },
         { label: 'link_backend_to_build', value: 'link_backend_to_build' },
         { label: 'get_linked_backends_for_build', value: 'get_linked_backends_for_build' },
+        { label: 'delete_static_site_user', value: 'delete_static_site_user' },
+        { label: 'update_static_site_user', value: 'update_static_site_user' },
+        { label: 'create_or_update_static_site_app_settings', value: 'create_or_update_static_site_app_settings' },
         { label: 'create_or_update_static_site_function_app_settings', value: 'create_or_update_static_site_function_app_settings' },
         { label: 'create_user_roles_invitation_link', value: 'create_user_roles_invitation_link' },
         { label: 'detach_static_site', value: 'detach_static_site' },
         { label: 'reset_static_site_api_key', value: 'reset_static_site_api_key' },
         { label: 'create_zip_deployment_for_static_site', value: 'create_zip_deployment_for_static_site' },
+        { label: 'create_or_update_static_site_build_app_settings', value: 'create_or_update_static_site_build_app_settings' },
         { label: 'create_or_update_static_site_build_function_app_settings', value: 'create_or_update_static_site_build_function_app_settings' },
         { label: 'create_zip_deployment_for_static_site_build', value: 'create_zip_deployment_for_static_site_build' },
         { label: 'validate_custom_domain_can_be_added_to_static_site', value: 'validate_custom_domain_can_be_added_to_static_site' },
@@ -2960,6 +2564,19 @@ EXEC azure.web.static_sites.approve_or_reject_private_endpoint_connection
 ;
 ```
 </TabItem>
+<TabItem value="delete_private_endpoint_connection">
+
+Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
+
+```sql
+EXEC azure.web.static_sites.delete_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_private_endpoint_connection_list">
 
 Gets the list of private endpoint connections associated with a static site. Description for Gets the list of private endpoint connections associated with a static site.
@@ -3021,6 +2638,19 @@ EXEC azure.web.static_sites.get_static_site_build
 ;
 ```
 </TabItem>
+<TabItem value="delete_static_site_build">
+
+Deletes a static site build. Description for Deletes a static site build.
+
+```sql
+EXEC azure.web.static_sites.delete_static_site_build 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@environment_name='{{ environment_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_static_site_builds">
 
 Gets all static site builds for a particular static site. Description for Gets all static site builds for a particular static site.
@@ -3042,6 +2672,57 @@ EXEC azure.web.static_sites.get_build_database_connections_with_details
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @environment_name='{{ environment_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_build_database_connection">
+
+Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.
+
+```sql
+EXEC azure.web.static_sites.create_or_update_build_database_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@environment_name='{{ environment_name }}' --required, 
+@database_connection_name='{{ database_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_build_database_connection">
+
+Create or update a database connection for a static site build. Description for Create or update a database connection for a static site build.
+
+```sql
+EXEC azure.web.static_sites.update_build_database_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@environment_name='{{ environment_name }}' --required, 
+@database_connection_name='{{ database_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_build_database_connection">
+
+Delete a database connection for a static site build. Delete a database connection for a static site build.
+
+```sql
+EXEC azure.web.static_sites.delete_build_database_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@environment_name='{{ environment_name }}' --required, 
+@database_connection_name='{{ database_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
@@ -3068,6 +2749,54 @@ EXEC azure.web.static_sites.get_build_database_connection_with_details
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @environment_name='{{ environment_name }}' --required, 
+@database_connection_name='{{ database_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_database_connection">
+
+Create or update a database connection for a static site. Description for Create or update a database connection for a static site.
+
+```sql
+EXEC azure.web.static_sites.create_or_update_database_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@database_connection_name='{{ database_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_database_connection">
+
+Create or update a database connection for a static site. Description for Create or update a database connection for a static site.
+
+```sql
+EXEC azure.web.static_sites.update_database_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@database_connection_name='{{ database_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_database_connection">
+
+Delete a database connection for a static site. Delete a database connection for a static site.
+
+```sql
+EXEC azure.web.static_sites.delete_database_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
 @database_connection_name='{{ database_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
@@ -3162,6 +2891,55 @@ EXEC azure.web.static_sites.get_user_provided_function_apps_for_static_site
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_basic_auth">
+
+Adds or updates basic auth for a static site. Description for Adds or updates basic auth for a static site.
+
+```sql
+EXEC azure.web.static_sites.create_or_update_basic_auth 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@basic_auth_name='{{ basic_auth_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_static_site_custom_domain">
+
+Creates a new static site custom domain in an existing resource group and static site. Description for Creates a new static site custom domain in an existing resource group and static site.
+
+```sql
+EXEC azure.web.static_sites.create_or_update_static_site_custom_domain 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_name='{{ domain_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_static_site_custom_domain">
+
+Deletes a custom domain. Description for Deletes a custom domain.
+
+```sql
+EXEC azure.web.static_sites.delete_static_site_custom_domain 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_name='{{ domain_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="link_backend">
 
 Link backend to a static site. Link backend to a static site.
@@ -3221,6 +2999,56 @@ EXEC azure.web.static_sites.get_linked_backends_for_build
 @name='{{ name }}' --required, 
 @environment_name='{{ environment_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_static_site_user">
+
+Deletes the user entry from the static site. Description for Deletes the user entry from the static site.
+
+```sql
+EXEC azure.web.static_sites.delete_static_site_user 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@authprovider='{{ authprovider }}' --required, 
+@userid='{{ userid }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_static_site_user">
+
+Updates a user entry with the listed roles. Description for Updates a user entry with the listed roles.
+
+```sql
+EXEC azure.web.static_sites.update_static_site_user 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@authprovider='{{ authprovider }}' --required, 
+@userid='{{ userid }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_static_site_app_settings">
+
+Creates or updates the app settings of a static site. Description for Creates or updates the app settings of a static site.
+
+```sql
+EXEC azure.web.static_sites.create_or_update_static_site_app_settings 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>
@@ -3295,6 +3123,24 @@ Deploys zipped content to a static site. Description for Deploys zipped content 
 EXEC azure.web.static_sites.create_zip_deployment_for_static_site 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_static_site_build_app_settings">
+
+Creates or updates the app settings of a static site build. Description for Creates or updates the app settings of a static site build.
+
+```sql
+EXEC azure.web.static_sites.create_or_update_static_site_build_app_settings 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@environment_name='{{ environment_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 
 @@json=
 '{

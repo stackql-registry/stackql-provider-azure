@@ -152,49 +152,49 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_secret"><CopyableCode code="get_secret" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-secret_version"><code>secret_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-secret_version"><code>secret_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-outContentType"><code>outContentType</code></a></td>
     <td>Get a specified secret from a given key vault. The GET operation is applicable to any secret stored in Azure Key Vault. This operation requires the secrets/get permission.</td>
 </tr>
 <tr>
     <td><a href="#get_secrets"><CopyableCode code="get_secrets" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a></td>
     <td>List secrets in a specified key vault. The Get Secrets operation is applicable to the entire vault. However, only the base secret identifier and its attributes are provided in the response. Individual secret versions are not listed in the response. This operation requires the secrets/list permission.</td>
 </tr>
 <tr>
     <td><a href="#update_secret"><CopyableCode code="update_secret" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-secret_version"><code>secret_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-secret_version"><code>secret_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Updates the attributes associated with a specified secret in a given key vault. The UPDATE operation changes specified attributes of an existing stored secret. Attributes that are not specified in the request are left unchanged. The value of a secret itself cannot be changed. This operation requires the secrets/set permission.</td>
 </tr>
 <tr>
     <td><a href="#set_secret"><CopyableCode code="set_secret" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-value"><code>value</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-value"><code>value</code></a></td>
     <td></td>
     <td>Sets a secret in a specified key vault. The SET operation adds a secret to the Azure Key Vault. If the named secret already exists, Azure Key Vault creates a new version of that secret. This operation requires the secrets/set permission.</td>
 </tr>
 <tr>
     <td><a href="#delete_secret"><CopyableCode code="delete_secret" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Deletes a secret from a specified key vault. The DELETE operation applies to any secret stored in Azure Key Vault. DELETE cannot be applied to an individual version of a secret. This operation requires the secrets/delete permission.</td>
 </tr>
 <tr>
     <td><a href="#backup_secret"><CopyableCode code="backup_secret" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Backs up the specified secret. Requests that a backup of the specified secret be downloaded to the client. All versions of the secret will be downloaded. This operation requires the secrets/backup permission.</td>
 </tr>
 <tr>
     <td><a href="#restore_secret"><CopyableCode code="restore_secret" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-value"><code>value</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-value"><code>value</code></a></td>
     <td></td>
     <td>Restores a backed up secret to a vault. Restores a backed up secret, and all its versions, to a vault. This operation requires the secrets/restore permission.</td>
 </tr>
@@ -224,10 +224,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The version of the secret. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-maxresults">
     <td><CopyableCode code="maxresults" /></td>
@@ -268,7 +268,7 @@ value
 FROM azure.keyvault_secrets.secrets
 WHERE secret_name = '{{ secret_name }}' -- required
 AND secret_version = '{{ secret_version }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 AND outContentType = '{{ outContentType }}'
 ;
 ```
@@ -285,7 +285,7 @@ contentType,
 managed,
 tags
 FROM azure.keyvault_secrets.secrets
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 ;
 ```
@@ -314,7 +314,7 @@ tags = '{{ tags }}'
 WHERE 
 secret_name = '{{ secret_name }}' --required
 AND secret_version = '{{ secret_version }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 RETURNING
 id,
 attributes,
@@ -350,7 +350,7 @@ contentType = '{{ contentType }}',
 attributes = '{{ attributes }}'
 WHERE 
 secret_name = '{{ secret_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 AND value = '{{ value }}' --required
 RETURNING
 id,
@@ -381,7 +381,7 @@ Deletes a secret from a specified key vault. The DELETE operation applies to any
 ```sql
 DELETE FROM azure.keyvault_secrets.secrets
 WHERE secret_name = '{{ secret_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>
@@ -404,7 +404,7 @@ Backs up the specified secret. Requests that a backup of the specified secret be
 ```sql
 EXEC azure.keyvault_secrets.secrets.backup_secret 
 @secret_name='{{ secret_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>
@@ -414,7 +414,7 @@ Restores a backed up secret to a vault. Restores a backed up secret, and all its
 
 ```sql
 EXEC azure.keyvault_secrets.secrets.restore_secret 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "value": "{{ value }}"

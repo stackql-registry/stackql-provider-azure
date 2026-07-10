@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_document_count"><CopyableCode code="get_document_count" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Queries the number of documents in the index.</td>
 </tr>
@@ -73,15 +73,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
-</tr>
 <tr id="parameter-index_name">
     <td><CopyableCode code="index_name" /></td>
     <td><code>string</code></td>
     <td></td>
+</tr>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
+    <td><code>string</code></td>
+    <td>Search service name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Queries the number of documents in the index.
 ```sql
 EXEC azure.search_documents.document_counts.get_document_count 
 @index_name='{{ index_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

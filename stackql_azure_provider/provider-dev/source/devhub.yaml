@@ -1173,7 +1173,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ADOOAuthResponseFlattened'
-      x-stackql-resource: adoo_auth
+      x-stackql-resource: ado_oauth
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -1201,7 +1201,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedADOOAuthResponseFlattened'
-      x-stackql-resource: adoo_auth
+      x-stackql-resource: ado_oauth
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1922,7 +1922,7 @@ paths:
       x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/providers/Microsoft.DevHub/locations/{location}/githuboauth?api-version=2025-03-01-preview
   : get:
-      operationId: _DevHubMgmtClient_list_git_hub_o_auth
+      operationId: _DevHubMgmtClient_list_github_oauth
       description: Callback URL to hit once authenticated with GitHub App to have the service store the OAuth token.
         Callback URL to hit once authenticated with GitHub App to have the service store the OAuth token.
       parameters:
@@ -1944,12 +1944,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOAuthListResponse'
-      x-stackql-resource: git_hub_o_auths
-      x-stackql-method: list_git_hub_o_auth
+      x-stackql-resource: github_oauths
+      x-stackql-method: list_github_oauth
       x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.DevHub/locations/{location}/adooauth/default/getADOOAuthInfo?api-version=2025-03-01-preview
   : post:
-      operationId: _DevHubMgmtClient_get_adoo_auth_info
+      operationId: _DevHubMgmtClient_get_ado_oauth_info
       description: Gets ADOOAuth info used to authenticate users with ADO. Gets ADOOAuth info used to authenticate
         users with ADO.
       parameters:
@@ -1982,9 +1982,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ADOOAuthInfoResponse'
-      x-stackql-resource: adoo_auth_infos
-      x-stackql-method: get_adoo_auth_info
-      x-stackql-verb: EXEC
+      x-stackql-resource: ado_oauth_infos
+      x-stackql-method: get_ado_oauth_info
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.DevHub/locations/{location}/generatePreviewArtifacts?api-version=2025-03-01-preview
   : post:
       operationId: _DevHubMgmtClient_generate_preview_artifacts
@@ -2058,7 +2058,7 @@ paths:
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/providers/Microsoft.DevHub/locations/{location}/githuboauth/default?api-version=2025-03-01-preview
   : get:
-      operationId: _DevHubMgmtClient_git_hub_o_auth_callback
+      operationId: _DevHubMgmtClient_github_oauth_callback
       description: Callback URL to hit once authenticated with GitHub App to have the service store the OAuth token.
         Callback URL to hit once authenticated with GitHub App to have the service store the OAuth token.
       parameters:
@@ -2092,12 +2092,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOAuthResponse'
-      x-stackql-resource: git_hub_o_auth_callbacks
-      x-stackql-method: git_hub_o_auth_callback
+      x-stackql-resource: github_oauth_callbacks
+      x-stackql-method: github_oauth_callback
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/providers/Microsoft.DevHub/locations/{location}/githuboauth/default/getGitHubOAuthInfo?api-version=2025-03-01-preview
   : post:
-      operationId: _DevHubMgmtClient_git_hub_o_auth
+      operationId: _DevHubMgmtClient_github_oauth
       description: Gets GitHubOAuth info used to authenticate users with the Developer Hub GitHub App. Gets GitHubOAuth
         info used to authenticate users with the Developer Hub GitHub App.
       parameters:
@@ -2130,6 +2130,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOAuthInfoResponse'
-      x-stackql-resource: git_hub_o_auths
-      x-stackql-method: git_hub_o_auth
+      x-stackql-resource: github_oauths
+      x-stackql-method: github_oauth
       x-stackql-verb: EXEC

@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#restart_deployed_code_package"><CopyableCode code="restart_deployed_code_package" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-CodePackageInstanceId"><code>CodePackageInstanceId</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-CodePackageInstanceId"><code>CodePackageInstanceId</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Restarts a code package deployed on a Service Fabric node in a cluster. Restarts a code package deployed on a Service Fabric node in a cluster. This aborts the code package process, which will restart all the user service replicas hosted in that process.</td>
 </tr>
@@ -81,7 +81,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -110,8 +110,8 @@ Restarts a code package deployed on a Service Fabric node in a cluster. Restarts
 
 ```sql
 EXEC azure.servicefabric_dataplane.restart_deployed_code_packages.restart_deployed_code_package 
-@node_name='{{ node_name }}' --required, 
 @application_id='{{ application_id }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}' 
 @@json=

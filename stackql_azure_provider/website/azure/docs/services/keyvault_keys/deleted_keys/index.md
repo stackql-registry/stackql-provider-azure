@@ -162,21 +162,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deleted_key"><CopyableCode code="get_deleted_key" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Gets the public part of a deleted key. The Get Deleted Key operation is applicable for soft-delete enabled vaults. While the operation can be invoked on any vault, it will return an error if invoked on a non soft-delete enabled vault. This operation requires the keys/get permission.</td>
 </tr>
 <tr>
     <td><a href="#get_deleted_keys"><CopyableCode code="get_deleted_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a></td>
     <td>Lists the deleted keys in the specified vault. Retrieves a list of the keys in the Key Vault as JSON Web Key structures that contain the public part of a deleted key. This operation includes deletion-specific information. The Get Deleted Keys operation is applicable for vaults enabled for soft-delete. While the operation can be invoked on any vault, it will return an error if invoked on a non soft-delete enabled vault. This operation requires the keys/list permission.</td>
 </tr>
 <tr>
     <td><a href="#purge_deleted_key"><CopyableCode code="purge_deleted_key" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Permanently deletes the specified key. The Purge Deleted Key operation is applicable for soft-delete enabled vaults. While the operation can be invoked on any vault, it will return an error if invoked on a non soft-delete enabled vault. This operation requires the keys/purge permission.</td>
 </tr>
@@ -201,10 +201,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the key. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-maxresults">
     <td><CopyableCode code="maxresults" /></td>
@@ -239,7 +239,7 @@ scheduledPurgeDate,
 tags
 FROM azure.keyvault_keys.deleted_keys
 WHERE key_name = '{{ key_name }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -257,7 +257,7 @@ recoveryId,
 scheduledPurgeDate,
 tags
 FROM azure.keyvault_keys.deleted_keys
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 ;
 ```
@@ -280,7 +280,7 @@ Permanently deletes the specified key. The Purge Deleted Key operation is applic
 ```sql
 DELETE FROM azure.keyvault_keys.deleted_keys
 WHERE key_name = '{{ key_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>

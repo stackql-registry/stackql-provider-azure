@@ -1021,15 +1021,6 @@ components:
           description: 'The deployment type. Eg: SingleServer/ThreeTier. Required. Known values are: "SingleServer" and "ThreeTier".'
       required:
         - deploymentType
-    SAPSupportedResourceSkusResult:
-      type: object
-      description: The list of supported SKUs for different resources which are part of SAP deployment.
-      properties:
-        supportedSkus:
-          type: array
-          items:
-            $ref: "#/components/schemas/SAPSupportedSku"
-          description: Gets the list of SAP supported SKUs.
     SAPSupportedSku:
       type: object
       description: The SAP supported SKU.
@@ -1043,6 +1034,15 @@ components:
         isDatabaseCertified:
           type: boolean
           description: True if the Sku is certified for Database server in the SAP system.
+    SAPSupportedResourceSkusResult:
+      type: object
+      description: The list of supported SKUs for different resources which are part of SAP deployment.
+      properties:
+        supportedSkus:
+          type: array
+          items:
+            $ref: "#/components/schemas/SAPSupportedSku"
+          description: Gets the list of SAP supported SKUs.
     SAPDiskConfigurationsResult:
       type: object
       description: The list of disk configuration for vmSku which are part of SAP deployment.
@@ -1051,15 +1051,6 @@ components:
           type: object
           properties: {}
           description: "The disk configuration for the db volume. For HANA, Required volumes are: ['hana/data', 'hana/log', hana/shared', 'usr/sap', 'os'], Optional volume : ['backup']."
-    SAPAvailabilityZoneDetailsResult:
-      type: object
-      description: The list of supported availability zone pairs which are part of SAP HA deployment.
-      properties:
-        availabilityZonePairs:
-          type: array
-          items:
-            $ref: "#/components/schemas/SAPAvailabilityZonePair"
-          description: Gets the list of availability zone pairs.
     SAPAvailabilityZonePair:
       type: object
       description: The SAP Availability Zone Pair.
@@ -1070,6 +1061,15 @@ components:
         zoneB:
           type: integer
           description: The zone B.
+    SAPAvailabilityZoneDetailsResult:
+      type: object
+      description: The list of supported availability zone pairs which are part of SAP HA deployment.
+      properties:
+        availabilityZonePairs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SAPAvailabilityZonePair"
+          description: Gets the list of availability zone pairs.
     SAPVirtualInstance:
       type: object
       description: Define the Virtual Instance for SAP solutions resource.
@@ -1539,6 +1539,10 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/get_sizing_recommendations"
+          - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/get_disk_configurations"
+          - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/get_sap_supported_sku"
+          - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/get_availability_zone_details"
           - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/get"
           - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/sap_virtual_instances/methods/list_by_subscription"

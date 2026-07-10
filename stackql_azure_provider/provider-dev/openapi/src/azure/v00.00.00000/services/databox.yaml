@@ -757,16 +757,6 @@ components:
             $ref: "#/components/schemas/JobResourceFlattened"
         nextLink:
           type: string
-    UnencryptedCredentials:
-      type: object
-      description: Unencrypted credentials for accessing device. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        jobName:
-          type: string
-          description: Name of the job.
-        jobSecrets:
-          $ref: "#/components/schemas/JobSecrets"
-          description: Secrets related to this job.
     JobSecrets:
       type: object
       description: "The base class for the secrets. You probably want to use the sub-classes and not this class directly. Known sub-classes are: DataboxJobSecrets, CustomerDiskJobSecrets, DataBoxDiskJobSecrets, DataBoxHeavyJobSecrets Variables are only populated by the server, and will be ignored when sending a request. All required parameters must be populated in order to send to server."
@@ -792,6 +782,16 @@ components:
         forwardDCAccessCode:
           type: string
           description: Forward Dc access security code.
+    UnencryptedCredentials:
+      type: object
+      description: Unencrypted credentials for accessing device. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        jobName:
+          type: string
+          description: Name of the job.
+        jobSecrets:
+          $ref: "#/components/schemas/JobSecrets"
+          description: Secrets related to this job.
     PagedUnencryptedCredentials:
       type: object
       properties:
@@ -990,51 +990,6 @@ components:
             $ref: "#/components/schemas/Operation"
         nextLink:
           type: string
-    SkuInformation:
-      type: object
-      description: Information of the sku. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        sku:
-          $ref: "#/components/schemas/Sku"
-          description: The Sku.
-        enabled:
-          type: boolean
-          description: The sku is enabled or not.
-        properties:
-          type: object
-          properties:
-            dataLocationToServiceLocationMap:
-              type: array
-              items:
-                $ref: "#/components/schemas/DataLocationToServiceLocationMap"
-              description: The map of data location to service location.
-            capacity:
-              $ref: "#/components/schemas/SkuCapacity"
-              description: Capacity of the Sku.
-            costs:
-              type: array
-              items:
-                $ref: "#/components/schemas/SkuCost"
-              description: Cost of the Sku.
-            apiVersions:
-              type: array
-              items:
-                type: string
-              description: Api versions that support this Sku.
-            disabledReason:
-              type: string
-              description: 'Reason why the Sku is disabled. Known values are: "None", "Country", "Region", "Feature", "OfferType", and "NoSubscriptionInfo".'
-            disabledReasonMessage:
-              type: string
-              description: Message for why the Sku is disabled.
-            requiredFeature:
-              type: string
-              description: Required feature to access the sku.
-            countriesWithinCommerceBoundary:
-              type: array
-              items:
-                type: string
-              description: List of all the Countries in the SKU specific commerce boundary.
     DataLocationToServiceLocationMap:
       type: object
       description: Map of data location to service location. Variables are only populated by the server, and will be ignored when sending a request.
@@ -1071,13 +1026,55 @@ components:
         multiplier:
           type: number
           description: "Multiplier specifies the region specific value to be multiplied with 1$ guid. Eg: Our new regions will be using 1$ shipping guid with appropriate multiplier specific to region."
-    PagedSkuInformation:
+    SkuInformationFlattened:
+      type: object
+      description: Flattened view of SkuInformation ('properties' hoisted to the top level).
+      properties:
+        sku:
+          $ref: "#/components/schemas/Sku"
+          description: The Sku.
+        enabled:
+          type: boolean
+          description: The sku is enabled or not.
+        dataLocationToServiceLocationMap:
+          type: array
+          items:
+            $ref: "#/components/schemas/DataLocationToServiceLocationMap"
+          description: The map of data location to service location.
+        capacity:
+          $ref: "#/components/schemas/SkuCapacity"
+          description: Capacity of the Sku.
+        costs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SkuCost"
+          description: Cost of the Sku.
+        apiVersions:
+          type: array
+          items:
+            type: string
+          description: Api versions that support this Sku.
+        disabledReason:
+          type: string
+          description: 'Reason why the Sku is disabled. Known values are: "None", "Country", "Region", "Feature", "OfferType", and "NoSubscriptionInfo".'
+        disabledReasonMessage:
+          type: string
+          description: Message for why the Sku is disabled.
+        requiredFeature:
+          type: string
+          description: Required feature to access the sku.
+        countriesWithinCommerceBoundary:
+          type: array
+          items:
+            type: string
+          description: List of all the Countries in the SKU specific commerce boundary.
+    PagedSkuInformationFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/SkuInformation"
+            $ref: "#/components/schemas/SkuInformationFlattened"
         nextLink:
           type: string
     AddressValidationOutput:
@@ -1357,6 +1354,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         mark_devices_shipped:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataBox~1jobs~1{job_name}~1markDevicesShipped?api-version=2025-02-01/post"
@@ -1428,6 +1426,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
           config:
@@ -1489,7 +1497,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/service/methods/list_available_skus_by_resource_group"
         insert: []
         update: []
         delete: []
@@ -1984,7 +1993,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedSkuInformation"
+                $ref: "#/components/schemas/PagedSkuInformationFlattened"
   /subscriptions/{subscription_id}/providers/Microsoft.DataBox/locations/{location}/validateAddress?api-version=2025-02-01:
     post:
       operationId: Service_validate_address

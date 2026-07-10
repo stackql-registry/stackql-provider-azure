@@ -156,18 +156,18 @@ The following methods are available for this resource:
     <td>Create role assignment.</td>
 </tr>
 <tr>
-    <td><a href="#delete_role_assignment_by_id"><CopyableCode code="delete_role_assignment_by_id" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete role assignment by role assignment Id.</td>
-</tr>
-<tr>
     <td><a href="#get_role_assignments"><CopyableCode code="get_role_assignments" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-roleId"><code>roleId</code></a>, <a href="#parameter-principalId"><code>principalId</code></a>, <a href="#parameter-x-ms-continuation"><code>x-ms-continuation</code></a></td>
     <td>List role assignments.</td>
+</tr>
+<tr>
+    <td><a href="#delete_role_assignment_by_id"><CopyableCode code="delete_role_assignment_by_id" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete role assignment by role assignment Id.</td>
 </tr>
 <tr>
     <td><a href="#check_principal_access"><CopyableCode code="check_principal_access" /></a></td>
@@ -195,7 +195,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-role_assignment_id">
     <td><CopyableCode code="role_assignment_id" /></td>
@@ -316,34 +316,13 @@ scope
 </Tabs>
 
 
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_role_assignment_by_id"
-    values={[
-        { label: 'delete_role_assignment_by_id', value: 'delete_role_assignment_by_id' }
-    ]}
->
-<TabItem value="delete_role_assignment_by_id">
-
-Delete role assignment by role assignment Id.
-
-```sql
-DELETE FROM azure.synapse_accesscontrol.role_assignments
-WHERE role_assignment_id = '{{ role_assignment_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_role_assignments"
     values={[
         { label: 'get_role_assignments', value: 'get_role_assignments' },
+        { label: 'delete_role_assignment_by_id', value: 'delete_role_assignment_by_id' },
         { label: 'check_principal_access', value: 'check_principal_access' }
     ]}
 >
@@ -357,6 +336,17 @@ EXEC azure.synapse_accesscontrol.role_assignments.get_role_assignments
 @roleId='{{ roleId }}', 
 @principalId='{{ principalId }}', 
 @x-ms-continuation='{{ x-ms-continuation }}'
+;
+```
+</TabItem>
+<TabItem value="delete_role_assignment_by_id">
+
+Delete role assignment by role assignment Id.
+
+```sql
+EXEC azure.synapse_accesscontrol.role_assignments.delete_role_assignment_by_id 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

@@ -644,9 +644,9 @@ components:
         keyName:
           type: string
           description: Gets or sets keyName of the created AuthorizationRule.
-    PnsCredentialsResource:
+    PnsCredentialsResourceFlattened:
       type: object
-      description: Description of a NotificationHub PNS Credentials. This is a response of the POST requests that return namespace or hubs PNS credentials. Variables are only populated by the server, and will be ignored when sending a request.
+      description: Flattened view of PnsCredentialsResource ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -667,36 +667,33 @@ components:
           type: object
           properties: {}
           description: Deprecated - only for compatibility.
-        properties:
-          type: object
-          properties:
-            admCredential:
-              $ref: "#/components/schemas/AdmCredential"
-              description: Description of a NotificationHub AdmCredential.
-            apnsCredential:
-              $ref: "#/components/schemas/ApnsCredential"
-              description: Description of a NotificationHub ApnsCredential.
-            baiduCredential:
-              $ref: "#/components/schemas/BaiduCredential"
-              description: Description of a NotificationHub BaiduCredential.
-            browserCredential:
-              $ref: "#/components/schemas/BrowserCredential"
-              description: Description of a NotificationHub BrowserCredential.
-            gcmCredential:
-              $ref: "#/components/schemas/GcmCredential"
-              description: Description of a NotificationHub GcmCredential.
-            mpnsCredential:
-              $ref: "#/components/schemas/MpnsCredential"
-              description: Description of a NotificationHub MpnsCredential.
-            wnsCredential:
-              $ref: "#/components/schemas/WnsCredential"
-              description: Description of a NotificationHub WnsCredential.
-            xiaomiCredential:
-              $ref: "#/components/schemas/XiaomiCredential"
-              description: Description of a NotificationHub XiaomiCredential.
-            fcmV1Credential:
-              $ref: "#/components/schemas/FcmV1Credential"
-              description: Description of a NotificationHub FcmV1Credential.
+        admCredential:
+          $ref: "#/components/schemas/AdmCredential"
+          description: Description of a NotificationHub AdmCredential.
+        apnsCredential:
+          $ref: "#/components/schemas/ApnsCredential"
+          description: Description of a NotificationHub ApnsCredential.
+        baiduCredential:
+          $ref: "#/components/schemas/BaiduCredential"
+          description: Description of a NotificationHub BaiduCredential.
+        browserCredential:
+          $ref: "#/components/schemas/BrowserCredential"
+          description: Description of a NotificationHub BrowserCredential.
+        gcmCredential:
+          $ref: "#/components/schemas/GcmCredential"
+          description: Description of a NotificationHub GcmCredential.
+        mpnsCredential:
+          $ref: "#/components/schemas/MpnsCredential"
+          description: Description of a NotificationHub MpnsCredential.
+        wnsCredential:
+          $ref: "#/components/schemas/WnsCredential"
+          description: Description of a NotificationHub WnsCredential.
+        xiaomiCredential:
+          $ref: "#/components/schemas/XiaomiCredential"
+          description: Description of a NotificationHub XiaomiCredential.
+        fcmV1Credential:
+          $ref: "#/components/schemas/FcmV1Credential"
+          description: Description of a NotificationHub FcmV1Credential.
     CheckAvailabilityResult:
       type: object
       description: Description of a CheckAvailability resource. Variables are only populated by the server, and will be ignored when sending a request.
@@ -1431,13 +1428,17 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.NotificationHubs~1namespaces~1{namespace_name}~1authorizationRules~1{authorization_rule_name}?api-version=2023-10-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_pns_credentials:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.NotificationHubs~1namespaces~1{namespace_name}~1pnsCredentials?api-version=2023-10-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         check_availability:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.NotificationHubs~1checkNamespaceAvailability?api-version=2023-10-01-preview/post"
@@ -1462,20 +1463,18 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/get_authorization_rule"
+          - $ref: "#/components/x-stackQL-resources/namespaces/methods/list_keys"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/get"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/list"
+          - $ref: "#/components/x-stackQL-resources/namespaces/methods/check_availability"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/list_all"
         insert:
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update_authorization_rule"
         update:
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update_authorization_rule"
         delete:
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/delete_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/delete"
     notification_hubs:
       id: azure.notificationhubs.notification_hubs
@@ -1584,13 +1583,17 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.NotificationHubs~1namespaces~1{namespace_name}~1notificationHubs~1{notification_hub_name}~1authorizationRules~1{authorization_rule_name}?api-version=2023-10-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_pns_credentials:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.NotificationHubs~1namespaces~1{namespace_name}~1notificationHubs~1{notification_hub_name}~1pnsCredentials?api-version=2023-10-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         check_notification_hub_availability:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.NotificationHubs~1namespaces~1{namespace_name}~1checkNotificationHubAvailability?api-version=2023-10-01-preview/post"
@@ -1621,19 +1624,17 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/get_authorization_rule"
+          - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/list_keys"
           - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/get"
+          - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/check_notification_hub_availability"
           - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/create_or_update_authorization_rule"
         update:
           - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/create_or_update_authorization_rule"
         delete:
-          - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/delete_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/notification_hubs/methods/delete"
     operations:
       id: azure.notificationhubs.operations
@@ -2178,8 +2179,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NotificationHubs/namespaces/{namespace_name}/pnsCredentials?api-version=2023-10-01-preview:
     post:
       operationId: Namespaces_get_pns_credentials
@@ -2208,7 +2209,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PnsCredentialsResource"
+                $ref: "#/components/schemas/PnsCredentialsResourceFlattened"
   /subscriptions/{subscription_id}/providers/Microsoft.NotificationHubs/checkNamespaceAvailability?api-version=2023-10-01-preview:
     post:
       operationId: Namespaces_check_availability
@@ -2796,8 +2797,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NotificationHubs/namespaces/{namespace_name}/notificationHubs/{notification_hub_name}/pnsCredentials?api-version=2023-10-01-preview:
     post:
       operationId: NotificationHubs_get_pns_credentials
@@ -2832,7 +2833,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PnsCredentialsResource"
+                $ref: "#/components/schemas/PnsCredentialsResourceFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NotificationHubs/namespaces/{namespace_name}/checkNotificationHubAvailability?api-version=2023-10-01-preview:
     post:
       operationId: NotificationHubs_check_notification_hub_availability

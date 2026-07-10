@@ -132,49 +132,49 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_key"><CopyableCode code="get_key" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Gets the public part of a stored key. The get key operation is applicable to all key types. If the requested key is symmetric, then no key material is released in the response. This operation requires the keys/get permission.</td>
 </tr>
 <tr>
     <td><a href="#get_keys"><CopyableCode code="get_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a></td>
     <td>List keys in the specified vault. Retrieves a list of the keys in the Key Vault as JSON Web Key structures that contain the public part of a stored key. The LIST operation is applicable to all key types, however only the base key identifier, attributes, and tags are provided in the response. Individual versions of a key are not listed in the response. This operation requires the keys/list permission.</td>
 </tr>
 <tr>
     <td><a href="#create_key"><CopyableCode code="create_key" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-kty"><code>kty</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-kty"><code>kty</code></a></td>
     <td></td>
     <td>Creates a new key, stores it, then returns key parameters and attributes to the client. The create key operation can be used to create any key type in Azure Key Vault. If the named key already exists, Azure Key Vault creates a new version of the key. It requires the keys/create permission.</td>
 </tr>
 <tr>
     <td><a href="#update_key"><CopyableCode code="update_key" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-key_version"><code>key_version</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>The update key operation changes specified attributes of a stored key and can be applied to any key type and key version stored in Azure Key Vault. In order to perform this operation, the key must already exist in the Key Vault. Note: The cryptographic material of a key itself cannot be changed. This operation requires the keys/update permission.</td>
 </tr>
 <tr>
     <td><a href="#delete_key"><CopyableCode code="delete_key" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Deletes a key of any type from storage in Azure Key Vault. The delete key operation cannot be used to remove individual versions of a key. This operation removes the cryptographic material associated with the key, which means the key is not usable for Sign/Verify, Wrap/Unwrap or Encrypt/Decrypt operations. This operation requires the keys/delete permission.</td>
 </tr>
 <tr>
     <td><a href="#backup_key"><CopyableCode code="backup_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Requests that a backup of the specified key be downloaded to the client. The Key Backup operation exports a key from Azure Key Vault in a protected form. Note that this operation does NOT return key material in a form that can be used outside the Azure Key Vault system, the returned key material is either protected to a Azure Key Vault HSM or to Azure Key Vault itself. The intent of this operation is to allow a client to GENERATE a key in one Azure Key Vault instance, BACKUP the key, and then RESTORE it into another Azure Key Vault instance. The BACKUP operation may be used to export, in protected form, any key type from Azure Key Vault. Individual versions of a key cannot be backed up. BACKUP / RESTORE can be performed within geographical boundaries only; meaning that a BACKUP from one geographical area cannot be restored to another geographical area. For example, a backup from the US geographical area cannot be restored in an EU geographical area. This operation requires the key/backup permission.</td>
 </tr>
 <tr>
     <td><a href="#restore_key"><CopyableCode code="restore_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-value"><code>value</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-value"><code>value</code></a></td>
     <td></td>
     <td>Restores a backed up key to a vault. Imports a previously backed up key into Azure Key Vault, restoring the key, its key identifier, attributes and access control policies. The RESTORE operation may be used to import a previously backed up key. Individual versions of a key cannot be restored. The key is restored in its entirety with the same key name as it had when it was backed up. If the key name is not available in the target Key Vault, the RESTORE operation will be rejected. While the key name is retained during restore, the final key identifier will change if the key is restored to a different vault. Restore will restore all versions and preserve version identifiers. The RESTORE operation is subject to security constraints: The target Key Vault must be owned by the same Microsoft Azure Subscription as the source Key Vault The user must have RESTORE permission in the target Key Vault. This operation requires the keys/restore permission.</td>
 </tr>
@@ -204,10 +204,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The version of the key to update. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-maxresults">
     <td><CopyableCode code="maxresults" /></td>
@@ -240,7 +240,7 @@ tags
 FROM azure.keyvault_keys.keys
 WHERE key_name = '{{ key_name }}' -- required
 AND key_version = '{{ key_version }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -255,7 +255,7 @@ kid,
 managed,
 tags
 FROM azure.keyvault_keys.keys
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 ;
 ```
@@ -287,7 +287,7 @@ tags,
 crv,
 release_policy,
 key_name,
-vault_base_url
+vault_name
 )
 SELECT 
 '{{ kty }}' /* required */,
@@ -299,7 +299,7 @@ SELECT
 '{{ crv }}',
 '{{ release_policy }}',
 '{{ key_name }}',
-'{{ vault_base_url }}'
+'{{ vault_name }}'
 RETURNING
 attributes,
 key,
@@ -317,8 +317,8 @@ tags
     - name: key_name
       value: "{{ key_name }}"
       description: Required parameter for the keys resource.
-    - name: vault_base_url
-      value: "{{ vault_base_url }}"
+    - name: vault_name
+      value: "{{ vault_name }}"
       description: Required parameter for the keys resource.
     - name: kty
       value: "{{ kty }}"
@@ -403,7 +403,7 @@ release_policy = '{{ release_policy }}'
 WHERE 
 key_name = '{{ key_name }}' --required
 AND key_version = '{{ key_version }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 RETURNING
 attributes,
 key,
@@ -430,7 +430,7 @@ Deletes a key of any type from storage in Azure Key Vault. The delete key operat
 ```sql
 DELETE FROM azure.keyvault_keys.keys
 WHERE key_name = '{{ key_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>
@@ -453,7 +453,7 @@ Requests that a backup of the specified key be downloaded to the client. The Key
 ```sql
 EXEC azure.keyvault_keys.keys.backup_key 
 @key_name='{{ key_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>
@@ -463,7 +463,7 @@ Restores a backed up key to a vault. Imports a previously backed up key into Azu
 
 ```sql
 EXEC azure.keyvault_keys.keys.restore_key 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "value": "{{ value }}"

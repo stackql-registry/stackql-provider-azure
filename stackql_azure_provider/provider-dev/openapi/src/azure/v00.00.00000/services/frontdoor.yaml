@@ -163,6 +163,11 @@ components:
       enum:
         - Microsoft.Network/frontDoors
         - Microsoft.Network/frontDoors/frontendEndpoints
+    Availability:
+      type: string
+      enum:
+        - Available
+        - Unavailable
     CheckNameAvailabilityOutput:
       type: object
       description: Output of check name availability API.
@@ -176,11 +181,6 @@ components:
         message:
           type: string
           description: The detailed error message describing why the name is not available.
-    Availability:
-      type: string
-      enum:
-        - Available
-        - Unavailable
     FrontDoorProperties:
       type: object
       description: The JSON object that contains the properties required to create an endpoint.
@@ -2053,8 +2053,7 @@ components:
         select: []
         insert: []
         update: []
-        delete:
-          - $ref: "#/components/x-stackQL-resources/endpoints/methods/purge_content"
+        delete: []
     experiments:
       id: azure.frontdoor.experiments
       name: experiments
@@ -2142,7 +2141,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/front_door_name_availability/methods/check"
         insert: []
         update: []
         delete: []
@@ -2163,7 +2163,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/front_door_name_availability_with_subscription/methods/check"
         insert: []
         update: []
         delete: []

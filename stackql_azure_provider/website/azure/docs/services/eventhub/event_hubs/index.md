@@ -271,13 +271,6 @@ The following methods are available for this resource:
     <td>Gets all the Event Hubs in a Namespace.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an AuthorizationRule for the specified Event Hub. Creation/update of the AuthorizationRule will take a few seconds to take effect.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -285,25 +278,11 @@ The following methods are available for this resource:
     <td>Creates or updates a new Event Hub as a nested resource within a Namespace.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an AuthorizationRule for the specified Event Hub. Creation/update of the AuthorizationRule will take a few seconds to take effect.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a new Event Hub as a nested resource within a Namespace.</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an Event Hub AuthorizationRule.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -325,6 +304,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the ACS and SAS connection strings for the Event Hub.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an AuthorizationRule for the specified Event Hub. Creation/update of the AuthorizationRule will take a few seconds to take effect.</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an Event Hub AuthorizationRule.</td>
 </tr>
 <tr>
     <td><a href="#regenerate_keys"><CopyableCode code="regenerate_keys" /></a></td>
@@ -477,43 +470,12 @@ AND $top = '{{ $top }}'
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an AuthorizationRule for the specified Event Hub. Creation/update of the AuthorizationRule will take a few seconds to take effect.
-
-```sql
-INSERT INTO azure.eventhub.event_hubs (
-properties,
-resource_group_name,
-namespace_name,
-event_hub_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ event_hub_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a new Event Hub as a nested resource within a Namespace.
@@ -556,9 +518,6 @@ type
     - name: event_hub_name
       value: "{{ event_hub_name }}"
       description: Required parameter for the event_hubs resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the event_hubs resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the event_hubs resource.
@@ -591,35 +550,11 @@ type
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an AuthorizationRule for the specified Event Hub. Creation/update of the AuthorizationRule will take a few seconds to take effect.
-
-```sql
-REPLACE azure.eventhub.event_hubs
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND event_hub_name = '{{ event_hub_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a new Event Hub as a nested resource within a Namespace.
@@ -648,26 +583,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes an Event Hub AuthorizationRule.
-
-```sql
-DELETE FROM azure.eventhub.event_hubs
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND event_hub_name = '{{ event_hub_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an Event Hub from the specified Namespace and resource group.
@@ -691,6 +611,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
 >
@@ -713,6 +635,38 @@ Gets the ACS and SAS connection strings for the Event Hub.
 
 ```sql
 EXEC azure.eventhub.event_hubs.list_keys 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@event_hub_name='{{ event_hub_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates or updates an AuthorizationRule for the specified Event Hub. Creation/update of the AuthorizationRule will take a few seconds to take effect.
+
+```sql
+EXEC azure.eventhub.event_hubs.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@event_hub_name='{{ event_hub_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes an Event Hub AuthorizationRule.
+
+```sql
+EXEC azure.eventhub.event_hubs.delete_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @event_hub_name='{{ event_hub_name }}' --required, 

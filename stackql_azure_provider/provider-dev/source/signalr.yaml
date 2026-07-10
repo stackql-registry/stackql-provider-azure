@@ -1359,7 +1359,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomCertificateFlattened'
-      x-stackql-resource: signal_r_custom_certificates
+      x-stackql-resource: signalr_custom_certificates
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -1418,7 +1418,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomCertificate'
-      x-stackql-resource: signal_r_custom_certificates
+      x-stackql-resource: signalr_custom_certificates
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -1451,7 +1451,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r_custom_certificates
+      x-stackql-resource: signalr_custom_certificates
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/customCertificates?api-version=2023-08-01-preview
@@ -1483,7 +1483,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedCustomCertificateFlattened'
-      x-stackql-resource: signal_r_custom_certificates
+      x-stackql-resource: signalr_custom_certificates
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1524,7 +1524,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomDomainFlattened'
-      x-stackql-resource: signal_r_custom_domains
+      x-stackql-resource: signalr_custom_domains
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -1580,7 +1580,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomDomain'
-      x-stackql-resource: signal_r_custom_domains
+      x-stackql-resource: signalr_custom_domains
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -1613,7 +1613,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r_custom_domains
+      x-stackql-resource: signalr_custom_domains
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/customDomains?api-version=2023-08-01-preview
@@ -1645,7 +1645,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedCustomDomainFlattened'
-      x-stackql-resource: signal_r_custom_domains
+      x-stackql-resource: signalr_custom_domains
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1680,7 +1680,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignalRResourceFlattened'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -1793,7 +1793,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignalRResource'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -1820,7 +1820,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: delete
       x-stackql-verb: DELETE
     patch:
@@ -1932,7 +1932,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignalRResource'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: update
       x-stackql-verb: UPDATE
   /subscriptions/{subscription_id}/providers/Microsoft.SignalRService/signalR?api-version=2023-08-01-preview:
@@ -1952,7 +1952,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedSignalRResourceFlattened'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: list_by_subscription
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1981,7 +1981,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedSignalRResourceFlattened'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: list_by_resource_group
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2016,9 +2016,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignalRKeys'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/replicas/{replica_name}/skus?api-version=2023-08-01-preview
   : get:
       operationId: SignalR_list_replica_skus
@@ -2054,7 +2054,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SkuList'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: list_replica_skus
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2087,7 +2087,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SkuList'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: list_skus
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2132,9 +2132,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NameAvailability'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/regenerateKey?api-version=2023-08-01-preview
   : post:
       operationId: SignalR_begin_regenerate_key
@@ -2175,7 +2175,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignalRKeys'
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: regenerate_key
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/restart?api-version=2023-08-01-preview
@@ -2203,7 +2203,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r
+      x-stackql-resource: signalr
       x-stackql-method: restart
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2023-08-01-preview
@@ -2241,7 +2241,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PrivateEndpointConnectionFlattened'
-      x-stackql-resource: signal_r_private_endpoint_connections
+      x-stackql-resource: signalr_private_endpoint_connections
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -2295,7 +2295,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
-      x-stackql-resource: signal_r_private_endpoint_connections
+      x-stackql-resource: signalr_private_endpoint_connections
       x-stackql-method: update
       x-stackql-verb: UPDATE
     delete:
@@ -2328,7 +2328,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r_private_endpoint_connections
+      x-stackql-resource: signalr_private_endpoint_connections
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/privateEndpointConnections?api-version=2023-08-01-preview
@@ -2360,7 +2360,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedPrivateEndpointConnectionFlattened'
-      x-stackql-resource: signal_r_private_endpoint_connections
+      x-stackql-resource: signalr_private_endpoint_connections
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2395,7 +2395,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedPrivateLinkResourceFlattened'
-      x-stackql-resource: signal_r_private_link_resources
+      x-stackql-resource: signalr_private_link_resources
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2436,7 +2436,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReplicaFlattened'
-      x-stackql-resource: signal_r_replicas
+      x-stackql-resource: signalr_replicas
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -2505,7 +2505,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Replica'
-      x-stackql-resource: signal_r_replicas
+      x-stackql-resource: signalr_replicas
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -2538,7 +2538,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r_replicas
+      x-stackql-resource: signalr_replicas
       x-stackql-method: delete
       x-stackql-verb: DELETE
     patch:
@@ -2606,7 +2606,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Replica'
-      x-stackql-resource: signal_r_replicas
+      x-stackql-resource: signalr_replicas
       x-stackql-method: update
       x-stackql-verb: UPDATE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/replicas?api-version=2023-08-01-preview
@@ -2638,7 +2638,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedReplicaFlattened'
-      x-stackql-resource: signal_r_replicas
+      x-stackql-resource: signalr_replicas
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2675,7 +2675,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r_replicas
+      x-stackql-resource: signalr_replicas
       x-stackql-method: restart
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/sharedPrivateLinkResources/{shared_private_link_resource_name}?api-version=2023-08-01-preview
@@ -2713,7 +2713,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SharedPrivateLinkResourceFlattened'
-      x-stackql-resource: signal_r_shared_private_link_resources
+      x-stackql-resource: signalr_shared_private_link_resources
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -2771,7 +2771,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SharedPrivateLinkResource'
-      x-stackql-resource: signal_r_shared_private_link_resources
+      x-stackql-resource: signalr_shared_private_link_resources
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -2804,7 +2804,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: signal_r_shared_private_link_resources
+      x-stackql-resource: signalr_shared_private_link_resources
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/signalR/{resource_name}/sharedPrivateLinkResources?api-version=2023-08-01-preview
@@ -2836,7 +2836,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedSharedPrivateLinkResourceFlattened'
-      x-stackql-resource: signal_r_shared_private_link_resources
+      x-stackql-resource: signalr_shared_private_link_resources
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value

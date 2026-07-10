@@ -4341,6 +4341,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_full_url:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.EventGrid~1domains~1{domain_name}~1eventSubscriptions~1{event_subscription_name}~1getFullUrl?api-version=2025-07-15-preview/post"
@@ -4425,6 +4426,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_full_url:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.EventGrid~1domains~1{domain_name}~1topics~1{topic_name}~1eventSubscriptions~1{event_subscription_name}~1getFullUrl?api-version=2025-07-15-preview/post"
@@ -4834,6 +4836,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_full_url:
           operation:
             $ref: "#/paths/~1{scope}~1providers~1Microsoft.EventGrid~1eventSubscriptions~1{event_subscription_name}~1getFullUrl?api-version=2025-07-15-preview/post"
@@ -4948,6 +4951,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_full_url:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.EventGrid~1namespaces~1{namespace_name}~1topics~1{topic_name}~1eventSubscriptions~1{event_subscription_name}~1getFullUrl?api-version=2025-07-15-preview/post"
@@ -5709,6 +5713,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/partner_topic_event_subscriptions/methods/get"
@@ -6048,6 +6053,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_full_url:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.EventGrid~1systemTopics~1{system_topic_name}~1eventSubscriptions~1{event_subscription_name}~1getFullUrl?api-version=2025-07-15-preview/post"
@@ -6223,6 +6229,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_full_url:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.EventGrid~1topics~1{topic_name}~1eventSubscriptions~1{event_subscription_name}~1getFullUrl?api-version=2025-07-15-preview/post"

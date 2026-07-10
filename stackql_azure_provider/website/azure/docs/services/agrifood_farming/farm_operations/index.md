@@ -51,18 +51,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_data_ingestion_job"><CopyableCode code="create_data_ingestion_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a farm operation data ingestion job.</td>
-</tr>
-<tr>
     <td><a href="#get_data_ingestion_job_details"><CopyableCode code="get_data_ingestion_job_details" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get a farm operation data ingestion job.</td>
+</tr>
+<tr>
+    <td><a href="#create_data_ingestion_job"><CopyableCode code="create_data_ingestion_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a farm operation data ingestion job.</td>
 </tr>
 </tbody>
 </table>
@@ -83,63 +83,23 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job Id supplied by user. Required.</td>
 </tr>
 </tbody>
 </table>
-
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_data_ingestion_job"
-    values={[
-        { label: 'create_data_ingestion_job', value: 'create_data_ingestion_job' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_data_ingestion_job">
-
-Create a farm operation data ingestion job.
-
-```sql
-INSERT INTO azure.agrifood_farming.farm_operations (
-job_id,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: farm_operations
-  props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the farm_operations resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the farm_operations resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
 
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_data_ingestion_job_details"
     values={[
-        { label: 'get_data_ingestion_job_details', value: 'get_data_ingestion_job_details' }
+        { label: 'get_data_ingestion_job_details', value: 'get_data_ingestion_job_details' },
+        { label: 'create_data_ingestion_job', value: 'create_data_ingestion_job' }
     ]}
 >
 <TabItem value="get_data_ingestion_job_details">
@@ -148,6 +108,17 @@ Get a farm operation data ingestion job.
 
 ```sql
 EXEC azure.agrifood_farming.farm_operations.get_data_ingestion_job_details 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_data_ingestion_job">
+
+Create a farm operation data ingestion job.
+
+```sql
+EXEC azure.agrifood_farming.farm_operations.create_data_ingestion_job 
 @job_id='{{ job_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

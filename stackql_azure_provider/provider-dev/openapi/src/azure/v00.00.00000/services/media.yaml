@@ -346,15 +346,6 @@ components:
           items:
             type: string
           description: The list of Asset container SAS URLs.
-    ListStreamingLocatorsResponse:
-      type: object
-      description: The Streaming Locators associated with this Asset. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        streamingLocators:
-          type: array
-          items:
-            $ref: "#/components/schemas/AssetStreamingLocator"
-          description: The list of Streaming Locators.
     AssetStreamingLocator:
       type: object
       description: Properties of the Streaming Locator. Variables are only populated by the server, and will be ignored when sending a request.
@@ -386,19 +377,15 @@ components:
         defaultContentKeyPolicyName:
           type: string
           description: Name of the default ContentKeyPolicy used by this Streaming Locator.
-    StorageEncryptedAssetDecryptionData:
+    ListStreamingLocatorsResponse:
       type: object
-      description: Data needed to decrypt asset files encrypted with legacy storage encryption.
+      description: The Streaming Locators associated with this Asset. Variables are only populated by the server, and will be ignored when sending a request.
       properties:
-        key:
-          type: string
-          format: byte
-          description: The Asset File storage encryption key.
-        assetFileEncryptionMetadata:
+        streamingLocators:
           type: array
           items:
-            $ref: "#/components/schemas/AssetFileEncryptionMetadata"
-          description: Asset File encryption metadata.
+            $ref: "#/components/schemas/AssetStreamingLocator"
+          description: The list of Streaming Locators.
     AssetFileEncryptionMetadata:
       type: object
       description: The Asset File Storage encryption metadata. All required parameters must be populated in order to send to Azure.
@@ -414,6 +401,19 @@ components:
           description: The Asset File Id. Required.
       required:
         - assetFileId
+    StorageEncryptedAssetDecryptionData:
+      type: object
+      description: Data needed to decrypt asset files encrypted with legacy storage encryption.
+      properties:
+        key:
+          type: string
+          format: byte
+          description: The Asset File storage encryption key.
+        assetFileEncryptionMetadata:
+          type: array
+          items:
+            $ref: "#/components/schemas/AssetFileEncryptionMetadata"
+          description: Asset File encryption metadata.
     ContentKeyPolicyOption:
       type: object
       description: Represents a policy option. Variables are only populated by the server, and will be ignored when sending a request. All required parameters must be populated in order to send to Azure.
@@ -1548,13 +1548,6 @@ components:
               description: The Private Endpoint Connections created for the Media Service account.
       required:
         - location
-    EdgePolicies:
-      type: object
-      description: EdgePolicies.
-      properties:
-        usageDataCollectionPolicy:
-          $ref: "#/components/schemas/EdgeUsageDataCollectionPolicy"
-          description: ":vartype usage_data_collection_policy: ~azure.mgmt.media.models.EdgeUsageDataCollectionPolicy"
     EdgeUsageDataCollectionPolicy:
       type: object
       description: EdgeUsageDataCollectionPolicy.
@@ -1584,6 +1577,13 @@ components:
         token:
           type: string
           description: SAS token needed to interact with Event Hub.
+    EdgePolicies:
+      type: object
+      description: EdgePolicies.
+      properties:
+        usageDataCollectionPolicy:
+          $ref: "#/components/schemas/EdgeUsageDataCollectionPolicy"
+          description: ":vartype usage_data_collection_policy: ~azure.mgmt.media.models.EdgeUsageDataCollectionPolicy"
     TrackBase:
       type: object
       description: "Base type for concrete track types. A derived type must be used to represent the Track. You probably want to use the sub-classes and not this class directly. Known sub-classes are: AudioTrack, TextTrack, VideoTrack All required parameters must be populated in order to send to Azure."
@@ -2283,20 +2283,6 @@ components:
           items:
             $ref: "#/components/schemas/StreamingLocatorContentKey"
           description: ContentKeys used by current Streaming Locator.
-    ListPathsResponse:
-      type: object
-      description: Class of response for listPaths action.
-      properties:
-        streamingPaths:
-          type: array
-          items:
-            $ref: "#/components/schemas/StreamingPath"
-          description: Streaming Paths supported by current Streaming Locator.
-        downloadPaths:
-          type: array
-          items:
-            type: string
-          description: Download Paths supported by current Streaming Locator.
     StreamingPath:
       type: object
       description: Class of paths for streaming. All required parameters must be populated in order to send to Azure.
@@ -2315,6 +2301,20 @@ components:
       required:
         - streamingProtocol
         - encryptionScheme
+    ListPathsResponse:
+      type: object
+      description: Class of response for listPaths action.
+      properties:
+        streamingPaths:
+          type: array
+          items:
+            $ref: "#/components/schemas/StreamingPath"
+          description: Streaming Paths supported by current Streaming Locator.
+        downloadPaths:
+          type: array
+          items:
+            type: string
+          description: Download Paths supported by current Streaming Locator.
     StreamingLocator:
       type: object
       description: A Streaming Locator resource. Variables are only populated by the server, and will be ignored when sending a request.
@@ -3338,7 +3338,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/locations/methods/check_name_availability"
         insert: []
         update: []
         delete: []

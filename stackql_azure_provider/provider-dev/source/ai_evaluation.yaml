@@ -139,15 +139,6 @@ components:
             $ref: '#/components/schemas/DatasetVersion'
         nextLink:
           type: string
-    AssetCredentialResponse:
-      type: object
-      description: Represents a reference to a blob for consumption.
-      properties:
-        blobReference:
-          $ref: '#/components/schemas/BlobReference'
-          description: Credential info to access the storage account. Required.
-      required:
-      - blobReference
     BlobReference:
       type: object
       description: Blob reference details.
@@ -176,6 +167,15 @@ components:
         type:
           type: string
           description: Type of credential. Required. Default value is "SAS".
+    AssetCredentialResponse:
+      type: object
+      description: Represents a reference to a blob for consumption.
+      properties:
+        blobReference:
+          $ref: '#/components/schemas/BlobReference'
+          description: Credential info to access the storage account. Required.
+      required:
+      - blobReference
     PendingUploadResponse:
       type: object
       description: Represents the response for a pending upload request.
@@ -1584,7 +1584,7 @@ paths:
                 $ref: '#/components/schemas/Connection'
       x-stackql-resource: connections
       x-stackql-method: get_with_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /datasets/{name}/versions?api-version=2025-11-15-preview:
     get:
       operationId: Datasets_list_versions
@@ -1669,11 +1669,11 @@ paths:
           type: string
         description: The version of the DatasetVersion to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: datasets
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: Datasets_create_or_update_version
       description: Create a new or update an existing DatasetVersion with the given version id.
@@ -1726,7 +1726,7 @@ paths:
                 $ref: '#/components/schemas/DatasetVersion'
       x-stackql-resource: datasets
       x-stackql-method: create_or_update_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /datasets/{name}/versions/{version}/credentials?api-version=2025-11-15-preview:
     post:
       operationId: Datasets_get_credentials
@@ -1753,7 +1753,7 @@ paths:
                 $ref: '#/components/schemas/AssetCredentialResponse'
       x-stackql-resource: datasets
       x-stackql-method: get_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /datasets/{name}/versions/{version}/startPendingUpload?api-version=2025-11-15-preview:
     post:
       operationId: Datasets_start_pending_upload_version
@@ -1995,11 +1995,11 @@ paths:
           type: string
         description: The version of the EvaluationResult to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: evaluation_results
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: EvaluationResults_create_or_update_version
       description: Create a new or update an existing EvaluationResult with the given version id.
@@ -2050,7 +2050,7 @@ paths:
                 $ref: '#/components/schemas/EvaluationResult'
       x-stackql-resource: evaluation_results
       x-stackql-method: create_or_update_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /evaluationResults/{name}/versions/{version}/credentials?api-version=2025-11-15-preview:
     post:
       operationId: EvaluationResults_get_credentials
@@ -2089,7 +2089,7 @@ paths:
                 $ref: '#/components/schemas/AssetCredentialResponse'
       x-stackql-resource: evaluation_results
       x-stackql-method: get_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /evaluationResults/{name}/versions/{version}/startPendingUpload?api-version=2025-11-15-preview:
     post:
       operationId: EvaluationResults_start_pending_upload
@@ -2572,7 +2572,7 @@ paths:
                 $ref: '#/components/schemas/AgentEvaluation'
       x-stackql-resource: evaluations
       x-stackql-method: create_agent_evaluation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /evaluations/runs/{name}:cancel?api-version=2025-11-15-preview:
     post:
       operationId: Evaluations_cancel
@@ -2842,7 +2842,7 @@ paths:
                 $ref: '#/components/schemas/EvaluatorVersion'
       x-stackql-resource: evaluators
       x-stackql-method: create_evaluator_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /evaluators?api-version=2025-11-15-preview:
     get:
       operationId: Evaluators_list_latest_versions
@@ -2919,11 +2919,11 @@ paths:
           type: string
         description: The version of the EvaluatorVersion to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: evaluators
       x-stackql-method: delete_evaluator_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: Evaluators_update_evaluator_version
       description: Update an existing EvaluatorVersion with the given version id.
@@ -2949,7 +2949,7 @@ paths:
                 $ref: '#/components/schemas/EvaluatorVersion'
       x-stackql-resource: evaluators
       x-stackql-method: update_evaluator_version
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /indexes/{name}/versions?api-version=2025-11-15-preview:
     get:
       operationId: Indexes_list_versions
@@ -3034,11 +3034,11 @@ paths:
           type: string
         description: The version of the Index to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: indexes
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: Indexes_create_or_update_version
       description: Create a new or update an existing Index with the given version id.
@@ -3084,7 +3084,7 @@ paths:
                 $ref: '#/components/schemas/Index'
       x-stackql-resource: indexes
       x-stackql-method: create_or_update_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /insights?api-version=2025-11-15-preview:
     get:
       operationId: Insights_list_insights
@@ -3199,9 +3199,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_annotation
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /simulation/jailbreak/{type_name}?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_jail_break_dataset_with_type
@@ -3216,9 +3230,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_jail_break_dataset_with_type
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /simulation/attackobjectives?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_attack_objectives
@@ -3260,9 +3288,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_jail_break_dataset
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /simulation/template/parameters/{type_name}?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_template_parameters_with_type
@@ -3277,9 +3319,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_template_parameters_with_type
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /simulation/template/parameters/?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_template_parameters
@@ -3288,9 +3338,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_template_parameters
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /simulation/template/parameters/image?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_template_parameters_image
@@ -3305,9 +3363,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_template_parameters_image
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /operations/{operation_id}?api-version=2022-11-01-preview:
     get:
       operationId: RAISvc_get_operation_result
@@ -3334,9 +3400,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: rai_svc
       x-stackql-method: get_operation_result
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /submitannotation?api-version=2022-11-01-preview:
     post:
       operationId: RAISvc_submit_annotation
@@ -3562,9 +3636,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: red_teams
       x-stackql-method: get_jail_break_dataset_with_type
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /redTeams/simulation/attackobjectives?api-version=2025-11-15-preview:
     get:
       operationId: RedTeams_get_attack_objectives
@@ -3612,9 +3700,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: red_teams
       x-stackql-method: get_jail_break_dataset
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /redTeams/simulation/template/parameters/{type_name}?api-version=2025-11-15-preview:
     get:
       operationId: RedTeams_get_template_parameters_with_type
@@ -3629,9 +3731,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: red_teams
       x-stackql-method: get_template_parameters_with_type
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /redTeams/simulation/template/parameters/?api-version=2025-11-15-preview:
     get:
       operationId: RedTeams_get_template_parameters
@@ -3640,9 +3750,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: red_teams
       x-stackql-method: get_template_parameters
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /redTeams/simulation/template/parameters/image?api-version=2025-11-15-preview:
     get:
       operationId: RedTeams_get_template_parameters_image
@@ -3657,9 +3775,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: red_teams
       x-stackql-method: get_template_parameters_image
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /redTeams/runs:run?api-version=2025-11-15-preview:
     post:
       operationId: RedTeams_create_run
@@ -3726,7 +3852,7 @@ paths:
                 $ref: '#/components/schemas/RedTeam'
       x-stackql-resource: red_teams
       x-stackql-method: create_run
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /redTeams/runs:upload?api-version=2025-11-15-preview:
     post:
       operationId: RedTeams_upload_run

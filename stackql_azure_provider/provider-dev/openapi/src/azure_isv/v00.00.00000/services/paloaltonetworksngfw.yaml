@@ -692,31 +692,6 @@ components:
           description: rulestack description. Required.
       required:
         - azureId
-    LogSettings:
-      type: object
-      description: Log Settings for Firewall.
-      properties:
-        logType:
-          type: string
-          description: 'One of possible log type. Known values are: "TRAFFIC", "THREAT", "DECRYPTION", "WILDFIRE", "DLP", and "AUDIT".'
-        logOption:
-          type: string
-          description: 'Log option SAME/INDIVIDUAL. Known values are: "SAME_DESTINATION" and "INDIVIDUAL_DESTINATION".'
-        applicationInsights:
-          $ref: "#/components/schemas/ApplicationInsights"
-          description: Application Insight details.
-        commonDestination:
-          $ref: "#/components/schemas/LogDestination"
-          description: Common destination configurations.
-        trafficLogDestination:
-          $ref: "#/components/schemas/LogDestination"
-          description: Traffic destination configurations.
-        threatLogDestination:
-          $ref: "#/components/schemas/LogDestination"
-          description: Threat destination configurations.
-        decryptLogDestination:
-          $ref: "#/components/schemas/LogDestination"
-          description: Decrypt destination configurations.
     ApplicationInsights:
       type: object
       description: Application Insights key.
@@ -791,6 +766,31 @@ components:
         secondaryKey:
           type: string
           description: Secondary Key value for Monitor.
+    LogSettings:
+      type: object
+      description: Log Settings for Firewall.
+      properties:
+        logType:
+          type: string
+          description: 'One of possible log type. Known values are: "TRAFFIC", "THREAT", "DECRYPTION", "WILDFIRE", "DLP", and "AUDIT".'
+        logOption:
+          type: string
+          description: 'Log option SAME/INDIVIDUAL. Known values are: "SAME_DESTINATION" and "INDIVIDUAL_DESTINATION".'
+        applicationInsights:
+          $ref: "#/components/schemas/ApplicationInsights"
+          description: Application Insight details.
+        commonDestination:
+          $ref: "#/components/schemas/LogDestination"
+          description: Common destination configurations.
+        trafficLogDestination:
+          $ref: "#/components/schemas/LogDestination"
+          description: Traffic destination configurations.
+        threatLogDestination:
+          $ref: "#/components/schemas/LogDestination"
+          description: Threat destination configurations.
+        decryptLogDestination:
+          $ref: "#/components/schemas/LogDestination"
+          description: Decrypt destination configurations.
     SupportInfo:
       type: object
       description: Support information for the resource.
@@ -1174,18 +1174,6 @@ components:
               description: Security Profile.
       required:
         - location
-    AdvSecurityObjectListResponse:
-      type: object
-      description: advanced security object. All required parameters must be populated in order to send to server.
-      properties:
-        value:
-          $ref: "#/components/schemas/AdvSecurityObjectModel"
-          description: response value. Required.
-        nextLink:
-          type: string
-          description: next link.
-      required:
-        - value
     AdvSecurityObjectModel:
       type: object
       description: List of custom and predefined url category. All required parameters must be populated in order to send to server.
@@ -1212,6 +1200,18 @@ components:
           description: description value.
       required:
         - name
+    AdvSecurityObjectListResponse:
+      type: object
+      description: advanced security object. All required parameters must be populated in order to send to server.
+      properties:
+        value:
+          $ref: "#/components/schemas/AdvSecurityObjectModel"
+          description: response value. Required.
+        nextLink:
+          type: string
+          description: next link.
+      required:
+        - value
     ListAppIdResponse:
       type: object
       description: ListAppIdResponse. All required parameters must be populated in order to send to server.
@@ -1226,6 +1226,18 @@ components:
           description: ":vartype next_link: str"
       required:
         - value
+    Country:
+      type: object
+      description: Country Description. All required parameters must be populated in order to send to server.
+      properties:
+        code:
+          type: string
+          description: country code. Required.
+        description:
+          type: string
+          description: code description.
+      required:
+        - code
     CountriesResponse:
       type: object
       description: Countries Response Object. All required parameters must be populated in order to send to server.
@@ -1240,18 +1252,6 @@ components:
           description: The link to the next page of items.
       required:
         - value
-    Country:
-      type: object
-      description: Country Description. All required parameters must be populated in order to send to server.
-      properties:
-        code:
-          type: string
-          description: country code. Required.
-        description:
-          type: string
-          description: code description.
-      required:
-        - code
     ListFirewallsResponse:
       type: object
       description: List firewalls response. All required parameters must be populated in order to send to server.
@@ -1264,20 +1264,6 @@ components:
         nextLink:
           type: string
           description: next link.
-      required:
-        - value
-    PredefinedUrlCategoriesResponse:
-      type: object
-      description: predefined url categories response. All required parameters must be populated in order to send to server.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/PredefinedUrlCategory"
-          description: The PredefinedUrlCategory items on this page. Required.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
       required:
         - value
     PredefinedUrlCategory:
@@ -1293,16 +1279,18 @@ components:
       required:
         - action
         - name
-    SecurityServicesResponse:
+    PredefinedUrlCategoriesResponse:
       type: object
-      description: Security services list response. All required parameters must be populated in order to send to server.
+      description: predefined url categories response. All required parameters must be populated in order to send to server.
       properties:
         value:
-          $ref: "#/components/schemas/SecurityServicesTypeList"
-          description: response value. Required.
+          type: array
+          items:
+            $ref: "#/components/schemas/PredefinedUrlCategory"
+          description: The PredefinedUrlCategory items on this page. Required.
         nextLink:
           type: string
-          description: next link.
+          description: The link to the next page of items.
       required:
         - value
     SecurityServicesTypeList:
@@ -1319,6 +1307,18 @@ components:
           description: list. Required.
       required:
         - entry
+    SecurityServicesResponse:
+      type: object
+      description: Security services list response. All required parameters must be populated in order to send to server.
+      properties:
+        value:
+          $ref: "#/components/schemas/SecurityServicesTypeList"
+          description: response value. Required.
+        nextLink:
+          type: string
+          description: next link.
+      required:
+        - value
     Changelog:
       type: object
       description: Changelog list. All required parameters must be populated in order to send to server.
@@ -1629,46 +1629,6 @@ components:
               description: 'Provisioning state of the resource. Known values are: "Accepted", "Creating", "Updating", "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
       required:
         - properties
-    RuleCounter:
-      type: object
-      description: Rule counter. All required parameters must be populated in order to send to server.
-      properties:
-        priority:
-          type: string
-          description: priority number. Required.
-        ruleStackName:
-          type: string
-          description: rule Stack Name.
-        ruleListName:
-          type: string
-          description: rule list name.
-        firewallName:
-          type: string
-          description: firewall name.
-        ruleName:
-          type: string
-          description: rule name. Required.
-        hitCount:
-          type: integer
-          description: hit count.
-        appSeen:
-          $ref: "#/components/schemas/AppSeenData"
-          description: apps seen.
-        timestamp:
-          type: string
-          format: date-time
-          description: timestamp of response.
-        requestTimestamp:
-          type: string
-          format: date-time
-          description: timestamp of request.
-        lastUpdatedTimestamp:
-          type: string
-          format: date-time
-          description: last updated timestamp.
-      required:
-        - priority
-        - ruleName
     AppSeenData:
       type: object
       description: Data Type for App Seen. All required parameters must be populated in order to send to server.
@@ -1717,6 +1677,46 @@ components:
         - tag
         - technology
         - standardPorts
+    RuleCounter:
+      type: object
+      description: Rule counter. All required parameters must be populated in order to send to server.
+      properties:
+        priority:
+          type: string
+          description: priority number. Required.
+        ruleStackName:
+          type: string
+          description: rule Stack Name.
+        ruleListName:
+          type: string
+          description: rule list name.
+        firewallName:
+          type: string
+          description: firewall name.
+        ruleName:
+          type: string
+          description: rule name. Required.
+        hitCount:
+          type: integer
+          description: hit count.
+        appSeen:
+          $ref: "#/components/schemas/AppSeenData"
+          description: apps seen.
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp of response.
+        requestTimestamp:
+          type: string
+          format: date-time
+          description: timestamp of request.
+        lastUpdatedTimestamp:
+          type: string
+          format: date-time
+          description: last updated timestamp.
+      required:
+        - priority
+        - ruleName
     RuleCounterReset:
       type: object
       description: Rule counter reset. Variables are only populated by the server, and will be ignored when sending a request.
@@ -3128,6 +3128,7 @@ components:
             openAPIDocKey: "200"
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/global_rulestack/methods/list_advanced_security_objects"
           - $ref: "#/components/x-stackQL-resources/global_rulestack/methods/get"
           - $ref: "#/components/x-stackQL-resources/global_rulestack/methods/list"
         insert:
@@ -3306,6 +3307,12 @@ components:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1PaloAltoNetworks.Cloudngfw~1localRulestacks~1{local_rulestack_name}~1listAppIds?api-version=2025-10-08/post"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := index . "value" }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}], "nextLink": {{ toJson (index . "nextLink") }}}'
           request:
             nativeCasing: camel
         list_countries:
@@ -3314,6 +3321,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
         list_firewalls:
@@ -3328,6 +3336,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
         list_security_services:
@@ -3364,6 +3373,7 @@ components:
             openAPIDocKey: "200"
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/local_rulestacks/methods/list_advanced_security_objects"
           - $ref: "#/components/x-stackQL-resources/local_rulestacks/methods/get"
           - $ref: "#/components/x-stackQL-resources/local_rulestacks/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/local_rulestacks/methods/list_by_subscription"
@@ -3480,9 +3490,9 @@ components:
             openAPIDocKey: "200"
             mediaType: application/json
       sqlVerbs:
-        select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/palo_alto_networks_cloudngfw_operations/methods/create_product_serial_number"
+        select:
+          - $ref: "#/components/x-stackQL-resources/palo_alto_networks_cloudngfw_operations/methods/list_cloud_manager_tenants"
+        insert: []
         update: []
         delete: []
     post_rules:
@@ -5726,6 +5736,20 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/listCountries?api-version=2025-10-08:
     post:
       operationId: LocalRulestacks_list_countries

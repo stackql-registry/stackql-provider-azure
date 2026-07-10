@@ -82,21 +82,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_certificate_contacts"><CopyableCode code="get_certificate_contacts" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Lists the certificate contacts for a specified key vault. The GetCertificateContacts operation returns the set of certificate contact resources in the specified key vault. This operation requires the certificates/managecontacts permission.</td>
 </tr>
 <tr>
     <td><a href="#set_certificate_contacts"><CopyableCode code="set_certificate_contacts" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Sets the certificate contacts for the specified key vault. Sets the certificate contacts for the specified key vault. This operation requires the certificates/managecontacts permission.</td>
 </tr>
 <tr>
     <td><a href="#delete_certificate_contacts"><CopyableCode code="delete_certificate_contacts" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Deletes the certificate contacts for a specified key vault. Deletes the certificate contacts for a specified key vault certificate. This operation requires the certificates/managecontacts permission.</td>
 </tr>
@@ -116,10 +116,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -141,7 +141,7 @@ SELECT
 id,
 contacts
 FROM azure.keyvault_certificates.certificate_contacts
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -165,7 +165,7 @@ REPLACE azure.keyvault_certificates.certificate_contacts
 SET 
 contacts = '{{ contacts }}'
 WHERE 
-vault_base_url = '{{ vault_base_url }}' --required
+vault_name = '{{ vault_name }}' --required
 RETURNING
 id,
 contacts;
@@ -188,7 +188,7 @@ Deletes the certificate contacts for a specified key vault. Deletes the certific
 
 ```sql
 DELETE FROM azure.keyvault_certificates.certificate_contacts
-WHERE vault_base_url = '{{ vault_base_url }}' --required
+WHERE vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>

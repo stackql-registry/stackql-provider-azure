@@ -76,7 +76,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-fully_qualified_namespace">
     <td><CopyableCode code="fully_qualified_namespace" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `fullyQualifiedNamespace` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `fullyQualifiedNamespace` parameter. (default: )</td>
 </tr>
 <tr id="parameter-group_name">
     <td><CopyableCode code="group_name" /></td>

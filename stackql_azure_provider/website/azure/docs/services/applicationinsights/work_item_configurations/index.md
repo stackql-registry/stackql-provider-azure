@@ -156,13 +156,6 @@ The following methods are available for this resource:
     <td>Create a work item configuration for an Application Insights component.</td>
 </tr>
 <tr>
-    <td><a href="#update_item"><CopyableCode code="update_item" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-work_item_config_id"><code>work_item_config_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a work item configuration for an Application Insights component.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-work_item_config_id"><code>work_item_config_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -175,6 +168,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets default work item configurations that exist for the application.</td>
+</tr>
+<tr>
+    <td><a href="#update_item"><CopyableCode code="update_item" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-work_item_config_id"><code>work_item_config_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a work item configuration for an Application Insights component.</td>
 </tr>
 </tbody>
 </table>
@@ -340,41 +340,6 @@ IsDefault
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_item"
-    values={[
-        { label: 'update_item', value: 'update_item' }
-    ]}
->
-<TabItem value="update_item">
-
-Update a work item configuration for an Application Insights component.
-
-```sql
-UPDATE azure.applicationinsights.work_item_configurations
-SET 
-ConnectorId = '{{ ConnectorId }}',
-ConnectorDataConfiguration = '{{ ConnectorDataConfiguration }}',
-ValidateOnly = {{ ValidateOnly }},
-WorkItemProperties = '{{ WorkItemProperties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND work_item_config_id = '{{ work_item_config_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-ConfigDisplayName,
-ConfigProperties,
-ConnectorId,
-Id,
-IsDefault;
-```
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
@@ -404,7 +369,8 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="get_default"
     values={[
-        { label: 'get_default', value: 'get_default' }
+        { label: 'get_default', value: 'get_default' },
+        { label: 'update_item', value: 'update_item' }
     ]}
 >
 <TabItem value="get_default">
@@ -416,6 +382,26 @@ EXEC azure.applicationinsights.work_item_configurations.get_default
 @resource_group_name='{{ resource_group_name }}' --required, 
 @resource_name='{{ resource_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_item">
+
+Update a work item configuration for an Application Insights component.
+
+```sql
+EXEC azure.applicationinsights.work_item_configurations.update_item 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@work_item_config_id='{{ work_item_config_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"ConnectorId": "{{ ConnectorId }}", 
+"ConnectorDataConfiguration": "{{ ConnectorDataConfiguration }}", 
+"ValidateOnly": {{ ValidateOnly }}, 
+"WorkItemProperties": "{{ WorkItemProperties }}"
+}'
 ;
 ```
 </TabItem>

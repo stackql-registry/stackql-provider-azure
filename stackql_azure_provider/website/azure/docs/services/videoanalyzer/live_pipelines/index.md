@@ -142,56 +142,56 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves a specific live pipeline by name. Retrieves a specific live pipeline by name. If a live pipeline with that name has been previously created, the call will return the JSON representation of that instance.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$top"><code>$top</code></a></td>
     <td>Retrieves a list of live pipelines. Retrieves a list of live pipelines that have been created, along with their JSON representations.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a live pipeline. Creates a new live pipeline or updates an existing one, with the given name.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates an existing live pipeline. Updates an existing live pipeline with the given name. Properties that can be updated include: description, bitrateKbps, and parameter definitions. Only the description can be updated while the live pipeline is active.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a live pipeline. Creates a new live pipeline or updates an existing one, with the given name.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a live pipeline. Deletes a live pipeline with the given name.</td>
 </tr>
 <tr>
     <td><a href="#activate"><CopyableCode code="activate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Activates a live pipeline. Activates a live pipeline with the given name.</td>
 </tr>
 <tr>
     <td><a href="#deactivate"><CopyableCode code="deactivate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-live_pipeline_name"><code>live_pipeline_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deactivates a live pipeline. Deactivates a live pipeline with the given name.</td>
 </tr>
@@ -269,8 +269,8 @@ systemData,
 topologyName,
 type
 FROM azure.videoanalyzer.live_pipelines
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND live_pipeline_name = '{{ live_pipeline_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -285,8 +285,8 @@ SELECT
 @nextLink,
 value
 FROM azure.videoanalyzer.live_pipelines
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $filter = '{{ $filter }}'
 AND $top = '{{ $top }}'
@@ -312,15 +312,15 @@ Creates or updates a live pipeline. Creates a new live pipeline or updates an ex
 ```sql
 INSERT INTO azure.videoanalyzer.live_pipelines (
 properties,
-account_name,
 resource_group_name,
+account_name,
 live_pipeline_name,
 subscription_id
 )
 SELECT 
 '{{ properties }}',
-'{{ account_name }}',
 '{{ resource_group_name }}',
+'{{ account_name }}',
 '{{ live_pipeline_name }}',
 '{{ subscription_id }}'
 RETURNING
@@ -337,11 +337,11 @@ type
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: live_pipelines
   props:
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the live_pipelines resource.
     - name: resource_group_name
       value: "{{ resource_group_name }}"
+      description: Required parameter for the live_pipelines resource.
+    - name: account_name
+      value: "{{ account_name }}"
       description: Required parameter for the live_pipelines resource.
     - name: live_pipeline_name
       value: "{{ live_pipeline_name }}"
@@ -380,8 +380,8 @@ UPDATE azure.videoanalyzer.live_pipelines
 SET 
 properties = '{{ properties }}'
 WHERE 
-account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND live_pipeline_name = '{{ live_pipeline_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
@@ -412,8 +412,8 @@ REPLACE azure.videoanalyzer.live_pipelines
 SET 
 properties = '{{ properties }}'
 WHERE 
-account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND live_pipeline_name = '{{ live_pipeline_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
@@ -441,8 +441,8 @@ Deletes a live pipeline. Deletes a live pipeline with the given name.
 
 ```sql
 DELETE FROM azure.videoanalyzer.live_pipelines
-WHERE account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND live_pipeline_name = '{{ live_pipeline_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
@@ -466,8 +466,8 @@ Activates a live pipeline. Activates a live pipeline with the given name.
 
 ```sql
 EXEC azure.videoanalyzer.live_pipelines.activate 
-@account_name='{{ account_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
 @live_pipeline_name='{{ live_pipeline_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
@@ -479,8 +479,8 @@ Deactivates a live pipeline. Deactivates a live pipeline with the given name.
 
 ```sql
 EXEC azure.videoanalyzer.live_pipelines.deactivate 
-@account_name='{{ account_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
 @live_pipeline_name='{{ live_pipeline_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;

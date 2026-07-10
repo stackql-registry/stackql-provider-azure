@@ -414,7 +414,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: application_data
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/attachments/{attachment_id}?api-version=2022-11-01-preview:
     get:
       operationId: Attachments_get
@@ -679,7 +679,7 @@ paths:
           description: Success
       x-stackql-resource: boundaries
       x-stackql-method: search
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /parties/{party_id}/boundaries?api-version=2022-11-01-preview:
     get:
       operationId: Boundaries_list_by_party_id
@@ -770,7 +770,7 @@ paths:
           description: Success
       x-stackql-resource: boundaries
       x-stackql-method: search_by_party_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /boundaries/cascade-delete/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: Boundaries_get_cascade_delete_job_details
@@ -815,7 +815,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: boundaries
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/boundaries/{boundary_id}/overlap?api-version=2022-11-01-preview:
     get:
       operationId: Boundaries_get_overlap
@@ -1307,7 +1307,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: farm_operations
       x-stackql-method: create_data_ingestion_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/farms/{farm_id}?api-version=2022-11-01-preview:
     get:
       operationId: Farms_get
@@ -1515,7 +1515,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: farms
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/fields/{field_id}?api-version=2022-11-01-preview:
     get:
       operationId: Fields_get
@@ -1723,7 +1723,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: fields
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/harvest-data/{harvest_data_id}?api-version=2022-11-01-preview:
     get:
       operationId: HarvestData_get
@@ -2195,7 +2195,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: harvest_data
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /image-processing/rasterize/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: ImageProcessing_get_rasterize_job
@@ -2228,7 +2228,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: image_processing
       x-stackql-method: create_rasterize_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /parties/{party_id}/models/{model_id}/resource-types/{resource_type}/resources/{resource_id}/insight-attachments/{insight_attachment_id}?api-version=2022-11-01-preview
   : get:
       operationId: InsightAttachments_get
@@ -2710,7 +2710,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: insights
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/management-zones/{management_zone_id}?api-version=2022-11-01-preview:
     get:
       operationId: ManagementZones_get
@@ -2918,7 +2918,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: management_zones
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /model-inference/models/microsoft-biomass/infer-data/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: ModelInference_get_biomass_model_job
@@ -2951,7 +2951,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: model_inference
       x-stackql-method: create_biomass_model_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /model-inference/models/microsoft-sensor-placement/infer-data/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: ModelInference_get_sensor_placement_model_job
@@ -2984,7 +2984,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: model_inference
       x-stackql-method: create_sensor_placement_model_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /model-inference/models/microsoft-soil-moisture/infer-data/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: ModelInference_get_soil_moisture_model_job
@@ -3017,7 +3017,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: model_inference
       x-stackql-method: create_soil_moisture_model_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/nutrient-analyses/{nutrient_analysis_id}?api-version=2022-11-01-preview:
     get:
       operationId: NutrientAnalyses_get
@@ -3207,7 +3207,7 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_providers
+      x-stackql-resource: oauth_providers
       x-stackql-method: get
       x-stackql-verb: SELECT
     patch:
@@ -3223,7 +3223,7 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_providers
+      x-stackql-resource: oauth_providers
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -3239,7 +3239,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: o_auth_providers
+      x-stackql-resource: oauth_providers
       x-stackql-method: delete
       x-stackql-verb: DELETE
   /oauth/providers?api-version=2022-11-01-preview:
@@ -3284,7 +3284,7 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_providers
+      x-stackql-resource: oauth_providers
       x-stackql-method: list
       x-stackql-verb: SELECT
   /oauth/providers/cascade-delete/{job_id}?api-version=2022-11-01-preview:
@@ -3301,7 +3301,7 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_providers
+      x-stackql-resource: oauth_providers
       x-stackql-method: get_cascade_delete_job_details
       x-stackql-verb: SELECT
     put:
@@ -3323,9 +3323,9 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: o_auth_providers
+      x-stackql-resource: oauth_providers
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /oauth/tokens?api-version=2022-11-01-preview:
     get:
       operationId: OAuthTokens_list
@@ -3374,20 +3374,28 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_tokens
+      x-stackql-resource: oauth_tokens
       x-stackql-method: list
       x-stackql-verb: SELECT
   /oauth/tokens/:connect?api-version=2022-11-01-preview:
     post:
-      operationId: OAuthTokens_get_o_auth_connection_link
+      operationId: OAuthTokens_get_oauth_connection_link
       description: Returns Connection link needed in the OAuth flow.
       parameters: []
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_tokens
-      x-stackql-method: get_o_auth_connection_link
-      x-stackql-verb: EXEC
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
+      x-stackql-resource: oauth_tokens
+      x-stackql-method: get_oauth_connection_link
+      x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /oauth/tokens/remove/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: OAuthTokens_get_cascade_delete_job_details
@@ -3402,7 +3410,7 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: o_auth_tokens
+      x-stackql-resource: oauth_tokens
       x-stackql-method: get_cascade_delete_job_details
       x-stackql-verb: SELECT
     put:
@@ -3430,9 +3438,9 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: o_auth_tokens
+      x-stackql-resource: oauth_tokens
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}?api-version=2022-11-01-preview:
     get:
       operationId: Parties_get
@@ -3565,7 +3573,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: parties
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/plant-tissue-analyses/{plant_tissue_analysis_id}?api-version=2022-11-01-preview:
     get:
       operationId: PlantTissueAnalyses_get
@@ -3773,7 +3781,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: plant_tissue_analyses
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/planting-data/{planting_data_id}?api-version=2022-11-01-preview:
     get:
       operationId: PlantingData_get
@@ -4173,7 +4181,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: planting_data
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/prescription-maps/{prescription_map_id}?api-version=2022-11-01-preview:
     get:
       operationId: PrescriptionMaps_get
@@ -4381,7 +4389,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: prescription_maps
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/prescriptions/{prescription_id}?api-version=2022-11-01-preview:
     get:
       operationId: Prescriptions_get
@@ -4589,7 +4597,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: prescriptions
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /scenes?api-version=2022-11-01-preview:
     get:
       operationId: Scenes_list
@@ -4692,7 +4700,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: scenes
       x-stackql-method: create_satellite_data_ingestion_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /scenes/stac-collections/{collection_id}/features/{feature_id}?api-version=2022-11-01-preview:
     get:
       operationId: Scenes_get_stac_feature
@@ -4762,7 +4770,7 @@ paths:
           description: Success
       x-stackql-resource: scenes
       x-stackql-method: search_features
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /parties/{party_id}/seasonal-fields/{seasonal_field_id}?api-version=2022-11-01-preview:
     get:
       operationId: SeasonalFields_get
@@ -4970,7 +4978,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: seasonal_fields
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /seasons/{season_id}?api-version=2022-11-01-preview:
     get:
       operationId: Seasons_get
@@ -5498,7 +5506,7 @@ paths:
           description: Success
       x-stackql-resource: sensor_partner_integrations
       x-stackql-method: check_consent
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /sensor-partners/{sensor_partner_id}/integrations/{integration_id}/:generate-consent-link?api-version=2022-11-01-preview:
     post:
       operationId: SensorPartnerIntegrations_generate_consent_link
@@ -5736,7 +5744,7 @@ paths:
           description: Success
       x-stackql-resource: solution_inference
       x-stackql-method: fetch
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /parties/{party_id}/tillage-data/{tillage_data_id}?api-version=2022-11-01-preview:
     get:
       operationId: TillageData_get
@@ -6112,7 +6120,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: tillage_data
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /weather-data/:fetch?api-version=2022-11-01-preview:
     post:
       operationId: WeatherData_get
@@ -6123,7 +6131,7 @@ paths:
           description: Success
       x-stackql-resource: weather_data
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /weather?api-version=2022-11-01-preview:
     get:
       operationId: Weather_list
@@ -6219,7 +6227,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: weather
       x-stackql-method: create_data_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /weather/ingest-data/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: Weather_get_data_ingestion_job_details
@@ -6252,7 +6260,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: weather
       x-stackql-method: create_data_ingestion_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /parties/{party_id}/zones/{zone_id}?api-version=2022-11-01-preview:
     get:
       operationId: Zones_get
@@ -6460,4 +6468,4 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: zones
       x-stackql-method: create_cascade_delete_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC

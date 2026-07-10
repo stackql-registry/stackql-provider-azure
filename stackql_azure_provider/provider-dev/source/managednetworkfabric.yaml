@@ -6231,9 +6231,16 @@ components:
             $ref: '#/components/schemas/NetworkFabricFlattened'
         nextLink:
           type: string
-    GetTopologyResponse:
+    GetTopologyResponseProperties:
       type: object
-      description: GetTopology Response.
+      description: Properties of the GetTopology Response.
+      properties:
+        url:
+          type: string
+          description: Topology JSON string.
+    GetTopologyResponseFlattened:
+      type: object
+      description: Flattened view of GetTopologyResponse ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -6266,15 +6273,6 @@ components:
         resourceId:
           type: string
           description: Fully qualified ID of the resource against which the original async operation was started.
-        properties:
-          $ref: '#/components/schemas/GetTopologyResponseProperties'
-          description: Properties of the GetTopology Response.
-      required:
-      - status
-    GetTopologyResponseProperties:
-      type: object
-      description: Properties of the GetTopology Response.
-      properties:
         url:
           type: string
           description: Topology JSON string.
@@ -14069,10 +14067,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetTopologyResponse'
+                $ref: '#/components/schemas/GetTopologyResponseFlattened'
       x-stackql-resource: network_fabrics
       x-stackql-method: get_topology
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ManagedNetworkFabric/networkFabrics/{network_fabric_name}/provision?api-version=2025-07-15
   : post:
       operationId: NetworkFabrics_begin_provision

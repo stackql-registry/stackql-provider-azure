@@ -77,35 +77,35 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#list_paths"><CopyableCode code="list_paths" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-recursive"><code>recursive</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-recursive"><code>recursive</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-continuation"><code>continuation</code></a>, <a href="#parameter-directory"><code>directory</code></a>, <a href="#parameter-maxResults"><code>maxResults</code></a>, <a href="#parameter-upn"><code>upn</code></a>, <a href="#parameter-beginFrom"><code>beginFrom</code></a></td>
     <td>List Paths. List FileSystem paths and their properties.</td>
 </tr>
 <tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-properties"><code>x-ms-properties</code></a></td>
     <td>Create FileSystem. Create a FileSystem rooted at the specified location. If the FileSystem already exists, the operation fails. This operation does not support conditional HTTP requests.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a></td>
     <td>Delete FileSystem. Marks the FileSystem for deletion. When a FileSystem is deleted, a FileSystem with the same identifier cannot be created for at least 30 seconds. While the filesystem is being deleted, attempts to create a filesystem with the same identifier will fail with status code 409 (Conflict), with the service returning additional error information indicating that the filesystem is being deleted. All other operations, including operations on any files or directories within the filesystem, will fail with status code 404 (Not Found) while the filesystem is being deleted. This operation supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.</td>
 </tr>
 <tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Get FileSystem Properties. All system and user-defined filesystem properties are specified in the response headers.</td>
 </tr>
 <tr>
     <td><a href="#set_properties"><CopyableCode code="set_properties" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-properties"><code>x-ms-properties</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a></td>
     <td>Set FileSystem Properties. Set properties for the FileSystem. This operation supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.</td>
 </tr>
@@ -128,17 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-recursive">
     <td><CopyableCode code="recursive" /></td>
     <td><code>boolean</code></td>
     <td>Required. Required.</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -214,8 +209,7 @@ List Paths. List FileSystem paths and their properties.
 SELECT
 paths
 FROM azure.storage_file_datalake.file_system
-WHERE url = '{{ url }}' -- required
-AND recursive = '{{ recursive }}' -- required
+WHERE recursive = '{{ recursive }}' -- required
 AND x-ms-version = '{{ x-ms-version }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND x-ms-client-request-id = '{{ x-ms-client-request-id }}'
@@ -246,7 +240,6 @@ Create FileSystem. Create a FileSystem rooted at the specified location. If the 
 
 ```sql
 INSERT INTO azure.storage_file_datalake.file_system (
-url,
 x-ms-version,
 endpoint,
 x-ms-client-request-id,
@@ -254,7 +247,6 @@ timeout,
 x-ms-properties
 )
 SELECT 
-'{{ url }}',
 '{{ x-ms-version }}',
 '{{ endpoint }}',
 '{{ x-ms-client-request-id }}',
@@ -268,9 +260,6 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: file_system
   props:
-    - name: url
-      value: "{{ url }}"
-      description: Required parameter for the file_system resource.
     - name: x-ms-version
       value: "{{ x-ms-version }}"
       description: Required parameter for the file_system resource.
@@ -309,8 +298,7 @@ Delete FileSystem. Marks the FileSystem for deletion. When a FileSystem is delet
 
 ```sql
 DELETE FROM azure.storage_file_datalake.file_system
-WHERE url = '{{ url }}' --required
-AND x-ms-version = '{{ x-ms-version }}' --required
+WHERE x-ms-version = '{{ x-ms-version }}' --required
 AND endpoint = '{{ endpoint }}' --required
 AND x-ms-client-request-id = '{{ x-ms-client-request-id }}'
 AND timeout = '{{ timeout }}'
@@ -337,7 +325,6 @@ Get FileSystem Properties. All system and user-defined filesystem properties are
 
 ```sql
 EXEC azure.storage_file_datalake.file_system.get_properties 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @x-ms-client-request-id='{{ x-ms-client-request-id }}', 
@@ -351,7 +338,6 @@ Set FileSystem Properties. Set properties for the FileSystem. This operation sup
 
 ```sql
 EXEC azure.storage_file_datalake.file_system.set_properties 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @x-ms-client-request-id='{{ x-ms-client-request-id }}', 

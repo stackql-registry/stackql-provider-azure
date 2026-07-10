@@ -421,13 +421,6 @@ The following methods are available for this resource:
     <td>Gets the queues within a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639415.aspx</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an authorization rule for a queue.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -435,25 +428,11 @@ The following methods are available for this resource:
     <td>Creates or updates a Service Bus queue. This operation is idempotent. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639395.aspx</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an authorization rule for a queue.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a Service Bus queue. This operation is idempotent. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639395.aspx</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a queue authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt705609.aspx</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -475,6 +454,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Primary and secondary connection strings to the queue. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt705608.aspx</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates an authorization rule for a queue.</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-queue_name"><code>queue_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a queue authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt705609.aspx</td>
 </tr>
 <tr>
     <td><a href="#regenerate_keys"><CopyableCode code="regenerate_keys" /></a></td>
@@ -657,43 +650,12 @@ AND $top = '{{ $top }}'
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates an authorization rule for a queue.
-
-```sql
-INSERT INTO azure.servicebus.queues (
-properties,
-resource_group_name,
-namespace_name,
-queue_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ queue_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a Service Bus queue. This operation is idempotent. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639395.aspx
@@ -736,9 +698,6 @@ type
     - name: queue_name
       value: "{{ queue_name }}"
       description: Required parameter for the queues resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the queues resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the queues resource.
@@ -769,35 +728,11 @@ type
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates an authorization rule for a queue.
-
-```sql
-REPLACE azure.servicebus.queues
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND queue_name = '{{ queue_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a Service Bus queue. This operation is idempotent. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639395.aspx
@@ -826,26 +761,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a queue authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt705609.aspx
-
-```sql
-DELETE FROM azure.servicebus.queues
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND queue_name = '{{ queue_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a queue from the specified namespace in a resource group. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639411.aspx
@@ -869,6 +789,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
 >
@@ -891,6 +813,38 @@ Primary and secondary connection strings to the queue. .. seealso:: - https://ms
 
 ```sql
 EXEC azure.servicebus.queues.list_keys 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@queue_name='{{ queue_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates an authorization rule for a queue.
+
+```sql
+EXEC azure.servicebus.queues.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@queue_name='{{ queue_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a queue authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt705609.aspx
+
+```sql
+EXEC azure.servicebus.queues.delete_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @queue_name='{{ queue_name }}' --required, 

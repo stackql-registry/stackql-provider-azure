@@ -102,13 +102,6 @@ The following methods are available for this resource:
     <td>Returns the current linked storage settings for an Application Insights component.</td>
 </tr>
 <tr>
-    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-storage_type"><code>storage_type</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Replace current linked storage account for an Application Insights component.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-storage_type"><code>storage_type</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -121,6 +114,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-storage_type"><code>storage_type</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete linked storage accounts for an Application Insights component.</td>
+</tr>
+<tr>
+    <td><a href="#create_and_update"><CopyableCode code="create_and_update" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-storage_type"><code>storage_type</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Replace current linked storage account for an Application Insights component.</td>
 </tr>
 </tbody>
 </table>
@@ -191,70 +191,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_and_update"
-    values={[
-        { label: 'create_and_update', value: 'create_and_update' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_and_update">
-
-Replace current linked storage account for an Application Insights component.
-
-```sql
-INSERT INTO azure.applicationinsights.component_linked_storage_accounts (
-properties,
-resource_group_name,
-resource_name,
-storage_type,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ resource_name }}',
-'{{ storage_type }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: component_linked_storage_accounts
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the component_linked_storage_accounts resource.
-    - name: resource_name
-      value: "{{ resource_name }}"
-      description: Required parameter for the component_linked_storage_accounts resource.
-    - name: storage_type
-      value: "{{ storage_type }}"
-      description: Required parameter for the component_linked_storage_accounts resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the component_linked_storage_accounts resource.
-    - name: properties
-      description: |
-        The properties of the linked storage accounts.
-      value:
-        linkedStorageAccount: "{{ linkedStorageAccount }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -305,6 +241,34 @@ WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND resource_name = '{{ resource_name }}' --required
 AND storage_type = '{{ storage_type }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_and_update"
+    values={[
+        { label: 'create_and_update', value: 'create_and_update' }
+    ]}
+>
+<TabItem value="create_and_update">
+
+Replace current linked storage account for an Application Insights component.
+
+```sql
+EXEC azure.applicationinsights.component_linked_storage_accounts.create_and_update 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@storage_type='{{ storage_type }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

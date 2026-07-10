@@ -2258,7 +2258,7 @@ components:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ConnectedVMwarevSphere~1vcenters~1{vcenter_name}~1inventoryItems~1{inventory_item_name}?api-version=2023-10-01/delete"
           response:
             openAPIDocKey: "204"
-        list_by_v_center:
+        list_by_vcenter:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ConnectedVMwarevSphere~1vcenters~1{vcenter_name}~1inventoryItems?api-version=2023-10-01/get"
           response:
@@ -2277,7 +2277,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/inventory_items/methods/get"
-          - $ref: "#/components/x-stackQL-resources/inventory_items/methods/list_by_v_center"
+          - $ref: "#/components/x-stackQL-resources/inventory_items/methods/list_by_vcenter"
         insert:
           - $ref: "#/components/x-stackQL-resources/inventory_items/methods/create"
         update: []
@@ -2388,10 +2388,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/resource_pools/methods/update"
         delete:
           - $ref: "#/components/x-stackQL-resources/resource_pools/methods/delete"
-    v_centers:
-      id: azure_isv.connectedvmware.v_centers
-      name: v_centers
-      title: v_centers
+    vcenters:
+      id: azure_isv.connectedvmware.vcenters
+      name: vcenters
+      title: vcenters
       methods:
         get:
           operation:
@@ -2466,15 +2466,15 @@ components:
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/v_centers/methods/get"
-          - $ref: "#/components/x-stackQL-resources/v_centers/methods/list_by_resource_group"
-          - $ref: "#/components/x-stackQL-resources/v_centers/methods/list"
+          - $ref: "#/components/x-stackQL-resources/vcenters/methods/get"
+          - $ref: "#/components/x-stackQL-resources/vcenters/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/vcenters/methods/list"
         insert:
-          - $ref: "#/components/x-stackQL-resources/v_centers/methods/create"
+          - $ref: "#/components/x-stackQL-resources/vcenters/methods/create"
         update:
-          - $ref: "#/components/x-stackQL-resources/v_centers/methods/update"
+          - $ref: "#/components/x-stackQL-resources/vcenters/methods/update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/v_centers/methods/delete"
+          - $ref: "#/components/x-stackQL-resources/vcenters/methods/delete"
     vm_instance_guest_agents:
       id: azure_isv.connectedvmware.vm_instance_guest_agents
       name: vm_instance_guest_agents
@@ -3561,7 +3561,7 @@ paths:
           description: Success (no content / accepted)
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenter_name}/inventoryItems?api-version=2023-10-01:
     get:
-      operationId: InventoryItems_list_by_v_center
+      operationId: InventoryItems_list_by_vcenter
       description: Implements GET inventoryItems in a vCenter. Returns the list of inventoryItems of the given vCenter.
       parameters:
         - name: resource_group_name

@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#remove_replica"><CopyableCode code="remove_replica" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-ForceRemove"><code>ForceRemove</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Removes a service replica running on a node. This API simulates a Service Fabric replica failure by removing a replica from a Service Fabric cluster. The removal closes the replica, transitions the replica to the role None, and then removes all of the state information of the replica from the cluster. This API tests the replica state removal path, and simulates the report fault permanent path through client APIs. Warning - There are no safety checks performed when this API is used. Incorrect use of this API can lead to data loss for stateful services. In addition, the forceRemove flag impacts all other replicas hosted in the same process.</td>
 </tr>
@@ -76,7 +76,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -120,8 +120,8 @@ Removes a service replica running on a node. This API simulates a Service Fabric
 
 ```sql
 EXEC azure.servicefabric_dataplane.remove_replicas.remove_replica 
-@node_name='{{ node_name }}' --required, 
 @replica_id='{{ replica_id }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @partition_id='{{ partition_id }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @ForceRemove={{ ForceRemove }}, 

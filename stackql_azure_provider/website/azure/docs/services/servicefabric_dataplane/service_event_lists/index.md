@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_service_event_list"><CopyableCode code="get_service_event_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-EndTimeUtc"><code>EndTimeUtc</code></a>, <a href="#parameter-StartTimeUtc"><code>StartTimeUtc</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-EndTimeUtc"><code>EndTimeUtc</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-StartTimeUtc"><code>StartTimeUtc</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-EventsTypesFilter"><code>EventsTypesFilter</code></a>, <a href="#parameter-ExcludeAnalysisEvents"><code>ExcludeAnalysisEvents</code></a>, <a href="#parameter-SkipCorrelationLookup"><code>SkipCorrelationLookup</code></a></td>
     <td>Gets a Service-related events. The response is list of ServiceEvent objects.</td>
 </tr>
@@ -86,7 +86,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-service_id">
     <td><CopyableCode code="service_id" /></td>
@@ -130,8 +130,8 @@ Gets a Service-related events. The response is list of ServiceEvent objects.
 
 ```sql
 EXEC azure.servicefabric_dataplane.service_event_lists.get_service_event_list 
-@service_id='{{ service_id }}' --required, 
 @EndTimeUtc='{{ EndTimeUtc }}' --required, 
+@service_id='{{ service_id }}' --required, 
 @StartTimeUtc='{{ StartTimeUtc }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}', 

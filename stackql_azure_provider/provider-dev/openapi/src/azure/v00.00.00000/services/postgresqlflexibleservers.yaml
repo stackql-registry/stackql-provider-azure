@@ -386,15 +386,6 @@ components:
           description: Backup Name for the current backup. Required.
       required:
         - backupName
-    LtrPreBackupResponse:
-      type: object
-      description: Response for the LTR pre-backup API call.
-      properties:
-        properties:
-          $ref: "#/components/schemas/BackupsLongTermRetentionResponseProperties"
-          description: Additional Properties for the pre backup response. Required.
-      required:
-        - properties
     BackupsLongTermRetentionResponseProperties:
       type: object
       description: Response for the pre-backup request.
@@ -404,6 +395,13 @@ components:
           description: Number of storage containers the plugin will use during backup. More than one containers may be used for size limitations, parallelism, or redundancy etc. Required.
       required:
         - numberOfContainers
+    LtrPreBackupResponseFlattened:
+      type: object
+      description: Flattened view of LtrPreBackupResponse ('properties' hoisted to the top level).
+      properties:
+        numberOfContainers:
+          type: integer
+          description: Number of storage containers the plugin will use during backup. More than one containers may be used for size limitations, parallelism, or redundancy etc. Required.
     BackupStoreDetails:
       type: object
       description: Details about the target where the backup content will be stored.
@@ -1904,6 +1902,11 @@ components:
         targetServerPassword:
           type: string
           description: Password for the user of the target server.
+    MigrationNameAvailabilityReason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
     MigrationNameAvailability:
       type: object
       description: Availability of a migration name.
@@ -1926,7 +1929,7 @@ components:
       required:
         - name
         - type
-    MigrationNameAvailabilityReason:
+    CheckNameAvailabilityReason:
       type: string
       enum:
         - Invalid
@@ -1950,11 +1953,6 @@ components:
         type:
           type: string
           description: Type of resource. It can be 'Microsoft.DBforPostgreSQL/flexibleServers' or 'Microsoft.DBforPostgreSQL/flexibleServers/virtualendpoints'.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
     OperationDisplay:
       type: object
       description: Display metadata associated with the operation.
@@ -3289,6 +3287,16 @@ components:
         properties:
           $ref: "#/components/schemas/VirtualEndpointResourceProperties"
           description: Properties of the pair of virtual endpoints.
+    DelegatedSubnetUsage:
+      type: object
+      description: Delegated subnet usage data.
+      properties:
+        subnetName:
+          type: string
+          description: Name of the delegated subnet for which IP addresses are in use.
+        usage:
+          type: integer
+          description: Number of IP addresses used by the delegated subnet.
     VirtualNetworkSubnetUsageModel:
       type: object
       description: Virtual network subnet usage data.
@@ -3304,16 +3312,6 @@ components:
         subscriptionId:
           type: string
           description: subscriptionId of the delegated subnet usage.
-    DelegatedSubnetUsage:
-      type: object
-      description: Delegated subnet usage data.
-      properties:
-        subnetName:
-          type: string
-          description: Name of the delegated subnet for which IP addresses are in use.
-        usage:
-          type: integer
-          description: Number of IP addresses used by the delegated subnet.
   x-stackQL-resources:
     administrators_microsoft_entra:
       id: azure.postgresqlflexibleservers.administrators_microsoft_entra
@@ -3523,6 +3521,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
           request:
             nativeCasing: camel
           config:
@@ -3542,6 +3544,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/backups_long_term_retention/methods/get"
+          - $ref: "#/components/x-stackQL-resources/backups_long_term_retention/methods/check_prerequisites"
           - $ref: "#/components/x-stackQL-resources/backups_long_term_retention/methods/list_by_server"
         insert: []
         update: []
@@ -3953,6 +3956,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/migrations/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/migrations/methods/get"
           - $ref: "#/components/x-stackQL-resources/migrations/methods/list_by_target_server"
         insert:
@@ -3989,7 +3993,9 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/name_availability/methods/check_with_location"
+          - $ref: "#/components/x-stackQL-resources/name_availability/methods/check_globally"
         insert: []
         update: []
         delete: []
@@ -4025,13 +4031,19 @@ components:
       name: private_dns_zone_suffix
       title: private_dns_zone_suffix
       methods:
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.DBforPostgreSQL~1getPrivateDnsZoneSuffix?api-version=2026-04-01-preview/post"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": {{ toJson . }}}'
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/private_dns_zone_suffix/methods/get"
         insert: []
         update: []
         delete: []
@@ -4427,7 +4439,7 @@ components:
       name: virtual_network_subnet_usage
       title: virtual_network_subnet_usage
       methods:
-        list_raw:
+        list:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.DBforPostgreSQL~1locations~1{location_name}~1checkVirtualNetworkSubnetUsage?api-version=2026-04-01-preview/post"
           response:
@@ -4439,7 +4451,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/virtual_network_subnet_usage/methods/list"
         insert: []
         update: []
         delete: []
@@ -4922,7 +4935,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LtrPreBackupResponse"
+                $ref: "#/components/schemas/LtrPreBackupResponseFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{server_name}/startLtrBackup?api-version=2026-04-01-preview:
     post:
       operationId: BackupsLongTermRetention_begin_start
@@ -6032,6 +6045,13 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{server_name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2026-04-01-preview:
     get:
       operationId: PrivateEndpointConnections_get

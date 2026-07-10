@@ -189,18 +189,18 @@ The following methods are available for this resource:
     <td>List CommvaultPlan resources by CloudAccount.</td>
 </tr>
 <tr>
-    <td><a href="#create_orupdate"><CopyableCode code="create_orupdate" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-plan_name"><code>plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a CommvaultPlan.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-plan_name"><code>plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a CommvaultPlan.</td>
+</tr>
+<tr>
+    <td><a href="#create_orupdate"><CopyableCode code="create_orupdate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-plan_name"><code>plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a CommvaultPlan.</td>
 </tr>
 </tbody>
 </table>
@@ -298,93 +298,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_orupdate"
-    values={[
-        { label: 'create_orupdate', value: 'create_orupdate' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_orupdate">
-
-Create a CommvaultPlan.
-
-```sql
-INSERT INTO azure_isv.commvaultcontentstore.plans (
-properties,
-resource_group_name,
-cloud_account_name,
-plan_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ cloud_account_name }}',
-'{{ plan_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: plans
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the plans resource.
-    - name: cloud_account_name
-      value: "{{ cloud_account_name }}"
-      description: Required parameter for the plans resource.
-    - name: plan_name
-      value: "{{ plan_name }}"
-      description: Required parameter for the plans resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the plans resource.
-    - name: properties
-      description: |
-        The resource-specific properties for this resource.
-      value:
-        location: "{{ location }}"
-        storagePlans:
-          - name: "{{ name }}"
-            storagePoolId: "{{ storagePoolId }}"
-            copyName: "{{ copyName }}"
-            copyPrecedence: {{ copyPrecedence }}
-            retentionPeriod: {{ retentionPeriod }}
-            retentionTime: "{{ retentionTime }}"
-            backupRuleType: "{{ backupRuleType }}"
-            extendedRetention: "{{ extendedRetention }}"
-        schedules:
-          - backupType: "{{ backupType }}"
-            frequency: "{{ frequency }}"
-            runsEvery: {{ runsEvery }}
-            weekOfMonth: "{{ weekOfMonth }}"
-            dayOfWeek: "{{ dayOfWeek }}"
-            monthOfYear: "{{ monthOfYear }}"
-            dayOfMonth: {{ dayOfMonth }}
-            weeklyDays: "{{ weeklyDays }}"
-            time: "{{ time }}"
-            timeZone: "{{ timeZone }}"
-        retention:
-          numberOfSnapshots: {{ numberOfSnapshots }}
-        provisioningState: "{{ provisioningState }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
@@ -403,6 +316,34 @@ WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND cloud_account_name = '{{ cloud_account_name }}' --required
 AND plan_name = '{{ plan_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_orupdate"
+    values={[
+        { label: 'create_orupdate', value: 'create_orupdate' }
+    ]}
+>
+<TabItem value="create_orupdate">
+
+Create a CommvaultPlan.
+
+```sql
+EXEC azure_isv.commvaultcontentstore.plans.create_orupdate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@cloud_account_name='{{ cloud_account_name }}' --required, 
+@plan_name='{{ plan_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

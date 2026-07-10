@@ -1436,6 +1436,8 @@ components:
         insert:
           - $ref: "#/components/x-stackQL-resources/access_policy_assignment/methods/create_update"
         update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/access_policy_assignment/methods/create_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/access_policy_assignment/methods/delete"
     access_policy:
@@ -1492,6 +1494,8 @@ components:
         insert:
           - $ref: "#/components/x-stackQL-resources/access_policy/methods/create_update"
         update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/access_policy/methods/create_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/access_policy/methods/delete"
     async_operation_status:

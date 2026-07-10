@@ -87,7 +87,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_property_info"><CopyableCode code="get_property_info" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-name_id"><code>name_id</code></a>, <a href="#parameter-PropertyName"><code>PropertyName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-PropertyName"><code>PropertyName</code></a>, <a href="#parameter-name_id"><code>name_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the specified Service Fabric property. Gets the specified Service Fabric property under a given name. This will always return both value and metadata.</td>
 </tr>
@@ -115,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-name_id">
     <td><CopyableCode code="name_id" /></td>
@@ -148,8 +148,8 @@ Metadata,
 Name,
 Value
 FROM azure.servicefabric_dataplane.property_infos
-WHERE name_id = '{{ name_id }}' -- required
-AND PropertyName = '{{ PropertyName }}' -- required
+WHERE PropertyName = '{{ PropertyName }}' -- required
+AND name_id = '{{ name_id }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

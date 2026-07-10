@@ -1883,7 +1883,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/virtual_machine_instances/methods/get"
         insert:
           - $ref: "#/components/x-stackQL-resources/virtual_machine_instances/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/virtual_machine_instances/methods/create_checkpoint"
         update:
           - $ref: "#/components/x-stackQL-resources/virtual_machine_instances/methods/update"
         replace:

@@ -370,76 +370,6 @@ The following methods are available for this resource:
     <td>Lists the Cassandra keyspaces under an existing Azure Cosmos DB database account.</td>
 </tr>
 <tr>
-    <td><a href="#create_update_cassandra_table"><CopyableCode code="create_update_cassandra_table" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB Cassandra Table.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_cassandra_keyspace"><CopyableCode code="create_update_cassandra_keyspace" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB Cassandra keyspace.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_cassandra_role_definition"><CopyableCode code="create_update_cassandra_role_definition" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB Cassandra Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_cassandra_role_assignment"><CopyableCode code="create_update_cassandra_role_assignment" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB Cassandra Role Assignment.</td>
-</tr>
-<tr>
-    <td><a href="#update_cassandra_table_throughput"><CopyableCode code="update_cassandra_table_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB Cassandra table.</td>
-</tr>
-<tr>
-    <td><a href="#update_cassandra_keyspace_throughput"><CopyableCode code="update_cassandra_keyspace_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB Cassandra Keyspace.</td>
-</tr>
-<tr>
-    <td><a href="#delete_cassandra_table"><CopyableCode code="delete_cassandra_table" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Cassandra table.</td>
-</tr>
-<tr>
-    <td><a href="#delete_cassandra_keyspace"><CopyableCode code="delete_cassandra_keyspace" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Cassandra keyspace.</td>
-</tr>
-<tr>
-    <td><a href="#delete_cassandra_role_definition"><CopyableCode code="delete_cassandra_role_definition" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Cassandra Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#delete_cassandra_role_assignment"><CopyableCode code="delete_cassandra_role_assignment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Cassandra Role Assignment.</td>
-</tr>
-<tr>
     <td><a href="#list_cassandra_role_definitions"><CopyableCode code="list_cassandra_role_definitions" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -461,6 +391,20 @@ The following methods are available for this resource:
     <td>Gets the RUs per second of the Cassandra Keyspace under an existing Azure Cosmos DB database account with the provided name.</td>
 </tr>
 <tr>
+    <td><a href="#update_cassandra_keyspace_throughput"><CopyableCode code="update_cassandra_keyspace_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB Cassandra Keyspace.</td>
+</tr>
+<tr>
+    <td><a href="#update_cassandra_table_throughput"><CopyableCode code="update_cassandra_table_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB Cassandra table.</td>
+</tr>
+<tr>
     <td><a href="#get_cassandra_keyspace"><CopyableCode code="get_cassandra_keyspace" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -468,11 +412,67 @@ The following methods are available for this resource:
     <td>Gets the Cassandra keyspaces under an existing Azure Cosmos DB database account with the provided name.</td>
 </tr>
 <tr>
+    <td><a href="#create_update_cassandra_keyspace"><CopyableCode code="create_update_cassandra_keyspace" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB Cassandra keyspace.</td>
+</tr>
+<tr>
+    <td><a href="#delete_cassandra_keyspace"><CopyableCode code="delete_cassandra_keyspace" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Cassandra keyspace.</td>
+</tr>
+<tr>
     <td><a href="#get_cassandra_table"><CopyableCode code="get_cassandra_table" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Cassandra table under an existing Azure Cosmos DB database account.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_cassandra_table"><CopyableCode code="create_update_cassandra_table" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB Cassandra Table.</td>
+</tr>
+<tr>
+    <td><a href="#delete_cassandra_table"><CopyableCode code="delete_cassandra_table" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-keyspace_name"><code>keyspace_name</code></a>, <a href="#parameter-table_name"><code>table_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Cassandra table.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_cassandra_role_definition"><CopyableCode code="create_update_cassandra_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB Cassandra Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#delete_cassandra_role_definition"><CopyableCode code="delete_cassandra_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Cassandra Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_cassandra_role_assignment"><CopyableCode code="create_update_cassandra_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB Cassandra Role Assignment.</td>
+</tr>
+<tr>
+    <td><a href="#delete_cassandra_role_assignment"><CopyableCode code="delete_cassandra_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Cassandra Role Assignment.</td>
 </tr>
 <tr>
     <td><a href="#migrate_cassandra_keyspace_to_autoscale"><CopyableCode code="migrate_cassandra_keyspace_to_autoscale" /></a></td>
@@ -682,338 +682,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_update_cassandra_table"
-    values={[
-        { label: 'create_update_cassandra_table', value: 'create_update_cassandra_table' },
-        { label: 'create_update_cassandra_keyspace', value: 'create_update_cassandra_keyspace' },
-        { label: 'create_update_cassandra_role_definition', value: 'create_update_cassandra_role_definition' },
-        { label: 'create_update_cassandra_role_assignment', value: 'create_update_cassandra_role_assignment' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_update_cassandra_table">
-
-Create or update an Azure Cosmos DB Cassandra Table.
-
-```sql
-INSERT INTO azure.cosmosdb.cassandra_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-keyspace_name,
-table_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ keyspace_name }}',
-'{{ table_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_cassandra_keyspace">
-
-Create or update an Azure Cosmos DB Cassandra keyspace.
-
-```sql
-INSERT INTO azure.cosmosdb.cassandra_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-keyspace_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ keyspace_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_cassandra_role_definition">
-
-Creates or updates an Azure Cosmos DB Cassandra Role Definition.
-
-```sql
-INSERT INTO azure.cosmosdb.cassandra_resources (
-properties,
-resource_group_name,
-account_name,
-role_definition_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_definition_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_cassandra_role_assignment">
-
-Creates or updates an Azure Cosmos DB Cassandra Role Assignment.
-
-```sql
-INSERT INTO azure.cosmosdb.cassandra_resources (
-properties,
-resource_group_name,
-account_name,
-role_assignment_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_assignment_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: cassandra_resources
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: keyspace_name
-      value: "{{ keyspace_name }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: table_name
-      value: "{{ table_name }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: role_definition_id
-      value: "{{ role_definition_id }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: role_assignment_id
-      value: "{{ role_assignment_id }}"
-      description: Required parameter for the cassandra_resources resource.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        The location of the resource group to which the resource belongs.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example, the default experience for a template type is set with "defaultExperience": "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
-    - name: identity
-      description: |
-        Identity for the resource.
-      value:
-        principalId: "{{ principalId }}"
-        tenantId: "{{ tenantId }}"
-        type: "{{ type }}"
-        userAssignedIdentities: "{{ userAssignedIdentities }}"
-    - name: properties
-      description: |
-        Properties to create and update an Azure Cosmos DB Cassandra Role Assignment.
-      value:
-        roleDefinitionId: "{{ roleDefinitionId }}"
-        scope: "{{ scope }}"
-        principalId: "{{ principalId }}"
-        provisioningState: "{{ provisioningState }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_cassandra_table_throughput"
-    values={[
-        { label: 'update_cassandra_table_throughput', value: 'update_cassandra_table_throughput' },
-        { label: 'update_cassandra_keyspace_throughput', value: 'update_cassandra_keyspace_throughput' }
-    ]}
->
-<TabItem value="update_cassandra_table_throughput">
-
-Update RUs per second of an Azure Cosmos DB Cassandra table.
-
-```sql
-UPDATE azure.cosmosdb.cassandra_resources
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-identity = '{{ identity }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND keyspace_name = '{{ keyspace_name }}' --required
-AND table_name = '{{ table_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="update_cassandra_keyspace_throughput">
-
-Update RUs per second of an Azure Cosmos DB Cassandra Keyspace.
-
-```sql
-UPDATE azure.cosmosdb.cassandra_resources
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-identity = '{{ identity }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND keyspace_name = '{{ keyspace_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_cassandra_table"
-    values={[
-        { label: 'delete_cassandra_table', value: 'delete_cassandra_table' },
-        { label: 'delete_cassandra_keyspace', value: 'delete_cassandra_keyspace' },
-        { label: 'delete_cassandra_role_definition', value: 'delete_cassandra_role_definition' },
-        { label: 'delete_cassandra_role_assignment', value: 'delete_cassandra_role_assignment' }
-    ]}
->
-<TabItem value="delete_cassandra_table">
-
-Deletes an existing Azure Cosmos DB Cassandra table.
-
-```sql
-DELETE FROM azure.cosmosdb.cassandra_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND keyspace_name = '{{ keyspace_name }}' --required
-AND table_name = '{{ table_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_cassandra_keyspace">
-
-Deletes an existing Azure Cosmos DB Cassandra keyspace.
-
-```sql
-DELETE FROM azure.cosmosdb.cassandra_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND keyspace_name = '{{ keyspace_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_cassandra_role_definition">
-
-Deletes an existing Azure Cosmos DB Cassandra Role Definition.
-
-```sql
-DELETE FROM azure.cosmosdb.cassandra_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_definition_id = '{{ role_definition_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_cassandra_role_assignment">
-
-Deletes an existing Azure Cosmos DB Cassandra Role Assignment.
-
-```sql
-DELETE FROM azure.cosmosdb.cassandra_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_assignment_id = '{{ role_assignment_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -1022,8 +690,18 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_cassandra_role_definitions', value: 'list_cassandra_role_definitions' },
         { label: 'list_cassandra_role_assignments', value: 'list_cassandra_role_assignments' },
         { label: 'get_cassandra_keyspace_throughput', value: 'get_cassandra_keyspace_throughput' },
+        { label: 'update_cassandra_keyspace_throughput', value: 'update_cassandra_keyspace_throughput' },
+        { label: 'update_cassandra_table_throughput', value: 'update_cassandra_table_throughput' },
         { label: 'get_cassandra_keyspace', value: 'get_cassandra_keyspace' },
+        { label: 'create_update_cassandra_keyspace', value: 'create_update_cassandra_keyspace' },
+        { label: 'delete_cassandra_keyspace', value: 'delete_cassandra_keyspace' },
         { label: 'get_cassandra_table', value: 'get_cassandra_table' },
+        { label: 'create_update_cassandra_table', value: 'create_update_cassandra_table' },
+        { label: 'delete_cassandra_table', value: 'delete_cassandra_table' },
+        { label: 'create_update_cassandra_role_definition', value: 'create_update_cassandra_role_definition' },
+        { label: 'delete_cassandra_role_definition', value: 'delete_cassandra_role_definition' },
+        { label: 'create_update_cassandra_role_assignment', value: 'create_update_cassandra_role_assignment' },
+        { label: 'delete_cassandra_role_assignment', value: 'delete_cassandra_role_assignment' },
         { label: 'migrate_cassandra_keyspace_to_autoscale', value: 'migrate_cassandra_keyspace_to_autoscale' },
         { label: 'migrate_cassandra_keyspace_to_manual_throughput', value: 'migrate_cassandra_keyspace_to_manual_throughput' },
         { label: 'migrate_cassandra_table_to_autoscale', value: 'migrate_cassandra_table_to_autoscale' },
@@ -1067,12 +745,86 @@ EXEC azure.cosmosdb.cassandra_resources.get_cassandra_keyspace_throughput
 ;
 ```
 </TabItem>
+<TabItem value="update_cassandra_keyspace_throughput">
+
+Update RUs per second of an Azure Cosmos DB Cassandra Keyspace.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.update_cassandra_keyspace_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@keyspace_name='{{ keyspace_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_cassandra_table_throughput">
+
+Update RUs per second of an Azure Cosmos DB Cassandra table.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.update_cassandra_table_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@keyspace_name='{{ keyspace_name }}' --required, 
+@table_name='{{ table_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_cassandra_keyspace">
 
 Gets the Cassandra keyspaces under an existing Azure Cosmos DB database account with the provided name.
 
 ```sql
 EXEC azure.cosmosdb.cassandra_resources.get_cassandra_keyspace 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@keyspace_name='{{ keyspace_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_cassandra_keyspace">
+
+Create or update an Azure Cosmos DB Cassandra keyspace.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.create_update_cassandra_keyspace 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@keyspace_name='{{ keyspace_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_cassandra_keyspace">
+
+Deletes an existing Azure Cosmos DB Cassandra keyspace.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.delete_cassandra_keyspace 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @keyspace_name='{{ keyspace_name }}' --required, 
@@ -1090,6 +842,101 @@ EXEC azure.cosmosdb.cassandra_resources.get_cassandra_table
 @account_name='{{ account_name }}' --required, 
 @keyspace_name='{{ keyspace_name }}' --required, 
 @table_name='{{ table_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_cassandra_table">
+
+Create or update an Azure Cosmos DB Cassandra Table.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.create_update_cassandra_table 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@keyspace_name='{{ keyspace_name }}' --required, 
+@table_name='{{ table_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_cassandra_table">
+
+Deletes an existing Azure Cosmos DB Cassandra table.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.delete_cassandra_table 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@keyspace_name='{{ keyspace_name }}' --required, 
+@table_name='{{ table_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_cassandra_role_definition">
+
+Creates or updates an Azure Cosmos DB Cassandra Role Definition.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.create_update_cassandra_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_cassandra_role_definition">
+
+Deletes an existing Azure Cosmos DB Cassandra Role Definition.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.delete_cassandra_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_cassandra_role_assignment">
+
+Creates or updates an Azure Cosmos DB Cassandra Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.create_update_cassandra_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_cassandra_role_assignment">
+
+Deletes an existing Azure Cosmos DB Cassandra Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.cassandra_resources.delete_cassandra_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

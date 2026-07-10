@@ -2174,6 +2174,12 @@ components:
       enum:
       - PreserveIp
       - NewIP
+    NameAvailabilityReason:
+      type: string
+      enum:
+      - Valid
+      - Invalid
+      - AlreadyExists
     ApiManagementServiceNameAvailabilityResult:
       type: object
       description: Response of the CheckNameAvailability operation.
@@ -2192,12 +2198,6 @@ components:
           description: 'Invalid indicates the name provided does not match the resource provider’s naming requirements
             (incorrect length, unsupported characters, etc.) AlreadyExists indicates that the name is already in
             use and is therefore unavailable. Known values are: "Valid", "Invalid", and "AlreadyExists".'
-    NameAvailabilityReason:
-      type: string
-      enum:
-      - Valid
-      - Invalid
-      - AlreadyExists
     ResourceSku:
       type: object
       description: Describes an available API Management SKU.
@@ -5616,13 +5616,6 @@ components:
         properties:
           $ref: '#/components/schemas/ClientApplicationContractProperties'
           description: Client application entity contract properties.
-    ClientApplicationSecretsContract:
-      type: object
-      description: Specifies client application secrets needed to authorize applications API calls.
-      properties:
-        entra:
-          $ref: '#/components/schemas/ClientApplicationSecretsContractEntra'
-          description: Microsoft EntraID client application secrets.
     ClientApplicationSecretsContractEntra:
       type: object
       description: Microsoft EntraID client application secrets.
@@ -5634,6 +5627,13 @@ components:
           type: string
           format: date-time
           description: EntraID client application secret expiration date.
+    ClientApplicationSecretsContract:
+      type: object
+      description: Specifies client application secrets needed to authorize applications API calls.
+      properties:
+        entra:
+          $ref: '#/components/schemas/ClientApplicationSecretsContractEntra'
+          description: Microsoft EntraID client application secrets.
     ClientApplicationProductLinkContractProperties:
       type: object
       description: ClientApplicationProductLinkContractProperties.
@@ -12543,7 +12543,7 @@ paths:
                 $ref: '#/components/schemas/ApiManagementServiceGetSsoTokenResult'
       x-stackql-resource: api_management_service
       x-stackql-method: get_sso_token
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.ApiManagement/getDomainOwnershipIdentifier?api-version=2025-03-01-preview
   : post:
       operationId: ApiManagementService_get_domain_ownership_identifier
@@ -12563,7 +12563,7 @@ paths:
                 $ref: '#/components/schemas/ApiManagementServiceGetDomainOwnershipIdentifierResult'
       x-stackql-resource: api_management_service
       x-stackql-method: get_domain_ownership_identifier
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/restore?api-version=2025-03-01-preview
   : post:
       operationId: ApiManagementService_begin_restore
@@ -12844,7 +12844,7 @@ paths:
                 $ref: '#/components/schemas/ApiManagementServiceNameAvailabilityResult'
       x-stackql-resource: api_management_service
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/skus?api-version=2025-03-01-preview
   : get:
       operationId: ApiManagementServiceSkus_list_available_service_skus
@@ -16920,7 +16920,7 @@ paths:
                 $ref: '#/components/schemas/AuthorizationServerSecretsContract'
       x-stackql-resource: authorization_server
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/backends/{backend_id}?api-version=2025-03-01-preview
   : get:
       operationId: Backend_get
@@ -18003,7 +18003,7 @@ paths:
                 $ref: '#/components/schemas/ClientApplicationSecretsContract'
       x-stackql-resource: client_application
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/clientApplications/{client_application_id}/productLinks/{client_application_product_link_id}?api-version=2025-03-01-preview
   : get:
       operationId: ClientApplicationProductLink_get
@@ -18754,7 +18754,7 @@ paths:
                 $ref: '#/components/schemas/PortalSettingValidationKeyContract'
       x-stackql-resource: delegation_settings
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.ApiManagement/deletedservices?api-version=2025-03-01-preview:
     get:
       operationId: DeletedServices_list_by_subscription
@@ -20650,7 +20650,7 @@ paths:
                 $ref: '#/components/schemas/GatewayKeysContract'
       x-stackql-resource: gateway
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/gateways/{gateway_id}/listDebugCredentials?api-version=2025-03-01-preview
   : post:
       operationId: Gateway_list_debug_credentials
@@ -20711,7 +20711,7 @@ paths:
                 $ref: '#/components/schemas/GatewayDebugCredentialsContract'
       x-stackql-resource: gateway
       x-stackql-method: list_debug_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/gateways/{gateway_id}/listTrace?api-version=2025-03-01-preview
   : post:
       operationId: Gateway_list_trace
@@ -20756,7 +20756,7 @@ paths:
           description: Success
       x-stackql-resource: gateway
       x-stackql-method: list_trace
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/gateways/{gateway_id}/regenerateKey?api-version=2025-03-01-preview
   : post:
       operationId: Gateway_regenerate_key
@@ -22415,7 +22415,7 @@ paths:
                 $ref: '#/components/schemas/ClientSecretContract'
       x-stackql-resource: identity_provider
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/issues/{issue_id}?api-version=2025-03-01-preview
   : get:
       operationId: Issue_get
@@ -23075,7 +23075,7 @@ paths:
                 $ref: '#/components/schemas/NamedValueSecretContract'
       x-stackql-resource: named_value
       x-stackql-method: list_value
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/namedValues/{named_value_id}/refreshSecret?api-version=2025-03-01-preview
   : post:
       operationId: NamedValue_begin_refresh_secret
@@ -23959,7 +23959,7 @@ paths:
                 $ref: '#/components/schemas/ClientSecretContract'
       x-stackql-resource: open_id_connect_provider
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/apis/{api_id}/operationsByTags?api-version=2025-03-01-preview
   : get:
       operationId: Operation_list_by_tags
@@ -24438,7 +24438,8 @@ paths:
                 $ref: '#/components/schemas/ResourceCollection'
       x-stackql-resource: policy_fragment
       x-stackql-method: list_references
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/policies/{policy_id}?api-version=2025-03-01-preview
   : get:
       operationId: Policy_get
@@ -28638,7 +28639,7 @@ paths:
                 $ref: '#/components/schemas/SubscriptionKeysContract'
       x-stackql-resource: subscription
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/subscriptions/{sid}/regeneratePrimaryKey?api-version=2025-03-01-preview
   : post:
       operationId: Subscription_regenerate_primary_key
@@ -30689,7 +30690,7 @@ paths:
                 $ref: '#/components/schemas/AccessInformationSecretsContract'
       x-stackql-resource: tenant_access
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/tenant/{access_name}/regeneratePrimaryKey?api-version=2025-03-01-preview
   : post:
       operationId: TenantAccess_regenerate_primary_key
@@ -31511,7 +31512,7 @@ paths:
                 $ref: '#/components/schemas/UserTokenResult'
       x-stackql-resource: user
       x-stackql-method: get_shared_access_token
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/users/{user_id}/generateSsoUrl?api-version=2025-03-01-preview
   : post:
       operationId: User_generate_sso_url
@@ -36550,7 +36551,7 @@ paths:
                 $ref: '#/components/schemas/NamedValueSecretContract'
       x-stackql-resource: workspace_named_value
       x-stackql-method: list_value
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/workspaces/{workspace_id}/namedValues/{named_value_id}/refreshSecret?api-version=2025-03-01-preview
   : post:
       operationId: WorkspaceNamedValue_begin_refresh_secret
@@ -37709,7 +37710,8 @@ paths:
                 $ref: '#/components/schemas/ResourceCollection'
       x-stackql-resource: workspace_policy_fragment
       x-stackql-method: list_references
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/workspaces/{workspace_id}/policies/{policy_id}?api-version=2025-03-01-preview
   : get:
       operationId: WorkspacePolicy_get
@@ -39338,7 +39340,7 @@ paths:
                 $ref: '#/components/schemas/SubscriptionKeysContract'
       x-stackql-resource: workspace_subscription
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ApiManagement/service/{service_name}/workspaces/{workspace_id}/subscriptions/{sid}/regeneratePrimaryKey?api-version=2025-03-01-preview
   : post:
       operationId: WorkspaceSubscription_regenerate_primary_key

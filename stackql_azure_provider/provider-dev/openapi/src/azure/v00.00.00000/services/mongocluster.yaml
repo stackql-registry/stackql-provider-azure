@@ -642,15 +642,6 @@ components:
           description: The managed service identities assigned to this resource.
       required:
         - location
-    ListConnectionStringsResult:
-      type: object
-      description: The connection strings for the given mongo cluster.
-      properties:
-        connectionStrings:
-          type: array
-          items:
-            $ref: "#/components/schemas/ConnectionString"
-          description: An array that contains the connection strings for a mongo cluster.
     ConnectionString:
       type: object
       description: Connection string for the mongo cluster.
@@ -664,6 +655,15 @@ components:
         name:
           type: string
           description: Name of the connection string.
+    ListConnectionStringsResult:
+      type: object
+      description: The connection strings for the given mongo cluster.
+      properties:
+        connectionStrings:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConnectionString"
+          description: An array that contains the connection strings for a mongo cluster.
     MongoClusterUpdateProperties:
       type: object
       description: The updatable properties of the MongoCluster.
@@ -709,6 +709,11 @@ components:
         networkBypassMode:
           $ref: "#/components/schemas/NetworkBypassMode"
           description: "The network bypass mode for the cluster. Setting to 'AzureCosmosDB' allows Azure Cosmos DB service to bypass network restrictions. Known values are: \"None\" and \"AzureCosmosDB\"."
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -722,11 +727,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
     PromoteOption:
       type: string
       enum:
@@ -1257,6 +1257,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/mongo_clusters/methods/get"
           - $ref: "#/components/x-stackQL-resources/mongo_clusters/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/mongo_clusters/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/mongo_clusters/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/mongo_clusters/methods/create_or_update"

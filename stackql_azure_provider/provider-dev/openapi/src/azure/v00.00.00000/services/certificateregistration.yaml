@@ -523,17 +523,6 @@ components:
           description: HTML snippet. Required.
       required:
         - html
-    CertificateOrderAction:
-      type: object
-      description: Certificate order action.
-      properties:
-        actionType:
-          $ref: "#/components/schemas/CertificateOrderActionType"
-          description: 'Action type. Known values are: "CertificateIssued", "CertificateOrderCanceled", "CertificateOrderCreated", "CertificateRevoked", "DomainValidationComplete", "FraudDetected", "OrgNameChange", "OrgValidationComplete", "SanDrop", "FraudCleared", "CertificateExpired", "CertificateExpirationWarning", "FraudDocumentationRequired", and "Unknown".'
-        createdAt:
-          type: string
-          format: date-time
-          description: Time at which the certificate action was performed.
     CertificateOrderActionType:
       type: string
       enum:
@@ -551,6 +540,17 @@ components:
         - CertificateExpirationWarning
         - FraudDocumentationRequired
         - Unknown
+    CertificateOrderAction:
+      type: object
+      description: Certificate order action.
+      properties:
+        actionType:
+          $ref: "#/components/schemas/CertificateOrderActionType"
+          description: 'Action type. Known values are: "CertificateIssued", "CertificateOrderCanceled", "CertificateOrderCreated", "CertificateRevoked", "DomainValidationComplete", "FraudDetected", "OrgNameChange", "OrgValidationComplete", "SanDrop", "FraudCleared", "CertificateExpired", "CertificateExpirationWarning", "FraudDocumentationRequired", and "Unknown".'
+        createdAt:
+          type: string
+          format: date-time
+          description: Time at which the certificate action was performed.
     CertificateEmail:
       type: object
       description: SSL certificate email.
@@ -1172,7 +1172,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.CertificateRegistration~1certificateOrders~1{certificate_order_name}~1certificates~1{name}?api-version=2024-11-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         reissue:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.CertificateRegistration~1certificateOrders~1{certificate_order_name}~1reissue?api-version=2024-11-01/post"
@@ -1250,19 +1250,16 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/get_certificate"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/get"
+          - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/retrieve_certificate_actions"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/list"
         insert:
-          - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/create_or_update_certificate"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/create_or_update"
         update:
-          - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/update_certificate"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/update"
         replace:
-          - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/create_or_update_certificate"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/delete_certificate"
           - $ref: "#/components/x-stackQL-resources/app_service_certificate_orders/methods/delete"
     certificate_orders_diagnostics:
       id: azure.certificateregistration.certificate_orders_diagnostics
@@ -1711,8 +1708,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificate_order_name}/reissue?api-version=2024-11-01:
     post:
       operationId: AppServiceCertificateOrders_reissue

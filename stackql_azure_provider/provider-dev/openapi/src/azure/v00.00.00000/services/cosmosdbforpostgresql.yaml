@@ -1051,6 +1051,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/clusters/methods/get"
+          - $ref: "#/components/x-stackQL-resources/clusters/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/clusters/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/clusters/methods/list"
         insert:
@@ -1154,8 +1155,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/configurations/methods/list_by_server"
           - $ref: "#/components/x-stackQL-resources/configurations/methods/list_by_cluster"
         insert: []
-        update:
-          - $ref: "#/components/x-stackQL-resources/configurations/methods/update_on_coordinator"
+        update: []
         delete: []
     firewall_rules:
       id: azure.cosmosdbforpostgresql.firewall_rules

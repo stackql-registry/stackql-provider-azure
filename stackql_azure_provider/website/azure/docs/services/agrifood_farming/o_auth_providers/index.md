@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-oauthProviderId"><code>oauthProviderId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create cascade delete job for oauthProvider resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-oauth_provider_id"><code>oauth_provider_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -99,6 +92,13 @@ The following methods are available for this resource:
     <td></td>
     <td>Get cascade delete job for oauthProvider resource.</td>
 </tr>
+<tr>
+    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-oauthProviderId"><code>oauthProviderId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create cascade delete job for oauthProvider resource.</td>
+</tr>
 </tbody>
 </table>
 
@@ -118,12 +118,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job Id supplied by end user. Required.</td>
 </tr>
 <tr id="parameter-oauthProviderId">
     <td><CopyableCode code="oauthProviderId" /></td>
@@ -166,30 +166,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_cascade_delete_job"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_cascade_delete_job">
-
-Create cascade delete job for oauthProvider resource.
-
-```sql
-INSERT INTO azure.agrifood_farming.o_auth_providers (
-job_id,
-oauthProviderId,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ oauthProviderId }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates an oauthProvider resource.
@@ -210,17 +192,11 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: o_auth_providers
   props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the o_auth_providers resource.
-    - name: oauthProviderId
-      value: "{{ oauthProviderId }}"
+    - name: oauth_provider_id
+      value: "{{ oauth_provider_id }}"
       description: Required parameter for the o_auth_providers resource.
     - name: endpoint
       value: "{{ endpoint }}"
-      description: Required parameter for the o_auth_providers resource.
-    - name: oauth_provider_id
-      value: "{{ oauth_provider_id }}"
       description: Required parameter for the o_auth_providers resource.
 `}</CodeBlock>
 
@@ -281,7 +257,8 @@ AND endpoint = '{{ endpoint }}' --required
     values={[
         { label: 'get_raw', value: 'get_raw' },
         { label: 'list_raw', value: 'list_raw' },
-        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' }
+        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' },
+        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' }
     ]}
 >
 <TabItem value="get_raw">
@@ -317,6 +294,18 @@ Get cascade delete job for oauthProvider resource.
 ```sql
 EXEC azure.agrifood_farming.o_auth_providers.get_cascade_delete_job_details 
 @job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_cascade_delete_job">
+
+Create cascade delete job for oauthProvider resource.
+
+```sql
+EXEC azure.agrifood_farming.o_auth_providers.create_cascade_delete_job 
+@job_id='{{ job_id }}' --required, 
+@oauthProviderId='{{ oauthProviderId }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

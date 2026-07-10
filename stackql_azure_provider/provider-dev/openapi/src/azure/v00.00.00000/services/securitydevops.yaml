@@ -1081,10 +1081,10 @@ components:
         replace:
           - $ref: "#/components/x-stackQL-resources/azure_dev_ops_repo/methods/create_or_update"
         delete: []
-    git_hub_connector:
-      id: azure.securitydevops.git_hub_connector
-      name: git_hub_connector
-      title: git_hub_connector
+    github_connector:
+      id: azure.securitydevops.github_connector
+      name: github_connector
+      title: github_connector
       methods:
         get:
           operation:
@@ -1157,21 +1157,21 @@ components:
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/get"
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/list_by_resource_group"
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/list_by_subscription"
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/get"
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/list_by_subscription"
         insert:
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/create_or_update"
         update:
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/update"
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/update"
         replace:
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector/methods/delete"
-    git_hub_connector_stats:
-      id: azure.securitydevops.git_hub_connector_stats
-      name: git_hub_connector_stats
-      title: git_hub_connector_stats
+          - $ref: "#/components/x-stackQL-resources/github_connector/methods/delete"
+    github_connector_stats:
+      id: azure.securitydevops.github_connector_stats
+      name: github_connector_stats
+      title: github_connector_stats
       methods:
         get:
           operation:
@@ -1181,14 +1181,14 @@ components:
             mediaType: application/json
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/git_hub_connector_stats/methods/get"
+          - $ref: "#/components/x-stackQL-resources/github_connector_stats/methods/get"
         insert: []
         update: []
         delete: []
-    git_hub_owner:
-      id: azure.securitydevops.git_hub_owner
-      name: git_hub_owner
-      title: git_hub_owner
+    github_owner:
+      id: azure.securitydevops.github_owner
+      name: github_owner
+      title: github_owner
       methods:
         get:
           operation:
@@ -1240,19 +1240,19 @@ components:
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/git_hub_owner/methods/get"
-          - $ref: "#/components/x-stackQL-resources/git_hub_owner/methods/list"
+          - $ref: "#/components/x-stackQL-resources/github_owner/methods/get"
+          - $ref: "#/components/x-stackQL-resources/github_owner/methods/list"
         insert:
-          - $ref: "#/components/x-stackQL-resources/git_hub_owner/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/github_owner/methods/create_or_update"
         update:
-          - $ref: "#/components/x-stackQL-resources/git_hub_owner/methods/update"
+          - $ref: "#/components/x-stackQL-resources/github_owner/methods/update"
         replace:
-          - $ref: "#/components/x-stackQL-resources/git_hub_owner/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/github_owner/methods/create_or_update"
         delete: []
-    git_hub_repo:
-      id: azure.securitydevops.git_hub_repo
-      name: git_hub_repo
-      title: git_hub_repo
+    github_repo:
+      id: azure.securitydevops.github_repo
+      name: github_repo
+      title: github_repo
       methods:
         get:
           operation:
@@ -1320,15 +1320,15 @@ components:
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/git_hub_repo/methods/get"
-          - $ref: "#/components/x-stackQL-resources/git_hub_repo/methods/list"
-          - $ref: "#/components/x-stackQL-resources/git_hub_repo/methods/list_by_connector"
+          - $ref: "#/components/x-stackQL-resources/github_repo/methods/get"
+          - $ref: "#/components/x-stackQL-resources/github_repo/methods/list"
+          - $ref: "#/components/x-stackQL-resources/github_repo/methods/list_by_connector"
         insert:
-          - $ref: "#/components/x-stackQL-resources/git_hub_repo/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/github_repo/methods/create_or_update"
         update:
-          - $ref: "#/components/x-stackQL-resources/git_hub_repo/methods/update"
+          - $ref: "#/components/x-stackQL-resources/github_repo/methods/update"
         replace:
-          - $ref: "#/components/x-stackQL-resources/git_hub_repo/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/github_repo/methods/create_or_update"
         delete: []
     operations:
       id: azure.securitydevops.operations

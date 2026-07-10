@@ -1978,6 +1978,12 @@ components:
       enum:
         - PreserveIp
         - NewIP
+    NameAvailabilityReason:
+      type: string
+      enum:
+        - Valid
+        - Invalid
+        - AlreadyExists
     ApiManagementServiceNameAvailabilityResult:
       type: object
       description: Response of the CheckNameAvailability operation.
@@ -1991,12 +1997,6 @@ components:
         reason:
           $ref: "#/components/schemas/NameAvailabilityReason"
           description: 'Invalid indicates the name provided does not match the resource provider’s naming requirements (incorrect length, unsupported characters, etc.) AlreadyExists indicates that the name is already in use and is therefore unavailable. Known values are: "Valid", "Invalid", and "AlreadyExists".'
-    NameAvailabilityReason:
-      type: string
-      enum:
-        - Valid
-        - Invalid
-        - AlreadyExists
     ResourceSku:
       type: object
       description: Describes an available API Management SKU.
@@ -5237,13 +5237,6 @@ components:
         properties:
           $ref: "#/components/schemas/ClientApplicationContractProperties"
           description: Client application entity contract properties.
-    ClientApplicationSecretsContract:
-      type: object
-      description: Specifies client application secrets needed to authorize applications API calls.
-      properties:
-        entra:
-          $ref: "#/components/schemas/ClientApplicationSecretsContractEntra"
-          description: Microsoft EntraID client application secrets.
     ClientApplicationSecretsContractEntra:
       type: object
       description: Microsoft EntraID client application secrets.
@@ -5255,6 +5248,13 @@ components:
           type: string
           format: date-time
           description: EntraID client application secret expiration date.
+    ClientApplicationSecretsContract:
+      type: object
+      description: Specifies client application secrets needed to authorize applications API calls.
+      properties:
+        entra:
+          $ref: "#/components/schemas/ClientApplicationSecretsContractEntra"
+          description: Microsoft EntraID client application secrets.
     ClientApplicationProductLinkContractProperties:
       type: object
       description: ClientApplicationProductLinkContractProperties.
@@ -10569,6 +10569,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/api_management_service/methods/get"
           - $ref: "#/components/x-stackQL-resources/api_management_service/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/api_management_service/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/api_management_service/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/api_management_service/methods/create_or_update"
@@ -12889,6 +12890,7 @@ components:
             openAPIDocKey: "200"
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/gateway/methods/list_debug_credentials"
           - $ref: "#/components/x-stackQL-resources/gateway/methods/get"
           - $ref: "#/components/x-stackQL-resources/gateway/methods/list_by_service"
         insert:
@@ -13940,6 +13942,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
       sqlVerbs:
@@ -17544,6 +17547,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
       sqlVerbs:

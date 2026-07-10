@@ -573,7 +573,7 @@ components:
           operation:
             $ref: "#/paths/~1availablePhoneNumbers~1reservations~1{reservation_id}?api-version=2025-06-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_search_result:
           operation:
             $ref: "#/paths/~1availablePhoneNumbers~1searchResults~1{search_id}?api-version=2025-06-01/get"
@@ -657,6 +657,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/search_available_phone_numbers"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/list_area_codes"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/list_available_localities"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/get_by_number"
@@ -664,14 +665,9 @@ components:
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/get_search_result"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/get_operation"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/list_available_countries"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/create_or_update_reservation"
-        update:
-          - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/update_capabilities"
-        replace:
-          - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/create_or_update_reservation"
+        insert: []
+        update: []
         delete:
-          - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/delete_reservation"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/release_phone_number"
           - $ref: "#/components/x-stackQL-resources/phone_numbers/methods/cancel_operation"
     sip_routing:
@@ -1020,8 +1016,8 @@ paths:
             type: string
           description: The id of the reservation. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /availablePhoneNumbers/searchResults/{search_id}?api-version=2025-06-01:
     get:
       operationId: PhoneNumbers_get_search_result

@@ -41,9 +41,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: schema_groups
       x-stackql-method: list_schema_groups
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.Value
+      x-stackql-flatten: scalar_list_paged
   /$schemaGroups/{group_name}/schemas/{schema_name}/versions?api-version=2023-07-01:
     get:
       operationId: SchemaRegistryClient_list_schema_versions
@@ -64,9 +80,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: integer
+                  nextLink:
+                    type: string
       x-stackql-resource: schema_versions
       x-stackql-method: list_schema_versions
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.Value
+      x-stackql-flatten: scalar_list_paged
   /$schemaGroups/$schemas/{id}?api-version=2023-07-01:
     get:
       operationId: SchemaRegistryClient_get_schema_by_id
@@ -138,7 +170,7 @@ paths:
           description: Success
       x-stackql-resource: schema_properties
       x-stackql-method: get_schema_properties_by_content
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /$schemaGroups/{group_name}/schemas/{schema_name}?api-version=2023-07-01:
     put:
       operationId: SchemaRegistryClient_register_schema

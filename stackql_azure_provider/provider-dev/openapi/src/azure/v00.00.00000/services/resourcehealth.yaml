@@ -910,25 +910,6 @@ components:
         billingId:
           type: string
           description: Billing identifier information.
-    Event:
-      type: object
-      description: Service health event.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: "#/components/schemas/SystemData"
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: "#/components/schemas/EventProperties"
-          description: Properties of event.
     PagedEventFlattened:
       type: object
       properties:
@@ -1135,34 +1116,6 @@ components:
           description: List of operations available in the Microsoft.ResourceHealth resource provider. Required.
       required:
         - value
-    EventImpactedResource:
-      type: object
-      description: Impacted resource for an event.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: "#/components/schemas/SystemData"
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: "#/components/schemas/EventImpactedResourceProperties"
-          description: Properties of impacted resource.
-    PagedEventImpactedResource:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/EventImpactedResource"
-        nextLink:
-          type: string
   x-stackQL-resources:
     availability_statuses:
       id: azure.resourcehealth.availability_statuses
@@ -1386,18 +1339,30 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         fetch_billling_communication_details_by_subscription_id_and_tracking_id:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.ResourceHealth~1events~1{event_tracking_id}~1fetchBillingCommunicationDetails?api-version=2025-05-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         fetch_details_by_tenant_id_and_tracking_id:
           operation:
             $ref: "#/paths/~1providers~1Microsoft.ResourceHealth~1events~1{event_tracking_id}~1fetchEventDetails?api-version=2025-05-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/event/methods/get_by_subscription_id_and_tracking_id"
@@ -1609,6 +1574,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
         list_by_tenant_id_and_event_id:
@@ -1617,10 +1592,22 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/security_advisory_impacted_resources/methods/list_by_subscription_id_and_event_id"
+          - $ref: "#/components/x-stackQL-resources/security_advisory_impacted_resources/methods/list_by_tenant_id_and_event_id"
         insert: []
         update: []
         delete: []
@@ -1956,7 +1943,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Event"
+                $ref: "#/components/schemas/EventFlattened"
   /subscriptions/{subscription_id}/providers/Microsoft.ResourceHealth/events/{event_tracking_id}/fetchBillingCommunicationDetails?api-version=2025-05-01:
     post:
       operationId: Event_fetch_billling_communication_details_by_subscription_id_and_tracking_id
@@ -1979,7 +1966,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Event"
+                $ref: "#/components/schemas/EventFlattened"
   /providers/Microsoft.ResourceHealth/events/{event_tracking_id}/fetchEventDetails?api-version=2025-05-01:
     post:
       operationId: Event_fetch_details_by_tenant_id_and_tracking_id
@@ -1997,7 +1984,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Event"
+                $ref: "#/components/schemas/EventFlattened"
   /subscriptions/{subscription_id}/providers/Microsoft.ResourceHealth/events?api-version=2025-05-01:
     get:
       operationId: Events_list_by_subscription_id
@@ -2251,7 +2238,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedEventImpactedResource"
+                $ref: "#/components/schemas/PagedEventImpactedResourceFlattened"
   /providers/Microsoft.ResourceHealth/events/{event_tracking_id}/listSecurityAdvisoryImpactedResources?api-version=2025-05-01:
     post:
       operationId: SecurityAdvisoryImpactedResources_list_by_tenant_id_and_event_id
@@ -2275,4 +2262,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedEventImpactedResource"
+                $ref: "#/components/schemas/PagedEventImpactedResourceFlattened"

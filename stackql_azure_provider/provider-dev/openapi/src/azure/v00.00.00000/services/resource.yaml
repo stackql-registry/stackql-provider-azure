@@ -1257,7 +1257,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1tagNames~1{tag_name}~1tagValues~1{tag_value}?api-version=2025-04-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         create_or_update_value:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1tagNames~1{tag_name}~1tagValues~1{tag_value}?api-version=2025-04-01/put"
@@ -1269,17 +1269,14 @@ components:
           - $ref: "#/components/x-stackQL-resources/tags/methods/list"
           - $ref: "#/components/x-stackQL-resources/tags/methods/get_at_scope"
         insert:
-          - $ref: "#/components/x-stackQL-resources/tags/methods/create_or_update_value"
           - $ref: "#/components/x-stackQL-resources/tags/methods/create_or_update"
           - $ref: "#/components/x-stackQL-resources/tags/methods/create_or_update_at_scope"
         update:
           - $ref: "#/components/x-stackQL-resources/tags/methods/update_at_scope"
         replace:
-          - $ref: "#/components/x-stackQL-resources/tags/methods/create_or_update_value"
           - $ref: "#/components/x-stackQL-resources/tags/methods/create_or_update"
           - $ref: "#/components/x-stackQL-resources/tags/methods/create_or_update_at_scope"
         delete:
-          - $ref: "#/components/x-stackQL-resources/tags/methods/delete_value"
           - $ref: "#/components/x-stackQL-resources/tags/methods/delete"
           - $ref: "#/components/x-stackQL-resources/tags/methods/delete_at_scope"
 paths:
@@ -2510,8 +2507,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
     put:
       operationId: Tags_create_or_update_value
       description: Creates a predefined value for a predefined tag name. This operation allows adding a value to the list of predefined values for an existing predefined tag name. A tag value can have a maximum of 256 characters.

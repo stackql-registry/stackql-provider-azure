@@ -70,31 +70,6 @@ components:
         facet:
           $ref: "#/components/schemas/SearchFacetItem"
           description: The content of a search facet result item.
-    QueryResult:
-      type: object
-      description: The result of the search result.
-      properties:
-        "@search":
-          type: object
-          properties:
-            count:
-              type: integer
-              description: The total number of search results (not the number of documents in a single page).
-              properties:
-                approximate:
-                  type: boolean
-                  description: "'True' if the '@search.count' is an approximate value and vise versa."
-            facets:
-              $ref: "#/components/schemas/SearchFacetResultValue"
-              description: A facet list that consists of index fields assetType ,classification, contactId, and label. When the facet is specified in the request, the value of the facet is returned as an element of @search.facets.
-        continuationToken:
-          type: string
-          description: The token used to get next batch of data. Absent if there's no more data.
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/SearchResultValue"
-          description: Search result value.
     SearchFacetResultValue:
       type: object
       description: A facet list that consists of index fields assetType ,classification, contactId, and label. When the facet is specified in the request, the value of the facet is returned as an element of @search.facets.
@@ -301,6 +276,31 @@ components:
         contactType:
           type: string
           description: The type of the contact. It can be Expert or Owner for an entity. It can be Expert or Steward for a glossary term.
+    QueryResult:
+      type: object
+      description: The result of the search result.
+      properties:
+        "@search":
+          type: object
+          properties:
+            count:
+              type: integer
+              description: The total number of search results (not the number of documents in a single page).
+              properties:
+                approximate:
+                  type: boolean
+                  description: "'True' if the '@search.count' is an approximate value and vise versa."
+            facets:
+              $ref: "#/components/schemas/SearchFacetResultValue"
+              description: A facet list that consists of index fields assetType ,classification, contactId, and label. When the facet is specified in the request, the value of the facet is returned as an element of @search.facets.
+        continuationToken:
+          type: string
+          description: The token used to get next batch of data. Absent if there's no more data.
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchResultValue"
+          description: Search result value.
     SuggestResult:
       type: object
       description: The result item of the search suggest.
@@ -2277,7 +2277,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/discovery/methods/query"
         insert: []
         update: []
         delete: []
@@ -2563,9 +2564,7 @@ components:
         insert:
           - $ref: "#/components/x-stackQL-resources/entity/methods/create_or_update"
         update:
-          - $ref: "#/components/x-stackQL-resources/entity/methods/update_attribute_by_id"
           - $ref: "#/components/x-stackQL-resources/entity/methods/update_by_unique_attribute"
-          - $ref: "#/components/x-stackQL-resources/entity/methods/update_classifications"
         replace:
           - $ref: "#/components/x-stackQL-resources/entity/methods/create_or_update"
         delete:
@@ -2612,7 +2611,7 @@ components:
           operation:
             $ref: "#/paths/~1atlas~1v2~1glossary~1category~1{category_id}/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_related_categories:
           operation:
             $ref: "#/paths/~1atlas~1v2~1glossary~1category~1{category_id}~1related/get"
@@ -2668,7 +2667,7 @@ components:
           operation:
             $ref: "#/paths/~1atlas~1v2~1glossary~1terms~1{term_id}~1assignedEntities/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
           request:
             nativeCasing: camel
           config:
@@ -2782,7 +2781,7 @@ components:
           operation:
             $ref: "#/paths/~1atlas~1v2~1glossary~1term~1{term_id}/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         partial_update_term:
           operation:
             $ref: "#/paths/~1atlas~1v2~1glossary~1term~1{term_id}~1partial?api-version=2023-09-01/put"
@@ -2830,12 +2829,8 @@ components:
           - $ref: "#/components/x-stackQL-resources/glossary/methods/create"
         update:
           - $ref: "#/components/x-stackQL-resources/glossary/methods/update"
-          - $ref: "#/components/x-stackQL-resources/glossary/methods/update_category"
-          - $ref: "#/components/x-stackQL-resources/glossary/methods/update_term"
         delete:
           - $ref: "#/components/x-stackQL-resources/glossary/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/glossary/methods/delete_category"
-          - $ref: "#/components/x-stackQL-resources/glossary/methods/delete_term_assignment_from_entities"
     lineage:
       id: azure.purview_datamap.lineage
       name: lineage
@@ -4209,8 +4204,8 @@ paths:
             type: string
           description: The globally unique identifier of the category. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /atlas/v2/glossary/category/{category_id}/related:
     get:
       operationId: Glossary_get_related_categories
@@ -4615,8 +4610,8 @@ paths:
                   $ref: "#/components/schemas/StatusAtlasRelationship"
                   description: 'The enum of relationship status. Known values are: "ACTIVE" and "DELETED".'
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /atlas/v2/glossary/terms/{term_id}/related?api-version=2023-09-01:
     get:
       operationId: Glossary_get_related_terms
@@ -5270,8 +5265,8 @@ paths:
             type: string
           description: The globally unique identifier for glossary term. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /atlas/v2/glossary/term/{term_id}/partial?api-version=2023-09-01:
     put:
       operationId: Glossary_partial_update_term

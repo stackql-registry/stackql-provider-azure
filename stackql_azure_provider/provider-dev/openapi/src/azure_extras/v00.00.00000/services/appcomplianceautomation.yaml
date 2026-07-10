@@ -196,15 +196,6 @@ components:
             $ref: "#/components/schemas/Operation"
         nextLink:
           type: string
-    ListInUseStorageAccountsResponse:
-      type: object
-      description: Parameters for listing in use storage accounts operation. If subscription list is null, it will check the user's all subscriptions.
-      properties:
-        storageAccountList:
-          type: array
-          items:
-            $ref: "#/components/schemas/StorageInfo"
-          description: The storage account list which in use in related reports.
     StorageInfo:
       type: object
       description: The information of 'bring your own storage' account binding to the report.
@@ -221,6 +212,15 @@ components:
         location:
           type: string
           description: The region of 'bring your own storage' account.
+    ListInUseStorageAccountsResponse:
+      type: object
+      description: Parameters for listing in use storage accounts operation. If subscription list is null, it will check the user's all subscriptions.
+      properties:
+        storageAccountList:
+          type: array
+          items:
+            $ref: "#/components/schemas/StorageInfo"
+          description: The storage account list which in use in related reports.
     GetCollectionCountResponse:
       type: object
       description: The get collection count response.
@@ -228,15 +228,6 @@ components:
         count:
           type: integer
           description: The count of the specified resource.
-    GetOverviewStatusResponse:
-      type: object
-      description: The get overview status response.
-      properties:
-        statusList:
-          type: array
-          items:
-            $ref: "#/components/schemas/StatusItem"
-          description: List of different status items.
     StatusItem:
       type: object
       description: Single status.
@@ -247,6 +238,15 @@ components:
         statusValue:
           type: string
           description: Status value. e.g. "100", or "100%".
+    GetOverviewStatusResponse:
+      type: object
+      description: The get overview status response.
+      properties:
+        statusList:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusItem"
+          description: List of different status items.
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -559,15 +559,6 @@ components:
           description: Report property. Required.
       required:
         - properties
-    ScopingQuestions:
-      type: object
-      description: Scoping question list.
-      properties:
-        questions:
-          type: array
-          items:
-            $ref: "#/components/schemas/ScopingQuestion"
-          description: List of scoping questions.
     ScopingQuestion:
       type: object
       description: The definition of a scoping question. Variables are only populated by the server, and will be ignored when sending a request. All required parameters must be populated in order to send to server.
@@ -594,6 +585,15 @@ components:
         showSubQuestionsValue:
           type: string
           description: The answer value to show the sub questions.
+    ScopingQuestions:
+      type: object
+      description: Scoping question list.
+      properties:
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScopingQuestion"
+          description: List of scoping questions.
     ReportPatchProperties:
       type: object
       description: Patch Report's properties. Variables are only populated by the server, and will be ignored when sending a request.
@@ -1392,7 +1392,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/provider_actions/methods/list_in_use_storage_accounts"
         insert: []
         update: []
         delete: []

@@ -1698,7 +1698,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubConnectorFlattened'
-      x-stackql-resource: git_hub_connector
+      x-stackql-resource: github_connector
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -1750,7 +1750,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubConnector'
-      x-stackql-resource: git_hub_connector
+      x-stackql-resource: github_connector
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     patch:
@@ -1800,7 +1800,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubConnector'
-      x-stackql-resource: git_hub_connector
+      x-stackql-resource: github_connector
       x-stackql-method: update
       x-stackql-verb: UPDATE
     delete:
@@ -1827,7 +1827,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: git_hub_connector
+      x-stackql-resource: github_connector
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SecurityDevOps/gitHubConnectors?api-version=2022-09-01-preview
@@ -1853,7 +1853,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubConnectorFlattened'
-      x-stackql-resource: git_hub_connector
+      x-stackql-resource: github_connector
       x-stackql-method: list_by_resource_group
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1876,7 +1876,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubConnectorFlattened'
-      x-stackql-resource: git_hub_connector
+      x-stackql-resource: github_connector
       x-stackql-method: list_by_subscription
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1912,7 +1912,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubConnectorStatsListResponse'
-      x-stackql-resource: git_hub_connector_stats
+      x-stackql-resource: github_connector_stats
       x-stackql-method: get
       x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SecurityDevOps/gitHubConnectors/{git_hub_connector_name}/owners/{git_hub_owner_name}?api-version=2022-09-01-preview
@@ -1950,7 +1950,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOwnerFlattened'
-      x-stackql-resource: git_hub_owner
+      x-stackql-resource: github_owner
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -1998,7 +1998,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOwner'
-      x-stackql-resource: git_hub_owner
+      x-stackql-resource: github_owner
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     patch:
@@ -2045,7 +2045,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubOwner'
-      x-stackql-resource: git_hub_owner
+      x-stackql-resource: github_owner
       x-stackql-method: update
       x-stackql-verb: UPDATE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SecurityDevOps/gitHubConnectors/{git_hub_connector_name}/owners?api-version=2022-09-01-preview
@@ -2077,7 +2077,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubOwnerFlattened'
-      x-stackql-resource: git_hub_owner
+      x-stackql-resource: github_owner
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2124,7 +2124,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubRepoFlattened'
-      x-stackql-resource: git_hub_repo
+      x-stackql-resource: github_repo
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -2178,7 +2178,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubRepo'
-      x-stackql-resource: git_hub_repo
+      x-stackql-resource: github_repo
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     patch:
@@ -2231,7 +2231,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GitHubRepo'
-      x-stackql-resource: git_hub_repo
+      x-stackql-resource: github_repo
       x-stackql-method: update
       x-stackql-verb: UPDATE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SecurityDevOps/gitHubConnectors/{git_hub_connector_name}/owners/{git_hub_owner_name}/repos?api-version=2022-09-01-preview
@@ -2269,7 +2269,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubRepoFlattened'
-      x-stackql-resource: git_hub_repo
+      x-stackql-resource: github_repo
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -2304,7 +2304,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedGitHubRepoFlattened'
-      x-stackql-resource: git_hub_repo
+      x-stackql-resource: github_repo
       x-stackql-method: list_by_connector
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value

@@ -275,6 +275,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/workspace_collections/methods/get_by_name"
           - $ref: "#/components/x-stackQL-resources/workspace_collections/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/workspace_collections/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/workspace_collections/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/workspace_collections/methods/create"

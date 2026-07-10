@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#rotate_key"><CopyableCode code="rotate_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Creates a new key version, stores it, then returns key parameters, attributes and policy to the client. The operation will rotate the key based on the key policy. It requires the keys/rotate permission.</td>
 </tr>
@@ -78,10 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of key to be rotated. The system will generate a new version in the specified key. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Creates a new key version, stores it, then returns key parameters, attributes an
 ```sql
 EXEC azure.keyvault_keys.rotate_keys.rotate_key 
 @key_name='{{ key_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>

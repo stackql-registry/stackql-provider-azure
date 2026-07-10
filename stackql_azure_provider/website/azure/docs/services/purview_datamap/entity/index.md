@@ -215,25 +215,11 @@ The following methods are available for this resource:
     <td>Create or update an entity. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;. For each contact type, the maximum number of contacts is 20.</td>
 </tr>
 <tr>
-    <td><a href="#update_attribute_by_id"><CopyableCode code="update_attribute_by_id" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update entity partially - create or update entity attribute identified by its GUID. Supports only primitive attribute type and entity references. It does not support updating complex types like arrays, and maps. Null updates are not possible.</td>
-</tr>
-<tr>
     <td><a href="#update_by_unique_attribute"><CopyableCode code="update_by_unique_attribute" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-attr:qualifiedName"><code>attr:qualifiedName</code></a></td>
     <td>Update entity partially - Allow a subset of attributes to be updated on an entity which is identified by its type and unique attribute eg: Referenceable.qualifiedName. Null updates are not possible. In addition to the typeName path parameter, attribute key-value pair(s) can be provided in the following format: attr:=. NOTE: The attrName and attrValue should be unique across entities, eg. qualifiedName. The REST request would look something like this: PUT /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.</td>
-</tr>
-<tr>
-    <td><a href="#update_classifications"><CopyableCode code="update_classifications" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update classifications to an existing entity represented by a guid.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
@@ -285,6 +271,13 @@ The following methods are available for this resource:
     <td>Delete a list of entities in bulk identified by their GUIDs or unique attributes.</td>
 </tr>
 <tr>
+    <td><a href="#update_attribute_by_id"><CopyableCode code="update_attribute_by_id" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update entity partially - create or update entity attribute identified by its GUID. Supports only primitive attribute type and entity references. It does not support updating complex types like arrays, and maps. Null updates are not possible.</td>
+</tr>
+<tr>
     <td><a href="#batch_create_or_update"><CopyableCode code="batch_create_or_update" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -304,6 +297,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Add classifications to an existing entity represented by a GUID.</td>
+</tr>
+<tr>
+    <td><a href="#update_classifications"><CopyableCode code="update_classifications" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-guid"><code>guid</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update classifications to an existing entity represented by a guid.</td>
 </tr>
 <tr>
     <td><a href="#get_header"><CopyableCode code="get_header" /></a></td>
@@ -465,7 +465,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-guid">
     <td><CopyableCode code="guid" /></td>
@@ -708,31 +708,11 @@ partialUpdatedEntities
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_attribute_by_id"
+    defaultValue="update_by_unique_attribute"
     values={[
-        { label: 'update_attribute_by_id', value: 'update_attribute_by_id' },
-        { label: 'update_by_unique_attribute', value: 'update_by_unique_attribute' },
-        { label: 'update_classifications', value: 'update_classifications' }
+        { label: 'update_by_unique_attribute', value: 'update_by_unique_attribute' }
     ]}
 >
-<TabItem value="update_attribute_by_id">
-
-Update entity partially - create or update entity attribute identified by its GUID. Supports only primitive attribute type and entity references. It does not support updating complex types like arrays, and maps. Null updates are not possible.
-
-```sql
-UPDATE azure.purview_datamap.entity
-SET 
--- No updatable properties
-WHERE 
-guid = '{{ guid }}' --required
-AND name = '{{ name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-guidAssignments,
-mutatedEntities,
-partialUpdatedEntities;
-```
-</TabItem>
 <TabItem value="update_by_unique_attribute">
 
 Update entity partially - Allow a subset of attributes to be updated on an entity which is identified by its type and unique attribute eg: Referenceable.qualifiedName. Null updates are not possible. In addition to the typeName path parameter, attribute key-value pair(s) can be provided in the following format: attr:=. NOTE: The attrName and attrValue should be unique across entities, eg. qualifiedName. The REST request would look something like this: PUT /v2/entity/uniqueAttribute/type/aType?attr:aTypeAttribute=someValue.
@@ -750,25 +730,6 @@ RETURNING
 guidAssignments,
 mutatedEntities,
 partialUpdatedEntities;
-```
-</TabItem>
-<TabItem value="update_classifications">
-
-Update classifications to an existing entity represented by a guid.
-
-```sql
-UPDATE azure.purview_datamap.entity
-SET 
-attributes = '{{ attributes }}',
-typeName = '{{ typeName }}',
-lastModifiedTS = '{{ lastModifiedTS }}',
-entityGuid = '{{ entityGuid }}',
-entityStatus = '{{ entityStatus }}',
-removePropagationsOnEntityDelete = {{ removePropagationsOnEntityDelete }},
-validityPeriods = '{{ validityPeriods }}'
-WHERE 
-guid = '{{ guid }}' --required
-AND endpoint = '{{ endpoint }}' --required;
 ```
 </TabItem>
 </Tabs>
@@ -893,11 +854,13 @@ WHERE endpoint = '{{ endpoint }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="batch_create_or_update"
+    defaultValue="update_attribute_by_id"
     values={[
+        { label: 'update_attribute_by_id', value: 'update_attribute_by_id' },
         { label: 'batch_create_or_update', value: 'batch_create_or_update' },
         { label: 'get_classifications', value: 'get_classifications' },
         { label: 'add_classifications', value: 'add_classifications' },
+        { label: 'update_classifications', value: 'update_classifications' },
         { label: 'get_header', value: 'get_header' },
         { label: 'get_business_metadata_template', value: 'get_business_metadata_template' },
         { label: 'add_classification', value: 'add_classification' },
@@ -918,6 +881,18 @@ WHERE endpoint = '{{ endpoint }}' --required
         { label: 'move_entities_to_collection', value: 'move_entities_to_collection' }
     ]}
 >
+<TabItem value="update_attribute_by_id">
+
+Update entity partially - create or update entity attribute identified by its GUID. Supports only primitive attribute type and entity references. It does not support updating complex types like arrays, and maps. Null updates are not possible.
+
+```sql
+EXEC azure.purview_datamap.entity.update_attribute_by_id 
+@guid='{{ guid }}' --required, 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="batch_create_or_update">
 
 Create or update entities in bulk. Existing entity is matched using its unique guid if supplied or by its unique attributes eg: qualifiedName. Map and array of collections are not well supported. E.g., array&gt;, array&gt;. For each contact type, the maximum number of contacts is 20.
@@ -952,6 +927,27 @@ Add classifications to an existing entity represented by a GUID.
 
 ```sql
 EXEC azure.purview_datamap.entity.add_classifications 
+@guid='{{ guid }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"attributes": "{{ attributes }}", 
+"typeName": "{{ typeName }}", 
+"lastModifiedTS": "{{ lastModifiedTS }}", 
+"entityGuid": "{{ entityGuid }}", 
+"entityStatus": "{{ entityStatus }}", 
+"removePropagationsOnEntityDelete": {{ removePropagationsOnEntityDelete }}, 
+"validityPeriods": "{{ validityPeriods }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_classifications">
+
+Update classifications to an existing entity represented by a guid.
+
+```sql
+EXEC azure.purview_datamap.entity.update_classifications 
 @guid='{{ guid }}' --required, 
 @endpoint='{{ endpoint }}' --required 
 @@json=

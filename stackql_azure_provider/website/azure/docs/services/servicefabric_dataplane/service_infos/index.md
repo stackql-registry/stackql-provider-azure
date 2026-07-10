@@ -112,7 +112,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_service_info"><CopyableCode code="get_service_info" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the information about the specific service belonging to the Service Fabric application. Returns the information about the specified service belonging to the specified Service Fabric application.</td>
 </tr>
@@ -140,7 +140,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-service_id">
     <td><CopyableCode code="service_id" /></td>
@@ -178,8 +178,8 @@ ServiceKind,
 ServiceStatus,
 TypeName
 FROM azure.servicefabric_dataplane.service_infos
-WHERE service_id = '{{ service_id }}' -- required
-AND application_id = '{{ application_id }}' -- required
+WHERE application_id = '{{ application_id }}' -- required
+AND service_id = '{{ service_id }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

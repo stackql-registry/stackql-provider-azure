@@ -935,6 +935,11 @@ components:
       type: string
       enum:
       - Microsoft.Batch/batchAccounts
+    NameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResult:
       type: object
       description: The CheckNameAvailability operation response.
@@ -950,11 +955,6 @@ components:
         message:
           type: string
           description: Gets an error message explaining the Reason value in more detail.
-    NameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     NetworkSecurityPerimeterConfigurationProperties:
       type: object
       description: Network security configuration properties.
@@ -3583,7 +3583,7 @@ paths:
                 $ref: '#/components/schemas/BatchAccountKeys'
       x-stackql-resource: batch_account
       x-stackql-method: get_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Batch/batchAccounts/{account_name}/detectors/{detector_id}?api-version=2025-06-01
   : get:
       operationId: BatchAccount_get_detector
@@ -3816,7 +3816,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: location
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Batch/batchAccounts/{account_name}/networkSecurityPerimeterConfigurations?api-version=2025-06-01
   : get:
       operationId: NetworkSecurityPerimeter_list_configurations

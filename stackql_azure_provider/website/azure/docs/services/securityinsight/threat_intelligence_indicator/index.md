@@ -114,13 +114,6 @@ The following methods are available for this resource:
     <td>Update a threat Intelligence indicator.</td>
 </tr>
 <tr>
-    <td><a href="#create_indicator"><CopyableCode code="create_indicator" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
-    <td></td>
-    <td>Create a new threat intelligence indicator.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -140,6 +133,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
     <td></td>
     <td>Replace tags added to a threat intelligence indicator.</td>
+</tr>
+<tr>
+    <td><a href="#create_indicator"><CopyableCode code="create_indicator" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
+    <td></td>
+    <td>Create a new threat intelligence indicator.</td>
 </tr>
 <tr>
     <td><a href="#query_indicators"><CopyableCode code="query_indicators" /></a></td>
@@ -224,7 +224,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create"
     values={[
         { label: 'create', value: 'create' },
-        { label: 'create_indicator', value: 'create_indicator' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -249,36 +248,6 @@ SELECT
 '{{ resource_group_name }}',
 '{{ workspace_name }}',
 '{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-etag,
-kind,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_indicator">
-
-Create a new threat intelligence indicator.
-
-```sql
-INSERT INTO azure.securityinsight.threat_intelligence_indicator (
-kind,
-etag,
-properties,
-resource_group_name,
-workspace_name,
-subscription_id
-)
-SELECT 
-'{{ kind }}' /* required */,
-'{{ etag }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ workspace_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -403,6 +372,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'append_tags', value: 'append_tags' },
         { label: 'replace_tags', value: 'replace_tags' },
+        { label: 'create_indicator', value: 'create_indicator' },
         { label: 'query_indicators', value: 'query_indicators' }
     ]}
 >
@@ -432,6 +402,24 @@ EXEC azure.securityinsight.threat_intelligence_indicator.replace_tags
 @resource_group_name='{{ resource_group_name }}' --required, 
 @workspace_name='{{ workspace_name }}' --required, 
 @name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"etag": "{{ etag }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_indicator">
+
+Create a new threat intelligence indicator.
+
+```sql
+EXEC azure.securityinsight.threat_intelligence_indicator.create_indicator 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@workspace_name='{{ workspace_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 
 @@json=
 '{

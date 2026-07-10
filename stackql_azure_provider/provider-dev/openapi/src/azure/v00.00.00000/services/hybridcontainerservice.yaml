@@ -898,28 +898,6 @@ components:
         extendedLocation:
           $ref: "#/components/schemas/ExtendedLocation"
           description: Extended location pointing to the underlying infrastructure.
-    ListCredentialResponse:
-      type: object
-      description: The list kubeconfig result response. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: Operation Id.
-        name:
-          type: string
-          description: Operation Name.
-        resourceId:
-          type: string
-          description: ARM Resource Id of the provisioned cluster instance.
-        status:
-          type: string
-          description: 'Provisioning state of the resource. Known values are: "Succeeded", "Failed", "Canceled", "Pending", "Creating", "Deleting", "Updating", "Upgrading", and "Accepted".'
-        error:
-          $ref: "#/components/schemas/ListCredentialResponseError"
-          description: ":vartype error: ~azure.mgmt.hybridcontainerservice.models.ListCredentialResponseError"
-        properties:
-          $ref: "#/components/schemas/ListCredentialResponseProperties"
-          description: ":vartype properties: ~azure.mgmt.hybridcontainerservice.models.ListCredentialResponseProperties"
     ListCredentialResponseError:
       type: object
       description: ListCredentialResponseError.
@@ -949,6 +927,30 @@ components:
         value:
           type: string
           format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    ListCredentialResponseFlattened:
+      type: object
+      description: Flattened view of ListCredentialResponse ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Operation Id.
+        name:
+          type: string
+          description: Operation Name.
+        resourceId:
+          type: string
+          description: ARM Resource Id of the provisioned cluster instance.
+        status:
+          type: string
+          description: 'Provisioning state of the resource. Known values are: "Succeeded", "Failed", "Canceled", "Pending", "Creating", "Deleting", "Updating", "Upgrading", and "Accepted".'
+        error:
+          $ref: "#/components/schemas/ListCredentialResponseError"
+          description: ":vartype error: ~azure.mgmt.hybridcontainerservice.models.ListCredentialResponseError"
+        kubeconfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/CredentialResult"
           description: Base64-encoded Kubernetes configuration file.
     ProvisionedClusterUpgradeProfileProperties:
       type: object
@@ -1510,12 +1512,20 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         list_admin_kubeconfig:
           operation:
             $ref: "#/paths/~1{connected_cluster_resource_uri}~1providers~1Microsoft.HybridContainerService~1provisionedClusterInstances~1default~1listAdminKubeconfig?api-version=2024-01-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         get_upgrade_profile:
           operation:
             $ref: "#/paths/~1{connected_cluster_resource_uri}~1providers~1Microsoft.HybridContainerService~1provisionedClusterInstances~1default~1upgradeProfiles~1default?api-version=2024-01-01/get"
@@ -2056,7 +2066,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListCredentialResponse"
+                $ref: "#/components/schemas/ListCredentialResponseFlattened"
   /{connected_cluster_resource_uri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/listAdminKubeconfig?api-version=2024-01-01:
     post:
       operationId: ProvisionedClusterInstances_begin_list_admin_kubeconfig
@@ -2074,7 +2084,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListCredentialResponse"
+                $ref: "#/components/schemas/ListCredentialResponseFlattened"
   /{connected_cluster_resource_uri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/upgradeProfiles/default?api-version=2024-01-01:
     get:
       operationId: ProvisionedClusterInstances_get_upgrade_profile

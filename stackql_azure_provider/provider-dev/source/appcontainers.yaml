@@ -730,6 +730,11 @@ components:
           description: The complex type of the extended location.
       required:
       - location
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -743,11 +748,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     ConnectedEnvironmentStorageProperties:
       type: object
       description: Storage properties.
@@ -2789,6 +2789,43 @@ components:
             or functionapp. Known values are: "workflowapp" and "functionapp".'
       required:
       - location
+    DnsVerificationTestResult:
+      type: string
+      enum:
+      - Passed
+      - Failed
+      - Skipped
+    CustomHostnameAnalysisResultCustomDomainVerificationFailureInfo:
+      type: object
+      description: Raw failure information if DNS verification fails.
+      properties:
+        code:
+          type: string
+          description: Standardized string to programmatically identify the error.
+        message:
+          type: string
+          description: Detailed error description and debugging information.
+        target:
+          type: string
+          description: Detailed error description and debugging information.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomHostnameAnalysisResultCustomDomainVerificationFailureInfoDetailsItem'
+          description: Details or the error.
+    CustomHostnameAnalysisResultCustomDomainVerificationFailureInfoDetailsItem:
+      type: object
+      description: Detailed errors.
+      properties:
+        code:
+          type: string
+          description: Standardized string to programmatically identify the error.
+        message:
+          type: string
+          description: Detailed error description and debugging information.
+        target:
+          type: string
+          description: Detailed error description and debugging information.
     CustomHostnameAnalysisResult:
       type: object
       description: Custom domain analysis.
@@ -2841,43 +2878,6 @@ components:
           items:
             type: string
           description: Alternate TXT records visible for this hostname.
-    DnsVerificationTestResult:
-      type: string
-      enum:
-      - Passed
-      - Failed
-      - Skipped
-    CustomHostnameAnalysisResultCustomDomainVerificationFailureInfo:
-      type: object
-      description: Raw failure information if DNS verification fails.
-      properties:
-        code:
-          type: string
-          description: Standardized string to programmatically identify the error.
-        message:
-          type: string
-          description: Detailed error description and debugging information.
-        target:
-          type: string
-          description: Detailed error description and debugging information.
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomHostnameAnalysisResultCustomDomainVerificationFailureInfoDetailsItem'
-          description: Details or the error.
-    CustomHostnameAnalysisResultCustomDomainVerificationFailureInfoDetailsItem:
-      type: object
-      description: Detailed errors.
-      properties:
-        code:
-          type: string
-          description: Standardized string to programmatically identify the error.
-        message:
-          type: string
-          description: Detailed error description and debugging information.
-        target:
-          type: string
-          description: Detailed error description and debugging information.
     ContainerAppSecret:
       type: object
       description: Container App Secret.
@@ -2906,9 +2906,20 @@ components:
           description: Collection of resources. Required.
       required:
       - value
-    ContainerAppAuthToken:
+    ContainerAppAuthTokenProperties:
       type: object
-      description: Container App Auth Token.
+      description: Container App auth token resource specific properties.
+      properties:
+        token:
+          type: string
+          description: Auth token value.
+        expires:
+          type: string
+          format: date-time
+          description: Token expiration date.
+    ContainerAppAuthTokenFlattened:
+      type: object
+      description: Flattened view of ContainerAppAuthToken ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -2929,15 +2940,6 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/ContainerAppAuthTokenProperties'
-          description: Container App auth token resource specific properties.
-      required:
-      - location
-    ContainerAppAuthTokenProperties:
-      type: object
-      description: Container App auth token resource specific properties.
-      properties:
         token:
           type: string
           description: Auth token value.
@@ -4358,29 +4360,6 @@ components:
         systemData:
           $ref: '#/components/schemas/SystemData'
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-    WorkflowEnvelope:
-      type: object
-      description: Schema for the workflow object.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/WorkflowEnvelopeProperties'
-          description: Additional workflow properties.
-        kind:
-          $ref: '#/components/schemas/WorkflowKind'
-          description: 'Gets the logic app hybrid workflow kind. Known values are: "Stateful", "Stateless", and
-            "Agentic".'
     WorkflowEnvelopeProperties:
       type: object
       description: Additional workflow properties.
@@ -5349,9 +5328,20 @@ components:
             $ref: '#/components/schemas/WorkloadProfileStatesFlattened'
         nextLink:
           type: string
-    EnvironmentAuthToken:
+    EnvironmentAuthTokenProperties:
       type: object
-      description: Environment Auth Token.
+      description: Environment auth token resource specific properties.
+      properties:
+        token:
+          type: string
+          description: Auth token value.
+        expires:
+          type: string
+          format: date-time
+          description: Token expiration date.
+    EnvironmentAuthTokenFlattened:
+      type: object
+      description: Flattened view of EnvironmentAuthToken ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -5372,15 +5362,6 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/EnvironmentAuthTokenProperties'
-          description: Environment auth token resource specific properties.
-      required:
-      - location
-    EnvironmentAuthTokenProperties:
-      type: object
-      description: Environment auth token resource specific properties.
-      properties:
         token:
           type: string
           description: Auth token value.
@@ -6179,7 +6160,8 @@ paths:
                 $ref: '#/components/schemas/DaprSecretsCollection'
       x-stackql-resource: connected_environments_dapr_components
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/connectedEnvironments/{connected_environment_name}?api-version=2026-01-01
   : get:
       operationId: ConnectedEnvironments_get
@@ -6433,7 +6415,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: connected_environments
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/connectedEnvironments/{connected_environment_name}/storages/{storage_name}?api-version=2026-01-01
   : get:
       operationId: ConnectedEnvironmentsStorages_get
@@ -7216,7 +7198,7 @@ paths:
                 $ref: '#/components/schemas/CustomHostnameAnalysisResult'
       x-stackql-resource: container_apps
       x-stackql-method: list_custom_host_name_analysis
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/containerApps/{container_app_name}/listSecrets?api-version=2026-01-01
   : post:
       operationId: ContainerApps_list_secrets
@@ -7248,7 +7230,8 @@ paths:
                 $ref: '#/components/schemas/SecretsCollection'
       x-stackql-resource: container_apps
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/containerApps/{container_app_name}/getAuthtoken?api-version=2026-01-01
   : post:
       operationId: ContainerApps_get_auth_token
@@ -7277,10 +7260,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContainerAppAuthToken'
+                $ref: '#/components/schemas/ContainerAppAuthTokenFlattened'
       x-stackql-resource: container_apps
       x-stackql-method: get_auth_token
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/containerApps/{container_app_name}/start?api-version=2026-01-01
   : post:
       operationId: ContainerApps_begin_start
@@ -8175,7 +8159,8 @@ paths:
                 $ref: '#/components/schemas/DaprSecretsCollection'
       x-stackql-resource: dapr_components
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/managedEnvironments/{environment_name}/httpRouteConfigs/{http_route_name}?api-version=2026-01-01
   : get:
       operationId: HttpRouteConfig_get
@@ -8867,7 +8852,8 @@ paths:
                 $ref: '#/components/schemas/JobSecretsCollection'
       x-stackql-resource: jobs
       x-stackql-method: list_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/jobs/{job_name}/detectors?api-version=2026-01-01
   : get:
       operationId: Jobs_list_detectors
@@ -9247,10 +9233,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowEnvelope'
+                $ref: '#/components/schemas/WorkflowEnvelopeFlattened'
       x-stackql-resource: logic_apps
       x-stackql-method: list_workflows_connections
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/containerApps/{container_app_name}/providers/Microsoft.App/logicApps/{logic_app_name}/workflows?api-version=2026-01-01
   : get:
       operationId: LogicApps_list_workflows
@@ -10333,10 +10320,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EnvironmentAuthToken'
+                $ref: '#/components/schemas/EnvironmentAuthTokenFlattened'
       x-stackql-resource: managed_environments
       x-stackql-method: get_auth_token
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/managedEnvironments/{environment_name}/storages/{storage_name}?api-version=2026-01-01
   : get:
       operationId: ManagedEnvironmentsStorages_get
@@ -10535,7 +10523,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: namespaces
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.App/operations?api-version=2026-01-01:
     get:
       operationId: appcontainers_list
@@ -10593,9 +10581,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: custom_domain_verification_ids
       x-stackql-method: get_custom_domain_verification_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.App/jobs/{job_name}/executions/{job_execution_name}?api-version=2026-01-01
   : get:
       operationId: _ContainerAppsAPIClient_job_execution

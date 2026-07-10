@@ -1448,15 +1448,6 @@ components:
           items:
             type: string
           description: The related Log Analytics solutions for the function.
-    PagedLogAnalyticsQueryPackQuery:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogAnalyticsQueryPackQuery'
-        nextLink:
-          type: string
     LogAnalyticsQueryPackProperties:
       type: object
       description: Properties that define a Log Analytics QueryPack resource.
@@ -1681,18 +1672,6 @@ components:
             $ref: '#/components/schemas/SavedSearchFlattened'
         nextLink:
           type: string
-    SearchGetSchemaResponse:
-      type: object
-      description: The get schema operation response.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/SearchMetadata'
-          description: The metadata from search results.
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchSchemaValue'
-          description: The array of result values.
     SearchMetadata:
       type: object
       description: Metadata for search results.
@@ -1822,6 +1801,18 @@ components:
       - indexed
       - stored
       - facet
+    SearchGetSchemaResponse:
+      type: object
+      description: The get schema operation response.
+      properties:
+        metadata:
+          $ref: '#/components/schemas/SearchMetadata'
+          description: The metadata from search results.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchSchemaValue'
+          description: The array of result values.
     SharedKeys:
       type: object
       description: The shared keys for a workspace.
@@ -4245,10 +4236,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedLogAnalyticsQueryPackQuery'
+                $ref: '#/components/schemas/PagedLogAnalyticsQueryPackQueryFlattened'
       x-stackql-resource: queries
       x-stackql-method: search
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/queryPacks/{query_pack_name}?api-version=2025-07-01
   : get:
       operationId: QueryPacks_get
@@ -4500,7 +4494,7 @@ paths:
                 $ref: '#/components/schemas/LogAnalyticsQueryPack'
       x-stackql-resource: query_packs
       x-stackql-method: create_or_update_without_name
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/savedSearches/{saved_search_id}?api-version=2025-07-01
   : get:
       operationId: SavedSearches_get
@@ -4692,7 +4686,7 @@ paths:
                 $ref: '#/components/schemas/SearchGetSchemaResponse'
       x-stackql-resource: schema
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/sharedKeys?api-version=2025-07-01
   : post:
       operationId: SharedKeys_get_shared_keys
@@ -4724,7 +4718,7 @@ paths:
                 $ref: '#/components/schemas/SharedKeys'
       x-stackql-resource: shared_keys
       x-stackql-method: get_shared_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/workspaces/{workspace_name}/regenerateSharedKey?api-version=2025-07-01
   : post:
       operationId: SharedKeys_regenerate

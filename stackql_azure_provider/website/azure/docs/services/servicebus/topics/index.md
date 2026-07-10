@@ -371,13 +371,6 @@ The following methods are available for this resource:
     <td>Gets all the topics in a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639388.aspx</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an authorization rule for the specified topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720678.aspx</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -385,25 +378,11 @@ The following methods are available for this resource:
     <td>Creates a topic in the specified namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639409.aspx</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an authorization rule for the specified topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720678.aspx</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates a topic in the specified namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639409.aspx</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a topic authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720681.aspx</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -425,6 +404,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the primary and secondary connection strings for the topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720677.aspx</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates an authorization rule for the specified topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720678.aspx</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-topic_name"><code>topic_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a topic authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720681.aspx</td>
 </tr>
 <tr>
     <td><a href="#regenerate_keys"><CopyableCode code="regenerate_keys" /></a></td>
@@ -597,43 +590,12 @@ AND $top = '{{ $top }}'
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates an authorization rule for the specified topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720678.aspx
-
-```sql
-INSERT INTO azure.servicebus.topics (
-properties,
-resource_group_name,
-namespace_name,
-topic_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ topic_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates a topic in the specified namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639409.aspx
@@ -676,9 +638,6 @@ type
     - name: topic_name
       value: "{{ topic_name }}"
       description: Required parameter for the topics resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the topics resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the topics resource.
@@ -704,35 +663,11 @@ type
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates an authorization rule for the specified topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720678.aspx
-
-```sql
-REPLACE azure.servicebus.topics
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND topic_name = '{{ topic_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates a topic in the specified namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639409.aspx
@@ -761,26 +696,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a topic authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720681.aspx
-
-```sql
-DELETE FROM azure.servicebus.topics
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND topic_name = '{{ topic_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a topic from the specified namespace and resource group. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639404.aspx
@@ -804,6 +724,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
 >
@@ -826,6 +748,38 @@ Gets the primary and secondary connection strings for the topic. .. seealso:: - 
 
 ```sql
 EXEC azure.servicebus.topics.list_keys 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@topic_name='{{ topic_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates an authorization rule for the specified topic. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720678.aspx
+
+```sql
+EXEC azure.servicebus.topics.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@topic_name='{{ topic_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a topic authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt720681.aspx
+
+```sql
+EXEC azure.servicebus.topics.delete_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @topic_name='{{ topic_name }}' --required, 

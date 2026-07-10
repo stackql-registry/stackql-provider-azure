@@ -179,32 +179,32 @@ The following methods are available for this resource:
     <td>list dryrun jobs.</td>
 </tr>
 <tr>
+    <td><a href="#list_dapr_configurations"><CopyableCode code="list_dapr_configurations" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
+    <td></td>
+    <td>List the dapr configuration supported by Service Connector.</td>
+</tr>
+<tr>
     <td><a href="#create_dryrun"><CopyableCode code="create_dryrun" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
     <td></td>
     <td>create a dryrun job to do necessary check before actual creation.</td>
 </tr>
 <tr>
     <td><a href="#update_dryrun"><CopyableCode code="update_dryrun" /></a></td>
-    <td><CopyableCode code="update" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
     <td></td>
     <td>add a dryrun job to do necessary check before actual creation.</td>
 </tr>
 <tr>
     <td><a href="#delete_dryrun"><CopyableCode code="delete_dryrun" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-dryrun_name"><code>dryrun_name</code></a></td>
     <td></td>
     <td>delete a dryrun job.</td>
-</tr>
-<tr>
-    <td><a href="#list_dapr_configurations"><CopyableCode code="list_dapr_configurations" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
-    <td></td>
-    <td>List the dapr configuration supported by Service Connector.</td>
 </tr>
 <tr>
     <td><a href="#generate_configurations"><CopyableCode code="generate_configurations" /></a></td>
@@ -298,117 +298,15 @@ WHERE resource_uri = '{{ resource_uri }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_dryrun"
-    values={[
-        { label: 'create_dryrun', value: 'create_dryrun' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_dryrun">
-
-create a dryrun job to do necessary check before actual creation.
-
-```sql
-INSERT INTO azure.servicelinker.linkers (
-properties,
-resource_uri,
-dryrun_name
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_uri }}',
-'{{ dryrun_name }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: linkers
-  props:
-    - name: resource_uri
-      value: "{{ resource_uri }}"
-      description: Required parameter for the linkers resource.
-    - name: dryrun_name
-      value: "{{ dryrun_name }}"
-      description: Required parameter for the linkers resource.
-    - name: properties
-      value:
-        parameters:
-          actionName: "{{ actionName }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_dryrun"
-    values={[
-        { label: 'update_dryrun', value: 'update_dryrun' }
-    ]}
->
-<TabItem value="update_dryrun">
-
-add a dryrun job to do necessary check before actual creation.
-
-```sql
-UPDATE azure.servicelinker.linkers
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_uri = '{{ resource_uri }}' --required
-AND dryrun_name = '{{ dryrun_name }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_dryrun"
-    values={[
-        { label: 'delete_dryrun', value: 'delete_dryrun' }
-    ]}
->
-<TabItem value="delete_dryrun">
-
-delete a dryrun job.
-
-```sql
-DELETE FROM azure.servicelinker.linkers
-WHERE resource_uri = '{{ resource_uri }}' --required
-AND dryrun_name = '{{ dryrun_name }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="list_dapr_configurations"
     values={[
         { label: 'list_dapr_configurations', value: 'list_dapr_configurations' },
+        { label: 'create_dryrun', value: 'create_dryrun' },
+        { label: 'update_dryrun', value: 'update_dryrun' },
+        { label: 'delete_dryrun', value: 'delete_dryrun' },
         { label: 'generate_configurations', value: 'generate_configurations' }
     ]}
 >
@@ -419,6 +317,47 @@ List the dapr configuration supported by Service Connector.
 ```sql
 EXEC azure.servicelinker.linkers.list_dapr_configurations 
 @resource_uri='{{ resource_uri }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_dryrun">
+
+create a dryrun job to do necessary check before actual creation.
+
+```sql
+EXEC azure.servicelinker.linkers.create_dryrun 
+@resource_uri='{{ resource_uri }}' --required, 
+@dryrun_name='{{ dryrun_name }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_dryrun">
+
+add a dryrun job to do necessary check before actual creation.
+
+```sql
+EXEC azure.servicelinker.linkers.update_dryrun 
+@resource_uri='{{ resource_uri }}' --required, 
+@dryrun_name='{{ dryrun_name }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_dryrun">
+
+delete a dryrun job.
+
+```sql
+EXEC azure.servicelinker.linkers.delete_dryrun 
+@resource_uri='{{ resource_uri }}' --required, 
+@dryrun_name='{{ dryrun_name }}' --required
 ;
 ```
 </TabItem>

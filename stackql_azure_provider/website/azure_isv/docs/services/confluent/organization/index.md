@@ -474,25 +474,11 @@ The following methods are available for this resource:
     <td>Create Organization resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_api_key"><CopyableCode code="create_api_key" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-environment_id"><code>environment_id</code></a>, <a href="#parameter-cluster_id"><code>cluster_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates API key for a schema registry Cluster ID or Kafka Cluster ID under a environment.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update Organization resource.</td>
-</tr>
-<tr>
-    <td><a href="#delete_cluster_api_key"><CopyableCode code="delete_cluster_api_key" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-api_key_id"><code>api_key_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes API key of a kafka or schema registry cluster.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -530,11 +516,25 @@ The following methods are available for this resource:
     <td>Lists of all the clusters in a environment.</td>
 </tr>
 <tr>
+    <td><a href="#delete_cluster_api_key"><CopyableCode code="delete_cluster_api_key" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-api_key_id"><code>api_key_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes API key of a kafka or schema registry cluster.</td>
+</tr>
+<tr>
     <td><a href="#get_schema_registry_cluster_by_id"><CopyableCode code="get_schema_registry_cluster_by_id" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-environment_id"><code>environment_id</code></a>, <a href="#parameter-cluster_id"><code>cluster_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get schema registry cluster by Id.</td>
+</tr>
+<tr>
+    <td><a href="#create_api_key"><CopyableCode code="create_api_key" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-environment_id"><code>environment_id</code></a>, <a href="#parameter-cluster_id"><code>cluster_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates API key for a schema registry Cluster ID or Kafka Cluster ID under a environment.</td>
 </tr>
 </tbody>
 </table>
@@ -560,7 +560,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-cluster_id">
     <td><CopyableCode code="cluster_id" /></td>
     <td><code>string</code></td>
-    <td>Confluent connector name. Required.</td>
+    <td>Confluent kafka or schema registry cluster id. Required.</td>
 </tr>
 <tr id="parameter-environment_id">
     <td><CopyableCode code="environment_id" /></td>
@@ -754,7 +754,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create"
     values={[
         { label: 'create', value: 'create' },
-        { label: 'create_api_key', value: 'create_api_key' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -789,35 +788,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_api_key">
-
-Creates API key for a schema registry Cluster ID or Kafka Cluster ID under a environment.
-
-```sql
-INSERT INTO azure_isv.confluent.organization (
-name,
-description,
-resource_group_name,
-organization_name,
-environment_id,
-cluster_id,
-subscription_id
-)
-SELECT 
-'{{ name }}',
-'{{ description }}',
-'{{ resource_group_name }}',
-'{{ organization_name }}',
-'{{ environment_id }}',
-'{{ cluster_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-kind,
-properties
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -831,12 +801,6 @@ properties
       description: Required parameter for the organization resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
-      description: Required parameter for the organization resource.
-    - name: environment_id
-      value: "{{ environment_id }}"
-      description: Required parameter for the organization resource.
-    - name: cluster_id
-      value: "{{ cluster_id }}"
       description: Required parameter for the organization resource.
     - name: tags
       value: "{{ tags }}"
@@ -873,14 +837,6 @@ properties
           aadEmail: "{{ aadEmail }}"
         linkOrganization:
           token: "{{ token }}"
-    - name: name
-      value: "{{ name }}"
-      description: |
-        Name of the API Key.
-    - name: description
-      value: "{{ description }}"
-      description: |
-        Description of the API Key.
 `}</CodeBlock>
 
 </TabItem>
@@ -923,25 +879,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_cluster_api_key"
+    defaultValue="delete"
     values={[
-        { label: 'delete_cluster_api_key', value: 'delete_cluster_api_key' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_cluster_api_key">
-
-Deletes API key of a kafka or schema registry cluster.
-
-```sql
-DELETE FROM azure_isv.confluent.organization
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND organization_name = '{{ organization_name }}' --required
-AND api_key_id = '{{ api_key_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete Organization resource.
@@ -966,7 +908,9 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_regions', value: 'list_regions' },
         { label: 'list_environments', value: 'list_environments' },
         { label: 'list_clusters', value: 'list_clusters' },
-        { label: 'get_schema_registry_cluster_by_id', value: 'get_schema_registry_cluster_by_id' }
+        { label: 'delete_cluster_api_key', value: 'delete_cluster_api_key' },
+        { label: 'get_schema_registry_cluster_by_id', value: 'get_schema_registry_cluster_by_id' },
+        { label: 'create_api_key', value: 'create_api_key' }
     ]}
 >
 <TabItem value="get_environment_by_id">
@@ -1027,6 +971,19 @@ EXEC azure_isv.confluent.organization.list_clusters
 ;
 ```
 </TabItem>
+<TabItem value="delete_cluster_api_key">
+
+Deletes API key of a kafka or schema registry cluster.
+
+```sql
+EXEC azure_isv.confluent.organization.delete_cluster_api_key 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@organization_name='{{ organization_name }}' --required, 
+@api_key_id='{{ api_key_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_schema_registry_cluster_by_id">
 
 Get schema registry cluster by Id.
@@ -1038,6 +995,25 @@ EXEC azure_isv.confluent.organization.get_schema_registry_cluster_by_id
 @environment_id='{{ environment_id }}' --required, 
 @cluster_id='{{ cluster_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_api_key">
+
+Creates API key for a schema registry Cluster ID or Kafka Cluster ID under a environment.
+
+```sql
+EXEC azure_isv.confluent.organization.create_api_key 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@organization_name='{{ organization_name }}' --required, 
+@environment_id='{{ environment_id }}' --required, 
+@cluster_id='{{ cluster_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"description": "{{ description }}"
+}'
 ;
 ```
 </TabItem>

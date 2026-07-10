@@ -147,7 +147,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the patching schedule of a redis cache.</td>
 </tr>
@@ -161,21 +161,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
     <td>Create or replace the patching schedule for Redis cache.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
     <td>Create or replace the patching schedule for Redis cache.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes the patching schedule of a redis cache.</td>
 </tr>
@@ -200,8 +200,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the Redis cache. Required.</td>
 </tr>
-<tr id="parameter-default">
-    <td><CopyableCode code="default" /></td>
+<tr id="parameter-default_name">
+    <td><CopyableCode code="default_name" /></td>
     <td><code>string</code></td>
     <td>The name of the RedisPatchSchedule. "default" Required.</td>
 </tr>
@@ -247,7 +247,7 @@ type
 FROM azure_isv.redis.patch_schedules
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
-AND default = '{{ default }}' -- required
+AND default_name = '{{ default_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -292,14 +292,14 @@ INSERT INTO azure_isv.redis.patch_schedules (
 properties,
 resource_group_name,
 name,
-default,
+default_name,
 subscription_id
 )
 SELECT 
 '{{ properties }}' /* required */,
 '{{ resource_group_name }}',
 '{{ name }}',
-'{{ default }}',
+'{{ default_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -322,8 +322,8 @@ type
     - name: name
       value: "{{ name }}"
       description: Required parameter for the patch_schedules resource.
-    - name: default
-      value: "{{ default }}"
+    - name: default_name
+      value: "{{ default_name }}"
       description: Required parameter for the patch_schedules resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -361,7 +361,7 @@ properties = '{{ properties }}'
 WHERE 
 resource_group_name = '{{ resource_group_name }}' --required
 AND name = '{{ name }}' --required
-AND default = '{{ default }}' --required
+AND default_name = '{{ default_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 AND properties = '{{ properties }}' --required
 RETURNING
@@ -392,7 +392,7 @@ Deletes the patching schedule of a redis cache.
 DELETE FROM azure_isv.redis.patch_schedules
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND name = '{{ name }}' --required
-AND default = '{{ default }}' --required
+AND default_name = '{{ default_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```

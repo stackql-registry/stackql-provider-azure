@@ -2830,7 +2830,8 @@ paths:
                 $ref: '#/components/schemas/PagedSourceShareSynchronizationSetting'
       x-stackql-resource: share_subscriptions
       x-stackql-method: list_source_share_synchronization_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataShare/accounts/{account_name}/shareSubscriptions/{share_subscription_name}/listSynchronizationDetails?api-version=2020-09-01
   : post:
       operationId: ShareSubscriptions_list_synchronization_details
@@ -2898,7 +2899,8 @@ paths:
                 $ref: '#/components/schemas/PagedSynchronizationDetails'
       x-stackql-resource: share_subscriptions
       x-stackql-method: list_synchronization_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataShare/accounts/{account_name}/shareSubscriptions/{share_subscription_name}/listSynchronizations?api-version=2020-09-01
   : post:
       operationId: ShareSubscriptions_list_synchronizations
@@ -2954,7 +2956,8 @@ paths:
                 $ref: '#/components/schemas/PagedShareSubscriptionSynchronization'
       x-stackql-resource: share_subscriptions
       x-stackql-method: list_synchronizations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataShare/accounts/{account_name}/shareSubscriptions/{share_subscription_name}/cancelSynchronization?api-version=2020-09-01
   : post:
       operationId: ShareSubscriptions_begin_cancel_synchronization
@@ -3330,7 +3333,8 @@ paths:
                 $ref: '#/components/schemas/PagedSynchronizationDetails'
       x-stackql-resource: shares
       x-stackql-method: list_synchronization_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataShare/accounts/{account_name}/shares/{share_name}/listSynchronizations?api-version=2020-09-01
   : post:
       operationId: Shares_list_synchronizations
@@ -3386,7 +3390,8 @@ paths:
                 $ref: '#/components/schemas/PagedShareSynchronization'
       x-stackql-resource: shares
       x-stackql-method: list_synchronizations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataShare/accounts/{account_name}/shares/{share_name}/synchronizationSettings/{synchronization_setting_name}?api-version=2020-09-01
   : get:
       operationId: SynchronizationSettings_get

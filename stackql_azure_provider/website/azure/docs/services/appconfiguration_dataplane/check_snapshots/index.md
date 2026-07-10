@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#check_snapshots"><CopyableCode code="check_snapshots" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-Sync-Token"><code>Sync-Token</code></a>, <a href="#parameter-After"><code>After</code></a></td>
     <td>Requests the headers and status of the given resource. Requests the headers and status of the given resource.</td>
 </tr>
 <tr>
     <td><a href="#check_snapshot"><CopyableCode code="check_snapshot" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-config_store_name"><code>config_store_name</code></a></td>
     <td><a href="#parameter-Sync-Token"><code>Sync-Token</code></a></td>
     <td>Requests the headers and status of the given resource. Requests the headers and status of the given resource.</td>
 </tr>
@@ -80,10 +80,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-config_store_name">
+    <td><CopyableCode code="config_store_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>App Configuration store name. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -118,7 +118,7 @@ Requests the headers and status of the given resource. Requests the headers and 
 
 ```sql
 EXEC azure.appconfiguration_dataplane.check_snapshots.check_snapshots 
-@endpoint='{{ endpoint }}' --required, 
+@config_store_name='{{ config_store_name }}' --required, 
 @Sync-Token='{{ Sync-Token }}', 
 @After='{{ After }}'
 ;
@@ -131,7 +131,7 @@ Requests the headers and status of the given resource. Requests the headers and 
 ```sql
 EXEC azure.appconfiguration_dataplane.check_snapshots.check_snapshot 
 @name='{{ name }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@config_store_name='{{ config_store_name }}' --required, 
 @Sync-Token='{{ Sync-Token }}'
 ;
 ```

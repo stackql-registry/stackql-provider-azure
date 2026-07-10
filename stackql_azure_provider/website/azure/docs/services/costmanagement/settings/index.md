@@ -137,7 +137,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_by_scope"><CopyableCode code="get_by_scope" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type_name"><code>type_name</code></a></td>
     <td></td>
     <td>Get the setting from the given scope by name.</td>
 </tr>
@@ -151,21 +151,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_or_update_by_scope"><CopyableCode code="create_or_update_by_scope" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
+    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
     <td></td>
     <td>Create or update a setting within the given scope.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update_by_scope"><CopyableCode code="create_or_update_by_scope" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
+    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
     <td></td>
     <td>Create or update a setting within the given scope.</td>
 </tr>
 <tr>
     <td><a href="#delete_by_scope"><CopyableCode code="delete_by_scope" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-type_name"><code>type_name</code></a></td>
     <td></td>
     <td>Delete a setting within the given scope.</td>
 </tr>
@@ -190,8 +190,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>undefined. Required.</td>
 </tr>
-<tr id="parameter-type">
-    <td><CopyableCode code="type" /></td>
+<tr id="parameter-type_name">
+    <td><CopyableCode code="type_name" /></td>
     <td><code>string</code></td>
     <td>Setting type. "taginheritance" Required.</td>
 </tr>
@@ -220,7 +220,7 @@ systemData,
 type
 FROM azure.costmanagement.settings
 WHERE scope = '{{ scope }}' -- required
-AND type = '{{ type }}' -- required
+AND type_name = '{{ type_name }}' -- required
 ;
 ```
 </TabItem>
@@ -260,12 +260,12 @@ Create or update a setting within the given scope.
 INSERT INTO azure.costmanagement.settings (
 kind,
 scope,
-type
+type_name
 )
 SELECT 
 '{{ kind }}' /* required */,
 '{{ scope }}',
-'{{ type }}'
+'{{ type_name }}'
 RETURNING
 id,
 name,
@@ -283,8 +283,8 @@ type
     - name: scope
       value: "{{ scope }}"
       description: Required parameter for the settings resource.
-    - name: type
-      value: "{{ type }}"
+    - name: type_name
+      value: "{{ type_name }}"
       description: Required parameter for the settings resource.
     - name: kind
       value: "{{ kind }}"
@@ -314,7 +314,7 @@ SET
 kind = '{{ kind }}'
 WHERE 
 scope = '{{ scope }}' --required
-AND type = '{{ type }}' --required
+AND type_name = '{{ type_name }}' --required
 AND kind = '{{ kind }}' --required
 RETURNING
 id,
@@ -342,7 +342,7 @@ Delete a setting within the given scope.
 ```sql
 DELETE FROM azure.costmanagement.settings
 WHERE scope = '{{ scope }}' --required
-AND type = '{{ type }}' --required
+AND type_name = '{{ type_name }}' --required
 ;
 ```
 </TabItem>

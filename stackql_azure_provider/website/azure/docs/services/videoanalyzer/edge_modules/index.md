@@ -122,42 +122,42 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves an existing edge module resource. Retrieves an existing edge module resource with the given name.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a></td>
     <td>List all existing edge module resources. List all existing edge module resources, along with their JSON representations.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates a new edge module or updates an existing one. Creates a new edge module or updates an existing one. An edge module resource enables a single instance of an Azure Video Analyzer IoT edge module to interact with the Video Analyzer Account. This is used for authorization and also to make sure that the particular edge module instance only has access to the data it requires from the Azure Video Analyzer service. A new edge module resource should be created for every new instance of an Azure Video Analyzer edge module deployed to you Azure IoT edge environment. Edge module resources can be deleted if the specific module is not in use anymore.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates a new edge module or updates an existing one. Creates a new edge module or updates an existing one. An edge module resource enables a single instance of an Azure Video Analyzer IoT edge module to interact with the Video Analyzer Account. This is used for authorization and also to make sure that the particular edge module instance only has access to the data it requires from the Azure Video Analyzer service. A new edge module resource should be created for every new instance of an Azure Video Analyzer edge module deployed to you Azure IoT edge environment. Edge module resources can be deleted if the specific module is not in use anymore.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes an existing edge module resource. Deletes an existing edge module resource. Deleting the edge module resource will prevent an Azure Video Analyzer IoT edge module which was previously initiated with the module provisioning token from communicating with the cloud.</td>
 </tr>
 <tr>
     <td><a href="#list_provisioning_token"><CopyableCode code="list_provisioning_token" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-expirationDate"><code>expirationDate</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-edge_module_name"><code>edge_module_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-expirationDate"><code>expirationDate</code></a></td>
     <td></td>
     <td>Creates a new provisioning token. Creates a new provisioning token. A provisioning token allows for a single instance of Azure Video analyzer IoT edge module to be initialized and authorized to the cloud account. The provisioning token itself is short lived and it is only used for the initial handshake between IoT edge module and the cloud. After the initial handshake, the IoT edge module will agree on a set of authentication keys which will be auto-rotated as long as the module is able to periodically connect to the cloud. A new provisioning token can be generated for the same IoT edge module in case the module state lost or reset.</td>
 </tr>
@@ -226,9 +226,9 @@ edgeModuleId,
 systemData,
 type
 FROM azure.videoanalyzer.edge_modules
-WHERE edge_module_name = '{{ edge_module_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND edge_module_name = '{{ edge_module_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -242,8 +242,8 @@ SELECT
 @nextLink,
 value
 FROM azure.videoanalyzer.edge_modules
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $top = '{{ $top }}'
 ;
@@ -272,9 +272,9 @@ name,
 type,
 systemData,
 properties,
+resource_group_name,
 edge_module_name,
 account_name,
-resource_group_name,
 subscription_id
 )
 SELECT 
@@ -283,9 +283,9 @@ SELECT
 '{{ type }}',
 '{{ systemData }}',
 '{{ properties }}',
+'{{ resource_group_name }}',
 '{{ edge_module_name }}',
 '{{ account_name }}',
-'{{ resource_group_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -301,14 +301,14 @@ type
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: edge_modules
   props:
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
+      description: Required parameter for the edge_modules resource.
     - name: edge_module_name
       value: "{{ edge_module_name }}"
       description: Required parameter for the edge_modules resource.
     - name: account_name
       value: "{{ account_name }}"
-      description: Required parameter for the edge_modules resource.
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
       description: Required parameter for the edge_modules resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -365,9 +365,9 @@ type = '{{ type }}',
 systemData = '{{ systemData }}',
 properties = '{{ properties }}'
 WHERE 
-edge_module_name = '{{ edge_module_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND edge_module_name = '{{ edge_module_name }}' --required
 AND account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -394,9 +394,9 @@ Deletes an existing edge module resource. Deletes an existing edge module resour
 
 ```sql
 DELETE FROM azure.videoanalyzer.edge_modules
-WHERE edge_module_name = '{{ edge_module_name }}' --required
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND edge_module_name = '{{ edge_module_name }}' --required
 AND account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
@@ -418,9 +418,9 @@ Creates a new provisioning token. Creates a new provisioning token. A provisioni
 
 ```sql
 EXEC azure.videoanalyzer.edge_modules.list_provisioning_token 
+@resource_group_name='{{ resource_group_name }}' --required, 
 @edge_module_name='{{ edge_module_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 
 @@json=
 '{

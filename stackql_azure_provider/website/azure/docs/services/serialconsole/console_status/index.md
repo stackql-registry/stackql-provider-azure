@@ -77,7 +77,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_console_status"><CopyableCode code="get_console_status" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the disabled status for a subscription. Gets whether or not Serial Console is disabled for a given subscription.</td>
 </tr>
@@ -97,8 +97,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-default">
-    <td><CopyableCode code="default" /></td>
+<tr id="parameter-default_name">
+    <td><CopyableCode code="default_name" /></td>
     <td><code>string</code></td>
     <td>Default parameter. Leave the value as "default". Required.</td>
 </tr>
@@ -126,7 +126,7 @@ Get the disabled status for a subscription. Gets whether or not Serial Console i
 SELECT
 disabled
 FROM azure.serialconsole.console_status
-WHERE default = '{{ default }}' -- required
+WHERE default_name = '{{ default_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```

@@ -92,7 +92,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_certificate_versions"><CopyableCode code="get_certificate_versions" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a></td>
     <td>List the versions of a certificate. The GetCertificateVersions operation returns the versions of a certificate in the specified key vault. This operation requires the certificates/list permission.</td>
 </tr>
@@ -117,10 +117,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the certificate. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-maxresults">
     <td><CopyableCode code="maxresults" /></td>
@@ -150,7 +150,7 @@ tags,
 x5t
 FROM azure.keyvault_certificates.certificate_versions
 WHERE certificate_name = '{{ certificate_name }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 ;
 ```

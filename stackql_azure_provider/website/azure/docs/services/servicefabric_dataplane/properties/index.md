@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#delete_property"><CopyableCode code="delete_property" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name_id"><code>name_id</code></a>, <a href="#parameter-PropertyName"><code>PropertyName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-PropertyName"><code>PropertyName</code></a>, <a href="#parameter-name_id"><code>name_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Deletes the specified Service Fabric property. Deletes the specified Service Fabric property under a given name. A property must be created before it can be deleted.</td>
 </tr>
@@ -88,7 +88,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-name_id">
     <td><CopyableCode code="name_id" /></td>
@@ -117,8 +117,8 @@ Deletes the specified Service Fabric property. Deletes the specified Service Fab
 
 ```sql
 DELETE FROM azure.servicefabric_dataplane.properties
-WHERE name_id = '{{ name_id }}' --required
-AND PropertyName = '{{ PropertyName }}' --required
+WHERE PropertyName = '{{ PropertyName }}' --required
+AND name_id = '{{ name_id }}' --required
 AND endpoint = '{{ endpoint }}' --required
 AND timeout = '{{ timeout }}'
 ;

@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-boundaryId"><code>boundaryId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a cascade delete job for specified boundary.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-party_id"><code>party_id</code></a>, <a href="#parameter-boundary_id"><code>boundary_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -121,6 +114,13 @@ The following methods are available for this resource:
     <td>Get cascade delete job for specified boundary.</td>
 </tr>
 <tr>
+    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-boundaryId"><code>boundaryId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a cascade delete job for specified boundary.</td>
+</tr>
+<tr>
     <td><a href="#get_overlap"><CopyableCode code="get_overlap" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-party_id"><code>party_id</code></a>, <a href="#parameter-boundary_id"><code>boundary_id</code></a>, <a href="#parameter-otherPartyId"><code>otherPartyId</code></a>, <a href="#parameter-otherBoundaryId"><code>otherBoundaryId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -156,12 +156,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job ID supplied by end user. Required.</td>
 </tr>
 <tr id="parameter-otherBoundaryId">
     <td><CopyableCode code="otherBoundaryId" /></td>
@@ -234,32 +234,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_cascade_delete_job"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_cascade_delete_job">
-
-Create a cascade delete job for specified boundary.
-
-```sql
-INSERT INTO azure.agrifood_farming.boundaries (
-job_id,
-partyId,
-boundaryId,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ partyId }}',
-'{{ boundaryId }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a boundary resource.
@@ -282,23 +262,14 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: boundaries
   props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the boundaries resource.
-    - name: partyId
-      value: "{{ partyId }}"
-      description: Required parameter for the boundaries resource.
-    - name: boundaryId
-      value: "{{ boundaryId }}"
-      description: Required parameter for the boundaries resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the boundaries resource.
     - name: party_id
       value: "{{ party_id }}"
       description: Required parameter for the boundaries resource.
     - name: boundary_id
       value: "{{ boundary_id }}"
+      description: Required parameter for the boundaries resource.
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the boundaries resource.
 `}</CodeBlock>
 
@@ -365,6 +336,7 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'list_by_party_id', value: 'list_by_party_id' },
         { label: 'search_by_party_id', value: 'search_by_party_id' },
         { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' },
+        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'get_overlap', value: 'get_overlap' }
     ]}
 >
@@ -447,6 +419,19 @@ Get cascade delete job for specified boundary.
 ```sql
 EXEC azure.agrifood_farming.boundaries.get_cascade_delete_job_details 
 @job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_cascade_delete_job">
+
+Create a cascade delete job for specified boundary.
+
+```sql
+EXEC azure.agrifood_farming.boundaries.create_cascade_delete_job 
+@job_id='{{ job_id }}' --required, 
+@partyId='{{ partyId }}' --required, 
+@boundaryId='{{ boundaryId }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

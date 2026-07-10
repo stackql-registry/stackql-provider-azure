@@ -107,7 +107,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_service_package_health"><CopyableCode code="get_deployed_service_package_health" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-service_package_name"><code>service_package_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-service_package_name"><code>service_package_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-EventsHealthStateFilter"><code>EventsHealthStateFilter</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the information about health of a service package for a specific application deployed for a Service Fabric node and application. Gets the information about health of a service package for a specific application deployed on a Service Fabric node. Use EventsHealthStateFilter to optionally filter for the collection of HealthEvent objects reported on the deployed service package based on health state.</td>
 </tr>
@@ -135,7 +135,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -182,9 +182,9 @@ NodeName,
 ServiceManifestName,
 UnhealthyEvaluations
 FROM azure.servicefabric_dataplane.deployed_service_package_healths
-WHERE node_name = '{{ node_name }}' -- required
+WHERE service_package_name = '{{ service_package_name }}' -- required
 AND application_id = '{{ application_id }}' -- required
-AND service_package_name = '{{ service_package_name }}' -- required
+AND node_name = '{{ node_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND EventsHealthStateFilter = '{{ EventsHealthStateFilter }}'
 AND timeout = '{{ timeout }}'

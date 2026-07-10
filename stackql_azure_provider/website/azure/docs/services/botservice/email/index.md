@@ -52,7 +52,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#create_sign_in_url"><CopyableCode code="create_sign_in_url" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates an email channel sign in url for a Bot Service.</td>
@@ -91,13 +91,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_sign_in_url"
     values={[
-        { label: 'create_sign_in_url', value: 'create_sign_in_url' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'create_sign_in_url', value: 'create_sign_in_url' }
     ]}
 >
 <TabItem value="create_sign_in_url">
@@ -105,37 +104,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Creates an email channel sign in url for a Bot Service.
 
 ```sql
-INSERT INTO azure.botservice.email (
-resource_group_name,
-resource_name,
-subscription_id
-)
-SELECT 
-'{{ resource_group_name }}',
-'{{ resource_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-location,
-properties
+EXEC azure.botservice.email.create_sign_in_url 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: email
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the email resource.
-    - name: resource_name
-      value: "{{ resource_name }}"
-      description: Required parameter for the email resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the email resource.
-`}</CodeBlock>
-
 </TabItem>
 </Tabs>

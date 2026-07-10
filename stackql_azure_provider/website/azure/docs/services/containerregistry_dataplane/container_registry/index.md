@@ -232,45 +232,17 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_manifest"><CopyableCode code="create_manifest" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Put the manifest identified by `name` and `reference` where `reference` can be a tag or digest.</td>
 </tr>
 <tr>
-    <td><a href="#update_tag_attributes"><CopyableCode code="update_tag_attributes" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update tag attributes.</td>
-</tr>
-<tr>
-    <td><a href="#update_manifest_properties"><CopyableCode code="update_manifest_properties" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-digest"><code>digest</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update properties of a manifest.</td>
-</tr>
-<tr>
-    <td><a href="#update_properties"><CopyableCode code="update_properties" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update the attribute identified by `name` where `reference` is the name of the repository.</td>
-</tr>
-<tr>
     <td><a href="#delete_manifest"><CopyableCode code="delete_manifest" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete the manifest identified by `name` and `reference`. Note that a manifest can *only* be deleted by `digest`.</td>
-</tr>
-<tr>
-    <td><a href="#delete_repository"><CopyableCode code="delete_repository" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete the repository identified by `name`.</td>
 </tr>
 <tr>
     <td><a href="#get_repositories"><CopyableCode code="get_repositories" /></a></td>
@@ -278,6 +250,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-last"><code>last</code></a>, <a href="#parameter-n"><code>n</code></a></td>
     <td>List repositories.</td>
+</tr>
+<tr>
+    <td><a href="#delete_repository"><CopyableCode code="delete_repository" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete the repository identified by `name`.</td>
+</tr>
+<tr>
+    <td><a href="#update_properties"><CopyableCode code="update_properties" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update the attribute identified by `name` where `reference` is the name of the repository.</td>
 </tr>
 <tr>
     <td><a href="#get_tags"><CopyableCode code="get_tags" /></a></td>
@@ -294,6 +280,13 @@ The following methods are available for this resource:
     <td>Get tag attributes by tag.</td>
 </tr>
 <tr>
+    <td><a href="#update_tag_attributes"><CopyableCode code="update_tag_attributes" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update tag attributes.</td>
+</tr>
+<tr>
     <td><a href="#delete_tag"><CopyableCode code="delete_tag" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -306,6 +299,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-last"><code>last</code></a>, <a href="#parameter-n"><code>n</code></a>, <a href="#parameter-orderby"><code>orderby</code></a></td>
     <td>List manifests of a repository.</td>
+</tr>
+<tr>
+    <td><a href="#update_manifest_properties"><CopyableCode code="update_manifest_properties" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-digest"><code>digest</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update properties of a manifest.</td>
 </tr>
 <tr>
     <td><a href="#check_docker_v2_support"><CopyableCode code="check_docker_v2_support" /></a></td>
@@ -338,7 +338,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -446,13 +446,23 @@ AND endpoint = '{{ endpoint }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_manifest"
     values={[
         { label: 'create_manifest', value: 'create_manifest' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'delete_manifest', value: 'delete_manifest' },
+        { label: 'get_repositories', value: 'get_repositories' },
+        { label: 'delete_repository', value: 'delete_repository' },
+        { label: 'update_properties', value: 'update_properties' },
+        { label: 'get_tags', value: 'get_tags' },
+        { label: 'get_tag_properties', value: 'get_tag_properties' },
+        { label: 'update_tag_attributes', value: 'update_tag_attributes' },
+        { label: 'delete_tag', value: 'delete_tag' },
+        { label: 'get_manifests', value: 'get_manifests' },
+        { label: 'update_manifest_properties', value: 'update_manifest_properties' },
+        { label: 'check_docker_v2_support', value: 'check_docker_v2_support' }
     ]}
 >
 <TabItem value="create_manifest">
@@ -460,171 +470,29 @@ AND endpoint = '{{ endpoint }}' -- required
 Put the manifest identified by `name` and `reference` where `reference` can be a tag or digest.
 
 ```sql
-INSERT INTO azure.containerregistry_dataplane.container_registry (
-schemaVersion,
-name,
-reference,
-endpoint
-)
-SELECT 
-{{ schemaVersion }},
-'{{ name }}',
-'{{ reference }}',
-'{{ endpoint }}'
+EXEC azure.containerregistry_dataplane.container_registry.create_manifest 
+@name='{{ name }}' --required, 
+@reference='{{ reference }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"schemaVersion": {{ schemaVersion }}
+}'
 ;
 ```
 </TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: container_registry
-  props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the container_registry resource.
-    - name: reference
-      value: "{{ reference }}"
-      description: Required parameter for the container_registry resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the container_registry resource.
-    - name: schemaVersion
-      value: {{ schemaVersion }}
-      description: |
-        Schema version.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_tag_attributes"
-    values={[
-        { label: 'update_tag_attributes', value: 'update_tag_attributes' },
-        { label: 'update_manifest_properties', value: 'update_manifest_properties' },
-        { label: 'update_properties', value: 'update_properties' }
-    ]}
->
-<TabItem value="update_tag_attributes">
-
-Update tag attributes.
-
-```sql
-UPDATE azure.containerregistry_dataplane.container_registry
-SET 
-deleteEnabled = {{ deleteEnabled }},
-writeEnabled = {{ writeEnabled }},
-listEnabled = {{ listEnabled }},
-readEnabled = {{ readEnabled }}
-WHERE 
-name = '{{ name }}' --required
-AND reference = '{{ reference }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-imageName,
-registry,
-tag;
-```
-</TabItem>
-<TabItem value="update_manifest_properties">
-
-Update properties of a manifest.
-
-```sql
-UPDATE azure.containerregistry_dataplane.container_registry
-SET 
-deleteEnabled = {{ deleteEnabled }},
-writeEnabled = {{ writeEnabled }},
-listEnabled = {{ listEnabled }},
-readEnabled = {{ readEnabled }}
-WHERE 
-name = '{{ name }}' --required
-AND digest = '{{ digest }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-imageName,
-manifest,
-registry;
-```
-</TabItem>
-<TabItem value="update_properties">
-
-Update the attribute identified by `name` where `reference` is the name of the repository.
-
-```sql
-UPDATE azure.containerregistry_dataplane.container_registry
-SET 
-deleteEnabled = {{ deleteEnabled }},
-writeEnabled = {{ writeEnabled }},
-listEnabled = {{ listEnabled }},
-readEnabled = {{ readEnabled }}
-WHERE 
-name = '{{ name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-changeableAttributes,
-createdTime,
-imageName,
-lastUpdateTime,
-manifestCount,
-registry,
-tagCount;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_manifest"
-    values={[
-        { label: 'delete_manifest', value: 'delete_manifest' },
-        { label: 'delete_repository', value: 'delete_repository' }
-    ]}
->
 <TabItem value="delete_manifest">
 
 Delete the manifest identified by `name` and `reference`. Note that a manifest can *only* be deleted by `digest`.
 
 ```sql
-DELETE FROM azure.containerregistry_dataplane.container_registry
-WHERE name = '{{ name }}' --required
-AND reference = '{{ reference }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.containerregistry_dataplane.container_registry.delete_manifest 
+@name='{{ name }}' --required, 
+@reference='{{ reference }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_repository">
-
-Delete the repository identified by `name`.
-
-```sql
-DELETE FROM azure.containerregistry_dataplane.container_registry
-WHERE name = '{{ name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="get_repositories"
-    values={[
-        { label: 'get_repositories', value: 'get_repositories' },
-        { label: 'get_tags', value: 'get_tags' },
-        { label: 'get_tag_properties', value: 'get_tag_properties' },
-        { label: 'delete_tag', value: 'delete_tag' },
-        { label: 'get_manifests', value: 'get_manifests' },
-        { label: 'check_docker_v2_support', value: 'check_docker_v2_support' }
-    ]}
->
 <TabItem value="get_repositories">
 
 List repositories.
@@ -634,6 +502,35 @@ EXEC azure.containerregistry_dataplane.container_registry.get_repositories
 @endpoint='{{ endpoint }}' --required, 
 @last='{{ last }}', 
 @n='{{ n }}'
+;
+```
+</TabItem>
+<TabItem value="delete_repository">
+
+Delete the repository identified by `name`.
+
+```sql
+EXEC azure.containerregistry_dataplane.container_registry.delete_repository 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_properties">
+
+Update the attribute identified by `name` where `reference` is the name of the repository.
+
+```sql
+EXEC azure.containerregistry_dataplane.container_registry.update_properties 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"deleteEnabled": {{ deleteEnabled }}, 
+"writeEnabled": {{ writeEnabled }}, 
+"listEnabled": {{ listEnabled }}, 
+"readEnabled": {{ readEnabled }}
+}'
 ;
 ```
 </TabItem>
@@ -664,6 +561,25 @@ EXEC azure.containerregistry_dataplane.container_registry.get_tag_properties
 ;
 ```
 </TabItem>
+<TabItem value="update_tag_attributes">
+
+Update tag attributes.
+
+```sql
+EXEC azure.containerregistry_dataplane.container_registry.update_tag_attributes 
+@name='{{ name }}' --required, 
+@reference='{{ reference }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"deleteEnabled": {{ deleteEnabled }}, 
+"writeEnabled": {{ writeEnabled }}, 
+"listEnabled": {{ listEnabled }}, 
+"readEnabled": {{ readEnabled }}
+}'
+;
+```
+</TabItem>
 <TabItem value="delete_tag">
 
 Delete tag.
@@ -687,6 +603,25 @@ EXEC azure.containerregistry_dataplane.container_registry.get_manifests
 @last='{{ last }}', 
 @n='{{ n }}', 
 @orderby='{{ orderby }}'
+;
+```
+</TabItem>
+<TabItem value="update_manifest_properties">
+
+Update properties of a manifest.
+
+```sql
+EXEC azure.containerregistry_dataplane.container_registry.update_manifest_properties 
+@name='{{ name }}' --required, 
+@digest='{{ digest }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"deleteEnabled": {{ deleteEnabled }}, 
+"writeEnabled": {{ writeEnabled }}, 
+"listEnabled": {{ listEnabled }}, 
+"readEnabled": {{ readEnabled }}
+}'
 ;
 ```
 </TabItem>

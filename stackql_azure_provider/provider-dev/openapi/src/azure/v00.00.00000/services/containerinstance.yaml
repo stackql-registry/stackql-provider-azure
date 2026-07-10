@@ -2240,6 +2240,12 @@ components:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ContainerInstance~1containerGroups~1{container_group_name}~1outboundNetworkDependenciesEndpoints?api-version=2026-06-01-preview/get"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := . }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}]}'
         restart:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ContainerInstance~1containerGroups~1{container_group_name}~1restart?api-version=2026-06-01-preview/post"
@@ -3036,6 +3042,18 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerInstance/containerGroups/{container_group_name}/restart?api-version=2026-06-01-preview:
     post:
       operationId: ContainerGroups_begin_restart

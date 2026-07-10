@@ -975,30 +975,6 @@ components:
         extendedLocation:
           $ref: '#/components/schemas/ExtendedLocation'
           description: Extended location pointing to the underlying infrastructure.
-    ListCredentialResponse:
-      type: object
-      description: The list kubeconfig result response. Variables are only populated by the server, and will be
-        ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: Operation Id.
-        name:
-          type: string
-          description: Operation Name.
-        resourceId:
-          type: string
-          description: ARM Resource Id of the provisioned cluster instance.
-        status:
-          type: string
-          description: 'Provisioning state of the resource. Known values are: "Succeeded", "Failed", "Canceled",
-            "Pending", "Creating", "Deleting", "Updating", "Upgrading", and "Accepted".'
-        error:
-          $ref: '#/components/schemas/ListCredentialResponseError'
-          description: ':vartype error: ~azure.mgmt.hybridcontainerservice.models.ListCredentialResponseError'
-        properties:
-          $ref: '#/components/schemas/ListCredentialResponseProperties'
-          description: ':vartype properties: ~azure.mgmt.hybridcontainerservice.models.ListCredentialResponseProperties'
     ListCredentialResponseError:
       type: object
       description: ListCredentialResponseError.
@@ -1030,6 +1006,31 @@ components:
         value:
           type: string
           format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    ListCredentialResponseFlattened:
+      type: object
+      description: Flattened view of ListCredentialResponse ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Operation Id.
+        name:
+          type: string
+          description: Operation Name.
+        resourceId:
+          type: string
+          description: ARM Resource Id of the provisioned cluster instance.
+        status:
+          type: string
+          description: 'Provisioning state of the resource. Known values are: "Succeeded", "Failed", "Canceled",
+            "Pending", "Creating", "Deleting", "Updating", "Upgrading", and "Accepted".'
+        error:
+          $ref: '#/components/schemas/ListCredentialResponseError'
+          description: ':vartype error: ~azure.mgmt.hybridcontainerservice.models.ListCredentialResponseError'
+        kubeconfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialResult'
           description: Base64-encoded Kubernetes configuration file.
     ProvisionedClusterUpgradeProfileProperties:
       type: object
@@ -1840,10 +1841,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListCredentialResponse'
+                $ref: '#/components/schemas/ListCredentialResponseFlattened'
       x-stackql-resource: provisioned_cluster_instances
       x-stackql-method: list_user_kubeconfig
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /{connected_cluster_resource_uri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/listAdminKubeconfig?api-version=2024-01-01
   : post:
       operationId: ProvisionedClusterInstances_begin_list_admin_kubeconfig
@@ -1862,10 +1864,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListCredentialResponse'
+                $ref: '#/components/schemas/ListCredentialResponseFlattened'
       x-stackql-resource: provisioned_cluster_instances
       x-stackql-method: list_admin_kubeconfig
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /{connected_cluster_resource_uri}/providers/Microsoft.HybridContainerService/provisionedClusterInstances/default/upgradeProfiles/default?api-version=2024-01-01
   : get:
       operationId: ProvisionedClusterInstances_get_upgrade_profile

@@ -41,8 +41,15 @@ components:
             $ref: "#/paths/~1$schemaGroups?api-version=2023-07-01/get"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.Value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := index . "value" }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}], "nextLink": {{ toJson (index . "nextLink") }}}'
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/schema_groups/methods/list_schema_groups"
         insert: []
         update: []
         delete: []
@@ -56,8 +63,15 @@ components:
             $ref: "#/paths/~1$schemaGroups~1{group_name}~1schemas~1{schema_name}~1versions?api-version=2023-07-01/get"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.Value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := index . "value" }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}], "nextLink": {{ toJson (index . "nextLink") }}}'
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/schema_versions/methods/list_schema_versions"
         insert: []
         update: []
         delete: []
@@ -120,6 +134,20 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
   /$schemaGroups/{group_name}/schemas/{schema_name}/versions?api-version=2023-07-01:
     get:
       operationId: SchemaRegistryClient_list_schema_versions
@@ -140,6 +168,20 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: integer
+                  nextLink:
+                    type: string
   /$schemaGroups/$schemas/{id}?api-version=2023-07-01:
     get:
       operationId: SchemaRegistryClient_get_schema_by_id

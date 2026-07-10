@@ -585,20 +585,6 @@ The following methods are available for this resource:
     <td>Creates or updates a domain. Description for Creates or updates a domain.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_ownership_identifier"><CopyableCode code="create_or_update_ownership_identifier" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.</td>
-</tr>
-<tr>
-    <td><a href="#update_ownership_identifier"><CopyableCode code="update_ownership_identifier" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -611,20 +597,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates or updates a domain. Description for Creates or updates a domain.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_ownership_identifier"><CopyableCode code="create_or_update_ownership_identifier" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.</td>
-</tr>
-<tr>
-    <td><a href="#delete_ownership_identifier"><CopyableCode code="delete_ownership_identifier" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete ownership identifier for domain. Description for Delete ownership identifier for domain.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -646,6 +618,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get domain name recommendations based on keywords. Description for Get domain name recommendations based on keywords.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_ownership_identifier"><CopyableCode code="create_or_update_ownership_identifier" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.</td>
+</tr>
+<tr>
+    <td><a href="#update_ownership_identifier"><CopyableCode code="update_ownership_identifier" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.</td>
+</tr>
+<tr>
+    <td><a href="#delete_ownership_identifier"><CopyableCode code="delete_ownership_identifier" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-domain_name"><code>domain_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete ownership identifier for domain. Description for Delete ownership identifier for domain.</td>
 </tr>
 <tr>
     <td><a href="#get_control_center_sso_request"><CopyableCode code="get_control_center_sso_request" /></a></td>
@@ -876,7 +869,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_ownership_identifier', value: 'create_or_update_ownership_identifier' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -914,36 +906,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_ownership_identifier">
-
-Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.
-
-```sql
-INSERT INTO azure.domainregistration.domains (
-properties,
-kind,
-resource_group_name,
-domain_name,
-name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ domain_name }}',
-'{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -958,9 +920,6 @@ type
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the domains resource.
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the domains resource.
     - name: tags
       value: "{{ tags }}"
       description: |
@@ -971,9 +930,100 @@ type
         The geo-location where the resource lives. Required.
     - name: properties
       description: |
-        DomainOwnershipIdentifier resource specific properties.
+        Domain resource specific properties.
       value:
-        ownershipId: "{{ ownershipId }}"
+        contactAdmin:
+          addressMailing:
+            address1: "{{ address1 }}"
+            address2: "{{ address2 }}"
+            city: "{{ city }}"
+            country: "{{ country }}"
+            postalCode: "{{ postalCode }}"
+            state: "{{ state }}"
+          email: "{{ email }}"
+          fax: "{{ fax }}"
+          jobTitle: "{{ jobTitle }}"
+          nameFirst: "{{ nameFirst }}"
+          nameLast: "{{ nameLast }}"
+          nameMiddle: "{{ nameMiddle }}"
+          organization: "{{ organization }}"
+          phone: "{{ phone }}"
+        contactBilling:
+          addressMailing:
+            address1: "{{ address1 }}"
+            address2: "{{ address2 }}"
+            city: "{{ city }}"
+            country: "{{ country }}"
+            postalCode: "{{ postalCode }}"
+            state: "{{ state }}"
+          email: "{{ email }}"
+          fax: "{{ fax }}"
+          jobTitle: "{{ jobTitle }}"
+          nameFirst: "{{ nameFirst }}"
+          nameLast: "{{ nameLast }}"
+          nameMiddle: "{{ nameMiddle }}"
+          organization: "{{ organization }}"
+          phone: "{{ phone }}"
+        contactRegistrant:
+          addressMailing:
+            address1: "{{ address1 }}"
+            address2: "{{ address2 }}"
+            city: "{{ city }}"
+            country: "{{ country }}"
+            postalCode: "{{ postalCode }}"
+            state: "{{ state }}"
+          email: "{{ email }}"
+          fax: "{{ fax }}"
+          jobTitle: "{{ jobTitle }}"
+          nameFirst: "{{ nameFirst }}"
+          nameLast: "{{ nameLast }}"
+          nameMiddle: "{{ nameMiddle }}"
+          organization: "{{ organization }}"
+          phone: "{{ phone }}"
+        contactTech:
+          addressMailing:
+            address1: "{{ address1 }}"
+            address2: "{{ address2 }}"
+            city: "{{ city }}"
+            country: "{{ country }}"
+            postalCode: "{{ postalCode }}"
+            state: "{{ state }}"
+          email: "{{ email }}"
+          fax: "{{ fax }}"
+          jobTitle: "{{ jobTitle }}"
+          nameFirst: "{{ nameFirst }}"
+          nameLast: "{{ nameLast }}"
+          nameMiddle: "{{ nameMiddle }}"
+          organization: "{{ organization }}"
+          phone: "{{ phone }}"
+        registrationStatus: "{{ registrationStatus }}"
+        provisioningState: "{{ provisioningState }}"
+        nameServers:
+          - "{{ nameServers }}"
+        privacy: {{ privacy }}
+        createdTime: "{{ createdTime }}"
+        expirationTime: "{{ expirationTime }}"
+        lastRenewedTime: "{{ lastRenewedTime }}"
+        autoRenew: {{ autoRenew }}
+        readyForDnsRecordManagement: {{ readyForDnsRecordManagement }}
+        managedHostNames:
+          - name: "{{ name }}"
+            siteNames: "{{ siteNames }}"
+            azureResourceName: "{{ azureResourceName }}"
+            azureResourceType: "{{ azureResourceType }}"
+            customHostNameDnsRecordType: "{{ customHostNameDnsRecordType }}"
+            hostNameType: "{{ hostNameType }}"
+        consent:
+          agreementKeys:
+            - "{{ agreementKeys }}"
+          agreedBy: "{{ agreedBy }}"
+          agreedAt: "{{ agreedAt }}"
+        domainNotRenewableReasons:
+          - "{{ domainNotRenewableReasons }}"
+        dnsType: "{{ dnsType }}"
+        dnsZoneId: "{{ dnsZoneId }}"
+        targetDnsType: "{{ targetDnsType }}"
+        authCode: "{{ authCode }}"
     - name: kind
       value: "{{ kind }}"
       description: |
@@ -987,35 +1037,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_ownership_identifier"
+    defaultValue="update"
     values={[
-        { label: 'update_ownership_identifier', value: 'update_ownership_identifier' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_ownership_identifier">
-
-Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.
-
-```sql
-UPDATE azure.domainregistration.domains
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND domain_name = '{{ domain_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Creates or updates a domain. Description for Creates or updates a domain.
@@ -1048,8 +1074,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_ownership_identifier', value: 'create_or_update_ownership_identifier' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1079,54 +1104,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_ownership_identifier">
-
-Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.
-
-```sql
-REPLACE azure.domainregistration.domains
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND domain_name = '{{ domain_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_ownership_identifier"
+    defaultValue="delete"
     values={[
-        { label: 'delete_ownership_identifier', value: 'delete_ownership_identifier' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_ownership_identifier">
-
-Delete ownership identifier for domain. Description for Delete ownership identifier for domain.
-
-```sql
-DELETE FROM azure.domainregistration.domains
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND domain_name = '{{ domain_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a domain. Description for Delete a domain.
@@ -1150,6 +1138,9 @@ AND forceHardDeleteDomain = '{{ forceHardDeleteDomain }}'
     values={[
         { label: 'list_ownership_identifiers', value: 'list_ownership_identifiers' },
         { label: 'list_recommendations', value: 'list_recommendations' },
+        { label: 'create_or_update_ownership_identifier', value: 'create_or_update_ownership_identifier' },
+        { label: 'update_ownership_identifier', value: 'update_ownership_identifier' },
+        { label: 'delete_ownership_identifier', value: 'delete_ownership_identifier' },
         { label: 'get_control_center_sso_request', value: 'get_control_center_sso_request' },
         { label: 'renew', value: 'renew' },
         { label: 'transfer_out', value: 'transfer_out' },
@@ -1180,6 +1171,55 @@ EXEC azure.domainregistration.domains.list_recommendations
 "keywords": "{{ keywords }}", 
 "maxDomainRecommendations": {{ maxDomainRecommendations }}
 }'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_ownership_identifier">
+
+Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.
+
+```sql
+EXEC azure.domainregistration.domains.create_or_update_ownership_identifier 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@domain_name='{{ domain_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_ownership_identifier">
+
+Creates an ownership identifier for a domain or updates identifier details for an existing identifier. Description for Creates an ownership identifier for a domain or updates identifier details for an existing identifier.
+
+```sql
+EXEC azure.domainregistration.domains.update_ownership_identifier 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@domain_name='{{ domain_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_ownership_identifier">
+
+Delete ownership identifier for domain. Description for Delete ownership identifier for domain.
+
+```sql
+EXEC azure.domainregistration.domains.delete_ownership_identifier 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@domain_name='{{ domain_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

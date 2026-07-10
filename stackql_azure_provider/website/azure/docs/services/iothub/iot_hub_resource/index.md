@@ -954,13 +954,6 @@ The following methods are available for this resource:
     <td>Get all the IoT hubs in a subscription. Get all the IoT hubs in a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_event_hub_consumer_group"><CopyableCode code="create_event_hub_consumer_group" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-event_hub_endpoint_name"><code>event_hub_endpoint_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Add a consumer group to an Event Hub-compatible endpoint in an IoT hub. Add a consumer group to an Event Hub-compatible endpoint in an IoT hub.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
@@ -980,13 +973,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
     <td></td>
     <td>Create or update the metadata of an IoT hub. Create or update the metadata of an Iot hub. The usual pattern to modify a property is to retrieve the IoT hub metadata and security metadata, and then combine them with the modified values in a new body to update the IoT hub.</td>
-</tr>
-<tr>
-    <td><a href="#delete_event_hub_consumer_group"><CopyableCode code="delete_event_hub_consumer_group" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-event_hub_endpoint_name"><code>event_hub_endpoint_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub. Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -1036,6 +1022,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the statistics from an IoT hub. Get the statistics from an IoT hub.</td>
+</tr>
+<tr>
+    <td><a href="#create_event_hub_consumer_group"><CopyableCode code="create_event_hub_consumer_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-event_hub_endpoint_name"><code>event_hub_endpoint_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Add a consumer group to an Event Hub-compatible endpoint in an IoT hub. Add a consumer group to an Event Hub-compatible endpoint in an IoT hub.</td>
+</tr>
+<tr>
+    <td><a href="#delete_event_hub_consumer_group"><CopyableCode code="delete_event_hub_consumer_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-event_hub_endpoint_name"><code>event_hub_endpoint_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub. Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub.</td>
 </tr>
 <tr>
     <td><a href="#test_all_routes"><CopyableCode code="test_all_routes" /></a></td>
@@ -1392,43 +1392,12 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_event_hub_consumer_group"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_event_hub_consumer_group', value: 'create_event_hub_consumer_group' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_event_hub_consumer_group">
-
-Add a consumer group to an Event Hub-compatible endpoint in an IoT hub. Add a consumer group to an Event Hub-compatible endpoint in an IoT hub.
-
-```sql
-INSERT INTO azure.iothub.iot_hub_resource (
-properties,
-resource_group_name,
-resource_name,
-event_hub_endpoint_name,
-name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ resource_name }}',
-'{{ event_hub_endpoint_name }}',
-'{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-etag,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create or update the metadata of an IoT hub. Create or update the metadata of an Iot hub. The usual pattern to modify a property is to retrieve the IoT hub metadata and security metadata, and then combine them with the modified values in a new body to update the IoT hub.
@@ -1480,15 +1449,17 @@ type
     - name: resource_name
       value: "{{ resource_name }}"
       description: Required parameter for the iot_hub_resource resource.
-    - name: event_hub_endpoint_name
-      value: "{{ event_hub_endpoint_name }}"
-      description: Required parameter for the iot_hub_resource resource.
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the iot_hub_resource resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the iot_hub_resource resource.
+    - name: tags
+      value: "{{ tags }}"
+      description: |
+        Resource tags.
+    - name: location
+      value: "{{ location }}"
+      description: |
+        The geo-location where the resource lives. Required.
     - name: properties
       description: |
         IotHub properties.
@@ -1657,14 +1628,6 @@ type
           identityResourceId: "{{ identityResourceId }}"
         iotHubDetails:
           gatewayVersion: "{{ gatewayVersion }}"
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Resource tags.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        The geo-location where the resource lives. Required.
     - name: etag
       value: "{{ etag }}"
       description: |
@@ -1772,26 +1735,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_event_hub_consumer_group"
+    defaultValue="delete"
     values={[
-        { label: 'delete_event_hub_consumer_group', value: 'delete_event_hub_consumer_group' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_event_hub_consumer_group">
-
-Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub. Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub.
-
-```sql
-DELETE FROM azure.iothub.iot_hub_resource
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND event_hub_endpoint_name = '{{ event_hub_endpoint_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete an IoT hub. Delete an IoT hub.
@@ -1818,6 +1766,8 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'get_quota_metrics', value: 'get_quota_metrics' },
         { label: 'get_keys_for_key_name', value: 'get_keys_for_key_name' },
         { label: 'get_stats', value: 'get_stats' },
+        { label: 'create_event_hub_consumer_group', value: 'create_event_hub_consumer_group' },
+        { label: 'delete_event_hub_consumer_group', value: 'delete_event_hub_consumer_group' },
         { label: 'test_all_routes', value: 'test_all_routes' },
         { label: 'test_route', value: 'test_route' },
         { label: 'export_devices', value: 'export_devices' },
@@ -1894,6 +1844,38 @@ Get the statistics from an IoT hub. Get the statistics from an IoT hub.
 EXEC azure.iothub.iot_hub_resource.get_stats 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @resource_name='{{ resource_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_event_hub_consumer_group">
+
+Add a consumer group to an Event Hub-compatible endpoint in an IoT hub. Add a consumer group to an Event Hub-compatible endpoint in an IoT hub.
+
+```sql
+EXEC azure.iothub.iot_hub_resource.create_event_hub_consumer_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@event_hub_endpoint_name='{{ event_hub_endpoint_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_event_hub_consumer_group">
+
+Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub. Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub.
+
+```sql
+EXEC azure.iothub.iot_hub_resource.delete_event_hub_consumer_group 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@event_hub_endpoint_name='{{ event_hub_endpoint_name }}' --required, 
+@name='{{ name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

@@ -138,16 +138,6 @@ components:
             $ref: "#/components/schemas/DnsForwardingRulesetFlattened"
         nextLink:
           type: string
-    VirtualNetworkDnsForwardingRuleset:
-      type: object
-      description: Reference to DNS forwarding ruleset and associated virtual network link.
-      properties:
-        id:
-          type: string
-          description: DNS Forwarding Ruleset Resource ID.
-        properties:
-          $ref: "#/components/schemas/VirtualNetworkLinkSubResourceProperties"
-          description: Properties of the virtual network link sub-resource reference.
     VirtualNetworkLinkSubResourceProperties:
       type: object
       description: The reference to the virtual network link that associates between the DNS forwarding ruleset and virtual network.
@@ -155,13 +145,23 @@ components:
         virtualNetworkLink:
           $ref: "#/components/schemas/SubResource"
           description: The reference to the virtual network link.
-    PagedVirtualNetworkDnsForwardingRuleset:
+    VirtualNetworkDnsForwardingRulesetFlattened:
+      type: object
+      description: Flattened view of VirtualNetworkDnsForwardingRuleset ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: DNS Forwarding Ruleset Resource ID.
+        virtualNetworkLink:
+          $ref: "#/components/schemas/SubResource"
+          description: The reference to the virtual network link.
+    PagedVirtualNetworkDnsForwardingRulesetFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/VirtualNetworkDnsForwardingRuleset"
+            $ref: "#/components/schemas/VirtualNetworkDnsForwardingRulesetFlattened"
         nextLink:
           type: string
     DnsForwardingRuleset:
@@ -1267,11 +1267,22 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/dns_forwarding_rulesets/methods/get"
+          - $ref: "#/components/x-stackQL-resources/dns_forwarding_rulesets/methods/list_by_virtual_network"
           - $ref: "#/components/x-stackQL-resources/dns_forwarding_rulesets/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/dns_forwarding_rulesets/methods/list"
         insert:
@@ -1468,9 +1479,11 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/dns_resolver_policies/methods/get"
+          - $ref: "#/components/x-stackQL-resources/dns_resolver_policies/methods/list_by_virtual_network"
           - $ref: "#/components/x-stackQL-resources/dns_resolver_policies/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/dns_resolver_policies/methods/list"
         insert:
@@ -1637,11 +1650,13 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/dns_resolvers/methods/get"
+          - $ref: "#/components/x-stackQL-resources/dns_resolvers/methods/list_by_virtual_network"
           - $ref: "#/components/x-stackQL-resources/dns_resolvers/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/dns_resolvers/methods/list"
         insert:
@@ -2244,7 +2259,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedVirtualNetworkDnsForwardingRuleset"
+                $ref: "#/components/schemas/PagedVirtualNetworkDnsForwardingRulesetFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/dnsResolverDomainLists/{dns_resolver_domain_list_name}?api-version=2025-10-01-preview:
     get:
       operationId: DnsResolverDomainLists_get

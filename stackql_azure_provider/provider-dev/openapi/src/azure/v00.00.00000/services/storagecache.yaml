@@ -3070,7 +3070,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/required_aml_fs_subnets_sizes/methods/get_required_aml_fs_subnets_size"
         insert: []
         update: []
         delete: []

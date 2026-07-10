@@ -1392,15 +1392,6 @@ components:
           items:
             type: string
           description: The related Log Analytics solutions for the function.
-    PagedLogAnalyticsQueryPackQuery:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/LogAnalyticsQueryPackQuery"
-        nextLink:
-          type: string
     LogAnalyticsQueryPackProperties:
       type: object
       description: Properties that define a Log Analytics QueryPack resource.
@@ -1613,18 +1604,6 @@ components:
             $ref: "#/components/schemas/SavedSearchFlattened"
         nextLink:
           type: string
-    SearchGetSchemaResponse:
-      type: object
-      description: The get schema operation response.
-      properties:
-        metadata:
-          $ref: "#/components/schemas/SearchMetadata"
-          description: The metadata from search results.
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/SearchSchemaValue"
-          description: The array of result values.
     SearchMetadata:
       type: object
       description: Metadata for search results.
@@ -1754,6 +1733,18 @@ components:
         - indexed
         - stored
         - facet
+    SearchGetSchemaResponse:
+      type: object
+      description: The get schema operation response.
+      properties:
+        metadata:
+          $ref: "#/components/schemas/SearchMetadata"
+          description: The metadata from search results.
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchSchemaValue"
+          description: The array of result values.
     SharedKeys:
       type: object
       description: The shared keys for a workspace.
@@ -3220,6 +3211,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
           config:
@@ -3326,12 +3327,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/query_packs/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/query_packs/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/query_packs/methods/create_or_update_without_name"
         update:
           - $ref: "#/components/x-stackQL-resources/query_packs/methods/update_tags"
         replace:
           - $ref: "#/components/x-stackQL-resources/query_packs/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/query_packs/methods/create_or_update_without_name"
         delete:
           - $ref: "#/components/x-stackQL-resources/query_packs/methods/delete"
     saved_searches:
@@ -3397,14 +3396,15 @@ components:
       name: schema
       title: schema
       methods:
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.OperationalInsights~1workspaces~1{workspace_name}~1schema?api-version=2025-07-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/schema/methods/get"
         insert: []
         update: []
         delete: []
@@ -3426,7 +3426,8 @@ components:
             openAPIDocKey: "200"
             mediaType: application/json
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/shared_keys/methods/get_shared_keys"
         insert: []
         update: []
         delete: []
@@ -5130,7 +5131,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedLogAnalyticsQueryPackQuery"
+                $ref: "#/components/schemas/PagedLogAnalyticsQueryPackQueryFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OperationalInsights/queryPacks/{query_pack_name}?api-version=2025-07-01:
     get:
       operationId: QueryPacks_get

@@ -488,7 +488,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AutoScaleVCoreFlattened'
-      x-stackql-resource: auto_scale_v_cores
+      x-stackql-resource: auto_scale_vcores
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -555,7 +555,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AutoScaleVCore'
-      x-stackql-resource: auto_scale_v_cores
+      x-stackql-resource: auto_scale_vcores
       x-stackql-method: create
       x-stackql-verb: INSERT
     delete:
@@ -584,7 +584,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: auto_scale_v_cores
+      x-stackql-resource: auto_scale_vcores
       x-stackql-method: delete
       x-stackql-verb: DELETE
     patch:
@@ -637,7 +637,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AutoScaleVCore'
-      x-stackql-resource: auto_scale_v_cores
+      x-stackql-resource: auto_scale_vcores
       x-stackql-method: update
       x-stackql-verb: UPDATE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PowerBIDedicated/autoScaleVCores?api-version=2021-01-01
@@ -664,7 +664,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedAutoScaleVCoreFlattened'
-      x-stackql-resource: auto_scale_v_cores
+      x-stackql-resource: auto_scale_vcores
       x-stackql-method: list_by_resource_group
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -687,7 +687,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedAutoScaleVCoreFlattened'
-      x-stackql-resource: auto_scale_v_cores
+      x-stackql-resource: auto_scale_vcores
       x-stackql-method: list_by_subscription
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -1085,7 +1085,7 @@ paths:
                 $ref: '#/components/schemas/CheckCapacityNameAvailabilityResult'
       x-stackql-resource: capacities
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.PowerBIDedicated/operations?api-version=2021-01-01:
     get:
       operationId: powerbidedicated_list

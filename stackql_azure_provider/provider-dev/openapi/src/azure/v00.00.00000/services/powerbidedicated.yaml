@@ -431,10 +431,10 @@ components:
         nextLink:
           type: string
   x-stackQL-resources:
-    auto_scale_v_cores:
-      id: azure.powerbidedicated.auto_scale_v_cores
-      name: auto_scale_v_cores
-      title: auto_scale_v_cores
+    auto_scale_vcores:
+      id: azure.powerbidedicated.auto_scale_vcores
+      name: auto_scale_vcores
+      title: auto_scale_vcores
       methods:
         get:
           operation:
@@ -507,15 +507,15 @@ components:
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/auto_scale_v_cores/methods/get"
-          - $ref: "#/components/x-stackQL-resources/auto_scale_v_cores/methods/list_by_resource_group"
-          - $ref: "#/components/x-stackQL-resources/auto_scale_v_cores/methods/list_by_subscription"
+          - $ref: "#/components/x-stackQL-resources/auto_scale_vcores/methods/get"
+          - $ref: "#/components/x-stackQL-resources/auto_scale_vcores/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/auto_scale_vcores/methods/list_by_subscription"
         insert:
-          - $ref: "#/components/x-stackQL-resources/auto_scale_v_cores/methods/create"
+          - $ref: "#/components/x-stackQL-resources/auto_scale_vcores/methods/create"
         update:
-          - $ref: "#/components/x-stackQL-resources/auto_scale_v_cores/methods/update"
+          - $ref: "#/components/x-stackQL-resources/auto_scale_vcores/methods/update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/auto_scale_v_cores/methods/delete"
+          - $ref: "#/components/x-stackQL-resources/auto_scale_vcores/methods/delete"
     capacities:
       id: azure.powerbidedicated.capacities
       name: capacities
@@ -627,6 +627,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/capacities/methods/list_skus_for_capacity"
           - $ref: "#/components/x-stackQL-resources/capacities/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/capacities/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/capacities/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/capacities/methods/create"

@@ -317,18 +317,6 @@ components:
           description: The resource-specific properties for this resource.
       required:
       - location
-    InformaticaServerlessRuntimeResourceList:
-      type: object
-      description: A list of serverless runtime resources as fetched using the informatica APIs. All required parameters
-        must be populated in order to send to server.
-      properties:
-        informaticaRuntimeResources:
-          type: array
-          items:
-            $ref: '#/components/schemas/InfaRuntimeResourceFetchMetaData'
-          description: List of runtime resources for the fetch all API. Required.
-      required:
-      - informaticaRuntimeResources
     InfaRuntimeResourceFetchMetaData:
       type: object
       description: Informatica runtime resource metadata as received via the informatica fetch all runtime environments
@@ -429,19 +417,18 @@ components:
         serverlessArmResourceId:
           type: string
           description: Serverless Arm Resource ID.
-    ServerlessMetadataResponse:
+    InformaticaServerlessRuntimeResourceList:
       type: object
-      description: Serverless Runtime environment Metadata response.
+      description: A list of serverless runtime resources as fetched using the informatica APIs. All required parameters
+        must be populated in order to send to server.
       properties:
-        type:
-          type: string
-          description: type of the runtime environment. "SERVERLESS"
-        serverlessConfigProperties:
-          $ref: '#/components/schemas/ServerlessConfigProperties'
-          description: serverless config properties.
-        serverlessRuntimeConfigProperties:
-          $ref: '#/components/schemas/ServerlessRuntimeConfigProperties'
-          description: serverless runtime config properties.
+        informaticaRuntimeResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfaRuntimeResourceFetchMetaData'
+          description: List of runtime resources for the fetch all API. Required.
+      required:
+      - informaticaRuntimeResources
     ServerlessConfigProperties:
       type: object
       description: Metadata Serverless Config Properties.
@@ -562,6 +549,19 @@ components:
       - platform
       - customized
       - defaultValue
+    ServerlessMetadataResponse:
+      type: object
+      description: Serverless Runtime environment Metadata response.
+      properties:
+        type:
+          type: string
+          description: type of the runtime environment. "SERVERLESS"
+        serverlessConfigProperties:
+          $ref: '#/components/schemas/ServerlessConfigProperties'
+          description: serverless config properties.
+        serverlessRuntimeConfigProperties:
+          $ref: '#/components/schemas/ServerlessRuntimeConfigProperties'
+          description: serverless runtime config properties.
     OrganizationPropertiesCustomUpdate:
       type: object
       description: Patchable Properties of the Informatica Organization resource.
@@ -950,26 +950,6 @@ components:
         userContextToken:
           type: string
           description: User context token for OBO flow.
-    CheckDependenciesResponse:
-      type: object
-      description: Model for the check dependencies API for an informatica serverless runtime resource. All required
-        parameters must be populated in order to send to server.
-      properties:
-        count:
-          type: integer
-          description: Count of dependencies. Required.
-        id:
-          type: string
-          description: id of resource. Required.
-        references:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerlessRuntimeDependency'
-          description: List of dependencies. Required.
-      required:
-      - count
-      - id
-      - references
     ServerlessRuntimeDependency:
       type: object
       description: Dependency reference for a serverless runtime resource. All required parameters must be populated
@@ -1000,6 +980,26 @@ components:
       - documentType
       - description
       - lastUpdatedTime
+    CheckDependenciesResponse:
+      type: object
+      description: Model for the check dependencies API for an informatica serverless runtime resource. All required
+        parameters must be populated in order to send to server.
+      properties:
+        count:
+          type: integer
+          description: Count of dependencies. Required.
+        id:
+          type: string
+          description: id of resource. Required.
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerlessRuntimeDependency'
+          description: List of dependencies. Required.
+      required:
+      - count
+      - id
+      - references
 paths:
   /providers/Informatica.DataManagement/operations?api-version=2024-05-08:
     get:
@@ -1256,7 +1256,7 @@ paths:
                 $ref: '#/components/schemas/InformaticaServerlessRuntimeResourceList'
       x-stackql-resource: organizations
       x-stackql-method: get_all_serverless_runtimes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Informatica.DataManagement/organizations/{organization_name}/getServerlessMetadata?api-version=2024-05-08
   : post:
       operationId: Organizations_get_serverless_metadata
@@ -1288,7 +1288,7 @@ paths:
                 $ref: '#/components/schemas/ServerlessMetadataResponse'
       x-stackql-resource: organizations
       x-stackql-method: get_serverless_metadata
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Informatica.DataManagement/organizations/{organization_name}/serverlessRuntimes/{serverless_runtime_name}?api-version=2024-05-08
   : get:
       operationId: ServerlessRuntimes_get
@@ -1528,7 +1528,7 @@ paths:
                 $ref: '#/components/schemas/CheckDependenciesResponse'
       x-stackql-resource: serverless_runtimes
       x-stackql-method: check_dependencies
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Informatica.DataManagement/organizations/{organization_name}/serverlessRuntimes/{serverless_runtime_name}/serverlessResourceById?api-version=2024-05-08
   : post:
       operationId: ServerlessRuntimes_serverless_resource_by_id

@@ -13874,6 +13874,11 @@ components:
       type: string
       enum:
       - Microsoft.Sql/servers
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The result of a name availability check.
@@ -13891,11 +13896,6 @@ components:
         message:
           type: string
           description: A message explaining why the name is unavailable. Will be undefined if the name is available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     SqlAgentConfigurationProperties:
       type: object
       description: Sql agent configuration properties.
@@ -21187,7 +21187,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPv6FirewallRuleFlattened'
-      x-stackql-resource: i_pv6_firewall_rules
+      x-stackql-resource: ipv6_firewall_rules
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -21238,7 +21238,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPv6FirewallRule'
-      x-stackql-resource: i_pv6_firewall_rules
+      x-stackql-resource: ipv6_firewall_rules
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -21271,7 +21271,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: i_pv6_firewall_rules
+      x-stackql-resource: ipv6_firewall_rules
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Sql/servers/{server_name}/ipv6FirewallRules?api-version=2025-01-01
@@ -21303,7 +21303,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedIPv6FirewallRuleFlattened'
-      x-stackql-resource: i_pv6_firewall_rules
+      x-stackql-resource: ipv6_firewall_rules
       x-stackql-method: list_by_server
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -36296,7 +36296,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: servers
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Sql/managedInstances/{managed_instance_name}/sqlAgent/current?api-version=2025-01-01
   : get:
       operationId: SqlAgent_get

@@ -470,20 +470,6 @@ The following methods are available for this resource:
     <td>Update the given glossary.</td>
 </tr>
 <tr>
-    <td><a href="#update_category"><CopyableCode code="update_category" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-category_id"><code>category_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update the given glossary category by its GUID.</td>
-</tr>
-<tr>
-    <td><a href="#update_term"><CopyableCode code="update_term" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-term_id"><code>term_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-includeTermHierarchy"><code>includeTermHierarchy</code></a></td>
-    <td>Update the given glossary term by its GUID.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-glossary_id"><code>glossary_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -491,18 +477,18 @@ The following methods are available for this resource:
     <td>Delete a glossary. Will delete underlying terms/categories together. Recommend separate delete terms and categories.</td>
 </tr>
 <tr>
+    <td><a href="#update_category"><CopyableCode code="update_category" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-category_id"><code>category_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update the given glossary category by its GUID.</td>
+</tr>
+<tr>
     <td><a href="#delete_category"><CopyableCode code="delete_category" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-category_id"><code>category_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete a glossary category.</td>
-</tr>
-<tr>
-    <td><a href="#delete_term_assignment_from_entities"><CopyableCode code="delete_term_assignment_from_entities" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-term_id"><code>term_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete the term assignment for the given list of related objects.</td>
 </tr>
 <tr>
     <td><a href="#get_related_categories"><CopyableCode code="get_related_categories" /></a></td>
@@ -519,6 +505,13 @@ The following methods are available for this resource:
     <td>Get all terms associated with the specific category.</td>
 </tr>
 <tr>
+    <td><a href="#update_term"><CopyableCode code="update_term" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-term_id"><code>term_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-includeTermHierarchy"><code>includeTermHierarchy</code></a></td>
+    <td>Update the given glossary term by its GUID.</td>
+</tr>
+<tr>
     <td><a href="#get_entities_assigned_with_term"><CopyableCode code="get_entities_assigned_with_term" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-term_id"><code>term_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -531,6 +524,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-term_id"><code>term_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Assign the given term to the provided list of related objects. Recommend using small batches with multiple API calls. `Entities Create Or Update operation `_ is an alternative to assign a term to multiple entities.</td>
+</tr>
+<tr>
+    <td><a href="#delete_term_assignment_from_entities"><CopyableCode code="delete_term_assignment_from_entities" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-term_id"><code>term_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete the term assignment for the given list of related objects.</td>
 </tr>
 <tr>
     <td><a href="#get_related_terms"><CopyableCode code="get_related_terms" /></a></td>
@@ -661,7 +661,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-glossary_id">
     <td><CopyableCode code="glossary_id" /></td>
@@ -983,9 +983,7 @@ usage
 <Tabs
     defaultValue="update"
     values={[
-        { label: 'update', value: 'update' },
-        { label: 'update_category', value: 'update_category' },
-        { label: 'update_term', value: 'update_term' }
+        { label: 'update', value: 'update' }
     ]}
 >
 <TabItem value="update">
@@ -1032,137 +1030,6 @@ updatedBy,
 usage;
 ```
 </TabItem>
-<TabItem value="update_category">
-
-Update the given glossary category by its GUID.
-
-```sql
-UPDATE azure.purview_datamap.glossary
-SET 
-guid = '{{ guid }}',
-classifications = '{{ classifications }}',
-longDescription = '{{ longDescription }}',
-name = '{{ name }}',
-qualifiedName = '{{ qualifiedName }}',
-shortDescription = '{{ shortDescription }}',
-lastModifiedTS = '{{ lastModifiedTS }}',
-createTime = {{ createTime }},
-createdBy = '{{ createdBy }}',
-updateTime = {{ updateTime }},
-updatedBy = '{{ updatedBy }}',
-anchor = '{{ anchor }}',
-childrenCategories = '{{ childrenCategories }}',
-parentCategory = '{{ parentCategory }}',
-terms = '{{ terms }}'
-WHERE 
-category_id = '{{ category_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-name,
-anchor,
-childrenCategories,
-classifications,
-createTime,
-createdBy,
-guid,
-lastModifiedTS,
-longDescription,
-parentCategory,
-qualifiedName,
-shortDescription,
-terms,
-updateTime,
-updatedBy;
-```
-</TabItem>
-<TabItem value="update_term">
-
-Update the given glossary term by its GUID.
-
-```sql
-UPDATE azure.purview_datamap.glossary
-SET 
-guid = '{{ guid }}',
-classifications = '{{ classifications }}',
-longDescription = '{{ longDescription }}',
-name = '{{ name }}',
-qualifiedName = '{{ qualifiedName }}',
-shortDescription = '{{ shortDescription }}',
-lastModifiedTS = '{{ lastModifiedTS }}',
-createTime = {{ createTime }},
-createdBy = '{{ createdBy }}',
-updateTime = {{ updateTime }},
-updatedBy = '{{ updatedBy }}',
-abbreviation = '{{ abbreviation }}',
-templateName = '{{ templateName }}',
-anchor = '{{ anchor }}',
-antonyms = '{{ antonyms }}',
-status = '{{ status }}',
-nickName = '{{ nickName }}',
-hierarchyInfo = '{{ hierarchyInfo }}',
-resources = '{{ resources }}',
-contacts = '{{ contacts }}',
-attributes = '{{ attributes }}',
-assignedEntities = '{{ assignedEntities }}',
-categories = '{{ categories }}',
-classifies = '{{ classifies }}',
-examples = '{{ examples }}',
-isA = '{{ isA }}',
-preferredTerms = '{{ preferredTerms }}',
-preferredToTerms = '{{ preferredToTerms }}',
-replacedBy = '{{ replacedBy }}',
-replacementTerms = '{{ replacementTerms }}',
-seeAlso = '{{ seeAlso }}',
-synonyms = '{{ synonyms }}',
-translatedTerms = '{{ translatedTerms }}',
-translationTerms = '{{ translationTerms }}',
-usage = '{{ usage }}',
-validValues = '{{ validValues }}',
-validValuesFor = '{{ validValuesFor }}'
-WHERE 
-term_id = '{{ term_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND includeTermHierarchy = {{ includeTermHierarchy}}
-RETURNING
-name,
-abbreviation,
-anchor,
-antonyms,
-assignedEntities,
-attributes,
-categories,
-classifications,
-classifies,
-contacts,
-createTime,
-createdBy,
-examples,
-guid,
-hierarchyInfo,
-isA,
-lastModifiedTS,
-longDescription,
-nickName,
-preferredTerms,
-preferredToTerms,
-qualifiedName,
-replacedBy,
-replacementTerms,
-resources,
-seeAlso,
-shortDescription,
-status,
-synonyms,
-templateName,
-translatedTerms,
-translationTerms,
-updateTime,
-updatedBy,
-usage,
-validValues,
-validValuesFor;
-```
-</TabItem>
 </Tabs>
 
 
@@ -1171,9 +1038,7 @@ validValuesFor;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'delete_category', value: 'delete_category' },
-        { label: 'delete_term_assignment_from_entities', value: 'delete_term_assignment_from_entities' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -1187,40 +1052,22 @@ AND endpoint = '{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_category">
-
-Delete a glossary category.
-
-```sql
-DELETE FROM azure.purview_datamap.glossary
-WHERE category_id = '{{ category_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_term_assignment_from_entities">
-
-Delete the term assignment for the given list of related objects.
-
-```sql
-DELETE FROM azure.purview_datamap.glossary
-WHERE term_id = '{{ term_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_related_categories"
+    defaultValue="update_category"
     values={[
+        { label: 'update_category', value: 'update_category' },
+        { label: 'delete_category', value: 'delete_category' },
         { label: 'get_related_categories', value: 'get_related_categories' },
         { label: 'get_category_terms', value: 'get_category_terms' },
+        { label: 'update_term', value: 'update_term' },
         { label: 'get_entities_assigned_with_term', value: 'get_entities_assigned_with_term' },
         { label: 'assign_term_to_entities', value: 'assign_term_to_entities' },
+        { label: 'delete_term_assignment_from_entities', value: 'delete_term_assignment_from_entities' },
         { label: 'get_related_terms', value: 'get_related_terms' },
         { label: 'get_categories', value: 'get_categories' },
         { label: 'get_categories_headers', value: 'get_categories_headers' },
@@ -1238,6 +1085,46 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'partial_update', value: 'partial_update' }
     ]}
 >
+<TabItem value="update_category">
+
+Update the given glossary category by its GUID.
+
+```sql
+EXEC azure.purview_datamap.glossary.update_category 
+@category_id='{{ category_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"guid": "{{ guid }}", 
+"classifications": "{{ classifications }}", 
+"longDescription": "{{ longDescription }}", 
+"name": "{{ name }}", 
+"qualifiedName": "{{ qualifiedName }}", 
+"shortDescription": "{{ shortDescription }}", 
+"lastModifiedTS": "{{ lastModifiedTS }}", 
+"createTime": {{ createTime }}, 
+"createdBy": "{{ createdBy }}", 
+"updateTime": {{ updateTime }}, 
+"updatedBy": "{{ updatedBy }}", 
+"anchor": "{{ anchor }}", 
+"childrenCategories": "{{ childrenCategories }}", 
+"parentCategory": "{{ parentCategory }}", 
+"terms": "{{ terms }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_category">
+
+Delete a glossary category.
+
+```sql
+EXEC azure.purview_datamap.glossary.delete_category 
+@category_id='{{ category_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_related_categories">
 
 Get all related categories (parent and children). Limit, offset, and sort parameters are currently not being enabled and won't work even they are passed.
@@ -1266,6 +1153,58 @@ EXEC azure.purview_datamap.glossary.get_category_terms
 ;
 ```
 </TabItem>
+<TabItem value="update_term">
+
+Update the given glossary term by its GUID.
+
+```sql
+EXEC azure.purview_datamap.glossary.update_term 
+@term_id='{{ term_id }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@includeTermHierarchy={{ includeTermHierarchy }} 
+@@json=
+'{
+"guid": "{{ guid }}", 
+"classifications": "{{ classifications }}", 
+"longDescription": "{{ longDescription }}", 
+"name": "{{ name }}", 
+"qualifiedName": "{{ qualifiedName }}", 
+"shortDescription": "{{ shortDescription }}", 
+"lastModifiedTS": "{{ lastModifiedTS }}", 
+"createTime": {{ createTime }}, 
+"createdBy": "{{ createdBy }}", 
+"updateTime": {{ updateTime }}, 
+"updatedBy": "{{ updatedBy }}", 
+"abbreviation": "{{ abbreviation }}", 
+"templateName": "{{ templateName }}", 
+"anchor": "{{ anchor }}", 
+"antonyms": "{{ antonyms }}", 
+"status": "{{ status }}", 
+"nickName": "{{ nickName }}", 
+"hierarchyInfo": "{{ hierarchyInfo }}", 
+"resources": "{{ resources }}", 
+"contacts": "{{ contacts }}", 
+"attributes": "{{ attributes }}", 
+"assignedEntities": "{{ assignedEntities }}", 
+"categories": "{{ categories }}", 
+"classifies": "{{ classifies }}", 
+"examples": "{{ examples }}", 
+"isA": "{{ isA }}", 
+"preferredTerms": "{{ preferredTerms }}", 
+"preferredToTerms": "{{ preferredToTerms }}", 
+"replacedBy": "{{ replacedBy }}", 
+"replacementTerms": "{{ replacementTerms }}", 
+"seeAlso": "{{ seeAlso }}", 
+"synonyms": "{{ synonyms }}", 
+"translatedTerms": "{{ translatedTerms }}", 
+"translationTerms": "{{ translationTerms }}", 
+"usage": "{{ usage }}", 
+"validValues": "{{ validValues }}", 
+"validValuesFor": "{{ validValuesFor }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_entities_assigned_with_term">
 
 List all related objects assigned with the specified term. Recommend using limit/offset to get pagination result.
@@ -1286,6 +1225,29 @@ Assign the given term to the provided list of related objects. Recommend using s
 
 ```sql
 EXEC azure.purview_datamap.glossary.assign_term_to_entities 
+@term_id='{{ term_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"guid": "{{ guid }}", 
+"typeName": "{{ typeName }}", 
+"uniqueAttributes": "{{ uniqueAttributes }}", 
+"displayText": "{{ displayText }}", 
+"entityStatus": "{{ entityStatus }}", 
+"relationshipType": "{{ relationshipType }}", 
+"relationshipAttributes": "{{ relationshipAttributes }}", 
+"relationshipGuid": "{{ relationshipGuid }}", 
+"relationshipStatus": "{{ relationshipStatus }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_term_assignment_from_entities">
+
+Delete the term assignment for the given list of related objects.
+
+```sql
+EXEC azure.purview_datamap.glossary.delete_term_assignment_from_entities 
 @term_id='{{ term_id }}' --required, 
 @endpoint='{{ endpoint }}' --required 
 @@json=

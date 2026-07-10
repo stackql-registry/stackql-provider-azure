@@ -51,30 +51,16 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_or_update_security_settings"><CopyableCode code="create_or_update_security_settings" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td></td>
-    <td></td>
-    <td>Updates the security settings on a data box edge/gateway device.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Modifies a Data Box Edge/Gateway resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_security_settings"><CopyableCode code="create_or_update_security_settings" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td></td>
-    <td></td>
-    <td>Updates the security settings on a data box edge/gateway device.</td>
-</tr>
-<tr>
     <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Gets the properties of the data box edge/gateway device.</td>
 </tr>
@@ -95,21 +81,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_extended_information"><CopyableCode code="get_extended_information" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Gets additional information for the specified data box edge/gateway device.</td>
 </tr>
 <tr>
     <td><a href="#get_network_settings"><CopyableCode code="get_network_settings" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Gets the network settings of the specified data box edge/gateway device.</td>
 </tr>
 <tr>
     <td><a href="#get_update_summary"><CopyableCode code="get_update_summary" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Gets information about the availability of updates based on the last scan of the device. It also gets information about any ongoing download or install jobs on the device.</td>
 </tr>
@@ -135,9 +121,16 @@ The following methods are available for this resource:
     <td>Scans for updates on a data box edge/gateway device.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_security_settings"><CopyableCode code="create_or_update_security_settings" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td></td>
+    <td></td>
+    <td>Updates the security settings on a data box edge/gateway device.</td>
+</tr>
+<tr>
     <td><a href="#upload_certificate"><CopyableCode code="upload_certificate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Uploads registration certificate for the device.</td>
 </tr>
@@ -185,39 +178,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_or_update_security_settings"
-    values={[
-        { label: 'create_or_update_security_settings', value: 'create_or_update_security_settings' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_or_update_security_settings">
-
-Updates the security settings on a data box edge/gateway device.
-
-```sql
-INSERT INTO azure.edgegateway.devices (
-
-)
-SELECT 
-
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: devices
-  props:
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -235,31 +195,10 @@ UPDATE azure.edgegateway.devices
 SET 
 -- No updatable properties
 WHERE 
-device_name = '{{ device_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
+AND device_name = '{{ device_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 AND accept-language = '{{ accept-language}}';
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="create_or_update_security_settings"
-    values={[
-        { label: 'create_or_update_security_settings', value: 'create_or_update_security_settings' }
-    ]}
->
-<TabItem value="create_or_update_security_settings">
-
-Updates the security settings on a data box edge/gateway device.
-
-```sql
-REPLACE azure.edgegateway.devices
-SET 
--- No updatable properties;
 ```
 </TabItem>
 </Tabs>
@@ -279,6 +218,7 @@ SET
         { label: 'download_updates', value: 'download_updates' },
         { label: 'install_updates', value: 'install_updates' },
         { label: 'scan_for_updates', value: 'scan_for_updates' },
+        { label: 'create_or_update_security_settings', value: 'create_or_update_security_settings' },
         { label: 'upload_certificate', value: 'upload_certificate' }
     ]}
 >
@@ -288,8 +228,8 @@ Gets the properties of the data box edge/gateway device.
 
 ```sql
 EXEC azure.edgegateway.devices.get_raw 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;
@@ -326,8 +266,8 @@ Gets additional information for the specified data box edge/gateway device.
 
 ```sql
 EXEC azure.edgegateway.devices.get_extended_information 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;
@@ -339,8 +279,8 @@ Gets the network settings of the specified data box edge/gateway device.
 
 ```sql
 EXEC azure.edgegateway.devices.get_network_settings 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;
@@ -352,8 +292,8 @@ Gets information about the availability of updates based on the last scan of the
 
 ```sql
 EXEC azure.edgegateway.devices.get_update_summary 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;
@@ -389,14 +329,24 @@ EXEC azure.edgegateway.devices.scan_for_updates
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_security_settings">
+
+Updates the security settings on a data box edge/gateway device.
+
+```sql
+EXEC azure.edgegateway.devices.create_or_update_security_settings 
+
+;
+```
+</TabItem>
 <TabItem value="upload_certificate">
 
 Uploads registration certificate for the device.
 
 ```sql
 EXEC azure.edgegateway.devices.upload_certificate 
-@device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'
 ;

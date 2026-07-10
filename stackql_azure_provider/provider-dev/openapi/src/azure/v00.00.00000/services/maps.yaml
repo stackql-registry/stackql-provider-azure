@@ -867,6 +867,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/accounts/methods/list_sas"
           - $ref: "#/components/x-stackQL-resources/accounts/methods/get"
           - $ref: "#/components/x-stackQL-resources/accounts/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/accounts/methods/list_by_subscription"

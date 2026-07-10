@@ -432,18 +432,6 @@ components:
       enum:
         - Token
         - AAD
-    CredentialResults:
-      type: object
-      description: The list of credential result response.
-      properties:
-        hybridConnectionConfig:
-          $ref: "#/components/schemas/HybridConnectionConfig"
-          description: Contains the REP (rendezvous endpoint) and “Sender” access token.
-        kubeconfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/CredentialResult"
-          description: Base64-encoded Kubernetes configuration file.
     HybridConnectionConfig:
       type: object
       description: Contains the REP (rendezvous endpoint) and “Sender” access token.
@@ -476,6 +464,18 @@ components:
         value:
           type: string
           format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    CredentialResults:
+      type: object
+      description: The list of credential result response.
+      properties:
+        hybridConnectionConfig:
+          $ref: "#/components/schemas/HybridConnectionConfig"
+          description: Contains the REP (rendezvous endpoint) and “Sender” access token.
+        kubeconfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/CredentialResult"
           description: Base64-encoded Kubernetes configuration file.
     ConnectedCluster:
       type: object
@@ -671,13 +671,13 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/list_cluster_user_credential"
           - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/get"
           - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/create_or_replace"
-        update:
-          - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/update_async"
+        update: []
         replace:
           - $ref: "#/components/x-stackQL-resources/connected_cluster/methods/create_or_replace"
         delete:

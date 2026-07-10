@@ -944,6 +944,12 @@ components:
         properties:
           $ref: "#/components/schemas/CostAllocationRuleProperties"
           description: Cost allocation rule properties.
+    Reason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
+        - Valid
     CostAllocationRuleCheckNameAvailabilityResponse:
       type: object
       description: The cost allocation rule check name availability response.
@@ -957,12 +963,6 @@ components:
         message:
           type: string
           description: Error message if the name is not available.
-    Reason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
-        - Valid
     DimensionProperties:
       type: object
       description: Dimension properties.
@@ -2733,6 +2733,11 @@ components:
         kind:
           $ref: "#/components/schemas/ScheduledActionKind"
           description: 'Kind of the scheduled action. Known values are: "Email" and "InsightAlert".'
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+        - Invalid
+        - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -2746,11 +2751,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-        - Invalid
-        - AlreadyExists
     Setting:
       type: object
       description: "Setting definition. You probably want to use the sub-classes and not this class directly. Known sub-classes are: TagInheritanceSetting"
@@ -3647,8 +3647,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/generate_cost_details_report/methods/get_operation_results"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/generate_cost_details_report/methods/create_operation"
+        insert: []
         update: []
         delete: []
     generate_detailed_cost_report_operation_results:
@@ -3711,8 +3710,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/generate_detailed_cost_report/methods/create_operation"
+        insert: []
         update: []
         delete: []
     generate_reservation_details_report:

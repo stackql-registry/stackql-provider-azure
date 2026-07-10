@@ -267,14 +267,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-publisher_name"><code>publisher_name</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-publisher_name"><code>publisher_name</code></a>, <a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a virtual machine extension image.</td>
 </tr>
 <tr>
     <td><a href="#list_versions"><CopyableCode code="list_versions" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-publisher_name"><code>publisher_name</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-publisher_name"><code>publisher_name</code></a>, <a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a></td>
     <td>Gets a list of virtual machine extension image versions.</td>
 </tr>
@@ -316,8 +316,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td></td>
 </tr>
-<tr id="parameter-type">
-    <td><CopyableCode code="type" /></td>
+<tr id="parameter-type_name">
+    <td><CopyableCode code="type_name" /></td>
     <td><code>string</code></td>
     <td>Required.</td>
 </tr>
@@ -374,7 +374,7 @@ vmScaleSetEnabled
 FROM azure.compute.virtual_machine_extension_images
 WHERE location = '{{ location }}' -- required
 AND publisher_name = '{{ publisher_name }}' -- required
-AND type = '{{ type }}' -- required
+AND type_name = '{{ type_name }}' -- required
 AND version = '{{ version }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -400,7 +400,7 @@ vmScaleSetEnabled
 FROM azure.compute.virtual_machine_extension_images
 WHERE location = '{{ location }}' -- required
 AND publisher_name = '{{ publisher_name }}' -- required
-AND type = '{{ type }}' -- required
+AND type_name = '{{ type_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $filter = '{{ $filter }}'
 AND $top = '{{ $top }}'

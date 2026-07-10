@@ -377,22 +377,6 @@ components:
       type: object
       description: Return dataset's statistics.
       properties: {}
-    StacItemStatisticsGeoJson:
-      type: object
-      description: STAC Item representing a spatiotemporal asset with statistical information.
-      properties:
-        geometry:
-          $ref: "#/components/schemas/Geometry"
-          description: Geometry object defining the feature's shape. Required.
-        type:
-          $ref: "#/components/schemas/FeatureType"
-          description: GeoJSON type identifier for Feature. Required. "Feature"
-        properties:
-          $ref: "#/components/schemas/StacItemStatisticsGeoJsonProperties"
-          description: Feature properties.
-      required:
-        - geometry
-        - type
     StacItemStatisticsGeoJsonProperties:
       type: object
       description: Properties for STAC Item statistics GeoJSON Feature.
@@ -403,6 +387,20 @@ components:
           description: Statistical information for each band in the asset. Required.
       required:
         - statistics
+    StacItemStatisticsGeoJsonFlattened:
+      type: object
+      description: Flattened view of StacItemStatisticsGeoJson ('properties' hoisted to the top level).
+      properties:
+        geometry:
+          $ref: "#/components/schemas/Geometry"
+          description: Geometry object defining the feature's shape. Required.
+        type:
+          $ref: "#/components/schemas/FeatureType"
+          description: GeoJSON type identifier for Feature. Required. "Feature"
+        statistics:
+          type: object
+          properties: {}
+          description: Statistical information for each band in the asset. Required.
     TileAddressingScheme:
       type: string
       enum:
@@ -1833,6 +1831,12 @@ components:
             $ref: "#/paths/~1data~1tile-matrix-sets?api-version=2026-04-15/get"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := . }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}]}'
         get_class_map_legend:
           operation:
             $ref: "#/paths/~1data~1legend~1classmap~1{classmap_name}?api-version=2026-04-15/get"
@@ -1956,6 +1960,12 @@ components:
             $ref: "#/paths/~1data~1mosaic~1collections~1{collection_id}~1items~1{item_id}~1assets?api-version=2026-04-15/get"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := . }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}]}'
           request:
             nativeCasing: camel
         get_item_asset_statistics:
@@ -1980,6 +1990,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
           request:
             nativeCasing: camel
           config:
@@ -2471,6 +2485,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/data/methods/get_search_assets_for_tile"
           - $ref: "#/components/x-stackQL-resources/data/methods/get_collection_assets_for_tile"
+          - $ref: "#/components/x-stackQL-resources/data/methods/get_item_feature_statistics"
           - $ref: "#/components/x-stackQL-resources/data/methods/get_item_point"
           - $ref: "#/components/x-stackQL-resources/data/methods/get_tileset_metadata"
           - $ref: "#/components/x-stackQL-resources/data/methods/get_collection_point"
@@ -2481,6 +2496,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/data/methods/get_tile_matrix_definitions"
           - $ref: "#/components/x-stackQL-resources/data/methods/get_collection_tilesets"
           - $ref: "#/components/x-stackQL-resources/data/methods/get_search_tilesets"
+          - $ref: "#/components/x-stackQL-resources/data/methods/get_tile_matrices"
         insert: []
         update: []
         delete: []
@@ -2625,7 +2641,7 @@ components:
           operation:
             $ref: "#/paths/~1inma~1ingestion-sources~1{id}?api-version=2026-04-15/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/get_run"
@@ -2636,15 +2652,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/list_operations"
         insert:
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/create"
-          - $ref: "#/components/x-stackQL-resources/ingestion/methods/create_run"
-          - $ref: "#/components/x-stackQL-resources/ingestion/methods/create_source"
         update:
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/update"
-        replace:
-          - $ref: "#/components/x-stackQL-resources/ingestion/methods/replace_source"
         delete:
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/ingestion/methods/delete_source"
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/cancel_operation"
           - $ref: "#/components/x-stackQL-resources/ingestion/methods/cancel_all_operations"
     sas:
@@ -2714,7 +2725,7 @@ components:
           operation:
             $ref: "#/paths/~1stac~1collections~1{collection_id}~1configurations~1mosaics~1{mosaic_id}?api-version=2026-04-15/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_mosaics:
           operation:
             $ref: "#/paths/~1stac~1collections~1{collection_id}~1configurations~1mosaics?api-version=2026-04-15/get"
@@ -2811,7 +2822,7 @@ components:
           operation:
             $ref: "#/paths/~1stac~1collections~1{collection_id}~1configurations~1render-options~1{render_option_id}?api-version=2026-04-15/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_render_options:
           operation:
             $ref: "#/paths/~1stac~1collections~1{collection_id}~1configurations~1render-options?api-version=2026-04-15/get"
@@ -2984,7 +2995,7 @@ components:
           operation:
             $ref: "#/paths/~1stac~1collections~1{collection_id}~1queryables~1{queryable_name}?api-version=2026-04-15/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         search:
           operation:
             $ref: "#/paths/~1stac~1search?api-version=2026-04-15/post"
@@ -3003,30 +3014,9 @@ components:
           - $ref: "#/components/x-stackQL-resources/stac/methods/get_item"
           - $ref: "#/components/x-stackQL-resources/stac/methods/get_collection_configuration"
           - $ref: "#/components/x-stackQL-resources/stac/methods/get_collections"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/stac/methods/create_collection"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/create_render_option"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/create_queryables"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/create_collection_asset"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/create_item"
-        update:
-          - $ref: "#/components/x-stackQL-resources/stac/methods/update_item"
-        replace:
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_item"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_collection"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_mosaic"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_render_option"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_collection_asset"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_queryable"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_tile_settings"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/replace_partition_type"
-        delete:
-          - $ref: "#/components/x-stackQL-resources/stac/methods/delete_mosaic"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/delete_render_option"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/delete_item"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/delete_collection_asset"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/delete_queryable"
-          - $ref: "#/components/x-stackQL-resources/stac/methods/delete_collection"
+        insert: []
+        update: []
+        delete: []
 paths:
   /data/tile-matrix-sets/{tile_matrix_set_id}?api-version=2026-04-15:
     get:
@@ -3054,6 +3044,18 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
   /data/legend/classmap/{classmap_name}?api-version=2026-04-15:
     get:
       operationId: Data_get_class_map_legend
@@ -4926,6 +4928,18 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
   /data/mosaic/collections/{collection_id}/items/{item_id}/asset_statistics?api-version=2026-04-15:
     get:
       operationId: Data_get_item_asset_statistics
@@ -5432,7 +5446,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StacItemStatisticsGeoJson"
+                $ref: "#/components/schemas/StacItemStatisticsGeoJsonFlattened"
   /data/mosaic/collections/{collection_id}/items/{item_id}/tilejson.json?api-version=2026-04-15:
     get:
       operationId: Data_get_item_tile_json
@@ -16832,8 +16846,8 @@ paths:
             type: string
           description: Ingestion source id. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /sas/sign?api-version=2026-04-15:
     get:
       operationId: Sas_get_url
@@ -17004,8 +17018,8 @@ paths:
             type: string
           description: Unique identifier for the mosaic configuration. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /stac/collections/{collection_id}/configurations/mosaics?api-version=2026-04-15:
     get:
       operationId: Stac_get_mosaics
@@ -17456,8 +17470,8 @@ paths:
             type: string
           description: Unique identifier for the render option. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /stac/collections/{collection_id}/configurations/render-options?api-version=2026-04-15:
     get:
       operationId: Stac_get_render_options
@@ -18193,8 +18207,8 @@ paths:
             type: string
           description: Name of the queryable property to operate on. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /stac/search?api-version=2026-04-15:
     post:
       operationId: Stac_search

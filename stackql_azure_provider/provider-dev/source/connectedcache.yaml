@@ -655,34 +655,6 @@ components:
           description: The resource-specific properties for this resource.
       required:
       - location
-    MccCacheNodeInstallDetails:
-      type: object
-      description: Mcc cache node resource all install details.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        tags:
-          type: object
-          properties: {}
-          description: Resource tags.
-        location:
-          type: string
-          description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/CacheNodeInstallProperties'
-          description: Mcc cache node resource install script details.
-      required:
-      - location
     CacheNodeInstallProperties:
       type: object
       description: Mcc cache node resource install script properties.
@@ -713,9 +685,9 @@ components:
         proxyUrlConfiguration:
           $ref: '#/components/schemas/ProxyUrlConfiguration'
           description: proxyUrl configuration of the cache node.
-    MccCacheNodeAutoUpdateHistory:
+    MccCacheNodeInstallDetailsFlattened:
       type: object
-      description: Mcc cache node resource auto update history.
+      description: Flattened view of MccCacheNodeInstallDetails ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -736,11 +708,32 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/MccCacheNodeAutoUpdateHistoryProperties'
-          description: Mcc cache node resource auto update history properties.
-      required:
-      - location
+        customerId:
+          type: string
+          description: Mcc customer resource Id.
+        cacheNodeId:
+          type: string
+          description: Mcc cache node resource Id.
+        primaryAccountKey:
+          type: string
+          description: Mcc primary account key. Internal to Mcc.
+        secondaryAccountKey:
+          type: string
+          description: Mcc secondary account key. Internal to Mcc.
+        registrationKey:
+          type: string
+          description: Mcc Iot Central temporary device registration key, used once.
+        tlsCertificateProvisioningKey:
+          type: string
+          description: Mcc Tls certificate provisioning key.
+        driveConfiguration:
+          type: array
+          items:
+            $ref: '#/components/schemas/CacheNodeDriveConfiguration'
+          description: Cache node resource drive configurations.
+        proxyUrlConfiguration:
+          $ref: '#/components/schemas/ProxyUrlConfiguration'
+          description: proxyUrl configuration of the cache node.
     MccCacheNodeAutoUpdateHistoryProperties:
       type: object
       description: Mcc cache node resource auto update history properties.
@@ -756,9 +749,9 @@ components:
           items:
             $ref: '#/components/schemas/MccCacheNodeAutoUpdateInfo'
           description: Cache node resource auto update history information.
-    MccCacheNodeIssueHistory:
+    MccCacheNodeAutoUpdateHistoryFlattened:
       type: object
-      description: Mcc cache node resource issue history.
+      description: Flattened view of MccCacheNodeAutoUpdateHistory ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -779,11 +772,17 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/MccCacheNodeIssueHistoryProperties'
-          description: Mcc cache node resource issue history properties.
-      required:
-      - location
+        customerId:
+          type: string
+          description: Mcc customer resource Id.
+        cacheNodeId:
+          type: string
+          description: Mcc cache node resource Id.
+        autoUpdateHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/MccCacheNodeAutoUpdateInfo'
+          description: Cache node resource auto update history information.
     MccCacheNodeIssueHistoryProperties:
       type: object
       description: Mcc cache node resource issue history properties.
@@ -823,9 +822,9 @@ components:
           type: string
           format: date-time
           description: Mcc cache node issue end date.
-    MccCacheNodeTlsCertificateHistory:
+    MccCacheNodeIssueHistoryFlattened:
       type: object
-      description: Mcc cache node resource Tls certificate history details.
+      description: Flattened view of MccCacheNodeIssueHistory ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -846,15 +845,55 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/MccCacheNodeTlsCertificateProperties'
-          description: Mcc cache node resource Tls certificate details.
-      required:
-      - location
+        customerId:
+          type: string
+          description: Mcc customer resource Id.
+        cacheNodeId:
+          type: string
+          description: Mcc cache node resource Id.
+        mccIssueHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/MccIssue'
+          description: Cache node resource issue details history.
     MccCacheNodeTlsCertificateProperties:
       type: object
       description: Mcc cache node resource auto update properties.
       properties:
+        customerId:
+          type: string
+          description: Mcc customer resource Id.
+        cacheNodeId:
+          type: string
+          description: Mcc cache node resource Id.
+        tlsCertificateHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/MccCacheNodeTlsCertificate'
+          description: Cache node resource tls certificate history details.
+    MccCacheNodeTlsCertificateHistoryFlattened:
+      type: object
+      description: Flattened view of MccCacheNodeTlsCertificateHistory ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        location:
+          type: string
+          description: The geo-location where the resource lives. Required.
         customerId:
           type: string
           description: Mcc customer resource Id.
@@ -1228,9 +1267,18 @@ components:
           description: The resource-specific properties for this resource.
       required:
       - location
-    MccCacheNodeBgpCidrDetails:
+    BgpCidrsConfiguration:
       type: object
-      description: Represents all Cidr details of the Bgp request for a specific cache node resource.
+      description: Mcc cache node Bgp Cidr details.
+      properties:
+        bgpCidrs:
+          type: array
+          items:
+            type: string
+          description: Mcc cache node Bgp Cidr details.
+    MccCacheNodeBgpCidrDetailsFlattened:
+      type: object
+      description: Flattened view of MccCacheNodeBgpCidrDetails ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -1251,15 +1299,6 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/BgpCidrsConfiguration'
-          description: Mcc cache node resource Bgp Cidr properties.
-      required:
-      - location
-    BgpCidrsConfiguration:
-      type: object
-      description: Mcc cache node Bgp Cidr details.
-      properties:
         bgpCidrs:
           type: array
           items:
@@ -1659,10 +1698,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeInstallDetails'
+                $ref: '#/components/schemas/MccCacheNodeInstallDetailsFlattened'
       x-stackql-resource: enterprise_mcc_cache_nodes_operations
       x-stackql-method: get_cache_node_install_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/enterpriseMccCustomers/{customer_resource_name}/enterpriseMccCacheNodes/{cache_node_resource_name}/getCacheNodeAutoUpdateHistory?api-version=2024-11-30-preview
   : post:
       operationId: EnterpriseMccCacheNodesOperations_get_cache_node_auto_update_history
@@ -1697,10 +1737,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeAutoUpdateHistory'
+                $ref: '#/components/schemas/MccCacheNodeAutoUpdateHistoryFlattened'
       x-stackql-resource: enterprise_mcc_cache_nodes_operations
       x-stackql-method: get_cache_node_auto_update_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/enterpriseMccCustomers/{customer_resource_name}/enterpriseMccCacheNodes/{cache_node_resource_name}/getCacheNodeMccIssueDetailsHistory?api-version=2024-11-30-preview
   : post:
       operationId: EnterpriseMccCacheNodesOperations_get_cache_node_mcc_issue_details_history
@@ -1735,10 +1776,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeIssueHistory'
+                $ref: '#/components/schemas/MccCacheNodeIssueHistoryFlattened'
       x-stackql-resource: enterprise_mcc_cache_nodes_operations
       x-stackql-method: get_cache_node_mcc_issue_details_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/enterpriseMccCustomers/{customer_resource_name}/enterpriseMccCacheNodes/{cache_node_resource_name}/getCacheNodeTlsCertificateHistory?api-version=2024-11-30-preview
   : post:
       operationId: EnterpriseMccCacheNodesOperations_get_cache_node_tls_certificate_history
@@ -1773,10 +1815,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeTlsCertificateHistory'
+                $ref: '#/components/schemas/MccCacheNodeTlsCertificateHistoryFlattened'
       x-stackql-resource: enterprise_mcc_cache_nodes_operations
       x-stackql-method: get_cache_node_tls_certificate_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/enterpriseMccCustomers/{customer_resource_name}?api-version=2024-11-30-preview
   : get:
       operationId: EnterpriseMccCustomers_get
@@ -2228,10 +2271,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeBgpCidrDetails'
+                $ref: '#/components/schemas/MccCacheNodeBgpCidrDetailsFlattened'
       x-stackql-resource: isp_cache_nodes_operations
       x-stackql-method: get_bgp_cidrs
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/ispCustomers/{customer_resource_name}/ispCacheNodes/{cache_node_resource_name}/getCacheNodeInstallDetails?api-version=2024-11-30-preview
   : post:
       operationId: IspCacheNodesOperations_get_cache_node_install_details
@@ -2266,10 +2310,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeInstallDetails'
+                $ref: '#/components/schemas/MccCacheNodeInstallDetailsFlattened'
       x-stackql-resource: isp_cache_nodes_operations
       x-stackql-method: get_cache_node_install_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/ispCustomers/{customer_resource_name}/ispCacheNodes/{cache_node_resource_name}/getCacheNodeAutoUpdateHistory?api-version=2024-11-30-preview
   : post:
       operationId: IspCacheNodesOperations_get_cache_node_auto_update_history
@@ -2304,10 +2349,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeAutoUpdateHistory'
+                $ref: '#/components/schemas/MccCacheNodeAutoUpdateHistoryFlattened'
       x-stackql-resource: isp_cache_nodes_operations
       x-stackql-method: get_cache_node_auto_update_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/ispCustomers/{customer_resource_name}/ispCacheNodes/{cache_node_resource_name}/getCacheNodeMccIssueDetailsHistory?api-version=2024-11-30-preview
   : post:
       operationId: IspCacheNodesOperations_get_cache_node_mcc_issue_details_history
@@ -2342,10 +2388,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MccCacheNodeIssueHistory'
+                $ref: '#/components/schemas/MccCacheNodeIssueHistoryFlattened'
       x-stackql-resource: isp_cache_nodes_operations
       x-stackql-method: get_cache_node_mcc_issue_details_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedCache/ispCustomers/{customer_resource_name}?api-version=2024-11-30-preview
   : get:
       operationId: IspCustomers_get

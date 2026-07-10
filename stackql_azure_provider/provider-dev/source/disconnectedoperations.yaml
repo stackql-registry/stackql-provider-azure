@@ -812,7 +812,7 @@ paths:
                 $ref: '#/components/schemas/ArtifactDownloadResult'
       x-stackql-resource: artifacts
       x-stackql-method: list_download_uri
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/disconnectedOperations/{name}?api-version=2026-03-15
   : get:
       operationId: DisconnectedOperations_get
@@ -1051,7 +1051,7 @@ paths:
                 $ref: '#/components/schemas/DisconnectedOperationDeploymentManifest'
       x-stackql-resource: disconnected_operations
       x-stackql-method: list_deployment_manifest
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Edge/disconnectedOperations/{name}/hardwareSettings/{hardware_setting_name}?api-version=2026-03-15
   : get:
       operationId: HardwareSettings_get
@@ -1335,4 +1335,4 @@ paths:
                 $ref: '#/components/schemas/ImageDownloadResult'
       x-stackql-resource: images
       x-stackql-method: list_download_uri
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

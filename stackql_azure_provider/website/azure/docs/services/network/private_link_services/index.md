@@ -534,25 +534,11 @@ The following methods are available for this resource:
     <td>Creates or updates an private link service in the specified resource group.</td>
 </tr>
 <tr>
-    <td><a href="#update_private_endpoint_connection"><CopyableCode code="update_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-pe_connection_name"><code>pe_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Approve or reject private end point connection for a private link service in a subscription.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates an private link service in the specified resource group.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-pe_connection_name"><code>pe_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete private end point connection for a private link service in a subscription.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -567,6 +553,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets all private end point connections for a specific private link service.</td>
+</tr>
+<tr>
+    <td><a href="#update_private_endpoint_connection"><CopyableCode code="update_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-pe_connection_name"><code>pe_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Approve or reject private end point connection for a private link service in a subscription.</td>
+</tr>
+<tr>
+    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-pe_connection_name"><code>pe_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete private end point connection for a private link service in a subscription.</td>
 </tr>
 <tr>
     <td><a href="#check_private_link_service_visibility"><CopyableCode code="check_private_link_service_visibility" /></a></td>
@@ -1183,40 +1183,6 @@ type
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_private_endpoint_connection"
-    values={[
-        { label: 'update_private_endpoint_connection', value: 'update_private_endpoint_connection' }
-    ]}
->
-<TabItem value="update_private_endpoint_connection">
-
-Approve or reject private end point connection for a private link service in a subscription.
-
-```sql
-UPDATE azure.network.private_link_services
-SET 
-id = '{{ id }}',
-name = '{{ name }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND service_name = '{{ service_name }}' --required
-AND pe_connection_name = '{{ pe_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-etag,
-properties,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## `REPLACE` examples
 
 <Tabs
@@ -1258,25 +1224,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_private_endpoint_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_private_endpoint_connection">
-
-Delete private end point connection for a private link service in a subscription.
-
-```sql
-DELETE FROM azure.network.private_link_services
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND service_name = '{{ service_name }}' --required
-AND pe_connection_name = '{{ pe_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes the specified private link service.
@@ -1298,6 +1250,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_private_endpoint_connections"
     values={[
         { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' },
+        { label: 'update_private_endpoint_connection', value: 'update_private_endpoint_connection' },
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'check_private_link_service_visibility', value: 'check_private_link_service_visibility' },
         { label: 'check_private_link_service_visibility_by_resource_group', value: 'check_private_link_service_visibility_by_resource_group' }
     ]}
@@ -1310,6 +1264,38 @@ Gets all private end point connections for a specific private link service.
 EXEC azure.network.private_link_services.list_private_endpoint_connections 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @service_name='{{ service_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_private_endpoint_connection">
+
+Approve or reject private end point connection for a private link service in a subscription.
+
+```sql
+EXEC azure.network.private_link_services.update_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@service_name='{{ service_name }}' --required, 
+@pe_connection_name='{{ pe_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"name": "{{ name }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_private_endpoint_connection">
+
+Delete private end point connection for a private link service in a subscription.
+
+```sql
+EXEC azure.network.private_link_services.delete_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@service_name='{{ service_name }}' --required, 
+@pe_connection_name='{{ pe_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

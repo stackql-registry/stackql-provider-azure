@@ -993,6 +993,41 @@ components:
             $ref: '#/components/schemas/BillingAccountFlattened'
         nextLink:
           type: string
+    BillingProfileStatus:
+      type: string
+      enum:
+      - Other
+      - Active
+      - Disabled
+      - Warned
+      - Deleted
+      - UnderReview
+    BillingProfileStatusReasonCode:
+      type: string
+      enum:
+      - Other
+      - PastDue
+      - UnusualActivity
+      - SpendingLimitReached
+      - SpendingLimitExpired
+    SpendingLimit:
+      type: string
+      enum:
+      - 'Off'
+      - 'On'
+    AzurePlan:
+      type: object
+      description: Details of the Azure plan.
+      properties:
+        productId:
+          type: string
+          description: The ID that uniquely identifies a product.
+        skuId:
+          type: string
+          description: The ID that uniquely identifies a sku.
+        skuDescription:
+          type: string
+          description: The sku description.
     InvoiceSectionWithCreateSubPermission:
       type: object
       description: Invoice section properties with create subscription permission.
@@ -1031,41 +1066,6 @@ components:
         invoiceSectionSystemId:
           type: string
           description: The system generated unique identifier for an invoice section.
-    BillingProfileStatus:
-      type: string
-      enum:
-      - Other
-      - Active
-      - Disabled
-      - Warned
-      - Deleted
-      - UnderReview
-    BillingProfileStatusReasonCode:
-      type: string
-      enum:
-      - Other
-      - PastDue
-      - UnusualActivity
-      - SpendingLimitReached
-      - SpendingLimitExpired
-    SpendingLimit:
-      type: string
-      enum:
-      - 'Off'
-      - 'On'
-    AzurePlan:
-      type: object
-      description: Details of the Azure plan.
-      properties:
-        productId:
-          type: string
-          description: The ID that uniquely identifies a product.
-        skuId:
-          type: string
-          description: The ID that uniquely identifies a sku.
-        skuDescription:
-          type: string
-          description: The sku description.
     PagedInvoiceSectionWithCreateSubPermission:
       type: object
       properties:
@@ -1179,6 +1179,12 @@ components:
             $ref: '#/components/schemas/BillingPermission'
         nextLink:
           type: string
+    AccessDecision:
+      type: string
+      enum:
+      - Other
+      - Allowed
+      - NotAllowed
     CheckAccessResponse:
       type: object
       description: The properties of a check access response.
@@ -1190,12 +1196,6 @@ components:
         action:
           type: string
           description: Gets or sets an action.
-    AccessDecision:
-      type: string
-      enum:
-      - Other
-      - Allowed
-      - NotAllowed
     BillingProfileProperties:
       type: object
       description: A billing profile.
@@ -8808,7 +8808,8 @@ paths:
                 $ref: '#/components/schemas/PagedInvoiceSectionWithCreateSubPermission'
       x-stackql-resource: billing_accounts
       x-stackql-method: list_invoice_sections_by_create_subscription_permission
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/addPaymentTerms?api-version=2024-04-01:
     post:
       operationId: BillingAccounts_begin_add_payment_terms
@@ -9172,7 +9173,7 @@ paths:
                 $ref: '#/components/schemas/CheckAccessResponse'
       x-stackql-resource: billing_permissions
       x-stackql-method: check_access_by_billing_account
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/billingProfiles/{billing_profile_name}/checkAccess?api-version=2024-04-01
   : post:
       operationId: BillingPermissions_check_access_by_billing_profile
@@ -9212,7 +9213,7 @@ paths:
                 $ref: '#/components/schemas/CheckAccessResponse'
       x-stackql-resource: billing_permissions
       x-stackql-method: check_access_by_billing_profile
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/billingProfiles/{billing_profile_name}/customers/{customer_name}/checkAccess?api-version=2024-04-01
   : post:
       operationId: BillingPermissions_check_access_by_customer
@@ -9258,7 +9259,7 @@ paths:
                 $ref: '#/components/schemas/CheckAccessResponse'
       x-stackql-resource: billing_permissions
       x-stackql-method: check_access_by_customer
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/departments/{department_name}/checkAccess?api-version=2024-04-01
   : post:
       operationId: BillingPermissions_check_access_by_department
@@ -9298,7 +9299,7 @@ paths:
                 $ref: '#/components/schemas/CheckAccessResponse'
       x-stackql-resource: billing_permissions
       x-stackql-method: check_access_by_department
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/enrollmentAccounts/{enrollment_account_name}/checkAccess?api-version=2024-04-01
   : post:
       operationId: BillingPermissions_check_access_by_enrollment_account
@@ -9338,7 +9339,7 @@ paths:
                 $ref: '#/components/schemas/CheckAccessResponse'
       x-stackql-resource: billing_permissions
       x-stackql-method: check_access_by_enrollment_account
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/billingProfiles/{billing_profile_name}/invoiceSections/{invoice_section_name}/checkAccess?api-version=2024-04-01
   : post:
       operationId: BillingPermissions_check_access_by_invoice_section
@@ -9384,7 +9385,7 @@ paths:
                 $ref: '#/components/schemas/CheckAccessResponse'
       x-stackql-resource: billing_permissions
       x-stackql-method: check_access_by_invoice_section
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Billing/billingAccounts/{billing_account_name}/billingProfiles/{billing_profile_name}?api-version=2024-04-01
   : get:
       operationId: BillingProfiles_get

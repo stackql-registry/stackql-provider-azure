@@ -251,13 +251,6 @@ The following methods are available for this resource:
     <td>Lists the WCF relays within the namespace.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates or updates an authorization rule for a WCF relay.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -265,25 +258,11 @@ The following methods are available for this resource:
     <td>Creates or updates a WCF relay. This operation is idempotent.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates or updates an authorization rule for a WCF relay.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a WCF relay. This operation is idempotent.</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a WCF relay authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -305,6 +284,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Primary and secondary connection strings to the WCF relay.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Creates or updates an authorization rule for a WCF relay.</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a WCF relay authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#regenerate_keys"><CopyableCode code="regenerate_keys" /></a></td>
@@ -441,41 +434,12 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an authorization rule for a WCF relay.
-
-```sql
-INSERT INTO azure.relay.wcf_relays (
-properties,
-resource_group_name,
-namespace_name,
-relay_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ relay_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a WCF relay. This operation is idempotent.
@@ -516,9 +480,6 @@ type
     - name: relay_name
       value: "{{ relay_name }}"
       description: Required parameter for the wcf_relays resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the wcf_relays resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the wcf_relays resource.
@@ -537,34 +498,11 @@ type
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an authorization rule for a WCF relay.
-
-```sql
-REPLACE azure.relay.wcf_relays
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-properties,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates a WCF relay. This operation is idempotent.
@@ -591,26 +529,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a WCF relay authorization rule.
-
-```sql
-DELETE FROM azure.relay.wcf_relays
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a WCF relay.
@@ -634,6 +557,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
 >
@@ -656,6 +581,38 @@ Primary and secondary connection strings to the WCF relay.
 
 ```sql
 EXEC azure.relay.wcf_relays.list_keys 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates or updates an authorization rule for a WCF relay.
+
+```sql
+EXEC azure.relay.wcf_relays.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a WCF relay authorization rule.
+
+```sql
+EXEC azure.relay.wcf_relays.delete_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @relay_name='{{ relay_name }}' --required, 

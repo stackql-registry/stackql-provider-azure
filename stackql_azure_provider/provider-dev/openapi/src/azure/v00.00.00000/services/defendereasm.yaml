@@ -285,8 +285,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/labels/methods/get_by_workspace"
           - $ref: "#/components/x-stackQL-resources/labels/methods/list_by_workspace"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/labels/methods/create_and_update"
+        insert: []
         update:
           - $ref: "#/components/x-stackQL-resources/labels/methods/update"
         delete:
@@ -388,8 +387,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/workspaces/methods/get"
           - $ref: "#/components/x-stackQL-resources/workspaces/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/workspaces/methods/list_by_subscription"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/workspaces/methods/create_and_update"
+        insert: []
         update:
           - $ref: "#/components/x-stackQL-resources/workspaces/methods/update"
         delete:

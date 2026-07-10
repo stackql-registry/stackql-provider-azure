@@ -548,13 +548,6 @@ The following methods are available for this resource:
     <td>Creates or updates a Data Box Edge/Data Box Gateway resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_security_settings"><CopyableCode code="create_or_update_security_settings" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Updates the security settings on a Data Box Edge/Data Box Gateway device.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -567,13 +560,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates or updates a Data Box Edge/Data Box Gateway resource.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_security_settings"><CopyableCode code="create_or_update_security_settings" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Updates the security settings on a Data Box Edge/Data Box Gateway device.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -630,6 +616,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Scans for updates on a Data Box Edge/Data Box Gateway device.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_security_settings"><CopyableCode code="create_or_update_security_settings" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Updates the security settings on a Data Box Edge/Data Box Gateway device.</td>
 </tr>
 <tr>
     <td><a href="#update_extended_information"><CopyableCode code="update_extended_information" /></a></td>
@@ -825,7 +818,6 @@ AND $expand = '{{ $expand }}'
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_security_settings', value: 'create_or_update_security_settings' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -870,25 +862,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_security_settings">
-
-Updates the security settings on a Data Box Edge/Data Box Gateway device.
-
-```sql
-INSERT INTO azure.databoxedge.devices (
-properties,
-device_name,
-resource_group_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ device_name }}',
-'{{ resource_group_name }}',
-'{{ subscription_id }}'
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -913,12 +886,51 @@ SELECT
         The geo-location where the resource lives. Required.
     - name: properties
       description: |
-        Properties of the security settings. Required.
+        The properties of the Data Box Edge/Gateway device.
       value:
-        deviceAdminPassword:
-          value: "{{ value }}"
-          encryptionCertThumbprint: "{{ encryptionCertThumbprint }}"
-          encryptionAlgorithm: "{{ encryptionAlgorithm }}"
+        systemData:
+          createdBy: "{{ createdBy }}"
+          createdByType: "{{ createdByType }}"
+          createdAt: "{{ createdAt }}"
+          lastModifiedBy: "{{ lastModifiedBy }}"
+          lastModifiedByType: "{{ lastModifiedByType }}"
+          lastModifiedAt: "{{ lastModifiedAt }}"
+        dataBoxEdgeDeviceStatus: "{{ dataBoxEdgeDeviceStatus }}"
+        serialNumber: "{{ serialNumber }}"
+        description: "{{ description }}"
+        modelDescription: "{{ modelDescription }}"
+        deviceType: "{{ deviceType }}"
+        friendlyName: "{{ friendlyName }}"
+        culture: "{{ culture }}"
+        deviceModel: "{{ deviceModel }}"
+        deviceSoftwareVersion: "{{ deviceSoftwareVersion }}"
+        deviceLocalCapacity: {{ deviceLocalCapacity }}
+        timeZone: "{{ timeZone }}"
+        deviceHcsVersion: "{{ deviceHcsVersion }}"
+        configuredRoleTypes:
+          - "{{ configuredRoleTypes }}"
+        nodeCount: {{ nodeCount }}
+        resourceMoveDetails:
+          operationInProgress: "{{ operationInProgress }}"
+          operationInProgressLockTimeoutInUTC: "{{ operationInProgressLockTimeoutInUTC }}"
+        edgeProfile:
+          subscription:
+            registrationId: "{{ registrationId }}"
+            id: "{{ id }}"
+            state: "{{ state }}"
+            registrationDate: "{{ registrationDate }}"
+            subscriptionId: "{{ subscriptionId }}"
+            properties:
+              tenantId: "{{ tenantId }}"
+              locationPlacementId: "{{ locationPlacementId }}"
+              quotaId: "{{ quotaId }}"
+              serializedDetails: "{{ serializedDetails }}"
+              registeredFeatures:
+                - name: "{{ name }}"
+                  state: "{{ state }}"
+        dataResidency:
+          type: "{{ type }}"
+        kubernetesWorkloadProfile: "{{ kubernetesWorkloadProfile }}"
     - name: sku
       description: |
         The SKU type.
@@ -986,8 +998,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_security_settings', value: 'create_or_update_security_settings' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1020,21 +1031,6 @@ sku,
 systemData,
 tags,
 type;
-```
-</TabItem>
-<TabItem value="create_or_update_security_settings">
-
-Updates the security settings on a Data Box Edge/Data Box Gateway device.
-
-```sql
-REPLACE azure.databoxedge.devices
-SET 
-properties = '{{ properties }}'
-WHERE 
-device_name = '{{ device_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required;
 ```
 </TabItem>
 </Tabs>
@@ -1075,6 +1071,7 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'generate_certificate', value: 'generate_certificate' },
         { label: 'install_updates', value: 'install_updates' },
         { label: 'scan_for_updates', value: 'scan_for_updates' },
+        { label: 'create_or_update_security_settings', value: 'create_or_update_security_settings' },
         { label: 'update_extended_information', value: 'update_extended_information' },
         { label: 'upload_certificate', value: 'upload_certificate' }
     ]}
@@ -1160,6 +1157,22 @@ EXEC azure.databoxedge.devices.scan_for_updates
 @device_name='{{ device_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_security_settings">
+
+Updates the security settings on a Data Box Edge/Data Box Gateway device.
+
+```sql
+EXEC azure.databoxedge.devices.create_or_update_security_settings 
+@device_name='{{ device_name }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

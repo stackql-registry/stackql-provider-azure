@@ -132,13 +132,6 @@ components:
       enum:
         - SSH
         - WAC
-    EndpointAccessResource:
-      type: object
-      description: The endpoint access for the target resource.
-      properties:
-        relay:
-          $ref: "#/components/schemas/RelayNamespaceAccessProperties"
-          description: Azure relay hybrid connection access properties.
     RelayNamespaceAccessProperties:
       type: object
       description: Azure relay hybrid connection access properties.
@@ -165,16 +158,13 @@ components:
         - namespaceName
         - namespaceNameSuffix
         - hybridConnectionName
-    IngressGatewayResource:
+    EndpointAccessResource:
       type: object
-      description: The ingress gateway access credentials.
+      description: The endpoint access for the target resource.
       properties:
         relay:
           $ref: "#/components/schemas/RelayNamespaceAccessProperties"
           description: Azure relay hybrid connection access properties.
-        ingress:
-          $ref: "#/components/schemas/IngressProfileProperties"
-          description: Ingress gateway profile.
     IngressProfileProperties:
       type: object
       description: Ingress gateway profile.
@@ -201,6 +191,16 @@ components:
       required:
         - serverId
         - tenantId
+    IngressGatewayResource:
+      type: object
+      description: The ingress gateway access credentials.
+      properties:
+        relay:
+          $ref: "#/components/schemas/RelayNamespaceAccessProperties"
+          description: Azure relay hybrid connection access properties.
+        ingress:
+          $ref: "#/components/schemas/IngressProfileProperties"
+          description: Ingress gateway profile.
     ManagedProxyResource:
       type: object
       description: Managed Proxy.
@@ -938,6 +938,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/endpoints/methods/list_managed_proxy_details"
           - $ref: "#/components/x-stackQL-resources/endpoints/methods/get"
           - $ref: "#/components/x-stackQL-resources/endpoints/methods/list"
         insert:
@@ -1179,8 +1180,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/service_configurations/methods/get"
           - $ref: "#/components/x-stackQL-resources/service_configurations/methods/list_by_endpoint_resource"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/service_configurations/methods/create_orupdate"
+        insert: []
         update:
           - $ref: "#/components/x-stackQL-resources/service_configurations/methods/update"
         delete:

@@ -5153,7 +5153,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/clusters/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/clusters/methods/create"
-          - $ref: "#/components/x-stackQL-resources/clusters/methods/create_identity"
         update:
           - $ref: "#/components/x-stackQL-resources/clusters/methods/update"
         delete:

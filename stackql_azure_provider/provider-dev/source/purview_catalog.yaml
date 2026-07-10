@@ -84,7 +84,7 @@ paths:
           description: Success
       x-stackql-resource: collection
       x-stackql-method: create_or_update_bulk
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /collections/{collection}/entity/moveHere?api-version=2022-03-01-preview:
     post:
       operationId: Collection_move_entities_to_collection
@@ -126,7 +126,7 @@ paths:
           description: Success
       x-stackql-resource: discovery
       x-stackql-method: query
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /search/suggest?api-version=2022-03-01-preview:
     post:
       operationId: Discovery_suggest
@@ -222,7 +222,7 @@ paths:
           description: Success
       x-stackql-resource: entity
       x-stackql-method: create_or_update_entities
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: Entity_delete_by_guids
       description: Delete a list of entities in bulk identified by their GUIDs or unique attributes.
@@ -465,11 +465,11 @@ paths:
           type: string
         description: The name of the classification.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: entity
       x-stackql-method: delete_classification
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /atlas/v2/entity/guid/{guid}/classifications:
     get:
       operationId: Entity_get_classifications
@@ -532,7 +532,7 @@ paths:
           description: Success
       x-stackql-resource: entity
       x-stackql-method: update_classifications
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /atlas/v2/entity/bulk/uniqueAttribute/type/{type_name}:
     get:
       operationId: Entity_get_entities_by_unique_attributes
@@ -642,11 +642,11 @@ paths:
           type: string
         description: The qualified name of the entity. Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: entity
       x-stackql-method: delete_classification_by_unique_attribute
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /atlas/v2/entity/uniqueAttribute/type/{type_name}/classifications:
     post:
       operationId: Entity_add_classifications_by_unique_attribute
@@ -705,7 +705,7 @@ paths:
           description: Success
       x-stackql-resource: entity
       x-stackql-method: update_classifications_by_unique_attribute
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /atlas/v2/entity/bulk/setClassifications:
     post:
       operationId: Entity_set_classifications
@@ -736,11 +736,11 @@ paths:
           type: string
         description: The globally unique identifier of the entity.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: entity
       x-stackql-method: delete_business_metadata
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     post:
       operationId: Entity_add_or_update_business_metadata
       description: Add business metadata to an entity.
@@ -788,11 +788,11 @@ paths:
           type: string
         description: The globally unique identifier of the entity.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: entity
       x-stackql-method: delete_business_metadata_attributes
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     post:
       operationId: Entity_add_or_update_business_metadata_attributes
       description: Add or update business metadata attributes.
@@ -834,11 +834,11 @@ paths:
           type: string
         description: The globally unique identifier of the entity.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: entity
       x-stackql-method: delete_labels
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     post:
       operationId: Entity_set_labels
       description: Set labels to a given entity.
@@ -907,11 +907,11 @@ paths:
           type: string
         description: The qualified name of the entity. Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: entity
       x-stackql-method: delete_labels_by_unique_attribute
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     post:
       operationId: Entity_set_labels_by_unique_attribute
       description: 'Set labels to a given entity identified by its type and unique attributes, if labels is null/empty,
@@ -1532,11 +1532,11 @@ paths:
           type: string
         description: The globally unique identifier for glossary term.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: glossary
       x-stackql-method: delete_term_assignment_from_entities
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /atlas/v2/glossary/{glossary_guid}:
     get:
       operationId: Glossary_get_glossary
@@ -2319,11 +2319,11 @@ paths:
           type: string
         description: The name of the type.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: types
       x-stackql-method: delete_type_by_name
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /atlas/v2/types/typedefs:
     get:
       operationId: Types_get_all_type_definitions
@@ -2366,7 +2366,7 @@ paths:
           description: Success
       x-stackql-resource: types
       x-stackql-method: create_type_definitions
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     put:
       operationId: Types_update_atlas_type_definitions
       description: Update all types in bulk, changes detected in the type definitions would be persisted.
@@ -2383,17 +2383,17 @@ paths:
           description: Success
       x-stackql-resource: types
       x-stackql-method: update_atlas_type_definitions
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: Types_delete_type_definitions
       description: Delete API for all types in bulk.
       parameters: []
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: types
       x-stackql-method: delete_type_definitions
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /types/termtemplatedef/guid/{guid}?api-version=2022-03-01-preview:
     get:
       operationId: Types_get_term_template_def_by_guid

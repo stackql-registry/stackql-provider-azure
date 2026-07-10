@@ -5889,6 +5889,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/cloud_vm_clusters/methods/list_private_ip_addresses"
           - $ref: "#/components/x-stackQL-resources/cloud_vm_clusters/methods/get"
           - $ref: "#/components/x-stackQL-resources/cloud_vm_clusters/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/cloud_vm_clusters/methods/list_by_subscription"

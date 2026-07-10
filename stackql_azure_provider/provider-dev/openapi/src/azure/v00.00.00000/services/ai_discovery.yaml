@@ -922,8 +922,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/investigations/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/investigations/methods/create_or_update"
-        update:
-          - $ref: "#/components/x-stackQL-resources/investigations/methods/update_discovery_engine"
+        update: []
         replace:
           - $ref: "#/components/x-stackQL-resources/investigations/methods/create_or_update"
         delete:
@@ -1007,7 +1006,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/knowledge_base_versions/methods/create_or_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/knowledge_base_versions/methods/delete"
-          - $ref: "#/components/x-stackQL-resources/knowledge_base_versions/methods/delete_latest_version"
     knowledge_bases:
       id: azure.ai_discovery.knowledge_bases
       name: knowledge_bases

@@ -1240,7 +1240,7 @@ paths:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
       x-stackql-resource: schedulers
       x-stackql-method: create_or_update_private_endpoint_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Schedulers_begin_update_private_endpoint_connection
       description: Update a private endpoint connection for the durable task scheduler.
@@ -1287,7 +1287,7 @@ paths:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
       x-stackql-resource: schedulers
       x-stackql-method: update_private_endpoint_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: Schedulers_begin_delete_private_endpoint_connection
       description: Delete a private endpoint connection for the durable task scheduler.
@@ -1320,7 +1320,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: schedulers
       x-stackql-method: delete_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DurableTask/schedulers/{scheduler_name}/taskHubs/{task_hub_name}?api-version=2026-02-01
   : get:
       operationId: TaskHubs_get

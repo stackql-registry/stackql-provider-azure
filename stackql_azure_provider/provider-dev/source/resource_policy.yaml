@@ -794,20 +794,15 @@ components:
         properties:
           $ref: '#/components/schemas/PolicyDefinitionVersionProperties'
           description: The policy definition version properties.
-    PolicyDefinitionVersionListResult:
+    PolicyDefinitionVersionListResultFlattened:
       type: object
-      description: The response of a PolicyDefinitionVersion list operation.
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/PolicyDefinitionVersion'
-          description: The PolicyDefinitionVersion items on this page. Required.
+            $ref: '#/components/schemas/PolicyDefinitionVersionFlattened'
         nextLink:
           type: string
-          description: The link to the next page of items.
-      required:
-      - value
     PolicyDefinitionProperties:
       type: object
       description: The policy definition properties.
@@ -1392,20 +1387,15 @@ components:
         properties:
           $ref: '#/components/schemas/PolicySetDefinitionVersionProperties'
           description: The policy set definition version properties.
-    PolicySetDefinitionVersionListResult:
+    PolicySetDefinitionVersionListResultFlattened:
       type: object
-      description: The response of a PolicySetDefinitionVersion list operation.
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/PolicySetDefinitionVersion'
-          description: The PolicySetDefinitionVersion items on this page. Required.
+            $ref: '#/components/schemas/PolicySetDefinitionVersionFlattened'
         nextLink:
           type: string
-          description: The link to the next page of items.
-      required:
-      - value
     PolicySetDefinitionProperties:
       type: object
       description: The policy set definition properties.
@@ -2645,10 +2635,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicyDefinitionVersionListResult'
+                $ref: '#/components/schemas/PolicyDefinitionVersionListResultFlattened'
       x-stackql-resource: policy_definition_versions
       x-stackql-method: list_all
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/policyDefinitions/{policy_definition_name}/versions?api-version=2026-01-01-preview
   : get:
       operationId: PolicyDefinitionVersions_list_by_management_group
@@ -2731,10 +2724,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicyDefinitionVersionListResult'
+                $ref: '#/components/schemas/PolicyDefinitionVersionListResultFlattened'
       x-stackql-resource: policy_definition_versions
       x-stackql-method: list_all_builtins
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/listPolicyDefinitionVersions?api-version=2026-01-01-preview
   : post:
       operationId: PolicyDefinitionVersions_list_all_at_management_group
@@ -2753,10 +2749,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicyDefinitionVersionListResult'
+                $ref: '#/components/schemas/PolicyDefinitionVersionListResultFlattened'
       x-stackql-resource: policy_definition_versions
       x-stackql-method: list_all_at_management_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.Authorization/policyDefinitions/{policy_definition_name}/versions/{policy_definition_version}?api-version=2026-01-01-preview
   : get:
       operationId: PolicyDefinitionVersions_get_built_in
@@ -4094,10 +4093,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicySetDefinitionVersionListResult'
+                $ref: '#/components/schemas/PolicySetDefinitionVersionListResultFlattened'
       x-stackql-resource: policy_set_definition_versions
       x-stackql-method: list_all
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/policySetDefinitions/{policy_set_definition_name}/versions?api-version=2026-01-01-preview
   : get:
       operationId: PolicySetDefinitionVersions_list_by_management_group
@@ -4194,10 +4196,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicySetDefinitionVersionListResult'
+                $ref: '#/components/schemas/PolicySetDefinitionVersionListResultFlattened'
       x-stackql-resource: policy_set_definition_versions
       x-stackql-method: list_all_builtins
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.Management/managementGroups/{management_group_name}/providers/Microsoft.Authorization/listPolicySetDefinitionVersions?api-version=2026-01-01-preview
   : post:
       operationId: PolicySetDefinitionVersions_list_all_at_management_group
@@ -4216,10 +4221,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicySetDefinitionVersionListResult'
+                $ref: '#/components/schemas/PolicySetDefinitionVersionListResultFlattened'
       x-stackql-resource: policy_set_definition_versions
       x-stackql-method: list_all_at_management_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.Authorization/policySetDefinitions/{policy_set_definition_name}/versions/{policy_definition_version}?api-version=2026-01-01-preview
   : get:
       operationId: PolicySetDefinitionVersions_get_built_in

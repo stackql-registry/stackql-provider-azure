@@ -1004,32 +1004,11 @@ The following methods are available for this resource:
     <td>Get all App Service plans for a subscription. Description for Get all App Service plans for a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_vnet_route"><CopyableCode code="create_or_update_vnet_route" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates or updates an App Service Plan. Description for Creates or updates an App Service Plan.</td>
-</tr>
-<tr>
-    <td><a href="#update_vnet_gateway"><CopyableCode code="update_vnet_gateway" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a Virtual Network gateway. Description for Update a Virtual Network gateway.</td>
-</tr>
-<tr>
-    <td><a href="#update_vnet_route"><CopyableCode code="update_vnet_route" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
@@ -1039,32 +1018,11 @@ The following methods are available for this resource:
     <td>Creates or updates an App Service Plan. Description for Creates or updates an App Service Plan.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_vnet_route"><CopyableCode code="create_or_update_vnet_route" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates or updates an App Service Plan. Description for Creates or updates an App Service Plan.</td>
-</tr>
-<tr>
-    <td><a href="#delete_hybrid_connection"><CopyableCode code="delete_hybrid_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a Hybrid Connection in use in an App Service plan. Description for Delete a Hybrid Connection in use in an App Service plan.</td>
-</tr>
-<tr>
-    <td><a href="#delete_vnet_route"><CopyableCode code="delete_vnet_route" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a Virtual Network route in an App Service plan. Description for Delete a Virtual Network route in an App Service plan.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -1144,6 +1102,13 @@ The following methods are available for this resource:
     <td>Gets all selectable SKUs for a given App Service Plan. Description for Gets all selectable SKUs for a given App Service Plan.</td>
 </tr>
 <tr>
+    <td><a href="#delete_hybrid_connection"><CopyableCode code="delete_hybrid_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a Hybrid Connection in use in an App Service plan. Description for Delete a Hybrid Connection in use in an App Service plan.</td>
+</tr>
+<tr>
     <td><a href="#get_hybrid_connection_plan_limit"><CopyableCode code="get_hybrid_connection_plan_limit" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1156,6 +1121,34 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get a Virtual Network associated with an App Service plan. Description for Get a Virtual Network associated with an App Service plan.</td>
+</tr>
+<tr>
+    <td><a href="#update_vnet_gateway"><CopyableCode code="update_vnet_gateway" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a Virtual Network gateway. Description for Update a Virtual Network gateway.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_vnet_route"><CopyableCode code="create_or_update_vnet_route" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.</td>
+</tr>
+<tr>
+    <td><a href="#update_vnet_route"><CopyableCode code="update_vnet_route" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.</td>
+</tr>
+<tr>
+    <td><a href="#delete_vnet_route"><CopyableCode code="delete_vnet_route" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-route_name"><code>route_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a Virtual Network route in an App Service plan. Description for Delete a Virtual Network route in an App Service plan.</td>
 </tr>
 <tr>
     <td><a href="#recycle_managed_instance_worker"><CopyableCode code="recycle_managed_instance_worker" /></a></td>
@@ -1542,45 +1535,12 @@ AND detailed = '{{ detailed }}'
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_vnet_route"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_vnet_route', value: 'create_or_update_vnet_route' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_vnet_route">
-
-Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.
-
-```sql
-INSERT INTO azure.web.app_service_plans (
-properties,
-kind,
-resource_group_name,
-name,
-vnet_name,
-route_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ vnet_name }}',
-'{{ route_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates an App Service Plan. Description for Creates or updates an App Service Plan.
@@ -1635,15 +1595,17 @@ type
     - name: name
       value: "{{ name }}"
       description: Required parameter for the app_service_plans resource.
-    - name: vnet_name
-      value: "{{ vnet_name }}"
-      description: Required parameter for the app_service_plans resource.
-    - name: route_name
-      value: "{{ route_name }}"
-      description: Required parameter for the app_service_plans resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the app_service_plans resource.
+    - name: tags
+      value: "{{ tags }}"
+      description: |
+        Resource tags.
+    - name: location
+      value: "{{ location }}"
+      description: |
+        The geo-location where the resource lives. Required.
     - name: properties
       description: |
         AppServicePlan resource specific properties.
@@ -1704,18 +1666,6 @@ type
               secretUri: "{{ secretUri }}"
               referenceStatus: "{{ referenceStatus }}"
         rdpEnabled: {{ rdpEnabled }}
-    - name: kind
-      value: "{{ kind }}"
-      description: |
-        Kind of resource. If the resource is an app, you can refer to \`https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference \`_ for details supported values for kind.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Resource tags.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        The geo-location where the resource lives. Required.
     - name: sku
       description: |
         Description of a SKU for a scalable resource.
@@ -1743,6 +1693,10 @@ type
       value:
         name: "{{ name }}"
         type: "{{ type }}"
+    - name: kind
+      value: "{{ kind }}"
+      description: |
+        Kind of resource. If the resource is an app, you can refer to \`https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference \`_ for details supported values for kind.
     - name: identity
       description: |
         Managed service identity.
@@ -1760,61 +1714,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_vnet_gateway"
+    defaultValue="update"
     values={[
-        { label: 'update_vnet_gateway', value: 'update_vnet_gateway' },
-        { label: 'update_vnet_route', value: 'update_vnet_route' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_vnet_gateway">
-
-Update a Virtual Network gateway. Description for Update a Virtual Network gateway.
-
-```sql
-UPDATE azure.web.app_service_plans
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND gateway_name = '{{ gateway_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_vnet_route">
-
-Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.
-
-```sql
-UPDATE azure.web.app_service_plans
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND route_name = '{{ route_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Creates or updates an App Service Plan. Description for Creates or updates an App Service Plan.
@@ -1849,36 +1753,11 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_vnet_route"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_vnet_route', value: 'create_or_update_vnet_route' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_vnet_route">
-
-Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.
-
-```sql
-REPLACE azure.web.app_service_plans
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND route_name = '{{ route_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates an App Service Plan. Description for Creates or updates an App Service Plan.
@@ -1918,41 +1797,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_hybrid_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_hybrid_connection', value: 'delete_hybrid_connection' },
-        { label: 'delete_vnet_route', value: 'delete_vnet_route' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_hybrid_connection">
-
-Delete a Hybrid Connection in use in an App Service plan. Description for Delete a Hybrid Connection in use in an App Service plan.
-
-```sql
-DELETE FROM azure.web.app_service_plans
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_vnet_route">
-
-Delete a Virtual Network route in an App Service plan. Description for Delete a Virtual Network route in an App Service plan.
-
-```sql
-DELETE FROM azure.web.app_service_plans
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND route_name = '{{ route_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete an App Service plan. Description for Delete an App Service plan.
@@ -1983,8 +1832,13 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'get_server_farm_rdp_password', value: 'get_server_farm_rdp_password' },
         { label: 'get_server_farm_instance_details', value: 'get_server_farm_instance_details' },
         { label: 'get_server_farm_skus', value: 'get_server_farm_skus' },
+        { label: 'delete_hybrid_connection', value: 'delete_hybrid_connection' },
         { label: 'get_hybrid_connection_plan_limit', value: 'get_hybrid_connection_plan_limit' },
         { label: 'get_vnet_from_server_farm', value: 'get_vnet_from_server_farm' },
+        { label: 'update_vnet_gateway', value: 'update_vnet_gateway' },
+        { label: 'create_or_update_vnet_route', value: 'create_or_update_vnet_route' },
+        { label: 'update_vnet_route', value: 'update_vnet_route' },
+        { label: 'delete_vnet_route', value: 'delete_vnet_route' },
         { label: 'recycle_managed_instance_worker', value: 'recycle_managed_instance_worker' },
         { label: 'restart_web_apps', value: 'restart_web_apps' },
         { label: 'reboot_worker', value: 'reboot_worker' }
@@ -2118,6 +1972,20 @@ EXEC azure.web.app_service_plans.get_server_farm_skus
 ;
 ```
 </TabItem>
+<TabItem value="delete_hybrid_connection">
+
+Delete a Hybrid Connection in use in an App Service plan. Description for Delete a Hybrid Connection in use in an App Service plan.
+
+```sql
+EXEC azure.web.app_service_plans.delete_hybrid_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_hybrid_connection_plan_limit">
 
 Get the maximum number of Hybrid Connections allowed in an App Service plan. Description for Get the maximum number of Hybrid Connections allowed in an App Service plan.
@@ -2139,6 +2007,77 @@ EXEC azure.web.app_service_plans.get_vnet_from_server_farm
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @vnet_name='{{ vnet_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_vnet_gateway">
+
+Update a Virtual Network gateway. Description for Update a Virtual Network gateway.
+
+```sql
+EXEC azure.web.app_service_plans.update_vnet_gateway 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@gateway_name='{{ gateway_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_vnet_route">
+
+Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.
+
+```sql
+EXEC azure.web.app_service_plans.create_or_update_vnet_route 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@route_name='{{ route_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_vnet_route">
+
+Create or update a Virtual Network route in an App Service plan. Description for Create or update a Virtual Network route in an App Service plan.
+
+```sql
+EXEC azure.web.app_service_plans.update_vnet_route 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@route_name='{{ route_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_vnet_route">
+
+Delete a Virtual Network route in an App Service plan. Description for Delete a Virtual Network route in an App Service plan.
+
+```sql
+EXEC azure.web.app_service_plans.delete_vnet_route 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@route_name='{{ route_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

@@ -557,13 +557,6 @@ The following methods are available for this resource:
     <td>Create a new action group or update an existing one.</td>
 </tr>
 <tr>
-    <td><a href="#create_notifications_at_action_group_resource_level"><CopyableCode code="create_notifications_at_action_group_resource_level" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-action_group_name"><code>action_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-alertType"><code>alertType</code></a></td>
-    <td></td>
-    <td>Send test notifications to a set of provided receivers.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-action_group_name"><code>action_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -590,6 +583,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-action_group_name"><code>action_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a list of NSP configurations for specified action group.</td>
+</tr>
+<tr>
+    <td><a href="#create_notifications_at_action_group_resource_level"><CopyableCode code="create_notifications_at_action_group_resource_level" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-action_group_name"><code>action_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-alertType"><code>alertType</code></a></td>
+    <td></td>
+    <td>Send test notifications to a set of provided receivers.</td>
 </tr>
 <tr>
     <td><a href="#enable_receiver"><CopyableCode code="enable_receiver" /></a></td>
@@ -811,7 +811,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_notifications_at_action_group_resource_level', value: 'create_notifications_at_action_group_resource_level' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -846,55 +845,6 @@ properties,
 systemData,
 tags,
 type
-;
-```
-</TabItem>
-<TabItem value="create_notifications_at_action_group_resource_level">
-
-Send test notifications to a set of provided receivers.
-
-```sql
-INSERT INTO azure.monitor.action_groups (
-alertType,
-emailReceivers,
-smsReceivers,
-webhookReceivers,
-itsmReceivers,
-azureAppPushReceivers,
-automationRunbookReceivers,
-voiceReceivers,
-logicAppReceivers,
-azureFunctionReceivers,
-armRoleReceivers,
-eventHubReceivers,
-incidentReceivers,
-resource_group_name,
-action_group_name,
-subscription_id
-)
-SELECT 
-'{{ alertType }}' /* required */,
-'{{ emailReceivers }}',
-'{{ smsReceivers }}',
-'{{ webhookReceivers }}',
-'{{ itsmReceivers }}',
-'{{ azureAppPushReceivers }}',
-'{{ automationRunbookReceivers }}',
-'{{ voiceReceivers }}',
-'{{ logicAppReceivers }}',
-'{{ azureFunctionReceivers }}',
-'{{ armRoleReceivers }}',
-'{{ eventHubReceivers }}',
-'{{ incidentReceivers }}',
-'{{ resource_group_name }}',
-'{{ action_group_name }}',
-'{{ subscription_id }}'
-RETURNING
-actionDetails,
-completedTime,
-context,
-createdTime,
-state
 ;
 ```
 </TabItem>
@@ -1007,119 +957,6 @@ state
         tenantId: "{{ tenantId }}"
         type: "{{ type }}"
         userAssignedIdentities: "{{ userAssignedIdentities }}"
-    - name: alertType
-      value: "{{ alertType }}"
-      description: |
-        The value of the supported alert type. Supported alert type values are: servicehealth, metricstaticthreshold, metricsdynamicthreshold, logalertv2, smartalert, webtestalert, logalertv1numresult, logalertv1metricmeasurement, resourcehealth, activitylog, actualcostbudget, forecastedbudget. Required.
-    - name: emailReceivers
-      description: |
-        The list of email receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          emailAddress: "{{ emailAddress }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-          status: "{{ status }}"
-    - name: smsReceivers
-      description: |
-        The list of SMS receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          countryCode: "{{ countryCode }}"
-          phoneNumber: "{{ phoneNumber }}"
-          status: "{{ status }}"
-    - name: webhookReceivers
-      description: |
-        The list of webhook receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          serviceUri: "{{ serviceUri }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-          useAadAuth: {{ useAadAuth }}
-          objectId: "{{ objectId }}"
-          identifierUri: "{{ identifierUri }}"
-          tenantId: "{{ tenantId }}"
-          managedIdentity: "{{ managedIdentity }}"
-    - name: itsmReceivers
-      description: |
-        The list of ITSM receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          workspaceId: "{{ workspaceId }}"
-          connectionId: "{{ connectionId }}"
-          ticketConfiguration: "{{ ticketConfiguration }}"
-          region: "{{ region }}"
-    - name: azureAppPushReceivers
-      description: |
-        The list of AzureAppPush receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          emailAddress: "{{ emailAddress }}"
-    - name: automationRunbookReceivers
-      description: |
-        The list of AutomationRunbook receivers that are part of this action group.
-      value:
-        - automationAccountId: "{{ automationAccountId }}"
-          runbookName: "{{ runbookName }}"
-          webhookResourceId: "{{ webhookResourceId }}"
-          isGlobalRunbook: {{ isGlobalRunbook }}
-          name: "{{ name }}"
-          serviceUri: "{{ serviceUri }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-          managedIdentity: "{{ managedIdentity }}"
-    - name: voiceReceivers
-      description: |
-        The list of voice receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          countryCode: "{{ countryCode }}"
-          phoneNumber: "{{ phoneNumber }}"
-    - name: logicAppReceivers
-      description: |
-        The list of logic app receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          resourceId: "{{ resourceId }}"
-          callbackUrl: "{{ callbackUrl }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-          managedIdentity: "{{ managedIdentity }}"
-    - name: azureFunctionReceivers
-      description: |
-        The list of azure function receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          functionAppResourceId: "{{ functionAppResourceId }}"
-          functionName: "{{ functionName }}"
-          httpTriggerUrl: "{{ httpTriggerUrl }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-          managedIdentity: "{{ managedIdentity }}"
-    - name: armRoleReceivers
-      description: |
-        The list of ARM role receivers that are part of this action group. Roles are Azure RBAC roles and only built-in roles are supported.
-      value:
-        - name: "{{ name }}"
-          roleId: "{{ roleId }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-    - name: eventHubReceivers
-      description: |
-        The list of event hub receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          eventHubNameSpace: "{{ eventHubNameSpace }}"
-          eventHubName: "{{ eventHubName }}"
-          useCommonAlertSchema: {{ useCommonAlertSchema }}
-          tenantId: "{{ tenantId }}"
-          subscriptionId: "{{ subscriptionId }}"
-          managedIdentity: "{{ managedIdentity }}"
-    - name: incidentReceivers
-      description: |
-        The list of incident receivers that are part of this action group.
-      value:
-        - name: "{{ name }}"
-          connection:
-            name: "{{ name }}"
-            id: "{{ id }}"
-          incidentManagementService: "{{ incidentManagementService }}"
-          mappings: "{{ mappings }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -1229,6 +1066,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_nsp"
     values={[
         { label: 'list_nsp', value: 'list_nsp' },
+        { label: 'create_notifications_at_action_group_resource_level', value: 'create_notifications_at_action_group_resource_level' },
         { label: 'enable_receiver', value: 'enable_receiver' },
         { label: 'reconcile_nsp', value: 'reconcile_nsp' }
     ]}
@@ -1242,6 +1080,34 @@ EXEC azure.monitor.action_groups.list_nsp
 @resource_group_name='{{ resource_group_name }}' --required, 
 @action_group_name='{{ action_group_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_notifications_at_action_group_resource_level">
+
+Send test notifications to a set of provided receivers.
+
+```sql
+EXEC azure.monitor.action_groups.create_notifications_at_action_group_resource_level 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@action_group_name='{{ action_group_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"alertType": "{{ alertType }}", 
+"emailReceivers": "{{ emailReceivers }}", 
+"smsReceivers": "{{ smsReceivers }}", 
+"webhookReceivers": "{{ webhookReceivers }}", 
+"itsmReceivers": "{{ itsmReceivers }}", 
+"azureAppPushReceivers": "{{ azureAppPushReceivers }}", 
+"automationRunbookReceivers": "{{ automationRunbookReceivers }}", 
+"voiceReceivers": "{{ voiceReceivers }}", 
+"logicAppReceivers": "{{ logicAppReceivers }}", 
+"azureFunctionReceivers": "{{ azureFunctionReceivers }}", 
+"armRoleReceivers": "{{ armRoleReceivers }}", 
+"eventHubReceivers": "{{ eventHubReceivers }}", 
+"incidentReceivers": "{{ incidentReceivers }}"
+}'
 ;
 ```
 </TabItem>

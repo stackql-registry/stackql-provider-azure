@@ -490,13 +490,6 @@ The following methods are available for this resource:
     <td>Creates or updates a virtual network gateway connection in the specified resource group.</td>
 </tr>
 <tr>
-    <td><a href="#set_shared_key"><CopyableCode code="set_shared_key" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_connection_name"><code>virtual_network_gateway_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-value"><code>value</code></a></td>
-    <td></td>
-    <td>The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_connection_name"><code>virtual_network_gateway_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -509,6 +502,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_connection_name"><code>virtual_network_gateway_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>The Get VirtualNetworkGatewayConnectionSharedKey operation retrieves information about the specified virtual network gateway connection shared key through Network resource provider.</td>
+</tr>
+<tr>
+    <td><a href="#set_shared_key"><CopyableCode code="set_shared_key" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_connection_name"><code>virtual_network_gateway_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-value"><code>value</code></a></td>
+    <td></td>
+    <td>The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.</td>
 </tr>
 <tr>
     <td><a href="#get_ike_sas"><CopyableCode code="get_ike_sas" /></a></td>
@@ -1200,8 +1200,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'set_shared_key', value: 'set_shared_key' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1228,25 +1227,6 @@ location,
 properties,
 tags,
 type;
-```
-</TabItem>
-<TabItem value="set_shared_key">
-
-The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.
-
-```sql
-REPLACE azure.network.virtual_network_gateway_connections
-SET 
-id = '{{ id }}',
-value = '{{ value }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND virtual_network_gateway_connection_name = '{{ virtual_network_gateway_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND value = '{{ value }}' --required
-RETURNING
-id,
-value;
 ```
 </TabItem>
 </Tabs>
@@ -1281,6 +1261,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="get_shared_key"
     values={[
         { label: 'get_shared_key', value: 'get_shared_key' },
+        { label: 'set_shared_key', value: 'set_shared_key' },
         { label: 'get_ike_sas', value: 'get_ike_sas' },
         { label: 'reset_shared_key', value: 'reset_shared_key' },
         { label: 'start_packet_capture', value: 'start_packet_capture' },
@@ -1297,6 +1278,23 @@ EXEC azure.network.virtual_network_gateway_connections.get_shared_key
 @resource_group_name='{{ resource_group_name }}' --required, 
 @virtual_network_gateway_connection_name='{{ virtual_network_gateway_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="set_shared_key">
+
+The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.
+
+```sql
+EXEC azure.network.virtual_network_gateway_connections.set_shared_key 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@virtual_network_gateway_connection_name='{{ virtual_network_gateway_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"value": "{{ value }}"
+}'
 ;
 ```
 </TabItem>

@@ -147,21 +147,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_scope"><CopyableCode code="get_scope" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-default"><code>default</code></a></td>
+    <td><a href="#parameter-scope"><code>scope</code></a>, <a href="#parameter-default_name"><code>default_name</code></a></td>
     <td></td>
     <td>Get data boundary at specified scope.</td>
 </tr>
 <tr>
     <td><a href="#get_tenant"><CopyableCode code="get_tenant" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-default"><code>default</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a></td>
     <td></td>
     <td>Get data boundary of tenant.</td>
 </tr>
 <tr>
     <td><a href="#put"><CopyableCode code="put" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-default"><code>default</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a></td>
     <td></td>
     <td>Opt-in tenant to data boundary.</td>
 </tr>
@@ -181,8 +181,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-default">
-    <td><CopyableCode code="default" /></td>
+<tr id="parameter-default_name">
+    <td><CopyableCode code="default_name" /></td>
     <td><code>string</code></td>
     <td>Default string modeled as parameter for auto generation to work correctly. "default" Required.</td>
 </tr>
@@ -217,7 +217,7 @@ systemData,
 type
 FROM azure.resource_databoundaries.data_boundaries
 WHERE scope = '{{ scope }}' -- required
-AND default = '{{ default }}' -- required
+AND default_name = '{{ default_name }}' -- required
 ;
 ```
 </TabItem>
@@ -234,7 +234,7 @@ provisioningState,
 systemData,
 type
 FROM azure.resource_databoundaries.data_boundaries
-WHERE default = '{{ default }}' -- required
+WHERE default_name = '{{ default_name }}' -- required
 ;
 ```
 </TabItem>
@@ -255,7 +255,7 @@ Opt-in tenant to data boundary.
 
 ```sql
 EXEC azure.resource_databoundaries.data_boundaries.put 
-@default='{{ default }}' --required 
+@default_name='{{ default_name }}' --required 
 @@json=
 '{
 "properties": "{{ properties }}"

@@ -269,7 +269,7 @@ paths:
                 $ref: '#/components/schemas/AccountResource'
       x-stackql-resource: accounts
       x-stackql-method: create_and_update
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Accounts_update
       description: Update account details.

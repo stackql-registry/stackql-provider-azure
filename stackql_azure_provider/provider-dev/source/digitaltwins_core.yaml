@@ -1085,11 +1085,11 @@ paths:
                   description: Only perform the operation if the entity's etag matches one of the etags provided
                     or * is provided.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: digital_twins
       x-stackql-method: delete_relationship
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: DigitalTwins_update_relationship
       description: 'Updates the properties on a relationship between two digital twins. Status codes: * 204 No Content
@@ -1149,7 +1149,7 @@ paths:
           description: Success
       x-stackql-resource: digital_twins
       x-stackql-method: update_relationship
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /digitaltwins/{id}/components/{component_path}?api-version=2023-10-31:
     get:
       operationId: DigitalTwins_get_component
@@ -1255,7 +1255,7 @@ paths:
           description: Success
       x-stackql-resource: digital_twins
       x-stackql-method: update_component
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /digitaltwins/{id}/telemetry?api-version=2023-10-31:
     post:
       operationId: DigitalTwins_send_telemetry
@@ -1833,4 +1833,4 @@ paths:
                 $ref: '#/components/schemas/QueryResult'
       x-stackql-resource: query
       x-stackql-method: query_twins
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

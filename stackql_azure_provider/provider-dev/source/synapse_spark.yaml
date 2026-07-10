@@ -819,24 +819,24 @@ paths:
                 $ref: '#/components/schemas/SparkStatement'
       x-stackql-resource: spark_session
       x-stackql-method: create_spark_statement
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /livyApi/versions/{livy_api_version}/sparkPools/{spark_pool_name}/sessions/{session_id}/statements/{statement_id}:
     get:
       operationId: SparkSession_get_spark_statement
       description: Gets a single statement within a spark session.
       parameters:
-      - name: statement_id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Identifier for the statement.
       - name: session_id
         in: path
         required: true
         schema:
           type: integer
         description: Identifier for the session.
+      - name: statement_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Identifier for the statement.
       - name: livy_api_version
         in: path
         required: true
@@ -889,18 +889,18 @@ paths:
       operationId: SparkSession_cancel_spark_statement
       description: Kill a statement within a session.
       parameters:
-      - name: statement_id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Identifier for the statement.
       - name: session_id
         in: path
         required: true
         schema:
           type: integer
         description: Identifier for the session.
+      - name: statement_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Identifier for the statement.
       - name: livy_api_version
         in: path
         required: true

@@ -566,18 +566,18 @@ The following methods are available for this resource:
     <td>Deletes the specified managed HSM Pool.</td>
 </tr>
 <tr>
-    <td><a href="#purge_deleted"><CopyableCode code="purge_deleted" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Permanently deletes the specified managed HSM.</td>
-</tr>
-<tr>
     <td><a href="#list_deleted"><CopyableCode code="list_deleted" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>The List operation gets information about the deleted managed HSMs associated with the subscription.</td>
+</tr>
+<tr>
+    <td><a href="#purge_deleted"><CopyableCode code="purge_deleted" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Permanently deletes the specified managed HSM.</td>
 </tr>
 <tr>
     <td><a href="#check_mhsm_name_availability"><CopyableCode code="check_mhsm_name_availability" /></a></td>
@@ -988,8 +988,7 @@ type;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'purge_deleted', value: 'purge_deleted' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -1004,18 +1003,6 @@ AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="purge_deleted">
-
-Permanently deletes the specified managed HSM.
-
-```sql
-DELETE FROM azure.keyvault.managed_hsms
-WHERE name = '{{ name }}' --required
-AND location = '{{ location }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
@@ -1025,6 +1012,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_deleted"
     values={[
         { label: 'list_deleted', value: 'list_deleted' },
+        { label: 'purge_deleted', value: 'purge_deleted' },
         { label: 'check_mhsm_name_availability', value: 'check_mhsm_name_availability' }
     ]}
 >
@@ -1034,6 +1022,18 @@ The List operation gets information about the deleted managed HSMs associated wi
 
 ```sql
 EXEC azure.keyvault.managed_hsms.list_deleted 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="purge_deleted">
+
+Permanently deletes the specified managed HSM.
+
+```sql
+EXEC azure.keyvault.managed_hsms.purge_deleted 
+@name='{{ name }}' --required, 
+@location='{{ location }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

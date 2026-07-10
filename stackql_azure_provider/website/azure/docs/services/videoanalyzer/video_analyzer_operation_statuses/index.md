@@ -102,7 +102,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get operation status. Get video analyzer operation status.</td>
 </tr>
@@ -161,8 +161,8 @@ error,
 startTime,
 status
 FROM azure.videoanalyzer.video_analyzer_operation_statuses
-WHERE operation_id = '{{ operation_id }}' -- required
-AND location_name = '{{ location_name }}' -- required
+WHERE location_name = '{{ location_name }}' -- required
+AND operation_id = '{{ operation_id }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```

@@ -1238,15 +1238,6 @@ components:
             $ref: "#/components/schemas/ClusterFlattened"
         nextLink:
           type: string
-    SkuDetailsList:
-      type: object
-      description: The response of a listSkusForScaling operation.
-      properties:
-        skus:
-          type: array
-          items:
-            $ref: "#/components/schemas/SkuDetails"
-          description: List of SKUS available to scale up or scale down.
     SkuDetails:
       type: object
       description: Details of a Redis Enterprise cluster SKU.
@@ -1257,6 +1248,15 @@ components:
         sizeInGB:
           type: number
           description: The cache size in GB.
+    SkuDetailsList:
+      type: object
+      description: The response of a listSkusForScaling operation.
+      properties:
+        skus:
+          type: array
+          items:
+            $ref: "#/components/schemas/SkuDetails"
+          description: List of SKUS available to scale up or scale down.
     Cluster:
       type: object
       description: Describes the Redis Enterprise cluster.
@@ -1397,6 +1397,8 @@ components:
         insert:
           - $ref: "#/components/x-stackQL-resources/access_policy_assignment/methods/create_update"
         update: []
+        replace:
+          - $ref: "#/components/x-stackQL-resources/access_policy_assignment/methods/create_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/access_policy_assignment/methods/delete"
     databases:

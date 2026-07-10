@@ -1644,8 +1644,9 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/disaster_recovery_configs/methods/get_authorization_rule"
+          - $ref: "#/components/x-stackQL-resources/disaster_recovery_configs/methods/list_keys"
           - $ref: "#/components/x-stackQL-resources/disaster_recovery_configs/methods/get"
+          - $ref: "#/components/x-stackQL-resources/disaster_recovery_configs/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/disaster_recovery_configs/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/disaster_recovery_configs/methods/create_or_update"
@@ -1715,8 +1716,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/migration_configs/methods/get"
           - $ref: "#/components/x-stackQL-resources/migration_configs/methods/list"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/migration_configs/methods/create_and_start_migration"
+        insert: []
         update: []
         delete:
           - $ref: "#/components/x-stackQL-resources/migration_configs/methods/delete"
@@ -1878,7 +1878,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ServiceBus~1namespaces~1{namespace_name}~1AuthorizationRules~1{authorization_rule_name}?api-version=2022-10-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         regenerate_keys:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ServiceBus~1namespaces~1{namespace_name}~1AuthorizationRules~1{authorization_rule_name}~1regenerateKeys?api-version=2022-10-01-preview/post"
@@ -1903,22 +1903,18 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/get_authorization_rule"
+          - $ref: "#/components/x-stackQL-resources/namespaces/methods/list_keys"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/get"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/list_by_resource_group"
+          - $ref: "#/components/x-stackQL-resources/namespaces/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update_authorization_rule"
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update_network_rule_set"
         update:
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/update"
         replace:
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update_authorization_rule"
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/create_or_update_network_rule_set"
         delete:
-          - $ref: "#/components/x-stackQL-resources/namespaces/methods/delete_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/namespaces/methods/delete"
     operations:
       id: azure.servicebus.operations
@@ -2119,7 +2115,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ServiceBus~1namespaces~1{namespace_name}~1queues~1{queue_name}~1authorizationRules~1{authorization_rule_name}?api-version=2022-10-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         regenerate_keys:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ServiceBus~1namespaces~1{namespace_name}~1queues~1{queue_name}~1authorizationRules~1{authorization_rule_name}~1regenerateKeys?api-version=2022-10-01-preview/post"
@@ -2133,18 +2129,15 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/queues/methods/get_authorization_rule"
+          - $ref: "#/components/x-stackQL-resources/queues/methods/list_keys"
           - $ref: "#/components/x-stackQL-resources/queues/methods/get"
           - $ref: "#/components/x-stackQL-resources/queues/methods/list_by_namespace"
         insert:
-          - $ref: "#/components/x-stackQL-resources/queues/methods/create_or_update_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/queues/methods/create_or_update"
         update: []
         replace:
-          - $ref: "#/components/x-stackQL-resources/queues/methods/create_or_update_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/queues/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/queues/methods/delete_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/queues/methods/delete"
     rules:
       id: azure.servicebus.rules
@@ -2362,7 +2355,7 @@ components:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ServiceBus~1namespaces~1{namespace_name}~1topics~1{topic_name}~1authorizationRules~1{authorization_rule_name}?api-version=2022-10-01-preview/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         regenerate_keys:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ServiceBus~1namespaces~1{namespace_name}~1topics~1{topic_name}~1authorizationRules~1{authorization_rule_name}~1regenerateKeys?api-version=2022-10-01-preview/post"
@@ -2376,18 +2369,15 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
-          - $ref: "#/components/x-stackQL-resources/topics/methods/get_authorization_rule"
+          - $ref: "#/components/x-stackQL-resources/topics/methods/list_keys"
           - $ref: "#/components/x-stackQL-resources/topics/methods/get"
           - $ref: "#/components/x-stackQL-resources/topics/methods/list_by_namespace"
         insert:
-          - $ref: "#/components/x-stackQL-resources/topics/methods/create_or_update_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/topics/methods/create_or_update"
         update: []
         replace:
-          - $ref: "#/components/x-stackQL-resources/topics/methods/create_or_update_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/topics/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/topics/methods/delete_authorization_rule"
           - $ref: "#/components/x-stackQL-resources/topics/methods/delete"
 paths:
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/disasterRecoveryConfigs/{alias}?api-version=2022-10-01-preview:
@@ -3501,8 +3491,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/AuthorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2022-10-01-preview:
     post:
       operationId: Namespaces_regenerate_keys
@@ -4174,8 +4164,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/queues/{queue_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2022-10-01-preview:
     post:
       operationId: Queues_regenerate_keys
@@ -5047,8 +5037,8 @@ paths:
           schema:
             type: string
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ServiceBus/namespaces/{namespace_name}/topics/{topic_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2022-10-01-preview:
     post:
       operationId: Topics_regenerate_keys

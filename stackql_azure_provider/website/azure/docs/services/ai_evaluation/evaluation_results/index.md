@@ -241,25 +241,18 @@ The following methods are available for this resource:
     <td>List the latest version of each EvaluationResult.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_version"><CopyableCode code="create_or_update_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a new or update an existing EvaluationResult with the given version id.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_version"><CopyableCode code="create_or_update_version" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a new or update an existing EvaluationResult with the given version id.</td>
-</tr>
-<tr>
     <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete the specific version of the EvaluationResult. The service returns 204 No Content if the EvaluationResult was deleted successfully or if the EvaluationResult does not exist.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_version"><CopyableCode code="create_or_update_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a new or update an existing EvaluationResult with the given version id.</td>
 </tr>
 <tr>
     <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
@@ -294,7 +287,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -410,136 +403,15 @@ AND listViewType = '{{ listViewType }}'
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_or_update_version"
-    values={[
-        { label: 'create_or_update_version', value: 'create_or_update_version' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_or_update_version">
-
-Create a new or update an existing EvaluationResult with the given version id.
-
-```sql
-INSERT INTO azure.ai_evaluation.evaluation_results (
-resultType,
-metrics,
-blobUri,
-description,
-tags,
-name,
-version,
-endpoint
-)
-SELECT 
-'{{ resultType }}',
-'{{ metrics }}',
-'{{ blobUri }}',
-'{{ description }}',
-'{{ tags }}',
-'{{ name }}',
-'{{ version }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-blobUri,
-description,
-metrics,
-resultType,
-tags,
-version
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: evaluation_results
-  props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the evaluation_results resource.
-    - name: version
-      value: "{{ version }}"
-      description: Required parameter for the evaluation_results resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the evaluation_results resource.
-    - name: resultType
-      value: "{{ resultType }}"
-      description: |
-        Type of Evaluation result. Known values are: "Benchmark", "Evaluation", "Redteam", and "Simulation".
-      valid_values: ['Benchmark', 'Evaluation', 'Redteam', 'Simulation']
-    - name: metrics
-      value: "{{ metrics }}"
-      description: |
-        Aggregated metrics.
-    - name: blobUri
-      value: "{{ blobUri }}"
-      description: |
-        Blob URI.
-    - name: description
-      value: "{{ description }}"
-      description: |
-        The asset description text.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Tag dictionary. Tags can be added, removed, and updated.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="create_or_update_version"
-    values={[
-        { label: 'create_or_update_version', value: 'create_or_update_version' }
-    ]}
->
-<TabItem value="create_or_update_version">
-
-Create a new or update an existing EvaluationResult with the given version id.
-
-```sql
-REPLACE azure.ai_evaluation.evaluation_results
-SET 
-resultType = '{{ resultType }}',
-metrics = '{{ metrics }}',
-blobUri = '{{ blobUri }}',
-description = '{{ description }}',
-tags = '{{ tags }}'
-WHERE 
-name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-id,
-name,
-blobUri,
-description,
-metrics,
-resultType,
-tags,
-version;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="delete_version"
     values={[
-        { label: 'delete_version', value: 'delete_version' }
+        { label: 'delete_version', value: 'delete_version' },
+        { label: 'create_or_update_version', value: 'create_or_update_version' },
+        { label: 'get_credentials', value: 'get_credentials' },
+        { label: 'start_pending_upload', value: 'start_pending_upload' }
     ]}
 >
 <TabItem value="delete_version">
@@ -547,25 +419,33 @@ version;
 Delete the specific version of the EvaluationResult. The service returns 204 No Content if the EvaluationResult was deleted successfully or if the EvaluationResult does not exist.
 
 ```sql
-DELETE FROM azure.ai_evaluation.evaluation_results
-WHERE name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.ai_evaluation.evaluation_results.delete_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-</Tabs>
+<TabItem value="create_or_update_version">
 
+Create a new or update an existing EvaluationResult with the given version id.
 
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="get_credentials"
-    values={[
-        { label: 'get_credentials', value: 'get_credentials' },
-        { label: 'start_pending_upload', value: 'start_pending_upload' }
-    ]}
->
+```sql
+EXEC azure.ai_evaluation.evaluation_results.create_or_update_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"resultType": "{{ resultType }}", 
+"metrics": "{{ metrics }}", 
+"blobUri": "{{ blobUri }}", 
+"description": "{{ description }}", 
+"tags": "{{ tags }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_credentials">
 
 Enable downloading json.

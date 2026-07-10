@@ -107,18 +107,18 @@ The following methods are available for this resource:
     <td>Retrieve the runbook draft identified by runbook name.</td>
 </tr>
 <tr>
-    <td><a href="#replace_content"><CopyableCode code="replace_content" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-automation_account_name"><code>automation_account_name</code></a>, <a href="#parameter-runbook_name"><code>runbook_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Replaces the runbook draft content.</td>
-</tr>
-<tr>
     <td><a href="#get_content"><CopyableCode code="get_content" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-automation_account_name"><code>automation_account_name</code></a>, <a href="#parameter-runbook_name"><code>runbook_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieve the content of runbook draft identified by runbook name.</td>
+</tr>
+<tr>
+    <td><a href="#replace_content"><CopyableCode code="replace_content" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-automation_account_name"><code>automation_account_name</code></a>, <a href="#parameter-runbook_name"><code>runbook_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Replaces the runbook draft content.</td>
 </tr>
 <tr>
     <td><a href="#undo_edit"><CopyableCode code="undo_edit" /></a></td>
@@ -197,38 +197,13 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="replace_content"
-    values={[
-        { label: 'replace_content', value: 'replace_content' }
-    ]}
->
-<TabItem value="replace_content">
-
-Replaces the runbook draft content.
-
-```sql
-REPLACE azure.automation.runbook_draft
-SET 
--- No updatable properties
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND automation_account_name = '{{ automation_account_name }}' --required
-AND runbook_name = '{{ runbook_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_content"
     values={[
         { label: 'get_content', value: 'get_content' },
+        { label: 'replace_content', value: 'replace_content' },
         { label: 'undo_edit', value: 'undo_edit' }
     ]}
 >
@@ -238,6 +213,19 @@ Retrieve the content of runbook draft identified by runbook name.
 
 ```sql
 EXEC azure.automation.runbook_draft.get_content 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@automation_account_name='{{ automation_account_name }}' --required, 
+@runbook_name='{{ runbook_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="replace_content">
+
+Replaces the runbook draft content.
+
+```sql
+EXEC azure.automation.runbook_draft.replace_content 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @automation_account_name='{{ automation_account_name }}' --required, 
 @runbook_name='{{ runbook_name }}' --required, 

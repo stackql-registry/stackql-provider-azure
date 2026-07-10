@@ -367,7 +367,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/check_name_availabilities/methods/check_name_availability"
         insert: []
         update: []
         delete: []

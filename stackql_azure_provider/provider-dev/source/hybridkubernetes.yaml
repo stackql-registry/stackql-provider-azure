@@ -455,18 +455,6 @@ components:
       enum:
       - Token
       - AAD
-    CredentialResults:
-      type: object
-      description: The list of credential result response.
-      properties:
-        hybridConnectionConfig:
-          $ref: '#/components/schemas/HybridConnectionConfig'
-          description: Contains the REP (rendezvous endpoint) and “Sender” access token.
-        kubeconfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialResult'
-          description: Base64-encoded Kubernetes configuration file.
     HybridConnectionConfig:
       type: object
       description: Contains the REP (rendezvous endpoint) and “Sender” access token.
@@ -499,6 +487,18 @@ components:
         value:
           type: string
           format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    CredentialResults:
+      type: object
+      description: The list of credential result response.
+      properties:
+        hybridConnectionConfig:
+          $ref: '#/components/schemas/HybridConnectionConfig'
+          description: Contains the REP (rendezvous endpoint) and “Sender” access token.
+        kubeconfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialResult'
           description: Base64-encoded Kubernetes configuration file.
     ConnectedCluster:
       type: object
@@ -754,7 +754,7 @@ paths:
                 $ref: '#/components/schemas/ConnectedCluster'
       x-stackql-resource: connected_cluster
       x-stackql-method: update_async
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: ConnectedCluster_begin_delete
       description: Delete a connected cluster. Delete a connected cluster, removing the tracked resource in Azure
@@ -885,7 +885,7 @@ paths:
                 $ref: '#/components/schemas/CredentialResults'
       x-stackql-resource: connected_cluster
       x-stackql-method: list_cluster_user_credential
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Kubernetes/operations?api-version=2026-05-01:
     get:
       operationId: hybridkubernetes_get

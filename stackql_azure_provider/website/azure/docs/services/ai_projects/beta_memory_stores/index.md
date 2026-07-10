@@ -226,25 +226,11 @@ The following methods are available for this resource:
     <td>List memory stores. Returns the memory stores available to the caller.</td>
 </tr>
 <tr>
-    <td><a href="#create_memory"><CopyableCode code="create_memory" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a memory item. Creates a memory item in the specified memory store.</td>
-</tr>
-<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Create a memory store. Creates a memory store resource with the provided configuration.</td>
-</tr>
-<tr>
-    <td><a href="#delete_memory"><CopyableCode code="delete_memory" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-memory_id"><code>memory_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete a memory item. Deletes the specified memory item from the memory store.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -275,11 +261,25 @@ The following methods are available for this resource:
     <td>Update a memory item. Updates the specified memory item in the memory store.</td>
 </tr>
 <tr>
+    <td><a href="#delete_memory"><CopyableCode code="delete_memory" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-memory_id"><code>memory_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete a memory item. Deletes the specified memory item from the memory store.</td>
+</tr>
+<tr>
     <td><a href="#delete_scope"><CopyableCode code="delete_scope" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete memories by scope. Deletes all memories in the specified memory store that are associated with the provided scope.</td>
+</tr>
+<tr>
+    <td><a href="#create_memory"><CopyableCode code="create_memory" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a memory item. Creates a memory item in the specified memory store.</td>
 </tr>
 </tbody>
 </table>
@@ -300,12 +300,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-memory_id">
     <td><CopyableCode code="memory_id" /></td>
     <td><code>string</code></td>
-    <td>The ID of the memory item to update. Required.</td>
+    <td>The ID of the memory item to delete. Required.</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -417,34 +417,12 @@ AND before = '{{ before }}'
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_memory"
+    defaultValue="create"
     values={[
-        { label: 'create_memory', value: 'create_memory' },
         { label: 'create', value: 'create' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_memory">
-
-Create a memory item. Creates a memory item in the specified memory store.
-
-```sql
-INSERT INTO azure.ai_projects.beta_memory_stores (
-name,
-endpoint
-)
-SELECT 
-'{{ name }}',
-'{{ endpoint }}'
-RETURNING
-memory_id,
-content,
-kind,
-scope,
-updated_at
-;
-```
-</TabItem>
 <TabItem value="create">
 
 Create a memory store. Creates a memory store resource with the provided configuration.
@@ -472,9 +450,6 @@ updated_at
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: beta_memory_stores
   props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the beta_memory_stores resource.
     - name: endpoint
       value: "{{ endpoint }}"
       description: Required parameter for the beta_memory_stores resource.
@@ -487,24 +462,11 @@ updated_at
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_memory"
+    defaultValue="delete"
     values={[
-        { label: 'delete_memory', value: 'delete_memory' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_memory">
-
-Delete a memory item. Deletes the specified memory item from the memory store.
-
-```sql
-DELETE FROM azure.ai_projects.beta_memory_stores
-WHERE name = '{{ name }}' --required
-AND memory_id = '{{ memory_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a memory store. Deletes the specified memory store.
@@ -527,7 +489,9 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'update', value: 'update' },
         { label: 'list_memories', value: 'list_memories' },
         { label: 'update_memory', value: 'update_memory' },
-        { label: 'delete_scope', value: 'delete_scope' }
+        { label: 'delete_memory', value: 'delete_memory' },
+        { label: 'delete_scope', value: 'delete_scope' },
+        { label: 'create_memory', value: 'create_memory' }
     ]}
 >
 <TabItem value="update">
@@ -569,12 +533,35 @@ EXEC azure.ai_projects.beta_memory_stores.update_memory
 ;
 ```
 </TabItem>
+<TabItem value="delete_memory">
+
+Delete a memory item. Deletes the specified memory item from the memory store.
+
+```sql
+EXEC azure.ai_projects.beta_memory_stores.delete_memory 
+@name='{{ name }}' --required, 
+@memory_id='{{ memory_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="delete_scope">
 
 Delete memories by scope. Deletes all memories in the specified memory store that are associated with the provided scope.
 
 ```sql
 EXEC azure.ai_projects.beta_memory_stores.delete_scope 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_memory">
+
+Create a memory item. Creates a memory item in the specified memory store.
+
+```sql
+EXEC azure.ai_projects.beta_memory_stores.create_memory 
 @name='{{ name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

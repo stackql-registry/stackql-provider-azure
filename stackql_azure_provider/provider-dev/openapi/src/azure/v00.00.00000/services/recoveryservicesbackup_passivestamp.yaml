@@ -83,32 +83,6 @@ components:
         servicePrincipalObjectId:
           type: string
           description: ":vartype service_principal_object_id: str"
-    JobResource:
-      type: object
-      description: Defines workload agnostic properties for a job. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: Resource Id represents the complete path to the resource.
-        name:
-          type: string
-          description: Resource name associated with the resource.
-        type:
-          type: string
-          description: Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...
-        location:
-          type: string
-          description: Resource location.
-        tags:
-          type: object
-          properties: {}
-          description: Resource tags.
-        eTag:
-          type: string
-          description: Optional ETag.
-        properties:
-          $ref: "#/components/schemas/Job"
-          description: JobResource properties.
     Job:
       type: object
       description: "Defines workload agnostic properties for a job. You probably want to use the sub-classes and not this class directly. Known sub-classes are: AzureIaaSVMJob, AzureStorageJob, AzureWorkloadJob, DpmJob, MabJob All required parameters must be populated in order to send to server."
@@ -141,13 +115,62 @@ components:
           description: This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. Required.
       required:
         - jobType
-    PagedJobResource:
+    JobResourceFlattened:
+      type: object
+      description: Flattened view of JobResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id represents the complete path to the resource.
+        name:
+          type: string
+          description: Resource name associated with the resource.
+        type:
+          type: string
+          description: Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...
+        location:
+          type: string
+          description: Resource location.
+        tags:
+          type: object
+          properties: {}
+          description: Resource tags.
+        eTag:
+          type: string
+          description: Optional ETag.
+        entityFriendlyName:
+          type: string
+          description: Friendly name of the entity on which the current job is executing.
+        backupManagementType:
+          type: string
+          description: 'Backup management type to execute the current job. Known values are: "Invalid", "AzureIaasVM", "MAB", "DPM", "AzureBackupServer", "AzureSql", "AzureStorage", "AzureWorkload", and "DefaultBackup".'
+        operation:
+          type: string
+          description: The operation name.
+        status:
+          type: string
+          description: Job status.
+        startTime:
+          type: string
+          format: date-time
+          description: The start time.
+        endTime:
+          type: string
+          format: date-time
+          description: The end time.
+        activityId:
+          type: string
+          description: ActivityId of job.
+        jobType:
+          type: string
+          description: This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. Required.
+    PagedJobResourceFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/JobResource"
+            $ref: "#/components/schemas/JobResourceFlattened"
         nextLink:
           type: string
     ProtectedItem:
@@ -589,9 +612,9 @@ components:
             $ref: "#/components/schemas/RecoveryPointResourceFlattened"
         nextLink:
           type: string
-    CrrAccessTokenResource:
+    CrrAccessTokenResourceFlattened:
       type: object
-      description: CrrAccessTokenResource. Variables are only populated by the server, and will be ignored when sending a request.
+      description: Flattened view of CrrAccessTokenResource ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -612,9 +635,85 @@ components:
         eTag:
           type: string
           description: Optional ETag.
-        properties:
-          $ref: "#/components/schemas/CrrAccessToken"
-          description: CrrAccessTokenResource properties.
+        objectType:
+          type: string
+          description: Type of the specific object - used for deserializing. Required.
+        accessTokenString:
+          type: string
+          description: Access token used for authentication.
+        subscriptionId:
+          type: string
+          description: Subscription Id of the source vault.
+        resourceGroupName:
+          type: string
+          description: Resource Group name of the source vault.
+        resourceName:
+          type: string
+          description: Resource Name of the source vault.
+        resourceId:
+          type: string
+          description: Resource Id of the source vault.
+        protectionContainerId:
+          type: integer
+          description: Protected item container id.
+        recoveryPointId:
+          type: string
+          description: Recovery Point Id.
+        recoveryPointTime:
+          type: string
+          description: Recovery Point Time.
+        containerName:
+          type: string
+          description: Container Unique name.
+        containerType:
+          type: string
+          description: Container Type.
+        backupManagementType:
+          type: string
+          description: Backup Management Type.
+        datasourceType:
+          type: string
+          description: Datasource Type.
+        datasourceName:
+          type: string
+          description: Datasource Friendly Name.
+        datasourceId:
+          type: string
+          description: Datasource Id.
+        datasourceContainerName:
+          type: string
+          description: Datasource Container Unique Name.
+        coordinatorServiceStampId:
+          type: string
+          description: CoordinatorServiceStampId to be used by BCM in restore call.
+        coordinatorServiceStampUri:
+          type: string
+          description: CoordinatorServiceStampUri to be used by BCM in restore call.
+        protectionServiceStampId:
+          type: string
+          description: ProtectionServiceStampId to be used by BCM in restore call.
+        protectionServiceStampUri:
+          type: string
+          description: ProtectionServiceStampUri to be used by BCM in restore call.
+        tokenExtendedInformation:
+          type: string
+          description: Extended Information about the token like FileSpec etc.
+        rpTierInformation:
+          type: object
+          properties: {}
+          description: Recovery point Tier Information.
+        rpOriginalSAOption:
+          type: boolean
+          description: "Recovery point information: Original SA option."
+        rpIsManagedVirtualMachine:
+          type: boolean
+          description: "Recovery point information: Managed virtual machine."
+        rpVMSizeDescription:
+          type: string
+          description: "Recovery point information: VM size description."
+        bMSActiveRegion:
+          type: string
+          description: Active region name of BMS Stamp.
   x-stackQL-resources:
     aad_properties:
       id: azure.recoveryservicesbackup_passivestamp.aad_properties
@@ -644,19 +743,24 @@ components:
       name: backup_crr_job_details
       title: backup_crr_job_details
       methods:
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.RecoveryServices~1locations~1{azure_region}~1backupCrrJob?api-version=2021-11-15/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
           request:
             nativeCasing: camel
           config:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/backup_crr_job_details/methods/get"
         insert: []
         update: []
         delete: []
@@ -665,19 +769,30 @@ components:
       name: backup_crr_jobs
       title: backup_crr_jobs
       methods:
-        list_raw:
+        list:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1providers~1Microsoft.RecoveryServices~1locations~1{azure_region}~1backupCrrJobs?api-version=2021-11-15/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
           config:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/backup_crr_jobs/methods/list"
         insert: []
         update: []
         delete: []
@@ -880,13 +995,18 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
           request:
             nativeCasing: camel
           config:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/recovery_points/methods/get_access_token"
         insert: []
         update: []
         delete: []
@@ -955,7 +1075,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobResource"
+                $ref: "#/components/schemas/JobResourceFlattened"
   /subscriptions/{subscription_id}/providers/Microsoft.RecoveryServices/locations/{azure_region}/backupCrrJobs?api-version=2021-11-15:
     post:
       operationId: BackupCrrJobs_list
@@ -1003,7 +1123,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedJobResource"
+                $ref: "#/components/schemas/PagedJobResourceFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RecoveryServices/vaults/{vault_name}/backupProtectedItems/?api-version=2021-11-15:
     get:
       operationId: BackupProtectedItemsCrr_list
@@ -1471,4 +1591,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CrrAccessTokenResource"
+                $ref: "#/components/schemas/CrrAccessTokenResourceFlattened"

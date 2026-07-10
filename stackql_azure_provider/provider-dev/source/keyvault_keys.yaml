@@ -841,7 +841,7 @@ paths:
                 $ref: '#/components/schemas/RandomBytes'
       x-stackql-resource: random_bytes
       x-stackql-method: get_random_bytes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /keys/{key_name}/{key_version}/attestation?api-version=2026-01-01-preview:
     get:
       operationId: _KeyVaultClient_get_key_attestation

@@ -158,31 +158,6 @@ components:
             $ref: "#/components/schemas/ResourceProviderOperationDefinition"
         nextLink:
           type: string
-    Change:
-      type: object
-      description: The detected change. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        properties:
-          $ref: "#/components/schemas/ChangeProperties"
-          description: The properties of a change.
-    PagedChange:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/Change"
-        nextLink:
-          type: string
   x-stackQL-resources:
     changes:
       id: azure.changeanalysis.changes
@@ -257,16 +232,27 @@ components:
       name: resource_changes
       title: resource_changes
       methods:
-        list_raw:
+        list:
           operation:
             $ref: "#/paths/~1{resource_id}~1providers~1Microsoft.ChangeAnalysis~1resourceChanges?api-version=2021-04-01/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/resource_changes/methods/list"
         insert: []
         update: []
         delete: []
@@ -406,4 +392,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedChange"
+                $ref: "#/components/schemas/PagedChangeFlattened"

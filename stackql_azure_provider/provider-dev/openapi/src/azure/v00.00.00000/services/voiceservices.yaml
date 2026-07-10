@@ -485,7 +485,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/name_availability/methods/check_local"
         insert: []
         update: []
         delete: []

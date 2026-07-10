@@ -147,49 +147,49 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a specific pipeline job by name. Retrieves a specific pipeline job by name. If a pipeline job with that name has been previously created, the call will return the JSON representation of that instance.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$top"><code>$top</code></a></td>
     <td>Retrieves a list of pipeline jobs. Retrieves a list of all live pipelines that have been created, along with their JSON representations.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a pipeline job. Creates a new pipeline job or updates an existing one, with the given name.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates an existing pipeline job. Updates an existing pipeline job with the given name. Properties that can be updated include: description.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates or updates a pipeline job. Creates a new pipeline job or updates an existing one, with the given name.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a pipeline job. Deletes a pipeline job with the given name.</td>
 </tr>
 <tr>
     <td><a href="#cancel"><CopyableCode code="cancel" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Cancels a pipeline job. Cancels a pipeline job with the given name.</td>
 </tr>
@@ -268,9 +268,9 @@ systemData,
 topologyName,
 type
 FROM azure.videoanalyzer.pipeline_jobs
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND pipeline_job_name = '{{ pipeline_job_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -284,8 +284,8 @@ SELECT
 @nextLink,
 value
 FROM azure.videoanalyzer.pipeline_jobs
-WHERE account_name = '{{ account_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $filter = '{{ $filter }}'
 AND $top = '{{ $top }}'
@@ -311,16 +311,16 @@ Creates or updates a pipeline job. Creates a new pipeline job or updates an exis
 ```sql
 INSERT INTO azure.videoanalyzer.pipeline_jobs (
 properties,
-account_name,
 resource_group_name,
 pipeline_job_name,
+account_name,
 subscription_id
 )
 SELECT 
 '{{ properties }}',
-'{{ account_name }}',
 '{{ resource_group_name }}',
 '{{ pipeline_job_name }}',
+'{{ account_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -336,14 +336,14 @@ type
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: pipeline_jobs
   props:
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the pipeline_jobs resource.
     - name: resource_group_name
       value: "{{ resource_group_name }}"
       description: Required parameter for the pipeline_jobs resource.
     - name: pipeline_job_name
       value: "{{ pipeline_job_name }}"
+      description: Required parameter for the pipeline_jobs resource.
+    - name: account_name
+      value: "{{ account_name }}"
       description: Required parameter for the pipeline_jobs resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -378,9 +378,9 @@ UPDATE azure.videoanalyzer.pipeline_jobs
 SET 
 properties = '{{ properties }}'
 WHERE 
-account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
 AND pipeline_job_name = '{{ pipeline_job_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -410,9 +410,9 @@ REPLACE azure.videoanalyzer.pipeline_jobs
 SET 
 properties = '{{ properties }}'
 WHERE 
-account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+resource_group_name = '{{ resource_group_name }}' --required
 AND pipeline_job_name = '{{ pipeline_job_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -439,9 +439,9 @@ Deletes a pipeline job. Deletes a pipeline job with the given name.
 
 ```sql
 DELETE FROM azure.videoanalyzer.pipeline_jobs
-WHERE account_name = '{{ account_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
+WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND pipeline_job_name = '{{ pipeline_job_name }}' --required
+AND account_name = '{{ account_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
@@ -463,9 +463,9 @@ Cancels a pipeline job. Cancels a pipeline job with the given name.
 
 ```sql
 EXEC azure.videoanalyzer.pipeline_jobs.cancel 
-@account_name='{{ account_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @pipeline_job_name='{{ pipeline_job_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

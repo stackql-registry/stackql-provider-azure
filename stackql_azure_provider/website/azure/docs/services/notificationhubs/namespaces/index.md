@@ -615,13 +615,6 @@ The following methods are available for this resource:
     <td>Creates / Updates a Notification Hub namespace. This operation is idempotent. Creates / Updates a Notification Hub namespace. This operation is idempotent.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an authorization rule for a namespace. Creates an authorization rule for a namespace.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -634,20 +627,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-sku"><code>sku</code></a></td>
     <td></td>
     <td>Creates / Updates a Notification Hub namespace. This operation is idempotent. Creates / Updates a Notification Hub namespace. This operation is idempotent.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates an authorization rule for a namespace. Creates an authorization rule for a namespace.</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a namespace authorization rule. Deletes a namespace authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -669,6 +648,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Primary and Secondary ConnectionStrings to the namespace. Gets the Primary and Secondary ConnectionStrings to the namespace.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates an authorization rule for a namespace. Creates an authorization rule for a namespace.</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a namespace authorization rule. Deletes a namespace authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#get_pns_credentials"><CopyableCode code="get_pns_credentials" /></a></td>
@@ -907,7 +900,6 @@ AND $top = '{{ $top }}'
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -945,39 +937,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_authorization_rule">
-
-Creates an authorization rule for a namespace. Creates an authorization rule for a namespace.
-
-```sql
-INSERT INTO azure.notificationhubs.namespaces (
-location,
-tags,
-properties,
-resource_group_name,
-namespace_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -992,17 +951,14 @@ type
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the namespaces resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the namespaces resource.
     - name: tags
       value: "{{ tags }}"
       description: |
-        Deprecated - only for compatibility.
+        Resource tags.
     - name: location
       value: "{{ location }}"
       description: |
-        Deprecated - only for compatibility.
+        The geo-location where the resource lives. Required.
     - name: sku
       description: |
         The Sku description for a namespace. Required.
@@ -1014,10 +970,72 @@ type
         capacity: {{ capacity }}
     - name: properties
       value:
-        rights:
-          - "{{ rights }}"
-        primaryKey: "{{ primaryKey }}"
-        secondaryKey: "{{ secondaryKey }}"
+        provisioningState: "{{ provisioningState }}"
+        status: "{{ status }}"
+        namespaceType: "{{ namespaceType }}"
+        replicationRegion: "{{ replicationRegion }}"
+        zoneRedundancy: "{{ zoneRedundancy }}"
+        networkAcls:
+          ipRules:
+            - ipMask: "{{ ipMask }}"
+              rights: "{{ rights }}"
+          publicNetworkRule:
+            rights:
+              - "{{ rights }}"
+        pnsCredentials:
+          admCredential:
+            properties:
+              clientId: "{{ clientId }}"
+              clientSecret: "{{ clientSecret }}"
+              authTokenUrl: "{{ authTokenUrl }}"
+          apnsCredential:
+            properties:
+              apnsCertificate: "{{ apnsCertificate }}"
+              certificateKey: "{{ certificateKey }}"
+              endpoint: "{{ endpoint }}"
+              thumbprint: "{{ thumbprint }}"
+              keyId: "{{ keyId }}"
+              appName: "{{ appName }}"
+              appId: "{{ appId }}"
+              token: "{{ token }}"
+          baiduCredential:
+            properties:
+              baiduApiKey: "{{ baiduApiKey }}"
+              baiduEndPoint: "{{ baiduEndPoint }}"
+              baiduSecretKey: "{{ baiduSecretKey }}"
+          browserCredential:
+            properties:
+              subject: "{{ subject }}"
+              vapidPrivateKey: "{{ vapidPrivateKey }}"
+              vapidPublicKey: "{{ vapidPublicKey }}"
+          gcmCredential:
+            properties:
+              gcmEndpoint: "{{ gcmEndpoint }}"
+              googleApiKey: "{{ googleApiKey }}"
+          mpnsCredential:
+            properties:
+              mpnsCertificate: "{{ mpnsCertificate }}"
+              certificateKey: "{{ certificateKey }}"
+              thumbprint: "{{ thumbprint }}"
+          wnsCredential:
+            properties:
+              packageSid: "{{ packageSid }}"
+              secretKey: "{{ secretKey }}"
+              windowsLiveEndpoint: "{{ windowsLiveEndpoint }}"
+              certificateKey: "{{ certificateKey }}"
+              wnsCertificate: "{{ wnsCertificate }}"
+          xiaomiCredential:
+            properties:
+              appSecret: "{{ appSecret }}"
+              endpoint: "{{ endpoint }}"
+          fcmV1Credential:
+            properties:
+              clientEmail: "{{ clientEmail }}"
+              privateKey: "{{ privateKey }}"
+              projectId: "{{ projectId }}"
+        scaleUnit: "{{ scaleUnit }}"
+        dataCenter: "{{ dataCenter }}"
+        publicNetworkAccess: "{{ publicNetworkAccess }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -1065,8 +1083,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1097,56 +1114,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_authorization_rule">
-
-Creates an authorization rule for a namespace. Creates an authorization rule for a namespace.
-
-```sql
-REPLACE azure.notificationhubs.namespaces
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a namespace authorization rule. Deletes a namespace authorization rule.
-
-```sql
-DELETE FROM azure.notificationhubs.namespaces
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an existing namespace. This operation also removes all associated notificationHubs under the namespace. Deletes an existing namespace. This operation also removes all associated notificationHubs under the namespace.
@@ -1169,6 +1147,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'get_pns_credentials', value: 'get_pns_credentials' },
         { label: 'check_availability', value: 'check_availability' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
@@ -1192,6 +1172,38 @@ Gets the Primary and Secondary ConnectionStrings to the namespace. Gets the Prim
 
 ```sql
 EXEC azure.notificationhubs.namespaces.list_keys 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates an authorization rule for a namespace. Creates an authorization rule for a namespace.
+
+```sql
+EXEC azure.notificationhubs.namespaces.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a namespace authorization rule. Deletes a namespace authorization rule.
+
+```sql
+EXEC azure.notificationhubs.namespaces.delete_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @authorization_rule_name='{{ authorization_rule_name }}' --required, 

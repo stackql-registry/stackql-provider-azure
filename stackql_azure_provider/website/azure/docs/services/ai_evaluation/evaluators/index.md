@@ -317,24 +317,24 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_evaluator_version"><CopyableCode code="create_evaluator_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Create a new EvaluatorVersion with auto incremented version id.</td>
 </tr>
 <tr>
-    <td><a href="#update_evaluator_version"><CopyableCode code="update_evaluator_version" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update an existing EvaluatorVersion with the given version id.</td>
-</tr>
-<tr>
     <td><a href="#delete_evaluator_version"><CopyableCode code="delete_evaluator_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete the specific version of the EvaluatorVersion. The service returns 204 No Content if the EvaluatorVersion was deleted successfully or if the EvaluatorVersion does not exist.</td>
+</tr>
+<tr>
+    <td><a href="#update_evaluator_version"><CopyableCode code="update_evaluator_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update an existing EvaluatorVersion with the given version id.</td>
 </tr>
 </tbody>
 </table>
@@ -355,7 +355,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -365,7 +365,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-version">
     <td><CopyableCode code="version" /></td>
     <td><code>string</code></td>
-    <td>The version of the EvaluatorVersion to delete. Required.</td>
+    <td>The version of the EvaluatorVersion to update. Required.</td>
 </tr>
 <tr id="parameter-limit">
     <td><CopyableCode code="limit" /></td>
@@ -472,13 +472,14 @@ AND limit = '{{ limit }}'
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_evaluator_version"
     values={[
         { label: 'create_evaluator_version', value: 'create_evaluator_version' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'delete_evaluator_version', value: 'delete_evaluator_version' },
+        { label: 'update_evaluator_version', value: 'update_evaluator_version' }
     ]}
 >
 <TabItem value="create_evaluator_version">
@@ -486,103 +487,33 @@ AND limit = '{{ limit }}'
 Create a new EvaluatorVersion with auto incremented version id.
 
 ```sql
-INSERT INTO azure.ai_evaluation.evaluators (
-name,
-endpoint
-)
-SELECT 
-'{{ name }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-display_name,
-categories,
-created_at,
-created_by,
-definition,
-description,
-evaluator_type,
-metadata,
-modified_at,
-tags,
-version
+EXEC azure.ai_evaluation.evaluators.create_evaluator_version 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: evaluators
-  props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the evaluators resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the evaluators resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_evaluator_version"
-    values={[
-        { label: 'update_evaluator_version', value: 'update_evaluator_version' }
-    ]}
->
-<TabItem value="update_evaluator_version">
-
-Update an existing EvaluatorVersion with the given version id.
-
-```sql
-UPDATE azure.ai_evaluation.evaluators
-SET 
--- No updatable properties
-WHERE 
-name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-id,
-name,
-display_name,
-categories,
-created_at,
-created_by,
-definition,
-description,
-evaluator_type,
-metadata,
-modified_at,
-tags,
-version;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_evaluator_version"
-    values={[
-        { label: 'delete_evaluator_version', value: 'delete_evaluator_version' }
-    ]}
->
 <TabItem value="delete_evaluator_version">
 
 Delete the specific version of the EvaluatorVersion. The service returns 204 No Content if the EvaluatorVersion was deleted successfully or if the EvaluatorVersion does not exist.
 
 ```sql
-DELETE FROM azure.ai_evaluation.evaluators
-WHERE name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.ai_evaluation.evaluators.delete_evaluator_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_evaluator_version">
+
+Update an existing EvaluatorVersion with the given version id.
+
+```sql
+EXEC azure.ai_evaluation.evaluators.update_evaluator_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

@@ -310,9 +310,9 @@ components:
         location:
           type: string
           description: Location dimension for new quota request of the quota bucket.
-    CheckQuotaAvailabilityResponse:
+    CheckQuotaAvailabilityResponseFlattened:
       type: object
-      description: Check quota availability response object. Variables are only populated by the server, and will be ignored when sending a request.
+      description: Flattened view of CheckQuotaAvailabilityResponse ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -326,15 +326,12 @@ components:
         systemData:
           $ref: "#/components/schemas/SystemData"
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          type: object
-          properties:
-            isAvailable:
-              type: boolean
-              description: True/False indicating whether the quota request be granted based on availability.
-            availabilityStatus:
-              type: string
-              description: Message indicating additional details to add to quota support request.
+        isAvailable:
+          type: boolean
+          description: True/False indicating whether the quota request be granted based on availability.
+        availabilityStatus:
+          type: string
+          description: Message indicating additional details to add to quota support request.
   x-stackQL-resources:
     load_tests:
       id: azure.loadtesting.load_tests
@@ -485,6 +482,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
           request:
             nativeCasing: camel
           config:
@@ -841,4 +842,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CheckQuotaAvailabilityResponse"
+                $ref: "#/components/schemas/CheckQuotaAvailabilityResponseFlattened"

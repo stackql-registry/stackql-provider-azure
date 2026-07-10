@@ -590,7 +590,7 @@ components:
           operation:
             $ref: "#/paths/~1v2~1{name}~1blobs~1{digest}?api-version=2021-07-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_upload_status:
           operation:
             $ref: "#/paths/~1{next_blob_uuid_link}?api-version=2021-07-01/get"
@@ -625,7 +625,6 @@ components:
         insert: []
         update: []
         delete:
-          - $ref: "#/components/x-stackQL-resources/container_registry_blob/methods/delete_blob"
           - $ref: "#/components/x-stackQL-resources/container_registry_blob/methods/cancel_upload"
     container_registry:
       id: azure.containerregistry_dataplane.container_registry
@@ -652,12 +651,18 @@ components:
           operation:
             $ref: "#/paths/~1v2~1{name}~1manifests~1{reference}?api-version=2021-07-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_repositories:
           operation:
             $ref: "#/paths/~1acr~1v1~1_catalog?api-version=2021-07-01/get"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            objectKey: $.repositories
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": [{{- range $i, $v := index . "value" }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}], "nextLink": {{ toJson (index . "nextLink") }}}'
           request:
             nativeCasing: camel
         get_properties:
@@ -670,7 +675,7 @@ components:
           operation:
             $ref: "#/paths/~1acr~1v1~1{name}?api-version=2021-07-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         update_properties:
           operation:
             $ref: "#/paths/~1acr~1v1~1{name}?api-version=2021-07-01/patch"
@@ -711,7 +716,7 @@ components:
           operation:
             $ref: "#/paths/~1acr~1v1~1{name}~1_tags~1{reference}?api-version=2021-07-01/delete"
           response:
-            openAPIDocKey: "204"
+            openAPIDocKey: "200"
         get_manifests:
           operation:
             $ref: "#/paths/~1acr~1v1~1{name}~1_manifests?api-version=2021-07-01/get"
@@ -747,15 +752,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/container_registry/methods/get_manifest"
           - $ref: "#/components/x-stackQL-resources/container_registry/methods/get_manifest_properties"
           - $ref: "#/components/x-stackQL-resources/container_registry/methods/get_properties"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/container_registry/methods/create_manifest"
-        update:
-          - $ref: "#/components/x-stackQL-resources/container_registry/methods/update_tag_attributes"
-          - $ref: "#/components/x-stackQL-resources/container_registry/methods/update_manifest_properties"
-          - $ref: "#/components/x-stackQL-resources/container_registry/methods/update_properties"
-        delete:
-          - $ref: "#/components/x-stackQL-resources/container_registry/methods/delete_manifest"
-          - $ref: "#/components/x-stackQL-resources/container_registry/methods/delete_repository"
+          - $ref: "#/components/x-stackQL-resources/container_registry/methods/get_repositories"
+        insert: []
+        update: []
+        delete: []
 paths:
   /oauth2/token?api-version=2021-07-01:
     get:
@@ -915,8 +915,8 @@ paths:
             type: string
           description: Digest of a BLOB. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /{next_blob_uuid_link}?api-version=2021-07-01:
     get:
       operationId: ContainerRegistryBlob_get_upload_status
@@ -1072,8 +1072,8 @@ paths:
             type: string
           description: Digest of a BLOB. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /acr/v1/_catalog?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_repositories
@@ -1094,6 +1094,20 @@ paths:
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repositories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
   /acr/v1/{name}?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_properties
@@ -1123,8 +1137,8 @@ paths:
             type: string
           description: Name of the image (including the namespace). Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
     patch:
       operationId: ContainerRegistry_update_properties
       description: Update the attribute identified by `name` where `reference` is the name of the repository.
@@ -1286,8 +1300,8 @@ paths:
             type: string
           description: Tag name. Required.
       responses:
-        "204":
-          description: Success (no content / accepted)
+        "200":
+          description: Success
   /acr/v1/{name}/_manifests?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_manifests

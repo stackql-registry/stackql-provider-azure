@@ -488,20 +488,6 @@ components:
             $ref: "#/components/schemas/IssueResourceFlattened"
         nextLink:
           type: string
-    PagedRelatedAlert:
-      type: object
-      description: Paged collection of RelatedAlert items.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/RelatedAlert"
-          description: The RelatedAlert items on this page. Required.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
-      required:
-        - value
     RelatedAlert:
       type: object
       description: Properties of an alert which is related to the issue.
@@ -550,15 +536,15 @@ components:
       enum:
         - Manual
         - Automatic
-    PagedRelatedResource:
+    PagedRelatedAlert:
       type: object
-      description: Paged collection of RelatedResource items.
+      description: Paged collection of RelatedAlert items.
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/RelatedResource"
-          description: The RelatedResource items on this page. Required.
+            $ref: "#/components/schemas/RelatedAlert"
+          description: The RelatedAlert items on this page. Required.
         nextLink:
           type: string
           description: The link to the next page of items.
@@ -588,6 +574,20 @@ components:
       required:
         - id
         - relevance
+    PagedRelatedResource:
+      type: object
+      description: Paged collection of RelatedResource items.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/RelatedResource"
+          description: The RelatedResource items on this page. Required.
+        nextLink:
+          type: string
+          description: The link to the next page of items.
+      required:
+        - value
     IssueResource:
       type: object
       description: The Issue resource.
@@ -1032,6 +1032,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/issue/methods/fetch_investigation_result"
           - $ref: "#/components/x-stackQL-resources/issue/methods/get"
           - $ref: "#/components/x-stackQL-resources/issue/methods/list"
         insert:

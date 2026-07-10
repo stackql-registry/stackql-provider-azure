@@ -97,20 +97,6 @@ components:
       enum:
         - ASC
         - DESC
-    ActivityRunsQueryResponse:
-      type: object
-      description: A list activity runs.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/ActivityRun"
-          description: List of activity runs. Required.
-        continuationToken:
-          type: string
-          description: The continuation token for getting the next page of results, if any remaining results exist, null otherwise.
-      required:
-        - value
     ActivityRun:
       type: object
       description: Information about an activity run in a pipeline.
@@ -159,6 +145,20 @@ components:
           type: object
           properties: {}
           description: The error if any from the activity run.
+    ActivityRunsQueryResponse:
+      type: object
+      description: A list activity runs.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityRun"
+          description: List of activity runs. Required.
+        continuationToken:
+          type: string
+          description: The continuation token for getting the next page of results, if any remaining results exist, null otherwise.
+      required:
+        - value
     SystemData:
       type: object
       description: Metadata pertaining to creation and last modification of the resource.
@@ -1345,19 +1345,6 @@ components:
         gitHubAccessToken:
           type: string
           description: GitHub access token.
-    AccessPolicyResponse:
-      type: object
-      description: Get Data Plane read only token response definition.
-      properties:
-        policy:
-          $ref: "#/components/schemas/UserAccessPolicy"
-          description: The user access policy.
-        accessToken:
-          type: string
-          description: Data Plane read only access token.
-        dataPlaneUrl:
-          type: string
-          description: Data Plane service base URL.
     UserAccessPolicy:
       type: object
       description: Get Data Plane read only token request definition.
@@ -1377,6 +1364,19 @@ components:
         expireTime:
           type: string
           description: Expiration time for the token. Maximum duration for the token is eight hours and by default the token will expire in eight hours.
+    AccessPolicyResponse:
+      type: object
+      description: Get Data Plane read only token response definition.
+      properties:
+        policy:
+          $ref: "#/components/schemas/UserAccessPolicy"
+          description: The user access policy.
+        accessToken:
+          type: string
+          description: Data Plane read only access token.
+        dataPlaneUrl:
+          type: string
+          description: Data Plane service base URL.
     FactoryUpdateProperties:
       type: object
       description: Factory update resource properties.
@@ -1507,20 +1507,6 @@ components:
         ipAddress:
           type: string
           description: The IP address of self-hosted integration runtime node.
-    SsisObjectMetadataListResponse:
-      type: object
-      description: A list of SSIS object metadata.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/SsisObjectMetadata"
-          description: The SsisObjectMetadata items on this page. Required.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
-      required:
-        - value
     SsisObjectMetadata:
       type: object
       description: "SSIS object metadata. You probably want to use the sub-classes and not this class directly. Known sub-classes are: SsisEnvironment, SsisFolder, SsisPackage, SsisProject"
@@ -1539,6 +1525,20 @@ components:
           description: Metadata description.
       required:
         - type
+    SsisObjectMetadataListResponse:
+      type: object
+      description: A list of SSIS object metadata.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/SsisObjectMetadata"
+          description: The SsisObjectMetadata items on this page. Required.
+        nextLink:
+          type: string
+          description: The link to the next page of items.
+      required:
+        - value
     SsisObjectMetadataStatusResponse:
       type: object
       description: The status of the operation.
@@ -1660,18 +1660,6 @@ components:
         authKey2:
           type: string
           description: The secondary integration runtime authentication key.
-    IntegrationRuntimeStatusResponse:
-      type: object
-      description: Integration runtime status response.
-      properties:
-        name:
-          type: string
-          description: The integration runtime name.
-        properties:
-          $ref: "#/components/schemas/IntegrationRuntimeStatus"
-          description: Integration runtime properties. Required.
-      required:
-        - properties
     IntegrationRuntimeStatus:
       type: object
       description: "Integration runtime status. You probably want to use the sub-classes and not this class directly. Known sub-classes are: ManagedIntegrationRuntimeStatus, SelfHostedIntegrationRuntimeStatus"
@@ -1700,6 +1688,22 @@ components:
         - Limited
         - Offline
         - AccessDenied
+    IntegrationRuntimeStatusResponseFlattened:
+      type: object
+      description: Flattened view of IntegrationRuntimeStatusResponse ('properties' hoisted to the top level).
+      properties:
+        name:
+          type: string
+          description: The integration runtime name.
+        type:
+          type: string
+          description: 'Type of integration runtime. Required. Known values are: "Managed" and "SelfHosted".'
+        dataFactoryName:
+          type: string
+          description: The data factory name which the integration runtime belong to.
+        state:
+          $ref: "#/components/schemas/IntegrationRuntimeState"
+          description: 'The state of integration runtime. Known values are: "Initial", "Stopped", "Started", "Starting", "Stopping", "NeedRegistration", "Online", "Limited", "Offline", and "AccessDenied".'
     IntegrationRuntimeConnectionInfo:
       type: object
       description: Connection information for encrypting the on-premises data source credentials.
@@ -1722,18 +1726,6 @@ components:
         isIdentityCertExprired:
           type: boolean
           description: Whether the identity certificate is expired.
-    IntegrationRuntimeMonitoringData:
-      type: object
-      description: Get monitoring data response.
-      properties:
-        name:
-          type: string
-          description: Integration runtime name.
-        nodes:
-          type: array
-          items:
-            $ref: "#/components/schemas/IntegrationRuntimeNodeMonitoringData"
-          description: Integration runtime node monitoring data.
     IntegrationRuntimeNodeMonitoringData:
       type: object
       description: Monitoring data for integration runtime node.
@@ -1762,6 +1754,18 @@ components:
         receivedBytes:
           type: number
           description: Received bytes on the integration runtime node.
+    IntegrationRuntimeMonitoringData:
+      type: object
+      description: Get monitoring data response.
+      properties:
+        name:
+          type: string
+          description: Integration runtime name.
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/IntegrationRuntimeNodeMonitoringData"
+          description: Integration runtime node monitoring data.
     IntegrationRuntimeAutoUpdate:
       type: string
       enum:
@@ -1772,6 +1776,18 @@ components:
       enum:
         - authKey1
         - authKey2
+    IntegrationRuntimeStatusResponse:
+      type: object
+      description: Integration runtime status response.
+      properties:
+        name:
+          type: string
+          description: The integration runtime name.
+        properties:
+          $ref: "#/components/schemas/IntegrationRuntimeStatus"
+          description: Integration runtime properties. Required.
+      required:
+        - properties
     LinkedServiceResourceFlattened:
       type: object
       description: Flattened view of LinkedServiceResource ('properties' hoisted to the top level).
@@ -2629,20 +2645,6 @@ components:
           description: Required.
       required:
         - value
-    TriggerRunsQueryResponse:
-      type: object
-      description: A list of trigger runs.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: "#/components/schemas/TriggerRun"
-          description: List of trigger runs. Required.
-        continuationToken:
-          type: string
-          description: The continuation token for getting the next page of results, if any remaining results exist, null otherwise.
-      required:
-        - value
     TriggerRun:
       type: object
       description: Trigger runs.
@@ -2688,6 +2690,20 @@ components:
         - Succeeded
         - Failed
         - Inprogress
+    TriggerRunsQueryResponse:
+      type: object
+      description: A list of trigger runs.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: "#/components/schemas/TriggerRun"
+          description: List of trigger runs. Required.
+        continuationToken:
+          type: string
+          description: The continuation token for getting the next page of results, if any remaining results exist, null otherwise.
+      required:
+        - value
     Trigger:
       type: object
       description: "Azure data factory nested object which contains information about creating pipeline run. You probably want to use the sub-classes and not this class directly. Known sub-classes are: BlobEventsTrigger, BlobTrigger, ChainingTrigger, CustomEventsTrigger, MultiplePipelineTrigger, RerunTumblingWindowTrigger, ScheduleTrigger, TumblingWindowTrigger"
@@ -2779,6 +2795,14 @@ components:
           description: '"If etag is provided in the response body, it may also be provided as a header per the normal etag convention. Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.").'
       required:
         - properties
+    EventSubscriptionStatus:
+      type: string
+      enum:
+        - Enabled
+        - Provisioning
+        - Deprovisioning
+        - Disabled
+        - Unknown
     TriggerSubscriptionOperationStatus:
       type: object
       description: Defines the response of a trigger subscription operation.
@@ -2789,14 +2813,6 @@ components:
         status:
           $ref: "#/components/schemas/EventSubscriptionStatus"
           description: 'Event Subscription Status. Known values are: "Enabled", "Provisioning", "Deprovisioning", "Disabled", and "Unknown".'
-    EventSubscriptionStatus:
-      type: string
-      enum:
-        - Enabled
-        - Provisioning
-        - Deprovisioning
-        - Disabled
-        - Unknown
     TriggerQueryResponse:
       type: object
       description: A query of triggers.
@@ -2829,7 +2845,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/activity_runs/methods/query_by_pipeline_run"
         insert: []
         update: []
         delete: []
@@ -2986,6 +3003,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         add_data_flow:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataFactory~1factories~1{factory_name}~1addDataFlowToDebugSession?api-version=2018-06-01/post"
@@ -3019,7 +3037,8 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/data_flow_debug_session/methods/query_by_factory"
         insert:
           - $ref: "#/components/x-stackQL-resources/data_flow_debug_session/methods/create"
         update: []
@@ -3180,7 +3199,10 @@ components:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/exposure_control/methods/query_feature_values_by_factory"
+          - $ref: "#/components/x-stackQL-resources/exposure_control/methods/get_feature_value_by_factory"
+          - $ref: "#/components/x-stackQL-resources/exposure_control/methods/get_feature_value"
         insert: []
         update: []
         delete: []
@@ -3258,7 +3280,7 @@ components:
                   { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
                 {{- end }}
                 ], "nextLink": {{ toJson (index . "nextLink") }}}
-        get_git_hub_access_token:
+        get_github_access_token:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataFactory~1factories~1{factory_name}~1getGitHubAccessToken?api-version=2018-06-01/post"
           response:
@@ -3293,6 +3315,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/factories/methods/get_github_access_token"
           - $ref: "#/components/x-stackQL-resources/factories/methods/get"
           - $ref: "#/components/x-stackQL-resources/factories/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/factories/methods/list"
@@ -3395,13 +3418,7 @@ components:
       name: integration_runtime_object_metadata
       title: integration_runtime_object_metadata
       methods:
-        refresh:
-          operation:
-            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataFactory~1factories~1{factory_name}~1integrationRuntimes~1{integration_runtime_name}~1refreshObjectMetadata?api-version=2018-06-01/post"
-          response:
-            openAPIDocKey: "200"
-            mediaType: application/json
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataFactory~1factories~1{factory_name}~1integrationRuntimes~1{integration_runtime_name}~1getObjectMetadata?api-version=2018-06-01/post"
           response:
@@ -3412,8 +3429,15 @@ components:
           config:
             requestBodyTranslate:
               algorithm: naive
+        refresh:
+          operation:
+            $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataFactory~1factories~1{factory_name}~1integrationRuntimes~1{integration_runtime_name}~1refreshObjectMetadata?api-version=2018-06-01/post"
+          response:
+            openAPIDocKey: "200"
+            mediaType: application/json
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/integration_runtime_object_metadata/methods/get"
         insert: []
         update: []
         delete: []
@@ -3520,6 +3544,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         get_connection_info:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.DataFactory~1factories~1{factory_name}~1integrationRuntimes~1{integration_runtime_name}~1getConnectionInfo?api-version=2018-06-01/post"
@@ -3591,7 +3619,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/integration_runtimes/methods/list_by_factory"
         insert:
           - $ref: "#/components/x-stackQL-resources/integration_runtimes/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/integration_runtimes/methods/create_linked_integration_runtime"
         update:
           - $ref: "#/components/x-stackQL-resources/integration_runtimes/methods/update"
         replace:
@@ -3824,6 +3851,7 @@ components:
             nativeCasing: camel
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/pipeline_runs/methods/query_by_factory"
           - $ref: "#/components/x-stackQL-resources/pipeline_runs/methods/get"
         insert: []
         update: []
@@ -3889,7 +3917,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/pipelines/methods/list_by_factory"
         insert:
           - $ref: "#/components/x-stackQL-resources/pipelines/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/pipelines/methods/create_run"
         update: []
         replace:
           - $ref: "#/components/x-stackQL-resources/pipelines/methods/create_or_update"
@@ -4007,7 +4034,8 @@ components:
           response:
             openAPIDocKey: "200"
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/trigger_runs/methods/query_by_factory"
         insert: []
         update: []
         delete: []
@@ -5357,7 +5385,7 @@ paths:
                 $ref: "#/components/schemas/PagedFactoryFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataFactory/factories/{factory_name}/getGitHubAccessToken?api-version=2018-06-01:
     post:
-      operationId: Factories_get_git_hub_access_token
+      operationId: Factories_get_github_access_token
       description: Get GitHub Access Token.
       parameters:
         - name: resource_group_name
@@ -6253,7 +6281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/IntegrationRuntimeStatusResponse"
+                $ref: "#/components/schemas/IntegrationRuntimeStatusResponseFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataFactory/factories/{factory_name}/integrationRuntimes/{integration_runtime_name}/getConnectionInfo?api-version=2018-06-01:
     post:
       operationId: IntegrationRuntimes_get_connection_info

@@ -735,50 +735,6 @@ components:
       required:
         - location
         - properties
-    AvailableContacts:
-      type: object
-      description: Customer retrieves list of Available Contacts for a spacecraft resource. Later, one of the available contact can be selected to create a contact. Variables are only populated by the server, and will be ignored when sending a request.
-      properties:
-        spacecraft:
-          $ref: "#/components/schemas/AvailableContactsSpacecraft"
-          description: The reference to the spacecraft resource.
-        groundStationName:
-          type: string
-          description: Name of Azure Ground Station.
-        properties:
-          type: object
-          properties:
-            maximumElevationDegrees:
-              type: number
-              description: Maximum elevation of the antenna during the contact in decimal degrees.
-            txStartTime:
-              type: string
-              format: date-time
-              description: Time at which antenna transmit will be enabled (ISO 8601 UTC standard).
-            txEndTime:
-              type: string
-              format: date-time
-              description: Time at which antenna transmit will be disabled (ISO 8601 UTC standard).
-            rxStartTime:
-              type: string
-              format: date-time
-              description: Earliest time to receive a signal (ISO 8601 UTC standard).
-            rxEndTime:
-              type: string
-              format: date-time
-              description: Time to lost receiving a signal (ISO 8601 UTC standard).
-            startAzimuthDegrees:
-              type: number
-              description: Azimuth of the antenna at the start of the contact in decimal degrees.
-            endAzimuthDegrees:
-              type: number
-              description: Azimuth of the antenna at the end of the contact in decimal degrees.
-            startElevationDegrees:
-              type: number
-              description: Spacecraft elevation above the horizon at contact start.
-            endElevationDegrees:
-              type: number
-              description: Spacecraft elevation above the horizon at contact end.
     AvailableContactsSpacecraft:
       type: object
       description: The reference to the spacecraft resource. All required parameters must be populated in order to send to Azure.
@@ -788,13 +744,54 @@ components:
           description: Resource ID. Required.
       required:
         - id
-    PagedAvailableContacts:
+    AvailableContactsFlattened:
+      type: object
+      description: Flattened view of AvailableContacts ('properties' hoisted to the top level).
+      properties:
+        spacecraft:
+          $ref: "#/components/schemas/AvailableContactsSpacecraft"
+          description: The reference to the spacecraft resource.
+        groundStationName:
+          type: string
+          description: Name of Azure Ground Station.
+        maximumElevationDegrees:
+          type: number
+          description: Maximum elevation of the antenna during the contact in decimal degrees.
+        txStartTime:
+          type: string
+          format: date-time
+          description: Time at which antenna transmit will be enabled (ISO 8601 UTC standard).
+        txEndTime:
+          type: string
+          format: date-time
+          description: Time at which antenna transmit will be disabled (ISO 8601 UTC standard).
+        rxStartTime:
+          type: string
+          format: date-time
+          description: Earliest time to receive a signal (ISO 8601 UTC standard).
+        rxEndTime:
+          type: string
+          format: date-time
+          description: Time to lost receiving a signal (ISO 8601 UTC standard).
+        startAzimuthDegrees:
+          type: number
+          description: Azimuth of the antenna at the start of the contact in decimal degrees.
+        endAzimuthDegrees:
+          type: number
+          description: Azimuth of the antenna at the end of the contact in decimal degrees.
+        startElevationDegrees:
+          type: number
+          description: Spacecraft elevation above the horizon at contact start.
+        endElevationDegrees:
+          type: number
+          description: Spacecraft elevation above the horizon at contact end.
+    PagedAvailableContactsFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/AvailableContacts"
+            $ref: "#/components/schemas/AvailableContactsFlattened"
         nextLink:
           type: string
   x-stackQL-resources:
@@ -1095,6 +1092,16 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
           config:
@@ -1102,6 +1109,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/spacecrafts/methods/list_available_contacts"
           - $ref: "#/components/x-stackQL-resources/spacecrafts/methods/get"
           - $ref: "#/components/x-stackQL-resources/spacecrafts/methods/list"
           - $ref: "#/components/x-stackQL-resources/spacecrafts/methods/list_by_subscription"
@@ -1765,4 +1773,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedAvailableContacts"
+                $ref: "#/components/schemas/PagedAvailableContactsFlattened"

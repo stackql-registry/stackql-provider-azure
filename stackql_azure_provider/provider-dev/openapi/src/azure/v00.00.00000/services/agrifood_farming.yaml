@@ -80,7 +80,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/application_data/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/application_data/methods/create_or_update"
         update: []
         replace:
@@ -186,7 +185,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/boundaries/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/boundaries/methods/create_or_update"
         update: []
         replace:
@@ -354,8 +352,7 @@ components:
             openAPIDocKey: "204"
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/farm_operations/methods/create_data_ingestion_job"
+        insert: []
         update: []
         delete: []
     farms:
@@ -407,7 +404,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/farms/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/farms/methods/create_or_update"
         update: []
         replace:
@@ -463,7 +459,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/fields/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/fields/methods/create_or_update"
         update: []
         replace:
@@ -519,7 +514,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/harvest_data/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/harvest_data/methods/create_or_update"
         update: []
         replace:
@@ -543,8 +537,7 @@ components:
             openAPIDocKey: "204"
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/image_processing/methods/create_rasterize_job"
+        insert: []
         update: []
         delete: []
     insight_attachments:
@@ -622,7 +615,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/insights/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/insights/methods/create_or_update"
         update: []
         replace:
@@ -678,7 +670,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/management_zones/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/management_zones/methods/create_or_update"
         update: []
         replace:
@@ -722,8 +713,7 @@ components:
             openAPIDocKey: "204"
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/model_inference/methods/create_biomass_model_job"
+        insert: []
         update: []
         delete: []
     nutrient_analyses:
@@ -769,10 +759,10 @@ components:
           - $ref: "#/components/x-stackQL-resources/nutrient_analyses/methods/create_or_update"
         delete:
           - $ref: "#/components/x-stackQL-resources/nutrient_analyses/methods/delete"
-    o_auth_providers:
-      id: azure.agrifood_farming.o_auth_providers
-      name: o_auth_providers
-      title: o_auth_providers
+    oauth_providers:
+      id: azure.agrifood_farming.oauth_providers
+      name: oauth_providers
+      title: oauth_providers
       methods:
         get_raw:
           operation:
@@ -811,17 +801,16 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/o_auth_providers/methods/create_cascade_delete_job"
-          - $ref: "#/components/x-stackQL-resources/o_auth_providers/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/oauth_providers/methods/create_or_update"
         update: []
         replace:
-          - $ref: "#/components/x-stackQL-resources/o_auth_providers/methods/create_or_update"
+          - $ref: "#/components/x-stackQL-resources/oauth_providers/methods/create_or_update"
         delete:
-          - $ref: "#/components/x-stackQL-resources/o_auth_providers/methods/delete"
-    o_auth_tokens:
-      id: azure.agrifood_farming.o_auth_tokens
-      name: o_auth_tokens
-      title: o_auth_tokens
+          - $ref: "#/components/x-stackQL-resources/oauth_providers/methods/delete"
+    oauth_tokens:
+      id: azure.agrifood_farming.oauth_tokens
+      name: oauth_tokens
+      title: oauth_tokens
       methods:
         list_raw:
           operation:
@@ -830,11 +819,16 @@ components:
             openAPIDocKey: "200"
           request:
             nativeCasing: camel
-        get_o_auth_connection_link:
+        get_oauth_connection_link:
           operation:
             $ref: "#/paths/~1oauth~1tokens~1:connect?api-version=2022-11-01-preview/post"
           response:
             openAPIDocKey: "200"
+            mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{"value": {{ toJson . }}}'
         get_cascade_delete_job_details:
           operation:
             $ref: "#/paths/~1oauth~1tokens~1remove~1{job_id}?api-version=2022-11-01-preview/get"
@@ -848,9 +842,9 @@ components:
           request:
             nativeCasing: camel
       sqlVerbs:
-        select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/o_auth_tokens/methods/create_cascade_delete_job"
+        select:
+          - $ref: "#/components/x-stackQL-resources/oauth_tokens/methods/get_oauth_connection_link"
+        insert: []
         update: []
         delete: []
     parties:
@@ -895,7 +889,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/parties/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/parties/methods/create_or_update"
         update: []
         replace:
@@ -951,7 +944,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/plant_tissue_analyses/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/plant_tissue_analyses/methods/create_or_update"
         update: []
         replace:
@@ -1007,7 +999,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/planting_data/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/planting_data/methods/create_or_update"
         update: []
         replace:
@@ -1063,7 +1054,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/prescription_maps/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/prescription_maps/methods/create_or_update"
         update: []
         replace:
@@ -1119,7 +1109,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/prescriptions/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/prescriptions/methods/create_or_update"
         update: []
         replace:
@@ -1169,8 +1158,7 @@ components:
             nativeCasing: camel
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/scenes/methods/create_satellite_data_ingestion_job"
+        insert: []
         update: []
         delete: []
     seasonal_fields:
@@ -1222,7 +1210,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/seasonal_fields/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/seasonal_fields/methods/create_or_update"
         update: []
         replace:
@@ -1525,7 +1512,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/tillage_data/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/tillage_data/methods/create_or_update"
         update: []
         replace:
@@ -1581,8 +1567,7 @@ components:
             openAPIDocKey: "204"
       sqlVerbs:
         select: []
-        insert:
-          - $ref: "#/components/x-stackQL-resources/weather/methods/create_data_delete_job"
+        insert: []
         update: []
         delete: []
     zones:
@@ -1634,7 +1619,6 @@ components:
       sqlVerbs:
         select: []
         insert:
-          - $ref: "#/components/x-stackQL-resources/zones/methods/create_cascade_delete_job"
           - $ref: "#/components/x-stackQL-resources/zones/methods/create_or_update"
         update: []
         replace:
@@ -4657,12 +4641,19 @@ paths:
           description: Success
   /oauth/tokens/:connect?api-version=2022-11-01-preview:
     post:
-      operationId: OAuthTokens_get_o_auth_connection_link
+      operationId: OAuthTokens_get_oauth_connection_link
       description: Returns Connection link needed in the OAuth flow.
       parameters: []
       responses:
         "200":
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
   /oauth/tokens/remove/{job_id}?api-version=2022-11-01-preview:
     get:
       operationId: OAuthTokens_get_cascade_delete_job_details

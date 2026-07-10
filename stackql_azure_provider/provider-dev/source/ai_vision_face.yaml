@@ -1037,7 +1037,7 @@ paths:
                 $ref: '#/components/schemas/FaceFindSimilarResult'
       x-stackql-resource: find_similars
       x-stackql-method: find_similar
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /verify:
     post:
       operationId: FaceClient_verify_face_to_face
@@ -1626,11 +1626,11 @@ paths:
           type: string
         description: Face ID of the face. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: large_face_list
       x-stackql-method: delete_face
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: LargeFaceList_update_face
       description: Please refer to https://learn.microsoft.com/rest/api/face/face-list-operations/update-large-face-list-face
@@ -1653,7 +1653,7 @@ paths:
           description: Success
       x-stackql-resource: large_face_list
       x-stackql-method: update_face
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /largefacelists/{large_face_list_id}/persistedfaces:
     get:
       operationId: LargeFaceList_get_faces
@@ -1936,11 +1936,11 @@ paths:
           type: string
         description: ID of the person. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: large_person_group
       x-stackql-method: delete_person
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: LargePersonGroup_update_person
       description: Please refer to https://learn.microsoft.com/rest/api/face/person-group-operations/update-large-person-group-person
@@ -1963,7 +1963,7 @@ paths:
           description: Success
       x-stackql-resource: large_person_group
       x-stackql-method: update_person
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /largepersongroups/{large_person_group_id}/persons:
     get:
       operationId: LargePersonGroup_get_persons
@@ -2021,7 +2021,7 @@ paths:
                 $ref: '#/components/schemas/CreatePersonResult'
       x-stackql-resource: large_person_group
       x-stackql-method: create_person
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /largepersongroups/{large_person_group_id}/persons/{person_id}/persistedfaces/{persisted_face_id}:
     get:
       operationId: LargePersonGroup_get_face
@@ -2081,11 +2081,11 @@ paths:
           type: string
         description: Face ID of the face. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: large_person_group
       x-stackql-method: delete_face
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: LargePersonGroup_update_face
       description: Please refer to https://learn.microsoft.com/rest/api/face/person-group-operations/update-large-person-group-person-face
@@ -2114,7 +2114,7 @@ paths:
           description: Success
       x-stackql-resource: large_person_group
       x-stackql-method: update_face
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /largepersongroups/{large_person_group_id}/train:
     post:
       operationId: LargePersonGroup_begin_train

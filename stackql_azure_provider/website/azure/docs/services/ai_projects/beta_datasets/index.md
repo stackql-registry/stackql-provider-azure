@@ -170,14 +170,14 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_generation_job"><CopyableCode code="create_generation_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-Operation-Id"><code>Operation-Id</code></a></td>
     <td>Create a data generation job. Submits a new data generation job for asynchronous execution.</td>
 </tr>
 <tr>
     <td><a href="#delete_generation_job"><CopyableCode code="delete_generation_job" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete a data generation job. Removes the specified data generation job and its associated output.</td>
@@ -208,7 +208,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
@@ -296,13 +296,14 @@ AND before = '{{ before }}'
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_generation_job"
     values={[
         { label: 'create_generation_job', value: 'create_generation_job' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'delete_generation_job', value: 'delete_generation_job' },
+        { label: 'cancel_generation_job', value: 'cancel_generation_job' }
     ]}
 >
 <TabItem value="create_generation_job">
@@ -310,93 +311,27 @@ AND before = '{{ before }}'
 Create a data generation job. Submits a new data generation job for asynchronous execution.
 
 ```sql
-INSERT INTO azure.ai_projects.beta_datasets (
-inputs,
-endpoint,
-Operation-Id
-)
-SELECT 
-'{{ inputs }}',
-'{{ endpoint }}',
-'{{ Operation-Id }}'
-RETURNING
-id,
-created_at,
-error,
-finished_at,
-inputs,
-result,
-status
+EXEC azure.ai_projects.beta_datasets.create_generation_job 
+@endpoint='{{ endpoint }}' --required, 
+@Operation-Id='{{ Operation-Id }}' 
+@@json=
+'{
+"inputs": "{{ inputs }}"
+}'
 ;
 ```
 </TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: beta_datasets
-  props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the beta_datasets resource.
-    - name: inputs
-      description: |
-        Caller-supplied inputs.
-      value:
-        name: "{{ name }}"
-        sources:
-          - type: "{{ type }}"
-            description: "{{ description }}"
-        options:
-          type: "{{ type }}"
-          max_samples: {{ max_samples }}
-          train_split: {{ train_split }}
-          model_options:
-            model: "{{ model }}"
-        scenario: "{{ scenario }}"
-        output_options:
-          name: "{{ name }}"
-          description: "{{ description }}"
-          tags: "{{ tags }}"
-    - name: Operation-Id
-      value: "{{ Operation-Id }}"
-      description: Client-generated unique ID for idempotent retries. When absent, the server creates the job unconditionally. Default value is None.
-      description: Client-generated unique ID for idempotent retries. When absent, the server creates the job unconditionally. Default value is None.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_generation_job"
-    values={[
-        { label: 'delete_generation_job', value: 'delete_generation_job' }
-    ]}
->
 <TabItem value="delete_generation_job">
 
 Delete a data generation job. Removes the specified data generation job and its associated output.
 
 ```sql
-DELETE FROM azure.ai_projects.beta_datasets
-WHERE job_id = '{{ job_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.ai_projects.beta_datasets.delete_generation_job 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="cancel_generation_job"
-    values={[
-        { label: 'cancel_generation_job', value: 'cancel_generation_job' }
-    ]}
->
 <TabItem value="cancel_generation_job">
 
 Cancel a data generation job. Cancels the specified data generation job if it is still in progress.

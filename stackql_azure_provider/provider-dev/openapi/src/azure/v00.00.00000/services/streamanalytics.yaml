@@ -1404,6 +1404,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/clusters/methods/get"
@@ -1494,6 +1495,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
           request:
             nativeCasing: camel
           config:
@@ -1501,6 +1506,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/functions/methods/retrieve_default_definition"
           - $ref: "#/components/x-stackQL-resources/functions/methods/get"
           - $ref: "#/components/x-stackQL-resources/functions/methods/list_by_streaming_job"
         insert:
@@ -2561,7 +2567,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Function"
+                $ref: "#/components/schemas/FunctionFlattened"
   /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.StreamAnalytics/streamingjobs/{job_name}/inputs/{input_name}?api-version=2021-10-01-preview:
     get:
       operationId: Inputs_get

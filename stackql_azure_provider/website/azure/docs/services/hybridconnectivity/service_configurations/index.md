@@ -179,13 +179,6 @@ The following methods are available for this resource:
     <td>Lists of all the services associated with endpoint resource. API to enumerate registered services in service configurations under a Endpoint Resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_orupdate"><CopyableCode code="create_orupdate" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-service_configuration_name"><code>service_configuration_name</code></a></td>
-    <td></td>
-    <td>Create or update a service in serviceConfiguration for the endpoint resource.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-service_configuration_name"><code>service_configuration_name</code></a></td>
@@ -198,6 +191,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-service_configuration_name"><code>service_configuration_name</code></a></td>
     <td></td>
     <td>Deletes the service details to the target resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_orupdate"><CopyableCode code="create_orupdate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-service_configuration_name"><code>service_configuration_name</code></a></td>
+    <td></td>
+    <td>Create or update a service in serviceConfiguration for the endpoint resource.</td>
 </tr>
 </tbody>
 </table>
@@ -286,68 +286,6 @@ AND endpoint_name = '{{ endpoint_name }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_orupdate"
-    values={[
-        { label: 'create_orupdate', value: 'create_orupdate' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_orupdate">
-
-Create or update a service in serviceConfiguration for the endpoint resource.
-
-```sql
-INSERT INTO azure.hybridconnectivity.service_configurations (
-properties,
-resource_uri,
-endpoint_name,
-service_configuration_name
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_uri }}',
-'{{ endpoint_name }}',
-'{{ service_configuration_name }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: service_configurations
-  props:
-    - name: resource_uri
-      value: "{{ resource_uri }}"
-      description: Required parameter for the service_configurations resource.
-    - name: endpoint_name
-      value: "{{ endpoint_name }}"
-      description: Required parameter for the service_configurations resource.
-    - name: service_configuration_name
-      value: "{{ service_configuration_name }}"
-      description: Required parameter for the service_configurations resource.
-    - name: properties
-      description: |
-        The service configuration properties.
-      value:
-        serviceName: "{{ serviceName }}"
-        resourceId: "{{ resourceId }}"
-        port: {{ port }}
-        provisioningState: "{{ provisioningState }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -396,6 +334,33 @@ DELETE FROM azure.hybridconnectivity.service_configurations
 WHERE resource_uri = '{{ resource_uri }}' --required
 AND endpoint_name = '{{ endpoint_name }}' --required
 AND service_configuration_name = '{{ service_configuration_name }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_orupdate"
+    values={[
+        { label: 'create_orupdate', value: 'create_orupdate' }
+    ]}
+>
+<TabItem value="create_orupdate">
+
+Create or update a service in serviceConfiguration for the endpoint resource.
+
+```sql
+EXEC azure.hybridconnectivity.service_configurations.create_orupdate 
+@resource_uri='{{ resource_uri }}' --required, 
+@endpoint_name='{{ endpoint_name }}' --required, 
+@service_configuration_name='{{ service_configuration_name }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#recover_deleted_secret"><CopyableCode code="recover_deleted_secret" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Recovers the deleted secret to the latest version. Recovers the deleted secret in the specified vault. This operation can only be performed on a soft-delete enabled vault. This operation requires the secrets/recover permission.</td>
 </tr>
@@ -78,10 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the deleted secret. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Recovers the deleted secret to the latest version. Recovers the deleted secret i
 ```sql
 EXEC azure.keyvault_secrets.recover_deleted_secrets.recover_deleted_secret 
 @secret_name='{{ secret_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required
+@vault_name='{{ vault_name }}' --required
 ;
 ```
 </TabItem>

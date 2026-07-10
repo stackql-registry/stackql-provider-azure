@@ -1868,8 +1868,7 @@ components:
       sqlVerbs:
         select:
           - $ref: "#/components/x-stackQL-resources/component_linked_storage_accounts/methods/get"
-        insert:
-          - $ref: "#/components/x-stackQL-resources/component_linked_storage_accounts/methods/create_and_update"
+        insert: []
         update:
           - $ref: "#/components/x-stackQL-resources/component_linked_storage_accounts/methods/update"
         delete:
@@ -2141,14 +2140,15 @@ components:
       name: live_token
       title: live_token
       methods:
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1{resource_uri}~1providers~1Microsoft.Insights~1generatelivetoken?api-version=2021-10-14/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/live_token/methods/get"
         insert: []
         update: []
         delete: []
@@ -2385,8 +2385,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/work_item_configurations/methods/list"
         insert:
           - $ref: "#/components/x-stackQL-resources/work_item_configurations/methods/create"
-        update:
-          - $ref: "#/components/x-stackQL-resources/work_item_configurations/methods/update_item"
+        update: []
         delete:
           - $ref: "#/components/x-stackQL-resources/work_item_configurations/methods/delete"
     workbook_templates:

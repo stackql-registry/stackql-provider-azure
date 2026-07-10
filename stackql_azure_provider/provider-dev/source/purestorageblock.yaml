@@ -799,27 +799,6 @@ components:
             $ref: '#/components/schemas/ReservationFlattened'
         nextLink:
           type: string
-    LimitDetails:
-      type: object
-      description: Limits constraining certain resource properties.
-      properties:
-        storagePool:
-          $ref: '#/components/schemas/StoragePoolLimits'
-          description: Limits used for storage pool resources. Required.
-        volume:
-          $ref: '#/components/schemas/VolumeLimits'
-          description: Limits used for volume resources. Required.
-        protectionPolicy:
-          $ref: '#/components/schemas/ProtectionPolicyLimits'
-          description: internal. Required.
-        performancePolicy:
-          $ref: '#/components/schemas/PerformancePolicyLimits'
-          description: internal. Required.
-      required:
-      - storagePool
-      - volume
-      - protectionPolicy
-      - performancePolicy
     StoragePoolLimits:
       type: object
       description: Limits used for storage pool creation.
@@ -888,6 +867,27 @@ components:
       required:
       - iopsLimit
       - bandwidthLimit
+    LimitDetails:
+      type: object
+      description: Limits constraining certain resource properties.
+      properties:
+        storagePool:
+          $ref: '#/components/schemas/StoragePoolLimits'
+          description: Limits used for storage pool resources. Required.
+        volume:
+          $ref: '#/components/schemas/VolumeLimits'
+          description: Limits used for volume resources. Required.
+        protectionPolicy:
+          $ref: '#/components/schemas/ProtectionPolicyLimits'
+          description: internal. Required.
+        performancePolicy:
+          $ref: '#/components/schemas/PerformancePolicyLimits'
+          description: internal. Required.
+      required:
+      - storagePool
+      - volume
+      - protectionPolicy
+      - performancePolicy
     ReservationBillingStatus:
       type: object
       description: Latest billing status for this reservation.
@@ -951,25 +951,6 @@ components:
       - totalPerformanceReported
       - totalPerformanceIncludedPlan
       - totalPerformanceOverage
-    ReservationBillingUsageReport:
-      type: object
-      description: Represents a billing usage report, including overall status and detailed properties.
-      properties:
-        timestamp:
-          type: string
-          description: Latest formatted billing report for this reservation. Required.
-        billingUsageProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingUsageProperty'
-          description: A list of detailed billing usage properties. Required.
-        overallStatusMessage:
-          type: string
-          description: Overall status message of the billing usage report. Required.
-      required:
-      - timestamp
-      - billingUsageProperties
-      - overallStatusMessage
     BillingUsageProperty:
       type: object
       description: Represents an individual billing usage property.
@@ -1010,6 +991,25 @@ components:
       - information
       - warning
       - none
+    ReservationBillingUsageReport:
+      type: object
+      description: Represents a billing usage report, including overall status and detailed properties.
+      properties:
+        timestamp:
+          type: string
+          description: Latest formatted billing report for this reservation. Required.
+        billingUsageProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingUsageProperty'
+          description: A list of detailed billing usage properties. Required.
+        overallStatusMessage:
+          type: string
+          description: Overall status message of the billing usage report. Required.
+      required:
+      - timestamp
+      - billingUsageProperties
+      - overallStatusMessage
     Reservation:
       type: object
       description: Pure Storage cloud service resource type, also called reservation.
@@ -1202,21 +1202,6 @@ components:
             $ref: '#/components/schemas/StoragePoolFlattened'
         nextLink:
           type: string
-    StoragePoolHealthInfo:
-      type: object
-      description: Health information for a storage pool.
-      properties:
-        health:
-          $ref: '#/components/schemas/HealthDetails'
-          description: Health metrics. Required.
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alert'
-          description: List of health alerts. Required.
-      required:
-      - health
-      - alerts
     HealthDetails:
       type: object
       description: Health metrics for a storage pool.
@@ -1301,6 +1286,31 @@ components:
       - info
       - warning
       - error
+    StoragePoolHealthInfo:
+      type: object
+      description: Health information for a storage pool.
+      properties:
+        health:
+          $ref: '#/components/schemas/HealthDetails'
+          description: Health metrics. Required.
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+          description: List of health alerts. Required.
+      required:
+      - health
+      - alerts
+    ServiceInitializationHandle:
+      type: object
+      description: Initialization handle used to configure the AVS SDDC to communicate with the storage pool.
+      properties:
+        sddcResourceId:
+          type: string
+          description: Azure resource ID of the AVS SDDC the pool is connecting to.
+        serviceAccountUsername:
+          type: string
+          description: Requested service account username.
     AvsConnection:
       type: object
       description: Transient information about an on-going connection to an AVS instance.
@@ -1316,16 +1326,6 @@ components:
           description: Explicit service account credentials.
       required:
       - serviceInitializationCompleted
-    ServiceInitializationHandle:
-      type: object
-      description: Initialization handle used to configure the AVS SDDC to communicate with the storage pool.
-      properties:
-        sddcResourceId:
-          type: string
-          description: Azure resource ID of the AVS SDDC the pool is connecting to.
-        serviceAccountUsername:
-          type: string
-          description: Requested service account username.
     AvsStatus:
       type: object
       description: Status of storage pool / AVS connection.
@@ -2268,7 +2268,7 @@ paths:
                 $ref: '#/components/schemas/LimitDetails'
       x-stackql-resource: reservations
       x-stackql-method: get_resource_limits
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PureStorage.Block/reservations/{reservation_name}/getBillingStatus?api-version=2024-11-01
   : post:
       operationId: Reservations_get_billing_status
@@ -2300,7 +2300,7 @@ paths:
                 $ref: '#/components/schemas/ReservationBillingStatus'
       x-stackql-resource: reservations
       x-stackql-method: get_billing_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PureStorage.Block/reservations/{reservation_name}/getBillingReport?api-version=2024-11-01
   : post:
       operationId: Reservations_get_billing_report
@@ -2332,7 +2332,7 @@ paths:
                 $ref: '#/components/schemas/ReservationBillingUsageReport'
       x-stackql-resource: reservations
       x-stackql-method: get_billing_report
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PureStorage.Block/storagePools/{storage_pool_name}?api-version=2024-11-01
   : get:
       operationId: StoragePools_get
@@ -2577,7 +2577,7 @@ paths:
                 $ref: '#/components/schemas/StoragePoolHealthInfo'
       x-stackql-resource: storage_pools
       x-stackql-method: get_health_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PureStorage.Block/storagePools/{storage_pool_name}/getAvsConnection?api-version=2024-11-01
   : post:
       operationId: StoragePools_get_avs_connection
@@ -2609,7 +2609,7 @@ paths:
                 $ref: '#/components/schemas/AvsConnection'
       x-stackql-resource: storage_pools
       x-stackql-method: get_avs_connection
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PureStorage.Block/storagePools/{storage_pool_name}/getAvsStatus?api-version=2024-11-01
   : post:
       operationId: StoragePools_get_avs_status
@@ -2641,7 +2641,7 @@ paths:
                 $ref: '#/components/schemas/AvsStatus'
       x-stackql-resource: storage_pools
       x-stackql-method: get_avs_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PureStorage.Block/storagePools/{storage_pool_name}/enableAvsConnection?api-version=2024-11-01
   : post:
       operationId: StoragePools_begin_enable_avs_connection

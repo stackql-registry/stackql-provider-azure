@@ -518,21 +518,6 @@ components:
         properties:
           $ref: "#/components/schemas/ProjectProperties"
           description: The resource-specific properties for this resource.
-    RegionsByTierResponse:
-      type: object
-      description: Response for regions by cluster tier.
-      properties:
-        organizationId:
-          type: string
-          description: Atlas organization id. Required.
-        projectId:
-          type: string
-          description: Atlas project id. Required.
-        regionsByTier:
-          type: array
-          items:
-            $ref: "#/components/schemas/TierRegions"
-          description: List of cluster tiers and their supported regions. Required.
     TierRegions:
       type: object
       description: Cluster tier and its supported regions.
@@ -548,6 +533,21 @@ components:
       required:
         - tier
         - regions
+    RegionsByTierResponse:
+      type: object
+      description: Response for regions by cluster tier.
+      properties:
+        organizationId:
+          type: string
+          description: Atlas organization id. Required.
+        projectId:
+          type: string
+          description: Atlas project id. Required.
+        regionsByTier:
+          type: array
+          items:
+            $ref: "#/components/schemas/TierRegions"
+          description: List of cluster tiers and their supported regions. Required.
     TierLimitReachedResponse:
       type: object
       description: Response for tier limit check.

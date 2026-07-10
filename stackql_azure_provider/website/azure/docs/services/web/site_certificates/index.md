@@ -703,25 +703,11 @@ The following methods are available for this resource:
     <td>Get all certificates in a resource group under a site. Get all certificates in a resource group under a site.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_slot"><CopyableCode code="create_or_update_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Create or update a certificate in a given site and deployment slot. Create or update a certificate in a given site and deployment slot.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Create or update a certificate under a given site. Create or update a certificate under a given site.</td>
-</tr>
-<tr>
-    <td><a href="#update_slot"><CopyableCode code="update_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a certificate for a site and deployment slot. Create or update a certificate for a site and deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
@@ -731,13 +717,6 @@ The following methods are available for this resource:
     <td>Create or update a certificate under a given site. Create or update a certificate under a given site.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_slot"><CopyableCode code="create_or_update_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Create or update a certificate in a given site and deployment slot. Create or update a certificate in a given site and deployment slot.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
@@ -745,18 +724,32 @@ The following methods are available for this resource:
     <td>Create or update a certificate under a given site. Create or update a certificate under a given site.</td>
 </tr>
 <tr>
-    <td><a href="#delete_slot"><CopyableCode code="delete_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a certificate for a given site and deployment slot. Delete a certificate for a given site and deployment slot.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a certificate from the site. Delete a certificate from the site.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_slot"><CopyableCode code="create_or_update_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>Create or update a certificate in a given site and deployment slot. Create or update a certificate in a given site and deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#update_slot"><CopyableCode code="update_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a certificate for a site and deployment slot. Create or update a certificate for a site and deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_slot"><CopyableCode code="delete_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a certificate for a given site and deployment slot. Delete a certificate for a given site and deployment slot.</td>
 </tr>
 </tbody>
 </table>
@@ -987,51 +980,12 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_slot"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_slot', value: 'create_or_update_slot' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_slot">
-
-Create or update a certificate in a given site and deployment slot. Create or update a certificate in a given site and deployment slot.
-
-```sql
-INSERT INTO azure.web.site_certificates (
-tags,
-location,
-properties,
-kind,
-resource_group_name,
-name,
-slot,
-certificate_name,
-subscription_id
-)
-SELECT 
-'{{ tags }}',
-'{{ location }}' /* required */,
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ slot }}',
-'{{ certificate_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create or update a certificate under a given site. Create or update a certificate under a given site.
@@ -1078,9 +1032,6 @@ type
       description: Required parameter for the site_certificates resource.
     - name: name
       value: "{{ name }}"
-      description: Required parameter for the site_certificates resource.
-    - name: slot
-      value: "{{ slot }}"
       description: Required parameter for the site_certificates resource.
     - name: certificate_name
       value: "{{ certificate_name }}"
@@ -1138,38 +1089,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_slot"
+    defaultValue="update"
     values={[
-        { label: 'update_slot', value: 'update_slot' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_slot">
-
-Create or update a certificate for a site and deployment slot. Create or update a certificate for a site and deployment slot.
-
-```sql
-UPDATE azure.web.site_certificates
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND certificate_name = '{{ certificate_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Create or update a certificate under a given site. Create or update a certificate under a given site.
@@ -1201,41 +1125,11 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_slot"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_slot', value: 'create_or_update_slot' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_slot">
-
-Create or update a certificate in a given site and deployment slot. Create or update a certificate in a given site and deployment slot.
-
-```sql
-REPLACE azure.web.site_certificates
-SET 
-tags = '{{ tags }}',
-location = '{{ location }}',
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND certificate_name = '{{ certificate_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND location = '{{ location }}' --required
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create or update a certificate under a given site. Create or update a certificate under a given site.
@@ -1270,26 +1164,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_slot"
+    defaultValue="delete"
     values={[
-        { label: 'delete_slot', value: 'delete_slot' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_slot">
-
-Delete a certificate for a given site and deployment slot. Delete a certificate for a given site and deployment slot.
-
-```sql
-DELETE FROM azure.web.site_certificates
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND certificate_name = '{{ certificate_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a certificate from the site. Delete a certificate from the site.
@@ -1300,6 +1179,73 @@ WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND name = '{{ name }}' --required
 AND certificate_name = '{{ certificate_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_or_update_slot"
+    values={[
+        { label: 'create_or_update_slot', value: 'create_or_update_slot' },
+        { label: 'update_slot', value: 'update_slot' },
+        { label: 'delete_slot', value: 'delete_slot' }
+    ]}
+>
+<TabItem value="create_or_update_slot">
+
+Create or update a certificate in a given site and deployment slot. Create or update a certificate in a given site and deployment slot.
+
+```sql
+EXEC azure.web.site_certificates.create_or_update_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@certificate_name='{{ certificate_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"location": "{{ location }}", 
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_slot">
+
+Create or update a certificate for a site and deployment slot. Create or update a certificate for a site and deployment slot.
+
+```sql
+EXEC azure.web.site_certificates.update_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@certificate_name='{{ certificate_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_slot">
+
+Delete a certificate for a given site and deployment slot. Delete a certificate for a given site and deployment slot.
+
+```sql
+EXEC azure.web.site_certificates.delete_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@certificate_name='{{ certificate_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

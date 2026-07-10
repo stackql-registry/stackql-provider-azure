@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_document"><CopyableCode code="get_document" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-key"><code>key</code></a>, <a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td><a href="#parameter-x-ms-query-source-authorization"><code>x-ms-query-source-authorization</code></a>, <a href="#parameter-x-ms-enable-elevated-read"><code>x-ms-enable-elevated-read</code></a>, <a href="#parameter-$select"><code>$select</code></a></td>
     <td>Retrieves a document from the index.</td>
 </tr>
@@ -73,20 +73,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
-</tr>
 <tr id="parameter-index_name">
     <td><CopyableCode code="index_name" /></td>
     <td><code>string</code></td>
     <td></td>
 </tr>
-<tr id="parameter-key">
-    <td><CopyableCode code="key" /></td>
+<tr id="parameter-key_name">
+    <td><CopyableCode code="key_name" /></td>
     <td><code>string</code></td>
     <td>The key of the document to retrieve. Required.</td>
+</tr>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
+    <td><code>string</code></td>
+    <td>Search service name. (default: )</td>
 </tr>
 <tr id="parameter-$select">
     <td><CopyableCode code="$select" /></td>
@@ -120,9 +120,9 @@ Retrieves a document from the index.
 
 ```sql
 EXEC azure.search_documents.documents.get_document 
-@key='{{ key }}' --required, 
+@key_name='{{ key_name }}' --required, 
 @index_name='{{ index_name }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@search_service_name='{{ search_service_name }}' --required, 
 @x-ms-query-source-authorization='{{ x-ms-query-source-authorization }}', 
 @x-ms-enable-elevated-read={{ x-ms-enable-elevated-read }}, 
 @$select='{{ $select }}'

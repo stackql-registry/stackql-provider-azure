@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#close_group_connections"><CopyableCode code="close_group_connections" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-group"><code>group</code></a>, <a href="#parameter-hub"><code>hub</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-group_name"><code>group_name</code></a>, <a href="#parameter-hub"><code>hub</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-reason"><code>reason</code></a></td>
     <td>Close connections in the specific group. Close connections in the specific group.</td>
 </tr>
@@ -76,10 +76,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
-<tr id="parameter-group">
-    <td><CopyableCode code="group" /></td>
+<tr id="parameter-group_name">
+    <td><CopyableCode code="group_name" /></td>
     <td><code>string</code></td>
     <td>Target group name, which length should be greater than 0 and less than 1025. Required.</td>
 </tr>
@@ -110,7 +110,7 @@ Close connections in the specific group. Close connections in the specific group
 
 ```sql
 EXEC azure.messaging_webpubsubservice.close_group_connections.close_group_connections 
-@group='{{ group }}' --required, 
+@group_name='{{ group_name }}' --required, 
 @hub='{{ hub }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @reason='{{ reason }}'

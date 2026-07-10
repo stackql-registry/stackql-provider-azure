@@ -1089,26 +1089,6 @@ components:
             notebookInfo:
               $ref: '#/components/schemas/NotebookResourceInfo'
               description: The notebook info of Azure ML workspace.
-    ListWorkspaceKeysResult:
-      type: object
-      description: ListWorkspaceKeysResult. Variables are only populated by the server, and will be ignored when
-        sending a request.
-      properties:
-        userStorageKey:
-          type: string
-          description: ':vartype user_storage_key: str'
-        userStorageResourceId:
-          type: string
-          description: ':vartype user_storage_resource_id: str'
-        appInsightsInstrumentationKey:
-          type: string
-          description: ':vartype app_insights_instrumentation_key: str'
-        containerRegistryCredentials:
-          $ref: '#/components/schemas/RegistryListCredentialsResult'
-          description: ':vartype container_registry_credentials: ~azure.mgmt.machinelearningservices.models.RegistryListCredentialsResult'
-        notebookAccessKeys:
-          $ref: '#/components/schemas/NotebookListCredentialsResult'
-          description: ':vartype notebook_access_keys: ~azure.mgmt.machinelearningservices.models.NotebookListCredentialsResult'
     RegistryListCredentialsResult:
       type: object
       description: RegistryListCredentialsResult. Variables are only populated by the server, and will be ignored
@@ -1145,6 +1125,26 @@ components:
         secondaryAccessKey:
           type: string
           description: ':vartype secondary_access_key: str'
+    ListWorkspaceKeysResult:
+      type: object
+      description: ListWorkspaceKeysResult. Variables are only populated by the server, and will be ignored when
+        sending a request.
+      properties:
+        userStorageKey:
+          type: string
+          description: ':vartype user_storage_key: str'
+        userStorageResourceId:
+          type: string
+          description: ':vartype user_storage_resource_id: str'
+        appInsightsInstrumentationKey:
+          type: string
+          description: ':vartype app_insights_instrumentation_key: str'
+        containerRegistryCredentials:
+          $ref: '#/components/schemas/RegistryListCredentialsResult'
+          description: ':vartype container_registry_credentials: ~azure.mgmt.machinelearningservices.models.RegistryListCredentialsResult'
+        notebookAccessKeys:
+          $ref: '#/components/schemas/NotebookListCredentialsResult'
+          description: ':vartype notebook_access_keys: ~azure.mgmt.machinelearningservices.models.NotebookListCredentialsResult'
     SkuSettings:
       type: object
       description: Describes Workspace Sku details and features. Variables are only populated by the server, and
@@ -1534,7 +1534,8 @@ paths:
                 $ref: '#/components/schemas/PagedAmlComputeNodeInformation'
       x-stackql-resource: machine_learning_compute
       x-stackql-method: list_nodes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.nodes
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.MachineLearningServices/workspaces/{workspace_name}/computes/{compute_name}/listKeys?api-version=2020-08-01
   : post:
       operationId: MachineLearningCompute_list_keys
@@ -1572,7 +1573,7 @@ paths:
                 $ref: '#/components/schemas/ComputeSecrets'
       x-stackql-resource: machine_learning_compute
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.MachineLearningServices/workspaces/{workspace_name}/computes/{compute_name}/start?api-version=2020-08-01
   : post:
       operationId: MachineLearningCompute_start
@@ -2537,7 +2538,7 @@ paths:
                 $ref: '#/components/schemas/ListWorkspaceKeysResult'
       x-stackql-resource: workspaces
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.MachineLearningServices/workspaces/{workspace_name}/resyncKeys?api-version=2020-08-01
   : post:
       operationId: Workspaces_resync_keys

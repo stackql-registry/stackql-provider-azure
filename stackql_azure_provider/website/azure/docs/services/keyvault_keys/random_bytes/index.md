@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_random_bytes"><CopyableCode code="get_random_bytes" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-count"><code>count</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-count"><code>count</code></a></td>
     <td></td>
     <td>Get the requested number of bytes containing random values. Get the requested number of bytes containing random values from a managed HSM.</td>
 </tr>
@@ -73,10 +73,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -95,7 +95,7 @@ Get the requested number of bytes containing random values. Get the requested nu
 
 ```sql
 EXEC azure.keyvault_keys.random_bytes.get_random_bytes 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "count": {{ count }}

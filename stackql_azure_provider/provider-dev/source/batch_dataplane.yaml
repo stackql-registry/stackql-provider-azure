@@ -6421,7 +6421,7 @@ paths:
           description: Success
       x-stackql-resource: replace_jobs
       x-stackql-method: replace_job
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /jobs/{job_id}/taskcounts?api-version=2025-06-01:
     get:
       operationId: _BatchClient_get_job_task_counts
@@ -6719,7 +6719,7 @@ paths:
           description: Success
       x-stackql-resource: replace_job_schedules
       x-stackql-method: replace_job_schedule
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /jobs/{job_id}/tasks/{task_id}?api-version=2025-06-01:
     get:
       operationId: _BatchClient_get_task
@@ -6911,7 +6911,7 @@ paths:
           description: Success
       x-stackql-resource: replace_tasks
       x-stackql-method: replace_task
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /pools/{pool_id}/nodes/{node_id}?api-version=2025-06-01:
     get:
       operationId: _BatchClient_get_node
@@ -7864,7 +7864,7 @@ paths:
           description: Success
       x-stackql-resource: replace_node_users
       x-stackql-method: replace_node_user
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /pools/{pool_id}/nodes/{node_id}/disablescheduling?api-version=2025-06-01:
     post:
       operationId: _BatchClient_disable_node_scheduling

@@ -2031,18 +2031,6 @@ components:
           items:
             $ref: '#/components/schemas/RegistryUsage'
           description: The list of container registry quota usages.
-    RegistryListCredentialsResult:
-      type: object
-      description: The response from the ListCredentials operation.
-      properties:
-        username:
-          type: string
-          description: The username for a container registry.
-        passwords:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegistryPassword'
-          description: The list of passwords for a container registry.
     RegistryPassword:
       type: object
       description: The login password for the container registry.
@@ -2058,6 +2046,18 @@ components:
       enum:
       - password
       - password2
+    RegistryListCredentialsResult:
+      type: object
+      description: The response from the ListCredentials operation.
+      properties:
+        username:
+          type: string
+          description: The username for a container registry.
+        passwords:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegistryPassword'
+          description: The list of passwords for a container registry.
     PrivateLinkResourceProperties:
       type: object
       description: Properties of a private link resource.
@@ -2717,19 +2717,6 @@ components:
             $ref: '#/components/schemas/WebhookFlattened'
         nextLink:
           type: string
-    Event:
-      type: object
-      description: The event for a webhook.
-      properties:
-        id:
-          type: string
-          description: The event ID.
-        eventRequestMessage:
-          $ref: '#/components/schemas/EventRequestMessage'
-          description: The event request message sent to the service URI.
-        eventResponseMessage:
-          $ref: '#/components/schemas/EventResponseMessage'
-          description: The event response message received from the service URI.
     EventRequestMessage:
       type: object
       description: The event request message sent to the service URI.
@@ -2870,6 +2857,19 @@ components:
         version:
           type: string
           description: The HTTP message version.
+    Event:
+      type: object
+      description: The event for a webhook.
+      properties:
+        id:
+          type: string
+          description: The event ID.
+        eventRequestMessage:
+          $ref: '#/components/schemas/EventRequestMessage'
+          description: The event request message sent to the service URI.
+        eventResponseMessage:
+          $ref: '#/components/schemas/EventResponseMessage'
+          description: The event response message received from the service URI.
     PagedEvent:
       type: object
       properties:
@@ -5030,7 +5030,7 @@ paths:
                 $ref: '#/components/schemas/RegistryListCredentialsResult'
       x-stackql-resource: registries
       x-stackql-method: list_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/privateLinkResources?api-version=2026-01-01-preview
   : get:
       operationId: Registries_list_private_link_resources
@@ -5301,7 +5301,7 @@ paths:
                 $ref: '#/components/schemas/RegistryNameStatus'
       x-stackql-resource: registries
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/replications/{replication_name}?api-version=2026-01-01-preview
   : get:
       operationId: Replications_get
@@ -6170,7 +6170,8 @@ paths:
                 $ref: '#/components/schemas/PagedEvent'
       x-stackql-resource: webhooks
       x-stackql-method: list_events
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/webhooks/{webhook_name}/getCallbackConfig?api-version=2026-01-01-preview
   : post:
       operationId: Webhooks_get_callback_config
@@ -6208,7 +6209,7 @@ paths:
                 $ref: '#/components/schemas/CallbackConfig'
       x-stackql-resource: webhooks
       x-stackql-method: get_callback_config
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerRegistry/registries/{registry_name}/webhooks/{webhook_name}/ping?api-version=2026-01-01-preview
   : post:
       operationId: Webhooks_ping

@@ -111,7 +111,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_jail_break_dataset_with_type"><CopyableCode code="get_jail_break_dataset_with_type" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get the jailbreak dataset with type.</td>
 </tr>
@@ -125,7 +125,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_template_parameters_with_type"><CopyableCode code="get_template_parameters_with_type" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get template parameters with type.</td>
 </tr>
@@ -190,7 +190,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-operation_id">
     <td><CopyableCode code="operation_id" /></td>
@@ -202,8 +202,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>Image path. Required.</td>
 </tr>
-<tr id="parameter-type">
-    <td><CopyableCode code="type" /></td>
+<tr id="parameter-type_name">
+    <td><CopyableCode code="type_name" /></td>
     <td><code>string</code></td>
     <td>Type for the template parameters. Required.</td>
 </tr>
@@ -298,7 +298,7 @@ Get the jailbreak dataset with type.
 
 ```sql
 EXEC azure.ai_evaluation.rai_svc.get_jail_break_dataset_with_type 
-@type='{{ type }}' --required, 
+@type_name='{{ type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```
@@ -319,7 +319,7 @@ Get template parameters with type.
 
 ```sql
 EXEC azure.ai_evaluation.rai_svc.get_template_parameters_with_type 
-@type='{{ type }}' --required, 
+@type_name='{{ type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

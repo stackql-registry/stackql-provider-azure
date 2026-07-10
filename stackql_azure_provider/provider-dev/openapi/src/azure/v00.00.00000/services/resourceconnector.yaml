@@ -318,18 +318,6 @@ components:
           description: Identity for the resource.
       required:
         - location
-    ApplianceListCredentialResults:
-      type: object
-      description: The List Cluster User Credential appliance.
-      properties:
-        hybridConnectionConfig:
-          $ref: "#/components/schemas/HybridConnectionConfig"
-          description: Contains the REP (rendezvous endpoint) and “Listener” access token from notification service (NS).
-        kubeconfigs:
-          type: array
-          items:
-            $ref: "#/components/schemas/ApplianceCredentialKubeconfig"
-          description: The list of appliance kubeconfigs.
     HybridConnectionConfig:
       type: object
       description: Contains the REP (rendezvous endpoint) and “Listener” access token from notification service (NS).
@@ -361,6 +349,18 @@ components:
       enum:
         - clusterUser
         - clusterCustomerUser
+    ApplianceListCredentialResults:
+      type: object
+      description: The List Cluster User Credential appliance.
+      properties:
+        hybridConnectionConfig:
+          $ref: "#/components/schemas/HybridConnectionConfig"
+          description: Contains the REP (rendezvous endpoint) and “Listener” access token from notification service (NS).
+        kubeconfigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApplianceCredentialKubeconfig"
+          description: The list of appliance kubeconfigs.
     ApplianceListKeysResults:
       type: object
       description: The List Cluster Keys Results appliance.

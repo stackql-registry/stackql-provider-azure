@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-modelId"><code>modelId</code></a>, <a href="#parameter-resourceType"><code>resourceType</code></a>, <a href="#parameter-resourceId"><code>resourceId</code></a>, <a href="#parameter-insightId"><code>insightId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a cascade delete job for insights specified partyId/modelId/resourceType/resourceId.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-party_id"><code>party_id</code></a>, <a href="#parameter-model_id"><code>model_id</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-insight_id"><code>insight_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -99,6 +92,13 @@ The following methods are available for this resource:
     <td></td>
     <td>Get a cascade delete job for specified insight.</td>
 </tr>
+<tr>
+    <td><a href="#create_cascade_delete_job"><CopyableCode code="create_cascade_delete_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-modelId"><code>modelId</code></a>, <a href="#parameter-resourceType"><code>resourceType</code></a>, <a href="#parameter-resourceId"><code>resourceId</code></a>, <a href="#parameter-insightId"><code>insightId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a cascade delete job for insights specified partyId/modelId/resourceType/resourceId.</td>
+</tr>
 </tbody>
 </table>
 
@@ -118,7 +118,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-insightId">
     <td><CopyableCode code="insightId" /></td>
@@ -133,7 +133,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>Job ID supplied by end user. Required.</td>
 </tr>
 <tr id="parameter-modelId">
     <td><CopyableCode code="modelId" /></td>
@@ -226,38 +226,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_cascade_delete_job"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_cascade_delete_job">
-
-Create a cascade delete job for insights specified partyId/modelId/resourceType/resourceId.
-
-```sql
-INSERT INTO azure.agrifood_farming.insights (
-job_id,
-partyId,
-modelId,
-resourceType,
-resourceId,
-insightId,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ partyId }}',
-'{{ modelId }}',
-'{{ resourceType }}',
-'{{ resourceId }}',
-'{{ insightId }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates or updates insight entity.
@@ -286,27 +260,6 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: insights
   props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the insights resource.
-    - name: partyId
-      value: "{{ partyId }}"
-      description: Required parameter for the insights resource.
-    - name: modelId
-      value: "{{ modelId }}"
-      description: Required parameter for the insights resource.
-    - name: resourceType
-      value: "{{ resourceType }}"
-      description: Required parameter for the insights resource.
-    - name: resourceId
-      value: "{{ resourceId }}"
-      description: Required parameter for the insights resource.
-    - name: insightId
-      value: "{{ insightId }}"
-      description: Required parameter for the insights resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the insights resource.
     - name: party_id
       value: "{{ party_id }}"
       description: Required parameter for the insights resource.
@@ -321,6 +274,9 @@ SELECT
       description: Required parameter for the insights resource.
     - name: insight_id
       value: "{{ insight_id }}"
+      description: Required parameter for the insights resource.
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the insights resource.
 `}</CodeBlock>
 
@@ -389,7 +345,8 @@ AND endpoint = '{{ endpoint }}' --required
     values={[
         { label: 'get_raw', value: 'get_raw' },
         { label: 'list_by_party_id_model_id_and_resource', value: 'list_by_party_id_model_id_and_resource' },
-        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' }
+        { label: 'get_cascade_delete_job_details', value: 'get_cascade_delete_job_details' },
+        { label: 'create_cascade_delete_job', value: 'create_cascade_delete_job' }
     ]}
 >
 <TabItem value="get_raw">
@@ -437,6 +394,22 @@ Get a cascade delete job for specified insight.
 ```sql
 EXEC azure.agrifood_farming.insights.get_cascade_delete_job_details 
 @job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_cascade_delete_job">
+
+Create a cascade delete job for insights specified partyId/modelId/resourceType/resourceId.
+
+```sql
+EXEC azure.agrifood_farming.insights.create_cascade_delete_job 
+@job_id='{{ job_id }}' --required, 
+@partyId='{{ partyId }}' --required, 
+@modelId='{{ modelId }}' --required, 
+@resourceType='{{ resourceType }}' --required, 
+@resourceId='{{ resourceId }}' --required, 
+@insightId='{{ insightId }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

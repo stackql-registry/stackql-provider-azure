@@ -4766,8 +4766,7 @@ components:
           - $ref: "#/components/x-stackQL-resources/build_service_agent_pool/methods/get"
           - $ref: "#/components/x-stackQL-resources/build_service_agent_pool/methods/list"
         insert: []
-        update:
-          - $ref: "#/components/x-stackQL-resources/build_service_agent_pool/methods/update_put"
+        update: []
         delete: []
     build_service_builder:
       id: azure.appplatform.build_service_builder
@@ -5209,8 +5208,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/config_servers/methods/get"
         insert: []
-        update:
-          - $ref: "#/components/x-stackQL-resources/config_servers/methods/update_put"
+        update: []
         delete: []
     configuration_services:
       id: azure.appplatform.configuration_services
@@ -5957,8 +5955,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/monitoring_settings/methods/get"
         insert: []
-        update:
-          - $ref: "#/components/x-stackQL-resources/monitoring_settings/methods/update_put"
+        update: []
         delete: []
     operations:
       id: azure.appplatform.operations
@@ -6275,6 +6272,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/services/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/services/methods/get"
           - $ref: "#/components/x-stackQL-resources/services/methods/list"
           - $ref: "#/components/x-stackQL-resources/services/methods/list_by_subscription"

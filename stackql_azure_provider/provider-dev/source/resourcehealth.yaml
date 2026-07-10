@@ -978,25 +978,6 @@ components:
         billingId:
           type: string
           description: Billing identifier information.
-    Event:
-      type: object
-      description: Service health event.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/EventProperties'
-          description: Properties of event.
     PagedEventFlattened:
       type: object
       properties:
@@ -1203,34 +1184,6 @@ components:
           description: List of operations available in the Microsoft.ResourceHealth resource provider. Required.
       required:
       - value
-    EventImpactedResource:
-      type: object
-      description: Impacted resource for an event.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/EventImpactedResourceProperties'
-          description: Properties of impacted resource.
-    PagedEventImpactedResource:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventImpactedResource'
-        nextLink:
-          type: string
 paths:
   /{resource_uri}/providers/Microsoft.ResourceHealth/availabilityStatuses?api-version=2025-05-01:
     get:
@@ -1641,10 +1594,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/EventFlattened'
       x-stackql-resource: event
       x-stackql-method: fetch_details_by_subscription_id_and_tracking_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/providers/Microsoft.ResourceHealth/events/{event_tracking_id}/fetchBillingCommunicationDetails?api-version=2025-05-01
   : post:
       operationId: Event_fetch_billling_communication_details_by_subscription_id_and_tracking_id
@@ -1668,10 +1622,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/EventFlattened'
       x-stackql-resource: event
       x-stackql-method: fetch_billling_communication_details_by_subscription_id_and_tracking_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   /providers/Microsoft.ResourceHealth/events/{event_tracking_id}/fetchEventDetails?api-version=2025-05-01:
     post:
       operationId: Event_fetch_details_by_tenant_id_and_tracking_id
@@ -1691,10 +1646,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/EventFlattened'
       x-stackql-resource: event
       x-stackql-method: fetch_details_by_tenant_id_and_tracking_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   /subscriptions/{subscription_id}/providers/Microsoft.ResourceHealth/events?api-version=2025-05-01:
     get:
       operationId: Events_list_by_subscription_id
@@ -2008,10 +1964,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedEventImpactedResource'
+                $ref: '#/components/schemas/PagedEventImpactedResourceFlattened'
       x-stackql-resource: security_advisory_impacted_resources
       x-stackql-method: list_by_subscription_id_and_event_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /providers/Microsoft.ResourceHealth/events/{event_tracking_id}/listSecurityAdvisoryImpactedResources?api-version=2025-05-01
   : post:
       operationId: SecurityAdvisoryImpactedResources_list_by_tenant_id_and_event_id
@@ -2036,7 +1995,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedEventImpactedResource'
+                $ref: '#/components/schemas/PagedEventImpactedResourceFlattened'
       x-stackql-resource: security_advisory_impacted_resources
       x-stackql-method: list_by_tenant_id_and_event_id
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value

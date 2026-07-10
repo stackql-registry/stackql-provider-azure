@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_satellite_data_ingestion_job"><CopyableCode code="create_satellite_data_ingestion_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a satellite data ingestion job.</td>
-</tr>
-<tr>
     <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-provider"><code>provider</code></a>, <a href="#parameter-partyId"><code>partyId</code></a>, <a href="#parameter-boundaryId"><code>boundaryId</code></a>, <a href="#parameter-source"><code>source</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -70,6 +63,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get a satellite data ingestion job.</td>
+</tr>
+<tr>
+    <td><a href="#create_satellite_data_ingestion_job"><CopyableCode code="create_satellite_data_ingestion_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a satellite data ingestion job.</td>
 </tr>
 <tr>
     <td><a href="#get_stac_feature"><CopyableCode code="get_stac_feature" /></a></td>
@@ -121,7 +121,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-feature_id">
     <td><CopyableCode code="feature_id" /></td>
@@ -136,7 +136,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
     <td><code>string</code></td>
-    <td>Id of the job. Required.</td>
+    <td>JobId provided by user. Required.</td>
 </tr>
 <tr id="parameter-partyId">
     <td><CopyableCode code="partyId" /></td>
@@ -191,47 +191,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_satellite_data_ingestion_job"
-    values={[
-        { label: 'create_satellite_data_ingestion_job', value: 'create_satellite_data_ingestion_job' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_satellite_data_ingestion_job">
-
-Create a satellite data ingestion job.
-
-```sql
-INSERT INTO azure.agrifood_farming.scenes (
-job_id,
-endpoint
-)
-SELECT 
-'{{ job_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: scenes
-  props:
-    - name: job_id
-      value: "{{ job_id }}"
-      description: Required parameter for the scenes resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the scenes resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -239,6 +198,7 @@ SELECT
     values={[
         { label: 'list_raw', value: 'list_raw' },
         { label: 'get_satellite_data_ingestion_job_details', value: 'get_satellite_data_ingestion_job_details' },
+        { label: 'create_satellite_data_ingestion_job', value: 'create_satellite_data_ingestion_job' },
         { label: 'get_stac_feature', value: 'get_stac_feature' },
         { label: 'download', value: 'download' },
         { label: 'search_features', value: 'search_features' }
@@ -269,6 +229,17 @@ Get a satellite data ingestion job.
 
 ```sql
 EXEC azure.agrifood_farming.scenes.get_satellite_data_ingestion_job_details 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_satellite_data_ingestion_job">
+
+Create a satellite data ingestion job.
+
+```sql
+EXEC azure.agrifood_farming.scenes.create_satellite_data_ingestion_job 
 @job_id='{{ job_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

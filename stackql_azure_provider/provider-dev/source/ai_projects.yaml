@@ -1376,15 +1376,6 @@ components:
             $ref: '#/components/schemas/EvaluatorGenerationJob'
         nextLink:
           type: string
-    DatasetCredential:
-      type: object
-      description: Represents a reference to a blob for consumption.
-      properties:
-        blobReference:
-          $ref: '#/components/schemas/BlobReference'
-          description: Credential info to access the storage account. Required.
-      required:
-      - blobReference
     BlobReference:
       type: object
       description: Blob reference details.
@@ -1413,6 +1404,15 @@ components:
         type:
           type: string
           description: Type of credential. Required. Default value is "SAS".
+    DatasetCredential:
+      type: object
+      description: Represents a reference to a blob for consumption.
+      properties:
+        blobReference:
+          $ref: '#/components/schemas/BlobReference'
+          description: Credential info to access the storage account. Required.
+      required:
+      - blobReference
     PendingUploadResponse:
       type: object
       description: Represents the response for a pending upload request.
@@ -2776,7 +2776,7 @@ paths:
                 $ref: '#/components/schemas/AgentDetails'
       x-stackql-resource: agents
       x-stackql-method: update_details
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /agents?api-version=v1:
     get:
       operationId: Agents_list
@@ -2905,7 +2905,7 @@ paths:
                 $ref: '#/components/schemas/AgentVersionDetails'
       x-stackql-resource: agents
       x-stackql-method: create_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /agents/{agent_name}/endpoint/sessions?api-version=v1:
     get:
       operationId: Agents_list_sessions
@@ -2977,7 +2977,7 @@ paths:
                 $ref: '#/components/schemas/AgentSessionResource'
       x-stackql-resource: agents
       x-stackql-method: create_session
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /agents/{agent_name}/endpoint/sessions/{agent_session_id}/files?api-version=v1:
     get:
       operationId: Agents_list_session_files
@@ -3073,11 +3073,11 @@ paths:
         description: Whether to recursively delete directory contents. The service defaults to `false` if a value
           is not specified by the caller. Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: agents
       x-stackql-method: delete_session_file
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /agents/{agent_name}/versions/{agent_version}?api-version=v1:
     get:
       operationId: Agents_get_version
@@ -3141,7 +3141,7 @@ paths:
                 $ref: '#/components/schemas/DeleteAgentVersionResponse'
       x-stackql-resource: agents
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /agents/{agent_name}/endpoint/sessions/{session_id}?api-version=v1:
     get:
       operationId: Agents_get_session
@@ -3187,11 +3187,11 @@ paths:
           type: string
         description: The session identifier. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: agents
       x-stackql-method: delete_session
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /agents/{agent_name}/versions/{agent_version}/sessions/{session_id}:logstream?api-version=v1:
     get:
       operationId: Agents_get_session_log_stream
@@ -3257,7 +3257,7 @@ paths:
                 $ref: '#/components/schemas/AgentVersionDetails'
       x-stackql-resource: agents
       x-stackql-method: create_version_from_manifest
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /agents/{agent_name}/code:download?api-version=v1:
     get:
       operationId: Agents_download_code
@@ -3499,7 +3499,7 @@ paths:
                 $ref: '#/components/schemas/OptimizationJob'
       x-stackql-resource: beta_agents
       x-stackql-method: create_optimization_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /agent_optimization_jobs/{job_id}?api-version=v1:
     get:
       operationId: BetaAgents_get_optimization_job
@@ -3533,11 +3533,11 @@ paths:
           type: string
         description: The ID of the job to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: beta_agents
       x-stackql-method: delete_optimization_job
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /agent_optimization_jobs/{job_id}:cancel?api-version=v1:
     post:
       operationId: BetaAgents_cancel_optimization_job
@@ -3633,7 +3633,7 @@ paths:
                 $ref: '#/components/schemas/DataGenerationJob'
       x-stackql-resource: beta_datasets
       x-stackql-method: create_generation_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /data_generation_jobs/{job_id}?api-version=v1:
     get:
       operationId: BetaDatasets_get_generation_job
@@ -3666,11 +3666,11 @@ paths:
           type: string
         description: The ID of the job to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: beta_datasets
       x-stackql-method: delete_generation_job
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /data_generation_jobs/{job_id}:cancel?api-version=v1:
     post:
       operationId: BetaDatasets_cancel_generation_job
@@ -3986,7 +3986,7 @@ paths:
                 $ref: '#/components/schemas/EvaluatorVersion'
       x-stackql-resource: beta_evaluators
       x-stackql-method: create_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /evaluator_generation_jobs?api-version=v1:
     get:
       operationId: BetaEvaluators_list_generation_jobs
@@ -4063,7 +4063,7 @@ paths:
                 $ref: '#/components/schemas/EvaluatorGenerationJob'
       x-stackql-resource: beta_evaluators
       x-stackql-method: create_generation_job
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /evaluators/{name}/versions/{version}?api-version=v1:
     get:
       operationId: BetaEvaluators_get_version
@@ -4110,11 +4110,11 @@ paths:
           type: string
         description: The version of the EvaluatorVersion to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: beta_evaluators
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: BetaEvaluators_update_version
       description: Update an evaluator version. Updates the specified evaluator version in place.
@@ -4185,7 +4185,7 @@ paths:
                 $ref: '#/components/schemas/EvaluatorVersion'
       x-stackql-resource: beta_evaluators
       x-stackql-method: update_version
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /evaluators/{name}/versions/{version}/credentials?api-version=v1:
     post:
       operationId: BetaEvaluators_get_credentials
@@ -4226,7 +4226,7 @@ paths:
                 $ref: '#/components/schemas/DatasetCredential'
       x-stackql-resource: beta_evaluators
       x-stackql-method: get_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /evaluator_generation_jobs/{job_id}?api-version=v1:
     get:
       operationId: BetaEvaluators_get_generation_job
@@ -4260,11 +4260,11 @@ paths:
           type: string
         description: The ID of the job to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: beta_evaluators
       x-stackql-method: delete_generation_job
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /evaluators/{name}/versions/{version}/startPendingUpload?api-version=v1:
     post:
       operationId: BetaEvaluators_pending_upload
@@ -4612,7 +4612,8 @@ paths:
                 $ref: '#/components/schemas/PagedMemoryItem'
       x-stackql-resource: beta_memory_stores
       x-stackql-method: list_memories
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.data
   /memory_stores/{name}/items/{memory_id}?api-version=v1:
     get:
       operationId: BetaMemoryStores_get_memory
@@ -4691,7 +4692,7 @@ paths:
                 $ref: '#/components/schemas/DeleteMemoryResult'
       x-stackql-resource: beta_memory_stores
       x-stackql-method: delete_memory
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /memory_stores/{name}:delete_scope?api-version=v1:
     post:
       operationId: BetaMemoryStores_delete_scope
@@ -4713,7 +4714,7 @@ paths:
                 $ref: '#/components/schemas/MemoryStoreDeleteScopeResult'
       x-stackql-resource: beta_memory_stores
       x-stackql-method: delete_scope
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /memory_stores/{name}/items?api-version=v1:
     post:
       operationId: BetaMemoryStores_create_memory
@@ -4734,7 +4735,7 @@ paths:
                 $ref: '#/components/schemas/MemoryItem'
       x-stackql-resource: beta_memory_stores
       x-stackql-method: create_memory
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /models/{name}/versions/{version}?api-version=v1:
     get:
       operationId: BetaModels_get
@@ -4902,7 +4903,7 @@ paths:
                 $ref: '#/components/schemas/DatasetCredential'
       x-stackql-resource: beta_models
       x-stackql-method: get_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /models/{name}/versions/{version}/createAsync?api-version=v1:
     post:
       operationId: BetaModels_pending_create_version
@@ -5730,7 +5731,7 @@ paths:
                 $ref: '#/components/schemas/DeleteSkillVersionResult'
       x-stackql-resource: beta_skills
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /skills/{name}/content?api-version=v1:
     get:
       operationId: BetaSkills_download
@@ -5974,7 +5975,7 @@ paths:
                 $ref: '#/components/schemas/DatasetCredential'
       x-stackql-resource: datasets
       x-stackql-method: get_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /datasets/{name}/versions/{version}/startPendingUpload?api-version=v1:
     post:
       operationId: Datasets_pending_upload
@@ -6507,7 +6508,7 @@ paths:
                 $ref: '#/components/schemas/ToolboxVersionObject'
       x-stackql-resource: toolboxes
       x-stackql-method: create_version
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /toolboxes/{name}/versions/{version}?api-version=v1:
     get:
       operationId: Toolboxes_get_version
@@ -6553,8 +6554,8 @@ paths:
           type: string
         description: The version identifier to delete. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: toolboxes
       x-stackql-method: delete_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC

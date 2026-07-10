@@ -510,20 +510,6 @@ The following methods are available for this resource:
     <td>Creates or updates a service namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639408.aspx</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an authorization rule for a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639410.aspx</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_network_rule_set"><CopyableCode code="create_or_update_network_rule_set" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update NetworkRuleSet for a Namespace.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -536,27 +522,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates or updates a service namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639408.aspx</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an authorization rule for a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639410.aspx</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_network_rule_set"><CopyableCode code="create_or_update_network_rule_set" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update NetworkRuleSet for a Namespace.</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a namespace authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639417.aspx</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -592,6 +557,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets NetworkRuleSet for a Namespace.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_network_rule_set"><CopyableCode code="create_or_update_network_rule_set" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update NetworkRuleSet for a Namespace.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an authorization rule for a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639410.aspx</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a namespace authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639417.aspx</td>
 </tr>
 <tr>
     <td><a href="#regenerate_keys"><CopyableCode code="regenerate_keys" /></a></td>
@@ -788,8 +774,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
-        { label: 'create_or_update_network_rule_set', value: 'create_or_update_network_rule_set' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -830,60 +814,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an authorization rule for a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639410.aspx
-
-```sql
-INSERT INTO azure.servicebus.namespaces (
-properties,
-resource_group_name,
-namespace_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_network_rule_set">
-
-Create or update NetworkRuleSet for a Namespace.
-
-```sql
-INSERT INTO azure.servicebus.namespaces (
-properties,
-resource_group_name,
-namespace_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -897,9 +827,6 @@ type
       description: Required parameter for the namespaces resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
-      description: Required parameter for the namespaces resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
       description: Required parameter for the namespaces resource.
     - name: location
       value: "{{ location }}"
@@ -926,16 +853,40 @@ type
         userAssignedIdentities: "{{ userAssignedIdentities }}"
     - name: properties
       value:
-        trustedServiceAccessEnabled: {{ trustedServiceAccessEnabled }}
-        defaultAction: "{{ defaultAction }}"
-        virtualNetworkRules:
-          - subnet:
-              id: "{{ id }}"
-            ignoreMissingVnetServiceEndpoint: {{ ignoreMissingVnetServiceEndpoint }}
-        ipRules:
-          - ipMask: "{{ ipMask }}"
-            action: "{{ action }}"
+        minimumTlsVersion: "{{ minimumTlsVersion }}"
+        zoneRedundant: {{ zoneRedundant }}
+        encryption:
+          keyVaultProperties:
+            - keyName: "{{ keyName }}"
+              keyVaultUri: "{{ keyVaultUri }}"
+              keyVersion: "{{ keyVersion }}"
+              identity:
+                userAssignedIdentity: "{{ userAssignedIdentity }}"
+          keySource: "{{ keySource }}"
+          requireInfrastructureEncryption: {{ requireInfrastructureEncryption }}
+        privateEndpointConnections:
+          - id: "{{ id }}"
+            name: "{{ name }}"
+            type: "{{ type }}"
+            location: "{{ location }}"
+            systemData:
+              createdBy: "{{ createdBy }}"
+              createdByType: "{{ createdByType }}"
+              createdAt: "{{ createdAt }}"
+              lastModifiedBy: "{{ lastModifiedBy }}"
+              lastModifiedByType: "{{ lastModifiedByType }}"
+              lastModifiedAt: "{{ lastModifiedAt }}"
+            properties:
+              privateEndpoint:
+                id: "{{ id }}"
+              privateLinkServiceConnectionState:
+                status: "{{ status }}"
+                description: "{{ description }}"
+              provisioningState: "{{ provisioningState }}"
+        disableLocalAuth: {{ disableLocalAuth }}
+        alternateName: "{{ alternateName }}"
         publicNetworkAccess: "{{ publicNetworkAccess }}"
+        premiumMessagingPartitions: {{ premiumMessagingPartitions }}
 `}</CodeBlock>
 
 </TabItem>
@@ -986,9 +937,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
-        { label: 'create_or_update_network_rule_set', value: 'create_or_update_network_rule_set' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1020,74 +969,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an authorization rule for a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639410.aspx
-
-```sql
-REPLACE azure.servicebus.namespaces
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_network_rule_set">
-
-Create or update NetworkRuleSet for a Namespace.
-
-```sql
-REPLACE azure.servicebus.namespaces
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a namespace authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639417.aspx
-
-```sql
-DELETE FROM azure.servicebus.namespaces
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an existing namespace. This operation also removes all associated resources under the namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639389.aspx
@@ -1112,6 +1004,9 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
         { label: 'get_network_rule_set', value: 'get_network_rule_set' },
+        { label: 'create_or_update_network_rule_set', value: 'create_or_update_network_rule_set' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' },
         { label: 'check_name_availability', value: 'check_name_availability' }
     ]}
@@ -1161,6 +1056,52 @@ Gets NetworkRuleSet for a Namespace.
 EXEC azure.servicebus.namespaces.get_network_rule_set 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_network_rule_set">
+
+Create or update NetworkRuleSet for a Namespace.
+
+```sql
+EXEC azure.servicebus.namespaces.create_or_update_network_rule_set 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates or updates an authorization rule for a namespace. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639410.aspx
+
+```sql
+EXEC azure.servicebus.namespaces.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a namespace authorization rule. .. seealso:: - https://msdn.microsoft.com/en-us/library/azure/mt639417.aspx
+
+```sql
+EXEC azure.servicebus.namespaces.delete_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

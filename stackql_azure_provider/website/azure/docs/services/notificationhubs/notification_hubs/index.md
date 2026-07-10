@@ -393,13 +393,6 @@ The following methods are available for this resource:
     <td>Creates/Update a NotificationHub in a namespace. Creates/Update a NotificationHub in a namespace.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates/Updates an authorization rule for a NotificationHub. Creates/Updates an authorization rule for a NotificationHub.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -412,20 +405,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates/Update a NotificationHub in a namespace. Creates/Update a NotificationHub in a namespace.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates/Updates an authorization rule for a NotificationHub. Creates/Updates an authorization rule for a NotificationHub.</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a notificationHub authorization rule. Deletes a notificationHub authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -447,6 +426,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Primary and Secondary ConnectionStrings to the NotificationHub. Gets the Primary and Secondary ConnectionStrings to the NotificationHub.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates/Updates an authorization rule for a NotificationHub. Creates/Updates an authorization rule for a NotificationHub.</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a notificationHub authorization rule. Deletes a notificationHub authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#get_pns_credentials"><CopyableCode code="get_pns_credentials" /></a></td>
@@ -646,7 +639,6 @@ AND $top = '{{ $top }}'
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -686,41 +678,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_authorization_rule">
-
-Creates/Updates an authorization rule for a NotificationHub. Creates/Updates an authorization rule for a NotificationHub.
-
-```sql
-INSERT INTO azure.notificationhubs.notification_hubs (
-location,
-tags,
-properties,
-resource_group_name,
-namespace_name,
-notification_hub_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ notification_hub_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -738,17 +695,14 @@ type
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the notification_hubs resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the notification_hubs resource.
     - name: tags
       value: "{{ tags }}"
       description: |
-        Deprecated - only for compatibility.
+        Resource tags.
     - name: location
       value: "{{ location }}"
       description: |
-        Deprecated - only for compatibility.
+        The geo-location where the resource lives. Required.
     - name: sku
       description: |
         The Sku description for a namespace.
@@ -760,10 +714,58 @@ type
         capacity: {{ capacity }}
     - name: properties
       value:
-        rights:
-          - "{{ rights }}"
-        primaryKey: "{{ primaryKey }}"
-        secondaryKey: "{{ secondaryKey }}"
+        name: "{{ name }}"
+        registrationTtl: "{{ registrationTtl }}"
+        apnsCredential:
+          properties:
+            apnsCertificate: "{{ apnsCertificate }}"
+            certificateKey: "{{ certificateKey }}"
+            endpoint: "{{ endpoint }}"
+            thumbprint: "{{ thumbprint }}"
+            keyId: "{{ keyId }}"
+            appName: "{{ appName }}"
+            appId: "{{ appId }}"
+            token: "{{ token }}"
+        wnsCredential:
+          properties:
+            packageSid: "{{ packageSid }}"
+            secretKey: "{{ secretKey }}"
+            windowsLiveEndpoint: "{{ windowsLiveEndpoint }}"
+            certificateKey: "{{ certificateKey }}"
+            wnsCertificate: "{{ wnsCertificate }}"
+        gcmCredential:
+          properties:
+            gcmEndpoint: "{{ gcmEndpoint }}"
+            googleApiKey: "{{ googleApiKey }}"
+        mpnsCredential:
+          properties:
+            mpnsCertificate: "{{ mpnsCertificate }}"
+            certificateKey: "{{ certificateKey }}"
+            thumbprint: "{{ thumbprint }}"
+        admCredential:
+          properties:
+            clientId: "{{ clientId }}"
+            clientSecret: "{{ clientSecret }}"
+            authTokenUrl: "{{ authTokenUrl }}"
+        baiduCredential:
+          properties:
+            baiduApiKey: "{{ baiduApiKey }}"
+            baiduEndPoint: "{{ baiduEndPoint }}"
+            baiduSecretKey: "{{ baiduSecretKey }}"
+        browserCredential:
+          properties:
+            subject: "{{ subject }}"
+            vapidPrivateKey: "{{ vapidPrivateKey }}"
+            vapidPublicKey: "{{ vapidPublicKey }}"
+        xiaomiCredential:
+          properties:
+            appSecret: "{{ appSecret }}"
+            endpoint: "{{ endpoint }}"
+        fcmV1Credential:
+          properties:
+            clientEmail: "{{ clientEmail }}"
+            privateKey: "{{ privateKey }}"
+            projectId: "{{ projectId }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -812,8 +814,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -844,58 +845,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_authorization_rule">
-
-Creates/Updates an authorization rule for a NotificationHub. Creates/Updates an authorization rule for a NotificationHub.
-
-```sql
-REPLACE azure.notificationhubs.notification_hubs
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND notification_hub_name = '{{ notification_hub_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a notificationHub authorization rule. Deletes a notificationHub authorization rule.
-
-```sql
-DELETE FROM azure.notificationhubs.notification_hubs
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND notification_hub_name = '{{ notification_hub_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a notification hub associated with a namespace. Deletes a notification hub associated with a namespace.
@@ -919,6 +879,8 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
         { label: 'list_keys', value: 'list_keys' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'get_pns_credentials', value: 'get_pns_credentials' },
         { label: 'check_notification_hub_availability', value: 'check_notification_hub_availability' },
         { label: 'debug_send', value: 'debug_send' },
@@ -944,6 +906,40 @@ Gets the Primary and Secondary ConnectionStrings to the NotificationHub. Gets th
 
 ```sql
 EXEC azure.notificationhubs.notification_hubs.list_keys 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@notification_hub_name='{{ notification_hub_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_authorization_rule">
+
+Creates/Updates an authorization rule for a NotificationHub. Creates/Updates an authorization rule for a NotificationHub.
+
+```sql
+EXEC azure.notificationhubs.notification_hubs.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@notification_hub_name='{{ notification_hub_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a notificationHub authorization rule. Deletes a notificationHub authorization rule.
+
+```sql
+EXEC azure.notificationhubs.notification_hubs.delete_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @notification_hub_name='{{ notification_hub_name }}' --required, 

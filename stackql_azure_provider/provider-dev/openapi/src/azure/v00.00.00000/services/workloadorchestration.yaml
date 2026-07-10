@@ -2586,7 +2586,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/config_templates/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/config_templates/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/config_templates/methods/create_version"
         update:
           - $ref: "#/components/x-stackQL-resources/config_templates/methods/update"
         replace:
@@ -3334,7 +3333,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/schemas/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/schemas/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/schemas/methods/create_version"
         update:
           - $ref: "#/components/x-stackQL-resources/schemas/methods/update"
         replace:
@@ -3571,7 +3569,6 @@ components:
           - $ref: "#/components/x-stackQL-resources/solution_templates/methods/list_by_subscription"
         insert:
           - $ref: "#/components/x-stackQL-resources/solution_templates/methods/create_or_update"
-          - $ref: "#/components/x-stackQL-resources/solution_templates/methods/create_version"
         update:
           - $ref: "#/components/x-stackQL-resources/solution_templates/methods/update"
         replace:

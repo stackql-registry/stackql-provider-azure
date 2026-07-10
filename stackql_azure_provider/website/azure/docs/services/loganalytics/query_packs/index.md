@@ -278,13 +278,6 @@ The following methods are available for this resource:
     <td>Creates (or updates) a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_without_name"><CopyableCode code="create_or_update_without_name" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.</td>
-</tr>
-<tr>
     <td><a href="#update_tags"><CopyableCode code="update_tags" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-query_pack_name"><code>query_pack_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -299,18 +292,18 @@ The following methods are available for this resource:
     <td>Creates (or updates) a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_without_name"><CopyableCode code="create_or_update_without_name" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-query_pack_name"><code>query_pack_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a Log Analytics QueryPack.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_without_name"><CopyableCode code="create_or_update_without_name" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Creates a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.</td>
 </tr>
 </tbody>
 </table>
@@ -431,7 +424,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_without_name', value: 'create_or_update_without_name' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -454,35 +446,6 @@ SELECT
 '{{ properties }}' /* required */,
 '{{ resource_group_name }}',
 '{{ query_pack_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_without_name">
-
-Creates a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.
-
-```sql
-INSERT INTO azure.loganalytics.query_packs (
-tags,
-location,
-properties,
-resource_group_name,
-subscription_id
-)
-SELECT 
-'{{ tags }}',
-'{{ location }}' /* required */,
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -569,8 +532,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_without_name', value: 'create_or_update_without_name' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -586,31 +548,6 @@ properties = '{{ properties }}'
 WHERE 
 resource_group_name = '{{ resource_group_name }}' --required
 AND query_pack_name = '{{ query_pack_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND location = '{{ location }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_without_name">
-
-Creates a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.
-
-```sql
-REPLACE azure.loganalytics.query_packs
-SET 
-tags = '{{ tags }}',
-location = '{{ location }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 AND location = '{{ location }}' --required
 AND properties = '{{ properties }}' --required
@@ -644,6 +581,34 @@ DELETE FROM azure.loganalytics.query_packs
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND query_pack_name = '{{ query_pack_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_or_update_without_name"
+    values={[
+        { label: 'create_or_update_without_name', value: 'create_or_update_without_name' }
+    ]}
+>
+<TabItem value="create_or_update_without_name">
+
+Creates a Log Analytics QueryPack. Note: You cannot specify a different value for InstrumentationKey nor AppId in the Put operation.
+
+```sql
+EXEC azure.loganalytics.query_packs.create_or_update_without_name 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"location": "{{ location }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

@@ -427,20 +427,6 @@ The following methods are available for this resource:
     <td>Create or update a Scheduler.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_private_endpoint_connection"><CopyableCode code="create_or_update_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a private endpoint connection for the durable task scheduler.</td>
-</tr>
-<tr>
-    <td><a href="#update_private_endpoint_connection"><CopyableCode code="update_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Update a private endpoint connection for the durable task scheduler.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -453,20 +439,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Create or update a Scheduler.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_private_endpoint_connection"><CopyableCode code="create_or_update_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a private endpoint connection for the durable task scheduler.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a private endpoint connection for the durable task scheduler.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -488,6 +460,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List private endpoint connections for the durable task scheduler.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_private_endpoint_connection"><CopyableCode code="create_or_update_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a private endpoint connection for the durable task scheduler.</td>
+</tr>
+<tr>
+    <td><a href="#update_private_endpoint_connection"><CopyableCode code="update_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Update a private endpoint connection for the durable task scheduler.</td>
+</tr>
+<tr>
+    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-scheduler_name"><code>scheduler_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a private endpoint connection for the durable task scheduler.</td>
 </tr>
 </tbody>
 </table>
@@ -669,7 +662,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -704,33 +696,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_private_endpoint_connection">
-
-Create or update a private endpoint connection for the durable task scheduler.
-
-```sql
-INSERT INTO azure.durabletask.schedulers (
-properties,
-resource_group_name,
-scheduler_name,
-private_endpoint_connection_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ scheduler_name }}',
-'{{ private_endpoint_connection_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -745,9 +710,6 @@ type
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the schedulers resource.
-    - name: private_endpoint_connection_name
-      value: "{{ private_endpoint_connection_name }}"
-      description: Required parameter for the schedulers resource.
     - name: tags
       value: "{{ tags }}"
       description: |
@@ -758,17 +720,38 @@ type
         The geo-location where the resource lives. Required.
     - name: properties
       description: |
-        The private endpoint connection properties.
+        The resource-specific properties for this resource.
       value:
-        groupIds:
-          - "{{ groupIds }}"
-        privateEndpoint:
-          id: "{{ id }}"
-        privateLinkServiceConnectionState:
-          status: "{{ status }}"
-          description: "{{ description }}"
-          actionsRequired: "{{ actionsRequired }}"
         provisioningState: "{{ provisioningState }}"
+        endpoint: "{{ endpoint }}"
+        ipAllowlist:
+          - "{{ ipAllowlist }}"
+        sku:
+          name: "{{ name }}"
+          capacity: {{ capacity }}
+          redundancyState: "{{ redundancyState }}"
+        publicNetworkAccess: "{{ publicNetworkAccess }}"
+        privateEndpointConnections:
+          - id: "{{ id }}"
+            name: "{{ name }}"
+            type: "{{ type }}"
+            systemData:
+              createdBy: "{{ createdBy }}"
+              createdByType: "{{ createdByType }}"
+              createdAt: "{{ createdAt }}"
+              lastModifiedBy: "{{ lastModifiedBy }}"
+              lastModifiedByType: "{{ lastModifiedByType }}"
+              lastModifiedAt: "{{ lastModifiedAt }}"
+            properties:
+              groupIds:
+                - "{{ groupIds }}"
+              privateEndpoint:
+                id: "{{ id }}"
+              privateLinkServiceConnectionState:
+                status: "{{ status }}"
+                description: "{{ description }}"
+                actionsRequired: "{{ actionsRequired }}"
+              provisioningState: "{{ provisioningState }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -778,33 +761,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_private_endpoint_connection"
+    defaultValue="update"
     values={[
-        { label: 'update_private_endpoint_connection', value: 'update_private_endpoint_connection' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_private_endpoint_connection">
-
-Update a private endpoint connection for the durable task scheduler.
-
-```sql
-UPDATE azure.durabletask.schedulers
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND scheduler_name = '{{ scheduler_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Update a Scheduler.
@@ -836,8 +797,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -865,52 +825,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_private_endpoint_connection">
-
-Create or update a private endpoint connection for the durable task scheduler.
-
-```sql
-REPLACE azure.durabletask.schedulers
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND scheduler_name = '{{ scheduler_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_private_endpoint_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_private_endpoint_connection">
-
-Delete a private endpoint connection for the durable task scheduler.
-
-```sql
-DELETE FROM azure.durabletask.schedulers
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND scheduler_name = '{{ scheduler_name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a Scheduler.
@@ -932,7 +857,10 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_private_links"
     values={[
         { label: 'list_private_links', value: 'list_private_links' },
-        { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' }
+        { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' },
+        { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' },
+        { label: 'update_private_endpoint_connection', value: 'update_private_endpoint_connection' },
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' }
     ]}
 >
 <TabItem value="list_private_links">
@@ -955,6 +883,53 @@ List private endpoint connections for the durable task scheduler.
 EXEC azure.durabletask.schedulers.list_private_endpoint_connections 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @scheduler_name='{{ scheduler_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_private_endpoint_connection">
+
+Create or update a private endpoint connection for the durable task scheduler.
+
+```sql
+EXEC azure.durabletask.schedulers.create_or_update_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@scheduler_name='{{ scheduler_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_private_endpoint_connection">
+
+Update a private endpoint connection for the durable task scheduler.
+
+```sql
+EXEC azure.durabletask.schedulers.update_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@scheduler_name='{{ scheduler_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_private_endpoint_connection">
+
+Delete a private endpoint connection for the durable task scheduler.
+
+```sql
+EXEC azure.durabletask.schedulers.delete_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@scheduler_name='{{ scheduler_name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

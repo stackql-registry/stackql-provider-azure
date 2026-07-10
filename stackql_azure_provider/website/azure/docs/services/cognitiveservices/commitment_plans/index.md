@@ -624,46 +624,11 @@ The following methods are available for this resource:
     <td>Update the state of specified commitmentPlans associated with the Cognitive Services account.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_association"><CopyableCode code="create_or_update_association" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-commitment_plan_association_name"><code>commitment_plan_association_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update the association of the Cognitive Services commitment plan.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_plan"><CopyableCode code="create_or_update_plan" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create Cognitive Services commitment plan.</td>
-</tr>
-<tr>
-    <td><a href="#update_plan"><CopyableCode code="update_plan" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create Cognitive Services commitment plan.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update the state of specified commitmentPlans associated with the Cognitive Services account.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_association"><CopyableCode code="create_or_update_association" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-commitment_plan_association_name"><code>commitment_plan_association_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update the association of the Cognitive Services commitment plan.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_plan"><CopyableCode code="create_or_update_plan" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create Cognitive Services commitment plan.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -673,25 +638,46 @@ The following methods are available for this resource:
     <td>Deletes the specified commitmentPlan associated with the Cognitive Services account.</td>
 </tr>
 <tr>
-    <td><a href="#delete_association"><CopyableCode code="delete_association" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-commitment_plan_association_name"><code>commitment_plan_association_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes the association of the Cognitive Services commitment plan.</td>
-</tr>
-<tr>
-    <td><a href="#delete_plan"><CopyableCode code="delete_plan" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a Cognitive Services commitment plan from the resource group.</td>
-</tr>
-<tr>
     <td><a href="#get_plan"><CopyableCode code="get_plan" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns a Cognitive Services commitment plan specified by the parameters.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_plan"><CopyableCode code="create_or_update_plan" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create Cognitive Services commitment plan.</td>
+</tr>
+<tr>
+    <td><a href="#update_plan"><CopyableCode code="update_plan" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create Cognitive Services commitment plan.</td>
+</tr>
+<tr>
+    <td><a href="#delete_plan"><CopyableCode code="delete_plan" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a Cognitive Services commitment plan from the resource group.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_association"><CopyableCode code="create_or_update_association" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-commitment_plan_association_name"><code>commitment_plan_association_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update the association of the Cognitive Services commitment plan.</td>
+</tr>
+<tr>
+    <td><a href="#delete_association"><CopyableCode code="delete_association" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-commitment_plan_name"><code>commitment_plan_name</code></a>, <a href="#parameter-commitment_plan_association_name"><code>commitment_plan_association_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes the association of the Cognitive Services commitment plan.</td>
 </tr>
 </tbody>
 </table>
@@ -922,8 +908,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_association', value: 'create_or_update_association' },
-        { label: 'create_or_update_plan', value: 'create_or_update_plan' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -967,75 +951,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_association">
-
-Create or update the association of the Cognitive Services commitment plan.
-
-```sql
-INSERT INTO azure.cognitiveservices.commitment_plans (
-properties,
-tags,
-resource_group_name,
-commitment_plan_name,
-commitment_plan_association_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ tags }}',
-'{{ resource_group_name }}',
-'{{ commitment_plan_name }}',
-'{{ commitment_plan_association_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-etag,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_plan">
-
-Create Cognitive Services commitment plan.
-
-```sql
-INSERT INTO azure.cognitiveservices.commitment_plans (
-properties,
-tags,
-location,
-kind,
-sku,
-resource_group_name,
-commitment_plan_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ tags }}',
-'{{ location }}',
-'{{ kind }}',
-'{{ sku }}',
-'{{ resource_group_name }}',
-'{{ commitment_plan_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-etag,
-kind,
-location,
-properties,
-sku,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -1052,9 +967,6 @@ type
       description: Required parameter for the commitment_plans resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
-      description: Required parameter for the commitment_plans resource.
-    - name: commitment_plan_association_name
-      value: "{{ commitment_plan_association_name }}"
       description: Required parameter for the commitment_plans resource.
     - name: properties
       description: |
@@ -1118,51 +1030,12 @@ type
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_plan"
-    values={[
-        { label: 'update_plan', value: 'update_plan' }
-    ]}
->
-<TabItem value="update_plan">
-
-Create Cognitive Services commitment plan.
-
-```sql
-UPDATE azure.cognitiveservices.commitment_plans
-SET 
-tags = '{{ tags }}',
-sku = '{{ sku }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND commitment_plan_name = '{{ commitment_plan_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-etag,
-kind,
-location,
-properties,
-sku,
-systemData,
-tags,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## `REPLACE` examples
 
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_association', value: 'create_or_update_association' },
-        { label: 'create_or_update_plan', value: 'create_or_update_plan' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1195,59 +1068,6 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_association">
-
-Create or update the association of the Cognitive Services commitment plan.
-
-```sql
-REPLACE azure.cognitiveservices.commitment_plans
-SET 
-properties = '{{ properties }}',
-tags = '{{ tags }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND commitment_plan_name = '{{ commitment_plan_name }}' --required
-AND commitment_plan_association_name = '{{ commitment_plan_association_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-etag,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_plan">
-
-Create Cognitive Services commitment plan.
-
-```sql
-REPLACE azure.cognitiveservices.commitment_plans
-SET 
-properties = '{{ properties }}',
-tags = '{{ tags }}',
-location = '{{ location }}',
-kind = '{{ kind }}',
-sku = '{{ sku }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND commitment_plan_name = '{{ commitment_plan_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-etag,
-kind,
-location,
-properties,
-sku,
-systemData,
-tags,
-type;
-```
-</TabItem>
 </Tabs>
 
 
@@ -1256,9 +1076,7 @@ type;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'delete_association', value: 'delete_association' },
-        { label: 'delete_plan', value: 'delete_plan' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -1274,31 +1092,6 @@ AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_association">
-
-Deletes the association of the Cognitive Services commitment plan.
-
-```sql
-DELETE FROM azure.cognitiveservices.commitment_plans
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND commitment_plan_name = '{{ commitment_plan_name }}' --required
-AND commitment_plan_association_name = '{{ commitment_plan_association_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_plan">
-
-Deletes a Cognitive Services commitment plan from the resource group.
-
-```sql
-DELETE FROM azure.cognitiveservices.commitment_plans
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND commitment_plan_name = '{{ commitment_plan_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
@@ -1307,7 +1100,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="get_plan"
     values={[
-        { label: 'get_plan', value: 'get_plan' }
+        { label: 'get_plan', value: 'get_plan' },
+        { label: 'create_or_update_plan', value: 'create_or_update_plan' },
+        { label: 'update_plan', value: 'update_plan' },
+        { label: 'delete_plan', value: 'delete_plan' },
+        { label: 'create_or_update_association', value: 'create_or_update_association' },
+        { label: 'delete_association', value: 'delete_association' }
     ]}
 >
 <TabItem value="get_plan">
@@ -1318,6 +1116,86 @@ Returns a Cognitive Services commitment plan specified by the parameters.
 EXEC azure.cognitiveservices.commitment_plans.get_plan 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @commitment_plan_name='{{ commitment_plan_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_plan">
+
+Create Cognitive Services commitment plan.
+
+```sql
+EXEC azure.cognitiveservices.commitment_plans.create_or_update_plan 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@commitment_plan_name='{{ commitment_plan_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"tags": "{{ tags }}", 
+"location": "{{ location }}", 
+"kind": "{{ kind }}", 
+"sku": "{{ sku }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_plan">
+
+Create Cognitive Services commitment plan.
+
+```sql
+EXEC azure.cognitiveservices.commitment_plans.update_plan 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@commitment_plan_name='{{ commitment_plan_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"sku": "{{ sku }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_plan">
+
+Deletes a Cognitive Services commitment plan from the resource group.
+
+```sql
+EXEC azure.cognitiveservices.commitment_plans.delete_plan 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@commitment_plan_name='{{ commitment_plan_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_association">
+
+Create or update the association of the Cognitive Services commitment plan.
+
+```sql
+EXEC azure.cognitiveservices.commitment_plans.create_or_update_association 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@commitment_plan_name='{{ commitment_plan_name }}' --required, 
+@commitment_plan_association_name='{{ commitment_plan_association_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"tags": "{{ tags }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_association">
+
+Deletes the association of the Cognitive Services commitment plan.
+
+```sql
+EXEC azure.cognitiveservices.commitment_plans.delete_association 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@commitment_plan_name='{{ commitment_plan_name }}' --required, 
+@commitment_plan_association_name='{{ commitment_plan_association_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

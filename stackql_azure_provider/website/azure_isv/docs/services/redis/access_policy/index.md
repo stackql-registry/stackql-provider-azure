@@ -166,6 +166,13 @@ The following methods are available for this resource:
     <td>Adds an access policy to the redis cache.</td>
 </tr>
 <tr>
+    <td><a href="#create_update"><CopyableCode code="create_update" /></a></td>
+    <td><CopyableCode code="replace" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cache_name"><code>cache_name</code></a>, <a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds an access policy to the redis cache.</td>
+</tr>
+<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cache_name"><code>cache_name</code></a>, <a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -324,6 +331,38 @@ type
         permissions: "{{ permissions }}"
 `}</CodeBlock>
 
+</TabItem>
+</Tabs>
+
+
+## `REPLACE` examples
+
+<Tabs
+    defaultValue="create_update"
+    values={[
+        { label: 'create_update', value: 'create_update' }
+    ]}
+>
+<TabItem value="create_update">
+
+Adds an access policy to the redis cache.
+
+```sql
+REPLACE azure_isv.redis.access_policy
+SET 
+properties = '{{ properties }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND cache_name = '{{ cache_name }}' --required
+AND access_policy_name = '{{ access_policy_name }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+RETURNING
+id,
+name,
+properties,
+systemData,
+type;
+```
 </TabItem>
 </Tabs>
 

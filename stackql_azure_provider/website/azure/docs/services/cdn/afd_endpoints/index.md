@@ -233,13 +233,6 @@ The following methods are available for this resource:
     <td>Updates an existing AzureFrontDoor endpoint with the specified endpoint name under the specified subscription, resource group and profile. Only tags can be updated after creating an endpoint. To update origins, use the Update Origin operation. To update origin groups, use the Update Origin group operation. To update domains, use the Update Custom Domain operation.</td>
 </tr>
 <tr>
-    <td><a href="#purge_content"><CopyableCode code="purge_content" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-profile_name"><code>profile_name</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Removes a content from AzureFrontDoor.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-profile_name"><code>profile_name</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -252,6 +245,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-profile_name"><code>profile_name</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Checks the quota and actual usage of endpoints under the given Azure Front Door profile.</td>
+</tr>
+<tr>
+    <td><a href="#purge_content"><CopyableCode code="purge_content" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-profile_name"><code>profile_name</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-contentPaths"><code>contentPaths</code></a></td>
+    <td></td>
+    <td>Removes a content from AzureFrontDoor.</td>
 </tr>
 <tr>
     <td><a href="#validate_custom_domain"><CopyableCode code="validate_custom_domain" /></a></td>
@@ -483,25 +483,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="purge_content"
+    defaultValue="delete"
     values={[
-        { label: 'purge_content', value: 'purge_content' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="purge_content">
-
-Removes a content from AzureFrontDoor.
-
-```sql
-DELETE FROM azure.cdn.afd_endpoints
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND profile_name = '{{ profile_name }}' --required
-AND endpoint_name = '{{ endpoint_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an existing AzureFrontDoor endpoint with the specified endpoint name under the specified subscription, resource group and profile.
@@ -524,6 +510,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_resource_usage"
     values={[
         { label: 'list_resource_usage', value: 'list_resource_usage' },
+        { label: 'purge_content', value: 'purge_content' },
         { label: 'validate_custom_domain', value: 'validate_custom_domain' }
     ]}
 >
@@ -537,6 +524,24 @@ EXEC azure.cdn.afd_endpoints.list_resource_usage
 @profile_name='{{ profile_name }}' --required, 
 @endpoint_name='{{ endpoint_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="purge_content">
+
+Removes a content from AzureFrontDoor.
+
+```sql
+EXEC azure.cdn.afd_endpoints.purge_content 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@profile_name='{{ profile_name }}' --required, 
+@endpoint_name='{{ endpoint_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"contentPaths": "{{ contentPaths }}", 
+"domains": "{{ domains }}"
+}'
 ;
 ```
 </TabItem>

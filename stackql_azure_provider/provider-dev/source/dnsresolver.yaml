@@ -149,16 +149,6 @@ components:
             $ref: '#/components/schemas/DnsForwardingRulesetFlattened'
         nextLink:
           type: string
-    VirtualNetworkDnsForwardingRuleset:
-      type: object
-      description: Reference to DNS forwarding ruleset and associated virtual network link.
-      properties:
-        id:
-          type: string
-          description: DNS Forwarding Ruleset Resource ID.
-        properties:
-          $ref: '#/components/schemas/VirtualNetworkLinkSubResourceProperties'
-          description: Properties of the virtual network link sub-resource reference.
     VirtualNetworkLinkSubResourceProperties:
       type: object
       description: The reference to the virtual network link that associates between the DNS forwarding ruleset
@@ -167,13 +157,23 @@ components:
         virtualNetworkLink:
           $ref: '#/components/schemas/SubResource'
           description: The reference to the virtual network link.
-    PagedVirtualNetworkDnsForwardingRuleset:
+    VirtualNetworkDnsForwardingRulesetFlattened:
+      type: object
+      description: Flattened view of VirtualNetworkDnsForwardingRuleset ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: DNS Forwarding Ruleset Resource ID.
+        virtualNetworkLink:
+          $ref: '#/components/schemas/SubResource'
+          description: The reference to the virtual network link.
+    PagedVirtualNetworkDnsForwardingRulesetFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/VirtualNetworkDnsForwardingRuleset'
+            $ref: '#/components/schemas/VirtualNetworkDnsForwardingRulesetFlattened'
         nextLink:
           type: string
     DnsForwardingRuleset:
@@ -1555,10 +1555,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedVirtualNetworkDnsForwardingRuleset'
+                $ref: '#/components/schemas/PagedVirtualNetworkDnsForwardingRulesetFlattened'
       x-stackql-resource: dns_forwarding_rulesets
       x-stackql-method: list_by_virtual_network
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/dnsResolverDomainLists/{dns_resolver_domain_list_name}?api-version=2025-10-01-preview
   : get:
       operationId: DnsResolverDomainLists_get
@@ -2073,7 +2076,8 @@ paths:
                 $ref: '#/components/schemas/PagedSubResource'
       x-stackql-resource: dns_resolver_policies
       x-stackql-method: list_by_virtual_network
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/dnsResolverPolicies/{dns_resolver_policy_name}/virtualNetworkLinks/{dns_resolver_policy_virtual_network_link_name}?api-version=2025-10-01-preview
   : get:
       operationId: DnsResolverPolicyVirtualNetworkLinks_get
@@ -2550,7 +2554,8 @@ paths:
                 $ref: '#/components/schemas/PagedSubResource'
       x-stackql-resource: dns_resolvers
       x-stackql-method: list_by_virtual_network
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/dnsResolverPolicies/{dns_resolver_policy_name}/dnsSecurityRules/{dns_security_rule_name}?api-version=2025-10-01-preview
   : get:
       operationId: DnsSecurityRules_get

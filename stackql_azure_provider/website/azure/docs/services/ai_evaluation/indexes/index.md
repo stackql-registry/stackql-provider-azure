@@ -211,25 +211,18 @@ The following methods are available for this resource:
     <td>List the latest version of each Index.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_version"><CopyableCode code="create_or_update_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Create a new or update an existing Index with the given version id.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_version"><CopyableCode code="create_or_update_version" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Create a new or update an existing Index with the given version id.</td>
-</tr>
-<tr>
     <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete the specific version of the Index. The service returns 204 No Content if the Index was deleted successfully or if the Index does not exist.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_version"><CopyableCode code="create_or_update_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td></td>
+    <td>Create a new or update an existing Index with the given version id.</td>
 </tr>
 </tbody>
 </table>
@@ -250,7 +243,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -260,7 +253,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-version">
     <td><CopyableCode code="version" /></td>
     <td><code>string</code></td>
-    <td>The version of the Index to delete. Required.</td>
+    <td>The specific version id of the Index to create or update. Required.</td>
 </tr>
 </tbody>
 </table>
@@ -332,118 +325,13 @@ WHERE endpoint = '{{ endpoint }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_or_update_version"
-    values={[
-        { label: 'create_or_update_version', value: 'create_or_update_version' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_or_update_version">
-
-Create a new or update an existing Index with the given version id.
-
-```sql
-INSERT INTO azure.ai_evaluation.indexes (
-type,
-description,
-tags,
-name,
-version,
-endpoint
-)
-SELECT 
-'{{ type }}' /* required */,
-'{{ description }}',
-'{{ tags }}',
-'{{ name }}',
-'{{ version }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-description,
-tags,
-type,
-version
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: indexes
-  props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the indexes resource.
-    - name: version
-      value: "{{ version }}"
-      description: Required parameter for the indexes resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the indexes resource.
-    - name: type
-      value: "{{ type }}"
-      description: |
-        Type of index. Required. Known values are: "AzureSearch", "CosmosDBNoSqlVectorStore", and "ManagedAzureSearch".
-    - name: description
-      value: "{{ description }}"
-      description: |
-        The asset description text.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Tag dictionary. Tags can be added, removed, and updated.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="create_or_update_version"
-    values={[
-        { label: 'create_or_update_version', value: 'create_or_update_version' }
-    ]}
->
-<TabItem value="create_or_update_version">
-
-Create a new or update an existing Index with the given version id.
-
-```sql
-REPLACE azure.ai_evaluation.indexes
-SET 
-type = '{{ type }}',
-description = '{{ description }}',
-tags = '{{ tags }}'
-WHERE 
-name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND type = '{{ type }}' --required
-RETURNING
-id,
-name,
-description,
-tags,
-type,
-version;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="delete_version"
     values={[
-        { label: 'delete_version', value: 'delete_version' }
+        { label: 'delete_version', value: 'delete_version' },
+        { label: 'create_or_update_version', value: 'create_or_update_version' }
     ]}
 >
 <TabItem value="delete_version">
@@ -451,10 +339,28 @@ version;
 Delete the specific version of the Index. The service returns 204 No Content if the Index was deleted successfully or if the Index does not exist.
 
 ```sql
-DELETE FROM azure.ai_evaluation.indexes
-WHERE name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.ai_evaluation.indexes.delete_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_version">
+
+Create a new or update an existing Index with the given version id.
+
+```sql
+EXEC azure.ai_evaluation.indexes.create_or_update_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"type": "{{ type }}", 
+"description": "{{ description }}", 
+"tags": "{{ tags }}"
+}'
 ;
 ```
 </TabItem>

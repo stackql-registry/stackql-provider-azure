@@ -147,28 +147,28 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-managed_private_endpoint_name"><code>managed_private_endpoint_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a></td>
+    <td><a href="#parameter-managed_private_endpoint_name"><code>managed_private_endpoint_name</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get Managed Private Endpoints.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a></td>
+    <td><a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>List Managed Private Endpoints.</td>
 </tr>
 <tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-managed_private_endpoint_name"><code>managed_private_endpoint_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a></td>
+    <td><a href="#parameter-managed_private_endpoint_name"><code>managed_private_endpoint_name</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Create Managed Private Endpoints.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-managed_private_endpoint_name"><code>managed_private_endpoint_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a></td>
+    <td><a href="#parameter-managed_private_endpoint_name"><code>managed_private_endpoint_name</code></a>, <a href="#parameter-managed_virtual_network_name"><code>managed_virtual_network_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete Managed Private Endpoints.</td>
 </tr>
@@ -191,7 +191,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-managed_private_endpoint_name">
     <td><CopyableCode code="managed_private_endpoint_name" /></td>
@@ -233,8 +233,8 @@ provisioningState,
 type
 FROM azure.synapse_managedprivateendpoints.managed_private_endpoints
 WHERE managed_private_endpoint_name = '{{ managed_private_endpoint_name }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
 AND managed_virtual_network_name = '{{ managed_virtual_network_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
@@ -247,8 +247,8 @@ SELECT
 nextLink,
 value
 FROM azure.synapse_managedprivateendpoints.managed_private_endpoints
-WHERE endpoint = '{{ endpoint }}' -- required
-AND managed_virtual_network_name = '{{ managed_virtual_network_name }}' -- required
+WHERE managed_virtual_network_name = '{{ managed_virtual_network_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
@@ -272,14 +272,14 @@ Create Managed Private Endpoints.
 INSERT INTO azure.synapse_managedprivateendpoints.managed_private_endpoints (
 properties,
 managed_private_endpoint_name,
-endpoint,
-managed_virtual_network_name
+managed_virtual_network_name,
+endpoint
 )
 SELECT 
 '{{ properties }}',
 '{{ managed_private_endpoint_name }}',
-'{{ endpoint }}',
-'{{ managed_virtual_network_name }}'
+'{{ managed_virtual_network_name }}',
+'{{ endpoint }}'
 RETURNING
 id,
 name,
@@ -296,11 +296,11 @@ type
     - name: managed_private_endpoint_name
       value: "{{ managed_private_endpoint_name }}"
       description: Required parameter for the managed_private_endpoints resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the managed_private_endpoints resource.
     - name: managed_virtual_network_name
       value: "{{ managed_virtual_network_name }}"
+      description: Required parameter for the managed_private_endpoints resource.
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the managed_private_endpoints resource.
     - name: properties
       description: |
@@ -339,8 +339,8 @@ Delete Managed Private Endpoints.
 ```sql
 DELETE FROM azure.synapse_managedprivateendpoints.managed_private_endpoints
 WHERE managed_private_endpoint_name = '{{ managed_private_endpoint_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
 AND managed_virtual_network_name = '{{ managed_virtual_network_name }}' --required
+AND endpoint = '{{ endpoint }}' --required
 ;
 ```
 </TabItem>

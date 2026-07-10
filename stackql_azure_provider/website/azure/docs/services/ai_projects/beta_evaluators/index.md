@@ -409,38 +409,10 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-evaluator_type"><code>evaluator_type</code></a>, <a href="#parameter-categories"><code>categories</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
     <td></td>
     <td>Create an evaluator version. Creates a new evaluator version with an auto-incremented version identifier.</td>
-</tr>
-<tr>
-    <td><a href="#create_generation_job"><CopyableCode code="create_generation_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-Operation-Id"><code>Operation-Id</code></a></td>
-    <td>Create an evaluator generation job. Creates an evaluator generation job. The service generates rubric-based evaluator definitions from the provided source materials asynchronously.</td>
-</tr>
-<tr>
-    <td><a href="#update_version"><CopyableCode code="update_version" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-evaluator_type"><code>evaluator_type</code></a>, <a href="#parameter-categories"><code>categories</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
-    <td></td>
-    <td>Update an evaluator version. Updates the specified evaluator version in place.</td>
-</tr>
-<tr>
-    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete an evaluator version. Removes the specified evaluator version. Returns 204 whether the version existed or not.</td>
-</tr>
-<tr>
-    <td><a href="#delete_generation_job"><CopyableCode code="delete_generation_job" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete an evaluator generation job. Deletes an evaluator generation job by its ID. Deletes the job record only; the generated evaluator (if any) is preserved.</td>
 </tr>
 <tr>
     <td><a href="#list_generation_jobs"><CopyableCode code="list_generation_jobs" /></a></td>
@@ -450,11 +422,39 @@ The following methods are available for this resource:
     <td>List evaluator generation jobs. Returns a list of evaluator generation jobs. The List API has up to a few seconds of propagation delay, so a recently created job may not appear immediately; use the Get evaluator generation job API with the job ID to retrieve a specific job without delay.</td>
 </tr>
 <tr>
+    <td><a href="#create_generation_job"><CopyableCode code="create_generation_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-Operation-Id"><code>Operation-Id</code></a></td>
+    <td>Create an evaluator generation job. Creates an evaluator generation job. The service generates rubric-based evaluator definitions from the provided source materials asynchronously.</td>
+</tr>
+<tr>
+    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete an evaluator version. Removes the specified evaluator version. Returns 204 whether the version existed or not.</td>
+</tr>
+<tr>
+    <td><a href="#update_version"><CopyableCode code="update_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-evaluator_type"><code>evaluator_type</code></a>, <a href="#parameter-categories"><code>categories</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
+    <td></td>
+    <td>Update an evaluator version. Updates the specified evaluator version in place.</td>
+</tr>
+<tr>
     <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-blob_uri"><code>blob_uri</code></a></td>
     <td></td>
     <td>Get evaluator credentials. Retrieves SAS credentials for accessing the storage account associated with the specified evaluator version.</td>
+</tr>
+<tr>
+    <td><a href="#delete_generation_job"><CopyableCode code="delete_generation_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete an evaluator generation job. Deletes an evaluator generation job by its ID. Deletes the job record only; the generated evaluator (if any) is preserved.</td>
 </tr>
 <tr>
     <td><a href="#pending_upload"><CopyableCode code="pending_upload" /></a></td>
@@ -489,7 +489,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
@@ -658,14 +658,20 @@ AND limit = '{{ limit }}'
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_version"
     values={[
         { label: 'create_version', value: 'create_version' },
+        { label: 'list_generation_jobs', value: 'list_generation_jobs' },
         { label: 'create_generation_job', value: 'create_generation_job' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'delete_version', value: 'delete_version' },
+        { label: 'update_version', value: 'update_version' },
+        { label: 'get_credentials', value: 'get_credentials' },
+        { label: 'delete_generation_job', value: 'delete_generation_job' },
+        { label: 'pending_upload', value: 'pending_upload' },
+        { label: 'cancel_generation_job', value: 'cancel_generation_job' }
     ]}
 >
 <TabItem value="create_version">
@@ -673,241 +679,23 @@ AND limit = '{{ limit }}'
 Create an evaluator version. Creates a new evaluator version with an auto-incremented version identifier.
 
 ```sql
-INSERT INTO azure.ai_projects.beta_evaluators (
-display_name,
-metadata,
-evaluator_type,
-categories,
-supported_evaluation_levels,
-definition,
-description,
-tags,
-name,
-endpoint
-)
-SELECT 
-'{{ display_name }}',
-'{{ metadata }}',
-'{{ evaluator_type }}' /* required */,
-'{{ categories }}' /* required */,
-'{{ supported_evaluation_levels }}',
-'{{ definition }}' /* required */,
-'{{ description }}',
-'{{ tags }}',
-'{{ name }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-display_name,
-categories,
-created_at,
-created_by,
-definition,
-description,
-evaluator_type,
-generation_artifacts,
-metadata,
-modified_at,
-supported_evaluation_levels,
-tags,
-version
+EXEC azure.ai_projects.beta_evaluators.create_version 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"display_name": "{{ display_name }}", 
+"metadata": "{{ metadata }}", 
+"evaluator_type": "{{ evaluator_type }}", 
+"categories": "{{ categories }}", 
+"supported_evaluation_levels": "{{ supported_evaluation_levels }}", 
+"definition": "{{ definition }}", 
+"description": "{{ description }}", 
+"tags": "{{ tags }}"
+}'
 ;
 ```
 </TabItem>
-<TabItem value="create_generation_job">
-
-Create an evaluator generation job. Creates an evaluator generation job. The service generates rubric-based evaluator definitions from the provided source materials asynchronously.
-
-```sql
-INSERT INTO azure.ai_projects.beta_evaluators (
-inputs,
-endpoint,
-Operation-Id
-)
-SELECT 
-'{{ inputs }}',
-'{{ endpoint }}',
-'{{ Operation-Id }}'
-RETURNING
-id,
-created_at,
-error,
-finished_at,
-inputs,
-result,
-status,
-usage
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: beta_evaluators
-  props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the beta_evaluators resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the beta_evaluators resource.
-    - name: display_name
-      value: "{{ display_name }}"
-      description: |
-        Display Name for evaluator. It helps to find the evaluator easily in AI Foundry. It does not need to be unique.
-    - name: metadata
-      value: "{{ metadata }}"
-      description: |
-        Metadata about the evaluator.
-    - name: evaluator_type
-      value: "{{ evaluator_type }}"
-      description: |
-        The type of the evaluator. Required. Known values are: "builtin" and "custom".
-      valid_values: ['builtin', 'custom']
-    - name: categories
-      value:
-        - "{{ categories }}"
-      description: |
-        The categories of the evaluator. Required.
-    - name: supported_evaluation_levels
-      value:
-        - "{{ supported_evaluation_levels }}"
-      description: |
-        Evaluation levels this evaluator supports (e.g., \`turn\`, \`conversation\`). When omitted on create, the service defaults to \`["turn"]\`. On update, omitting this field leaves it unchanged; an empty list is rejected. Custom code-based evaluators support only \`turn\`; custom prompt-based evaluators support exactly one level (\`turn\` or \`conversation\`).
-    - name: definition
-      description: |
-        Definition of the evaluator. Required.
-      value:
-        type: "{{ type }}"
-        init_parameters: "{{ init_parameters }}"
-        data_schema: "{{ data_schema }}"
-        metrics: "{{ metrics }}"
-    - name: description
-      value: "{{ description }}"
-      description: |
-        The asset description text.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Tag dictionary. Tags can be added, removed, and updated.
-    - name: inputs
-      description: |
-        Caller-supplied inputs.
-      value:
-        sources:
-          - type: "{{ type }}"
-        model: "{{ model }}"
-        evaluator_name: "{{ evaluator_name }}"
-        evaluator_display_name: "{{ evaluator_display_name }}"
-        evaluator_description: "{{ evaluator_description }}"
-    - name: Operation-Id
-      value: "{{ Operation-Id }}"
-      description: Client-generated unique ID for idempotent retries. When absent, the server creates the job unconditionally. Default value is None.
-      description: Client-generated unique ID for idempotent retries. When absent, the server creates the job unconditionally. Default value is None.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_version"
-    values={[
-        { label: 'update_version', value: 'update_version' }
-    ]}
->
-<TabItem value="update_version">
-
-Update an evaluator version. Updates the specified evaluator version in place.
-
-```sql
-UPDATE azure.ai_projects.beta_evaluators
-SET 
-display_name = '{{ display_name }}',
-metadata = '{{ metadata }}',
-evaluator_type = '{{ evaluator_type }}',
-categories = '{{ categories }}',
-supported_evaluation_levels = '{{ supported_evaluation_levels }}',
-definition = '{{ definition }}',
-description = '{{ description }}',
-tags = '{{ tags }}'
-WHERE 
-name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND evaluator_type = '{{ evaluator_type }}' --required
-AND categories = '{{ categories }}' --required
-AND definition = '{{ definition }}' --required
-RETURNING
-id,
-name,
-display_name,
-categories,
-created_at,
-created_by,
-definition,
-description,
-evaluator_type,
-generation_artifacts,
-metadata,
-modified_at,
-supported_evaluation_levels,
-tags,
-version;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_version"
-    values={[
-        { label: 'delete_version', value: 'delete_version' },
-        { label: 'delete_generation_job', value: 'delete_generation_job' }
-    ]}
->
-<TabItem value="delete_version">
-
-Delete an evaluator version. Removes the specified evaluator version. Returns 204 whether the version existed or not.
-
-```sql
-DELETE FROM azure.ai_projects.beta_evaluators
-WHERE name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_generation_job">
-
-Delete an evaluator generation job. Deletes an evaluator generation job by its ID. Deletes the job record only; the generated evaluator (if any) is preserved.
-
-```sql
-DELETE FROM azure.ai_projects.beta_evaluators
-WHERE job_id = '{{ job_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_generation_jobs"
-    values={[
-        { label: 'list_generation_jobs', value: 'list_generation_jobs' },
-        { label: 'get_credentials', value: 'get_credentials' },
-        { label: 'pending_upload', value: 'pending_upload' },
-        { label: 'cancel_generation_job', value: 'cancel_generation_job' }
-    ]}
->
 <TabItem value="list_generation_jobs">
 
 List evaluator generation jobs. Returns a list of evaluator generation jobs. The List API has up to a few seconds of propagation delay, so a recently created job may not appear immediately; use the Get evaluator generation job API with the job ID to retrieve a specific job without delay.
@@ -919,6 +707,56 @@ EXEC azure.ai_projects.beta_evaluators.list_generation_jobs
 @order='{{ order }}', 
 @after='{{ after }}', 
 @before='{{ before }}'
+;
+```
+</TabItem>
+<TabItem value="create_generation_job">
+
+Create an evaluator generation job. Creates an evaluator generation job. The service generates rubric-based evaluator definitions from the provided source materials asynchronously.
+
+```sql
+EXEC azure.ai_projects.beta_evaluators.create_generation_job 
+@endpoint='{{ endpoint }}' --required, 
+@Operation-Id='{{ Operation-Id }}' 
+@@json=
+'{
+"inputs": "{{ inputs }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_version">
+
+Delete an evaluator version. Removes the specified evaluator version. Returns 204 whether the version existed or not.
+
+```sql
+EXEC azure.ai_projects.beta_evaluators.delete_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_version">
+
+Update an evaluator version. Updates the specified evaluator version in place.
+
+```sql
+EXEC azure.ai_projects.beta_evaluators.update_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"display_name": "{{ display_name }}", 
+"metadata": "{{ metadata }}", 
+"evaluator_type": "{{ evaluator_type }}", 
+"categories": "{{ categories }}", 
+"supported_evaluation_levels": "{{ supported_evaluation_levels }}", 
+"definition": "{{ definition }}", 
+"description": "{{ description }}", 
+"tags": "{{ tags }}"
+}'
 ;
 ```
 </TabItem>
@@ -935,6 +773,17 @@ EXEC azure.ai_projects.beta_evaluators.get_credentials
 '{
 "blob_uri": "{{ blob_uri }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="delete_generation_job">
+
+Delete an evaluator generation job. Deletes an evaluator generation job by its ID. Deletes the job record only; the generated evaluator (if any) is preserved.
+
+```sql
+EXEC azure.ai_projects.beta_evaluators.delete_generation_job 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

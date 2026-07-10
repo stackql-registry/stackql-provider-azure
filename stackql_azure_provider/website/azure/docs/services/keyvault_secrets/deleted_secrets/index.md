@@ -182,21 +182,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deleted_secret"><CopyableCode code="get_deleted_secret" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Gets the specified deleted secret. The Get Deleted Secret operation returns the specified deleted secret along with its attributes. This operation requires the secrets/get permission.</td>
 </tr>
 <tr>
     <td><a href="#get_deleted_secrets"><CopyableCode code="get_deleted_secrets" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td><a href="#parameter-maxresults"><code>maxresults</code></a></td>
     <td>Lists deleted secrets for the specified vault. The Get Deleted Secrets operation returns the secrets that have been deleted for a vault enabled for soft-delete. This operation requires the secrets/list permission.</td>
 </tr>
 <tr>
     <td><a href="#purge_deleted_secret"><CopyableCode code="purge_deleted_secret" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
+    <td><a href="#parameter-secret_name"><code>secret_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Permanently deletes the specified secret. The purge deleted secret operation removes the secret permanently, without the possibility of recovery. This operation can only be enabled on a soft-delete enabled vault. This operation requires the secrets/purge permission.</td>
 </tr>
@@ -221,10 +221,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the secret. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 <tr id="parameter-maxresults">
     <td><CopyableCode code="maxresults" /></td>
@@ -262,7 +262,7 @@ tags,
 value
 FROM azure.keyvault_secrets.deleted_secrets
 WHERE secret_name = '{{ secret_name }}' -- required
-AND vault_base_url = '{{ vault_base_url }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>
@@ -281,7 +281,7 @@ recoveryId,
 scheduledPurgeDate,
 tags
 FROM azure.keyvault_secrets.deleted_secrets
-WHERE vault_base_url = '{{ vault_base_url }}' -- required
+WHERE vault_name = '{{ vault_name }}' -- required
 AND maxresults = '{{ maxresults }}'
 ;
 ```
@@ -304,7 +304,7 @@ Permanently deletes the specified secret. The purge deleted secret operation rem
 ```sql
 DELETE FROM azure.keyvault_secrets.deleted_secrets
 WHERE secret_name = '{{ secret_name }}' --required
-AND vault_base_url = '{{ vault_base_url }}' --required
+AND vault_name = '{{ vault_name }}' --required
 ;
 ```
 </TabItem>

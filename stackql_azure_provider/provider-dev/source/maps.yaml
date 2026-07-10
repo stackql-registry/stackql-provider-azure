@@ -1131,7 +1131,7 @@ paths:
                 $ref: '#/components/schemas/MapsAccountSasToken'
       x-stackql-resource: accounts
       x-stackql-method: list_sas
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Maps/accounts/{account_name}/listKeys?api-version=2025-10-01-preview
   : post:
       operationId: Accounts_list_keys
@@ -1164,7 +1164,7 @@ paths:
                 $ref: '#/components/schemas/MapsAccountKeys'
       x-stackql-resource: accounts
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Maps/accounts/{account_name}/regenerateKey?api-version=2025-10-01-preview
   : post:
       operationId: Accounts_regenerate_keys

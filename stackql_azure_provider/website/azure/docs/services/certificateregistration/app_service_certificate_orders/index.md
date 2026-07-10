@@ -598,25 +598,11 @@ The following methods are available for this resource:
     <td>List all certificate orders in a subscription. Description for List all certificate orders in a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_certificate"><CopyableCode code="create_or_update_certificate" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Create or update a certificate purchase order. Description for Create or update a certificate purchase order.</td>
-</tr>
-<tr>
-    <td><a href="#update_certificate"><CopyableCode code="update_certificate" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
@@ -626,25 +612,11 @@ The following methods are available for this resource:
     <td>Create or update a certificate purchase order. Description for Create or update a certificate purchase order.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_certificate"><CopyableCode code="create_or_update_certificate" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Create or update a certificate purchase order. Description for Create or update a certificate purchase order.</td>
-</tr>
-<tr>
-    <td><a href="#delete_certificate"><CopyableCode code="delete_certificate" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete the certificate associated with a certificate order. Description for Delete the certificate associated with a certificate order.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -659,6 +631,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List all certificates associated with a certificate order. Description for List all certificates associated with a certificate order.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_certificate"><CopyableCode code="create_or_update_certificate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.</td>
+</tr>
+<tr>
+    <td><a href="#update_certificate"><CopyableCode code="update_certificate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.</td>
+</tr>
+<tr>
+    <td><a href="#delete_certificate"><CopyableCode code="delete_certificate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-certificate_order_name"><code>certificate_order_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete the certificate associated with a certificate order. Description for Delete the certificate associated with a certificate order.</td>
 </tr>
 <tr>
     <td><a href="#reissue"><CopyableCode code="reissue" /></a></td>
@@ -920,49 +913,12 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_certificate"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_certificate', value: 'create_or_update_certificate' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_certificate">
-
-Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.
-
-```sql
-INSERT INTO azure.certificateregistration.app_service_certificate_orders (
-tags,
-location,
-properties,
-kind,
-resource_group_name,
-certificate_order_name,
-name,
-subscription_id
-)
-SELECT 
-'{{ tags }}',
-'{{ location }}' /* required */,
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ certificate_order_name }}',
-'{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create or update a certificate purchase order. Description for Create or update a certificate purchase order.
@@ -1007,9 +963,6 @@ type
       description: Required parameter for the app_service_certificate_orders resource.
     - name: certificate_order_name
       value: "{{ certificate_order_name }}"
-      description: Required parameter for the app_service_certificate_orders resource.
-    - name: name
-      value: "{{ name }}"
       description: Required parameter for the app_service_certificate_orders resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -1091,37 +1044,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_certificate"
+    defaultValue="update"
     values={[
-        { label: 'update_certificate', value: 'update_certificate' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_certificate">
-
-Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.
-
-```sql
-UPDATE azure.certificateregistration.app_service_certificate_orders
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND certificate_order_name = '{{ certificate_order_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Create or update a certificate purchase order. Description for Create or update a certificate purchase order.
@@ -1152,40 +1079,11 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_certificate"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_certificate', value: 'create_or_update_certificate' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_certificate">
-
-Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.
-
-```sql
-REPLACE azure.certificateregistration.app_service_certificate_orders
-SET 
-tags = '{{ tags }}',
-location = '{{ location }}',
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND certificate_order_name = '{{ certificate_order_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND location = '{{ location }}' --required
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create or update a certificate purchase order. Description for Create or update a certificate purchase order.
@@ -1219,25 +1117,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_certificate"
+    defaultValue="delete"
     values={[
-        { label: 'delete_certificate', value: 'delete_certificate' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_certificate">
-
-Delete the certificate associated with a certificate order. Description for Delete the certificate associated with a certificate order.
-
-```sql
-DELETE FROM azure.certificateregistration.app_service_certificate_orders
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND certificate_order_name = '{{ certificate_order_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete an existing certificate order. Description for Delete an existing certificate order.
@@ -1259,6 +1143,9 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_certificates"
     values={[
         { label: 'list_certificates', value: 'list_certificates' },
+        { label: 'create_or_update_certificate', value: 'create_or_update_certificate' },
+        { label: 'update_certificate', value: 'update_certificate' },
+        { label: 'delete_certificate', value: 'delete_certificate' },
         { label: 'reissue', value: 'reissue' },
         { label: 'renew', value: 'renew' },
         { label: 'resend_email', value: 'resend_email' },
@@ -1278,6 +1165,57 @@ List all certificates associated with a certificate order. Description for List 
 EXEC azure.certificateregistration.app_service_certificate_orders.list_certificates 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @certificate_order_name='{{ certificate_order_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_certificate">
+
+Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.
+
+```sql
+EXEC azure.certificateregistration.app_service_certificate_orders.create_or_update_certificate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@certificate_order_name='{{ certificate_order_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"location": "{{ location }}", 
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_certificate">
+
+Creates or updates a certificate and associates with key vault secret. Description for Creates or updates a certificate and associates with key vault secret.
+
+```sql
+EXEC azure.certificateregistration.app_service_certificate_orders.update_certificate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@certificate_order_name='{{ certificate_order_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_certificate">
+
+Delete the certificate associated with a certificate order. Description for Delete the certificate associated with a certificate order.
+
+```sql
+EXEC azure.certificateregistration.app_service_certificate_orders.delete_certificate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@certificate_order_name='{{ certificate_order_name }}' --required, 
+@name='{{ name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

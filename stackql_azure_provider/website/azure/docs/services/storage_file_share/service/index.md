@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_user_delegation_key"><CopyableCode code="get_user_delegation_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-Expiry"><code>Expiry</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a>, <a href="#parameter-Expiry"><code>Expiry</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a></td>
     <td>Retrieves a user delegation key for the File service. This is only a valid operation when using bearer token authentication.</td>
 </tr>
@@ -73,15 +73,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -115,9 +110,8 @@ Retrieves a user delegation key for the File service. This is only a valid opera
 
 ```sql
 EXEC azure.storage_file_share.service.get_user_delegation_key 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}', 
 @x-ms-client-request-id='{{ x-ms-client-request-id }}' 
 @@json=

@@ -120,6 +120,20 @@ function singletonFlattenTemplate() {
   return `{{ $row := . }}${ROW_TEMPLATE}`;
 }
 
+// Scalar-response wraps: give scalar / array-of-scalar bodies an
+// introspectable row shape ({"value": ...}) so they are selectable.
+function scalarListPagedTemplate(key) {
+  return `{"${key}": [{{- range $i, $v := index . "${key}" }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}], "nextLink": {{ toJson (index . "nextLink") }}}`;
+}
+
+function scalarListTemplate() {
+  return `{"value": [{{- range $i, $v := . }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}]}`;
+}
+
+function scalarTemplate() {
+  return `{"value": {{ toJson . }}}`;
+}
+
 /**
  * Resolve a one-level `$ref` to its target schema within the given spec.
  */
@@ -249,13 +263,17 @@ function rewriteService(spec, serviceAlias, providerName) {
         // overrideMediaType is REQUIRED for the transform to fire: any-sdk's
         // isOverridable() gates response transforms on it being non-empty
         // (JSON in, JSON out here).
+        const bodies = {
+          list: () => listFlattenTemplate(flattenKey || 'value'),
+          singleton: () => singletonFlattenTemplate(),
+          scalar_list_paged: () => scalarListPagedTemplate(flattenKey || 'value'),
+          scalar_list: () => scalarListTemplate(),
+          scalar: () => scalarTemplate(),
+        };
         responseBlock.overrideMediaType = 'application/json';
         responseBlock.transform = {
           type: 'golang_template_json_v0.3.0',
-          body:
-            flatten === 'list'
-              ? listFlattenTemplate(flattenKey || 'value')
-              : singletonFlattenTemplate(),
+          body: (bodies[flatten] || bodies.singleton)(),
         };
       }
 
@@ -321,9 +339,9 @@ function rewriteService(spec, serviceAlias, providerName) {
           verbCands.push({ method: methodKey, requiredParams: finalSig });
         };
         pushCand(verbKey);
-        // PUT create_or_update is both INSERT (create) and REPLACE (full
-        // update) in ARM semantics.
-        if (verbKey === 'insert' && /^create_or_(update|replace)/.test(methodKey)) {
+        // PUT create_or_update / create_update (cosmos style) is both INSERT
+        // (create) and REPLACE (full update) in ARM semantics.
+        if (verbKey === 'insert' && /^create_(or_)?(update|replace)/.test(methodKey)) {
           pushCand('replace');
         }
       }
@@ -371,6 +389,13 @@ function rewriteService(spec, serviceAlias, providerName) {
         sigToWinner.set(sig, cand.method);
         survivors.push(cand);
       }
+      // RULE (router precedence): within every (resource, sqlVerb) bucket,
+      // methods are ordered by number of required params, HIGHEST first -
+      // stackql picks the first method whose required params are satisfiable
+      // from the query, so the most descriptive signature must lead. Applies
+      // uniformly to ALL verbs. (Sub-object siblings that would capture a
+      // resource's own DML are kept out of mutation buckets upstream - stage
+      // 1 demotes mismatched-noun mutation methods to EXEC.)
       survivors.sort((a, b) => b.requiredParams.length - a.requiredParams.length);
       bucket.sqlVerbs[verbKey] = survivors.map((c) => ({
         $ref: `#/components/x-stackQL-resources/${resource}/methods/${c.method}`,

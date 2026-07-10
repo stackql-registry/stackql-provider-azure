@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#disable_console"><CopyableCode code="disable_console" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-default"><code>default</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-default_name"><code>default_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Disable Serial Console for a subscription. Disables the Serial Console service for all VMs and VM scale sets in the provided subscription.</td>
 </tr>
@@ -73,8 +73,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-default">
-    <td><CopyableCode code="default" /></td>
+<tr id="parameter-default_name">
+    <td><CopyableCode code="default_name" /></td>
     <td><code>string</code></td>
     <td>Default parameter. Leave the value as "default". Required.</td>
 </tr>
@@ -100,7 +100,7 @@ Disable Serial Console for a subscription. Disables the Serial Console service f
 
 ```sql
 EXEC azure.serialconsole.disable_consoles.disable_console 
-@default='{{ default }}' --required, 
+@default_name='{{ default_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

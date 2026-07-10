@@ -103,7 +103,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#update_diagnostic_proactive_log_collection_settings"><CopyableCode code="update_diagnostic_proactive_log_collection_settings" /></a></td>
-    <td><CopyableCode code="update" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
     <td>Updates the proactive log collection settings on a Data Box Edge/Data Box Gateway device.</td>
@@ -185,12 +185,14 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `UPDATE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="update_diagnostic_proactive_log_collection_settings"
     values={[
-        { label: 'update_diagnostic_proactive_log_collection_settings', value: 'update_diagnostic_proactive_log_collection_settings' }
+        { label: 'update_diagnostic_proactive_log_collection_settings', value: 'update_diagnostic_proactive_log_collection_settings' },
+        { label: 'get_diagnostic_remote_support_settings', value: 'get_diagnostic_remote_support_settings' },
+        { label: 'update_diagnostic_remote_support_settings', value: 'update_diagnostic_remote_support_settings' }
     ]}
 >
 <TabItem value="update_diagnostic_proactive_log_collection_settings">
@@ -198,34 +200,17 @@ AND subscription_id = '{{ subscription_id }}' -- required
 Updates the proactive log collection settings on a Data Box Edge/Data Box Gateway device.
 
 ```sql
-UPDATE azure.databoxedge.diagnostic_settings
-SET 
-properties = '{{ properties }}'
-WHERE 
-device_name = '{{ device_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
+EXEC azure.databoxedge.diagnostic_settings.update_diagnostic_proactive_log_collection_settings 
+@device_name='{{ device_name }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
 ```
 </TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="get_diagnostic_remote_support_settings"
-    values={[
-        { label: 'get_diagnostic_remote_support_settings', value: 'get_diagnostic_remote_support_settings' },
-        { label: 'update_diagnostic_remote_support_settings', value: 'update_diagnostic_remote_support_settings' }
-    ]}
->
 <TabItem value="get_diagnostic_remote_support_settings">
 
 Gets the diagnostic remote support settings of the specified Data Box Edge/Data Box Gateway device.

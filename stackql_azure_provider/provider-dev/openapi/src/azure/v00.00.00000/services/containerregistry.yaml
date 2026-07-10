@@ -1945,18 +1945,6 @@ components:
           items:
             $ref: "#/components/schemas/RegistryUsage"
           description: The list of container registry quota usages.
-    RegistryListCredentialsResult:
-      type: object
-      description: The response from the ListCredentials operation.
-      properties:
-        username:
-          type: string
-          description: The username for a container registry.
-        passwords:
-          type: array
-          items:
-            $ref: "#/components/schemas/RegistryPassword"
-          description: The list of passwords for a container registry.
     RegistryPassword:
       type: object
       description: The login password for the container registry.
@@ -1972,6 +1960,18 @@ components:
       enum:
         - password
         - password2
+    RegistryListCredentialsResult:
+      type: object
+      description: The response from the ListCredentials operation.
+      properties:
+        username:
+          type: string
+          description: The username for a container registry.
+        passwords:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegistryPassword"
+          description: The list of passwords for a container registry.
     PrivateLinkResourceProperties:
       type: object
       description: Properties of a private link resource.
@@ -2598,19 +2598,6 @@ components:
             $ref: "#/components/schemas/WebhookFlattened"
         nextLink:
           type: string
-    Event:
-      type: object
-      description: The event for a webhook.
-      properties:
-        id:
-          type: string
-          description: The event ID.
-        eventRequestMessage:
-          $ref: "#/components/schemas/EventRequestMessage"
-          description: The event request message sent to the service URI.
-        eventResponseMessage:
-          $ref: "#/components/schemas/EventResponseMessage"
-          description: The event response message received from the service URI.
     EventRequestMessage:
       type: object
       description: The event request message sent to the service URI.
@@ -2744,6 +2731,19 @@ components:
         version:
           type: string
           description: The HTTP message version.
+    Event:
+      type: object
+      description: The event for a webhook.
+      properties:
+        id:
+          type: string
+          description: The event ID.
+        eventRequestMessage:
+          $ref: "#/components/schemas/EventRequestMessage"
+          description: The event request message sent to the service URI.
+        eventResponseMessage:
+          $ref: "#/components/schemas/EventResponseMessage"
+          description: The event response message received from the service URI.
     PagedEvent:
       type: object
       properties:
@@ -3598,6 +3598,7 @@ components:
         select:
           - $ref: "#/components/x-stackQL-resources/registries/methods/get_private_link_resource"
           - $ref: "#/components/x-stackQL-resources/registries/methods/get"
+          - $ref: "#/components/x-stackQL-resources/registries/methods/check_name_availability"
           - $ref: "#/components/x-stackQL-resources/registries/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/registries/methods/list"
         insert:
@@ -3874,6 +3875,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_callback_config:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ContainerRegistry~1registries~1{registry_name}~1webhooks~1{webhook_name}~1getCallbackConfig?api-version=2026-01-01-preview/post"

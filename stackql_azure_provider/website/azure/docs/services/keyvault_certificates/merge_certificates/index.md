@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#merge_certificate"><CopyableCode code="merge_certificate" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_base_url"><code>vault_base_url</code></a>, <a href="#parameter-x5c"><code>x5c</code></a></td>
+    <td><a href="#parameter-certificate_name"><code>certificate_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-x5c"><code>x5c</code></a></td>
     <td></td>
     <td>Merges a certificate or a certificate chain with a key pair existing on the server. The MergeCertificate operation performs the merging of a certificate or certificate chain with a key pair currently available in the service. This operation requires the certificates/create permission.</td>
 </tr>
@@ -78,10 +78,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the certificate. Required.</td>
 </tr>
-<tr id="parameter-vault_base_url">
-    <td><CopyableCode code="vault_base_url" /></td>
+<tr id="parameter-vault_name">
+    <td><CopyableCode code="vault_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `vaultBaseUrl` parameter. (default: )</td>
+    <td>Key vault name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Merges a certificate or a certificate chain with a key pair existing on the serv
 ```sql
 EXEC azure.keyvault_certificates.merge_certificates.merge_certificate 
 @certificate_name='{{ certificate_name }}' --required, 
-@vault_base_url='{{ vault_base_url }}' --required 
+@vault_name='{{ vault_name }}' --required 
 @@json=
 '{
 "x5c": "{{ x5c }}", 

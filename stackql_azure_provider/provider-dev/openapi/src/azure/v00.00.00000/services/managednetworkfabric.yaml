@@ -6004,9 +6004,16 @@ components:
             $ref: "#/components/schemas/NetworkFabricFlattened"
         nextLink:
           type: string
-    GetTopologyResponse:
+    GetTopologyResponseProperties:
       type: object
-      description: GetTopology Response.
+      description: Properties of the GetTopology Response.
+      properties:
+        url:
+          type: string
+          description: Topology JSON string.
+    GetTopologyResponseFlattened:
+      type: object
+      description: Flattened view of GetTopologyResponse ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -6039,15 +6046,6 @@ components:
         resourceId:
           type: string
           description: Fully qualified ID of the resource against which the original async operation was started.
-        properties:
-          $ref: "#/components/schemas/GetTopologyResponseProperties"
-          description: Properties of the GetTopology Response.
-      required:
-        - status
-    GetTopologyResponseProperties:
-      type: object
-      description: Properties of the GetTopology Response.
-      properties:
         url:
           type: string
           description: Topology JSON string.
@@ -10609,6 +10607,10 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: '{{ $row := . }}{ {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }'
         provision:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1Microsoft.ManagedNetworkFabric~1networkFabrics~1{network_fabric_name}~1provision?api-version=2025-07-15/post"
@@ -15820,7 +15822,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetTopologyResponse"
+                $ref: "#/components/schemas/GetTopologyResponseFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ManagedNetworkFabric/networkFabrics/{network_fabric_name}/provision?api-version=2025-07-15:
     post:
       operationId: NetworkFabrics_begin_provision

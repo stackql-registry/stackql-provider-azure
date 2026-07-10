@@ -155,7 +155,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#update_state"><CopyableCode code="update_state" /></a></td>
-    <td><CopyableCode code="update" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-publisher_name"><code>publisher_name</code></a>, <a href="#parameter-artifact_store_name"><code>artifact_store_name</code></a>, <a href="#parameter-artifact_version_name"><code>artifact_version_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-artifactName"><code>artifactName</code></a></td>
     <td></td>
     <td>Change artifact state defined in artifact store.</td>
@@ -261,7 +261,7 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `UPDATE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="update_state"
@@ -274,22 +274,18 @@ AND subscription_id = '{{ subscription_id }}' -- required
 Change artifact state defined in artifact store.
 
 ```sql
-UPDATE azure.hybridnetwork.proxy_artifact
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND publisher_name = '{{ publisher_name }}' --required
-AND artifact_store_name = '{{ artifact_store_name }}' --required
-AND artifact_version_name = '{{ artifact_version_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND artifactName = '{{ artifactName }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
+EXEC azure.hybridnetwork.proxy_artifact.update_state 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@publisher_name='{{ publisher_name }}' --required, 
+@artifact_store_name='{{ artifact_store_name }}' --required, 
+@artifact_version_name='{{ artifact_version_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required, 
+@artifactName='{{ artifactName }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
 ```
 </TabItem>
 </Tabs>

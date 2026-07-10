@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#start_data_loss"><CopyableCode code="start_data_loss" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-DataLossMode"><code>DataLossMode</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-DataLossMode"><code>DataLossMode</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>This API will induce data loss for the specified partition. It will trigger a call to the OnDataLossAsync API of the partition. This API will induce data loss for the specified partition. It will trigger a call to the OnDataLoss API of the partition. Actual data loss will depend on the specified DataLossMode. - PartialDataLoss - Only a quorum of replicas are removed and OnDataLoss is triggered for the partition but actual data loss depends on the presence of in-flight replication. - FullDataLoss - All replicas are removed hence all data is lost and OnDataLoss is triggered. This API should only be called with a stateful service as the target. Calling this API with a system service as the target is not advised. Note: Once this API has been called, it cannot be reversed. Calling CancelOperation will only stop execution and clean up internal system state. It will not restore data if the command has progressed far enough to cause data loss. Call the GetDataLossProgress API with the same OperationId to return information on the operation started with this API.</td>
 </tr>
@@ -86,7 +86,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-partition_id">
     <td><CopyableCode code="partition_id" /></td>
@@ -120,10 +120,10 @@ This API will induce data loss for the specified partition. It will trigger a ca
 
 ```sql
 EXEC azure.servicefabric_dataplane.start_data_loss.start_data_loss 
+@DataLossMode='{{ DataLossMode }}' --required, 
 @OperationId='{{ OperationId }}' --required, 
 @service_id='{{ service_id }}' --required, 
 @partition_id='{{ partition_id }}' --required, 
-@DataLossMode='{{ DataLossMode }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'
 ;

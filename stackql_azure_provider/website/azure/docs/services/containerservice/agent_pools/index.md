@@ -743,13 +743,6 @@ The following methods are available for this resource:
     <td>Creates or updates an agent pool in the specified managed cluster.</td>
 </tr>
 <tr>
-    <td><a href="#delete_machines"><CopyableCode code="delete_machines" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-agent_pool_name"><code>agent_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes specific machines in an agent pool.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-agent_pool_name"><code>agent_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -783,6 +776,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-agent_pool_name"><code>agent_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Completes the upgrade of an agent pool. Completes the upgrade operation for the specified agent pool.</td>
+</tr>
+<tr>
+    <td><a href="#delete_machines"><CopyableCode code="delete_machines" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-agent_pool_name"><code>agent_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-machineNames"><code>machineNames</code></a></td>
+    <td></td>
+    <td>Deletes specific machines in an agent pool.</td>
 </tr>
 <tr>
     <td><a href="#upgrade_node_image_version"><CopyableCode code="upgrade_node_image_version" /></a></td>
@@ -1279,25 +1279,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_machines"
+    defaultValue="delete"
     values={[
-        { label: 'delete_machines', value: 'delete_machines' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_machines">
-
-Deletes specific machines in an agent pool.
-
-```sql
-DELETE FROM azure.containerservice.agent_pools
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND agent_pool_name = '{{ agent_pool_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an agent pool in the specified managed cluster.
@@ -1324,6 +1310,7 @@ AND ignore-pod-disruption-budget = '{{ ignore-pod-disruption-budget }}'
         { label: 'get_upgrade_profile', value: 'get_upgrade_profile' },
         { label: 'abort_latest_operation', value: 'abort_latest_operation' },
         { label: 'complete_upgrade', value: 'complete_upgrade' },
+        { label: 'delete_machines', value: 'delete_machines' },
         { label: 'upgrade_node_image_version', value: 'upgrade_node_image_version' }
     ]}
 >
@@ -1375,6 +1362,23 @@ EXEC azure.containerservice.agent_pools.complete_upgrade
 @resource_name='{{ resource_name }}' --required, 
 @agent_pool_name='{{ agent_pool_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_machines">
+
+Deletes specific machines in an agent pool.
+
+```sql
+EXEC azure.containerservice.agent_pools.delete_machines 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@agent_pool_name='{{ agent_pool_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"machineNames": "{{ machineNames }}"
+}'
 ;
 ```
 </TabItem>

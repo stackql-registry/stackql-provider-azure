@@ -1252,6 +1252,11 @@ components:
             $ref: '#/components/schemas/DeletedManagedHsmFlattened'
         nextLink:
           type: string
+    Reason:
+      type: string
+      enum:
+      - AccountNameInvalid
+      - AlreadyExists
     CheckMhsmNameAvailabilityResult:
       type: object
       description: The CheckMhsmNameAvailability operation response.
@@ -1267,11 +1272,6 @@ components:
         message:
           type: string
           description: An error message explaining the Reason value in more detail.
-    Reason:
-      type: string
-      enum:
-      - AccountNameInvalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: Display metadata associated with the operation.
@@ -2475,7 +2475,7 @@ paths:
                 $ref: '#/components/schemas/Key'
       x-stackql-resource: keys
       x-stackql-method: create_if_not_exist
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.KeyVault/vaults/{vault_name}/keys?api-version=2026-02-01
   : get:
       operationId: Keys_list
@@ -2937,7 +2937,7 @@ paths:
                 $ref: '#/components/schemas/ManagedHsmKey'
       x-stackql-resource: managed_hsm_keys
       x-stackql-method: create_if_not_exist
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.KeyVault/managedHSMs/{name}/keys?api-version=2026-02-01
   : get:
       operationId: ManagedHsmKeys_list
@@ -3379,7 +3379,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: managed_hsms
       x-stackql-method: purge_deleted
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.KeyVault/checkMhsmNameAvailability?api-version=2026-02-01:
     post:
       operationId: ManagedHsms_check_mhsm_name_availability
@@ -3411,7 +3411,7 @@ paths:
                 $ref: '#/components/schemas/CheckMhsmNameAvailabilityResult'
       x-stackql-resource: managed_hsms
       x-stackql-method: check_mhsm_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.KeyVault/operations?api-version=2026-02-01:
     get:
       operationId: keyvault_list
@@ -4170,7 +4170,7 @@ paths:
                 $ref: '#/components/schemas/VaultAccessPolicyParameters'
       x-stackql-resource: vaults
       x-stackql-method: update_access_policy
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/providers/Microsoft.KeyVault/locations/{location}/deletedVaults/{vault_name}/purge?api-version=2026-02-01
   : post:
       operationId: Vaults_begin_purge_deleted
@@ -4198,7 +4198,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: vaults
       x-stackql-method: purge_deleted
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.KeyVault/checkNameAvailability?api-version=2026-02-01:
     post:
       operationId: Vaults_check_name_availability
@@ -4234,4 +4234,4 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: vaults
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

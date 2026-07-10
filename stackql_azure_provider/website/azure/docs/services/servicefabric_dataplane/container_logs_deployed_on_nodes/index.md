@@ -77,7 +77,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_container_logs_deployed_on_node"><CopyableCode code="get_container_logs_deployed_on_node" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-Tail"><code>Tail</code></a>, <a href="#parameter-Previous"><code>Previous</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the container logs for container deployed on a Service Fabric node. Gets the container logs for container deployed on a Service Fabric node for the given code package.</td>
 </tr>
@@ -115,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-node_name">
     <td><CopyableCode code="node_name" /></td>
@@ -156,10 +156,10 @@ Gets the container logs for container deployed on a Service Fabric node. Gets th
 SELECT
 Content
 FROM azure.servicefabric_dataplane.container_logs_deployed_on_nodes
-WHERE node_name = '{{ node_name }}' -- required
-AND application_id = '{{ application_id }}' -- required
-AND CodePackageName = '{{ CodePackageName }}' -- required
+WHERE application_id = '{{ application_id }}' -- required
 AND ServiceManifestName = '{{ ServiceManifestName }}' -- required
+AND CodePackageName = '{{ CodePackageName }}' -- required
+AND node_name = '{{ node_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND Tail = '{{ Tail }}'
 AND Previous = '{{ Previous }}'

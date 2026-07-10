@@ -52,7 +52,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#create_operation"><CopyableCode code="create_operation" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-scope"><code>scope</code></a></td>
     <td></td>
     <td>Generates the detailed cost report for provided date range, billing period(only enterprise customers) or Invoice ID asynchronously at a certain scope. Call returns a 202 with header Azure-Consumption-AsyncOperation providing a link to the operation created. A call on the operation will provide the status and if the operation is completed the blob file where generated detailed cost report is being stored.</td>
@@ -81,13 +81,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_operation"
     values={[
-        { label: 'create_operation', value: 'create_operation' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'create_operation', value: 'create_operation' }
     ]}
 >
 <TabItem value="create_operation">
@@ -95,62 +94,17 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Generates the detailed cost report for provided date range, billing period(only enterprise customers) or Invoice ID asynchronously at a certain scope. Call returns a 202 with header Azure-Consumption-AsyncOperation providing a link to the operation created. A call on the operation will provide the status and if the operation is completed the blob file where generated detailed cost report is being stored.
 
 ```sql
-INSERT INTO azure.costmanagement.generate_detailed_cost_report (
-metric,
-timePeriod,
-billingPeriod,
-invoiceId,
-customerId,
-scope
-)
-SELECT 
-'{{ metric }}',
-'{{ timePeriod }}',
-'{{ billingPeriod }}',
-'{{ invoiceId }}',
-'{{ customerId }}',
-'{{ scope }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
+EXEC azure.costmanagement.generate_detailed_cost_report.create_operation 
+@scope='{{ scope }}' --required 
+@@json=
+'{
+"metric": "{{ metric }}", 
+"timePeriod": "{{ timePeriod }}", 
+"billingPeriod": "{{ billingPeriod }}", 
+"invoiceId": "{{ invoiceId }}", 
+"customerId": "{{ customerId }}"
+}'
 ;
 ```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: generate_detailed_cost_report
-  props:
-    - name: scope
-      value: "{{ scope }}"
-      description: Required parameter for the generate_detailed_cost_report resource.
-    - name: metric
-      value: "{{ metric }}"
-      description: |
-        The type of the detailed report. By default ActualCost is provided. Known values are: "ActualCost" and "AmortizedCost".
-      valid_values: ['ActualCost', 'AmortizedCost']
-    - name: timePeriod
-      description: |
-        Has time period for pulling data for the cost detailed report. Can only have one of either timePeriod or invoiceId or billingPeriod parameters. If none provided current month cost is provided.
-      value:
-        start: "{{ start }}"
-        end: "{{ end }}"
-    - name: billingPeriod
-      value: "{{ billingPeriod }}"
-      description: |
-        Billing period in YearMonth(e.g. 202008) format. Only for legacy enterprise customers can use this. Can only have one of either timePeriod or invoiceId or billingPeriod parameters. If none provided current month cost is provided.
-    - name: invoiceId
-      value: "{{ invoiceId }}"
-      description: |
-        Invoice ID for Pay-as-you-go and Microsoft Customer Agreement scopes. Can only have one of either timePeriod or invoiceId or billingPeriod parameters. If none provided current month cost is provided.
-    - name: customerId
-      value: "{{ customerId }}"
-      description: |
-        Customer ID for Microsoft Customer Agreement scopes (Invoice Id is also required for this).
-`}</CodeBlock>
-
 </TabItem>
 </Tabs>

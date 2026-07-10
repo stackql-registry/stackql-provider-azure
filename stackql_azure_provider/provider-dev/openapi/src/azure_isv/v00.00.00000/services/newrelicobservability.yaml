@@ -87,16 +87,6 @@ components:
             $ref: "#/components/schemas/AccountResourceFlattened"
         nextLink:
           type: string
-    BillingInfoResponse:
-      type: object
-      description: Marketplace Subscription and Organization details to which resource gets billed into.
-      properties:
-        marketplaceSaasInfo:
-          $ref: "#/components/schemas/MarketplaceSaaSInfo"
-          description: Marketplace Subscription details.
-        partnerBillingEntity:
-          $ref: "#/components/schemas/PartnerBillingEntity"
-          description: "Partner Billing Entity details: Organization Info."
     MarketplaceSaaSInfo:
       type: object
       description: Marketplace SAAS Info of the resource.
@@ -132,13 +122,16 @@ components:
         organizationName:
           type: string
           description: The New Relic Organization Name.
-    ConnectedPartnerResourcesListFormat:
+    BillingInfoResponse:
       type: object
-      description: Connected Partner Resources List Format.
+      description: Marketplace Subscription and Organization details to which resource gets billed into.
       properties:
-        properties:
-          $ref: "#/components/schemas/ConnectedPartnerResourceProperties"
-          description: Connected Partner Resource Properties.
+        marketplaceSaasInfo:
+          $ref: "#/components/schemas/MarketplaceSaaSInfo"
+          description: Marketplace Subscription details.
+        partnerBillingEntity:
+          $ref: "#/components/schemas/PartnerBillingEntity"
+          description: "Partner Billing Entity details: Organization Info."
     ConnectedPartnerResourceProperties:
       type: object
       description: Connected Partner Resource Properties.
@@ -155,13 +148,29 @@ components:
         location:
           type: string
           description: The location of the deployment.
-    PagedConnectedPartnerResourcesListFormat:
+    ConnectedPartnerResourcesListFormatFlattened:
+      type: object
+      description: Flattened view of ConnectedPartnerResourcesListFormat ('properties' hoisted to the top level).
+      properties:
+        accountName:
+          type: string
+          description: NewRelic account name.
+        accountId:
+          type: string
+          description: NewRelic Account Id.
+        azureResourceId:
+          type: string
+          description: The azure resource Id of the deployment.
+        location:
+          type: string
+          description: The location of the deployment.
+    PagedConnectedPartnerResourcesListFormatFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: "#/components/schemas/ConnectedPartnerResourcesListFormat"
+            $ref: "#/components/schemas/ConnectedPartnerResourcesListFormatFlattened"
         nextLink:
           type: string
     SubscriptionList:
@@ -909,14 +918,15 @@ components:
       name: billing_info
       title: billing_info
       methods:
-        get_raw:
+        get:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1NewRelic.Observability~1monitors~1{monitor_name}~1getBillingInfo?api-version=2025-05-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/billing_info/methods/get"
         insert: []
         update: []
         delete: []
@@ -925,19 +935,30 @@ components:
       name: connected_partner_resources
       title: connected_partner_resources
       methods:
-        list_raw:
+        list:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1NewRelic.Observability~1monitors~1{monitor_name}~1listConnectedPartnerResources?api-version=2025-05-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
+            overrideMediaType: application/json
+            transform:
+              type: golang_template_json_v0.3.0
+              body: |-
+                {"value": [
+                {{- range $i, $row := index . "value" }}{{ if $i }},{{ end }}
+                  { {{ $p := index $row "properties" }}{{ if eq (kindOf $p) "map" }}{{ range $k, $v := $p }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}{{ end }}{{ range $k, $v := $row }}{{ printf "%q" $k }}: {{ toJson $v }}, {{ end }}"_flattened": true }
+                {{- end }}
+                ], "nextLink": {{ toJson (index . "nextLink") }}}
           request:
             nativeCasing: camel
           config:
             requestBodyTranslate:
               algorithm: naive
       sqlVerbs:
-        select: []
+        select:
+          - $ref: "#/components/x-stackQL-resources/connected_partner_resources/methods/list"
         insert: []
         update: []
         delete: []
@@ -1093,6 +1114,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -1104,6 +1126,7 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
           request:
             nativeCasing: camel
           config:
@@ -1115,12 +1138,14 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         list_linked_resources:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1NewRelic.Observability~1monitors~1{monitor_name}~1listLinkedResources?api-version=2025-05-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
+            objectKey: $.value
         get_metric_rules:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1NewRelic.Observability~1monitors~1{monitor_name}~1getMetricRules?api-version=2025-05-01-preview/post"
@@ -1165,13 +1190,13 @@ components:
           response:
             openAPIDocKey: "200"
             mediaType: application/json
-        latest_linked_saa_s:
+        latest_linked_saas:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1NewRelic.Observability~1monitors~1{monitor_name}~1latestLinkedSaaS?api-version=2025-05-01-preview/post"
           response:
             openAPIDocKey: "200"
             mediaType: application/json
-        link_saa_s:
+        link_saas:
           operation:
             $ref: "#/paths/~1subscriptions~1{subscription_id}~1resourceGroups~1{resource_group_name}~1providers~1NewRelic.Observability~1monitors~1{monitor_name}~1linkSaaS?api-version=2025-05-01-preview/post"
           response:
@@ -1195,6 +1220,7 @@ components:
               algorithm: naive
       sqlVerbs:
         select:
+          - $ref: "#/components/x-stackQL-resources/monitors/methods/list_app_services"
           - $ref: "#/components/x-stackQL-resources/monitors/methods/get"
           - $ref: "#/components/x-stackQL-resources/monitors/methods/list_by_resource_group"
           - $ref: "#/components/x-stackQL-resources/monitors/methods/list_by_subscription"
@@ -1282,10 +1308,10 @@ components:
         insert: []
         update: []
         delete: []
-    saa_s:
-      id: azure_isv.newrelicobservability.saa_s
-      name: saa_s
-      title: saa_s
+    saas:
+      id: azure_isv.newrelicobservability.saas
+      name: saas
+      title: saas
       methods:
         activate_resource:
           operation:
@@ -1467,7 +1493,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedConnectedPartnerResourcesListFormat"
+                $ref: "#/components/schemas/PagedConnectedPartnerResourcesListFormatFlattened"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/monitoredSubscriptions/{configuration_name}?api-version=2025-05-01-preview:
     get:
       operationId: MonitoredSubscriptions_get
@@ -2229,7 +2255,7 @@ paths:
                 $ref: "#/components/schemas/VMExtensionPayload"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/latestLinkedSaaS?api-version=2025-05-01-preview:
     post:
-      operationId: Monitors_latest_linked_saa_s
+      operationId: Monitors_latest_linked_saas
       description: Returns the latest SaaS linked to the newrelic organization of the underlying monitor.
       parameters:
         - name: resource_group_name
@@ -2258,7 +2284,7 @@ paths:
                 $ref: "#/components/schemas/LatestLinkedSaaSResponse"
   /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/linkSaaS?api-version=2025-05-01-preview:
     post:
-      operationId: Monitors_begin_link_saa_s
+      operationId: Monitors_begin_link_saas
       description: Links a new SaaS to the newrelic organization of the underlying monitor. Links a new SaaS to the newrelic organization of the underlying monitor.
       parameters:
         - name: resource_group_name

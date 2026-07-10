@@ -627,7 +627,8 @@ paths:
                 $ref: '#/components/schemas/PagedDriveBitLockerKey'
       x-stackql-resource: bit_locker_keys
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ImportExport/jobs/{job_name}?api-version=2021-01-01
   : get:
       operationId: Jobs_get

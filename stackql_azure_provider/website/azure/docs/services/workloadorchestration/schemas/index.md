@@ -263,13 +263,6 @@ The following methods are available for this resource:
     <td>Create or update a Schema Resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-schema_name"><code>schema_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-schemaVersion"><code>schemaVersion</code></a></td>
-    <td></td>
-    <td>Create a Schema Version Resource.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-schema_name"><code>schema_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
@@ -289,6 +282,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-schema_name"><code>schema_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a Schema Resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-schema_name"><code>schema_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-schemaVersion"><code>schemaVersion</code></a></td>
+    <td></td>
+    <td>Create a Schema Version Resource.</td>
 </tr>
 <tr>
     <td><a href="#remove_version"><CopyableCode code="remove_version" /></a></td>
@@ -413,7 +413,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_version', value: 'create_version' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -449,36 +448,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_version">
-
-Create a Schema Version Resource.
-
-```sql
-INSERT INTO azure.workloadorchestration.schemas (
-updateType,
-version,
-schemaVersion,
-resource_group_name,
-schema_name,
-subscription_id
-)
-SELECT 
-'{{ updateType }}',
-'{{ version }}',
-'{{ schemaVersion }}' /* required */,
-'{{ resource_group_name }}',
-'{{ schema_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-eTag,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -507,33 +476,6 @@ type
       value:
         currentVersion: "{{ currentVersion }}"
         provisioningState: "{{ provisioningState }}"
-    - name: updateType
-      value: "{{ updateType }}"
-      description: |
-        Update type. Known values are: "Major", "Minor", and "Patch".
-      valid_values: ['Major', 'Minor', 'Patch']
-    - name: version
-      value: "{{ version }}"
-      description: |
-        Version to create.
-    - name: schemaVersion
-      description: |
-        Schema Version Resource.
-      value:
-        id: "{{ id }}"
-        name: "{{ name }}"
-        type: "{{ type }}"
-        systemData:
-          createdBy: "{{ createdBy }}"
-          createdByType: "{{ createdByType }}"
-          createdAt: "{{ createdAt }}"
-          lastModifiedBy: "{{ lastModifiedBy }}"
-          lastModifiedByType: "{{ lastModifiedByType }}"
-          lastModifiedAt: "{{ lastModifiedAt }}"
-        properties:
-          value: "{{ value }}"
-          provisioningState: "{{ provisioningState }}"
-        eTag: "{{ eTag }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -640,11 +582,30 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="remove_version"
+    defaultValue="create_version"
     values={[
+        { label: 'create_version', value: 'create_version' },
         { label: 'remove_version', value: 'remove_version' }
     ]}
 >
+<TabItem value="create_version">
+
+Create a Schema Version Resource.
+
+```sql
+EXEC azure.workloadorchestration.schemas.create_version 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@schema_name='{{ schema_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"updateType": "{{ updateType }}", 
+"version": "{{ version }}", 
+"schemaVersion": "{{ schemaVersion }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="remove_version">
 
 Remove Schema Version Resource.

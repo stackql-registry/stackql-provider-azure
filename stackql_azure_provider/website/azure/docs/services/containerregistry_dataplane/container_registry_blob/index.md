@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#delete_blob"><CopyableCode code="delete_blob" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-digest"><code>digest</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Removes an already uploaded blob.</td>
-</tr>
-<tr>
     <td><a href="#cancel_upload"><CopyableCode code="cancel_upload" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-next_blob_uuid_link"><code>next_blob_uuid_link</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -77,6 +70,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-digest"><code>digest</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Same as GET, except only the headers are returned.</td>
+</tr>
+<tr>
+    <td><a href="#delete_blob"><CopyableCode code="delete_blob" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-digest"><code>digest</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Removes an already uploaded blob.</td>
 </tr>
 <tr>
     <td><a href="#get_upload_status"><CopyableCode code="get_upload_status" /></a></td>
@@ -130,7 +130,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-from">
     <td><CopyableCode code="from" /></td>
@@ -158,24 +158,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_blob"
+    defaultValue="cancel_upload"
     values={[
-        { label: 'delete_blob', value: 'delete_blob' },
         { label: 'cancel_upload', value: 'cancel_upload' }
     ]}
 >
-<TabItem value="delete_blob">
-
-Removes an already uploaded blob.
-
-```sql
-DELETE FROM azure.containerregistry_dataplane.container_registry_blob
-WHERE name = '{{ name }}' --required
-AND digest = '{{ digest }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="cancel_upload">
 
 Cancel outstanding upload processes, releasing associated resources. If this is not called, the unfinished uploads will eventually timeout.
@@ -197,6 +184,7 @@ AND endpoint = '{{ endpoint }}' --required
     values={[
         { label: 'get_blob', value: 'get_blob' },
         { label: 'check_blob_exists', value: 'check_blob_exists' },
+        { label: 'delete_blob', value: 'delete_blob' },
         { label: 'get_upload_status', value: 'get_upload_status' },
         { label: 'upload_chunk', value: 'upload_chunk' },
         { label: 'complete_upload', value: 'complete_upload' },
@@ -221,6 +209,18 @@ Same as GET, except only the headers are returned.
 
 ```sql
 EXEC azure.containerregistry_dataplane.container_registry_blob.check_blob_exists 
+@name='{{ name }}' --required, 
+@digest='{{ digest }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_blob">
+
+Removes an already uploaded blob.
+
+```sql
+EXEC azure.containerregistry_dataplane.container_registry_blob.delete_blob 
 @name='{{ name }}' --required, 
 @digest='{{ digest }}' --required, 
 @endpoint='{{ endpoint }}' --required

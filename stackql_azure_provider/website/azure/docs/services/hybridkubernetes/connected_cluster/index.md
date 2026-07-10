@@ -593,13 +593,6 @@ The following methods are available for this resource:
     <td>Register a new Kubernetes cluster with Azure Resource Manager. API to register a new Kubernetes cluster and create or replace a connected cluster tracked resource in Azure Resource Manager (ARM).</td>
 </tr>
 <tr>
-    <td><a href="#update_async"><CopyableCode code="update_async" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates a connected cluster. API to update certain properties of the connected cluster resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_replace"><CopyableCode code="create_or_replace" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-properties"><code>properties</code></a>, <a href="#parameter-identity"><code>identity</code></a></td>
@@ -612,6 +605,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a connected cluster. Delete a connected cluster, removing the tracked resource in Azure Resource Manager (ARM).</td>
+</tr>
+<tr>
+    <td><a href="#update_async"><CopyableCode code="update_async" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates a connected cluster. API to update certain properties of the connected cluster resource.</td>
 </tr>
 <tr>
     <td><a href="#list_cluster_user_credential"><CopyableCode code="list_cluster_user_credential" /></a></td>
@@ -935,42 +935,6 @@ type
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_async"
-    values={[
-        { label: 'update_async', value: 'update_async' }
-    ]}
->
-<TabItem value="update_async">
-
-Updates a connected cluster. API to update certain properties of the connected cluster resource.
-
-```sql
-UPDATE azure.hybridkubernetes.connected_cluster
-SET 
-tags = '{{ tags }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND cluster_name = '{{ cluster_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-identity,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## `REPLACE` examples
 
 <Tabs
@@ -1039,11 +1003,29 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_cluster_user_credential"
+    defaultValue="update_async"
     values={[
+        { label: 'update_async', value: 'update_async' },
         { label: 'list_cluster_user_credential', value: 'list_cluster_user_credential' }
     ]}
 >
+<TabItem value="update_async">
+
+Updates a connected cluster. API to update certain properties of the connected cluster resource.
+
+```sql
+EXEC azure.hybridkubernetes.connected_cluster.update_async 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@cluster_name='{{ cluster_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="list_cluster_user_credential">
 
 Gets cluster user credentials of a connected cluster. Gets cluster user credentials of the connected cluster with a specified resource group and name.
