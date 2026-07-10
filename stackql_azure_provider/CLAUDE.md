@@ -90,6 +90,8 @@ No `allOf` / `oneOf` / `anyOf` / `additionalProperties`. Maps emit `{type: objec
 ### 4. Verb mapping (name prefix + HTTP verb, both must agree)
 
 - GET + `get*`/`list*` -> SELECT
+- POST + read-prefixed (`get_`/`list_`/`query`/`search`/`check_`/`find_`/`fetch_`/`lookup`/`retrieve`) -> SELECT. Azure uses POST for reads that carry a body or return secrets (checkNameAvailability, listKeys, policyinsights queries); POST-with-body SELECTs are the proven aws-json pattern, and the stage-2 zero-column guard demotes any without an introspectable row schema.
+- Scalar and array-of-scalar SELECT responses are wrapped into `{"value": ...}` rows via golang_template_json transforms (`scalar` / `scalar_list` / `scalar_list_paged` flatten kinds) so they are selectable. `bool` returns are excluded - they are header-only existence checks (apimanagement get_entity_tag) with empty bodies.
 - PUT/POST + `create*` -> INSERT; `create_or_update`/`create_or_replace` also registers under REPLACE
 - PATCH/PUT + `update*` -> UPDATE; PUT + `replace*`/`set_*` -> REPLACE
 - HTTP DELETE, or `delete*`/`purge*` prefix -> DELETE

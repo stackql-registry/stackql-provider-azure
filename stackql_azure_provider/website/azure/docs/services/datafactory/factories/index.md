@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists a <code>factories</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_github_access_token"
     values={[
+        { label: 'get_github_access_token', value: 'get_github_access_token' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_github_access_token">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="gitHubAccessToken" /></td>
+    <td><code>string</code></td>
+    <td>GitHub access token.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -340,6 +360,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_github_access_token"><CopyableCode code="get_github_access_token" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get GitHub Access Token.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -387,13 +414,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a factory.</td>
-</tr>
-<tr>
-    <td><a href="#get_git_hub_access_token"><CopyableCode code="get_git_hub_access_token" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-gitHubAccessCode"><code>gitHubAccessCode</code></a>, <a href="#parameter-gitHubAccessTokenBaseUrl"><code>gitHubAccessTokenBaseUrl</code></a></td>
-    <td></td>
-    <td>Get GitHub Access Token.</td>
 </tr>
 <tr>
     <td><a href="#get_data_plane_access"><CopyableCode code="get_data_plane_access" /></a></td>
@@ -451,13 +471,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_github_access_token"
     values={[
+        { label: 'get_github_access_token', value: 'get_github_access_token' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_github_access_token">
+
+Get GitHub Access Token.
+
+```sql
+SELECT
+gitHubAccessToken
+FROM azure.datafactory.factories
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets a factory.
@@ -751,32 +786,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_git_hub_access_token"
+    defaultValue="get_data_plane_access"
     values={[
-        { label: 'get_git_hub_access_token', value: 'get_git_hub_access_token' },
         { label: 'get_data_plane_access', value: 'get_data_plane_access' },
         { label: 'configure_factory_repo', value: 'configure_factory_repo' }
     ]}
 >
-<TabItem value="get_git_hub_access_token">
-
-Get GitHub Access Token.
-
-```sql
-EXEC azure.datafactory.factories.get_git_hub_access_token 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"gitHubAccessCode": "{{ gitHubAccessCode }}", 
-"gitHubClientId": "{{ gitHubClientId }}", 
-"gitHubClientSecret": "{{ gitHubClientSecret }}", 
-"gitHubAccessTokenBaseUrl": "{{ gitHubAccessTokenBaseUrl }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="get_data_plane_access">
 
 Get Data Plane access.

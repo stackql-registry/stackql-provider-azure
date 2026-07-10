@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
@@ -195,6 +196,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="upgradeAvailable" /></td>
     <td><code>string</code></td>
     <td>Indicates if the search service has an upgrade available. Known values are: "notAvailable" and "available". (notAvailable, available)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>A message that explains why the name is invalid and provides resource naming requirements. Available only if 'Invalid' is returned in the 'reason' property.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>A value indicating whether the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available. 'Invalid' indicates the name provided does not match the naming requirements (incorrect length, unsupported characters, etc.). 'AlreadyExists' indicates that the name is already in use and is therefore unavailable. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
 </tr>
 </tbody>
 </table>
@@ -542,6 +572,13 @@ The following methods are available for this resource:
     <td>Gets the search service with the given name in the given resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks whether or not the given search service name is available for use. Search service names must be globally unique since they are part of the service URI (https://.search.windows.net).</td>
+</tr>
+<tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -582,13 +619,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a search service in the given resource group, along with its associated resources. Returns 200 (OK) on successful deletion, or 204 (No Content) if the service is not found.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks whether or not the given search service name is available for use. Search service names must be globally unique since they are part of the service URI (https://.search.windows.net).</td>
 </tr>
 <tr>
     <td><a href="#upgrade"><CopyableCode code="upgrade" /></a></td>
@@ -637,6 +667,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
@@ -680,6 +711,20 @@ FROM azure.search.services
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND search_service_name = '{{ search_service_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Checks whether or not the given search service name is available for use. Search service names must be globally unique since they are part of the service URI (https://.search.windows.net).
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.search.services
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1039,27 +1084,11 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="check_name_availability"
+    defaultValue="upgrade"
     values={[
-        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'upgrade', value: 'upgrade' }
     ]}
 >
-<TabItem value="check_name_availability">
-
-Checks whether or not the given search service name is available for use. Search service names must be globally unique since they are part of the service URI (https://.search.windows.net).
-
-```sql
-EXEC azure.search.services.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="upgrade">
 
 Upgrades the Azure AI Search service to the latest version available.

@@ -32,8 +32,97 @@ Creates, updates, deletes, gets or lists a <code>backup_crr_jobs</code> resource
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id represents the complete path to the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource name associated with the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="activityId" /></td>
+    <td><code>string</code></td>
+    <td>ActivityId of job.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="backupManagementType" /></td>
+    <td><code>string</code></td>
+    <td>Backup management type to execute the current job. Known values are: "Invalid", "AzureIaasVM", "MAB", "DPM", "AzureBackupServer", "AzureSql", "AzureStorage", "AzureWorkload", and "DefaultBackup".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="eTag" /></td>
+    <td><code>string</code></td>
+    <td>Optional ETag.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The end time.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="entityFriendlyName" /></td>
+    <td><code>string</code></td>
+    <td>Friendly name of the entity on which the current job is executing.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="jobType" /></td>
+    <td><code>string</code></td>
+    <td>This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>Resource location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="operation" /></td>
+    <td><code>string</code></td>
+    <td>The operation name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The start time.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Job status.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>Resource tags.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +140,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-azure_region"><code>azure_region</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$skipToken"><code>$skipToken</code></a></td>
     <td>Gets the list of CRR jobs from the target region. Gets the list of CRR jobs from the target region.</td>
@@ -96,29 +185,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Gets the list of CRR jobs from the target region. Gets the list of CRR jobs from the target region.
 
 ```sql
-EXEC azure.recoveryservicesbackup_passivestamp.backup_crr_jobs.list_raw 
-@azure_region='{{ azure_region }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$filter='{{ $filter }}', 
-@$skipToken='{{ $skipToken }}' 
-@@json=
-'{
-"resourceId": "{{ resourceId }}", 
-"jobName": "{{ jobName }}"
-}'
+SELECT
+id,
+name,
+activityId,
+backupManagementType,
+eTag,
+endTime,
+entityFriendlyName,
+jobType,
+location,
+operation,
+startTime,
+status,
+tags,
+type
+FROM azure.recoveryservicesbackup_passivestamp.backup_crr_jobs
+WHERE azure_region = '{{ azure_region }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $filter = '{{ $filter }}'
+AND $skipToken = '{{ $skipToken }}'
 ;
 ```
 </TabItem>

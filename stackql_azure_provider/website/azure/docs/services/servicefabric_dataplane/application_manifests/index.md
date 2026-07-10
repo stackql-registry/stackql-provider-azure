@@ -77,7 +77,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_application_manifest"><CopyableCode code="get_application_manifest" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-ApplicationTypeVersion"><code>ApplicationTypeVersion</code></a>, <a href="#parameter-application_type_name"><code>application_type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_type_name"><code>application_type_name</code></a>, <a href="#parameter-ApplicationTypeVersion"><code>ApplicationTypeVersion</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the manifest describing an application type. The response contains the application manifest XML as a string.</td>
 </tr>
@@ -136,8 +136,8 @@ Gets the manifest describing an application type. The response contains the appl
 SELECT
 Manifest
 FROM azure.servicefabric_dataplane.application_manifests
-WHERE ApplicationTypeVersion = '{{ ApplicationTypeVersion }}' -- required
-AND application_type_name = '{{ application_type_name }}' -- required
+WHERE application_type_name = '{{ application_type_name }}' -- required
+AND ApplicationTypeVersion = '{{ ApplicationTypeVersion }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

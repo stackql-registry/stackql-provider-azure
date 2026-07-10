@@ -38,6 +38,7 @@ The following fields are returned by `SELECT` queries:
         { label: 'get', value: 'get' },
         { label: 'get_deleted', value: 'get_deleted' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_mhsm_name_availability', value: 'check_mhsm_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -363,6 +364,35 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="check_mhsm_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>An error message explaining the Reason value in more detail.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>A boolean value that indicates whether the name is available for you to use. If true, the name is available. If false, the name has already been taken or is invalid and cannot be used.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason that a managed hsm name could not be used. The reason element is only returned if NameAvailable is false. Known values are: "AccountNameInvalid" and "AlreadyExists". (AccountNameInvalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list_by_subscription">
 
 <table>
@@ -531,6 +561,13 @@ The following methods are available for this resource:
     <td>The List operation gets information about the managed HSM Pools associated with the subscription and within the specified resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_mhsm_name_availability"><CopyableCode code="check_mhsm_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks that the managed hsm name is valid and is not already in use.</td>
+</tr>
+<tr>
     <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -578,13 +615,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Permanently deletes the specified managed HSM.</td>
-</tr>
-<tr>
-    <td><a href="#check_mhsm_name_availability"><CopyableCode code="check_mhsm_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Checks that the managed hsm name is valid and is not already in use.</td>
 </tr>
 </tbody>
 </table>
@@ -638,6 +668,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get', value: 'get' },
         { label: 'get_deleted', value: 'get_deleted' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_mhsm_name_availability', value: 'check_mhsm_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -733,6 +764,20 @@ FROM azure.keyvault.managed_hsms
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $top = '{{ $top }}'
+;
+```
+</TabItem>
+<TabItem value="check_mhsm_name_availability">
+
+Checks that the managed hsm name is valid and is not already in use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.keyvault.managed_hsms
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1012,8 +1057,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_deleted"
     values={[
         { label: 'list_deleted', value: 'list_deleted' },
-        { label: 'purge_deleted', value: 'purge_deleted' },
-        { label: 'check_mhsm_name_availability', value: 'check_mhsm_name_availability' }
+        { label: 'purge_deleted', value: 'purge_deleted' }
     ]}
 >
 <TabItem value="list_deleted">
@@ -1035,20 +1079,6 @@ EXEC azure.keyvault.managed_hsms.purge_deleted
 @name='{{ name }}' --required, 
 @location='{{ location }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_mhsm_name_availability">
-
-Checks that the managed hsm name is valid and is not already in use.
-
-```sql
-EXEC azure.keyvault.managed_hsms.check_mhsm_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}"
-}'
 ;
 ```
 </TabItem>

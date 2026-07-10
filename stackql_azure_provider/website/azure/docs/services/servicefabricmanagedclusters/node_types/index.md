@@ -33,12 +33,52 @@ Creates, updates, deletes, gets or lists a <code>node_types</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_fault_simulation"
     values={[
+        { label: 'get_fault_simulation', value: 'get_fault_simulation' },
         { label: 'get', value: 'get' },
         { label: 'list_by_managed_clusters', value: 'list_by_managed_clusters' }
     ]}
 >
+<TabItem value="get_fault_simulation">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="details" /></td>
+    <td><code>object</code></td>
+    <td>Fault simulation details.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The end time of the fault simulation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="simulationId" /></td>
+    <td><code>string</code></td>
+    <td>unique identifier for the fault simulation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The start time of the fault simulation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Fault simulation status. Known values are: "Starting", "Active", "Stopping", "Done", "StartFailed", and "StopFailed". (Starting, Active, Stopping, Done, StartFailed, StopFailed)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -705,6 +745,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_fault_simulation"><CopyableCode code="get_fault_simulation" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-node_type_name"><code>node_type_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets a fault simulation by the simulationId.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-node_type_name"><code>node_type_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -752,13 +799,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-node_type_name"><code>node_type_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the list of recent fault simulations for the node type.</td>
-</tr>
-<tr>
-    <td><a href="#get_fault_simulation"><CopyableCode code="get_fault_simulation" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-node_type_name"><code>node_type_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-simulationId"><code>simulationId</code></a></td>
-    <td></td>
-    <td>Gets a fault simulation by the simulationId.</td>
 </tr>
 <tr>
     <td><a href="#deallocate"><CopyableCode code="deallocate" /></a></td>
@@ -858,12 +898,32 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_fault_simulation"
     values={[
+        { label: 'get_fault_simulation', value: 'get_fault_simulation' },
         { label: 'get', value: 'get' },
         { label: 'list_by_managed_clusters', value: 'list_by_managed_clusters' }
     ]}
 >
+<TabItem value="get_fault_simulation">
+
+Gets a fault simulation by the simulationId.
+
+```sql
+SELECT
+details,
+endTime,
+simulationId,
+startTime,
+status
+FROM azure.servicefabricmanagedclusters.node_types
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND node_type_name = '{{ node_type_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a Service Fabric node type of a given managed cluster.
@@ -1331,7 +1391,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_fault_simulation"
     values={[
         { label: 'list_fault_simulation', value: 'list_fault_simulation' },
-        { label: 'get_fault_simulation', value: 'get_fault_simulation' },
         { label: 'deallocate', value: 'deallocate' },
         { label: 'delete_node', value: 'delete_node' },
         { label: 'redeploy', value: 'redeploy' },
@@ -1352,23 +1411,6 @@ EXEC azure.servicefabricmanagedclusters.node_types.list_fault_simulation
 @cluster_name='{{ cluster_name }}' --required, 
 @node_type_name='{{ node_type_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_fault_simulation">
-
-Gets a fault simulation by the simulationId.
-
-```sql
-EXEC azure.servicefabricmanagedclusters.node_types.get_fault_simulation 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
-@node_type_name='{{ node_type_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"simulationId": "{{ simulationId }}"
-}'
 ;
 ```
 </TabItem>

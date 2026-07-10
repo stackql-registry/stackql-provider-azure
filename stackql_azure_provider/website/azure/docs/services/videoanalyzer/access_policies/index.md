@@ -127,42 +127,42 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves an existing access policy resource. Retrieves an existing access policy resource with the given name.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a></td>
     <td>List all existing access policy resources. Retrieves all existing access policy resources, along with their JSON representations.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates a new access policy resource or updates an existing one. Creates a new access policy resource or updates an existing one with the given name.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Updates individual properties of an existing access policy resource. Updates individual properties of an existing access policy resource with the given name.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Creates a new access policy resource or updates an existing one. Creates a new access policy resource or updates an existing one with the given name.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-access_policy_name"><code>access_policy_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes an existing access policy resource. Deletes an existing access policy resource with the given name.</td>
 </tr>
@@ -233,8 +233,8 @@ systemData,
 type
 FROM azure.videoanalyzer.access_policies
 WHERE access_policy_name = '{{ access_policy_name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -248,8 +248,8 @@ SELECT
 @nextLink,
 value
 FROM azure.videoanalyzer.access_policies
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND account_name = '{{ account_name }}' -- required
+WHERE account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $top = '{{ $top }}'
 ;
@@ -275,15 +275,15 @@ Creates a new access policy resource or updates an existing one. Creates a new a
 INSERT INTO azure.videoanalyzer.access_policies (
 properties,
 access_policy_name,
-resource_group_name,
 account_name,
+resource_group_name,
 subscription_id
 )
 SELECT 
 '{{ properties }}',
 '{{ access_policy_name }}',
-'{{ resource_group_name }}',
 '{{ account_name }}',
+'{{ resource_group_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -302,11 +302,11 @@ type
     - name: access_policy_name
       value: "{{ access_policy_name }}"
       description: Required parameter for the access_policies resource.
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the access_policies resource.
     - name: account_name
       value: "{{ account_name }}"
+      description: Required parameter for the access_policies resource.
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
       description: Required parameter for the access_policies resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -340,8 +340,8 @@ SET
 properties = '{{ properties }}'
 WHERE 
 access_policy_name = '{{ access_policy_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND account_name = '{{ account_name }}' --required
+AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -372,8 +372,8 @@ SET
 properties = '{{ properties }}'
 WHERE 
 access_policy_name = '{{ access_policy_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND account_name = '{{ account_name }}' --required
+AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -401,8 +401,8 @@ Deletes an existing access policy resource. Deletes an existing access policy re
 ```sql
 DELETE FROM azure.videoanalyzer.access_policies
 WHERE access_policy_name = '{{ access_policy_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND account_name = '{{ account_name }}' --required
+AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```

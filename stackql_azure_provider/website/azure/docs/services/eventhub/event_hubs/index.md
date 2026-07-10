@@ -33,14 +33,14 @@ Creates, updates, deletes, gets or lists an <code>event_hubs</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_namespace', value: 'list_by_namespace' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
 <table>
 <thead>
@@ -52,34 +52,39 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
+    <td><CopyableCode code="aliasPrimaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+    <td>Primary connection string of the alias if GEO DR is enabled.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="name" /></td>
+    <td><CopyableCode code="aliasSecondaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>The name of the resource.</td>
+    <td>Secondary connection string of the alias if GEO DR is enabled.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="location" /></td>
+    <td><CopyableCode code="keyName" /></td>
     <td><code>string</code></td>
-    <td>The geo-location where the resource lives.</td>
+    <td>A string that describes the AuthorizationRule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="rights" /></td>
-    <td><code>array</code></td>
-    <td>The rights associated with the rule.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>The system meta data relating to this resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
+    <td><CopyableCode code="primaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.EventHub/Namespaces" or "Microsoft.EventHub/Namespaces/EventHubs".</td>
+    <td>Primary connection string of the created namespace AuthorizationRule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryConnectionString" /></td>
+    <td><code>string</code></td>
+    <td>Secondary connection string of the created namespace AuthorizationRule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
 </tr>
 </tbody>
 </table>
@@ -250,11 +255,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
+    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets an AuthorizationRule for an Event Hub by rule name.</td>
+    <td>Gets the ACS and SAS connection strings for the Event Hub.</td>
 </tr>
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
@@ -299,11 +304,11 @@ The following methods are available for this resource:
     <td>Gets the authorization rules for an Event Hub.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
+    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-event_hub_name"><code>event_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the ACS and SAS connection strings for the Event Hub.</td>
+    <td>Gets an AuthorizationRule for an Event Hub by rule name.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
@@ -383,25 +388,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_namespace', value: 'list_by_namespace' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
-Gets an AuthorizationRule for an Event Hub by rule name.
+Gets the ACS and SAS connection strings for the Event Hub.
 
 ```sql
 SELECT
-id,
-name,
-location,
-rights,
-systemData,
-type
+aliasPrimaryConnectionString,
+aliasSecondaryConnectionString,
+keyName,
+primaryConnectionString,
+primaryKey,
+secondaryConnectionString,
+secondaryKey
 FROM azure.eventhub.event_hubs
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
@@ -610,7 +616,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_authorization_rules"
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
-        { label: 'list_keys', value: 'list_keys' },
+        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
         { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
@@ -629,12 +635,12 @@ EXEC azure.eventhub.event_hubs.list_authorization_rules
 ;
 ```
 </TabItem>
-<TabItem value="list_keys">
+<TabItem value="get_authorization_rule">
 
-Gets the ACS and SAS connection strings for the Event Hub.
+Gets an AuthorizationRule for an Event Hub by rule name.
 
 ```sql
-EXEC azure.eventhub.event_hubs.list_keys 
+EXEC azure.eventhub.event_hubs.get_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @event_hub_name='{{ event_hub_name }}' --required, 

@@ -32,8 +32,92 @@ Creates, updates, deletes, gets or lists a <code>name_availability</code> resour
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_with_location"
+    values={[
+        { label: 'check_with_location', value: 'check_with_location' },
+        { label: 'check_globally', value: 'check_globally' }
+    ]}
+>
+<TabItem value="check_with_location">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Name for which validity and availability was checked.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Detailed reason why the given name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates if the resource name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the given name is not available. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Type of resource. It can be 'Microsoft.DBforPostgreSQL/flexibleServers' or 'Microsoft.DBforPostgreSQL/flexibleServers/virtualendpoints'.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_globally">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Name for which validity and availability was checked.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Detailed reason why the given name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates if the resource name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the given name is not available. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Type of resource. It can be 'Microsoft.DBforPostgreSQL/flexibleServers' or 'Microsoft.DBforPostgreSQL/flexibleServers/virtualendpoints'.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +135,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#check_globally"><CopyableCode code="check_globally" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Checks the validity and availability of the given name, to assign it to a new server or to use it as the base name of a new pair of virtual endpoints.</td>
-</tr>
-<tr>
     <td><a href="#check_with_location"><CopyableCode code="check_with_location" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check the availability of name for resource.</td>
+</tr>
+<tr>
+    <td><a href="#check_globally"><CopyableCode code="check_globally" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks the validity and availability of the given name, to assign it to a new server or to use it as the base name of a new pair of virtual endpoints.</td>
 </tr>
 </tbody>
 </table>
@@ -93,43 +177,45 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="check_globally"
+    defaultValue="check_with_location"
     values={[
-        { label: 'check_globally', value: 'check_globally' },
-        { label: 'check_with_location', value: 'check_with_location' }
+        { label: 'check_with_location', value: 'check_with_location' },
+        { label: 'check_globally', value: 'check_globally' }
     ]}
 >
-<TabItem value="check_globally">
-
-Checks the validity and availability of the given name, to assign it to a new server or to use it as the base name of a new pair of virtual endpoints.
-
-```sql
-EXEC azure.postgresqlflexibleservers.name_availability.check_globally 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="check_with_location">
 
 Check the availability of name for resource.
 
 ```sql
-EXEC azure.postgresqlflexibleservers.name_availability.check_with_location 
-@location_name='{{ location_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+name,
+message,
+nameAvailable,
+reason,
+type
+FROM azure.postgresqlflexibleservers.name_availability
+WHERE location_name = '{{ location_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_globally">
+
+Checks the validity and availability of the given name, to assign it to a new server or to use it as the base name of a new pair of virtual endpoints.
+
+```sql
+SELECT
+name,
+message,
+nameAvailable,
+reason,
+type
+FROM azure.postgresqlflexibleservers.name_availability
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

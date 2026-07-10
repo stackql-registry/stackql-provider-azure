@@ -25,7 +25,7 @@ total resources: __3__
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/powerbidedicated/auto_scale_v_cores/">auto_scale_v_cores</a><br />
+<a href="/services/powerbidedicated/auto_scale_vcores/">auto_scale_vcores</a><br />
 <a href="/services/powerbidedicated/capacities/">capacities</a>
 </div>
 <div class="providerDocColumn">

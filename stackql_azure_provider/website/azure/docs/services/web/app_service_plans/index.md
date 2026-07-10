@@ -33,9 +33,9 @@ Creates, updates, deletes, gets or lists an <code>app_service_plans</code> resou
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_hybrid_connection"
+    defaultValue="list_hybrid_connection_keys"
     values={[
-        { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
+        { label: 'list_hybrid_connection_keys', value: 'list_hybrid_connection_keys' },
         { label: 'get_vnet_gateway', value: 'get_vnet_gateway' },
         { label: 'get_route_for_vnet', value: 'get_route_for_vnet' },
         { label: 'list_routes_for_vnet', value: 'list_routes_for_vnet' },
@@ -44,7 +44,7 @@ The following fields are returned by `SELECT` queries:
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_hybrid_connection">
+<TabItem value="list_hybrid_connection_keys">
 
 <table>
 <thead>
@@ -58,17 +58,12 @@ The following fields are returned by `SELECT` queries:
 <tr>
     <td><CopyableCode code="id" /></td>
     <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+    <td>Resource Id.</td>
 </tr>
 <tr>
     <td><CopyableCode code="name" /></td>
     <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="hostname" /></td>
-    <td><code>string</code></td>
-    <td>The hostname of the endpoint.</td>
+    <td>Resource Name.</td>
 </tr>
 <tr>
     <td><CopyableCode code="kind" /></td>
@@ -76,49 +71,19 @@ The following fields are returned by `SELECT` queries:
     <td>Kind of resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="port" /></td>
-    <td><code>integer</code></td>
-    <td>The port of the endpoint.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="relayArmUri" /></td>
-    <td><code>string</code></td>
-    <td>The ARM URI to the Service Bus relay.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="relayName" /></td>
-    <td><code>string</code></td>
-    <td>The name of the Service Bus relay.</td>
-</tr>
-<tr>
     <td><CopyableCode code="sendKeyName" /></td>
     <td><code>string</code></td>
-    <td>The name of the Service Bus key which has Send permissions. This is used to authenticate to Service Bus.</td>
+    <td>The name of the send key.</td>
 </tr>
 <tr>
     <td><CopyableCode code="sendKeyValue" /></td>
     <td><code>string</code></td>
-    <td>The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned normally, use the POST /listKeys API instead.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="serviceBusNamespace" /></td>
-    <td><code>string</code></td>
-    <td>The name of the Service Bus namespace.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="serviceBusSuffix" /></td>
-    <td><code>string</code></td>
-    <td>The suffix for the service bus endpoint. By default this is .servicebus.windows.net.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+    <td>The value of the send key.</td>
 </tr>
 <tr>
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+    <td>Resource type.</td>
 </tr>
 </tbody>
 </table>
@@ -955,11 +920,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_hybrid_connection"><CopyableCode code="get_hybrid_connection" /></a></td>
+    <td><a href="#list_hybrid_connection_keys"><CopyableCode code="list_hybrid_connection_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Retrieve a Hybrid Connection in use in an App Service plan. Description for Retrieve a Hybrid Connection in use in an App Service plan.</td>
+    <td>Get the send key name and value of a Hybrid Connection. Description for Get the send key name and value of a Hybrid Connection.</td>
 </tr>
 <tr>
     <td><a href="#get_vnet_gateway"><CopyableCode code="get_vnet_gateway" /></a></td>
@@ -1060,13 +1025,6 @@ The following methods are available for this resource:
     <td>Gets server farm usage information. Description for Gets server farm usage information.</td>
 </tr>
 <tr>
-    <td><a href="#list_hybrid_connection_keys"><CopyableCode code="list_hybrid_connection_keys" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get the send key name and value of a Hybrid Connection. Description for Get the send key name and value of a Hybrid Connection.</td>
-</tr>
-<tr>
     <td><a href="#list_web_apps_by_hybrid_connection"><CopyableCode code="list_web_apps_by_hybrid_connection" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1100,6 +1058,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets all selectable SKUs for a given App Service Plan. Description for Gets all selectable SKUs for a given App Service Plan.</td>
+</tr>
+<tr>
+    <td><a href="#get_hybrid_connection"><CopyableCode code="get_hybrid_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieve a Hybrid Connection in use in an App Service plan. Description for Retrieve a Hybrid Connection in use in an App Service plan.</td>
 </tr>
 <tr>
     <td><a href="#delete_hybrid_connection"><CopyableCode code="delete_hybrid_connection" /></a></td>
@@ -1263,9 +1228,9 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_hybrid_connection"
+    defaultValue="list_hybrid_connection_keys"
     values={[
-        { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
+        { label: 'list_hybrid_connection_keys', value: 'list_hybrid_connection_keys' },
         { label: 'get_vnet_gateway', value: 'get_vnet_gateway' },
         { label: 'get_route_for_vnet', value: 'get_route_for_vnet' },
         { label: 'list_routes_for_vnet', value: 'list_routes_for_vnet' },
@@ -1274,24 +1239,17 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_hybrid_connection">
+<TabItem value="list_hybrid_connection_keys">
 
-Retrieve a Hybrid Connection in use in an App Service plan. Description for Retrieve a Hybrid Connection in use in an App Service plan.
+Get the send key name and value of a Hybrid Connection. Description for Get the send key name and value of a Hybrid Connection.
 
 ```sql
 SELECT
 id,
 name,
-hostname,
 kind,
-port,
-relayArmUri,
-relayName,
 sendKeyName,
 sendKeyValue,
-serviceBusNamespace,
-serviceBusSuffix,
-systemData,
 type
 FROM azure.web.app_service_plans
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
@@ -1826,12 +1784,12 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_hybrid_connections', value: 'list_hybrid_connections' },
         { label: 'list_web_apps', value: 'list_web_apps' },
         { label: 'list_usages', value: 'list_usages' },
-        { label: 'list_hybrid_connection_keys', value: 'list_hybrid_connection_keys' },
         { label: 'list_web_apps_by_hybrid_connection', value: 'list_web_apps_by_hybrid_connection' },
         { label: 'list_vnets', value: 'list_vnets' },
         { label: 'get_server_farm_rdp_password', value: 'get_server_farm_rdp_password' },
         { label: 'get_server_farm_instance_details', value: 'get_server_farm_instance_details' },
         { label: 'get_server_farm_skus', value: 'get_server_farm_skus' },
+        { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
         { label: 'delete_hybrid_connection', value: 'delete_hybrid_connection' },
         { label: 'get_hybrid_connection_plan_limit', value: 'get_hybrid_connection_plan_limit' },
         { label: 'get_vnet_from_server_farm', value: 'get_vnet_from_server_farm' },
@@ -1896,20 +1854,6 @@ EXEC azure.web.app_service_plans.list_usages
 ;
 ```
 </TabItem>
-<TabItem value="list_hybrid_connection_keys">
-
-Get the send key name and value of a Hybrid Connection. Description for Get the send key name and value of a Hybrid Connection.
-
-```sql
-EXEC azure.web.app_service_plans.list_hybrid_connection_keys 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@namespace_name='{{ namespace_name }}' --required, 
-@relay_name='{{ relay_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_web_apps_by_hybrid_connection">
 
 Get all apps that use a Hybrid Connection in an App Service Plan. Description for Get all apps that use a Hybrid Connection in an App Service Plan.
@@ -1968,6 +1912,20 @@ Gets all selectable SKUs for a given App Service Plan. Description for Gets all 
 EXEC azure.web.app_service_plans.get_server_farm_skus 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_hybrid_connection">
+
+Retrieve a Hybrid Connection in use in an App Service plan. Description for Retrieve a Hybrid Connection in use in an App Service plan.
+
+```sql
+EXEC azure.web.app_service_plans.get_hybrid_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

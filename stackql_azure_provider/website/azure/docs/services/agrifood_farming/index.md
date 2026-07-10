@@ -42,8 +42,8 @@ total resources: __37__
 <a href="/services/agrifood_farming/management_zones/">management_zones</a><br />
 <a href="/services/agrifood_farming/model_inference/">model_inference</a><br />
 <a href="/services/agrifood_farming/nutrient_analyses/">nutrient_analyses</a><br />
-<a href="/services/agrifood_farming/o_auth_providers/">o_auth_providers</a><br />
-<a href="/services/agrifood_farming/o_auth_tokens/">o_auth_tokens</a>
+<a href="/services/agrifood_farming/oauth_providers/">oauth_providers</a><br />
+<a href="/services/agrifood_farming/oauth_tokens/">oauth_tokens</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/agrifood_farming/parties/">parties</a><br />

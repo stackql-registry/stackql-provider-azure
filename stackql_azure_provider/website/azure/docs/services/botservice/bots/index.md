@@ -37,7 +37,8 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
-        { label: 'list', value: 'list' }
+        { label: 'list', value: 'list' },
+        { label: 'get_check_name_availability', value: 'get_check_name_availability' }
     ]}
 >
 <TabItem value="get">
@@ -742,6 +743,35 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="get_check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="absCode" /></td>
+    <td><code>string</code></td>
+    <td>response code from ABS.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>additional message from the bot management api showing why a bot name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valid" /></td>
+    <td><code>boolean</code></td>
+    <td>indicates if the bot name is valid.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 </Tabs>
 
 ## Methods
@@ -781,6 +811,13 @@ The following methods are available for this resource:
     <td>Returns all the resources of a particular type belonging to a subscription.</td>
 </tr>
 <tr>
+    <td><a href="#get_check_name_availability"><CopyableCode code="get_check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td></td>
+    <td></td>
+    <td>Check whether a bot name is available.</td>
+</tr>
+<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -800,13 +837,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a Bot Service from the resource group.</td>
-</tr>
-<tr>
-    <td><a href="#get_check_name_availability"><CopyableCode code="get_check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td></td>
-    <td></td>
-    <td>Check whether a bot name is available.</td>
 </tr>
 </tbody>
 </table>
@@ -849,7 +879,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
-        { label: 'list', value: 'list' }
+        { label: 'list', value: 'list' },
+        { label: 'get_check_name_availability', value: 'get_check_name_availability' }
     ]}
 >
 <TabItem value="get">
@@ -1017,6 +1048,19 @@ type,
 zones
 FROM azure.botservice.bots
 WHERE subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_check_name_availability">
+
+Check whether a bot name is available.
+
+```sql
+SELECT
+absCode,
+message,
+valid
+FROM azure.botservice.bots
 ;
 ```
 </TabItem>
@@ -1223,31 +1267,6 @@ DELETE FROM azure.botservice.bots
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND resource_name = '{{ resource_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="get_check_name_availability"
-    values={[
-        { label: 'get_check_name_availability', value: 'get_check_name_availability' }
-    ]}
->
-<TabItem value="get_check_name_availability">
-
-Check whether a bot name is available.
-
-```sql
-EXEC azure.botservice.bots.get_check_name_availability 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

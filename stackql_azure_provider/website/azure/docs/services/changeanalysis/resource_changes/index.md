@@ -32,8 +32,67 @@ Creates, updates, deletes, gets or lists a <code>resource_changes</code> resourc
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="changeType" /></td>
+    <td><code>string</code></td>
+    <td>The type of the change. Known values are: "Add", "Remove", and "Update".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="initiatedByList" /></td>
+    <td><code>array</code></td>
+    <td>The list of identities who might initiated the change. The identity could be user name (email address) or the object ID of the Service Principal.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="propertyChanges" /></td>
+    <td><code>array</code></td>
+    <td>The list of detailed changes at json property level.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="resourceId" /></td>
+    <td><code>string</code></td>
+    <td>The resource id that the change is attached to.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="timeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The time when the change is detected.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +110,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-$startTime"><code>$startTime</code></a>, <a href="#parameter-$endTime"><code>$endTime</code></a></td>
     <td><a href="#parameter-$skipToken"><code>$skipToken</code></a></td>
     <td>List the changes of a resource within the specified time range. Customer data will be masked if the user doesn't have access. List the changes of a resource within the specified time range. Customer data will be masked if the user doesn't have access.</td>
@@ -96,24 +155,33 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 List the changes of a resource within the specified time range. Customer data will be masked if the user doesn't have access. List the changes of a resource within the specified time range. Customer data will be masked if the user doesn't have access.
 
 ```sql
-EXEC azure.changeanalysis.resource_changes.list_raw 
-@resource_id='{{ resource_id }}' --required, 
-@$startTime='{{ $startTime }}' --required, 
-@$endTime='{{ $endTime }}' --required, 
-@$skipToken='{{ $skipToken }}'
+SELECT
+id,
+name,
+changeType,
+initiatedByList,
+propertyChanges,
+resourceId,
+timeStamp,
+type
+FROM azure.changeanalysis.resource_changes
+WHERE resource_id = '{{ resource_id }}' -- required
+AND $startTime = '{{ $startTime }}' -- required
+AND $endTime = '{{ $endTime }}' -- required
+AND $skipToken = '{{ $skipToken }}'
 ;
 ```
 </TabItem>

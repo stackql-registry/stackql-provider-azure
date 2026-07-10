@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>virtual_network_subnet_usage</c
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="delegatedSubnetsUsage" /></td>
+    <td><code>array</code></td>
+    <td>:vartype delegated_subnets_usage: list[~azure.mgmt.postgresqlflexibleservers.models.DelegatedSubnetUsage]</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>location of the delegated subnet usage.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="subscriptionId" /></td>
+    <td><code>string</code></td>
+    <td>subscriptionId of the delegated subnet usage.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +85,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Lists the virtual network subnet usage for a given virtual network.</td>
@@ -86,26 +120,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Lists the virtual network subnet usage for a given virtual network.
 
 ```sql
-EXEC azure.postgresqlflexibleservers.virtual_network_subnet_usage.list_raw 
-@location_name='{{ location_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"virtualNetworkArmResourceId": "{{ virtualNetworkArmResourceId }}"
-}'
+SELECT
+delegatedSubnetsUsage,
+location,
+subscriptionId
+FROM azure.postgresqlflexibleservers.virtual_network_subnet_usage
+WHERE location_name = '{{ location_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

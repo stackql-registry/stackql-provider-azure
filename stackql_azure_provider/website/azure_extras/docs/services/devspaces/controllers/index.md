@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists a <code>controllers</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_connection_details"
     values={[
+        { label: 'list_connection_details', value: 'list_connection_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_connection_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="connectionDetailsList" /></td>
+    <td><code>array</code></td>
+    <td>List of Azure Dev Spaces Controller connection details.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -280,6 +300,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_connection_details"><CopyableCode code="list_connection_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Lists connection details for an Azure Dev Spaces Controller. Lists connection details for the underlying container resources of an Azure Dev Spaces Controller.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -321,13 +348,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Deletes an Azure Dev Spaces Controller. Deletes an existing Azure Dev Spaces Controller.</td>
 </tr>
-<tr>
-    <td><a href="#list_connection_details"><CopyableCode code="list_connection_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetContainerHostResourceId"><code>targetContainerHostResourceId</code></a></td>
-    <td></td>
-    <td>Lists connection details for an Azure Dev Spaces Controller. Lists connection details for the underlying container resources of an Azure Dev Spaces Controller.</td>
-</tr>
 </tbody>
 </table>
 
@@ -365,13 +385,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_connection_details"
     values={[
+        { label: 'list_connection_details', value: 'list_connection_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_connection_details">
+
+Lists connection details for an Azure Dev Spaces Controller. Lists connection details for the underlying container resources of an Azure Dev Spaces Controller.
+
+```sql
+SELECT
+connectionDetailsList
+FROM azure_extras.devspaces.controllers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets an Azure Dev Spaces Controller. Gets the properties for an Azure Dev Spaces Controller.
@@ -578,33 +613,6 @@ DELETE FROM azure_extras.devspaces.controllers
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND name = '{{ name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_connection_details"
-    values={[
-        { label: 'list_connection_details', value: 'list_connection_details' }
-    ]}
->
-<TabItem value="list_connection_details">
-
-Lists connection details for an Azure Dev Spaces Controller. Lists connection details for the underlying container resources of an Azure Dev Spaces Controller.
-
-```sql
-EXEC azure_extras.devspaces.controllers.list_connection_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetContainerHostResourceId": "{{ targetContainerHostResourceId }}"
-}'
 ;
 ```
 </TabItem>

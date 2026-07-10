@@ -29,6 +29,6 @@ total resources: __3__
 <a href="/services/napsteromniagentapi/organizations/">organizations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/napsteromniagentapi/saa_s_operation_group/">saa_s_operation_group</a>
+<a href="/services/napsteromniagentapi/saas_operation_group/">saas_operation_group</a>
 </div>
 </div>

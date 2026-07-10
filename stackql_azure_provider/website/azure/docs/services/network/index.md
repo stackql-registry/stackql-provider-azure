@@ -131,7 +131,7 @@ total resources: __173__
 <a href="/services/network/network_virtual_appliances/">network_virtual_appliances</a><br />
 <a href="/services/network/network_watchers/">network_watchers</a><br />
 <a href="/services/network/operations/">operations</a><br />
-<a href="/services/network/p2_s_vpn_gateways/">p2_s_vpn_gateways</a><br />
+<a href="/services/network/p2s_vpn_gateways/">p2s_vpn_gateways</a><br />
 <a href="/services/network/packet_captures/">packet_captures</a><br />
 <a href="/services/network/peer_express_route_circuit_connections/">peer_express_route_circuit_connections</a><br />
 <a href="/services/network/private_dns_zone_groups/">private_dns_zone_groups</a><br />
@@ -177,7 +177,7 @@ total resources: __173__
 <a href="/services/network/virtual_hub_bgp_connection/">virtual_hub_bgp_connection</a><br />
 <a href="/services/network/virtual_hub_bgp_connections/">virtual_hub_bgp_connections</a><br />
 <a href="/services/network/virtual_hub_ip_configuration/">virtual_hub_ip_configuration</a><br />
-<a href="/services/network/virtual_hub_route_table_v2_s/">virtual_hub_route_table_v2_s</a><br />
+<a href="/services/network/virtual_hub_route_table_v2s/">virtual_hub_route_table_v2s</a><br />
 <a href="/services/network/virtual_hubs/">virtual_hubs</a><br />
 <a href="/services/network/virtual_network_appliances/">virtual_network_appliances</a><br />
 <a href="/services/network/virtual_network_gateway_connections/">virtual_network_gateway_connections</a><br />

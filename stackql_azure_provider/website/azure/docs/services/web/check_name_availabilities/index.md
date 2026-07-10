@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>check_name_availabilities</code
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_name_availability"
+    values={[
+        { label: 'check_name_availability', value: 'check_name_availability' }
+    ]}
+>
+<TabItem value="check_name_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>If reason == invalid, provide the user with the reason why the given name is invalid, and provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists, explain that resource name is already in use, and direct them to select a different name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>true indicates name is valid and available. false indicates the name is invalid, unavailable, or both.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Invalid indicates the name provided does not match Azure App Service naming requirements. AlreadyExists indicates that the name is already in use and is therefore unavailable. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +86,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check if a resource name is available. Description for Check if a resource name is available.</td>
 </tr>
@@ -81,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_name_availability"
@@ -94,15 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Check if a resource name is available. Description for Check if a resource name is available.
 
 ```sql
-EXEC azure.web.check_name_availabilities.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}", 
-"isFqdn": {{ isFqdn }}, 
-"environmentId": "{{ environmentId }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.web.check_name_availabilities
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

@@ -32,8 +32,82 @@ Creates, updates, deletes, gets or lists a <code>workspace</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_keys"
+    values={[
+        { label: 'list_keys', value: 'list_keys' },
+        { label: 'check_name_availability', value: 'check_name_availability' }
+    ]}
+>
+<TabItem value="list_keys">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="apiKeyEnabled" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicator of enablement of the Quantum workspace Api keys.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="primaryConnectionString" /></td>
+    <td><code>string</code></td>
+    <td>The connection string of the primary api key.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>object</code></td>
+    <td>The quantum workspace primary api key.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryConnectionString" /></td>
+    <td><code>string</code></td>
+    <td>The connection string of the secondary api key.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>object</code></td>
+    <td>The quantum workspace secondary api key.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed info regarding the reason associated with the Namespace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicator of availability of the Quantum Workspace resource name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason of unavailability.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,14 +126,14 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the keys to use with the Quantum APIs. A key is used to authenticate and authorize access to the Quantum REST APIs. Only one key is needed at a time; two are given to provide seamless key regeneration.</td>
 </tr>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check the availability of the resource name.</td>
@@ -110,14 +184,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_keys"
     values={[
         { label: 'list_keys', value: 'list_keys' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
-        { label: 'regenerate_keys', value: 'regenerate_keys' }
+        { label: 'check_name_availability', value: 'check_name_availability' }
     ]}
 >
 <TabItem value="list_keys">
@@ -125,10 +198,16 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get the keys to use with the Quantum APIs. A key is used to authenticate and authorize access to the Quantum REST APIs. Only one key is needed at a time; two are given to provide seamless key regeneration.
 
 ```sql
-EXEC azure.quantum.workspace.list_keys 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+apiKeyEnabled,
+primaryConnectionString,
+primaryKey,
+secondaryConnectionString,
+secondaryKey
+FROM azure.quantum.workspace
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -137,17 +216,27 @@ EXEC azure.quantum.workspace.list_keys
 Check the availability of the resource name.
 
 ```sql
-EXEC azure.quantum.workspace.check_name_availability 
-@location_name='{{ location_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.quantum.workspace
+WHERE location_name = '{{ location_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="regenerate_keys"
+    values={[
+        { label: 'regenerate_keys', value: 'regenerate_keys' }
+    ]}
+>
 <TabItem value="regenerate_keys">
 
 Regenerate either the primary or secondary key for use with the Quantum APIs. The old key will stop working immediately.

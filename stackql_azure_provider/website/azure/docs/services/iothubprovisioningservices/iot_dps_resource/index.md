@@ -38,9 +38,11 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_operation_result', value: 'get_operation_result' },
         { label: 'get_private_link_resources', value: 'get_private_link_resources' },
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
+        { label: 'list_keys_for_key_name', value: 'list_keys_for_key_name' },
         { label: 'list_private_link_resources', value: 'list_private_link_resources' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_provisioning_service_name_availability', value: 'check_provisioning_service_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -157,6 +159,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_keys_for_key_name">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="keyName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the key. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>Primary SAS key value.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="rights" /></td>
+    <td><code>string</code></td>
+    <td>Rights that this key has. Required. Known values are: "ServiceConfig", "EnrollmentRead", "EnrollmentWrite", "DeviceConnect", "RegistrationStatusRead", and "RegistrationStatusWrite". (ServiceConfig, EnrollmentRead, EnrollmentWrite, DeviceConnect, RegistrationStatusRead, RegistrationStatusWrite)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>Secondary SAS key value.</td>
 </tr>
 </tbody>
 </table>
@@ -484,6 +520,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_provisioning_service_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>message containing a detailed reason name is unavailable.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>specifies if a name is available or not.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>specifies the reason a name is unavailable. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
 </tr>
 </tbody>
 </table>
@@ -666,6 +731,13 @@ The following methods are available for this resource:
     <td>Get private endpoint connection properties.</td>
 </tr>
 <tr>
+    <td><a href="#list_keys_for_key_name"><CopyableCode code="list_keys_for_key_name" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-provisioning_service_name"><code>provisioning_service_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a></td>
+    <td></td>
+    <td>List primary and secondary keys for a specific key name.</td>
+</tr>
+<tr>
     <td><a href="#list_private_link_resources"><CopyableCode code="list_private_link_resources" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -685,6 +757,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get a list of all provisioning services in the given resource group.</td>
+</tr>
+<tr>
+    <td><a href="#check_provisioning_service_name_availability"><CopyableCode code="check_provisioning_service_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check if a provisioning service name is available. Check if a provisioning service name is available. This will validate if the name is syntactically valid and if the name is usable.</td>
 </tr>
 <tr>
     <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
@@ -736,13 +815,6 @@ The following methods are available for this resource:
     <td>List the primary and secondary keys for a provisioning service.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys_for_key_name"><CopyableCode code="list_keys_for_key_name" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-provisioning_service_name"><code>provisioning_service_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a></td>
-    <td></td>
-    <td>List primary and secondary keys for a specific key name.</td>
-</tr>
-<tr>
     <td><a href="#list_private_endpoint_connections"><CopyableCode code="list_private_endpoint_connections" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -762,13 +834,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete private endpoint connection with the specified name.</td>
-</tr>
-<tr>
-    <td><a href="#check_provisioning_service_name_availability"><CopyableCode code="check_provisioning_service_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Check if a provisioning service name is available. Check if a provisioning service name is available. This will validate if the name is syntactically valid and if the name is usable.</td>
 </tr>
 </tbody>
 </table>
@@ -842,9 +907,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_operation_result', value: 'get_operation_result' },
         { label: 'get_private_link_resources', value: 'get_private_link_resources' },
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
+        { label: 'list_keys_for_key_name', value: 'list_keys_for_key_name' },
         { label: 'list_private_link_resources', value: 'list_private_link_resources' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_provisioning_service_name_availability', value: 'check_provisioning_service_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -902,6 +969,23 @@ WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND resource_name = '{{ resource_name }}' -- required
 AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_keys_for_key_name">
+
+List primary and secondary keys for a specific key name.
+
+```sql
+SELECT
+keyName,
+primaryKey,
+rights,
+secondaryKey
+FROM azure.iothubprovisioningservices.iot_dps_resource
+WHERE provisioning_service_name = '{{ provisioning_service_name }}' -- required
+AND key_name = '{{ key_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 ;
 ```
 </TabItem>
@@ -996,6 +1080,20 @@ type
 FROM azure.iothubprovisioningservices.iot_dps_resource
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_provisioning_service_name_availability">
+
+Check if a provisioning service name is available. Check if a provisioning service name is available. This will validate if the name is syntactically valid and if the name is usable.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.iothubprovisioningservices.iot_dps_resource
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1314,11 +1412,9 @@ AND resource_group_name = '{{ resource_group_name }}' --required
     values={[
         { label: 'list_valid_skus', value: 'list_valid_skus' },
         { label: 'list_keys', value: 'list_keys' },
-        { label: 'list_keys_for_key_name', value: 'list_keys_for_key_name' },
         { label: 'list_private_endpoint_connections', value: 'list_private_endpoint_connections' },
         { label: 'create_or_update_private_endpoint_connection', value: 'create_or_update_private_endpoint_connection' },
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
-        { label: 'check_provisioning_service_name_availability', value: 'check_provisioning_service_name_availability' }
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' }
     ]}
 >
 <TabItem value="list_valid_skus">
@@ -1339,18 +1435,6 @@ List the primary and secondary keys for a provisioning service.
 ```sql
 EXEC azure.iothubprovisioningservices.iot_dps_resource.list_keys 
 @provisioning_service_name='{{ provisioning_service_name }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_keys_for_key_name">
-
-List primary and secondary keys for a specific key name.
-
-```sql
-EXEC azure.iothubprovisioningservices.iot_dps_resource.list_keys_for_key_name 
-@provisioning_service_name='{{ provisioning_service_name }}' --required, 
-@key_name='{{ key_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required
 ;
 ```
@@ -1394,20 +1478,6 @@ EXEC azure.iothubprovisioningservices.iot_dps_resource.delete_private_endpoint_c
 @resource_name='{{ resource_name }}' --required, 
 @private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_provisioning_service_name_availability">
-
-Check if a provisioning service name is available. Check if a provisioning service name is available. This will validate if the name is syntactically valid and if the name is usable.
-
-```sql
-EXEC azure.iothubprovisioningservices.iot_dps_resource.check_provisioning_service_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}"
-}'
 ;
 ```
 </TabItem>

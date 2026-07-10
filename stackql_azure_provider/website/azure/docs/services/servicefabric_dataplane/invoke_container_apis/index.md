@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#invoke_container_api"><CopyableCode code="invoke_container_api" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-CodePackageInstanceId"><code>CodePackageInstanceId</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-UriPath"><code>UriPath</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-CodePackageInstanceId"><code>CodePackageInstanceId</code></a>, <a href="#parameter-CodePackageName"><code>CodePackageName</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-UriPath"><code>UriPath</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Invoke container API on a container deployed on a Service Fabric node. Invoke container API on a container deployed on a Service Fabric node for the given code package.</td>
 </tr>
@@ -126,8 +126,8 @@ Invoke container API on a container deployed on a Service Fabric node. Invoke co
 ```sql
 EXEC azure.servicefabric_dataplane.invoke_container_apis.invoke_container_api 
 @application_id='{{ application_id }}' --required, 
-@CodePackageName='{{ CodePackageName }}' --required, 
 @CodePackageInstanceId='{{ CodePackageInstanceId }}' --required, 
+@CodePackageName='{{ CodePackageName }}' --required, 
 @node_name='{{ node_name }}' --required, 
 @ServiceManifestName='{{ ServiceManifestName }}' --required, 
 @endpoint='{{ endpoint }}' --required, 

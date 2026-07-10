@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'list_by_virtual_network', value: 'list_by_virtual_network' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -100,6 +101,30 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_by_virtual_network">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>DNS Forwarding Ruleset Resource ID.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="virtualNetworkLink" /></td>
+    <td><code>object</code></td>
+    <td>Reference to another ARM resource.</td>
 </tr>
 </tbody>
 </table>
@@ -257,6 +282,13 @@ The following methods are available for this resource:
     <td>Gets a DNS forwarding ruleset properties.</td>
 </tr>
 <tr>
+    <td><a href="#list_by_virtual_network"><CopyableCode code="list_by_virtual_network" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_name"><code>virtual_network_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$top"><code>$top</code></a></td>
+    <td>Lists DNS forwarding ruleset resource IDs attached to a virtual network.</td>
+</tr>
+<tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -297,13 +329,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-dns_forwarding_ruleset_name"><code>dns_forwarding_ruleset_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a DNS forwarding ruleset. WARNING: This operation cannot be undone. All forwarding rules within the ruleset will be deleted.</td>
-</tr>
-<tr>
-    <td><a href="#list_by_virtual_network"><CopyableCode code="list_by_virtual_network" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_name"><code>virtual_network_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td><a href="#parameter-$top"><code>$top</code></a></td>
-    <td>Lists DNS forwarding ruleset resource IDs attached to a virtual network.</td>
 </tr>
 </tbody>
 </table>
@@ -355,6 +380,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'list_by_virtual_network', value: 'list_by_virtual_network' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -379,6 +405,22 @@ FROM azure.dnsresolver.dns_forwarding_rulesets
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND dns_forwarding_ruleset_name = '{{ dns_forwarding_ruleset_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_by_virtual_network">
+
+Lists DNS forwarding ruleset resource IDs attached to a virtual network.
+
+```sql
+SELECT
+id,
+virtualNetworkLink
+FROM azure.dnsresolver.dns_forwarding_rulesets
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND virtual_network_name = '{{ virtual_network_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>
@@ -597,30 +639,6 @@ DELETE FROM azure.dnsresolver.dns_forwarding_rulesets
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND dns_forwarding_ruleset_name = '{{ dns_forwarding_ruleset_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_by_virtual_network"
-    values={[
-        { label: 'list_by_virtual_network', value: 'list_by_virtual_network' }
-    ]}
->
-<TabItem value="list_by_virtual_network">
-
-Lists DNS forwarding ruleset resource IDs attached to a virtual network.
-
-```sql
-EXEC azure.dnsresolver.dns_forwarding_rulesets.list_by_virtual_network 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@virtual_network_name='{{ virtual_network_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}'
 ;
 ```
 </TabItem>

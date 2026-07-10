@@ -87,7 +87,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-pipeline_job_name"><code>pipeline_job_name</code></a>, <a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the operation statuses. Get the operation status of a pipeline job with the given operationId.</td>
 </tr>
@@ -153,10 +153,10 @@ name,
 error,
 status
 FROM azure.videoanalyzer.pipeline_job_operation_statuses
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND operation_id = '{{ operation_id }}' -- required
+WHERE account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND pipeline_job_name = '{{ pipeline_job_name }}' -- required
-AND account_name = '{{ account_name }}' -- required
+AND operation_id = '{{ operation_id }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```

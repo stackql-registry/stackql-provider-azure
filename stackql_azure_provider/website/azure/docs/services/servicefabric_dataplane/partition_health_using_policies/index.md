@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>partition_health_using_policies
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_partition_health_using_policy"
+    values={[
+        { label: 'get_partition_health_using_policy', value: 'get_partition_health_using_policy' }
+    ]}
+>
+<TabItem value="get_partition_health_using_policy">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="AggregatedHealthState" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthEvents" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthStatistics" /></td>
+    <td><code>object</code></td>
+    <td>The health statistics of an entity, returned as part of the health query result when the query description is configured to include statistics. The statistics include health state counts for all children types of the current entity. For example, for cluster, the health statistics include health state counts for nodes, applications, services, partitions, replicas, deployed applications and deployed service packages. For partition, the health statistics include health counts for replicas.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="PartitionId" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="ReplicaHealthStates" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="UnhealthyEvaluations" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +101,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_partition_health_using_policy"><CopyableCode code="get_partition_health_using_policy" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-EventsHealthStateFilter"><code>EventsHealthStateFilter</code></a>, <a href="#parameter-ReplicasHealthStateFilter"><code>ReplicasHealthStateFilter</code></a>, <a href="#parameter-ExcludeHealthStatistics"><code>ExcludeHealthStatistics</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the health of the specified Service Fabric partition, by using the specified health policy. Gets the health information of the specified partition. If the application health policy is specified, the health evaluation uses it to get the aggregated health state. If the policy is not specified, the health evaluation uses the application health policy defined in the application manifest, or the default health policy, if no policy is defined in the manifest. Use EventsHealthStateFilter to filter the collection of health events reported on the partition based on the health state. Use ReplicasHealthStateFilter to filter the collection of ReplicaHealthState objects on the partition. Use ApplicationHealthPolicy in the POST body to override the health policies used to evaluate the health. If you specify a partition that does not exist in the health store, this request returns an error.</td>
@@ -106,7 +155,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_partition_health_using_policy"
@@ -119,20 +168,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the health of the specified Service Fabric partition, by using the specified health policy. Gets the health information of the specified partition. If the application health policy is specified, the health evaluation uses it to get the aggregated health state. If the policy is not specified, the health evaluation uses the application health policy defined in the application manifest, or the default health policy, if no policy is defined in the manifest. Use EventsHealthStateFilter to filter the collection of health events reported on the partition based on the health state. Use ReplicasHealthStateFilter to filter the collection of ReplicaHealthState objects on the partition. Use ApplicationHealthPolicy in the POST body to override the health policies used to evaluate the health. If you specify a partition that does not exist in the health store, this request returns an error.
 
 ```sql
-EXEC azure.servicefabric_dataplane.partition_health_using_policies.get_partition_health_using_policy 
-@partition_id='{{ partition_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@EventsHealthStateFilter='{{ EventsHealthStateFilter }}', 
-@ReplicasHealthStateFilter='{{ ReplicasHealthStateFilter }}', 
-@ExcludeHealthStatistics={{ ExcludeHealthStatistics }}, 
-@timeout='{{ timeout }}' 
-@@json=
-'{
-"ConsiderWarningAsError": {{ ConsiderWarningAsError }}, 
-"MaxPercentUnhealthyDeployedApplications": {{ MaxPercentUnhealthyDeployedApplications }}, 
-"DefaultServiceTypeHealthPolicy": "{{ DefaultServiceTypeHealthPolicy }}", 
-"ServiceTypeHealthPolicyMap": "{{ ServiceTypeHealthPolicyMap }}"
-}'
+SELECT
+AggregatedHealthState,
+HealthEvents,
+HealthStatistics,
+PartitionId,
+ReplicaHealthStates,
+UnhealthyEvaluations
+FROM azure.servicefabric_dataplane.partition_health_using_policies
+WHERE partition_id = '{{ partition_id }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND EventsHealthStateFilter = '{{ EventsHealthStateFilter }}'
+AND ReplicasHealthStateFilter = '{{ ReplicasHealthStateFilter }}'
+AND ExcludeHealthStatistics = '{{ ExcludeHealthStatistics }}'
+AND timeout = '{{ timeout }}'
 ;
 ```
 </TabItem>

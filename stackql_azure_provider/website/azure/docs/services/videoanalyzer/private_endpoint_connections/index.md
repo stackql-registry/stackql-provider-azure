@@ -157,35 +157,35 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get private endpoint connection. Get private endpoint connection under video analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get all private endpoint connections. Get all private endpoint connections under video analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update private endpoint connection. Update private endpoint connection state under video analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update private endpoint connection. Update private endpoint connection state under video analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete private endpoint connection. Delete private endpoint connection under video analyzer account.</td>
 </tr>
@@ -252,8 +252,8 @@ systemData,
 type
 FROM azure.videoanalyzer.private_endpoint_connections
 WHERE name = '{{ name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -272,8 +272,8 @@ provisioningState,
 systemData,
 type
 FROM azure.videoanalyzer.private_endpoint_connections
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND account_name = '{{ account_name }}' -- required
+WHERE account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -298,15 +298,15 @@ Update private endpoint connection. Update private endpoint connection state und
 INSERT INTO azure.videoanalyzer.private_endpoint_connections (
 properties,
 name,
-resource_group_name,
 account_name,
+resource_group_name,
 subscription_id
 )
 SELECT 
 '{{ properties }}',
 '{{ name }}',
-'{{ resource_group_name }}',
 '{{ account_name }}',
+'{{ resource_group_name }}',
 '{{ subscription_id }}'
 RETURNING
 id,
@@ -325,11 +325,11 @@ type
     - name: name
       value: "{{ name }}"
       description: Required parameter for the private_endpoint_connections resource.
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the private_endpoint_connections resource.
     - name: account_name
       value: "{{ account_name }}"
+      description: Required parameter for the private_endpoint_connections resource.
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
       description: Required parameter for the private_endpoint_connections resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
@@ -366,8 +366,8 @@ SET
 properties = '{{ properties }}'
 WHERE 
 name = '{{ name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND account_name = '{{ account_name }}' --required
+AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 RETURNING
 id,
@@ -395,8 +395,8 @@ Delete private endpoint connection. Delete private endpoint connection under vid
 ```sql
 DELETE FROM azure.videoanalyzer.private_endpoint_connections
 WHERE name = '{{ name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
 AND account_name = '{{ account_name }}' --required
+AND resource_group_name = '{{ resource_group_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
 ;
 ```

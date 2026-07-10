@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>document_counts</code> resource
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_document_count"
+    values={[
+        { label: 'get_document_count', value: 'get_document_count' }
+    ]}
+>
+<TabItem value="get_document_count">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>integer</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_document_count"><CopyableCode code="get_document_count" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-index_name"><code>index_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Queries the number of documents in the index.</td>
@@ -86,7 +110,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_document_count"
@@ -99,9 +123,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Queries the number of documents in the index.
 
 ```sql
-EXEC azure.search_documents.document_counts.get_document_count 
-@index_name='{{ index_name }}' --required, 
-@search_service_name='{{ search_service_name }}' --required
+SELECT
+value
+FROM azure.search_documents.document_counts
+WHERE index_name = '{{ index_name }}' -- required
+AND search_service_name = '{{ search_service_name }}' -- required
 ;
 ```
 </TabItem>

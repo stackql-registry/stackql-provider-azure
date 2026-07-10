@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists a <code>clusters</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_upgradable_versions"
     values={[
+        { label: 'list_upgradable_versions', value: 'list_upgradable_versions' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_upgradable_versions">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="supportedPath" /></td>
+    <td><code>array</code></td>
+    <td>The list of intermediate cluster code versions for an upgrade or downgrade.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -700,6 +720,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_upgradable_versions"><CopyableCode code="list_upgradable_versions" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Operation to get the minimum and maximum upgradable version from the current cluster version, or the required path to get to the an specific target version. If a target is not provided, it will get the minimum and maximum versions available from the current cluster version. If a target is given, it will provide the required path to get from the current cluster version to the target version.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -748,13 +775,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Deletes a Service Fabric cluster resource. Delete a Service Fabric cluster resource with the specified name.</td>
 </tr>
-<tr>
-    <td><a href="#list_upgradable_versions"><CopyableCode code="list_upgradable_versions" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetVersion"><code>targetVersion</code></a></td>
-    <td></td>
-    <td>Operation to get the minimum and maximum upgradable version from the current cluster version, or the required path to get to the an specific target version. If a target is not provided, it will get the minimum and maximum versions available from the current cluster version. If a target is given, it will provide the required path to get from the current cluster version to the target version.</td>
-</tr>
 </tbody>
 </table>
 
@@ -792,13 +812,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_upgradable_versions"
     values={[
+        { label: 'list_upgradable_versions', value: 'list_upgradable_versions' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_upgradable_versions">
+
+Operation to get the minimum and maximum upgradable version from the current cluster version, or the required path to get to the an specific target version. If a target is not provided, it will get the minimum and maximum versions available from the current cluster version. If a target is given, it will provide the required path to get from the current cluster version to the target version.
+
+```sql
+SELECT
+supportedPath
+FROM azure.servicefabric.clusters
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets a Service Fabric cluster resource. Get a Service Fabric cluster resource created or in the process of being created in the specified resource group.
@@ -1226,33 +1261,6 @@ DELETE FROM azure.servicefabric.clusters
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND cluster_name = '{{ cluster_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_upgradable_versions"
-    values={[
-        { label: 'list_upgradable_versions', value: 'list_upgradable_versions' }
-    ]}
->
-<TabItem value="list_upgradable_versions">
-
-Operation to get the minimum and maximum upgradable version from the current cluster version, or the required path to get to the an specific target version. If a target is not provided, it will get the minimum and maximum versions available from the current cluster version. If a target is given, it will provide the required path to get from the current cluster version to the target version.
-
-```sql
-EXEC azure.servicefabric.clusters.list_upgradable_versions 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetVersion": "{{ targetVersion }}"
-}'
 ;
 ```
 </TabItem>

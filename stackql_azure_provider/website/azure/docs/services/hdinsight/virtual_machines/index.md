@@ -35,7 +35,8 @@ The following fields are returned by `SELECT` queries:
 <Tabs
     defaultValue="get_async_operation_status"
     values={[
-        { label: 'get_async_operation_status', value: 'get_async_operation_status' }
+        { label: 'get_async_operation_status', value: 'get_async_operation_status' },
+        { label: 'list_hosts', value: 'list_hosts' }
     ]}
 >
 <TabItem value="get_async_operation_status">
@@ -58,6 +59,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
     <td>The async operation state. Known values are: "InProgress", "Succeeded", and "Failed". (InProgress, Succeeded, Failed)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_hosts">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The host name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="effectiveDiskEncryptionKeyUrl" /></td>
+    <td><code>string</code></td>
+    <td>The effective disk encryption key URL used by the host.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="fqdn" /></td>
+    <td><code>string</code></td>
+    <td>The Fully Qualified Domain Name of host.</td>
 </tr>
 </tbody>
 </table>
@@ -88,7 +118,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#list_hosts"><CopyableCode code="list_hosts" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Lists the HDInsight clusters hosts.</td>
@@ -144,7 +174,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <Tabs
     defaultValue="get_async_operation_status"
     values={[
-        { label: 'get_async_operation_status', value: 'get_async_operation_status' }
+        { label: 'get_async_operation_status', value: 'get_async_operation_status' },
+        { label: 'list_hosts', value: 'list_hosts' }
     ]}
 >
 <TabItem value="get_async_operation_status">
@@ -163,30 +194,33 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+<TabItem value="list_hosts">
+
+Lists the HDInsight clusters hosts.
+
+```sql
+SELECT
+name,
+effectiveDiskEncryptionKeyUrl,
+fqdn
+FROM azure.hdinsight.virtual_machines
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 </Tabs>
 
 
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_hosts"
+    defaultValue="restart_hosts"
     values={[
-        { label: 'list_hosts', value: 'list_hosts' },
         { label: 'restart_hosts', value: 'restart_hosts' }
     ]}
 >
-<TabItem value="list_hosts">
-
-Lists the HDInsight clusters hosts.
-
-```sql
-EXEC azure.hdinsight.virtual_machines.list_hosts 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="restart_hosts">
 
 Restarts the specified HDInsight cluster hosts.

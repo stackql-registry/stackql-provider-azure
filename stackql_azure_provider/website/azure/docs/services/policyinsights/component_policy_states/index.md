@@ -32,8 +32,162 @@ Creates, updates, deletes, gets or lists a <code>component_policy_states</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_query_results_for_resource_group_level_policy_assignment"
+    values={[
+        { label: 'list_query_results_for_resource_group_level_policy_assignment', value: 'list_query_results_for_resource_group_level_policy_assignment' },
+        { label: 'list_query_results_for_resource_group', value: 'list_query_results_for_resource_group' },
+        { label: 'list_query_results_for_policy_definition', value: 'list_query_results_for_policy_definition' },
+        { label: 'list_query_results_for_subscription_level_policy_assignment', value: 'list_query_results_for_subscription_level_policy_assignment' },
+        { label: 'list_query_results_for_subscription', value: 'list_query_results_for_subscription' },
+        { label: 'list_query_results_for_resource', value: 'list_query_results_for_resource' }
+    ]}
+>
+<TabItem value="list_query_results_for_resource_group_level_policy_assignment">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@odata" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Query results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_query_results_for_resource_group">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@odata" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Query results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_query_results_for_policy_definition">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@odata" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Query results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_query_results_for_subscription_level_policy_assignment">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@odata" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Query results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_query_results_for_subscription">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@odata" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Query results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_query_results_for_resource">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@odata" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Query results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,46 +205,46 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_query_results_for_subscription"><CopyableCode code="list_query_results_for_subscription" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
+    <td><a href="#list_query_results_for_resource_group_level_policy_assignment"><CopyableCode code="list_query_results_for_resource_group_level_policy_assignment" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-policy_assignment_name"><code>policy_assignment_name</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a></td>
-    <td>Queries component policy states under subscription scope.</td>
+    <td>Queries component policy states for the resource group level policy assignment.</td>
 </tr>
 <tr>
     <td><a href="#list_query_results_for_resource_group"><CopyableCode code="list_query_results_for_resource_group" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a></td>
     <td>Queries component policy states under resource group scope.</td>
 </tr>
 <tr>
-    <td><a href="#list_query_results_for_resource"><CopyableCode code="list_query_results_for_resource" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
-    <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a>, <a href="#parameter-$expand"><code>$expand</code></a></td>
-    <td>Queries component policy states for the resource.</td>
-</tr>
-<tr>
     <td><a href="#list_query_results_for_policy_definition"><CopyableCode code="list_query_results_for_policy_definition" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-policy_definition_name"><code>policy_definition_name</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a></td>
     <td>Queries component policy states for the subscription level policy definition.</td>
 </tr>
 <tr>
     <td><a href="#list_query_results_for_subscription_level_policy_assignment"><CopyableCode code="list_query_results_for_subscription_level_policy_assignment" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-policy_assignment_name"><code>policy_assignment_name</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a></td>
     <td>Queries component policy states for the subscription level policy assignment.</td>
 </tr>
 <tr>
-    <td><a href="#list_query_results_for_resource_group_level_policy_assignment"><CopyableCode code="list_query_results_for_resource_group_level_policy_assignment" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-policy_assignment_name"><code>policy_assignment_name</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
+    <td><a href="#list_query_results_for_subscription"><CopyableCode code="list_query_results_for_subscription" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a></td>
-    <td>Queries component policy states for the resource group level policy assignment.</td>
+    <td>Queries component policy states under subscription scope.</td>
+</tr>
+<tr>
+    <td><a href="#list_query_results_for_resource"><CopyableCode code="list_query_results_for_resource" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-component_policy_states_resource"><code>component_policy_states_resource</code></a></td>
+    <td><a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$from"><code>$from</code></a>, <a href="#parameter-$to"><code>$to</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$apply"><code>$apply</code></a>, <a href="#parameter-$expand"><code>$expand</code></a></td>
+    <td>Queries component policy states for the resource.</td>
 </tr>
 </tbody>
 </table>
@@ -126,7 +280,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-resource_group_name">
     <td><CopyableCode code="resource_group_name" /></td>
     <td><code>string</code></td>
-    <td>Resource group name. Required.</td>
+    <td>The name of the resource group. The name is case insensitive. Required.</td>
 </tr>
 <tr id="parameter-resource_id">
     <td><CopyableCode code="resource_id" /></td>
@@ -181,34 +335,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_query_results_for_subscription"
+    defaultValue="list_query_results_for_resource_group_level_policy_assignment"
     values={[
-        { label: 'list_query_results_for_subscription', value: 'list_query_results_for_subscription' },
+        { label: 'list_query_results_for_resource_group_level_policy_assignment', value: 'list_query_results_for_resource_group_level_policy_assignment' },
         { label: 'list_query_results_for_resource_group', value: 'list_query_results_for_resource_group' },
-        { label: 'list_query_results_for_resource', value: 'list_query_results_for_resource' },
         { label: 'list_query_results_for_policy_definition', value: 'list_query_results_for_policy_definition' },
         { label: 'list_query_results_for_subscription_level_policy_assignment', value: 'list_query_results_for_subscription_level_policy_assignment' },
-        { label: 'list_query_results_for_resource_group_level_policy_assignment', value: 'list_query_results_for_resource_group_level_policy_assignment' }
+        { label: 'list_query_results_for_subscription', value: 'list_query_results_for_subscription' },
+        { label: 'list_query_results_for_resource', value: 'list_query_results_for_resource' }
     ]}
 >
-<TabItem value="list_query_results_for_subscription">
+<TabItem value="list_query_results_for_resource_group_level_policy_assignment">
 
-Queries component policy states under subscription scope.
+Queries component policy states for the resource group level policy assignment.
 
 ```sql
-EXEC azure.policyinsights.component_policy_states.list_query_results_for_subscription 
-@subscription_id='{{ subscription_id }}' --required, 
-@component_policy_states_resource='{{ component_policy_states_resource }}' --required, 
-@$top='{{ $top }}', 
-@$orderby='{{ $orderby }}', 
-@$select='{{ $select }}', 
-@$from='{{ $from }}', 
-@$to='{{ $to }}', 
-@$filter='{{ $filter }}', 
-@$apply='{{ $apply }}'
+SELECT
+@odata,
+value
+FROM azure.policyinsights.component_policy_states
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
+AND policy_assignment_name = '{{ policy_assignment_name }}' -- required
+AND component_policy_states_resource = '{{ component_policy_states_resource }}' -- required
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+AND $select = '{{ $select }}'
+AND $from = '{{ $from }}'
+AND $to = '{{ $to }}'
+AND $filter = '{{ $filter }}'
+AND $apply = '{{ $apply }}'
 ;
 ```
 </TabItem>
@@ -217,36 +376,20 @@ EXEC azure.policyinsights.component_policy_states.list_query_results_for_subscri
 Queries component policy states under resource group scope.
 
 ```sql
-EXEC azure.policyinsights.component_policy_states.list_query_results_for_resource_group 
-@subscription_id='{{ subscription_id }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@component_policy_states_resource='{{ component_policy_states_resource }}' --required, 
-@$top='{{ $top }}', 
-@$orderby='{{ $orderby }}', 
-@$select='{{ $select }}', 
-@$from='{{ $from }}', 
-@$to='{{ $to }}', 
-@$filter='{{ $filter }}', 
-@$apply='{{ $apply }}'
-;
-```
-</TabItem>
-<TabItem value="list_query_results_for_resource">
-
-Queries component policy states for the resource.
-
-```sql
-EXEC azure.policyinsights.component_policy_states.list_query_results_for_resource 
-@resource_id='{{ resource_id }}' --required, 
-@component_policy_states_resource='{{ component_policy_states_resource }}' --required, 
-@$top='{{ $top }}', 
-@$orderby='{{ $orderby }}', 
-@$select='{{ $select }}', 
-@$from='{{ $from }}', 
-@$to='{{ $to }}', 
-@$filter='{{ $filter }}', 
-@$apply='{{ $apply }}', 
-@$expand='{{ $expand }}'
+SELECT
+@odata,
+value
+FROM azure.policyinsights.component_policy_states
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
+AND component_policy_states_resource = '{{ component_policy_states_resource }}' -- required
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+AND $select = '{{ $select }}'
+AND $from = '{{ $from }}'
+AND $to = '{{ $to }}'
+AND $filter = '{{ $filter }}'
+AND $apply = '{{ $apply }}'
 ;
 ```
 </TabItem>
@@ -255,17 +398,20 @@ EXEC azure.policyinsights.component_policy_states.list_query_results_for_resourc
 Queries component policy states for the subscription level policy definition.
 
 ```sql
-EXEC azure.policyinsights.component_policy_states.list_query_results_for_policy_definition 
-@subscription_id='{{ subscription_id }}' --required, 
-@policy_definition_name='{{ policy_definition_name }}' --required, 
-@component_policy_states_resource='{{ component_policy_states_resource }}' --required, 
-@$top='{{ $top }}', 
-@$orderby='{{ $orderby }}', 
-@$select='{{ $select }}', 
-@$from='{{ $from }}', 
-@$to='{{ $to }}', 
-@$filter='{{ $filter }}', 
-@$apply='{{ $apply }}'
+SELECT
+@odata,
+value
+FROM azure.policyinsights.component_policy_states
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND policy_definition_name = '{{ policy_definition_name }}' -- required
+AND component_policy_states_resource = '{{ component_policy_states_resource }}' -- required
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+AND $select = '{{ $select }}'
+AND $from = '{{ $from }}'
+AND $to = '{{ $to }}'
+AND $filter = '{{ $filter }}'
+AND $apply = '{{ $apply }}'
 ;
 ```
 </TabItem>
@@ -274,37 +420,63 @@ EXEC azure.policyinsights.component_policy_states.list_query_results_for_policy_
 Queries component policy states for the subscription level policy assignment.
 
 ```sql
-EXEC azure.policyinsights.component_policy_states.list_query_results_for_subscription_level_policy_assignment 
-@subscription_id='{{ subscription_id }}' --required, 
-@policy_assignment_name='{{ policy_assignment_name }}' --required, 
-@component_policy_states_resource='{{ component_policy_states_resource }}' --required, 
-@$top='{{ $top }}', 
-@$orderby='{{ $orderby }}', 
-@$select='{{ $select }}', 
-@$from='{{ $from }}', 
-@$to='{{ $to }}', 
-@$filter='{{ $filter }}', 
-@$apply='{{ $apply }}'
+SELECT
+@odata,
+value
+FROM azure.policyinsights.component_policy_states
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND policy_assignment_name = '{{ policy_assignment_name }}' -- required
+AND component_policy_states_resource = '{{ component_policy_states_resource }}' -- required
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+AND $select = '{{ $select }}'
+AND $from = '{{ $from }}'
+AND $to = '{{ $to }}'
+AND $filter = '{{ $filter }}'
+AND $apply = '{{ $apply }}'
 ;
 ```
 </TabItem>
-<TabItem value="list_query_results_for_resource_group_level_policy_assignment">
+<TabItem value="list_query_results_for_subscription">
 
-Queries component policy states for the resource group level policy assignment.
+Queries component policy states under subscription scope.
 
 ```sql
-EXEC azure.policyinsights.component_policy_states.list_query_results_for_resource_group_level_policy_assignment 
-@subscription_id='{{ subscription_id }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@policy_assignment_name='{{ policy_assignment_name }}' --required, 
-@component_policy_states_resource='{{ component_policy_states_resource }}' --required, 
-@$top='{{ $top }}', 
-@$orderby='{{ $orderby }}', 
-@$select='{{ $select }}', 
-@$from='{{ $from }}', 
-@$to='{{ $to }}', 
-@$filter='{{ $filter }}', 
-@$apply='{{ $apply }}'
+SELECT
+@odata,
+value
+FROM azure.policyinsights.component_policy_states
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND component_policy_states_resource = '{{ component_policy_states_resource }}' -- required
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+AND $select = '{{ $select }}'
+AND $from = '{{ $from }}'
+AND $to = '{{ $to }}'
+AND $filter = '{{ $filter }}'
+AND $apply = '{{ $apply }}'
+;
+```
+</TabItem>
+<TabItem value="list_query_results_for_resource">
+
+Queries component policy states for the resource.
+
+```sql
+SELECT
+@odata,
+value
+FROM azure.policyinsights.component_policy_states
+WHERE resource_id = '{{ resource_id }}' -- required
+AND component_policy_states_resource = '{{ component_policy_states_resource }}' -- required
+AND $top = '{{ $top }}'
+AND $orderby = '{{ $orderby }}'
+AND $select = '{{ $select }}'
+AND $from = '{{ $from }}'
+AND $to = '{{ $to }}'
+AND $filter = '{{ $filter }}'
+AND $apply = '{{ $apply }}'
+AND $expand = '{{ $expand }}'
 ;
 ```
 </TabItem>

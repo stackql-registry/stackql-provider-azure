@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_prerequisites', value: 'check_prerequisites' },
         { label: 'list_by_server', value: 'list_by_server' }
     ]}
 >
@@ -119,6 +120,25 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_prerequisites">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="numberOfContainers" /></td>
+    <td><code>integer</code></td>
+    <td>Number of storage containers the plugin will use during backup. More than one containers may be used for size limitations, parallelism, or redundancy etc. Required.</td>
 </tr>
 </tbody>
 </table>
@@ -232,18 +252,18 @@ The following methods are available for this resource:
     <td>Gets the results of a long retention backup operation for a server.</td>
 </tr>
 <tr>
+    <td><a href="#check_prerequisites"><CopyableCode code="check_prerequisites" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-server_name"><code>server_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Performs all checks required for a long term retention backup operation to succeed.</td>
+</tr>
+<tr>
     <td><a href="#list_by_server"><CopyableCode code="list_by_server" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-server_name"><code>server_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Lists the results of the long term retention backup operations for a server.</td>
-</tr>
-<tr>
-    <td><a href="#check_prerequisites"><CopyableCode code="check_prerequisites" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-server_name"><code>server_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-backupSettings"><code>backupSettings</code></a></td>
-    <td></td>
-    <td>Performs all checks required for a long term retention backup operation to succeed.</td>
 </tr>
 <tr>
     <td><a href="#start"><CopyableCode code="start" /></a></td>
@@ -297,6 +317,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_prerequisites', value: 'check_prerequisites' },
         { label: 'list_by_server', value: 'list_by_server' }
     ]}
 >
@@ -324,6 +345,20 @@ FROM azure.postgresqlflexibleservers.backups_long_term_retention
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND server_name = '{{ server_name }}' -- required
 AND backup_name = '{{ backup_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_prerequisites">
+
+Performs all checks required for a long term retention backup operation to succeed.
+
+```sql
+SELECT
+numberOfContainers
+FROM azure.postgresqlflexibleservers.backups_long_term_retention
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND server_name = '{{ server_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -361,28 +396,11 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="check_prerequisites"
+    defaultValue="start"
     values={[
-        { label: 'check_prerequisites', value: 'check_prerequisites' },
         { label: 'start', value: 'start' }
     ]}
 >
-<TabItem value="check_prerequisites">
-
-Performs all checks required for a long term retention backup operation to succeed.
-
-```sql
-EXEC azure.postgresqlflexibleservers.backups_long_term_retention.check_prerequisites 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@server_name='{{ server_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"backupSettings": "{{ backupSettings }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="start">
 
 Initiates a long term retention backup.

@@ -35,10 +35,55 @@ The following fields are returned by `SELECT` queries:
 <Tabs
     defaultValue="get"
     values={[
-        { label: 'get', value: 'get' }
+        { label: 'get', value: 'get' },
+        { label: 'query_indicators', value: 'query_indicators' }
     ]}
 >
 <TabItem value="get">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="etag" /></td>
+    <td><code>string</code></td>
+    <td>Etag of the azure resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type. If supported, the resource provider must validate and persist this value. Required. "indicator"</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="query_indicators">
 
 <table>
 <thead>
@@ -107,6 +152,13 @@ The following methods are available for this resource:
     <td>View a threat intelligence indicator by name.</td>
 </tr>
 <tr>
+    <td><a href="#query_indicators"><CopyableCode code="query_indicators" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Query threat intelligence indicators as per filtering criteria.</td>
+</tr>
+<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
@@ -140,13 +192,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-kind"><code>kind</code></a></td>
     <td></td>
     <td>Create a new threat intelligence indicator.</td>
-</tr>
-<tr>
-    <td><a href="#query_indicators"><CopyableCode code="query_indicators" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Query threat intelligence indicators as per filtering criteria.</td>
 </tr>
 </tbody>
 </table>
@@ -192,7 +237,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <Tabs
     defaultValue="get"
     values={[
-        { label: 'get', value: 'get' }
+        { label: 'get', value: 'get' },
+        { label: 'query_indicators', value: 'query_indicators' }
     ]}
 >
 <TabItem value="get">
@@ -211,6 +257,25 @@ FROM azure.securityinsight.threat_intelligence_indicator
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND workspace_name = '{{ workspace_name }}' -- required
 AND name = '{{ name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="query_indicators">
+
+Query threat intelligence indicators as per filtering criteria.
+
+```sql
+SELECT
+id,
+name,
+etag,
+kind,
+systemData,
+type
+FROM azure.securityinsight.threat_intelligence_indicator
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -372,8 +437,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'append_tags', value: 'append_tags' },
         { label: 'replace_tags', value: 'replace_tags' },
-        { label: 'create_indicator', value: 'create_indicator' },
-        { label: 'query_indicators', value: 'query_indicators' }
+        { label: 'create_indicator', value: 'create_indicator' }
     ]}
 >
 <TabItem value="append_tags">
@@ -426,34 +490,6 @@ EXEC azure.securityinsight.threat_intelligence_indicator.create_indicator
 "kind": "{{ kind }}", 
 "etag": "{{ etag }}", 
 "properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="query_indicators">
-
-Query threat intelligence indicators as per filtering criteria.
-
-```sql
-EXEC azure.securityinsight.threat_intelligence_indicator.query_indicators 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"pageSize": {{ pageSize }}, 
-"minConfidence": {{ minConfidence }}, 
-"maxConfidence": {{ maxConfidence }}, 
-"minValidUntil": "{{ minValidUntil }}", 
-"maxValidUntil": "{{ maxValidUntil }}", 
-"includeDisabled": {{ includeDisabled }}, 
-"sortBy": "{{ sortBy }}", 
-"sources": "{{ sources }}", 
-"patternTypes": "{{ patternTypes }}", 
-"threatTypes": "{{ threatTypes }}", 
-"ids": "{{ ids }}", 
-"keywords": "{{ keywords }}", 
-"skipToken": "{{ skipToken }}"
 }'
 ;
 ```

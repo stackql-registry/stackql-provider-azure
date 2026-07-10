@@ -32,10 +32,10 @@ total resources: __10__
 <a href="/services/securitydevops/azure_dev_ops_repo/">azure_dev_ops_repo</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/securitydevops/git_hub_connector/">git_hub_connector</a><br />
-<a href="/services/securitydevops/git_hub_connector_stats/">git_hub_connector_stats</a><br />
-<a href="/services/securitydevops/git_hub_owner/">git_hub_owner</a><br />
-<a href="/services/securitydevops/git_hub_repo/">git_hub_repo</a><br />
+<a href="/services/securitydevops/github_connector/">github_connector</a><br />
+<a href="/services/securitydevops/github_connector_stats/">github_connector_stats</a><br />
+<a href="/services/securitydevops/github_owner/">github_owner</a><br />
+<a href="/services/securitydevops/github_repo/">github_repo</a><br />
 <a href="/services/securitydevops/operations/">operations</a>
 </div>
 </div>

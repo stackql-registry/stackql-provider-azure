@@ -32,8 +32,77 @@ Creates, updates, deletes, gets or lists a <code>service</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_available_skus_by_resource_group"
+    values={[
+        { label: 'list_available_skus_by_resource_group', value: 'list_available_skus_by_resource_group' }
+    ]}
+>
+<TabItem value="list_available_skus_by_resource_group">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="apiVersions" /></td>
+    <td><code>array</code></td>
+    <td>Api versions that support this Sku.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="capacity" /></td>
+    <td><code>object</code></td>
+    <td>Capacity of the Sku.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="costs" /></td>
+    <td><code>array</code></td>
+    <td>Cost of the Sku.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="countriesWithinCommerceBoundary" /></td>
+    <td><code>array</code></td>
+    <td>List of all the Countries in the SKU specific commerce boundary.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataLocationToServiceLocationMap" /></td>
+    <td><code>array</code></td>
+    <td>The map of data location to service location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="disabledReason" /></td>
+    <td><code>string</code></td>
+    <td>Reason why the Sku is disabled. Known values are: "None", "Country", "Region", "Feature", "OfferType", and "NoSubscriptionInfo".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="disabledReasonMessage" /></td>
+    <td><code>string</code></td>
+    <td>Message for why the Sku is disabled.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="enabled" /></td>
+    <td><code>boolean</code></td>
+    <td>The sku is enabled or not.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="requiredFeature" /></td>
+    <td><code>string</code></td>
+    <td>Required feature to access the sku.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sku" /></td>
+    <td><code>object</code></td>
+    <td>The Sku.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +121,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_available_skus_by_resource_group"><CopyableCode code="list_available_skus_by_resource_group" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-transferType"><code>transferType</code></a>, <a href="#parameter-country"><code>country</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>This method provides the list of available skus for the given subscription, resource group and location.</td>
 </tr>
@@ -126,17 +195,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_available_skus_by_resource_group"
     values={[
-        { label: 'list_available_skus_by_resource_group', value: 'list_available_skus_by_resource_group' },
-        { label: 'validate_address', value: 'validate_address' },
-        { label: 'validate_inputs_by_resource_group', value: 'validate_inputs_by_resource_group' },
-        { label: 'validate_inputs', value: 'validate_inputs' },
-        { label: 'region_configuration', value: 'region_configuration' },
-        { label: 'region_configuration_by_resource_group', value: 'region_configuration_by_resource_group' }
+        { label: 'list_available_skus_by_resource_group', value: 'list_available_skus_by_resource_group' }
     ]}
 >
 <TabItem value="list_available_skus_by_resource_group">
@@ -144,20 +208,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 This method provides the list of available skus for the given subscription, resource group and location.
 
 ```sql
-EXEC azure.databox.service.list_available_skus_by_resource_group 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"transferType": "{{ transferType }}", 
-"country": "{{ country }}", 
-"location": "{{ location }}", 
-"skuNames": "{{ skuNames }}"
-}'
+SELECT
+apiVersions,
+capacity,
+costs,
+countriesWithinCommerceBoundary,
+dataLocationToServiceLocationMap,
+disabledReason,
+disabledReasonMessage,
+enabled,
+requiredFeature,
+sku
+FROM azure.databox.service
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="validate_address"
+    values={[
+        { label: 'validate_address', value: 'validate_address' },
+        { label: 'validate_inputs_by_resource_group', value: 'validate_inputs_by_resource_group' },
+        { label: 'validate_inputs', value: 'validate_inputs' },
+        { label: 'region_configuration', value: 'region_configuration' },
+        { label: 'region_configuration_by_resource_group', value: 'region_configuration_by_resource_group' }
+    ]}
+>
 <TabItem value="validate_address">
 
 [DEPRECATED NOTICE: This operation will soon be removed]. This method validates the customer shipping address and provide alternate addresses if any.

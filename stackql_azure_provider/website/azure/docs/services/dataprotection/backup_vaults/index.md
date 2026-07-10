@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get_in_resource_group', value: 'get_in_resource_group' },
         { label: 'get_in_subscription', value: 'get_in_subscription' }
     ]}
@@ -150,6 +151,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Gets or sets the message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Gets or sets a value indicating whether [name available].</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Gets or sets the reason.</td>
 </tr>
 </tbody>
 </table>
@@ -407,6 +437,13 @@ The following methods are available for this resource:
     <td>Returns a resource belonging to a resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>API to check for resource name availability. API to check for resource name availability.</td>
+</tr>
+<tr>
     <td><a href="#get_in_resource_group"><CopyableCode code="get_in_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -447,13 +484,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a BackupVault resource from the resource group.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>API to check for resource name availability. API to check for resource name availability.</td>
 </tr>
 </tbody>
 </table>
@@ -510,6 +540,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get_in_resource_group', value: 'get_in_resource_group' },
         { label: 'get_in_subscription', value: 'get_in_subscription' }
     ]}
@@ -543,6 +574,22 @@ type
 FROM azure.dataprotection.backup_vaults
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND vault_name = '{{ vault_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+API to check for resource name availability. API to check for resource name availability.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.dataprotection.backup_vaults
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND location = '{{ location }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -853,34 +900,6 @@ DELETE FROM azure.dataprotection.backup_vaults
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND vault_name = '{{ vault_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="check_name_availability"
-    values={[
-        { label: 'check_name_availability', value: 'check_name_availability' }
-    ]}
->
-<TabItem value="check_name_availability">
-
-API to check for resource name availability. API to check for resource name availability.
-
-```sql
-EXEC azure.dataprotection.backup_vaults.check_name_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

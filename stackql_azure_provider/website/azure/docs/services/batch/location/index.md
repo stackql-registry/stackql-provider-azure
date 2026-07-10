@@ -33,11 +33,41 @@ Creates, updates, deletes, gets or lists a <code>location</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="list_supported_virtual_machine_skus"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_supported_virtual_machine_skus', value: 'list_supported_virtual_machine_skus' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Gets an error message explaining the Reason value in more detail.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Gets a boolean value that indicates whether the name is available for you to use. If true, the name is available. If false, the name has already been taken or invalid and cannot be used.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Gets the reason that a Batch account name could not be used. The Reason element is only returned if NameAvailable is false. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list_supported_virtual_machine_skus">
 
 <table>
@@ -90,6 +120,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks whether the Batch account name is available in the specified region.</td>
+</tr>
+<tr>
     <td><a href="#list_supported_virtual_machine_skus"><CopyableCode code="list_supported_virtual_machine_skus" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -102,13 +139,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Batch service quotas for the specified subscription at the given location.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks whether the Batch account name is available in the specified region.</td>
 </tr>
 </tbody>
 </table>
@@ -129,7 +159,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-location_name">
     <td><CopyableCode code="location_name" /></td>
     <td><code>string</code></td>
-    <td>The desired region for the name check. Required.</td>
+    <td>The region for which to retrieve Batch service quotas. Required.</td>
 </tr>
 <tr id="parameter-subscription_id">
     <td><CopyableCode code="subscription_id" /></td>
@@ -152,11 +182,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="list_supported_virtual_machine_skus"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_supported_virtual_machine_skus', value: 'list_supported_virtual_machine_skus' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Checks whether the Batch account name is available in the specified region.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.batch.location
+WHERE location_name = '{{ location_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list_supported_virtual_machine_skus">
 
 Gets the list of Batch supported Virtual Machine VM sizes available at the given location.
@@ -183,8 +229,7 @@ AND $filter = '{{ $filter }}'
 <Tabs
     defaultValue="get_quotas"
     values={[
-        { label: 'get_quotas', value: 'get_quotas' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'get_quotas', value: 'get_quotas' }
     ]}
 >
 <TabItem value="get_quotas">
@@ -195,22 +240,6 @@ Gets the Batch service quotas for the specified subscription at the given locati
 EXEC azure.batch.location.get_quotas 
 @location_name='{{ location_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks whether the Batch account name is available in the specified region.
-
-```sql
-EXEC azure.batch.location.check_name_availability 
-@location_name='{{ location_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

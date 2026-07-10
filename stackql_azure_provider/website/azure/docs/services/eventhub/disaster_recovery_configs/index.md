@@ -33,14 +33,15 @@ Creates, updates, deletes, gets or lists a <code>disaster_recovery_configs</code
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
 <table>
 <thead>
@@ -52,34 +53,39 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
+    <td><CopyableCode code="aliasPrimaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+    <td>Primary connection string of the alias if GEO DR is enabled.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="name" /></td>
+    <td><CopyableCode code="aliasSecondaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>The name of the resource.</td>
+    <td>Secondary connection string of the alias if GEO DR is enabled.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="location" /></td>
+    <td><CopyableCode code="keyName" /></td>
     <td><code>string</code></td>
-    <td>The geo-location where the resource lives.</td>
+    <td>A string that describes the AuthorizationRule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="rights" /></td>
-    <td><code>array</code></td>
-    <td>The rights associated with the rule.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>The system meta data relating to this resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
+    <td><CopyableCode code="primaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.EventHub/Namespaces" or "Microsoft.EventHub/Namespaces/EventHubs".</td>
+    <td>Primary connection string of the created namespace AuthorizationRule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryConnectionString" /></td>
+    <td><code>string</code></td>
+    <td>Secondary connection string of the created namespace AuthorizationRule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
 </tr>
 </tbody>
 </table>
@@ -144,6 +150,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.EventHub/Namespaces" or "Microsoft.EventHub/Namespaces/EventHubs".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed info regarding the reason associated with the Namespace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Value indicating Namespace is availability, true if the Namespace is available; otherwise, false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason for unavailability of a Namespace. Known values are: "None", "InvalidName", "SubscriptionIsDisabled", "NameInUse", "NameInLockdown", and "TooManyNamespaceInCurrentSubscription".</td>
 </tr>
 </tbody>
 </table>
@@ -230,11 +265,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
+    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-alias"><code>alias</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets an AuthorizationRule for a Namespace by rule name.</td>
+    <td>Gets the primary and secondary connection strings for the Namespace.</td>
 </tr>
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
@@ -242,6 +277,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-alias"><code>alias</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves Alias(Disaster Recovery configuration) for primary or secondary namespace.</td>
+</tr>
+<tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check the give Namespace name availability.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
@@ -279,18 +321,11 @@ The following methods are available for this resource:
     <td>Gets a list of authorization rules for a Namespace.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
+    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-alias"><code>alias</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the primary and secondary connection strings for the Namespace.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Check the give Namespace name availability.</td>
+    <td>Gets an AuthorizationRule for a Namespace by rule name.</td>
 </tr>
 <tr>
     <td><a href="#break_pairing"><CopyableCode code="break_pairing" /></a></td>
@@ -353,25 +388,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
-Gets an AuthorizationRule for a Namespace by rule name.
+Gets the primary and secondary connection strings for the Namespace.
 
 ```sql
 SELECT
-id,
-name,
-location,
-rights,
-systemData,
-type
+aliasPrimaryConnectionString,
+aliasSecondaryConnectionString,
+keyName,
+primaryConnectionString,
+primaryKey,
+secondaryConnectionString,
+secondaryKey
 FROM azure.eventhub.disaster_recovery_configs
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
@@ -401,6 +438,22 @@ FROM azure.eventhub.disaster_recovery_configs
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
 AND alias = '{{ alias }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check the give Namespace name availability.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.eventhub.disaster_recovery_configs
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND namespace_name = '{{ namespace_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -558,8 +611,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_authorization_rules"
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
-        { label: 'list_keys', value: 'list_keys' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
+        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
         { label: 'break_pairing', value: 'break_pairing' },
         { label: 'fail_over', value: 'fail_over' }
     ]}
@@ -577,33 +629,17 @@ EXEC azure.eventhub.disaster_recovery_configs.list_authorization_rules
 ;
 ```
 </TabItem>
-<TabItem value="list_keys">
+<TabItem value="get_authorization_rule">
 
-Gets the primary and secondary connection strings for the Namespace.
+Gets an AuthorizationRule for a Namespace by rule name.
 
 ```sql
-EXEC azure.eventhub.disaster_recovery_configs.list_keys 
+EXEC azure.eventhub.disaster_recovery_configs.get_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @alias='{{ alias }}' --required, 
 @authorization_rule_name='{{ authorization_rule_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check the give Namespace name availability.
-
-```sql
-EXEC azure.eventhub.disaster_recovery_configs.check_name_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@namespace_name='{{ namespace_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}"
-}'
 ;
 ```
 </TabItem>

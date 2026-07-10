@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'list_skus_for_capacity', value: 'list_skus_for_capacity' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -134,6 +135,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the PowerBI Dedicated resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed message of the request unavailability.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicator of availability of the capacity name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason of unavailability.</td>
 </tr>
 </tbody>
 </table>
@@ -249,6 +279,13 @@ The following methods are available for this resource:
     <td>Gets all the Dedicated capacities for the given resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check the name availability in the target location.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -304,13 +341,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Resumes operation of the specified Dedicated capacity instance.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Check the name availability in the target location.</td>
-</tr>
 </tbody>
 </table>
 
@@ -357,6 +387,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'list_skus_for_capacity', value: 'list_skus_for_capacity' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -395,6 +426,21 @@ tenantId,
 type
 FROM azure.powerbidedicated.capacities
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check the name availability in the target location.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.powerbidedicated.capacities
+WHERE location = '{{ location }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -589,8 +635,7 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_skus', value: 'list_skus' },
         { label: 'get_details', value: 'get_details' },
         { label: 'suspend', value: 'suspend' },
-        { label: 'resume', value: 'resume' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'resume', value: 'resume' }
     ]}
 >
 <TabItem value="list_skus">
@@ -636,22 +681,6 @@ EXEC azure.powerbidedicated.capacities.resume
 @resource_group_name='{{ resource_group_name }}' --required, 
 @dedicated_capacity_name='{{ dedicated_capacity_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check the name availability in the target location.
-
-```sql
-EXEC azure.powerbidedicated.capacities.check_name_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

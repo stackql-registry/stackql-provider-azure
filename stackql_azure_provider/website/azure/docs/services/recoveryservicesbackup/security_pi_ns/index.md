@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>security_pi_ns</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="expiryTimeInUtcTicks" /></td>
+    <td><code>integer</code></td>
+    <td>Expiry time of token.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="securityPIN" /></td>
+    <td><code>string</code></td>
+    <td>Security PIN.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="token" /></td>
+    <td><code>string</code></td>
+    <td>Token value.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +85,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-x-ms-authorization-auxiliary"><code>x-ms-authorization-auxiliary</code></a></td>
     <td>Get the security PIN.</td>
@@ -96,28 +130,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_raw"
+    defaultValue="get"
     values={[
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'get', value: 'get' }
     ]}
 >
-<TabItem value="get_raw">
+<TabItem value="get">
 
 Get the security PIN.
 
 ```sql
-EXEC azure.recoveryservicesbackup.security_pi_ns.get_raw 
-@vault_name='{{ vault_name }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@x-ms-authorization-auxiliary='{{ x-ms-authorization-auxiliary }}' 
-@@json=
-'{
-"resourceGuardOperationRequests": "{{ resourceGuardOperationRequests }}"
-}'
+SELECT
+expiryTimeInUtcTicks,
+securityPIN,
+token
+FROM azure.recoveryservicesbackup.security_pi_ns
+WHERE vault_name = '{{ vault_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND x-ms-authorization-auxiliary = '{{ x-ms-authorization-auxiliary }}'
 ;
 ```
 </TabItem>

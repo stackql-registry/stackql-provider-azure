@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists an <code>answers_from_texts</code> reso
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_answers_from_text"
+    values={[
+        { label: 'get_answers_from_text', value: 'get_answers_from_text' }
+    ]}
+>
+<TabItem value="get_answers_from_text">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="answers" /></td>
+    <td><code>array</code></td>
+    <td>Represents the answer results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +76,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_answers_from_text"><CopyableCode code="get_answers_from_text" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-question"><code>question</code></a>, <a href="#parameter-records"><code>records</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Answers the specified question using the provided text in the body.</td>
 </tr>
@@ -81,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_answers_from_text"
@@ -94,15 +118,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Answers the specified question using the provided text in the body.
 
 ```sql
-EXEC azure.ai_language_questionanswering.answers_from_texts.get_answers_from_text 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"question": "{{ question }}", 
-"records": "{{ records }}", 
-"language": "{{ language }}", 
-"stringIndexType": "{{ stringIndexType }}"
-}'
+SELECT
+answers
+FROM azure.ai_language_questionanswering.answers_from_texts
+WHERE endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>

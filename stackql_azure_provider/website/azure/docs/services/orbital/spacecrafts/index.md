@@ -33,13 +33,83 @@ Creates, updates, deletes, gets or lists a <code>spacecrafts</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_available_contacts"
     values={[
+        { label: 'list_available_contacts', value: 'list_available_contacts' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_available_contacts">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="endAzimuthDegrees" /></td>
+    <td><code>number</code></td>
+    <td>Azimuth of the antenna at the end of the contact in decimal degrees.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endElevationDegrees" /></td>
+    <td><code>number</code></td>
+    <td>Spacecraft elevation above the horizon at contact end.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="groundStationName" /></td>
+    <td><code>string</code></td>
+    <td>Name of Azure Ground Station.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="maximumElevationDegrees" /></td>
+    <td><code>number</code></td>
+    <td>Maximum elevation of the antenna during the contact in decimal degrees.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="rxEndTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Time to lost receiving a signal (ISO 8601 UTC standard).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="rxStartTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Earliest time to receive a signal (ISO 8601 UTC standard).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="spacecraft" /></td>
+    <td><code>object</code></td>
+    <td>The reference to the spacecraft resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startAzimuthDegrees" /></td>
+    <td><code>number</code></td>
+    <td>Azimuth of the antenna at the start of the contact in decimal degrees.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startElevationDegrees" /></td>
+    <td><code>number</code></td>
+    <td>Spacecraft elevation above the horizon at contact start.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="txEndTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Time at which antenna transmit will be disabled (ISO 8601 UTC standard).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="txStartTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Time at which antenna transmit will be enabled (ISO 8601 UTC standard).</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -280,6 +350,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_available_contacts"><CopyableCode code="list_available_contacts" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-spacecraft_name"><code>spacecraft_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Returns list of available contacts. A contact is available if the spacecraft is visible from the ground station for more than the minimum viable contact duration provided in the contact profile.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-spacecraft_name"><code>spacecraft_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -328,13 +405,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Deletes a specified spacecraft resource.</td>
 </tr>
-<tr>
-    <td><a href="#list_available_contacts"><CopyableCode code="list_available_contacts" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-spacecraft_name"><code>spacecraft_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-id"><code>id</code></a></td>
-    <td></td>
-    <td>Returns list of available contacts. A contact is available if the spacecraft is visible from the ground station for more than the minimum viable contact duration provided in the contact profile.</td>
-</tr>
 </tbody>
 </table>
 
@@ -377,13 +447,38 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_available_contacts"
     values={[
+        { label: 'list_available_contacts', value: 'list_available_contacts' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_available_contacts">
+
+Returns list of available contacts. A contact is available if the spacecraft is visible from the ground station for more than the minimum viable contact duration provided in the contact profile.
+
+```sql
+SELECT
+endAzimuthDegrees,
+endElevationDegrees,
+groundStationName,
+maximumElevationDegrees,
+rxEndTime,
+rxStartTime,
+spacecraft,
+startAzimuthDegrees,
+startElevationDegrees,
+txEndTime,
+txStartTime
+FROM azure.orbital.spacecrafts
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND spacecraft_name = '{{ spacecraft_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the specified spacecraft in a specified resource group.
@@ -637,33 +732,6 @@ DELETE FROM azure.orbital.spacecrafts
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND spacecraft_name = '{{ spacecraft_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_available_contacts"
-    values={[
-        { label: 'list_available_contacts', value: 'list_available_contacts' }
-    ]}
->
-<TabItem value="list_available_contacts">
-
-Returns list of available contacts. A contact is available if the spacecraft is visible from the ground station for more than the minimum viable contact duration provided in the contact profile.
-
-```sql
-EXEC azure.orbital.spacecrafts.list_available_contacts 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@spacecraft_name='{{ spacecraft_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"id": "{{ id }}"
-}'
 ;
 ```
 </TabItem>

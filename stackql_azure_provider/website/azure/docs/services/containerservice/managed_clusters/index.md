@@ -33,8 +33,9 @@ Creates, updates, deletes, gets or lists a <code>managed_clusters</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_command_result"
+    defaultValue="get_access_profile"
     values={[
+        { label: 'get_access_profile', value: 'get_access_profile' },
         { label: 'get_command_result', value: 'get_command_result' },
         { label: 'get_mesh_upgrade_profile', value: 'get_mesh_upgrade_profile' },
         { label: 'get', value: 'get' },
@@ -45,6 +46,55 @@ The following fields are returned by `SELECT` queries:
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_access_profile">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kubeConfig" /></td>
+    <td><code>string (byte)</code></td>
+    <td>Base64-encoded Kubernetes configuration file.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The geo-location where the resource lives. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>Resource tags.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_command_result">
 
 <table>
@@ -1290,6 +1340,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_access_profile"><CopyableCode code="get_access_profile" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-role_name"><code>role_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets an access profile of a managed cluster. **WARNING**: This API will be deprecated. Instead use `ListClusterUserCredentials `_ or `ListClusterAdminCredentials `_ .</td>
+</tr>
+<tr>
     <td><a href="#get_command_result"><CopyableCode code="get_command_result" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-command_id"><code>command_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1428,13 +1485,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a list of supported Kubernetes versions in the specified subscription. Contains extra metadata on the version, including supported patch versions, capabilities, available upgrades, and details on preview status of the version.</td>
-</tr>
-<tr>
-    <td><a href="#get_access_profile"><CopyableCode code="get_access_profile" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-role_name"><code>role_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets an access profile of a managed cluster. **WARNING**: This API will be deprecated. Instead use `ListClusterUserCredentials `_ or `ListClusterAdminCredentials `_ .</td>
 </tr>
 <tr>
     <td><a href="#get_upgrade_profile"><CopyableCode code="get_upgrade_profile" /></a></td>
@@ -1590,8 +1640,9 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_command_result"
+    defaultValue="get_access_profile"
     values={[
+        { label: 'get_access_profile', value: 'get_access_profile' },
         { label: 'get_command_result', value: 'get_command_result' },
         { label: 'get_mesh_upgrade_profile', value: 'get_mesh_upgrade_profile' },
         { label: 'get', value: 'get' },
@@ -1602,6 +1653,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_access_profile">
+
+Gets an access profile of a managed cluster. **WARNING**: This API will be deprecated. Instead use `ListClusterUserCredentials `_ or `ListClusterAdminCredentials `_ .
+
+```sql
+SELECT
+id,
+name,
+kubeConfig,
+location,
+systemData,
+tags,
+type
+FROM azure.containerservice.managed_clusters
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND resource_name = '{{ resource_name }}' -- required
+AND role_name = '{{ role_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_command_result">
 
 Gets the results of a command which has been run on the Managed Cluster.
@@ -2703,7 +2775,6 @@ AND ignore-pod-disruption-budget = '{{ ignore-pod-disruption-budget }}'
         { label: 'list_mesh_revision_profiles', value: 'list_mesh_revision_profiles' },
         { label: 'list_mesh_upgrade_profiles', value: 'list_mesh_upgrade_profiles' },
         { label: 'list_kubernetes_versions', value: 'list_kubernetes_versions' },
-        { label: 'get_access_profile', value: 'get_access_profile' },
         { label: 'get_upgrade_profile', value: 'get_upgrade_profile' },
         { label: 'get_safeguards_versions', value: 'get_safeguards_versions' },
         { label: 'reset_service_principal_profile', value: 'reset_service_principal_profile' },
@@ -2810,19 +2881,6 @@ Gets a list of supported Kubernetes versions in the specified subscription. Cont
 ```sql
 EXEC azure.containerservice.managed_clusters.list_kubernetes_versions 
 @location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_access_profile">
-
-Gets an access profile of a managed cluster. **WARNING**: This API will be deprecated. Instead use `ListClusterUserCredentials `_ or `ListClusterAdminCredentials `_ .
-
-```sql
-EXEC azure.containerservice.managed_clusters.get_access_profile 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@resource_name='{{ resource_name }}' --required, 
-@role_name='{{ role_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

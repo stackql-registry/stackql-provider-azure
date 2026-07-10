@@ -32,8 +32,62 @@ Creates, updates, deletes, gets or lists a <code>deployed_application_health_usi
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_deployed_application_health_using_policy"
+    values={[
+        { label: 'get_deployed_application_health_using_policy', value: 'get_deployed_application_health_using_policy' }
+    ]}
+>
+<TabItem value="get_deployed_application_health_using_policy">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="AggregatedHealthState" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="DeployedServicePackageHealthStates" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthEvents" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthStatistics" /></td>
+    <td><code>object</code></td>
+    <td>The health statistics of an entity, returned as part of the health query result when the query description is configured to include statistics. The statistics include health state counts for all children types of the current entity. For example, for cluster, the health statistics include health state counts for nodes, applications, services, partitions, replicas, deployed applications and deployed service packages. For partition, the health statistics include health counts for replicas.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="Name" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="NodeName" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="UnhealthyEvaluations" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +106,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_deployed_application_health_using_policy"><CopyableCode code="get_deployed_application_health_using_policy" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-EventsHealthStateFilter"><code>EventsHealthStateFilter</code></a>, <a href="#parameter-DeployedServicePackagesHealthStateFilter"><code>DeployedServicePackagesHealthStateFilter</code></a>, <a href="#parameter-ExcludeHealthStatistics"><code>ExcludeHealthStatistics</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the information about health of an application deployed on a Service Fabric node. using the specified policy. Gets the information about health of an application deployed on a Service Fabric node using the specified policy. Use EventsHealthStateFilter to optionally filter for the collection of HealthEvent objects reported on the deployed application based on health state. Use DeployedServicePackagesHealthStateFilter to optionally filter for DeployedServicePackageHealth children based on health state. Use ApplicationHealthPolicy to optionally override the health policies used to evaluate the health. This API only uses 'ConsiderWarningAsError' field of the ApplicationHealthPolicy. The rest of the fields are ignored while evaluating the health of the deployed application.</td>
@@ -111,7 +165,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_deployed_application_health_using_policy"
@@ -124,21 +178,22 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the information about health of an application deployed on a Service Fabric node. using the specified policy. Gets the information about health of an application deployed on a Service Fabric node using the specified policy. Use EventsHealthStateFilter to optionally filter for the collection of HealthEvent objects reported on the deployed application based on health state. Use DeployedServicePackagesHealthStateFilter to optionally filter for DeployedServicePackageHealth children based on health state. Use ApplicationHealthPolicy to optionally override the health policies used to evaluate the health. This API only uses 'ConsiderWarningAsError' field of the ApplicationHealthPolicy. The rest of the fields are ignored while evaluating the health of the deployed application.
 
 ```sql
-EXEC azure.servicefabric_dataplane.deployed_application_health_using_policies.get_deployed_application_health_using_policy 
-@application_id='{{ application_id }}' --required, 
-@node_name='{{ node_name }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@EventsHealthStateFilter='{{ EventsHealthStateFilter }}', 
-@DeployedServicePackagesHealthStateFilter='{{ DeployedServicePackagesHealthStateFilter }}', 
-@ExcludeHealthStatistics={{ ExcludeHealthStatistics }}, 
-@timeout='{{ timeout }}' 
-@@json=
-'{
-"ConsiderWarningAsError": {{ ConsiderWarningAsError }}, 
-"MaxPercentUnhealthyDeployedApplications": {{ MaxPercentUnhealthyDeployedApplications }}, 
-"DefaultServiceTypeHealthPolicy": "{{ DefaultServiceTypeHealthPolicy }}", 
-"ServiceTypeHealthPolicyMap": "{{ ServiceTypeHealthPolicyMap }}"
-}'
+SELECT
+AggregatedHealthState,
+DeployedServicePackageHealthStates,
+HealthEvents,
+HealthStatistics,
+Name,
+NodeName,
+UnhealthyEvaluations
+FROM azure.servicefabric_dataplane.deployed_application_health_using_policies
+WHERE application_id = '{{ application_id }}' -- required
+AND node_name = '{{ node_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND EventsHealthStateFilter = '{{ EventsHealthStateFilter }}'
+AND DeployedServicePackagesHealthStateFilter = '{{ DeployedServicePackagesHealthStateFilter }}'
+AND ExcludeHealthStatistics = '{{ ExcludeHealthStatistics }}'
+AND timeout = '{{ timeout }}'
 ;
 ```
 </TabItem>

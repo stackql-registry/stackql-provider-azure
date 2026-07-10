@@ -37,7 +37,8 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
-        { label: 'list_by_subscription', value: 'list_by_subscription' }
+        { label: 'list_by_subscription', value: 'list_by_subscription' },
+        { label: 'check_traffic_manager_relative_dns_name_availability', value: 'check_traffic_manager_relative_dns_name_availability' }
     ]}
 >
 <TabItem value="get">
@@ -292,6 +293,45 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="check_traffic_manager_relative_dns_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The relative name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Descriptive message that explains why the name is not available, when applicable.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Describes whether the relative name is available or not.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available, when applicable.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Traffic Manager profile resource type.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 </Tabs>
 
 ## Methods
@@ -331,6 +371,13 @@ The following methods are available for this resource:
     <td>Lists all Traffic Manager profiles within a subscription.</td>
 </tr>
 <tr>
+    <td><a href="#check_traffic_manager_relative_dns_name_availability"><CopyableCode code="check_traffic_manager_relative_dns_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td></td>
+    <td></td>
+    <td>Checks the availability of a Traffic Manager Relative DNS name.</td>
+</tr>
+<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-profile_name"><code>profile_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -357,13 +404,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-profile_name"><code>profile_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a Traffic Manager profile.</td>
-</tr>
-<tr>
-    <td><a href="#check_traffic_manager_relative_dns_name_availability"><CopyableCode code="check_traffic_manager_relative_dns_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td></td>
-    <td></td>
-    <td>Checks the availability of a Traffic Manager Relative DNS name.</td>
 </tr>
 <tr>
     <td><a href="#check_traffic_manager_name_availability_v2"><CopyableCode code="check_traffic_manager_name_availability_v2" /></a></td>
@@ -413,7 +453,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
-        { label: 'list_by_subscription', value: 'list_by_subscription' }
+        { label: 'list_by_subscription', value: 'list_by_subscription' },
+        { label: 'check_traffic_manager_relative_dns_name_availability', value: 'check_traffic_manager_relative_dns_name_availability' }
     ]}
 >
 <TabItem value="get">
@@ -491,6 +532,21 @@ trafficViewEnrollmentStatus,
 type
 FROM azure.trafficmanager.profiles
 WHERE subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_traffic_manager_relative_dns_name_availability">
+
+Checks the availability of a Traffic Manager Relative DNS name.
+
+```sql
+SELECT
+name,
+message,
+nameAvailable,
+reason,
+type
+FROM azure.trafficmanager.profiles
 ;
 ```
 </TabItem>
@@ -736,26 +792,11 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="check_traffic_manager_relative_dns_name_availability"
+    defaultValue="check_traffic_manager_name_availability_v2"
     values={[
-        { label: 'check_traffic_manager_relative_dns_name_availability', value: 'check_traffic_manager_relative_dns_name_availability' },
         { label: 'check_traffic_manager_name_availability_v2', value: 'check_traffic_manager_name_availability_v2' }
     ]}
 >
-<TabItem value="check_traffic_manager_relative_dns_name_availability">
-
-Checks the availability of a Traffic Manager Relative DNS name.
-
-```sql
-EXEC azure.trafficmanager.profiles.check_traffic_manager_relative_dns_name_availability 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="check_traffic_manager_name_availability_v2">
 
 Checks the availability of a Traffic Manager Relative DNS name.

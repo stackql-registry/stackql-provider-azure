@@ -32,8 +32,52 @@ Creates, updates, deletes, gets or lists a <code>connected_partner_resources</co
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="azureResourceId" /></td>
+    <td><code>string</code></td>
+    <td>The azure resource Id of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The location of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="partnerDeploymentName" /></td>
+    <td><code>string</code></td>
+    <td>Elastic resource name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="partnerDeploymentUri" /></td>
+    <td><code>string</code></td>
+    <td>URL of the resource in Elastic cloud.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The hosting type of the resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +95,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List all active deployments associated with the marketplace subscription linked to the given Elastic monitor resource. List all active deployments associated with the marketplace subscription linked to the given Elastic monitor resource.</td>
@@ -91,23 +135,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 List all active deployments associated with the marketplace subscription linked to the given Elastic monitor resource. List all active deployments associated with the marketplace subscription linked to the given Elastic monitor resource.
 
 ```sql
-EXEC azure_isv.elastic.connected_partner_resources.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+azureResourceId,
+location,
+partnerDeploymentName,
+partnerDeploymentUri,
+type
+FROM azure_isv.elastic.connected_partner_resources
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

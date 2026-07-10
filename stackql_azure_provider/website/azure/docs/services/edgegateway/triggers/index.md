@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-device_name"><code>device_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-accept-language"><code>accept-language</code></a></td>
     <td>Get a specific trigger by name.</td>
 </tr>
@@ -128,8 +128,8 @@ Get a specific trigger by name.
 
 ```sql
 EXEC azure.edgegateway.triggers.get_raw 
-@name='{{ name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
 @device_name='{{ device_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @accept-language='{{ accept-language }}'

@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>replica_health_using_policies</
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_replica_health_using_policy"
+    values={[
+        { label: 'get_replica_health_using_policy', value: 'get_replica_health_using_policy' }
+    ]}
+>
+<TabItem value="get_replica_health_using_policy">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="AggregatedHealthState" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthEvents" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthStatistics" /></td>
+    <td><code>object</code></td>
+    <td>The health statistics of an entity, returned as part of the health query result when the query description is configured to include statistics. The statistics include health state counts for all children types of the current entity. For example, for cluster, the health statistics include health state counts for nodes, applications, services, partitions, replicas, deployed applications and deployed service packages. For partition, the health statistics include health counts for replicas.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="PartitionId" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="ServiceKind" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="UnhealthyEvaluations" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +101,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_replica_health_using_policy"><CopyableCode code="get_replica_health_using_policy" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-EventsHealthStateFilter"><code>EventsHealthStateFilter</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the health of a Service Fabric stateful service replica or stateless service instance using the specified policy. Gets the health of a Service Fabric stateful service replica or stateless service instance. Use EventsHealthStateFilter to filter the collection of health events reported on the cluster based on the health state. Use ApplicationHealthPolicy to optionally override the health policies used to evaluate the health. This API only uses 'ConsiderWarningAsError' field of the ApplicationHealthPolicy. The rest of the fields are ignored while evaluating the health of the replica.</td>
@@ -101,7 +150,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_replica_health_using_policy"
@@ -114,19 +163,19 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the health of a Service Fabric stateful service replica or stateless service instance using the specified policy. Gets the health of a Service Fabric stateful service replica or stateless service instance. Use EventsHealthStateFilter to filter the collection of health events reported on the cluster based on the health state. Use ApplicationHealthPolicy to optionally override the health policies used to evaluate the health. This API only uses 'ConsiderWarningAsError' field of the ApplicationHealthPolicy. The rest of the fields are ignored while evaluating the health of the replica.
 
 ```sql
-EXEC azure.servicefabric_dataplane.replica_health_using_policies.get_replica_health_using_policy 
-@replica_id='{{ replica_id }}' --required, 
-@partition_id='{{ partition_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@EventsHealthStateFilter='{{ EventsHealthStateFilter }}', 
-@timeout='{{ timeout }}' 
-@@json=
-'{
-"ConsiderWarningAsError": {{ ConsiderWarningAsError }}, 
-"MaxPercentUnhealthyDeployedApplications": {{ MaxPercentUnhealthyDeployedApplications }}, 
-"DefaultServiceTypeHealthPolicy": "{{ DefaultServiceTypeHealthPolicy }}", 
-"ServiceTypeHealthPolicyMap": "{{ ServiceTypeHealthPolicyMap }}"
-}'
+SELECT
+AggregatedHealthState,
+HealthEvents,
+HealthStatistics,
+PartitionId,
+ServiceKind,
+UnhealthyEvaluations
+FROM azure.servicefabric_dataplane.replica_health_using_policies
+WHERE replica_id = '{{ replica_id }}' -- required
+AND partition_id = '{{ partition_id }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND EventsHealthStateFilter = '{{ EventsHealthStateFilter }}'
+AND timeout = '{{ timeout }}'
 ;
 ```
 </TabItem>

@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>data_protection</code> resource
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_feature_support"
+    values={[
+        { label: 'check_feature_support', value: 'check_feature_support' }
+    ]}
+>
+<TabItem value="check_feature_support">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="objectType" /></td>
+    <td><code>string</code></td>
+    <td>Type of the specific object - used for deserializing. Required. Default value is None.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +76,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_feature_support"><CopyableCode code="check_feature_support" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-objectType"><code>objectType</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Validates if a feature is supported. Validates if a feature is supported.</td>
 </tr>
@@ -86,7 +110,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_feature_support"
@@ -99,13 +123,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Validates if a feature is supported. Validates if a feature is supported.
 
 ```sql
-EXEC azure.dataprotection.data_protection.check_feature_support 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"objectType": "{{ objectType }}"
-}'
+SELECT
+objectType
+FROM azure.dataprotection.data_protection
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

@@ -32,8 +32,77 @@ Creates, updates, deletes, gets or lists a <code>carbon_service</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query_carbon_emission_reports"
+    values={[
+        { label: 'query_carbon_emission_reports', value: 'query_carbon_emission_reports' },
+        { label: 'query_carbon_emission_data_available_date_range', value: 'query_carbon_emission_data_available_date_range' }
+    ]}
+>
+<TabItem value="query_carbon_emission_reports">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="dataType" /></td>
+    <td><code>string</code></td>
+    <td>The data type of the query result, indicating the format of the returned response. Required. Known values are: "OverallSummaryData", "MonthlySummaryData", "TopItemsSummaryData", "ResourceTopItemsSummaryData", "ResourceGroupTopItemsSummaryData", "TopItemsMonthlySummaryData", "ResourceTopItemsMonthlySummaryData", "ResourceGroupTopItemsMonthlySummaryData", "ItemDetailsData", "ResourceItemDetailsData", and "ResourceGroupItemDetailsData".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="latestMonthEmissions" /></td>
+    <td><code>number</code></td>
+    <td>Total carbon emissions for the specified query parameters, measured in kgCO2E. This value represents total emissions over the specified date range (e.g., March-June). Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="monthOverMonthEmissionsChangeRatio" /></td>
+    <td><code>number</code></td>
+    <td>The percentage change in carbon emissions between the current and previous DateRange. This is calculated as: (latestMonthEmissions - previousMonthEmissions) / previousMonthEmissions.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="monthlyEmissionsChangeValue" /></td>
+    <td><code>number</code></td>
+    <td>The change in carbon emissions between the current and previous period, calculated as: latestMonthEmissions - previousMonthEmissions.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="previousMonthEmissions" /></td>
+    <td><code>number</code></td>
+    <td>Total carbon emissions for the previous month’s date range, which is the same period as the specified date range but shifted left by one month (e.g., if the specified range is March - June, the previous month’s range will be Feb - May). The value is measured in kgCO2E. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="query_carbon_emission_data_available_date_range">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="endDate" /></td>
+    <td><code>string</code></td>
+    <td>End date parameter, format is yyyy-MM-dd. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startDate" /></td>
+    <td><code>string</code></td>
+    <td>Start date parameter, format is yyyy-MM-dd. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,14 +121,14 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#query_carbon_emission_reports"><CopyableCode code="query_carbon_emission_reports" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-reportType"><code>reportType</code></a>, <a href="#parameter-dateRange"><code>dateRange</code></a>, <a href="#parameter-subscriptionList"><code>subscriptionList</code></a>, <a href="#parameter-carbonScopeList"><code>carbonScopeList</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td></td>
     <td></td>
     <td>API for Carbon Emissions Reports.</td>
 </tr>
 <tr>
     <td><a href="#query_carbon_emission_data_available_date_range"><CopyableCode code="query_carbon_emission_data_available_date_range" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td></td>
     <td></td>
     <td>API for query carbon emission data available date range.</td>
@@ -83,7 +152,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="query_carbon_emission_reports"
@@ -97,17 +166,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 API for Carbon Emissions Reports.
 
 ```sql
-EXEC azure.carbonoptimization.carbon_service.query_carbon_emission_reports 
-@@json=
-'{
-"reportType": "{{ reportType }}", 
-"dateRange": "{{ dateRange }}", 
-"subscriptionList": "{{ subscriptionList }}", 
-"resourceGroupUrlList": "{{ resourceGroupUrlList }}", 
-"resourceTypeList": "{{ resourceTypeList }}", 
-"locationList": "{{ locationList }}", 
-"carbonScopeList": "{{ carbonScopeList }}"
-}'
+SELECT
+dataType,
+latestMonthEmissions,
+monthOverMonthEmissionsChangeRatio,
+monthlyEmissionsChangeValue,
+previousMonthEmissions
+FROM azure.carbonoptimization.carbon_service
 ;
 ```
 </TabItem>
@@ -116,8 +181,10 @@ EXEC azure.carbonoptimization.carbon_service.query_carbon_emission_reports
 API for query carbon emission data available date range.
 
 ```sql
-EXEC azure.carbonoptimization.carbon_service.query_carbon_emission_data_available_date_range 
-
+SELECT
+endDate,
+startDate
+FROM azure.carbonoptimization.carbon_service
 ;
 ```
 </TabItem>

@@ -33,11 +33,66 @@ Creates, updates, deletes, gets or lists a <code>service</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_properties"
+    defaultValue="get_user_delegation_key"
     values={[
+        { label: 'get_user_delegation_key', value: 'get_user_delegation_key' },
         { label: 'get_properties', value: 'get_properties' }
     ]}
 >
+<TabItem value="get_user_delegation_key">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="signedDelegatedUserTid" /></td>
+    <td><code>string</code></td>
+    <td>The delegated user tenant ID in Entra ID. Return if DelegatedUserTid is specified.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signedExpiry" /></td>
+    <td><code>string</code></td>
+    <td>The date-time the key expires. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signedOid" /></td>
+    <td><code>string</code></td>
+    <td>The Entra ID object ID in GUID format. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signedService" /></td>
+    <td><code>string</code></td>
+    <td>The service that created the key. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signedStart" /></td>
+    <td><code>string</code></td>
+    <td>The date-time the key is active. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signedTid" /></td>
+    <td><code>string</code></td>
+    <td>The Entra ID tenant ID in GUID format. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signedVersion" /></td>
+    <td><code>string</code></td>
+    <td>The service version used when creating the key. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td>The key as a base64 string. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_properties">
 
 <table>
@@ -90,6 +145,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_user_delegation_key"><CopyableCode code="get_user_delegation_key" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Retrieves a user delegation key for the Queue service. This is only a valid operation when using bearer token authentication.</td>
+</tr>
+<tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-account"><code>account</code></a></td>
@@ -109,13 +171,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves statistics related to replication for the Queue service. It is only available on the secondary location endpoint when read-access geo-redundant replication is enabled for the storage account.</td>
-</tr>
-<tr>
-    <td><a href="#get_user_delegation_key"><CopyableCode code="get_user_delegation_key" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-account"><code>account</code></a>, <a href="#parameter-expiry"><code>expiry</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Retrieves a user delegation key for the Queue service. This is only a valid operation when using bearer token authentication.</td>
 </tr>
 <tr>
     <td><a href="#get_queues"><CopyableCode code="get_queues" /></a></td>
@@ -176,11 +231,32 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_properties"
+    defaultValue="get_user_delegation_key"
     values={[
+        { label: 'get_user_delegation_key', value: 'get_user_delegation_key' },
         { label: 'get_properties', value: 'get_properties' }
     ]}
 >
+<TabItem value="get_user_delegation_key">
+
+Retrieves a user delegation key for the Queue service. This is only a valid operation when using bearer token authentication.
+
+```sql
+SELECT
+signedDelegatedUserTid,
+signedExpiry,
+signedOid,
+signedService,
+signedStart,
+signedTid,
+signedVersion,
+value
+FROM azure.storage_queue.service
+WHERE account = '{{ account }}' -- required
+AND timeout = '{{ timeout }}'
+;
+```
+</TabItem>
 <TabItem value="get_properties">
 
 Retrieves properties of a storage account's Queue service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.
@@ -207,7 +283,6 @@ AND timeout = '{{ timeout }}'
     values={[
         { label: 'set_properties', value: 'set_properties' },
         { label: 'get_statistics', value: 'get_statistics' },
-        { label: 'get_user_delegation_key', value: 'get_user_delegation_key' },
         { label: 'get_queues', value: 'get_queues' }
     ]}
 >
@@ -237,23 +312,6 @@ Retrieves statistics related to replication for the Queue service. It is only av
 EXEC azure.storage_queue.service.get_statistics 
 @account='{{ account }}' --required, 
 @timeout='{{ timeout }}'
-;
-```
-</TabItem>
-<TabItem value="get_user_delegation_key">
-
-Retrieves a user delegation key for the Queue service. This is only a valid operation when using bearer token authentication.
-
-```sql
-EXEC azure.storage_queue.service.get_user_delegation_key 
-@account='{{ account }}' --required, 
-@timeout='{{ timeout }}' 
-@@json=
-'{
-"start": "{{ start }}", 
-"expiry": "{{ expiry }}", 
-"delegatedUserTid": "{{ delegatedUserTid }}"
-}'
 ;
 ```
 </TabItem>

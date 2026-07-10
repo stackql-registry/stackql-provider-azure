@@ -344,14 +344,14 @@ The following methods are available for this resource:
     <td>Delete a CloudAccount.</td>
 </tr>
 <tr>
-    <td><a href="#link_saa_s"><CopyableCode code="link_saa_s" /></a></td>
+    <td><a href="#link_saas"><CopyableCode code="link_saas" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Links a new SaaS to the cloud account. Links a new SaaS to the cloud account.</td>
 </tr>
 <tr>
-    <td><a href="#latest_linked_saa_s"><CopyableCode code="latest_linked_saa_s" /></a></td>
+    <td><a href="#latest_linked_saas"><CopyableCode code="latest_linked_saas" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloud_account_name"><code>cloud_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
@@ -689,18 +689,18 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="link_saa_s"
+    defaultValue="link_saas"
     values={[
-        { label: 'link_saa_s', value: 'link_saa_s' },
-        { label: 'latest_linked_saa_s', value: 'latest_linked_saa_s' }
+        { label: 'link_saas', value: 'link_saas' },
+        { label: 'latest_linked_saas', value: 'latest_linked_saas' }
     ]}
 >
-<TabItem value="link_saa_s">
+<TabItem value="link_saas">
 
 Links a new SaaS to the cloud account. Links a new SaaS to the cloud account.
 
 ```sql
-EXEC azure_isv.commvaultcontentstore.cloud_accounts.link_saa_s 
+EXEC azure_isv.commvaultcontentstore.cloud_accounts.link_saas 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @cloud_account_name='{{ cloud_account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 
@@ -711,12 +711,12 @@ EXEC azure_isv.commvaultcontentstore.cloud_accounts.link_saa_s
 ;
 ```
 </TabItem>
-<TabItem value="latest_linked_saa_s">
+<TabItem value="latest_linked_saas">
 
 Returns the latest SaaS linked to the cloud account.
 
 ```sql
-EXEC azure_isv.commvaultcontentstore.cloud_accounts.latest_linked_saa_s 
+EXEC azure_isv.commvaultcontentstore.cloud_accounts.latest_linked_saas 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @cloud_account_name='{{ cloud_account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required

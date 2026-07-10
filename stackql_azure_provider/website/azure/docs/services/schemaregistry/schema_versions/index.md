@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>schema_versions</code> resource
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_schema_versions"
+    values={[
+        { label: 'list_schema_versions', value: 'list_schema_versions' }
+    ]}
+>
+<TabItem value="list_schema_versions">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>integer</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_schema_versions"><CopyableCode code="list_schema_versions" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-group_name"><code>group_name</code></a>, <a href="#parameter-schema_name"><code>schema_name</code></a>, <a href="#parameter-fully_qualified_namespace"><code>fully_qualified_namespace</code></a></td>
     <td></td>
     <td>List schema versions. Gets the list of all versions of one schema.</td>
@@ -91,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_schema_versions"
@@ -104,10 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 List schema versions. Gets the list of all versions of one schema.
 
 ```sql
-EXEC azure.schemaregistry.schema_versions.list_schema_versions 
-@group_name='{{ group_name }}' --required, 
-@schema_name='{{ schema_name }}' --required, 
-@fully_qualified_namespace='{{ fully_qualified_namespace }}' --required
+SELECT
+value
+FROM azure.schemaregistry.schema_versions
+WHERE group_name = '{{ group_name }}' -- required
+AND schema_name = '{{ schema_name }}' -- required
+AND fully_qualified_namespace = '{{ fully_qualified_namespace }}' -- required
 ;
 ```
 </TabItem>

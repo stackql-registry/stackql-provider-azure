@@ -37,6 +37,6 @@ total resources: __11__
 <a href="/services/botservice/operations/">operations</a><br />
 <a href="/services/botservice/private_endpoint_connections/">private_endpoint_connections</a><br />
 <a href="/services/botservice/private_link_resources/">private_link_resources</a><br />
-<a href="/services/botservice/qn_a_maker_endpoint_keys/">qn_a_maker_endpoint_keys</a>
+<a href="/services/botservice/qna_maker_endpoint_keys/">qna_maker_endpoint_keys</a>
 </div>
 </div>

@@ -33,13 +33,43 @@ Creates, updates, deletes, gets or lists a <code>storage_sync_services</code> re
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Gets an error message explaining the Reason value in more detail.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Gets a boolean value that indicates whether the name is available for you to use. If true, the name is available. If false, the name has already been taken or invalid and cannot be used.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Gets the reason that a Storage Sync Service name could not be used. The Reason element is only returned if NameAvailable is false. Known values are: "Invalid" and "AlreadyExists".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -295,6 +325,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check the give namespace name availability.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-storage_sync_service_name"><code>storage_sync_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -335,13 +372,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-storage_sync_service_name"><code>storage_sync_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a given StorageSyncService.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Check the give namespace name availability.</td>
 </tr>
 </tbody>
 </table>
@@ -385,13 +415,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Check the give namespace name availability.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.storagesync.storage_sync_services
+WHERE location_name = '{{ location_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a given StorageSyncService.
@@ -592,33 +638,6 @@ DELETE FROM azure.storagesync.storage_sync_services
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND storage_sync_service_name = '{{ storage_sync_service_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="check_name_availability"
-    values={[
-        { label: 'check_name_availability', value: 'check_name_availability' }
-    ]}
->
-<TabItem value="check_name_availability">
-
-Check the give namespace name availability.
-
-```sql
-EXEC azure.storagesync.storage_sync_services.check_name_availability 
-@location_name='{{ location_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

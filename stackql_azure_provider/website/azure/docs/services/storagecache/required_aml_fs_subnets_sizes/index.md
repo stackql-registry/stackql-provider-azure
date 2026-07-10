@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>required_aml_fs_subnets_sizes</
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_required_aml_fs_subnets_size"
+    values={[
+        { label: 'get_required_aml_fs_subnets_size', value: 'get_required_aml_fs_subnets_size' }
+    ]}
+>
+<TabItem value="get_required_aml_fs_subnets_size">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="filesystemSubnetSize" /></td>
+    <td><code>integer</code></td>
+    <td>The number of available IP addresses that are required for the AML file system.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_required_aml_fs_subnets_size"><CopyableCode code="get_required_aml_fs_subnets_size" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the number of available IP addresses needed for the AML file system information provided.</td>
@@ -81,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_required_aml_fs_subnets_size"
@@ -94,13 +118,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get the number of available IP addresses needed for the AML file system information provided.
 
 ```sql
-EXEC azure.storagecache.required_aml_fs_subnets_sizes.get_required_aml_fs_subnets_size 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"storageCapacityTiB": {{ storageCapacityTiB }}, 
-"sku": "{{ sku }}"
-}'
+SELECT
+filesystemSubnetSize
+FROM azure.storagecache.required_aml_fs_subnets_sizes
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

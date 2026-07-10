@@ -33,13 +33,13 @@ Creates, updates, deletes, gets or lists a <code>vpn_link_connections</code> res
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_default_shared_key"
+    defaultValue="list_default_shared_key"
     values={[
-        { label: 'get_default_shared_key', value: 'get_default_shared_key' },
+        { label: 'list_default_shared_key', value: 'list_default_shared_key' },
         { label: 'list_by_vpn_connection', value: 'list_by_vpn_connection' }
     ]}
 >
-<TabItem value="get_default_shared_key">
+<TabItem value="list_default_shared_key">
 
 <table>
 <thead>
@@ -230,11 +230,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_default_shared_key"><CopyableCode code="get_default_shared_key" /></a></td>
+    <td><a href="#list_default_shared_key"><CopyableCode code="list_default_shared_key" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-link_connection_name"><code>link_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the shared key of VpnLink connection specified.</td>
+    <td>Gets the value of the shared key of VpnLink connection specified.</td>
 </tr>
 <tr>
     <td><a href="#list_by_vpn_connection"><CopyableCode code="list_by_vpn_connection" /></a></td>
@@ -244,11 +244,11 @@ The following methods are available for this resource:
     <td>Retrieves all vpn site link connections for a particular virtual wan vpn gateway vpn connection.</td>
 </tr>
 <tr>
-    <td><a href="#list_default_shared_key"><CopyableCode code="list_default_shared_key" /></a></td>
+    <td><a href="#get_default_shared_key"><CopyableCode code="get_default_shared_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-link_connection_name"><code>link_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the value of the shared key of VpnLink connection specified.</td>
+    <td>Gets the shared key of VpnLink connection specified.</td>
 </tr>
 <tr>
     <td><a href="#set_or_init_default_shared_key"><CopyableCode code="set_or_init_default_shared_key" /></a></td>
@@ -325,15 +325,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_default_shared_key"
+    defaultValue="list_default_shared_key"
     values={[
-        { label: 'get_default_shared_key', value: 'get_default_shared_key' },
+        { label: 'list_default_shared_key', value: 'list_default_shared_key' },
         { label: 'list_by_vpn_connection', value: 'list_by_vpn_connection' }
     ]}
 >
-<TabItem value="get_default_shared_key">
+<TabItem value="list_default_shared_key">
 
-Gets the shared key of VpnLink connection specified.
+Gets the value of the shared key of VpnLink connection specified.
 
 ```sql
 SELECT
@@ -395,21 +395,21 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_default_shared_key"
+    defaultValue="get_default_shared_key"
     values={[
-        { label: 'list_default_shared_key', value: 'list_default_shared_key' },
+        { label: 'get_default_shared_key', value: 'get_default_shared_key' },
         { label: 'set_or_init_default_shared_key', value: 'set_or_init_default_shared_key' },
         { label: 'get_all_shared_keys', value: 'get_all_shared_keys' },
         { label: 'get_ike_sas', value: 'get_ike_sas' },
         { label: 'reset_connection', value: 'reset_connection' }
     ]}
 >
-<TabItem value="list_default_shared_key">
+<TabItem value="get_default_shared_key">
 
-Gets the value of the shared key of VpnLink connection specified.
+Gets the shared key of VpnLink connection specified.
 
 ```sql
-EXEC azure.network.vpn_link_connections.list_default_shared_key 
+EXEC azure.network.vpn_link_connections.get_default_shared_key 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @gateway_name='{{ gateway_name }}' --required, 
 @connection_name='{{ connection_name }}' --required, 

@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get_search_assets_for_tile', value: 'get_search_assets_for_tile' },
         { label: 'get_collection_assets_for_tile', value: 'get_collection_assets_for_tile' },
+        { label: 'get_item_feature_statistics', value: 'get_item_feature_statistics' },
         { label: 'get_item_point', value: 'get_item_point' },
         { label: 'get_tileset_metadata', value: 'get_tileset_metadata' },
         { label: 'get_collection_point', value: 'get_collection_point' },
@@ -46,7 +47,8 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_search_tileset_metadata', value: 'get_search_tileset_metadata' },
         { label: 'get_tile_matrix_definitions', value: 'get_tile_matrix_definitions' },
         { label: 'get_collection_tilesets', value: 'get_collection_tilesets' },
-        { label: 'get_search_tilesets', value: 'get_search_tilesets' }
+        { label: 'get_search_tilesets', value: 'get_search_tilesets' },
+        { label: 'get_tile_matrices', value: 'get_tile_matrices' }
     ]}
 >
 <TabItem value="get_search_assets_for_tile">
@@ -113,6 +115,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="collection" /></td>
     <td><code>string</code></td>
     <td>ID of the STAC collection this item belongs to.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_item_feature_statistics">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="geometry" /></td>
+    <td><code>object</code></td>
+    <td>Geometry object defining the feature's shape. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="statistics" /></td>
+    <td><code>object</code></td>
+    <td>Statistical information for each band in the asset. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>GeoJSON type identifier for Feature. Required. "Feature" (Feature)</td>
 </tr>
 </tbody>
 </table>
@@ -472,6 +503,25 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="get_tile_matrices">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 </Tabs>
 
 ## Methods
@@ -502,6 +552,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-tile_matrix_set_id"><code>tile_matrix_set_id</code></a>, <a href="#parameter-z"><code>z</code></a>, <a href="#parameter-x"><code>x</code></a>, <a href="#parameter-y"><code>y</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-scan_limit"><code>scan_limit</code></a>, <a href="#parameter-items_limit"><code>items_limit</code></a>, <a href="#parameter-time_limit"><code>time_limit</code></a>, <a href="#parameter-exitwhenfull"><code>exitwhenfull</code></a>, <a href="#parameter-skipcovered"><code>skipcovered</code></a>, <a href="#parameter-ids"><code>ids</code></a>, <a href="#parameter-bbox"><code>bbox</code></a>, <a href="#parameter-query"><code>query</code></a>, <a href="#parameter-sortby"><code>sortby</code></a>, <a href="#parameter-datetime"><code>datetime</code></a>, <a href="#parameter-subdataset_name"><code>subdataset_name</code></a>, <a href="#parameter-subdataset_bands"><code>subdataset_bands</code></a>, <a href="#parameter-crs"><code>crs</code></a>, <a href="#parameter-sel_method"><code>sel_method</code></a></td>
     <td>Collection Assets For Tile Tilematrixsetid As Path. Return a list of assets which overlap a given tile for a STAC collection (with TileMatrixSetId).</td>
+</tr>
+<tr>
+    <td><a href="#get_item_feature_statistics"><CopyableCode code="get_item_feature_statistics" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-expression"><code>expression</code></a>, <a href="#parameter-asset_bidx"><code>asset_bidx</code></a>, <a href="#parameter-asset_as_band"><code>asset_as_band</code></a>, <a href="#parameter-nodata"><code>nodata</code></a>, <a href="#parameter-unscale"><code>unscale</code></a>, <a href="#parameter-reproject"><code>reproject</code></a>, <a href="#parameter-coord_crs"><code>coord_crs</code></a>, <a href="#parameter-resampling"><code>resampling</code></a>, <a href="#parameter-max_size"><code>max_size</code></a>, <a href="#parameter-categorical"><code>categorical</code></a>, <a href="#parameter-c"><code>c</code></a>, <a href="#parameter-p"><code>p</code></a>, <a href="#parameter-histogram_bins"><code>histogram_bins</code></a>, <a href="#parameter-histogram_range"><code>histogram_range</code></a>, <a href="#parameter-dst_crs"><code>dst_crs</code></a>, <a href="#parameter-subdataset_name"><code>subdataset_name</code></a>, <a href="#parameter-subdataset_bands"><code>subdataset_bands</code></a>, <a href="#parameter-crs"><code>crs</code></a>, <a href="#parameter-datetime"><code>datetime</code></a>, <a href="#parameter-sel_method"><code>sel_method</code></a>, <a href="#parameter-algorithm"><code>algorithm</code></a>, <a href="#parameter-algorithm_params"><code>algorithm_params</code></a>, <a href="#parameter-height"><code>height</code></a>, <a href="#parameter-width"><code>width</code></a></td>
+    <td>Item Geojson Statistics. Get statistics from a GeoJSON feature for a STAC item.</td>
 </tr>
 <tr>
     <td><a href="#get_item_point"><CopyableCode code="get_item_point" /></a></td>
@@ -575,7 +632,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#get_tile_matrices"><CopyableCode code="get_tile_matrices" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Matrix List. Return Matrix List.</td>
@@ -698,13 +755,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-expression"><code>expression</code></a>, <a href="#parameter-asset_bidx"><code>asset_bidx</code></a>, <a href="#parameter-asset_as_band"><code>asset_as_band</code></a>, <a href="#parameter-nodata"><code>nodata</code></a>, <a href="#parameter-unscale"><code>unscale</code></a>, <a href="#parameter-reproject"><code>reproject</code></a>, <a href="#parameter-resampling"><code>resampling</code></a>, <a href="#parameter-max_size"><code>max_size</code></a>, <a href="#parameter-categorical"><code>categorical</code></a>, <a href="#parameter-c"><code>c</code></a>, <a href="#parameter-p"><code>p</code></a>, <a href="#parameter-histogram_bins"><code>histogram_bins</code></a>, <a href="#parameter-histogram_range"><code>histogram_range</code></a>, <a href="#parameter-subdataset_name"><code>subdataset_name</code></a>, <a href="#parameter-subdataset_bands"><code>subdataset_bands</code></a>, <a href="#parameter-crs"><code>crs</code></a>, <a href="#parameter-datetime"><code>datetime</code></a>, <a href="#parameter-sel_method"><code>sel_method</code></a>, <a href="#parameter-algorithm"><code>algorithm</code></a>, <a href="#parameter-algorithm_params"><code>algorithm_params</code></a>, <a href="#parameter-height"><code>height</code></a>, <a href="#parameter-width"><code>width</code></a></td>
     <td>Item Statistics. Merged assets statistics for a STAC item.</td>
-</tr>
-<tr>
-    <td><a href="#get_item_feature_statistics"><CopyableCode code="get_item_feature_statistics" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-collection_id"><code>collection_id</code></a>, <a href="#parameter-item_id"><code>item_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-geometry"><code>geometry</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td><a href="#parameter-expression"><code>expression</code></a>, <a href="#parameter-asset_bidx"><code>asset_bidx</code></a>, <a href="#parameter-asset_as_band"><code>asset_as_band</code></a>, <a href="#parameter-nodata"><code>nodata</code></a>, <a href="#parameter-unscale"><code>unscale</code></a>, <a href="#parameter-reproject"><code>reproject</code></a>, <a href="#parameter-coord_crs"><code>coord_crs</code></a>, <a href="#parameter-resampling"><code>resampling</code></a>, <a href="#parameter-max_size"><code>max_size</code></a>, <a href="#parameter-categorical"><code>categorical</code></a>, <a href="#parameter-c"><code>c</code></a>, <a href="#parameter-p"><code>p</code></a>, <a href="#parameter-histogram_bins"><code>histogram_bins</code></a>, <a href="#parameter-histogram_range"><code>histogram_range</code></a>, <a href="#parameter-dst_crs"><code>dst_crs</code></a>, <a href="#parameter-subdataset_name"><code>subdataset_name</code></a>, <a href="#parameter-subdataset_bands"><code>subdataset_bands</code></a>, <a href="#parameter-crs"><code>crs</code></a>, <a href="#parameter-datetime"><code>datetime</code></a>, <a href="#parameter-sel_method"><code>sel_method</code></a>, <a href="#parameter-algorithm"><code>algorithm</code></a>, <a href="#parameter-algorithm_params"><code>algorithm_params</code></a>, <a href="#parameter-height"><code>height</code></a>, <a href="#parameter-width"><code>width</code></a></td>
-    <td>Item Geojson Statistics. Get statistics from a GeoJSON feature for a STAC item.</td>
 </tr>
 <tr>
     <td><a href="#get_item_tile_json"><CopyableCode code="get_item_tile_json" /></a></td>
@@ -1470,6 +1520,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get_search_assets_for_tile', value: 'get_search_assets_for_tile' },
         { label: 'get_collection_assets_for_tile', value: 'get_collection_assets_for_tile' },
+        { label: 'get_item_feature_statistics', value: 'get_item_feature_statistics' },
         { label: 'get_item_point', value: 'get_item_point' },
         { label: 'get_tileset_metadata', value: 'get_tileset_metadata' },
         { label: 'get_collection_point', value: 'get_collection_point' },
@@ -1479,7 +1530,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_search_tileset_metadata', value: 'get_search_tileset_metadata' },
         { label: 'get_tile_matrix_definitions', value: 'get_tile_matrix_definitions' },
         { label: 'get_collection_tilesets', value: 'get_collection_tilesets' },
-        { label: 'get_search_tilesets', value: 'get_search_tilesets' }
+        { label: 'get_search_tilesets', value: 'get_search_tilesets' },
+        { label: 'get_tile_matrices', value: 'get_tile_matrices' }
     ]}
 >
 <TabItem value="get_search_assets_for_tile">
@@ -1544,6 +1596,46 @@ AND subdataset_name = '{{ subdataset_name }}'
 AND subdataset_bands = '{{ subdataset_bands }}'
 AND crs = '{{ crs }}'
 AND sel_method = '{{ sel_method }}'
+;
+```
+</TabItem>
+<TabItem value="get_item_feature_statistics">
+
+Item Geojson Statistics. Get statistics from a GeoJSON feature for a STAC item.
+
+```sql
+SELECT
+geometry,
+statistics,
+type
+FROM azure.planetarycomputer_dataplane.data
+WHERE collection_id = '{{ collection_id }}' -- required
+AND item_id = '{{ item_id }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND expression = '{{ expression }}'
+AND asset_bidx = '{{ asset_bidx }}'
+AND asset_as_band = '{{ asset_as_band }}'
+AND nodata = '{{ nodata }}'
+AND unscale = '{{ unscale }}'
+AND reproject = '{{ reproject }}'
+AND coord_crs = '{{ coord_crs }}'
+AND resampling = '{{ resampling }}'
+AND max_size = '{{ max_size }}'
+AND categorical = '{{ categorical }}'
+AND c = '{{ c }}'
+AND p = '{{ p }}'
+AND histogram_bins = '{{ histogram_bins }}'
+AND histogram_range = '{{ histogram_range }}'
+AND dst_crs = '{{ dst_crs }}'
+AND subdataset_name = '{{ subdataset_name }}'
+AND subdataset_bands = '{{ subdataset_bands }}'
+AND crs = '{{ crs }}'
+AND datetime = '{{ datetime }}'
+AND sel_method = '{{ sel_method }}'
+AND algorithm = '{{ algorithm }}'
+AND algorithm_params = '{{ algorithm_params }}'
+AND height = '{{ height }}'
+AND width = '{{ width }}'
 ;
 ```
 </TabItem>
@@ -1813,15 +1905,26 @@ AND sel_method = '{{ sel_method }}'
 ;
 ```
 </TabItem>
+<TabItem value="get_tile_matrices">
+
+Matrix List. Return Matrix List.
+
+```sql
+SELECT
+value
+FROM azure.planetarycomputer_dataplane.data
+WHERE endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 </Tabs>
 
 
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_tile_matrices"
+    defaultValue="get_class_map_legend"
     values={[
-        { label: 'get_tile_matrices', value: 'get_tile_matrices' },
         { label: 'get_class_map_legend', value: 'get_class_map_legend' },
         { label: 'get_interval_legend', value: 'get_interval_legend' },
         { label: 'get_legend', value: 'get_legend' },
@@ -1839,7 +1942,6 @@ AND sel_method = '{{ sel_method }}'
         { label: 'get_item_available_assets', value: 'get_item_available_assets' },
         { label: 'get_item_asset_statistics', value: 'get_item_asset_statistics' },
         { label: 'get_item_statistics', value: 'get_item_statistics' },
-        { label: 'get_item_feature_statistics', value: 'get_item_feature_statistics' },
         { label: 'get_item_tile_json', value: 'get_item_tile_json' },
         { label: 'get_item_tile_json_by_tms', value: 'get_item_tile_json_by_tms' },
         { label: 'get_item_wmts_capabilities', value: 'get_item_wmts_capabilities' },
@@ -1896,16 +1998,6 @@ AND sel_method = '{{ sel_method }}'
         { label: 'crop_search_feature_width_by_height', value: 'crop_search_feature_width_by_height' }
     ]}
 >
-<TabItem value="get_tile_matrices">
-
-Matrix List. Return Matrix List.
-
-```sql
-EXEC azure.planetarycomputer_dataplane.data.get_tile_matrices 
-@endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="get_class_map_legend">
 
 Get ClassMap Legend. Generate values and color swatches mapping for a given classmap.
@@ -2381,48 +2473,6 @@ EXEC azure.planetarycomputer_dataplane.data.get_item_statistics
 @algorithm_params='{{ algorithm_params }}', 
 @height='{{ height }}', 
 @width='{{ width }}'
-;
-```
-</TabItem>
-<TabItem value="get_item_feature_statistics">
-
-Item Geojson Statistics. Get statistics from a GeoJSON feature for a STAC item.
-
-```sql
-EXEC azure.planetarycomputer_dataplane.data.get_item_feature_statistics 
-@collection_id='{{ collection_id }}' --required, 
-@item_id='{{ item_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@expression='{{ expression }}', 
-@asset_bidx='{{ asset_bidx }}', 
-@asset_as_band={{ asset_as_band }}, 
-@nodata='{{ nodata }}', 
-@unscale={{ unscale }}, 
-@reproject='{{ reproject }}', 
-@coord_crs='{{ coord_crs }}', 
-@resampling='{{ resampling }}', 
-@max_size='{{ max_size }}', 
-@categorical={{ categorical }}, 
-@c='{{ c }}', 
-@p='{{ p }}', 
-@histogram_bins='{{ histogram_bins }}', 
-@histogram_range='{{ histogram_range }}', 
-@dst_crs='{{ dst_crs }}', 
-@subdataset_name='{{ subdataset_name }}', 
-@subdataset_bands='{{ subdataset_bands }}', 
-@crs='{{ crs }}', 
-@datetime='{{ datetime }}', 
-@sel_method='{{ sel_method }}', 
-@algorithm='{{ algorithm }}', 
-@algorithm_params='{{ algorithm_params }}', 
-@height='{{ height }}', 
-@width='{{ width }}' 
-@@json=
-'{
-"geometry": "{{ geometry }}", 
-"type": "{{ type }}", 
-"properties": "{{ properties }}"
-}'
 ;
 ```
 </TabItem>

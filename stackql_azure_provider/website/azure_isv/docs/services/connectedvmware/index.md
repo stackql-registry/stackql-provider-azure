@@ -33,7 +33,7 @@ total resources: __12__
 <a href="/services/connectedvmware/resource_pools/">resource_pools</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/connectedvmware/v_centers/">v_centers</a><br />
+<a href="/services/connectedvmware/vcenters/">vcenters</a><br />
 <a href="/services/connectedvmware/virtual_machine_instances/">virtual_machine_instances</a><br />
 <a href="/services/connectedvmware/virtual_machine_templates/">virtual_machine_templates</a><br />
 <a href="/services/connectedvmware/virtual_networks/">virtual_networks</a><br />

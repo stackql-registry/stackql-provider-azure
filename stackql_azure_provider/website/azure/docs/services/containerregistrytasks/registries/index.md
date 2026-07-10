@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>registries</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_build_source_upload_url"
+    values={[
+        { label: 'get_build_source_upload_url', value: 'get_build_source_upload_url' }
+    ]}
+>
+<TabItem value="get_build_source_upload_url">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="relativePath" /></td>
+    <td><code>string</code></td>
+    <td>The relative path to the source. This is used to submit the subsequent queue build request.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="uploadUrl" /></td>
+    <td><code>string</code></td>
+    <td>The URL where the client can upload the source.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +81,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_build_source_upload_url"><CopyableCode code="get_build_source_upload_url" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-registry_name"><code>registry_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the upload location for the user to be able to upload the source.</td>
@@ -98,13 +127,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_build_source_upload_url"
     values={[
-        { label: 'get_build_source_upload_url', value: 'get_build_source_upload_url' },
-        { label: 'schedule_run', value: 'schedule_run' }
+        { label: 'get_build_source_upload_url', value: 'get_build_source_upload_url' }
     ]}
 >
 <TabItem value="get_build_source_upload_url">
@@ -112,13 +140,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get the upload location for the user to be able to upload the source.
 
 ```sql
-EXEC azure.containerregistrytasks.registries.get_build_source_upload_url 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@registry_name='{{ registry_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+relativePath,
+uploadUrl
+FROM azure.containerregistrytasks.registries
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND registry_name = '{{ registry_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="schedule_run"
+    values={[
+        { label: 'schedule_run', value: 'schedule_run' }
+    ]}
+>
 <TabItem value="schedule_run">
 
 Schedules a new run based on the request parameters and add it to the run queue.

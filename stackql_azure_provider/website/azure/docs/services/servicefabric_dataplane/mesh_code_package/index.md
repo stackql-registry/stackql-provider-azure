@@ -77,7 +77,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_container_logs"><CopyableCode code="get_container_logs" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-replica_name"><code>replica_name</code></a>, <a href="#parameter-code_package_name"><code>code_package_name</code></a>, <a href="#parameter-application_resource_name"><code>application_resource_name</code></a>, <a href="#parameter-service_resource_name"><code>service_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-code_package_name"><code>code_package_name</code></a>, <a href="#parameter-application_resource_name"><code>application_resource_name</code></a>, <a href="#parameter-service_resource_name"><code>service_resource_name</code></a>, <a href="#parameter-replica_name"><code>replica_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-Tail"><code>Tail</code></a></td>
     <td>Gets the logs from the container. Gets the logs for the container of the specified code package of the service replica.</td>
 </tr>
@@ -146,10 +146,10 @@ Gets the logs from the container. Gets the logs for the container of the specifi
 SELECT
 Content
 FROM azure.servicefabric_dataplane.mesh_code_package
-WHERE replica_name = '{{ replica_name }}' -- required
-AND code_package_name = '{{ code_package_name }}' -- required
+WHERE code_package_name = '{{ code_package_name }}' -- required
 AND application_resource_name = '{{ application_resource_name }}' -- required
 AND service_resource_name = '{{ service_resource_name }}' -- required
+AND replica_name = '{{ replica_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND Tail = '{{ Tail }}'
 ;

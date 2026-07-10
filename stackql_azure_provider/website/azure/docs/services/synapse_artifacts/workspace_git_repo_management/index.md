@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>workspace_git_repo_management</
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_github_access_token"
+    values={[
+        { label: 'get_github_access_token', value: 'get_github_access_token' }
+    ]}
+>
+<TabItem value="get_github_access_token">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="gitHubAccessToken" /></td>
+    <td><code>string</code></td>
+    <td>:vartype git_hub_access_token: str</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,9 +75,9 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_git_hub_access_token"><CopyableCode code="get_git_hub_access_token" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-gitHubClientId"><code>gitHubClientId</code></a>, <a href="#parameter-gitHubAccessCode"><code>gitHubAccessCode</code></a>, <a href="#parameter-gitHubAccessTokenBaseUrl"><code>gitHubAccessTokenBaseUrl</code></a></td>
+    <td><a href="#get_github_access_token"><CopyableCode code="get_github_access_token" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a></td>
     <td>Get the GitHub access token.</td>
 </tr>
@@ -86,28 +110,24 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_git_hub_access_token"
+    defaultValue="get_github_access_token"
     values={[
-        { label: 'get_git_hub_access_token', value: 'get_git_hub_access_token' }
+        { label: 'get_github_access_token', value: 'get_github_access_token' }
     ]}
 >
-<TabItem value="get_git_hub_access_token">
+<TabItem value="get_github_access_token">
 
 Get the GitHub access token.
 
 ```sql
-EXEC azure.synapse_artifacts.workspace_git_repo_management.get_git_hub_access_token 
-@endpoint='{{ endpoint }}' --required, 
-@x-ms-client-request-id='{{ x-ms-client-request-id }}' 
-@@json=
-'{
-"gitHubClientId": "{{ gitHubClientId }}", 
-"gitHubAccessCode": "{{ gitHubAccessCode }}", 
-"gitHubAccessTokenBaseUrl": "{{ gitHubAccessTokenBaseUrl }}"
-}'
+SELECT
+gitHubAccessToken
+FROM azure.synapse_artifacts.workspace_git_repo_management
+WHERE endpoint = '{{ endpoint }}' -- required
+AND x-ms-client-request-id = '{{ x-ms-client-request-id }}'
 ;
 ```
 </TabItem>

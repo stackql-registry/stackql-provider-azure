@@ -36,7 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
-        { label: 'list_by_v_center', value: 'list_by_v_center' }
+        { label: 'list_by_vcenter', value: 'list_by_vcenter' }
     ]}
 >
 <TabItem value="get">
@@ -103,7 +103,7 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="list_by_v_center">
+<TabItem value="list_by_vcenter">
 
 <table>
 <thead>
@@ -192,7 +192,7 @@ The following methods are available for this resource:
     <td>Gets InventoryItem. Implements InventoryItem GET method.</td>
 </tr>
 <tr>
-    <td><a href="#list_by_v_center"><CopyableCode code="list_by_v_center" /></a></td>
+    <td><a href="#list_by_vcenter"><CopyableCode code="list_by_vcenter" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vcenter_name"><code>vcenter_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
@@ -257,7 +257,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
-        { label: 'list_by_v_center', value: 'list_by_v_center' }
+        { label: 'list_by_vcenter', value: 'list_by_vcenter' }
     ]}
 >
 <TabItem value="get">
@@ -284,7 +284,7 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
-<TabItem value="list_by_v_center">
+<TabItem value="list_by_vcenter">
 
 Implements GET inventoryItems in a vCenter. Returns the list of inventoryItems of the given vCenter.
 

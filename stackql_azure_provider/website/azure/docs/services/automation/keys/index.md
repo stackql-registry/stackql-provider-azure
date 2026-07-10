@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>keys</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_by_automation_account"
+    values={[
+        { label: 'list_by_automation_account', value: 'list_by_automation_account' }
+    ]}
+>
+<TabItem value="list_by_automation_account">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="keys" /></td>
+    <td><code>array</code></td>
+    <td>Lists the automation keys.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_by_automation_account"><CopyableCode code="list_by_automation_account" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-automation_account_name"><code>automation_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieve the automation keys for an account.</td>
@@ -91,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_by_automation_account"
@@ -104,10 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Retrieve the automation keys for an account.
 
 ```sql
-EXEC azure.automation.keys.list_by_automation_account 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@automation_account_name='{{ automation_account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+keys
+FROM azure.automation.keys
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND automation_account_name = '{{ automation_account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

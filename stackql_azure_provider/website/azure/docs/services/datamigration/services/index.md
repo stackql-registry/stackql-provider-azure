@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -214,6 +215,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="virtualSubnetId" /></td>
     <td><code>string</code></td>
     <td>The ID of the Microsoft.Network/virtualNetworks/subnets resource to which the service should be joined.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The localized reason why the name is not available, if nameAvailable is false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>If true, the name is valid and available. If false, 'reason' describes why not.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available, if nameAvailable is false. Known values are: "AlreadyExists" and "Invalid". (AlreadyExists, Invalid)</td>
 </tr>
 </tbody>
 </table>
@@ -339,6 +369,13 @@ The following methods are available for this resource:
     <td>Get services in resource group. The Services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check name validity and availability. This method checks whether a proposed top-level resource name is valid and available.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -408,13 +445,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Check nested resource name validity and availability. This method checks whether a proposed nested resource name is valid and available.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Check name validity and availability. This method checks whether a proposed top-level resource name is valid and available.</td>
-</tr>
 </tbody>
 </table>
 
@@ -466,6 +496,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -520,6 +551,21 @@ virtualNicId,
 virtualSubnetId
 FROM azure.datamigration.services
 WHERE group_name = '{{ group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check name validity and availability. This method checks whether a proposed top-level resource name is valid and available.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.datamigration.services
+WHERE location = '{{ location }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -772,8 +818,7 @@ AND deleteRunningTasks = '{{ deleteRunningTasks }}'
         { label: 'check_status', value: 'check_status' },
         { label: 'start', value: 'start' },
         { label: 'stop', value: 'stop' },
-        { label: 'check_children_name_availability', value: 'check_children_name_availability' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'check_children_name_availability', value: 'check_children_name_availability' }
     ]}
 >
 <TabItem value="list_skus">
@@ -832,22 +877,6 @@ Check nested resource name validity and availability. This method checks whether
 EXEC azure.datamigration.services.check_children_name_availability 
 @group_name='{{ group_name }}' --required, 
 @service_name='{{ service_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check name validity and availability. This method checks whether a proposed top-level resource name is valid and available.
-
-```sql
-EXEC azure.datamigration.services.check_name_availability 
-@location='{{ location }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 
 @@json=
 '{

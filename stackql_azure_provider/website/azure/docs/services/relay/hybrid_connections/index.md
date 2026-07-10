@@ -33,14 +33,14 @@ Creates, updates, deletes, gets or lists a <code>hybrid_connections</code> resou
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_namespace', value: 'list_by_namespace' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
 <table>
 <thead>
@@ -52,24 +52,29 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
+    <td><CopyableCode code="keyName" /></td>
     <td><code>string</code></td>
-    <td>Resource ID.</td>
+    <td>A string that describes the authorization rule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="name" /></td>
+    <td><CopyableCode code="primaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Resource name.</td>
+    <td>Primary connection string of the created namespace authorization rule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="rights" /></td>
-    <td><code>array</code></td>
-    <td>The rights associated with the rule. Required.</td>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="type" /></td>
+    <td><CopyableCode code="secondaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Resource type.</td>
+    <td>Secondary connection string of the created namespace authorization rule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit secondary key for signing and validating the SAS token.</td>
 </tr>
 </tbody>
 </table>
@@ -200,11 +205,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
+    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-hybrid_connection_name"><code>hybrid_connection_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Hybrid connection authorization rule for a hybrid connection by name.</td>
+    <td>Primary and secondary connection strings to the hybrid connection.</td>
 </tr>
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
@@ -249,11 +254,11 @@ The following methods are available for this resource:
     <td>Authorization rules for a hybrid connection.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
+    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-hybrid_connection_name"><code>hybrid_connection_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Primary and secondary connection strings to the hybrid connection.</td>
+    <td>Hybrid connection authorization rule for a hybrid connection by name.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
@@ -323,23 +328,24 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_namespace', value: 'list_by_namespace' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
-Hybrid connection authorization rule for a hybrid connection by name.
+Primary and secondary connection strings to the hybrid connection.
 
 ```sql
 SELECT
-id,
-name,
-rights,
-type
+keyName,
+primaryConnectionString,
+primaryKey,
+secondaryConnectionString,
+secondaryKey
 FROM azure.relay.hybrid_connections
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
@@ -518,7 +524,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_authorization_rules"
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
-        { label: 'list_keys', value: 'list_keys' },
+        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
         { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
@@ -537,12 +543,12 @@ EXEC azure.relay.hybrid_connections.list_authorization_rules
 ;
 ```
 </TabItem>
-<TabItem value="list_keys">
+<TabItem value="get_authorization_rule">
 
-Primary and secondary connection strings to the hybrid connection.
+Hybrid connection authorization rule for a hybrid connection by name.
 
 ```sql
-EXEC azure.relay.hybrid_connections.list_keys 
+EXEC azure.relay.hybrid_connections.get_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @hybrid_connection_name='{{ hybrid_connection_name }}' --required, 

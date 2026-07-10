@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>find_similars</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="find_similar"
+    values={[
+        { label: 'find_similar', value: 'find_similar' }
+    ]}
+>
+<TabItem value="find_similar">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="confidence" /></td>
+    <td><code>number</code></td>
+    <td>Confidence value of the candidate. The higher confidence, the more similar. Range between [0,1]. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="faceId" /></td>
+    <td><code>string</code></td>
+    <td>faceId of candidate face when find by faceIds. faceId is created by "Detect" and will expire 24 hours after the detection call.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="persistedFaceId" /></td>
+    <td><code>string</code></td>
+    <td>persistedFaceId of candidate face when find by faceListId or largeFaceListId. persistedFaceId in face list/large face list is persisted and will not expire.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#find_similar"><CopyableCode code="find_similar" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-api_version"><code>api_version</code></a></td>
     <td></td>
     <td>Given query face's faceId, to search the similar-looking faces from a faceId array. A faceId array contains the faces created by Detect. Please refer to https://learn.microsoft.com/rest/api/face/face-recognition-operations/find-similar for more details.</td>
@@ -86,7 +120,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="find_similar"
@@ -99,9 +133,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Given query face's faceId, to search the similar-looking faces from a faceId array. A faceId array contains the faces created by Detect. Please refer to https://learn.microsoft.com/rest/api/face/face-recognition-operations/find-similar for more details.
 
 ```sql
-EXEC azure.ai_vision_face.find_similars.find_similar 
-@endpoint='{{ endpoint }}' --required, 
-@api_version='{{ api_version }}' --required
+SELECT
+confidence,
+faceId,
+persistedFaceId
+FROM azure.ai_vision_face.find_similars
+WHERE endpoint = '{{ endpoint }}' -- required
+AND api_version = '{{ api_version }}' -- required
 ;
 ```
 </TabItem>

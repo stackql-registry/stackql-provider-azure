@@ -33,13 +33,48 @@ Creates, updates, deletes, gets or lists an <code>express_route_cross_connection
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_arp_table"
     values={[
+        { label: 'list_arp_table', value: 'list_arp_table' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_arp_table">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="age" /></td>
+    <td><code>integer</code></td>
+    <td>Entry age in minutes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="interface" /></td>
+    <td><code>string</code></td>
+    <td>Interface address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ipAddress" /></td>
+    <td><code>string</code></td>
+    <td>The IP address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="macAddress" /></td>
+    <td><code>string</code></td>
+    <td>The MAC address.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -340,6 +375,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_arp_table"><CopyableCode code="list_arp_table" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cross_connection_name"><code>cross_connection_name</code></a>, <a href="#parameter-peering_name"><code>peering_name</code></a>, <a href="#parameter-device_path"><code>device_path</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the currently advertised ARP table associated with the express route cross connection in a resource group.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cross_connection_name"><code>cross_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -380,13 +422,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cross_connection_name"><code>cross_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update the specified ExpressRouteCrossConnection.</td>
-</tr>
-<tr>
-    <td><a href="#list_arp_table"><CopyableCode code="list_arp_table" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cross_connection_name"><code>cross_connection_name</code></a>, <a href="#parameter-peering_name"><code>peering_name</code></a>, <a href="#parameter-device_path"><code>device_path</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets the currently advertised ARP table associated with the express route cross connection in a resource group.</td>
 </tr>
 <tr>
     <td><a href="#list_routes_table_summary"><CopyableCode code="list_routes_table_summary" /></a></td>
@@ -454,13 +489,33 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_arp_table"
     values={[
+        { label: 'list_arp_table', value: 'list_arp_table' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_arp_table">
+
+Gets the currently advertised ARP table associated with the express route cross connection in a resource group.
+
+```sql
+SELECT
+age,
+interface,
+ipAddress,
+macAddress
+FROM azure.network.express_route_cross_connections
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cross_connection_name = '{{ cross_connection_name }}' -- required
+AND peering_name = '{{ peering_name }}' -- required
+AND device_path = '{{ device_path }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets details about the specified ExpressRouteCrossConnection.
@@ -755,27 +810,12 @@ type;
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_arp_table"
+    defaultValue="list_routes_table_summary"
     values={[
-        { label: 'list_arp_table', value: 'list_arp_table' },
         { label: 'list_routes_table_summary', value: 'list_routes_table_summary' },
         { label: 'list_routes_table', value: 'list_routes_table' }
     ]}
 >
-<TabItem value="list_arp_table">
-
-Gets the currently advertised ARP table associated with the express route cross connection in a resource group.
-
-```sql
-EXEC azure.network.express_route_cross_connections.list_arp_table 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cross_connection_name='{{ cross_connection_name }}' --required, 
-@peering_name='{{ peering_name }}' --required, 
-@device_path='{{ device_path }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_routes_table_summary">
 
 Gets the route table summary associated with the express route cross connection in a resource group.

@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists a <code>beta_models</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_credentials"
     values={[
+        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'get', value: 'get' },
         { label: 'list_versions', value: 'list_versions' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_credentials">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="blobReference" /></td>
+    <td><code>object</code></td>
+    <td>Credential info to access the storage account. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -280,6 +300,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Get model asset credentials. Retrieves temporary credentials for accessing the storage backing the specified model version.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -313,13 +340,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete a model version. Delete the specific version of the ModelVersion. The service returns 200 OK if the ModelVersion was deleted successfully or if the ModelVersion does not exist.</td>
-</tr>
-<tr>
-    <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-blobUri"><code>blobUri</code></a></td>
-    <td></td>
-    <td>Get model asset credentials. Retrieves temporary credentials for accessing the storage backing the specified model version.</td>
 </tr>
 <tr>
     <td><a href="#pending_create_version"><CopyableCode code="pending_create_version" /></a></td>
@@ -372,13 +392,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_credentials"
     values={[
+        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'get', value: 'get' },
         { label: 'list_versions', value: 'list_versions' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_credentials">
+
+Get model asset credentials. Retrieves temporary credentials for accessing the storage backing the specified model version.
+
+```sql
+SELECT
+blobReference
+FROM azure.ai_projects.beta_models
+WHERE name = '{{ name }}' -- required
+AND version = '{{ version }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a model version. Retrieves the specified model version, returning 404 if it does not exist.
@@ -519,29 +554,12 @@ AND endpoint = '{{ endpoint }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_credentials"
+    defaultValue="pending_create_version"
     values={[
-        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'pending_create_version', value: 'pending_create_version' },
         { label: 'pending_upload', value: 'pending_upload' }
     ]}
 >
-<TabItem value="get_credentials">
-
-Get model asset credentials. Retrieves temporary credentials for accessing the storage backing the specified model version.
-
-```sql
-EXEC azure.ai_projects.beta_models.get_credentials 
-@name='{{ name }}' --required, 
-@version='{{ version }}' --required, 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"blobUri": "{{ blobUri }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="pending_create_version">
 
 Create a model version async. Creates a model version asynchronously with blob content validation. Returns 202 Accepted with a location header for polling the operation status.

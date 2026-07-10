@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>firewall_policy_idps_signatures
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="matchingRecordsCount" /></td>
+    <td><code>integer</code></td>
+    <td>Number of total records matching the query.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signatures" /></td>
+    <td><code>array</code></td>
+    <td>Array containing the results of the query.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +80,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-firewall_policy_name"><code>firewall_policy_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves the current status of IDPS signatures for the relevant policy. Maximal amount of returned signatures is 1000.</td>
@@ -91,31 +120,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Retrieves the current status of IDPS signatures for the relevant policy. Maximal amount of returned signatures is 1000.
 
 ```sql
-EXEC azure.network.firewall_policy_idps_signatures.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@firewall_policy_name='{{ firewall_policy_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"filters": "{{ filters }}", 
-"search": "{{ search }}", 
-"orderBy": "{{ orderBy }}", 
-"resultsPerPage": {{ resultsPerPage }}, 
-"skip": {{ skip }}
-}'
+SELECT
+matchingRecordsCount,
+signatures
+FROM azure.network.firewall_policy_idps_signatures
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND firewall_policy_name = '{{ firewall_policy_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

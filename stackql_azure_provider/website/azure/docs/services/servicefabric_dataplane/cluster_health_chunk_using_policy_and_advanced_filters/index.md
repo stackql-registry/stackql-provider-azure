@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>cluster_health_chunk_using_poli
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_cluster_health_chunk_using_policy_and_advanced_filters"
+    values={[
+        { label: 'get_cluster_health_chunk_using_policy_and_advanced_filters', value: 'get_cluster_health_chunk_using_policy_and_advanced_filters' }
+    ]}
+>
+<TabItem value="get_cluster_health_chunk_using_policy_and_advanced_filters">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="ApplicationHealthStateChunks" /></td>
+    <td><code>object</code></td>
+    <td>The list of application health state chunks in the cluster that respect the input filters in the chunk query. Returned by get cluster health state chunks query.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthState" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="NodeHealthStateChunks" /></td>
+    <td><code>object</code></td>
+    <td>The list of node health state chunks in the cluster that respect the input filters in the chunk query. Returned by get cluster health state chunks query.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_cluster_health_chunk_using_policy_and_advanced_filters"><CopyableCode code="get_cluster_health_chunk_using_policy_and_advanced_filters" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the health of a Service Fabric cluster using health chunks. Gets the health of a Service Fabric cluster using health chunks. The health evaluation is done based on the input cluster health chunk query description. The query description allows users to specify health policies for evaluating the cluster and its children. Users can specify very flexible filters to select which cluster entities to return. The selection can be done based on the entities health state and based on the hierarchy. The query can return multi-level children of the entities based on the specified filters. For example, it can return one application with a specified name, and for this application, return only services that are in Error or Warning, and all partitions and replicas for one of these services.</td>
@@ -86,7 +120,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_cluster_health_chunk_using_policy_and_advanced_filters"
@@ -99,16 +133,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the health of a Service Fabric cluster using health chunks. Gets the health of a Service Fabric cluster using health chunks. The health evaluation is done based on the input cluster health chunk query description. The query description allows users to specify health policies for evaluating the cluster and its children. Users can specify very flexible filters to select which cluster entities to return. The selection can be done based on the entities health state and based on the hierarchy. The query can return multi-level children of the entities based on the specified filters. For example, it can return one application with a specified name, and for this application, return only services that are in Error or Warning, and all partitions and replicas for one of these services.
 
 ```sql
-EXEC azure.servicefabric_dataplane.cluster_health_chunk_using_policy_and_advanced_filters.get_cluster_health_chunk_using_policy_and_advanced_filters 
-@endpoint='{{ endpoint }}' --required, 
-@timeout='{{ timeout }}' 
-@@json=
-'{
-"NodeFilters": "{{ NodeFilters }}", 
-"ApplicationFilters": "{{ ApplicationFilters }}", 
-"ClusterHealthPolicy": "{{ ClusterHealthPolicy }}", 
-"ApplicationHealthPolicies": "{{ ApplicationHealthPolicies }}"
-}'
+SELECT
+ApplicationHealthStateChunks,
+HealthState,
+NodeHealthStateChunks
+FROM azure.servicefabric_dataplane.cluster_health_chunk_using_policy_and_advanced_filters
+WHERE endpoint = '{{ endpoint }}' -- required
+AND timeout = '{{ timeout }}'
 ;
 ```
 </TabItem>

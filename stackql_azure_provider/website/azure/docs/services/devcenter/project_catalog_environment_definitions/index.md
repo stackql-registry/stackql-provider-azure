@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>project_catalog_environment_def
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_error_details"
+    values={[
+        { label: 'get_error_details', value: 'get_error_details' }
+    ]}
+>
+<TabItem value="get_error_details">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="errors" /></td>
+    <td><code>array</code></td>
+    <td>Errors associated with resources synchronized from the catalog.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_error_details"><CopyableCode code="get_error_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-project_name"><code>project_name</code></a>, <a href="#parameter-catalog_name"><code>catalog_name</code></a>, <a href="#parameter-environment_definition_name"><code>environment_definition_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets Environment Definition error details.</td>
@@ -101,7 +125,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_error_details"
@@ -114,12 +138,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets Environment Definition error details.
 
 ```sql
-EXEC azure.devcenter.project_catalog_environment_definitions.get_error_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@project_name='{{ project_name }}' --required, 
-@catalog_name='{{ catalog_name }}' --required, 
-@environment_definition_name='{{ environment_definition_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+errors
+FROM azure.devcenter.project_catalog_environment_definitions
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND project_name = '{{ project_name }}' -- required
+AND catalog_name = '{{ catalog_name }}' -- required
+AND environment_definition_name = '{{ environment_definition_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

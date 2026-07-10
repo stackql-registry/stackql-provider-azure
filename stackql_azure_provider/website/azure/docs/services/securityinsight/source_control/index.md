@@ -32,8 +32,47 @@ Creates, updates, deletes, gets or lists a <code>source_control</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_repositories"
+    values={[
+        { label: 'list_repositories', value: 'list_repositories' }
+    ]}
+>
+<TabItem value="list_repositories">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="branches" /></td>
+    <td><code>array</code></td>
+    <td>Array of branches.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="fullName" /></td>
+    <td><code>string</code></td>
+    <td>The name of the repository.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="installationId" /></td>
+    <td><code>integer</code></td>
+    <td>The installation id of the repository.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="url" /></td>
+    <td><code>string</code></td>
+    <td>The url to access the repository.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +91,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_repositories"><CopyableCode code="list_repositories" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a list of repositories metadata.</td>
 </tr>
@@ -91,7 +130,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_repositories"
@@ -104,14 +143,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets a list of repositories metadata.
 
 ```sql
-EXEC azure.securityinsight.source_control.list_repositories 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"properties": "{{ properties }}"
-}'
+SELECT
+branches,
+fullName,
+installationId,
+url
+FROM azure.securityinsight.source_control
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

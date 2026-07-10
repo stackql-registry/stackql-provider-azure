@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>check_name_availabilities</code
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_name_availability"
+    values={[
+        { label: 'check_name_availability', value: 'check_name_availability' }
+    ]}
+>
+<TabItem value="check_name_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Required if nameAvailable == false. Localized. If reason == invalid, provide the user with the reason why the given name is invalid, and provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists, explain that is already in use, and direct them to select a different name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Required. True indicates name is valid and available. False indicates the name is invalid, unavailable, or both.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Required if nameAvailable == false. Invalid indicates the name provided does not match the resource provider's naming requirements (incorrect length, unsupported characters, etc.) AlreadyExists indicates that the name is already in use and is therefore unavailable. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td></td>
     <td></td>
     <td>Checks if the specified management group name is valid and unique.</td>
@@ -76,7 +110,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_name_availability"
@@ -89,12 +123,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Checks if the specified management group name is valid and unique.
 
 ```sql
-EXEC azure.managementgroups.check_name_availabilities.check_name_availability 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.managementgroups.check_name_availabilities
 ;
 ```
 </TabItem>

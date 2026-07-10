@@ -33,11 +33,61 @@ Creates, updates, deletes, gets or lists a <code>pipeline_run</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_pipeline_run"
+    defaultValue="query_activity_runs"
     values={[
+        { label: 'query_activity_runs', value: 'query_activity_runs' },
+        { label: 'query_pipeline_runs_by_workspace', value: 'query_pipeline_runs_by_workspace' },
         { label: 'get_pipeline_run', value: 'get_pipeline_run' }
     ]}
 >
+<TabItem value="query_activity_runs">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="continuationToken" /></td>
+    <td><code>string</code></td>
+    <td>The continuation token for getting the next page of results, if any remaining results exist, null otherwise.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>List of activity runs. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="query_pipeline_runs_by_workspace">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="continuationToken" /></td>
+    <td><code>string</code></td>
+    <td>The continuation token for getting the next page of results, if any remaining results exist, null otherwise.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>List of pipeline runs. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_pipeline_run">
 
 <table>
@@ -135,25 +185,25 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#query_activity_runs"><CopyableCode code="query_activity_runs" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-pipeline_name"><code>pipeline_name</code></a>, <a href="#parameter-run_id"><code>run_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Query activity runs based on input filter conditions.</td>
+</tr>
+<tr>
+    <td><a href="#query_pipeline_runs_by_workspace"><CopyableCode code="query_pipeline_runs_by_workspace" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Query pipeline runs in the workspace based on input filter conditions.</td>
+</tr>
+<tr>
     <td><a href="#get_pipeline_run"><CopyableCode code="get_pipeline_run" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-run_id"><code>run_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get a pipeline run by its run ID.</td>
-</tr>
-<tr>
-    <td><a href="#query_pipeline_runs_by_workspace"><CopyableCode code="query_pipeline_runs_by_workspace" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-lastUpdatedAfter"><code>lastUpdatedAfter</code></a>, <a href="#parameter-lastUpdatedBefore"><code>lastUpdatedBefore</code></a></td>
-    <td></td>
-    <td>Query pipeline runs in the workspace based on input filter conditions.</td>
-</tr>
-<tr>
-    <td><a href="#query_activity_runs"><CopyableCode code="query_activity_runs" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-pipeline_name"><code>pipeline_name</code></a>, <a href="#parameter-run_id"><code>run_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-lastUpdatedAfter"><code>lastUpdatedAfter</code></a>, <a href="#parameter-lastUpdatedBefore"><code>lastUpdatedBefore</code></a></td>
-    <td></td>
-    <td>Query activity runs based on input filter conditions.</td>
 </tr>
 <tr>
     <td><a href="#cancel_pipeline_run"><CopyableCode code="cancel_pipeline_run" /></a></td>
@@ -204,11 +254,41 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_pipeline_run"
+    defaultValue="query_activity_runs"
     values={[
+        { label: 'query_activity_runs', value: 'query_activity_runs' },
+        { label: 'query_pipeline_runs_by_workspace', value: 'query_pipeline_runs_by_workspace' },
         { label: 'get_pipeline_run', value: 'get_pipeline_run' }
     ]}
 >
+<TabItem value="query_activity_runs">
+
+Query activity runs based on input filter conditions.
+
+```sql
+SELECT
+continuationToken,
+value
+FROM azure.synapse_artifacts.pipeline_run
+WHERE pipeline_name = '{{ pipeline_name }}' -- required
+AND run_id = '{{ run_id }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
+<TabItem value="query_pipeline_runs_by_workspace">
+
+Query pipeline runs in the workspace based on input filter conditions.
+
+```sql
+SELECT
+continuationToken,
+value
+FROM azure.synapse_artifacts.pipeline_run
+WHERE endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_pipeline_run">
 
 Get a pipeline run by its run ID.
@@ -240,51 +320,11 @@ AND endpoint = '{{ endpoint }}' -- required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="query_pipeline_runs_by_workspace"
+    defaultValue="cancel_pipeline_run"
     values={[
-        { label: 'query_pipeline_runs_by_workspace', value: 'query_pipeline_runs_by_workspace' },
-        { label: 'query_activity_runs', value: 'query_activity_runs' },
         { label: 'cancel_pipeline_run', value: 'cancel_pipeline_run' }
     ]}
 >
-<TabItem value="query_pipeline_runs_by_workspace">
-
-Query pipeline runs in the workspace based on input filter conditions.
-
-```sql
-EXEC azure.synapse_artifacts.pipeline_run.query_pipeline_runs_by_workspace 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"continuationToken": "{{ continuationToken }}", 
-"lastUpdatedAfter": "{{ lastUpdatedAfter }}", 
-"lastUpdatedBefore": "{{ lastUpdatedBefore }}", 
-"filters": "{{ filters }}", 
-"orderBy": "{{ orderBy }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="query_activity_runs">
-
-Query activity runs based on input filter conditions.
-
-```sql
-EXEC azure.synapse_artifacts.pipeline_run.query_activity_runs 
-@pipeline_name='{{ pipeline_name }}' --required, 
-@run_id='{{ run_id }}' --required, 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"continuationToken": "{{ continuationToken }}", 
-"lastUpdatedAfter": "{{ lastUpdatedAfter }}", 
-"lastUpdatedBefore": "{{ lastUpdatedBefore }}", 
-"filters": "{{ filters }}", 
-"orderBy": "{{ orderBy }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="cancel_pipeline_run">
 
 Cancel a pipeline run by its run ID.

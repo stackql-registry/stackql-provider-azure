@@ -33,14 +33,114 @@ Creates, updates, deletes, gets or lists an <code>express_route_circuits</code> 
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_peering_stats"
+    defaultValue="get_circuit_link_failover_single_test_details"
     values={[
+        { label: 'get_circuit_link_failover_single_test_details', value: 'get_circuit_link_failover_single_test_details' },
+        { label: 'list_arp_table', value: 'list_arp_table' },
         { label: 'get_peering_stats', value: 'get_peering_stats' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_all', value: 'list_all' }
     ]}
 >
+<TabItem value="get_circuit_link_failover_single_test_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="bgpStatus" /></td>
+    <td><code>array</code></td>
+    <td>The BGP status details.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="circuitTestCategory" /></td>
+    <td><code>string</code></td>
+    <td>The circuit test category. Known values are: "BgpDisconnect" and "ASPathPrepend". (BgpDisconnect, ASPathPrepend)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endTimeUtc" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was completed in UTC.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isSimulationVerified" /></td>
+    <td><code>boolean</code></td>
+    <td>Whether the simulation was verified.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="linkType" /></td>
+    <td><code>string</code></td>
+    <td>The link type. Known values are: "Primary" and "Secondary". (Primary, Secondary)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nonRedundantRoutes" /></td>
+    <td><code>object</code></td>
+    <td>The non-redundant routes for link failover tests.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="redundantRoutes" /></td>
+    <td><code>object</code></td>
+    <td>The redundant routes for link failover tests.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTimeUtc" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was started in UTC.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed", "Stopping", "Completed", "StopFailed", "Invalid", and "Expired". (NotStarted, Starting, Running, StartFailed, Stopping, Completed, StopFailed, Invalid, Expired)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="wasSimulationSuccessful" /></td>
+    <td><code>boolean</code></td>
+    <td>Whether the failover simulation was successful or not.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_arp_table">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="age" /></td>
+    <td><code>integer</code></td>
+    <td>Entry age in minutes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="interface" /></td>
+    <td><code>string</code></td>
+    <td>Interface address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ipAddress" /></td>
+    <td><code>string</code></td>
+    <td>The IP address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="macAddress" /></td>
+    <td><code>string</code></td>
+    <td>The MAC address.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_peering_stats">
 
 <table>
@@ -495,6 +595,20 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_circuit_link_failover_single_test_details"><CopyableCode code="get_circuit_link_failover_single_test_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-linkType"><code>linkType</code></a>, <a href="#parameter-circuitTestCategory"><code>circuitTestCategory</code></a>, <a href="#parameter-failoverTestId"><code>failoverTestId</code></a></td>
+    <td></td>
+    <td>Retrieves the details of a particular link failover test performed on the express route circuit.</td>
+</tr>
+<tr>
+    <td><a href="#list_arp_table"><CopyableCode code="list_arp_table" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-peering_name"><code>peering_name</code></a>, <a href="#parameter-device_path"><code>device_path</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the currently advertised ARP table associated with the express route circuit in a resource group.</td>
+</tr>
+<tr>
     <td><a href="#get_peering_stats"><CopyableCode code="get_peering_stats" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-peering_name"><code>peering_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -551,13 +665,6 @@ The following methods are available for this resource:
     <td>Deletes the specified express route circuit.</td>
 </tr>
 <tr>
-    <td><a href="#list_arp_table"><CopyableCode code="list_arp_table" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-peering_name"><code>peering_name</code></a>, <a href="#parameter-device_path"><code>device_path</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets the currently advertised ARP table associated with the express route circuit in a resource group.</td>
-</tr>
-<tr>
     <td><a href="#list_routes_table"><CopyableCode code="list_routes_table" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-peering_name"><code>peering_name</code></a>, <a href="#parameter-device_path"><code>device_path</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -584,13 +691,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-failoverTestType"><code>failoverTestType</code></a>, <a href="#parameter-fetchLatest"><code>fetchLatest</code></a></td>
     <td>Retrieves the details of all the link failover tests performed on the express route circuit.</td>
-</tr>
-<tr>
-    <td><a href="#get_circuit_link_failover_single_test_details"><CopyableCode code="get_circuit_link_failover_single_test_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-circuit_name"><code>circuit_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-linkType"><code>linkType</code></a>, <a href="#parameter-circuitTestCategory"><code>circuitTestCategory</code></a>, <a href="#parameter-failoverTestId"><code>failoverTestId</code></a></td>
-    <td></td>
-    <td>Retrieves the details of a particular link failover test performed on the express route circuit.</td>
 </tr>
 <tr>
     <td><a href="#start_circuit_link_failover_test"><CopyableCode code="start_circuit_link_failover_test" /></a></td>
@@ -678,14 +778,61 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_peering_stats"
+    defaultValue="get_circuit_link_failover_single_test_details"
     values={[
+        { label: 'get_circuit_link_failover_single_test_details', value: 'get_circuit_link_failover_single_test_details' },
+        { label: 'list_arp_table', value: 'list_arp_table' },
         { label: 'get_peering_stats', value: 'get_peering_stats' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_all', value: 'list_all' }
     ]}
 >
+<TabItem value="get_circuit_link_failover_single_test_details">
+
+Retrieves the details of a particular link failover test performed on the express route circuit.
+
+```sql
+SELECT
+bgpStatus,
+circuitTestCategory,
+endTimeUtc,
+isSimulationVerified,
+linkType,
+nonRedundantRoutes,
+redundantRoutes,
+startTimeUtc,
+status,
+wasSimulationSuccessful
+FROM azure.network.express_route_circuits
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND circuit_name = '{{ circuit_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND linkType = '{{ linkType }}' -- required
+AND circuitTestCategory = '{{ circuitTestCategory }}' -- required
+AND failoverTestId = '{{ failoverTestId }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_arp_table">
+
+Gets the currently advertised ARP table associated with the express route circuit in a resource group.
+
+```sql
+SELECT
+age,
+interface,
+ipAddress,
+macAddress
+FROM azure.network.express_route_circuits
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND circuit_name = '{{ circuit_name }}' -- required
+AND peering_name = '{{ peering_name }}' -- required
+AND device_path = '{{ device_path }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_peering_stats">
 
 Gets all stats from an express route circuit in a resource group.
@@ -1112,32 +1259,16 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_arp_table"
+    defaultValue="list_routes_table"
     values={[
-        { label: 'list_arp_table', value: 'list_arp_table' },
         { label: 'list_routes_table', value: 'list_routes_table' },
         { label: 'list_routes_table_summary', value: 'list_routes_table_summary' },
         { label: 'get_stats', value: 'get_stats' },
         { label: 'get_circuit_link_failover_all_tests_details', value: 'get_circuit_link_failover_all_tests_details' },
-        { label: 'get_circuit_link_failover_single_test_details', value: 'get_circuit_link_failover_single_test_details' },
         { label: 'start_circuit_link_failover_test', value: 'start_circuit_link_failover_test' },
         { label: 'stop_circuit_link_failover_test', value: 'stop_circuit_link_failover_test' }
     ]}
 >
-<TabItem value="list_arp_table">
-
-Gets the currently advertised ARP table associated with the express route circuit in a resource group.
-
-```sql
-EXEC azure.network.express_route_circuits.list_arp_table 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@circuit_name='{{ circuit_name }}' --required, 
-@peering_name='{{ peering_name }}' --required, 
-@device_path='{{ device_path }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_routes_table">
 
 Gets the currently advertised routes table associated with the express route circuit in a resource group.
@@ -1189,21 +1320,6 @@ EXEC azure.network.express_route_circuits.get_circuit_link_failover_all_tests_de
 @subscription_id='{{ subscription_id }}' --required, 
 @failoverTestType='{{ failoverTestType }}', 
 @fetchLatest={{ fetchLatest }}
-;
-```
-</TabItem>
-<TabItem value="get_circuit_link_failover_single_test_details">
-
-Retrieves the details of a particular link failover test performed on the express route circuit.
-
-```sql
-EXEC azure.network.express_route_circuits.get_circuit_link_failover_single_test_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@circuit_name='{{ circuit_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@linkType='{{ linkType }}' --required, 
-@circuitTestCategory='{{ circuitTestCategory }}' --required, 
-@failoverTestId='{{ failoverTestId }}' --required
 ;
 ```
 </TabItem>

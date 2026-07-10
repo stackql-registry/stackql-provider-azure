@@ -36,7 +36,8 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
-        { label: 'list_by_bot_service', value: 'list_by_bot_service' }
+        { label: 'list_by_bot_service', value: 'list_by_bot_service' },
+        { label: 'list_service_providers', value: 'list_service_providers' }
     ]}
 >
 <TabItem value="get">
@@ -237,6 +238,50 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="list_service_providers">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Id for Service Provider.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="devPortalUrl" /></td>
+    <td><code>string</code></td>
+    <td>URL of Dev Portal.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="displayName" /></td>
+    <td><code>string</code></td>
+    <td>Display Name of the Service Provider.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="iconUrl" /></td>
+    <td><code>string</code></td>
+    <td>The URL of icon.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="parameters" /></td>
+    <td><code>array</code></td>
+    <td>The list of parameters for the Service Provider.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="serviceProviderName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the Service Provider.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 </Tabs>
 
 ## Methods
@@ -269,6 +314,13 @@ The following methods are available for this resource:
     <td>Returns all the Connection Settings registered to a particular BotService resource.</td>
 </tr>
 <tr>
+    <td><a href="#list_service_providers"><CopyableCode code="list_service_providers" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Lists the available Service Providers for creating Connection Settings.</td>
+</tr>
+<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -288,13 +340,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a Connection Setting registration for a Bot Service.</td>
-</tr>
-<tr>
-    <td><a href="#list_service_providers"><CopyableCode code="list_service_providers" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Lists the available Service Providers for creating Connection Settings.</td>
 </tr>
 <tr>
     <td><a href="#list_with_secrets"><CopyableCode code="list_with_secrets" /></a></td>
@@ -348,7 +393,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
-        { label: 'list_by_bot_service', value: 'list_by_bot_service' }
+        { label: 'list_by_bot_service', value: 'list_by_bot_service' },
+        { label: 'list_service_providers', value: 'list_service_providers' }
     ]}
 >
 <TabItem value="get">
@@ -409,6 +455,23 @@ FROM azure.botservice.bot_connection
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND resource_name = '{{ resource_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_service_providers">
+
+Lists the available Service Providers for creating Connection Settings.
+
+```sql
+SELECT
+id,
+devPortalUrl,
+displayName,
+iconUrl,
+parameters,
+serviceProviderName
+FROM azure.botservice.bot_connection
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -594,22 +657,11 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_service_providers"
+    defaultValue="list_with_secrets"
     values={[
-        { label: 'list_service_providers', value: 'list_service_providers' },
         { label: 'list_with_secrets', value: 'list_with_secrets' }
     ]}
 >
-<TabItem value="list_service_providers">
-
-Lists the available Service Providers for creating Connection Settings.
-
-```sql
-EXEC azure.botservice.bot_connection.list_service_providers 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_with_secrets">
 
 Get a Connection Setting registration for a Bot Service.

@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>recovery_services</code> resour
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_name_availability"
+    values={[
+        { label: 'check_name_availability', value: 'check_name_availability' }
+    ]}
+>
+<TabItem value="check_name_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>:vartype message: str</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>:vartype name_available: bool</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>:vartype reason: str</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>API to check for resource name availability. A name is available if no other resource exists that has the same SubscriptionId, Resource Name and Type or if one or more such resources exist, each of these must be GC'd and their time of deletion be more than 24 Hours Ago. API to check for resource name availability. A name is available if no other resource exists that has the same SubscriptionId, Resource Name and Type or if one or more such resources exist, each of these must be GC'd and their time of deletion be more than 24 Hours Ago.</td>
@@ -98,13 +132,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_name_availability"
     values={[
-        { label: 'check_name_availability', value: 'check_name_availability' },
-        { label: 'capabilities', value: 'capabilities' }
+        { label: 'check_name_availability', value: 'check_name_availability' }
     ]}
 >
 <TabItem value="check_name_availability">
@@ -112,18 +145,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 API to check for resource name availability. A name is available if no other resource exists that has the same SubscriptionId, Resource Name and Type or if one or more such resources exist, each of these must be GC'd and their time of deletion be more than 24 Hours Ago. API to check for resource name availability. A name is available if no other resource exists that has the same SubscriptionId, Resource Name and Type or if one or more such resources exist, each of these must be GC'd and their time of deletion be more than 24 Hours Ago.
 
 ```sql
-EXEC azure.recoveryservices.recovery_services.check_name_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"type": "{{ type }}", 
-"name": "{{ name }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.recoveryservices.recovery_services
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="capabilities"
+    values={[
+        { label: 'capabilities', value: 'capabilities' }
+    ]}
+>
 <TabItem value="capabilities">
 
 API to get details about capabilities provided by Microsoft.RecoveryServices RP. API to get details about capabilities provided by Microsoft.RecoveryServices RP.

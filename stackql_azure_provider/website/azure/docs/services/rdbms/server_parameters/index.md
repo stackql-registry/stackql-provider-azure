@@ -32,8 +32,72 @@ Creates, updates, deletes, gets or lists a <code>server_parameters</code> resour
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_update_configurations"
+    values={[
+        { label: 'list_update_configurations', value: 'list_update_configurations' }
+    ]}
+>
+<TabItem value="list_update_configurations">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;. # pylint: disable=line-too-long</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="allowedValues" /></td>
+    <td><code>string</code></td>
+    <td>Allowed values of the configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataType" /></td>
+    <td><code>string</code></td>
+    <td>Data type of the configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="defaultValue" /></td>
+    <td><code>string</code></td>
+    <td>Default value of the configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>Description of the configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="source" /></td>
+    <td><code>string</code></td>
+    <td>Source of the configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td>Value of the configuration.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +116,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_update_configurations"><CopyableCode code="list_update_configurations" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-server_name"><code>server_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Update a list of configurations in a given server.</td>
@@ -91,7 +155,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_update_configurations"
@@ -104,14 +168,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Update a list of configurations in a given server.
 
 ```sql
-EXEC azure.rdbms.server_parameters.list_update_configurations 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@server_name='{{ server_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"value": "{{ value }}"
-}'
+SELECT
+id,
+name,
+allowedValues,
+dataType,
+defaultValue,
+description,
+source,
+type,
+value
+FROM azure.rdbms.server_parameters
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND server_name = '{{ server_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

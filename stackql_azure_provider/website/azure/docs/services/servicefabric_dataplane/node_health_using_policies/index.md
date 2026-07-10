@@ -32,8 +32,52 @@ Creates, updates, deletes, gets or lists a <code>node_health_using_policies</cod
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_node_health_using_policy"
+    values={[
+        { label: 'get_node_health_using_policy', value: 'get_node_health_using_policy' }
+    ]}
+>
+<TabItem value="get_node_health_using_policy">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="AggregatedHealthState" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthEvents" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="HealthStatistics" /></td>
+    <td><code>object</code></td>
+    <td>The health statistics of an entity, returned as part of the health query result when the query description is configured to include statistics. The statistics include health state counts for all children types of the current entity. For example, for cluster, the health statistics include health state counts for nodes, applications, services, partitions, replicas, deployed applications and deployed service packages. For partition, the health statistics include health counts for replicas.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="Name" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="UnhealthyEvaluations" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +96,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_node_health_using_policy"><CopyableCode code="get_node_health_using_policy" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-EventsHealthStateFilter"><code>EventsHealthStateFilter</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the health of a Service Fabric node, by using the specified health policy. Gets the health of a Service Fabric node. Use EventsHealthStateFilter to filter the collection of health events reported on the node based on the health state. Use ClusterHealthPolicy in the POST body to override the health policies used to evaluate the health. If the node that you specify by name does not exist in the health store, this returns an error.</td>
@@ -96,7 +140,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_node_health_using_policy"
@@ -109,19 +153,17 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the health of a Service Fabric node, by using the specified health policy. Gets the health of a Service Fabric node. Use EventsHealthStateFilter to filter the collection of health events reported on the node based on the health state. Use ClusterHealthPolicy in the POST body to override the health policies used to evaluate the health. If the node that you specify by name does not exist in the health store, this returns an error.
 
 ```sql
-EXEC azure.servicefabric_dataplane.node_health_using_policies.get_node_health_using_policy 
-@node_name='{{ node_name }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@EventsHealthStateFilter='{{ EventsHealthStateFilter }}', 
-@timeout='{{ timeout }}' 
-@@json=
-'{
-"ConsiderWarningAsError": {{ ConsiderWarningAsError }}, 
-"MaxPercentUnhealthyNodes": {{ MaxPercentUnhealthyNodes }}, 
-"MaxPercentUnhealthyApplications": {{ MaxPercentUnhealthyApplications }}, 
-"ApplicationTypeHealthPolicyMap": "{{ ApplicationTypeHealthPolicyMap }}", 
-"NodeTypeHealthPolicyMap": "{{ NodeTypeHealthPolicyMap }}"
-}'
+SELECT
+AggregatedHealthState,
+HealthEvents,
+HealthStatistics,
+Name,
+UnhealthyEvaluations
+FROM azure.servicefabric_dataplane.node_health_using_policies
+WHERE node_name = '{{ node_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND EventsHealthStateFilter = '{{ EventsHealthStateFilter }}'
+AND timeout = '{{ timeout }}'
 ;
 ```
 </TabItem>

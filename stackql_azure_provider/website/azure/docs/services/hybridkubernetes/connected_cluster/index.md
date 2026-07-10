@@ -33,13 +33,38 @@ Creates, updates, deletes, gets or lists a <code>connected_cluster</code> resour
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_cluster_user_credential"
     values={[
+        { label: 'list_cluster_user_credential', value: 'list_cluster_user_credential' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_cluster_user_credential">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="hybridConnectionConfig" /></td>
+    <td><code>object</code></td>
+    <td>Contains the REP (rendezvous endpoint) and “Sender” access token.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kubeconfigs" /></td>
+    <td><code>array</code></td>
+    <td>Base64-encoded Kubernetes configuration file.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -565,6 +590,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_cluster_user_credential"><CopyableCode code="list_cluster_user_credential" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets cluster user credentials of a connected cluster. Gets cluster user credentials of the connected cluster with a specified resource group and name.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -613,13 +645,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Updates a connected cluster. API to update certain properties of the connected cluster resource.</td>
 </tr>
-<tr>
-    <td><a href="#list_cluster_user_credential"><CopyableCode code="list_cluster_user_credential" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-authenticationMethod"><code>authenticationMethod</code></a>, <a href="#parameter-clientProxy"><code>clientProxy</code></a></td>
-    <td></td>
-    <td>Gets cluster user credentials of a connected cluster. Gets cluster user credentials of the connected cluster with a specified resource group and name.</td>
-</tr>
 </tbody>
 </table>
 
@@ -657,13 +682,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_cluster_user_credential"
     values={[
+        { label: 'list_cluster_user_credential', value: 'list_cluster_user_credential' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_cluster_user_credential">
+
+Gets cluster user credentials of a connected cluster. Gets cluster user credentials of the connected cluster with a specified resource group and name.
+
+```sql
+SELECT
+hybridConnectionConfig,
+kubeconfigs
+FROM azure.hybridkubernetes.connected_cluster
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get the properties of the specified connected cluster. Returns the properties of the specified connected cluster, including name, identity, properties, and additional cluster details.
@@ -1005,8 +1046,7 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="update_async"
     values={[
-        { label: 'update_async', value: 'update_async' },
-        { label: 'list_cluster_user_credential', value: 'list_cluster_user_credential' }
+        { label: 'update_async', value: 'update_async' }
     ]}
 >
 <TabItem value="update_async">
@@ -1022,23 +1062,6 @@ EXEC azure.hybridkubernetes.connected_cluster.update_async
 '{
 "tags": "{{ tags }}", 
 "properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="list_cluster_user_credential">
-
-Gets cluster user credentials of a connected cluster. Gets cluster user credentials of the connected cluster with a specified resource group and name.
-
-```sql
-EXEC azure.hybridkubernetes.connected_cluster.list_cluster_user_credential 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"authenticationMethod": "{{ authenticationMethod }}", 
-"clientProxy": {{ clientProxy }}
 }'
 ;
 ```

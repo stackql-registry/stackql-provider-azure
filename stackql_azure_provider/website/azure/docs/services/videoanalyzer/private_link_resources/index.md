@@ -157,14 +157,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get group ID. Get group ID for video analyzer account.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get list of group IDs. Get list of group IDs for video analyzer account.</td>
 </tr>
@@ -231,8 +231,8 @@ systemData,
 type
 FROM azure.videoanalyzer.private_link_resources
 WHERE name = '{{ name }}' -- required
-AND resource_group_name = '{{ resource_group_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -251,8 +251,8 @@ requiredZoneNames,
 systemData,
 type
 FROM azure.videoanalyzer.private_link_resources
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND account_name = '{{ account_name }}' -- required
+WHERE account_name = '{{ account_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```

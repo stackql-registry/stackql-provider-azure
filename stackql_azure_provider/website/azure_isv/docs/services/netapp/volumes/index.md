@@ -33,12 +33,32 @@ Creates, updates, deletes, gets or lists a <code>volumes</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_get_group_id_list_for_ldap_user"
     values={[
+        { label: 'list_get_group_id_list_for_ldap_user', value: 'list_get_group_id_list_for_ldap_user' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_get_group_id_list_for_ldap_user">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="groupIdsForLdapUser" /></td>
+    <td><code>array</code></td>
+    <td>Group Id list.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -785,6 +805,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_get_group_id_list_for_ldap_user"><CopyableCode code="list_get_group_id_list_for_ldap_user" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-volume_name"><code>volume_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Returns the list of group Ids for a specific LDAP User.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-volume_name"><code>volume_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -825,13 +852,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-volume_name"><code>volume_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-forceDelete"><code>forceDelete</code></a></td>
     <td>Delete the specified volume.</td>
-</tr>
-<tr>
-    <td><a href="#list_get_group_id_list_for_ldap_user"><CopyableCode code="list_get_group_id_list_for_ldap_user" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-volume_name"><code>volume_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-username"><code>username</code></a></td>
-    <td></td>
-    <td>Returns the list of group Ids for a specific LDAP User.</td>
 </tr>
 <tr>
     <td><a href="#list_replications"><CopyableCode code="list_replications" /></a></td>
@@ -1039,12 +1059,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_get_group_id_list_for_ldap_user"
     values={[
+        { label: 'list_get_group_id_list_for_ldap_user', value: 'list_get_group_id_list_for_ldap_user' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_get_group_id_list_for_ldap_user">
+
+Returns the list of group Ids for a specific LDAP User.
+
+```sql
+SELECT
+groupIdsForLdapUser
+FROM azure_isv.netapp.volumes
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
+AND pool_name = '{{ pool_name }}' -- required
+AND volume_name = '{{ volume_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get the details of the specified volume.
@@ -1535,9 +1572,8 @@ AND forceDelete = '{{ forceDelete }}'
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_get_group_id_list_for_ldap_user"
+    defaultValue="list_replications"
     values={[
-        { label: 'list_get_group_id_list_for_ldap_user', value: 'list_get_group_id_list_for_ldap_user' },
         { label: 'list_replications', value: 'list_replications' },
         { label: 'list_quota_report', value: 'list_quota_report' },
         { label: 'populate_availability_zone', value: 'populate_availability_zone' },
@@ -1562,24 +1598,6 @@ AND forceDelete = '{{ forceDelete }}'
         { label: 'revert_relocation', value: 'revert_relocation' }
     ]}
 >
-<TabItem value="list_get_group_id_list_for_ldap_user">
-
-Returns the list of group Ids for a specific LDAP User.
-
-```sql
-EXEC azure_isv.netapp.volumes.list_get_group_id_list_for_ldap_user 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@account_name='{{ account_name }}' --required, 
-@pool_name='{{ pool_name }}' --required, 
-@volume_name='{{ volume_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"username": "{{ username }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="list_replications">
 
 List all replications for a specified volume.

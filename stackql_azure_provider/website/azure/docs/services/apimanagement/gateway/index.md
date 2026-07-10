@@ -33,12 +33,32 @@ Creates, updates, deletes, gets or lists a <code>gateway</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_debug_credentials"
     values={[
+        { label: 'list_debug_credentials', value: 'list_debug_credentials' },
         { label: 'get', value: 'get' },
         { label: 'list_by_service', value: 'list_by_service' }
     ]}
 >
+<TabItem value="list_debug_credentials">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="token" /></td>
+    <td><code>string</code></td>
+    <td>Gateway debug token.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -155,6 +175,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_debug_credentials"><CopyableCode code="list_debug_credentials" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-gateway_id"><code>gateway_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create new debug credentials for gateway.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-gateway_id"><code>gateway_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -209,13 +236,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-gateway_id"><code>gateway_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves gateway keys.</td>
-</tr>
-<tr>
-    <td><a href="#list_debug_credentials"><CopyableCode code="list_debug_credentials" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-gateway_id"><code>gateway_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-purposes"><code>purposes</code></a>, <a href="#parameter-apiId"><code>apiId</code></a></td>
-    <td></td>
-    <td>Create new debug credentials for gateway.</td>
 </tr>
 <tr>
     <td><a href="#list_trace"><CopyableCode code="list_trace" /></a></td>
@@ -302,12 +322,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_debug_credentials"
     values={[
+        { label: 'list_debug_credentials', value: 'list_debug_credentials' },
         { label: 'get', value: 'get' },
         { label: 'list_by_service', value: 'list_by_service' }
     ]}
 >
+<TabItem value="list_debug_credentials">
+
+Create new debug credentials for gateway.
+
+```sql
+SELECT
+token
+FROM azure.apimanagement.gateway
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND service_name = '{{ service_name }}' -- required
+AND gateway_id = '{{ gateway_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the details of the Gateway specified by its identifier.
@@ -534,7 +570,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'get_entity_tag', value: 'get_entity_tag' },
         { label: 'list_keys', value: 'list_keys' },
-        { label: 'list_debug_credentials', value: 'list_debug_credentials' },
         { label: 'list_trace', value: 'list_trace' },
         { label: 'regenerate_key', value: 'regenerate_key' },
         { label: 'generate_token', value: 'generate_token' },
@@ -564,25 +599,6 @@ EXEC azure.apimanagement.gateway.list_keys
 @service_name='{{ service_name }}' --required, 
 @gateway_id='{{ gateway_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_debug_credentials">
-
-Create new debug credentials for gateway.
-
-```sql
-EXEC azure.apimanagement.gateway.list_debug_credentials 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@service_name='{{ service_name }}' --required, 
-@gateway_id='{{ gateway_id }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"credentialsExpireAfter": "{{ credentialsExpireAfter }}", 
-"purposes": "{{ purposes }}", 
-"apiId": "{{ apiId }}"
-}'
 ;
 ```
 </TabItem>

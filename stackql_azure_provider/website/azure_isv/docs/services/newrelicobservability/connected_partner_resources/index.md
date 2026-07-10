@@ -32,8 +32,47 @@ Creates, updates, deletes, gets or lists a <code>connected_partner_resources</co
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="accountId" /></td>
+    <td><code>string</code></td>
+    <td>NewRelic Account Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="accountName" /></td>
+    <td><code>string</code></td>
+    <td>NewRelic account name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="azureResourceId" /></td>
+    <td><code>string</code></td>
+    <td>The azure resource Id of the deployment.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The location of the deployment.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +90,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List of all active deployments that are associated with the marketplace subscription linked to the given monitor. List of all active deployments that are associated with the marketplace subscription linked to the given monitor.</td>
@@ -91,23 +130,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 List of all active deployments that are associated with the marketplace subscription linked to the given monitor. List of all active deployments that are associated with the marketplace subscription linked to the given monitor.
 
 ```sql
-EXEC azure_isv.newrelicobservability.connected_partner_resources.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+accountId,
+accountName,
+azureResourceId,
+location
+FROM azure_isv.newrelicobservability.connected_partner_resources
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

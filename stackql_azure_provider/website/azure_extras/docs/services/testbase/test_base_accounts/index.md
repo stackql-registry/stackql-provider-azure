@@ -33,13 +33,43 @@ Creates, updates, deletes, gets or lists a <code>test_base_accounts</code> resou
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_package_name_availability"
     values={[
+        { label: 'check_package_name_availability', value: 'check_package_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="check_package_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed info regarding the reason associated with the name. Required if nameAvailable == false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Value indicating the availability of the name: true if the name is available; otherwise, false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason for unavailability of a name. Required if nameAvailable == false. Known values are: "Invalid" and "AlreadyExists".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -250,6 +280,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_package_name_availability"><CopyableCode code="check_package_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks that the Test Base Package name and version is valid and is not already in use.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -305,13 +342,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Offboard a Test Base Account.</td>
 </tr>
-<tr>
-    <td><a href="#check_package_name_availability"><CopyableCode code="check_package_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-applicationName"><code>applicationName</code></a>, <a href="#parameter-version"><code>version</code></a></td>
-    <td></td>
-    <td>Checks that the Test Base Package name and version is valid and is not already in use.</td>
-</tr>
 </tbody>
 </table>
 
@@ -359,13 +389,30 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_package_name_availability"
     values={[
+        { label: 'check_package_name_availability', value: 'check_package_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="check_package_name_availability">
+
+Checks that the Test Base Package name and version is valid and is not already in use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure_extras.testbase.test_base_accounts
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND test_base_account_name = '{{ test_base_account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets a Test Base Account.
@@ -587,8 +634,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="get_file_upload_url"
     values={[
         { label: 'get_file_upload_url', value: 'get_file_upload_url' },
-        { label: 'offboard', value: 'offboard' },
-        { label: 'check_package_name_availability', value: 'check_package_name_availability' }
+        { label: 'offboard', value: 'offboard' }
     ]}
 >
 <TabItem value="get_file_upload_url">
@@ -616,25 +662,6 @@ EXEC azure_extras.testbase.test_base_accounts.offboard
 @resource_group_name='{{ resource_group_name }}' --required, 
 @test_base_account_name='{{ test_base_account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_package_name_availability">
-
-Checks that the Test Base Package name and version is valid and is not already in use.
-
-```sql
-EXEC azure_extras.testbase.test_base_accounts.check_package_name_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@test_base_account_name='{{ test_base_account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"applicationName": "{{ applicationName }}", 
-"version": "{{ version }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

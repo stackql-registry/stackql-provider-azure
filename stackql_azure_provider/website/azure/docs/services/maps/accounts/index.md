@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists an <code>accounts</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_sas"
     values={[
+        { label: 'list_sas', value: 'list_sas' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_sas">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="accountSasToken" /></td>
+    <td><code>string</code></td>
+    <td>The shared access signature access token.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -370,6 +390,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_sas"><CopyableCode code="list_sas" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create and list an account shared access signature token. Use this SAS token for authentication to Azure Maps REST APIs through various Azure Maps SDKs. As prerequisite to create a SAS Token. Prerequisites: 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account. 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -417,13 +444,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a Maps Account.</td>
-</tr>
-<tr>
-    <td><a href="#list_sas"><CopyableCode code="list_sas" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-signingKey"><code>signingKey</code></a>, <a href="#parameter-principalId"><code>principalId</code></a>, <a href="#parameter-maxRatePerSecond"><code>maxRatePerSecond</code></a>, <a href="#parameter-start"><code>start</code></a>, <a href="#parameter-expiry"><code>expiry</code></a></td>
-    <td></td>
-    <td>Create and list an account shared access signature token. Use this SAS token for authentication to Azure Maps REST APIs through various Azure Maps SDKs. As prerequisite to create a SAS Token. Prerequisites: 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account. 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.</td>
 </tr>
 <tr>
     <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
@@ -476,13 +496,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_sas"
     values={[
+        { label: 'list_sas', value: 'list_sas' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_sas">
+
+Create and list an account shared access signature token. Use this SAS token for authentication to Azure Maps REST APIs through various Azure Maps SDKs. As prerequisite to create a SAS Token. Prerequisites: 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account. 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.
+
+```sql
+SELECT
+accountSasToken
+FROM azure.maps.accounts
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a Maps Account.
@@ -827,34 +862,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_sas"
+    defaultValue="list_keys"
     values={[
-        { label: 'list_sas', value: 'list_sas' },
         { label: 'list_keys', value: 'list_keys' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
 >
-<TabItem value="list_sas">
-
-Create and list an account shared access signature token. Use this SAS token for authentication to Azure Maps REST APIs through various Azure Maps SDKs. As prerequisite to create a SAS Token. Prerequisites: 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account. 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.
-
-```sql
-EXEC azure.maps.accounts.list_sas 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@account_name='{{ account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"signingKey": "{{ signingKey }}", 
-"principalId": "{{ principalId }}", 
-"regions": "{{ regions }}", 
-"maxRatePerSecond": {{ maxRatePerSecond }}, 
-"start": "{{ start }}", 
-"expiry": "{{ expiry }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="list_keys">
 
 Get the keys to use with the Maps APIs. A key is used to authenticate and authorize access to the Maps REST APIs. Only one key is needed at a time; two are given to provide seamless key regeneration.

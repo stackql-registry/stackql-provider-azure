@@ -33,11 +33,61 @@ Creates, updates, deletes, gets or lists a <code>virtual_hub_bgp_connections</co
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="list"
+    defaultValue="list_learned_routes"
     values={[
+        { label: 'list_learned_routes', value: 'list_learned_routes' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_learned_routes">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="asPath" /></td>
+    <td><code>string</code></td>
+    <td>The route's AS path sequence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="localAddress" /></td>
+    <td><code>string</code></td>
+    <td>The peer's local address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="network" /></td>
+    <td><code>string</code></td>
+    <td>The route's network prefix.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nextHop" /></td>
+    <td><code>string</code></td>
+    <td>The route's next hop.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="origin" /></td>
+    <td><code>string</code></td>
+    <td>The source this route was learned from.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sourcePeer" /></td>
+    <td><code>string</code></td>
+    <td>The peer this route was learned from.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="weight" /></td>
+    <td><code>integer</code></td>
+    <td>The route's weight.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list">
 
 <table>
@@ -120,18 +170,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_learned_routes"><CopyableCode code="list_learned_routes" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-hub_name"><code>hub_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieves a list of routes the virtual hub bgp connection has learned.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_hub_name"><code>virtual_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves the details of all VirtualHubBgpConnections.</td>
-</tr>
-<tr>
-    <td><a href="#list_learned_routes"><CopyableCode code="list_learned_routes" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-hub_name"><code>hub_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Retrieves a list of routes the virtual hub bgp connection has learned.</td>
 </tr>
 <tr>
     <td><a href="#list_advertised_routes"><CopyableCode code="list_advertised_routes" /></a></td>
@@ -187,11 +237,33 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="list"
+    defaultValue="list_learned_routes"
     values={[
+        { label: 'list_learned_routes', value: 'list_learned_routes' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_learned_routes">
+
+Retrieves a list of routes the virtual hub bgp connection has learned.
+
+```sql
+SELECT
+asPath,
+localAddress,
+network,
+nextHop,
+origin,
+sourcePeer,
+weight
+FROM azure.network.virtual_hub_bgp_connections
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND hub_name = '{{ hub_name }}' -- required
+AND connection_name = '{{ connection_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list">
 
 Retrieves the details of all VirtualHubBgpConnections.
@@ -221,25 +293,11 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_learned_routes"
+    defaultValue="list_advertised_routes"
     values={[
-        { label: 'list_learned_routes', value: 'list_learned_routes' },
         { label: 'list_advertised_routes', value: 'list_advertised_routes' }
     ]}
 >
-<TabItem value="list_learned_routes">
-
-Retrieves a list of routes the virtual hub bgp connection has learned.
-
-```sql
-EXEC azure.network.virtual_hub_bgp_connections.list_learned_routes 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@hub_name='{{ hub_name }}' --required, 
-@connection_name='{{ connection_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_advertised_routes">
 
 Retrieves a list of routes the virtual hub bgp connection is advertising to the specified peer.

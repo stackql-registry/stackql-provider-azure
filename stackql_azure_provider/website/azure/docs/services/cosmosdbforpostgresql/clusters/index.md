@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -225,6 +226,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Name of the cluster.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Error message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates whether the cluster name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Type of the cluster.</td>
 </tr>
 </tbody>
 </table>
@@ -632,6 +667,13 @@ The following methods are available for this resource:
     <td>Gets information about a cluster such as compute and storage configuration and cluster lifecycle metadata such as cluster creation date and time.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks availability of a cluster name. Cluster names should be globally unique; at least 3 characters and at most 40 characters long; they must only contain lowercase letters, numbers, and hyphens; and must not start or end with a hyphen.</td>
+</tr>
+<tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -694,13 +736,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Promotes read replica cluster to an independent read-write cluster.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks availability of a cluster name. Cluster names should be globally unique; at least 3 characters and at most 40 characters long; they must only contain lowercase letters, numbers, and hyphens; and must not start or end with a hyphen.</td>
-</tr>
 </tbody>
 </table>
 
@@ -741,6 +776,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -790,6 +826,21 @@ FROM azure.cosmosdbforpostgresql.clusters
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND cluster_name = '{{ cluster_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Checks availability of a cluster name. Cluster names should be globally unique; at least 3 characters and at most 40 characters long; they must only contain lowercase letters, numbers, and hyphens; and must not start or end with a hyphen.
+
+```sql
+SELECT
+name,
+message,
+nameAvailable,
+type
+FROM azure.cosmosdbforpostgresql.clusters
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1052,8 +1103,7 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'restart', value: 'restart' },
         { label: 'start', value: 'start' },
         { label: 'stop', value: 'stop' },
-        { label: 'promote_read_replica', value: 'promote_read_replica' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'promote_read_replica', value: 'promote_read_replica' }
     ]}
 >
 <TabItem value="restart">
@@ -1104,21 +1154,6 @@ EXEC azure.cosmosdbforpostgresql.clusters.promote_read_replica
 @@json=
 '{
 "enableGeoBackup": {{ enableGeoBackup }}
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks availability of a cluster name. Cluster names should be globally unique; at least 3 characters and at most 40 characters long; they must only contain lowercase letters, numbers, and hyphens; and must not start or end with a hyphen.
-
-```sql
-EXEC azure.cosmosdbforpostgresql.clusters.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
 }'
 ;
 ```

@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>palo_alto_networks_cloudngfw_op
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_cloud_manager_tenants"
+    values={[
+        { label: 'list_cloud_manager_tenants', value: 'list_cloud_manager_tenants' }
+    ]}
+>
+<TabItem value="list_cloud_manager_tenants">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>List of Cloud Manager Tenants. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_cloud_manager_tenants"><CopyableCode code="list_cloud_manager_tenants" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>list_cloud_manager_tenants.</td>
@@ -102,15 +126,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_cloud_manager_tenants"
     values={[
-        { label: 'list_cloud_manager_tenants', value: 'list_cloud_manager_tenants' },
-        { label: 'list_product_serial_number_status', value: 'list_product_serial_number_status' },
-        { label: 'list_support_info', value: 'list_support_info' },
-        { label: 'create_product_serial_number', value: 'create_product_serial_number' }
+        { label: 'list_cloud_manager_tenants', value: 'list_cloud_manager_tenants' }
     ]}
 >
 <TabItem value="list_cloud_manager_tenants">
@@ -118,11 +139,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 list_cloud_manager_tenants.
 
 ```sql
-EXEC azure_isv.paloaltonetworksngfw.palo_alto_networks_cloudngfw_operations.list_cloud_manager_tenants 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+value
+FROM azure_isv.paloaltonetworksngfw.palo_alto_networks_cloudngfw_operations
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="list_product_serial_number_status"
+    values={[
+        { label: 'list_product_serial_number_status', value: 'list_product_serial_number_status' },
+        { label: 'list_support_info', value: 'list_support_info' },
+        { label: 'create_product_serial_number', value: 'create_product_serial_number' }
+    ]}
+>
 <TabItem value="list_product_serial_number_status">
 
 list_product_serial_number_status.

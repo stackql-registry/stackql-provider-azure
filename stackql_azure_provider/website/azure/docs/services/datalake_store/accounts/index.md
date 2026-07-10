@@ -33,13 +33,43 @@ Creates, updates, deletes, gets or lists an <code>accounts</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The message describing why the Data Lake Store account name is not available, if nameAvailable is false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>The Boolean value of true or false to indicate whether the Data Lake Store account name is available or not.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the Data Lake Store account name is not available, if nameAvailable is false.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -330,6 +360,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks whether the specified account name is available or taken.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -377,13 +414,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Attempts to enable a user managed Key Vault for encryption of the specified Data Lake Store account.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks whether the specified account name is available or taken.</td>
 </tr>
 </tbody>
 </table>
@@ -457,13 +487,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Checks whether the specified account name is available or taken.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.datalake_store.accounts
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the specified Data Lake Store account.
@@ -727,8 +773,7 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="enable_key_vault"
     values={[
-        { label: 'enable_key_vault', value: 'enable_key_vault' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'enable_key_vault', value: 'enable_key_vault' }
     ]}
 >
 <TabItem value="enable_key_vault">
@@ -740,22 +785,6 @@ EXEC azure.datalake_store.accounts.enable_key_vault
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks whether the specified account name is available or taken.
-
-```sql
-EXEC azure.datalake_store.accounts.check_name_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

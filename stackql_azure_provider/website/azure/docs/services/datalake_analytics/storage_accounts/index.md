@@ -33,14 +33,14 @@ Creates, updates, deletes, gets or lists a <code>storage_accounts</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_storage_container"
+    defaultValue="list_sas_tokens"
     values={[
-        { label: 'get_storage_container', value: 'get_storage_container' },
+        { label: 'list_sas_tokens', value: 'list_sas_tokens' },
         { label: 'get', value: 'get' },
         { label: 'list_by_account', value: 'list_by_account' }
     ]}
 >
-<TabItem value="get_storage_container">
+<TabItem value="list_sas_tokens">
 
 <table>
 <thead>
@@ -52,24 +52,9 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
+    <td><CopyableCode code="accessToken" /></td>
     <td><code>string</code></td>
-    <td>The resource identifier.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The resource name.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastModifiedTime" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>The last modified time of the blob container.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The resource type.</td>
+    <td>The access token for the associated Azure Storage Container.</td>
 </tr>
 </tbody>
 </table>
@@ -160,11 +145,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_storage_container"><CopyableCode code="get_storage_container" /></a></td>
+    <td><a href="#list_sas_tokens"><CopyableCode code="list_sas_tokens" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-storage_account_name"><code>storage_account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.</td>
+    <td>Gets the SAS token associated with the specified Data Lake Analytics and Azure Storage account and container combination.</td>
 </tr>
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
@@ -209,11 +194,11 @@ The following methods are available for this resource:
     <td>Lists the Azure Storage containers, if any, associated with the specified Data Lake Analytics and Azure Storage account combination. The response includes a link to the next page of results, if any.</td>
 </tr>
 <tr>
-    <td><a href="#list_sas_tokens"><CopyableCode code="list_sas_tokens" /></a></td>
+    <td><a href="#get_storage_container"><CopyableCode code="get_storage_container" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-storage_account_name"><code>storage_account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the SAS token associated with the specified Data Lake Analytics and Azure Storage account and container combination.</td>
+    <td>Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.</td>
 </tr>
 </tbody>
 </table>
@@ -239,7 +224,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-container_name">
     <td><CopyableCode code="container_name" /></td>
     <td><code>string</code></td>
-    <td>The name of the Azure storage container for which the SAS token is being requested. Required.</td>
+    <td>The name of the Azure storage container to retrieve. Required.</td>
 </tr>
 <tr id="parameter-resource_group_name">
     <td><CopyableCode code="resource_group_name" /></td>
@@ -249,7 +234,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-storage_account_name">
     <td><CopyableCode code="storage_account_name" /></td>
     <td><code>string</code></td>
-    <td>The name of the Azure storage account for which the SAS token is being requested. Required.</td>
+    <td>The name of the Azure storage account from which to retrieve the blob container. Required.</td>
 </tr>
 <tr id="parameter-subscription_id">
     <td><CopyableCode code="subscription_id" /></td>
@@ -292,23 +277,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_storage_container"
+    defaultValue="list_sas_tokens"
     values={[
-        { label: 'get_storage_container', value: 'get_storage_container' },
+        { label: 'list_sas_tokens', value: 'list_sas_tokens' },
         { label: 'get', value: 'get' },
         { label: 'list_by_account', value: 'list_by_account' }
     ]}
 >
-<TabItem value="get_storage_container">
+<TabItem value="list_sas_tokens">
 
-Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.
+Gets the SAS token associated with the specified Data Lake Analytics and Azure Storage account and container combination.
 
 ```sql
 SELECT
-id,
-name,
-lastModifiedTime,
-type
+accessToken
 FROM azure.datalake_analytics.storage_accounts
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
@@ -419,7 +401,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'add', value: 'add' },
         { label: 'list_storage_containers', value: 'list_storage_containers' },
-        { label: 'list_sas_tokens', value: 'list_sas_tokens' }
+        { label: 'get_storage_container', value: 'get_storage_container' }
     ]}
 >
 <TabItem value="add">
@@ -452,12 +434,12 @@ EXEC azure.datalake_analytics.storage_accounts.list_storage_containers
 ;
 ```
 </TabItem>
-<TabItem value="list_sas_tokens">
+<TabItem value="get_storage_container">
 
-Gets the SAS token associated with the specified Data Lake Analytics and Azure Storage account and container combination.
+Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.
 
 ```sql
-EXEC azure.datalake_analytics.storage_accounts.list_sas_tokens 
+EXEC azure.datalake_analytics.storage_accounts.get_storage_container 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @storage_account_name='{{ storage_account_name }}' --required, 

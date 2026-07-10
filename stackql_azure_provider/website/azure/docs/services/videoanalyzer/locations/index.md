@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>locations</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_name_availability"
+    values={[
+        { label: 'check_name_availability', value: 'check_name_availability' }
+    ]}
+>
+<TabItem value="check_name_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location_name"><code>location_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check Name Availability. Checks whether the Video Analyzer resource name is available.</td>
@@ -86,7 +120,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_name_availability"
@@ -99,14 +133,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Check Name Availability. Checks whether the Video Analyzer resource name is available.
 
 ```sql
-EXEC azure.videoanalyzer.locations.check_name_availability 
-@location_name='{{ location_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.videoanalyzer.locations
+WHERE location_name = '{{ location_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

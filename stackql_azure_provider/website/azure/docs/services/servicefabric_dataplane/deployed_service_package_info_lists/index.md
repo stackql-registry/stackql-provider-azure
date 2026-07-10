@@ -60,7 +60,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_service_package_info_list_by_name"><CopyableCode code="get_deployed_service_package_info_list_by_name" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-service_package_name"><code>service_package_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-service_package_name"><code>service_package_name</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the list of service packages deployed on a Service Fabric node matching exactly the specified name. Returns the information about the service packages deployed on a Service Fabric node for the given application. These results are of service packages whose name match exactly the service package name specified as the parameter.</td>
 </tr>
@@ -136,8 +136,8 @@ Gets the list of service packages deployed on a Service Fabric node matching exa
 
 ```sql
 EXEC azure.servicefabric_dataplane.deployed_service_package_info_lists.get_deployed_service_package_info_list_by_name 
-@service_package_name='{{ service_package_name }}' --required, 
 @application_id='{{ application_id }}' --required, 
+@service_package_name='{{ service_package_name }}' --required, 
 @node_name='{{ node_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'

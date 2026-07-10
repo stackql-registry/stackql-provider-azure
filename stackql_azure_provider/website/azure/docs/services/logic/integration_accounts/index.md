@@ -33,13 +33,38 @@ Creates, updates, deletes, gets or lists an <code>integration_accounts</code> re
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_key_vault_keys"
     values={[
+        { label: 'list_key_vault_keys', value: 'list_key_vault_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_key_vault_keys">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="attributes" /></td>
+    <td><code>object</code></td>
+    <td>The key attributes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kid" /></td>
+    <td><code>string</code></td>
+    <td>The key id.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -220,6 +245,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_key_vault_keys"><CopyableCode code="list_key_vault_keys" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-integration_account_name"><code>integration_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the integration account's Key Vault keys.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-integration_account_name"><code>integration_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -274,13 +306,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-integration_account_name"><code>integration_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the integration account callback URL.</td>
-</tr>
-<tr>
-    <td><a href="#list_key_vault_keys"><CopyableCode code="list_key_vault_keys" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-integration_account_name"><code>integration_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-keyVault"><code>keyVault</code></a></td>
-    <td></td>
-    <td>Gets the integration account's Key Vault keys.</td>
 </tr>
 <tr>
     <td><a href="#log_tracking_events"><CopyableCode code="log_tracking_events" /></a></td>
@@ -338,13 +363,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_key_vault_keys"
     values={[
+        { label: 'list_key_vault_keys', value: 'list_key_vault_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_key_vault_keys">
+
+Gets the integration account's Key Vault keys.
+
+```sql
+SELECT
+attributes,
+kid
+FROM azure.logic.integration_accounts
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND integration_account_name = '{{ integration_account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets an integration account.
@@ -593,7 +634,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_callback_url"
     values={[
         { label: 'list_callback_url', value: 'list_callback_url' },
-        { label: 'list_key_vault_keys', value: 'list_key_vault_keys' },
         { label: 'log_tracking_events', value: 'log_tracking_events' },
         { label: 'regenerate_access_key', value: 'regenerate_access_key' }
     ]}
@@ -611,23 +651,6 @@ EXEC azure.logic.integration_accounts.list_callback_url
 '{
 "notAfter": "{{ notAfter }}", 
 "keyType": "{{ keyType }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="list_key_vault_keys">
-
-Gets the integration account's Key Vault keys.
-
-```sql
-EXEC azure.logic.integration_accounts.list_key_vault_keys 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@integration_account_name='{{ integration_account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"keyVault": "{{ keyVault }}", 
-"skipToken": "{{ skipToken }}"
 }'
 ;
 ```

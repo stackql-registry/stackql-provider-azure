@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists an <code>access</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_users"
+    values={[
+        { label: 'list_users', value: 'list_users' }
+    ]}
+>
+<TabItem value="list_users">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="data" /></td>
+    <td><code>array</code></td>
+    <td>Data of the users list.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Type of response.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="metadata" /></td>
+    <td><code>object</code></td>
+    <td>Metadata of the list.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_users"><CopyableCode code="list_users" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-organization_name"><code>organization_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Organization users details.</td>
@@ -159,12 +193,38 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_users"
     values={[
-        { label: 'list_users', value: 'list_users' },
+        { label: 'list_users', value: 'list_users' }
+    ]}
+>
+<TabItem value="list_users">
+
+Organization users details.
+
+```sql
+SELECT
+data,
+kind,
+metadata
+FROM azure_isv.confluent.access
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND organization_name = '{{ organization_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="list_service_accounts"
+    values={[
         { label: 'list_service_accounts', value: 'list_service_accounts' },
         { label: 'list_invitations', value: 'list_invitations' },
         { label: 'list_environments', value: 'list_environments' },
@@ -176,22 +236,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'create_role_binding', value: 'create_role_binding' }
     ]}
 >
-<TabItem value="list_users">
-
-Organization users details.
-
-```sql
-EXEC azure_isv.confluent.access.list_users 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@organization_name='{{ organization_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"searchFilters": "{{ searchFilters }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="list_service_accounts">
 
 Organization service accounts details.

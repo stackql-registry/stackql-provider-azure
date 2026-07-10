@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>check_resource_names</code> res
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_resource_name"
+    values={[
+        { label: 'check_resource_name', value: 'check_resource_name' }
+    ]}
+>
+<TabItem value="check_resource_name">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Name of Resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Is the resource name Allowed or Reserved. Known values are: "Allowed" and "Reserved". (Allowed, Reserved)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Type of Resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +86,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_resource_name"><CopyableCode code="check_resource_name" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td></td>
     <td></td>
     <td>Checks resource name validity. A resource name is valid if it is not a reserved word, does not contains a reserved word and does not start with a reserved word.</td>
 </tr>
@@ -76,7 +110,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_resource_name"
@@ -89,12 +123,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Checks resource name validity. A resource name is valid if it is not a reserved word, does not contains a reserved word and does not start with a reserved word.
 
 ```sql
-EXEC azure.resource_subscriptions.check_resource_names.check_resource_name 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+name,
+status,
+type
+FROM azure.resource_subscriptions.check_resource_names
 ;
 ```
 </TabItem>

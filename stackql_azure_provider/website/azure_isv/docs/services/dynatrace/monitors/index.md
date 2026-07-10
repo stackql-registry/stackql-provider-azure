@@ -33,13 +33,84 @@ Creates, updates, deletes, gets or lists a <code>monitors</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_linkable_environments"
     values={[
+        { label: 'list_linkable_environments', value: 'list_linkable_environments' },
+        { label: 'get_sso_details', value: 'get_sso_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'get_marketplace_saas_resource_details', value: 'get_marketplace_saas_resource_details' },
         { label: 'list_by_subscription_id', value: 'list_by_subscription_id' }
     ]}
 >
+<TabItem value="list_linkable_environments">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="environmentId" /></td>
+    <td><code>string</code></td>
+    <td>environment id for which user is an admin.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="environmentName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the environment.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="planData" /></td>
+    <td><code>object</code></td>
+    <td>Billing plan information.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_sso_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="aadDomains" /></td>
+    <td><code>array</code></td>
+    <td>array of Aad(azure active directory) domains.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="adminUsers" /></td>
+    <td><code>array</code></td>
+    <td>Array of admin user emails.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isSsoEnabled" /></td>
+    <td><code>string</code></td>
+    <td>Whether the SSO is enabled for this resource or not. Known values are: "Enabled" and "Disabled".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="metadataUrl" /></td>
+    <td><code>string</code></td>
+    <td>URL for Azure AD metadata.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="singleSignOnUrl" /></td>
+    <td><code>string</code></td>
+    <td>The login URL specific to this Dynatrace Environment.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -214,6 +285,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="userInfo" /></td>
     <td><code>object</code></td>
     <td>User info.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_marketplace_saas_resource_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="marketplaceSaaSResourceId" /></td>
+    <td><code>string</code></td>
+    <td>Id of the Marketplace SaaS Resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="marketplaceSubscriptionStatus" /></td>
+    <td><code>string</code></td>
+    <td>Marketplace subscription status. Known values are: "Active" and "Suspended".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="planId" /></td>
+    <td><code>string</code></td>
+    <td>Id of the plan.</td>
 </tr>
 </tbody>
 </table>
@@ -325,6 +425,20 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_linkable_environments"><CopyableCode code="list_linkable_environments" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets all the Dynatrace environments that a user can link a azure resource to. Gets all the Dynatrace environments that a user can link a azure resource to.</td>
+</tr>
+<tr>
+    <td><a href="#get_sso_details"><CopyableCode code="get_sso_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the SSO configuration details from the partner. Gets the SSO configuration details from the partner.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -337,6 +451,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List MonitorResource resources by resource group. List MonitorResource resources by resource group.</td>
+</tr>
+<tr>
+    <td><a href="#get_marketplace_saas_resource_details"><CopyableCode code="get_marketplace_saas_resource_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get Marketplace SaaS resource details of a tenant under a specific subscription.</td>
 </tr>
 <tr>
     <td><a href="#list_by_subscription_id"><CopyableCode code="list_by_subscription_id" /></a></td>
@@ -395,13 +516,6 @@ The following methods are available for this resource:
     <td>Gets list of App Services with Dynatrace PaaS OneAgent enabled. Gets list of App Services with Dynatrace PaaS OneAgent enabled.</td>
 </tr>
 <tr>
-    <td><a href="#list_linkable_environments"><CopyableCode code="list_linkable_environments" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-tenantId"><code>tenantId</code></a>, <a href="#parameter-userPrincipal"><code>userPrincipal</code></a>, <a href="#parameter-region"><code>region</code></a></td>
-    <td></td>
-    <td>Gets all the Dynatrace environments that a user can link a azure resource to. Gets all the Dynatrace environments that a user can link a azure resource to.</td>
-</tr>
-<tr>
     <td><a href="#get_vm_host_payload"><CopyableCode code="get_vm_host_payload" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -409,25 +523,11 @@ The following methods are available for this resource:
     <td>Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM. Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.</td>
 </tr>
 <tr>
-    <td><a href="#get_marketplace_saa_s_resource_details"><CopyableCode code="get_marketplace_saa_s_resource_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-tenantId"><code>tenantId</code></a></td>
-    <td></td>
-    <td>Get Marketplace SaaS resource details of a tenant under a specific subscription.</td>
-</tr>
-<tr>
     <td><a href="#get_metric_status"><CopyableCode code="get_metric_status" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get metric status.</td>
-</tr>
-<tr>
-    <td><a href="#get_sso_details"><CopyableCode code="get_sso_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-userPrincipal"><code>userPrincipal</code></a></td>
-    <td></td>
-    <td>Gets the SSO configuration details from the partner. Gets the SSO configuration details from the partner.</td>
 </tr>
 </tbody>
 </table>
@@ -448,7 +548,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-monitor_name">
     <td><CopyableCode code="monitor_name" /></td>
     <td><code>string</code></td>
-    <td>Monitor resource name. Required.</td>
+    <td>Name of the Monitor resource. Required.</td>
 </tr>
 <tr id="parameter-resource_group_name">
     <td><CopyableCode code="resource_group_name" /></td>
@@ -466,13 +566,50 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_linkable_environments"
     values={[
+        { label: 'list_linkable_environments', value: 'list_linkable_environments' },
+        { label: 'get_sso_details', value: 'get_sso_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'get_marketplace_saas_resource_details', value: 'get_marketplace_saas_resource_details' },
         { label: 'list_by_subscription_id', value: 'list_by_subscription_id' }
     ]}
 >
+<TabItem value="list_linkable_environments">
+
+Gets all the Dynatrace environments that a user can link a azure resource to. Gets all the Dynatrace environments that a user can link a azure resource to.
+
+```sql
+SELECT
+environmentId,
+environmentName,
+planData
+FROM azure_isv.dynatrace.monitors
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_sso_details">
+
+Gets the SSO configuration details from the partner. Gets the SSO configuration details from the partner.
+
+```sql
+SELECT
+aadDomains,
+adminUsers,
+isSsoEnabled,
+metadataUrl,
+singleSignOnUrl
+FROM azure_isv.dynatrace.monitors
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a MonitorResource. Get a MonitorResource.
@@ -525,6 +662,20 @@ userInfo
 FROM azure_isv.dynatrace.monitors
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_marketplace_saas_resource_details">
+
+Get Marketplace SaaS resource details of a tenant under a specific subscription.
+
+```sql
+SELECT
+marketplaceSaaSResourceId,
+marketplaceSubscriptionStatus,
+planId
+FROM azure_isv.dynatrace.monitors
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -771,11 +922,8 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_monitored_resources', value: 'list_monitored_resources' },
         { label: 'list_hosts', value: 'list_hosts' },
         { label: 'list_app_services', value: 'list_app_services' },
-        { label: 'list_linkable_environments', value: 'list_linkable_environments' },
         { label: 'get_vm_host_payload', value: 'get_vm_host_payload' },
-        { label: 'get_marketplace_saa_s_resource_details', value: 'get_marketplace_saa_s_resource_details' },
-        { label: 'get_metric_status', value: 'get_metric_status' },
-        { label: 'get_sso_details', value: 'get_sso_details' }
+        { label: 'get_metric_status', value: 'get_metric_status' }
     ]}
 >
 <TabItem value="list_monitored_resources">
@@ -814,24 +962,6 @@ EXEC azure_isv.dynatrace.monitors.list_app_services
 ;
 ```
 </TabItem>
-<TabItem value="list_linkable_environments">
-
-Gets all the Dynatrace environments that a user can link a azure resource to. Gets all the Dynatrace environments that a user can link a azure resource to.
-
-```sql
-EXEC azure_isv.dynatrace.monitors.list_linkable_environments 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"tenantId": "{{ tenantId }}", 
-"userPrincipal": "{{ userPrincipal }}", 
-"region": "{{ region }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="get_vm_host_payload">
 
 Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM. Returns the payload that needs to be passed in the request body for installing Dynatrace agent on a VM.
@@ -844,20 +974,6 @@ EXEC azure_isv.dynatrace.monitors.get_vm_host_payload
 ;
 ```
 </TabItem>
-<TabItem value="get_marketplace_saa_s_resource_details">
-
-Get Marketplace SaaS resource details of a tenant under a specific subscription.
-
-```sql
-EXEC azure_isv.dynatrace.monitors.get_marketplace_saa_s_resource_details 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"tenantId": "{{ tenantId }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="get_metric_status">
 
 Get metric status.
@@ -867,22 +983,6 @@ EXEC azure_isv.dynatrace.monitors.get_metric_status
 @resource_group_name='{{ resource_group_name }}' --required, 
 @monitor_name='{{ monitor_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_sso_details">
-
-Gets the SSO configuration details from the partner. Gets the SSO configuration details from the partner.
-
-```sql
-EXEC azure_isv.dynatrace.monitors.get_sso_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"userPrincipal": "{{ userPrincipal }}"
-}'
 ;
 ```
 </TabItem>

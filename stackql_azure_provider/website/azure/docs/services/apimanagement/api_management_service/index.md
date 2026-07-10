@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -514,6 +515,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="zones" /></td>
     <td><code>array</code></td>
     <td>The availability zones.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>If reason == invalid, provide the user with the reason why the given name is invalid, and provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists, explain that is already in use, and direct them to select a different name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>True if the name is available and can be used to create a new API Management service; otherwise false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Invalid indicates the name provided does not match the resource provider’s naming requirements (incorrect length, unsupported characters, etc.) AlreadyExists indicates that the name is already in use and is therefore unavailable. Known values are: "Valid", "Invalid", and "AlreadyExists". (Valid, Invalid, AlreadyExists)</td>
 </tr>
 </tbody>
 </table>
@@ -789,6 +819,13 @@ The following methods are available for this resource:
     <td>List all API Management services within a resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks availability and correctness of a name for an API Management service.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -872,13 +909,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Force Refresh the SSL certificate attached to the Custom Hostnames configured using secret from KeyVault on the Api Management service.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Checks availability and correctness of a name for an API Management service.</td>
-</tr>
 </tbody>
 </table>
 
@@ -920,6 +950,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -1035,6 +1066,20 @@ zones
 FROM azure.apimanagement.api_management_service
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Checks availability and correctness of a name for an API Management service.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.apimanagement.api_management_service
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1412,8 +1457,7 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'backup', value: 'backup' },
         { label: 'migrate_to_stv2', value: 'migrate_to_stv2' },
         { label: 'apply_network_configuration_updates', value: 'apply_network_configuration_updates' },
-        { label: 'refresh_hostnames', value: 'refresh_hostnames' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'refresh_hostnames', value: 'refresh_hostnames' }
     ]}
 >
 <TabItem value="get_sso_token">
@@ -1521,20 +1565,6 @@ EXEC azure.apimanagement.api_management_service.refresh_hostnames
 @resource_group_name='{{ resource_group_name }}' --required, 
 @service_name='{{ service_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks availability and correctness of a name for an API Management service.
-
-```sql
-EXEC azure.apimanagement.api_management_service.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}"
-}'
 ;
 ```
 </TabItem>

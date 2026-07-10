@@ -33,12 +33,42 @@ Creates, updates, deletes, gets or lists an <code>entities</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_signal_history"
     values={[
+        { label: 'get_signal_history', value: 'get_signal_history' },
         { label: 'get', value: 'get' },
         { label: 'list_by_health_model', value: 'list_by_health_model' }
     ]}
 >
+<TabItem value="get_signal_history">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="entityName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the entity. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="history" /></td>
+    <td><code>array</code></td>
+    <td>Signal history data points. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="signalName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the signal. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -235,6 +265,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_signal_history"><CopyableCode code="get_signal_history" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-health_model_name"><code>health_model_name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieve the time series history for a signal on an entity.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-health_model_name"><code>health_model_name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -275,13 +312,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-health_model_name"><code>health_model_name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieve the health state transition history for an entity.</td>
-</tr>
-<tr>
-    <td><a href="#get_signal_history"><CopyableCode code="get_signal_history" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-health_model_name"><code>health_model_name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-signalName"><code>signalName</code></a></td>
-    <td></td>
-    <td>Retrieve the time series history for a signal on an entity.</td>
 </tr>
 <tr>
     <td><a href="#ingest_health_report"><CopyableCode code="ingest_health_report" /></a></td>
@@ -337,12 +367,30 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_signal_history"
     values={[
+        { label: 'get_signal_history', value: 'get_signal_history' },
         { label: 'get', value: 'get' },
         { label: 'list_by_health_model', value: 'list_by_health_model' }
     ]}
 >
+<TabItem value="get_signal_history">
+
+Retrieve the time series history for a signal on an entity.
+
+```sql
+SELECT
+entityName,
+history,
+signalName
+FROM azure.cloudhealth.entities
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND health_model_name = '{{ health_model_name }}' -- required
+AND entity_name = '{{ entity_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a Entity.
@@ -639,7 +687,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="get_history"
     values={[
         { label: 'get_history', value: 'get_history' },
-        { label: 'get_signal_history', value: 'get_signal_history' },
         { label: 'ingest_health_report', value: 'ingest_health_report' }
     ]}
 >
@@ -655,25 +702,6 @@ EXEC azure.cloudhealth.entities.get_history
 @subscription_id='{{ subscription_id }}' --required 
 @@json=
 '{
-"startAt": "{{ startAt }}", 
-"endAt": "{{ endAt }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_signal_history">
-
-Retrieve the time series history for a signal on an entity.
-
-```sql
-EXEC azure.cloudhealth.entities.get_signal_history 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@health_model_name='{{ health_model_name }}' --required, 
-@entity_name='{{ entity_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"signalName": "{{ signalName }}", 
 "startAt": "{{ startAt }}", 
 "endAt": "{{ endAt }}"
 }'

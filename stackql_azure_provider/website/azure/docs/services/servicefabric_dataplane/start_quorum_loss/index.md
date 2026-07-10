@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#start_quorum_loss"><CopyableCode code="start_quorum_loss" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-QuorumLossDuration"><code>QuorumLossDuration</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-QuorumLossMode"><code>QuorumLossMode</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-QuorumLossMode"><code>QuorumLossMode</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-QuorumLossDuration"><code>QuorumLossDuration</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Induces quorum loss for a given stateful service partition. This API is useful for a temporary quorum loss situation on your service. Call the GetQuorumLossProgress API with the same OperationId to return information on the operation started with this API. This can only be called on stateful persisted (HasPersistedState==true) services. Do not use this API on stateless services or stateful in-memory only services.</td>
 </tr>
@@ -125,11 +125,11 @@ Induces quorum loss for a given stateful service partition. This API is useful f
 
 ```sql
 EXEC azure.servicefabric_dataplane.start_quorum_loss.start_quorum_loss 
-@QuorumLossDuration='{{ QuorumLossDuration }}' --required, 
-@OperationId='{{ OperationId }}' --required, 
-@service_id='{{ service_id }}' --required, 
-@partition_id='{{ partition_id }}' --required, 
 @QuorumLossMode='{{ QuorumLossMode }}' --required, 
+@service_id='{{ service_id }}' --required, 
+@OperationId='{{ OperationId }}' --required, 
+@QuorumLossDuration='{{ QuorumLossDuration }}' --required, 
+@partition_id='{{ partition_id }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'
 ;

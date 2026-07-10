@@ -33,11 +33,41 @@ Creates, updates, deletes, gets or lists an <code>operations</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="list"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>If any, the error message that provides more detail for the reason that the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>The value indicating whether the resource name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>If any, the reason that the name is not available.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list">
 
 <table>
@@ -95,18 +125,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks whether the configuration store name is available for use.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td></td>
     <td><a href="#parameter-$skipToken"><code>$skipToken</code></a></td>
     <td>List the operations for the provider.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks whether the configuration store name is available for use.</td>
 </tr>
 <tr>
     <td><a href="#regional_check_name_availability"><CopyableCode code="regional_check_name_availability" /></a></td>
@@ -152,11 +182,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="list"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Checks whether the configuration store name is available for use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.appconfiguration.operations
+WHERE subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list">
 
 List the operations for the provider.
@@ -179,27 +224,11 @@ WHERE $skipToken = '{{ $skipToken }}'
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="check_name_availability"
+    defaultValue="regional_check_name_availability"
     values={[
-        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'regional_check_name_availability', value: 'regional_check_name_availability' }
     ]}
 >
-<TabItem value="check_name_availability">
-
-Checks whether the configuration store name is available for use.
-
-```sql
-EXEC azure.appconfiguration.operations.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="regional_check_name_availability">
 
 Checks whether the configuration store name is available for use.

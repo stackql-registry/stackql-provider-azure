@@ -33,13 +33,43 @@ Creates, updates, deletes, gets or lists a <code>monitors</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_app_services"
     values={[
+        { label: 'list_app_services', value: 'list_app_services' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_app_services">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="agentStatus" /></td>
+    <td><code>string</code></td>
+    <td>Status of the NewRelic agent installed on the App service.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="agentVersion" /></td>
+    <td><code>string</code></td>
+    <td>Version of the NewRelic agent installed on the App service.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="azureResourceId" /></td>
+    <td><code>string</code></td>
+    <td>Azure App service resource ID.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -415,6 +445,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_app_services"><CopyableCode code="list_app_services" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Lists the app service resources currently being monitored by the New Relic resource, helping you understand which app services are under monitoring.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -462,13 +499,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-userEmail"><code>userEmail</code></a></td>
     <td></td>
     <td>Deletes an existing New Relic monitor resource from your Azure subscription, removing the integration and stopping the observability of your Azure resources through New Relic.</td>
-</tr>
-<tr>
-    <td><a href="#list_app_services"><CopyableCode code="list_app_services" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-userEmail"><code>userEmail</code></a></td>
-    <td></td>
-    <td>Lists the app service resources currently being monitored by the New Relic resource, helping you understand which app services are under monitoring.</td>
 </tr>
 <tr>
     <td><a href="#list_hosts"><CopyableCode code="list_hosts" /></a></td>
@@ -527,14 +557,14 @@ The following methods are available for this resource:
     <td>Returns the payload that needs to be passed in the request body for installing the New Relic agent on a VM, providing the necessary configuration details.</td>
 </tr>
 <tr>
-    <td><a href="#latest_linked_saa_s"><CopyableCode code="latest_linked_saa_s" /></a></td>
+    <td><a href="#latest_linked_saas"><CopyableCode code="latest_linked_saas" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns the latest SaaS linked to the newrelic organization of the underlying monitor.</td>
 </tr>
 <tr>
-    <td><a href="#link_saa_s"><CopyableCode code="link_saa_s" /></a></td>
+    <td><a href="#link_saas"><CopyableCode code="link_saas" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
@@ -589,13 +619,30 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_app_services"
     values={[
+        { label: 'list_app_services', value: 'list_app_services' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_app_services">
+
+Lists the app service resources currently being monitored by the New Relic resource, helping you understand which app services are under monitoring.
+
+```sql
+SELECT
+agentStatus,
+agentVersion,
+azureResourceId
+FROM azure_isv.newrelicobservability.monitors
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Retrieves the properties and configuration details of a specific New Relic monitor resource, providing insight into its setup and status.
@@ -910,9 +957,8 @@ AND userEmail = '{{ userEmail }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_app_services"
+    defaultValue="list_hosts"
     values={[
-        { label: 'list_app_services', value: 'list_app_services' },
         { label: 'list_hosts', value: 'list_hosts' },
         { label: 'list_monitored_resources', value: 'list_monitored_resources' },
         { label: 'list_linked_resources', value: 'list_linked_resources' },
@@ -921,28 +967,11 @@ AND userEmail = '{{ userEmail }}' --required
         { label: 'switch_billing', value: 'switch_billing' },
         { label: 'refresh_ingestion_key', value: 'refresh_ingestion_key' },
         { label: 'vm_host_payload', value: 'vm_host_payload' },
-        { label: 'latest_linked_saa_s', value: 'latest_linked_saa_s' },
-        { label: 'link_saa_s', value: 'link_saa_s' },
+        { label: 'latest_linked_saas', value: 'latest_linked_saas' },
+        { label: 'link_saas', value: 'link_saas' },
         { label: 'resubscribe', value: 'resubscribe' }
     ]}
 >
-<TabItem value="list_app_services">
-
-Lists the app service resources currently being monitored by the New Relic resource, helping you understand which app services are under monitoring.
-
-```sql
-EXEC azure_isv.newrelicobservability.monitors.list_app_services 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"azureResourceIds": "{{ azureResourceIds }}", 
-"userEmail": "{{ userEmail }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="list_hosts">
 
 Lists all VM resources currently being monitored by the New Relic monitor resource, helping you manage observability.
@@ -1060,24 +1089,24 @@ EXEC azure_isv.newrelicobservability.monitors.vm_host_payload
 ;
 ```
 </TabItem>
-<TabItem value="latest_linked_saa_s">
+<TabItem value="latest_linked_saas">
 
 Returns the latest SaaS linked to the newrelic organization of the underlying monitor.
 
 ```sql
-EXEC azure_isv.newrelicobservability.monitors.latest_linked_saa_s 
+EXEC azure_isv.newrelicobservability.monitors.latest_linked_saas 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @monitor_name='{{ monitor_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="link_saa_s">
+<TabItem value="link_saas">
 
 Links a new SaaS to the newrelic organization of the underlying monitor. Links a new SaaS to the newrelic organization of the underlying monitor.
 
 ```sql
-EXEC azure_isv.newrelicobservability.monitors.link_saa_s 
+EXEC azure_isv.newrelicobservability.monitors.link_saas 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @monitor_name='{{ monitor_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 

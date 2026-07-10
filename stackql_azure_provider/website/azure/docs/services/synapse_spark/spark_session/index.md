@@ -227,7 +227,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_spark_statement"><CopyableCode code="get_spark_statement" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Gets a single statement within a spark session.</td>
 </tr>
@@ -283,7 +283,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#cancel_spark_statement"><CopyableCode code="cancel_spark_statement" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Kill a statement within a session.</td>
 </tr>
@@ -367,8 +367,8 @@ code,
 output,
 state
 FROM azure.synapse_spark.spark_session
-WHERE statement_id = '{{ statement_id }}' -- required
-AND session_id = '{{ session_id }}' -- required
+WHERE session_id = '{{ session_id }}' -- required
+AND statement_id = '{{ statement_id }}' -- required
 AND livy_api_version = '{{ livy_api_version }}' -- required
 AND spark_pool_name = '{{ spark_pool_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
@@ -655,8 +655,8 @@ Kill a statement within a session.
 
 ```sql
 EXEC azure.synapse_spark.spark_session.cancel_spark_statement 
-@statement_id='{{ statement_id }}' --required, 
 @session_id='{{ session_id }}' --required, 
+@statement_id='{{ statement_id }}' --required, 
 @livy_api_version='{{ livy_api_version }}' --required, 
 @spark_pool_name='{{ spark_pool_name }}' --required, 
 @endpoint='{{ endpoint }}' --required

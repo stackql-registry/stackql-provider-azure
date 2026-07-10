@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>metric_dimension_values</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_metric_dimension_values"
+    values={[
+        { label: 'list_metric_dimension_values', value: 'list_metric_dimension_values' }
+    ]}
+>
+<TabItem value="list_metric_dimension_values">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_metric_dimension_values"><CopyableCode code="list_metric_dimension_values" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-test_run_id"><code>test_run_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-metricname"><code>metricname</code></a>, <a href="#parameter-metricNamespace"><code>metricNamespace</code></a>, <a href="#parameter-timespan"><code>timespan</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-interval"><code>interval</code></a></td>
     <td>List the dimension values for the given metric dimension name. List the dimension values for the given metric dimension name.</td>
@@ -111,7 +135,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_metric_dimension_values"
@@ -124,14 +148,16 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 List the dimension values for the given metric dimension name. List the dimension values for the given metric dimension name.
 
 ```sql
-EXEC azure.developer_loadtesting.metric_dimension_values.list_metric_dimension_values 
-@test_run_id='{{ test_run_id }}' --required, 
-@name='{{ name }}' --required, 
-@metricname='{{ metricname }}' --required, 
-@metricNamespace='{{ metricNamespace }}' --required, 
-@timespan='{{ timespan }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@interval='{{ interval }}'
+SELECT
+value
+FROM azure.developer_loadtesting.metric_dimension_values
+WHERE test_run_id = '{{ test_run_id }}' -- required
+AND name = '{{ name }}' -- required
+AND metricname = '{{ metricname }}' -- required
+AND metricNamespace = '{{ metricNamespace }}' -- required
+AND timespan = '{{ timespan }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND interval = '{{ interval }}'
 ;
 ```
 </TabItem>

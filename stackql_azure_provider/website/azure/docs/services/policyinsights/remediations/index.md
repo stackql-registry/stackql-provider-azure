@@ -33,19 +33,19 @@ Creates, updates, deletes, gets or lists a <code>remediations</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_at_resource_group"
+    defaultValue="list_deployments_at_resource_group"
     values={[
-        { label: 'get_at_resource_group', value: 'get_at_resource_group' },
+        { label: 'list_deployments_at_resource_group', value: 'list_deployments_at_resource_group' },
+        { label: 'list_deployments_at_subscription', value: 'list_deployments_at_subscription' },
         { label: 'list_for_resource_group', value: 'list_for_resource_group' },
-        { label: 'get_at_management_group', value: 'get_at_management_group' },
-        { label: 'get_at_subscription', value: 'get_at_subscription' },
-        { label: 'get_at_resource', value: 'get_at_resource' },
+        { label: 'list_deployments_at_resource', value: 'list_deployments_at_resource' },
+        { label: 'list_deployments_at_management_group', value: 'list_deployments_at_management_group' },
         { label: 'list_for_management_group', value: 'list_for_management_group' },
         { label: 'list_for_subscription', value: 'list_for_subscription' },
         { label: 'list_for_resource', value: 'list_for_resource' }
     ]}
 >
-<TabItem value="get_at_resource_group">
+<TabItem value="list_deployments_at_resource_group">
 
 <table>
 <thead>
@@ -57,89 +57,88 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+    <td><CopyableCode code="createdOn" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The time at which the remediation was created.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="name" /></td>
+    <td><CopyableCode code="deploymentId" /></td>
     <td><code>string</code></td>
-    <td>The name of the resource.</td>
+    <td>Resource ID of the template deployment that will remediate the resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>The remediation correlation Id. Can be used to find events related to the remediation in the activity log.</td>
+    <td><CopyableCode code="error" /></td>
+    <td><code>object</code></td>
+    <td>Error encountered while remediated the resource.</td>
 </tr>
+<tr>
+    <td><CopyableCode code="lastUpdatedOn" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The time at which the remediation deployment was last updated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="remediatedResourceId" /></td>
+    <td><code>string</code></td>
+    <td>Resource ID of the resource that is being remediated by the deployment.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="resourceLocation" /></td>
+    <td><code>string</code></td>
+    <td>Location of the resource that is being remediated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Status of the remediation deployment.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_deployments_at_subscription">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
 <tr>
     <td><CopyableCode code="createdOn" /></td>
     <td><code>string (date-time)</code></td>
     <td>The time at which the remediation was created.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="deploymentStatus" /></td>
-    <td><code>object</code></td>
-    <td>The deployment status summary for all deployments created by the remediation.</td>
+    <td><CopyableCode code="deploymentId" /></td>
+    <td><code>string</code></td>
+    <td>Resource ID of the template deployment that will remediate the resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="failureThreshold" /></td>
+    <td><CopyableCode code="error" /></td>
     <td><code>object</code></td>
-    <td>The remediation failure threshold settings.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="filters" /></td>
-    <td><code>object</code></td>
-    <td>The filters that will be applied to determine which resources to remediate.</td>
+    <td>Error encountered while remediated the resource.</td>
 </tr>
 <tr>
     <td><CopyableCode code="lastUpdatedOn" /></td>
     <td><code>string (date-time)</code></td>
-    <td>The time at which the remediation was last updated.</td>
+    <td>The time at which the remediation deployment was last updated.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="parallelDeployments" /></td>
-    <td><code>integer</code></td>
-    <td>Determines how many resources to remediate at any given time. Can be used to increase or reduce the pace of the remediation. If not provided, the default parallel deployments value is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="policyAssignmentId" /></td>
+    <td><CopyableCode code="remediatedResourceId" /></td>
     <td><code>string</code></td>
-    <td>The resource ID of the policy assignment that should be remediated.</td>
+    <td>Resource ID of the resource that is being remediated by the deployment.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="policyDefinitionReferenceId" /></td>
+    <td><CopyableCode code="resourceLocation" /></td>
     <td><code>string</code></td>
-    <td>The policy definition reference ID of the individual definition that should be remediated. Required when the policy assignment being remediated assigns a policy set definition.</td>
+    <td>Location of the resource that is being remediated.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="provisioningState" /></td>
+    <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
-    <td>The status of the remediation. This refers to the entire remediation task, not individual deployments. Allowed values are Evaluating, Canceled, Cancelling, Failed, Complete, or Succeeded.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceCount" /></td>
-    <td><code>integer</code></td>
-    <td>Determines the max number of resources that can be remediated by the remediation job. If not provided, the default resource count is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceDiscoveryMode" /></td>
-    <td><code>string</code></td>
-    <td>The way resources to remediate are discovered. Defaults to ExistingNonCompliant if not specified. Known values are: "ExistingNonCompliant" and "ReEvaluateCompliance". (ExistingNonCompliant, ReEvaluateCompliance)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="statusMessage" /></td>
-    <td><code>string</code></td>
-    <td>The remediation status message. Provides additional details regarding the state of the remediation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+    <td>Status of the remediation deployment.</td>
 </tr>
 </tbody>
 </table>
@@ -243,7 +242,7 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="get_at_management_group">
+<TabItem value="list_deployments_at_resource">
 
 <table>
 <thead>
@@ -255,94 +254,44 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>The remediation correlation Id. Can be used to find events related to the remediation in the activity log.</td>
-</tr>
-<tr>
     <td><CopyableCode code="createdOn" /></td>
     <td><code>string (date-time)</code></td>
     <td>The time at which the remediation was created.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="deploymentStatus" /></td>
-    <td><code>object</code></td>
-    <td>The deployment status summary for all deployments created by the remediation.</td>
+    <td><CopyableCode code="deploymentId" /></td>
+    <td><code>string</code></td>
+    <td>Resource ID of the template deployment that will remediate the resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="failureThreshold" /></td>
+    <td><CopyableCode code="error" /></td>
     <td><code>object</code></td>
-    <td>The remediation failure threshold settings.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="filters" /></td>
-    <td><code>object</code></td>
-    <td>The filters that will be applied to determine which resources to remediate.</td>
+    <td>Error encountered while remediated the resource.</td>
 </tr>
 <tr>
     <td><CopyableCode code="lastUpdatedOn" /></td>
     <td><code>string (date-time)</code></td>
-    <td>The time at which the remediation was last updated.</td>
+    <td>The time at which the remediation deployment was last updated.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="parallelDeployments" /></td>
-    <td><code>integer</code></td>
-    <td>Determines how many resources to remediate at any given time. Can be used to increase or reduce the pace of the remediation. If not provided, the default parallel deployments value is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="policyAssignmentId" /></td>
+    <td><CopyableCode code="remediatedResourceId" /></td>
     <td><code>string</code></td>
-    <td>The resource ID of the policy assignment that should be remediated.</td>
+    <td>Resource ID of the resource that is being remediated by the deployment.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="policyDefinitionReferenceId" /></td>
+    <td><CopyableCode code="resourceLocation" /></td>
     <td><code>string</code></td>
-    <td>The policy definition reference ID of the individual definition that should be remediated. Required when the policy assignment being remediated assigns a policy set definition.</td>
+    <td>Location of the resource that is being remediated.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="provisioningState" /></td>
+    <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
-    <td>The status of the remediation. This refers to the entire remediation task, not individual deployments. Allowed values are Evaluating, Canceled, Cancelling, Failed, Complete, or Succeeded.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceCount" /></td>
-    <td><code>integer</code></td>
-    <td>Determines the max number of resources that can be remediated by the remediation job. If not provided, the default resource count is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceDiscoveryMode" /></td>
-    <td><code>string</code></td>
-    <td>The way resources to remediate are discovered. Defaults to ExistingNonCompliant if not specified. Known values are: "ExistingNonCompliant" and "ReEvaluateCompliance". (ExistingNonCompliant, ReEvaluateCompliance)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="statusMessage" /></td>
-    <td><code>string</code></td>
-    <td>The remediation status message. Provides additional details regarding the state of the remediation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+    <td>Status of the remediation deployment.</td>
 </tr>
 </tbody>
 </table>
 </TabItem>
-<TabItem value="get_at_subscription">
+<TabItem value="list_deployments_at_management_group">
 
 <table>
 <thead>
@@ -354,188 +303,39 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>The remediation correlation Id. Can be used to find events related to the remediation in the activity log.</td>
-</tr>
-<tr>
     <td><CopyableCode code="createdOn" /></td>
     <td><code>string (date-time)</code></td>
     <td>The time at which the remediation was created.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="deploymentStatus" /></td>
-    <td><code>object</code></td>
-    <td>The deployment status summary for all deployments created by the remediation.</td>
+    <td><CopyableCode code="deploymentId" /></td>
+    <td><code>string</code></td>
+    <td>Resource ID of the template deployment that will remediate the resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="failureThreshold" /></td>
+    <td><CopyableCode code="error" /></td>
     <td><code>object</code></td>
-    <td>The remediation failure threshold settings.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="filters" /></td>
-    <td><code>object</code></td>
-    <td>The filters that will be applied to determine which resources to remediate.</td>
+    <td>Error encountered while remediated the resource.</td>
 </tr>
 <tr>
     <td><CopyableCode code="lastUpdatedOn" /></td>
     <td><code>string (date-time)</code></td>
-    <td>The time at which the remediation was last updated.</td>
+    <td>The time at which the remediation deployment was last updated.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="parallelDeployments" /></td>
-    <td><code>integer</code></td>
-    <td>Determines how many resources to remediate at any given time. Can be used to increase or reduce the pace of the remediation. If not provided, the default parallel deployments value is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="policyAssignmentId" /></td>
+    <td><CopyableCode code="remediatedResourceId" /></td>
     <td><code>string</code></td>
-    <td>The resource ID of the policy assignment that should be remediated.</td>
+    <td>Resource ID of the resource that is being remediated by the deployment.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="policyDefinitionReferenceId" /></td>
+    <td><CopyableCode code="resourceLocation" /></td>
     <td><code>string</code></td>
-    <td>The policy definition reference ID of the individual definition that should be remediated. Required when the policy assignment being remediated assigns a policy set definition.</td>
+    <td>Location of the resource that is being remediated.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="provisioningState" /></td>
+    <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
-    <td>The status of the remediation. This refers to the entire remediation task, not individual deployments. Allowed values are Evaluating, Canceled, Cancelling, Failed, Complete, or Succeeded.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceCount" /></td>
-    <td><code>integer</code></td>
-    <td>Determines the max number of resources that can be remediated by the remediation job. If not provided, the default resource count is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceDiscoveryMode" /></td>
-    <td><code>string</code></td>
-    <td>The way resources to remediate are discovered. Defaults to ExistingNonCompliant if not specified. Known values are: "ExistingNonCompliant" and "ReEvaluateCompliance". (ExistingNonCompliant, ReEvaluateCompliance)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="statusMessage" /></td>
-    <td><code>string</code></td>
-    <td>The remediation status message. Provides additional details regarding the state of the remediation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_at_resource">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>The remediation correlation Id. Can be used to find events related to the remediation in the activity log.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="createdOn" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>The time at which the remediation was created.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="deploymentStatus" /></td>
-    <td><code>object</code></td>
-    <td>The deployment status summary for all deployments created by the remediation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="failureThreshold" /></td>
-    <td><code>object</code></td>
-    <td>The remediation failure threshold settings.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="filters" /></td>
-    <td><code>object</code></td>
-    <td>The filters that will be applied to determine which resources to remediate.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastUpdatedOn" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>The time at which the remediation was last updated.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="parallelDeployments" /></td>
-    <td><code>integer</code></td>
-    <td>Determines how many resources to remediate at any given time. Can be used to increase or reduce the pace of the remediation. If not provided, the default parallel deployments value is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="policyAssignmentId" /></td>
-    <td><code>string</code></td>
-    <td>The resource ID of the policy assignment that should be remediated.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="policyDefinitionReferenceId" /></td>
-    <td><code>string</code></td>
-    <td>The policy definition reference ID of the individual definition that should be remediated. Required when the policy assignment being remediated assigns a policy set definition.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="provisioningState" /></td>
-    <td><code>string</code></td>
-    <td>The status of the remediation. This refers to the entire remediation task, not individual deployments. Allowed values are Evaluating, Canceled, Cancelling, Failed, Complete, or Succeeded.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceCount" /></td>
-    <td><code>integer</code></td>
-    <td>Determines the max number of resources that can be remediated by the remediation job. If not provided, the default resource count is used.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="resourceDiscoveryMode" /></td>
-    <td><code>string</code></td>
-    <td>The way resources to remediate are discovered. Defaults to ExistingNonCompliant if not specified. Known values are: "ExistingNonCompliant" and "ReEvaluateCompliance". (ExistingNonCompliant, ReEvaluateCompliance)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="statusMessage" /></td>
-    <td><code>string</code></td>
-    <td>The remediation status message. Provides additional details regarding the state of the remediation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+    <td>Status of the remediation deployment.</td>
 </tr>
 </tbody>
 </table>
@@ -855,11 +655,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_at_resource_group"><CopyableCode code="get_at_resource_group" /></a></td>
+    <td><a href="#list_deployments_at_resource_group"><CopyableCode code="list_deployments_at_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets an existing remediation at resource group scope.</td>
+    <td><a href="#parameter-$top"><code>$top</code></a></td>
+    <td>Gets all deployments for a remediation at resource group scope.</td>
+</tr>
+<tr>
+    <td><a href="#list_deployments_at_subscription"><CopyableCode code="list_deployments_at_subscription" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$top"><code>$top</code></a></td>
+    <td>Gets all deployments for a remediation at subscription scope.</td>
 </tr>
 <tr>
     <td><a href="#list_for_resource_group"><CopyableCode code="list_for_resource_group" /></a></td>
@@ -869,25 +676,18 @@ The following methods are available for this resource:
     <td>Gets all remediations for the subscription.</td>
 </tr>
 <tr>
-    <td><a href="#get_at_management_group"><CopyableCode code="get_at_management_group" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-management_group_id"><code>management_group_id</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a></td>
-    <td></td>
-    <td>Gets an existing remediation at management group scope.</td>
-</tr>
-<tr>
-    <td><a href="#get_at_subscription"><CopyableCode code="get_at_subscription" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets an existing remediation at subscription scope.</td>
-</tr>
-<tr>
-    <td><a href="#get_at_resource"><CopyableCode code="get_at_resource" /></a></td>
+    <td><a href="#list_deployments_at_resource"><CopyableCode code="list_deployments_at_resource" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a></td>
-    <td></td>
-    <td>Gets an existing remediation at resource scope.</td>
+    <td><a href="#parameter-$top"><code>$top</code></a></td>
+    <td>Gets all deployments for a remediation at resource scope.</td>
+</tr>
+<tr>
+    <td><a href="#list_deployments_at_management_group"><CopyableCode code="list_deployments_at_management_group" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-management_group_id"><code>management_group_id</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a></td>
+    <td><a href="#parameter-$top"><code>$top</code></a></td>
+    <td>Gets all deployments for a remediation at management group scope.</td>
 </tr>
 <tr>
     <td><a href="#list_for_management_group"><CopyableCode code="list_for_management_group" /></a></td>
@@ -995,32 +795,32 @@ The following methods are available for this resource:
     <td>Deletes an existing remediation at individual resource scope.</td>
 </tr>
 <tr>
-    <td><a href="#list_deployments_at_subscription"><CopyableCode code="list_deployments_at_subscription" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td><a href="#parameter-$top"><code>$top</code></a></td>
-    <td>Gets all deployments for a remediation at subscription scope.</td>
-</tr>
-<tr>
-    <td><a href="#list_deployments_at_resource_group"><CopyableCode code="list_deployments_at_resource_group" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td><a href="#parameter-$top"><code>$top</code></a></td>
-    <td>Gets all deployments for a remediation at resource group scope.</td>
-</tr>
-<tr>
-    <td><a href="#list_deployments_at_resource"><CopyableCode code="list_deployments_at_resource" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a></td>
-    <td><a href="#parameter-$top"><code>$top</code></a></td>
-    <td>Gets all deployments for a remediation at resource scope.</td>
-</tr>
-<tr>
-    <td><a href="#list_deployments_at_management_group"><CopyableCode code="list_deployments_at_management_group" /></a></td>
+    <td><a href="#get_at_management_group"><CopyableCode code="get_at_management_group" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-management_group_id"><code>management_group_id</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a></td>
-    <td><a href="#parameter-$top"><code>$top</code></a></td>
-    <td>Gets all deployments for a remediation at management group scope.</td>
+    <td></td>
+    <td>Gets an existing remediation at management group scope.</td>
+</tr>
+<tr>
+    <td><a href="#get_at_subscription"><CopyableCode code="get_at_subscription" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets an existing remediation at subscription scope.</td>
+</tr>
+<tr>
+    <td><a href="#get_at_resource_group"><CopyableCode code="get_at_resource_group" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets an existing remediation at resource group scope.</td>
+</tr>
+<tr>
+    <td><a href="#get_at_resource"><CopyableCode code="get_at_resource" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_id"><code>resource_id</code></a>, <a href="#parameter-remediation_name"><code>remediation_name</code></a></td>
+    <td></td>
+    <td>Gets an existing remediation at resource scope.</td>
 </tr>
 <tr>
     <td><a href="#cancel_at_subscription"><CopyableCode code="cancel_at_subscription" /></a></td>
@@ -1107,45 +907,56 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_at_resource_group"
+    defaultValue="list_deployments_at_resource_group"
     values={[
-        { label: 'get_at_resource_group', value: 'get_at_resource_group' },
+        { label: 'list_deployments_at_resource_group', value: 'list_deployments_at_resource_group' },
+        { label: 'list_deployments_at_subscription', value: 'list_deployments_at_subscription' },
         { label: 'list_for_resource_group', value: 'list_for_resource_group' },
-        { label: 'get_at_management_group', value: 'get_at_management_group' },
-        { label: 'get_at_subscription', value: 'get_at_subscription' },
-        { label: 'get_at_resource', value: 'get_at_resource' },
+        { label: 'list_deployments_at_resource', value: 'list_deployments_at_resource' },
+        { label: 'list_deployments_at_management_group', value: 'list_deployments_at_management_group' },
         { label: 'list_for_management_group', value: 'list_for_management_group' },
         { label: 'list_for_subscription', value: 'list_for_subscription' },
         { label: 'list_for_resource', value: 'list_for_resource' }
     ]}
 >
-<TabItem value="get_at_resource_group">
+<TabItem value="list_deployments_at_resource_group">
 
-Gets an existing remediation at resource group scope.
+Gets all deployments for a remediation at resource group scope.
 
 ```sql
 SELECT
-id,
-name,
-correlationId,
 createdOn,
-deploymentStatus,
-failureThreshold,
-filters,
+deploymentId,
+error,
 lastUpdatedOn,
-parallelDeployments,
-policyAssignmentId,
-policyDefinitionReferenceId,
-provisioningState,
-resourceCount,
-resourceDiscoveryMode,
-statusMessage,
-systemData,
-type
+remediatedResourceId,
+resourceLocation,
+status
 FROM azure.policyinsights.remediations
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND remediation_name = '{{ remediation_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
+;
+```
+</TabItem>
+<TabItem value="list_deployments_at_subscription">
+
+Gets all deployments for a remediation at subscription scope.
+
+```sql
+SELECT
+createdOn,
+deploymentId,
+error,
+lastUpdatedOn,
+remediatedResourceId,
+resourceLocation,
+status
+FROM azure.policyinsights.remediations
+WHERE remediation_name = '{{ remediation_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>
@@ -1180,90 +991,43 @@ AND $filter = '{{ $filter }}'
 ;
 ```
 </TabItem>
-<TabItem value="get_at_management_group">
+<TabItem value="list_deployments_at_resource">
 
-Gets an existing remediation at management group scope.
-
-```sql
-SELECT
-id,
-name,
-correlationId,
-createdOn,
-deploymentStatus,
-failureThreshold,
-filters,
-lastUpdatedOn,
-parallelDeployments,
-policyAssignmentId,
-policyDefinitionReferenceId,
-provisioningState,
-resourceCount,
-resourceDiscoveryMode,
-statusMessage,
-systemData,
-type
-FROM azure.policyinsights.remediations
-WHERE management_group_id = '{{ management_group_id }}' -- required
-AND remediation_name = '{{ remediation_name }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_at_subscription">
-
-Gets an existing remediation at subscription scope.
+Gets all deployments for a remediation at resource scope.
 
 ```sql
 SELECT
-id,
-name,
-correlationId,
 createdOn,
-deploymentStatus,
-failureThreshold,
-filters,
+deploymentId,
+error,
 lastUpdatedOn,
-parallelDeployments,
-policyAssignmentId,
-policyDefinitionReferenceId,
-provisioningState,
-resourceCount,
-resourceDiscoveryMode,
-statusMessage,
-systemData,
-type
-FROM azure.policyinsights.remediations
-WHERE remediation_name = '{{ remediation_name }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_at_resource">
-
-Gets an existing remediation at resource scope.
-
-```sql
-SELECT
-id,
-name,
-correlationId,
-createdOn,
-deploymentStatus,
-failureThreshold,
-filters,
-lastUpdatedOn,
-parallelDeployments,
-policyAssignmentId,
-policyDefinitionReferenceId,
-provisioningState,
-resourceCount,
-resourceDiscoveryMode,
-statusMessage,
-systemData,
-type
+remediatedResourceId,
+resourceLocation,
+status
 FROM azure.policyinsights.remediations
 WHERE resource_id = '{{ resource_id }}' -- required
 AND remediation_name = '{{ remediation_name }}' -- required
+AND $top = '{{ $top }}'
+;
+```
+</TabItem>
+<TabItem value="list_deployments_at_management_group">
+
+Gets all deployments for a remediation at management group scope.
+
+```sql
+SELECT
+createdOn,
+deploymentId,
+error,
+lastUpdatedOn,
+remediatedResourceId,
+resourceLocation,
+status
+FROM azure.policyinsights.remediations
+WHERE management_group_id = '{{ management_group_id }}' -- required
+AND remediation_name = '{{ remediation_name }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>
@@ -1670,64 +1434,60 @@ AND remediation_name = '{{ remediation_name }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_deployments_at_subscription"
+    defaultValue="get_at_management_group"
     values={[
-        { label: 'list_deployments_at_subscription', value: 'list_deployments_at_subscription' },
-        { label: 'list_deployments_at_resource_group', value: 'list_deployments_at_resource_group' },
-        { label: 'list_deployments_at_resource', value: 'list_deployments_at_resource' },
-        { label: 'list_deployments_at_management_group', value: 'list_deployments_at_management_group' },
+        { label: 'get_at_management_group', value: 'get_at_management_group' },
+        { label: 'get_at_subscription', value: 'get_at_subscription' },
+        { label: 'get_at_resource_group', value: 'get_at_resource_group' },
+        { label: 'get_at_resource', value: 'get_at_resource' },
         { label: 'cancel_at_subscription', value: 'cancel_at_subscription' },
         { label: 'cancel_at_resource_group', value: 'cancel_at_resource_group' },
         { label: 'cancel_at_resource', value: 'cancel_at_resource' },
         { label: 'cancel_at_management_group', value: 'cancel_at_management_group' }
     ]}
 >
-<TabItem value="list_deployments_at_subscription">
+<TabItem value="get_at_management_group">
 
-Gets all deployments for a remediation at subscription scope.
+Gets an existing remediation at management group scope.
 
 ```sql
-EXEC azure.policyinsights.remediations.list_deployments_at_subscription 
-@remediation_name='{{ remediation_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}'
+EXEC azure.policyinsights.remediations.get_at_management_group 
+@management_group_id='{{ management_group_id }}' --required, 
+@remediation_name='{{ remediation_name }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="list_deployments_at_resource_group">
+<TabItem value="get_at_subscription">
 
-Gets all deployments for a remediation at resource group scope.
+Gets an existing remediation at subscription scope.
 
 ```sql
-EXEC azure.policyinsights.remediations.list_deployments_at_resource_group 
+EXEC azure.policyinsights.remediations.get_at_subscription 
+@remediation_name='{{ remediation_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_at_resource_group">
+
+Gets an existing remediation at resource group scope.
+
+```sql
+EXEC azure.policyinsights.remediations.get_at_resource_group 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @remediation_name='{{ remediation_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}'
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="list_deployments_at_resource">
+<TabItem value="get_at_resource">
 
-Gets all deployments for a remediation at resource scope.
+Gets an existing remediation at resource scope.
 
 ```sql
-EXEC azure.policyinsights.remediations.list_deployments_at_resource 
+EXEC azure.policyinsights.remediations.get_at_resource 
 @resource_id='{{ resource_id }}' --required, 
-@remediation_name='{{ remediation_name }}' --required, 
-@$top='{{ $top }}'
-;
-```
-</TabItem>
-<TabItem value="list_deployments_at_management_group">
-
-Gets all deployments for a remediation at management group scope.
-
-```sql
-EXEC azure.policyinsights.remediations.list_deployments_at_management_group 
-@management_group_id='{{ management_group_id }}' --required, 
-@remediation_name='{{ remediation_name }}' --required, 
-@$top='{{ $top }}'
+@remediation_name='{{ remediation_name }}' --required
 ;
 ```
 </TabItem>

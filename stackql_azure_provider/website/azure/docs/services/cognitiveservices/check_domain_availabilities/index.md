@@ -32,8 +32,52 @@ Creates, updates, deletes, gets or lists a <code>check_domain_availabilities</co
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_domain_availability"
+    values={[
+        { label: 'check_domain_availability', value: 'check_domain_availability' }
+    ]}
+>
+<TabItem value="check_domain_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="isSubdomainAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates the given SKU is available or not.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>The kind (type) of cognitive service account.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Reason why the SKU is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="subdomainName" /></td>
+    <td><code>string</code></td>
+    <td>The subdomain name to use.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The Type of the resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +96,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_domain_availability"><CopyableCode code="check_domain_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-subdomainName"><code>subdomainName</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check whether a domain is available.</td>
 </tr>
@@ -81,7 +125,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_domain_availability"
@@ -94,14 +138,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Check whether a domain is available.
 
 ```sql
-EXEC azure.cognitiveservices.check_domain_availabilities.check_domain_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"subdomainName": "{{ subdomainName }}", 
-"type": "{{ type }}", 
-"kind": "{{ kind }}"
-}'
+SELECT
+isSubdomainAvailable,
+kind,
+reason,
+subdomainName,
+type
+FROM azure.cognitiveservices.check_domain_availabilities
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

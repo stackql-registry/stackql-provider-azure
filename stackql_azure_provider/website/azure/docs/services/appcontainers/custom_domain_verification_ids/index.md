@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>custom_domain_verification_ids<
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_custom_domain_verification_id"
+    values={[
+        { label: 'get_custom_domain_verification_id', value: 'get_custom_domain_verification_id' }
+    ]}
+>
+<TabItem value="get_custom_domain_verification_id">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_custom_domain_verification_id"><CopyableCode code="get_custom_domain_verification_id" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the verification id of a subscription used for verifying custom domains.</td>
@@ -81,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_custom_domain_verification_id"
@@ -94,8 +118,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get the verification id of a subscription used for verifying custom domains.
 
 ```sql
-EXEC azure.appcontainers.custom_domain_verification_ids.get_custom_domain_verification_id 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+value
+FROM azure.appcontainers.custom_domain_verification_ids
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

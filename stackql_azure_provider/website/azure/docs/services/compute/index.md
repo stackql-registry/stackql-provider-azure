@@ -72,9 +72,9 @@ total resources: __51__
 <a href="/services/compute/virtual_machine_scale_set_extensions/">virtual_machine_scale_set_extensions</a><br />
 <a href="/services/compute/virtual_machine_scale_set_life_cycle_hook_events/">virtual_machine_scale_set_life_cycle_hook_events</a><br />
 <a href="/services/compute/virtual_machine_scale_set_rolling_upgrades/">virtual_machine_scale_set_rolling_upgrades</a><br />
-<a href="/services/compute/virtual_machine_scale_set_v_ms/">virtual_machine_scale_set_v_ms</a><br />
 <a href="/services/compute/virtual_machine_scale_set_vm_extensions/">virtual_machine_scale_set_vm_extensions</a><br />
 <a href="/services/compute/virtual_machine_scale_set_vm_run_commands/">virtual_machine_scale_set_vm_run_commands</a><br />
+<a href="/services/compute/virtual_machine_scale_set_vms/">virtual_machine_scale_set_vms</a><br />
 <a href="/services/compute/virtual_machine_scale_sets/">virtual_machine_scale_sets</a><br />
 <a href="/services/compute/virtual_machine_sizes/">virtual_machine_sizes</a><br />
 <a href="/services/compute/virtual_machines/">virtual_machines</a>

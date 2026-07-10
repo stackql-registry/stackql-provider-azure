@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -354,6 +355,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Detailed reason why the given name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates if the resource name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the given name is not available. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
 </tr>
 </tbody>
 </table>
@@ -549,6 +579,13 @@ The following methods are available for this resource:
     <td>List all the mongo clusters in a given resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check if mongo cluster name is available for use.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -589,13 +626,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-mongo_cluster_name"><code>mongo_cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List mongo cluster connection strings. This includes the default connection string using SCRAM-SHA-256, as well as other connection strings supported by the cluster.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Check if mongo cluster name is available for use.</td>
 </tr>
 <tr>
     <td><a href="#promote"><CopyableCode code="promote" /></a></td>
@@ -650,6 +680,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -732,6 +763,21 @@ tags,
 type
 FROM azure.mongocluster.mongo_clusters
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check if mongo cluster name is available for use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.mongocluster.mongo_clusters
+WHERE location = '{{ location }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -1031,7 +1077,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_connection_strings"
     values={[
         { label: 'list_connection_strings', value: 'list_connection_strings' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'promote', value: 'promote' }
     ]}
 >
@@ -1044,22 +1089,6 @@ EXEC azure.mongocluster.mongo_clusters.list_connection_strings
 @resource_group_name='{{ resource_group_name }}' --required, 
 @mongo_cluster_name='{{ mongo_cluster_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check if mongo cluster name is available for use.
-
-```sql
-EXEC azure.mongocluster.mongo_clusters.check_name_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

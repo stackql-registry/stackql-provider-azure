@@ -32,8 +32,62 @@ Creates, updates, deletes, gets or lists an <code>informational_operations</code
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_provisioning_recommendation"
+    values={[
+        { label: 'get_provisioning_recommendation', value: 'get_provisioning_recommendation' },
+        { label: 'get_usage_data', value: 'get_usage_data' }
+    ]}
+>
+<TabItem value="get_provisioning_recommendation">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="availableRedundancyOptions" /></td>
+    <td><code>array</code></td>
+    <td>Redundancy options for the share. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisionedIOPerSec" /></td>
+    <td><code>integer</code></td>
+    <td>The recommended value of provisioned IO / sec of the share. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisionedThroughputMiBPerSec" /></td>
+    <td><code>integer</code></td>
+    <td>The recommended value of provisioned throughput / sec of the share. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_usage_data">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="liveShares" /></td>
+    <td><code>object</code></td>
+    <td>File share usage data for active file shares. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +105,15 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_provisioning_recommendation"><CopyableCode code="get_provisioning_recommendation" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get file shares provisioning parameters recommendation.</td>
+</tr>
+<tr>
     <td><a href="#get_usage_data"><CopyableCode code="get_usage_data" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get file shares usage data.</td>
@@ -63,13 +124,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get file shares limits.</td>
-</tr>
-<tr>
-    <td><a href="#get_provisioning_recommendation"><CopyableCode code="get_provisioning_recommendation" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Get file shares provisioning parameters recommendation.</td>
 </tr>
 </tbody>
 </table>
@@ -100,27 +154,54 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_usage_data"
+    defaultValue="get_provisioning_recommendation"
     values={[
-        { label: 'get_usage_data', value: 'get_usage_data' },
-        { label: 'get_limits', value: 'get_limits' },
-        { label: 'get_provisioning_recommendation', value: 'get_provisioning_recommendation' }
+        { label: 'get_provisioning_recommendation', value: 'get_provisioning_recommendation' },
+        { label: 'get_usage_data', value: 'get_usage_data' }
     ]}
 >
+<TabItem value="get_provisioning_recommendation">
+
+Get file shares provisioning parameters recommendation.
+
+```sql
+SELECT
+availableRedundancyOptions,
+provisionedIOPerSec,
+provisionedThroughputMiBPerSec
+FROM azure.fileshares.informational_operations
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_usage_data">
 
 Get file shares usage data.
 
 ```sql
-EXEC azure.fileshares.informational_operations.get_usage_data 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+liveShares
+FROM azure.fileshares.informational_operations
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="get_limits"
+    values={[
+        { label: 'get_limits', value: 'get_limits' }
+    ]}
+>
 <TabItem value="get_limits">
 
 Get file shares limits.
@@ -129,21 +210,6 @@ Get file shares limits.
 EXEC azure.fileshares.informational_operations.get_limits 
 @location='{{ location }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_provisioning_recommendation">
-
-Get file shares provisioning parameters recommendation.
-
-```sql
-EXEC azure.fileshares.informational_operations.get_provisioning_recommendation 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"properties": "{{ properties }}"
-}'
 ;
 ```
 </TabItem>

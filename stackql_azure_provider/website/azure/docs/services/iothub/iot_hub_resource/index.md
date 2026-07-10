@@ -38,9 +38,11 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_event_hub_consumer_group', value: 'get_event_hub_consumer_group' },
         { label: 'list_event_hub_consumer_groups', value: 'list_event_hub_consumer_groups' },
         { label: 'get_job', value: 'get_job' },
+        { label: 'get_keys_for_key_name', value: 'get_keys_for_key_name' },
         { label: 'get', value: 'get' },
         { label: 'get_endpoint_health', value: 'get_endpoint_health' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -182,6 +184,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the job. Known values are: "unknown", "export", "import", "backup", "readDeviceProperties", "writeDeviceProperties", "updateDeviceConfiguration", "rebootDevice", "factoryResetDevice", and "firmwareUpdate". (unknown, export, import, backup, readDeviceProperties, writeDeviceProperties, updateDeviceConfiguration, rebootDevice, factoryResetDevice, firmwareUpdate)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_keys_for_key_name">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="keyName" /></td>
+    <td><code>string</code></td>
+    <td>The name of the shared access policy. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>The primary key.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="rights" /></td>
+    <td><code>string</code></td>
+    <td>The permissions assigned to the shared access policy. Required. Known values are: "RegistryRead", "RegistryWrite", "ServiceConnect", "DeviceConnect", "RegistryRead, RegistryWrite", "RegistryRead, ServiceConnect", "RegistryRead, DeviceConnect", "RegistryWrite, ServiceConnect", "RegistryWrite, DeviceConnect", "ServiceConnect, DeviceConnect", "RegistryRead, RegistryWrite, ServiceConnect", "RegistryRead, RegistryWrite, DeviceConnect", "RegistryRead, ServiceConnect, DeviceConnect", "RegistryWrite, ServiceConnect, DeviceConnect", and "RegistryRead, RegistryWrite, ServiceConnect, DeviceConnect". (RegistryRead, RegistryWrite, ServiceConnect, DeviceConnect, RegistryRead, RegistryWrite, RegistryRead, ServiceConnect, RegistryRead, DeviceConnect, RegistryWrite, ServiceConnect, RegistryWrite, DeviceConnect, ServiceConnect, DeviceConnect, RegistryRead, RegistryWrite, ServiceConnect, RegistryRead, RegistryWrite, DeviceConnect, RegistryRead, ServiceConnect, DeviceConnect, RegistryWrite, ServiceConnect, DeviceConnect, RegistryRead, RegistryWrite, ServiceConnect, DeviceConnect)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>The secondary key.</td>
 </tr>
 </tbody>
 </table>
@@ -668,6 +704,35 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed reason message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>The value which indicates whether the provided name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason for unavailability. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list_by_subscription">
 
 <table>
@@ -926,6 +991,13 @@ The following methods are available for this resource:
     <td>Get the details of a job from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-identity-registry `_. Get the details of a job from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-identity-registry `_.</td>
 </tr>
 <tr>
+    <td><a href="#get_keys_for_key_name"><CopyableCode code="get_keys_for_key_name" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_. Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -945,6 +1017,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get all the IoT hubs in a resource group. Get all the IoT hubs in a resource group.</td>
+</tr>
+<tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check if an IoT hub name is available. Check if an IoT hub name is available.</td>
 </tr>
 <tr>
     <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
@@ -1010,13 +1089,6 @@ The following methods are available for this resource:
     <td>Get the quota metrics for an IoT hub. Get the quota metrics for an IoT hub.</td>
 </tr>
 <tr>
-    <td><a href="#get_keys_for_key_name"><CopyableCode code="get_keys_for_key_name" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_. Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_.</td>
-</tr>
-<tr>
     <td><a href="#get_stats"><CopyableCode code="get_stats" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1064,13 +1136,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-inputBlobContainerUri"><code>inputBlobContainerUri</code></a>, <a href="#parameter-outputBlobContainerUri"><code>outputBlobContainerUri</code></a></td>
     <td></td>
     <td>Import, update, or delete device identities in the IoT hub identity registry from a blob. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-identity-registry#import-and-export-device-identities `_. Import, update, or delete device identities in the IoT hub identity registry from a blob. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-identity-registry#import-and-export-device-identities `_.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Check if an IoT hub name is available. Check if an IoT hub name is available.</td>
 </tr>
 </tbody>
 </table>
@@ -1139,9 +1204,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_event_hub_consumer_group', value: 'get_event_hub_consumer_group' },
         { label: 'list_event_hub_consumer_groups', value: 'list_event_hub_consumer_groups' },
         { label: 'get_job', value: 'get_job' },
+        { label: 'get_keys_for_key_name', value: 'get_keys_for_key_name' },
         { label: 'get', value: 'get' },
         { label: 'get_endpoint_health', value: 'get_endpoint_health' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -1204,6 +1271,24 @@ FROM azure.iothub.iot_hub_resource
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND resource_name = '{{ resource_name }}' -- required
 AND job_id = '{{ job_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_keys_for_key_name">
+
+Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_. Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_.
+
+```sql
+SELECT
+keyName,
+primaryKey,
+rights,
+secondaryKey
+FROM azure.iothub.iot_hub_resource
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND resource_name = '{{ resource_name }}' -- required
+AND key_name = '{{ key_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -1331,6 +1416,20 @@ type
 FROM azure.iothub.iot_hub_resource
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check if an IoT hub name is available. Check if an IoT hub name is available.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.iothub.iot_hub_resource
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1764,15 +1863,13 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_keys', value: 'list_keys' },
         { label: 'get_valid_skus', value: 'get_valid_skus' },
         { label: 'get_quota_metrics', value: 'get_quota_metrics' },
-        { label: 'get_keys_for_key_name', value: 'get_keys_for_key_name' },
         { label: 'get_stats', value: 'get_stats' },
         { label: 'create_event_hub_consumer_group', value: 'create_event_hub_consumer_group' },
         { label: 'delete_event_hub_consumer_group', value: 'delete_event_hub_consumer_group' },
         { label: 'test_all_routes', value: 'test_all_routes' },
         { label: 'test_route', value: 'test_route' },
         { label: 'export_devices', value: 'export_devices' },
-        { label: 'import_devices', value: 'import_devices' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'import_devices', value: 'import_devices' }
     ]}
 >
 <TabItem value="list_jobs">
@@ -1819,19 +1916,6 @@ Get the quota metrics for an IoT hub. Get the quota metrics for an IoT hub.
 EXEC azure.iothub.iot_hub_resource.get_quota_metrics 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @resource_name='{{ resource_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_keys_for_key_name">
-
-Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_. Get a shared access policy by name from an IoT hub. For more information, see: `https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-security `_.
-
-```sql
-EXEC azure.iothub.iot_hub_resource.get_keys_for_key_name 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@resource_name='{{ resource_name }}' --required, 
-@key_name='{{ key_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
@@ -1957,20 +2041,6 @@ EXEC azure.iothub.iot_hub_resource.import_devices
 "identity": "{{ identity }}", 
 "includeConfigurations": {{ includeConfigurations }}, 
 "configurationsBlobName": "{{ configurationsBlobName }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check if an IoT hub name is available. Check if an IoT hub name is available.
-
-```sql
-EXEC azure.iothub.iot_hub_resource.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}"
 }'
 ;
 ```

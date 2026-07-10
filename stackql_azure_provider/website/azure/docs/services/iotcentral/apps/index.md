@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -184,6 +185,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The resource type.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed reason message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>The value which indicates whether the provided name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason for unavailability.</td>
 </tr>
 </tbody>
 </table>
@@ -294,6 +324,13 @@ The following methods are available for this resource:
     <td>Get all the IoT Central Applications in a resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check if an IoT Central application name is available.</td>
+</tr>
+<tr>
     <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -334,13 +371,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get all available application templates.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Check if an IoT Central application name is available.</td>
 </tr>
 <tr>
     <td><a href="#check_subdomain_availability"><CopyableCode code="check_subdomain_availability" /></a></td>
@@ -390,6 +420,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -439,6 +470,20 @@ type
 FROM azure.iotcentral.apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check if an IoT Central application name is available.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.iotcentral.apps
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -664,7 +709,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_templates"
     values={[
         { label: 'list_templates', value: 'list_templates' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'check_subdomain_availability', value: 'check_subdomain_availability' }
     ]}
 >
@@ -675,21 +719,6 @@ Get all available application templates.
 ```sql
 EXEC azure.iotcentral.apps.list_templates 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check if an IoT Central application name is available.
-
-```sql
-EXEC azure.iotcentral.apps.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

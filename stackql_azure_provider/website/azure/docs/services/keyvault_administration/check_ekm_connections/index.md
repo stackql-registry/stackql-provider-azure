@@ -32,8 +32,52 @@ Creates, updates, deletes, gets or lists a <code>check_ekm_connections</code> re
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_ekm_connection"
+    values={[
+        { label: 'check_ekm_connection', value: 'check_ekm_connection' }
+    ]}
+>
+<TabItem value="check_ekm_connection">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="proxy_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the proxy product and its version. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="api_version" /></td>
+    <td><code>string</code></td>
+    <td>The highest version of proxy interface API supported by the EKM Proxy. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ekm_product" /></td>
+    <td><code>string</code></td>
+    <td>The name of the EKM product and its version. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ekm_vendor" /></td>
+    <td><code>string</code></td>
+    <td>The name of the EKM vendor. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="proxy_vendor" /></td>
+    <td><code>string</code></td>
+    <td>The name of the proxy vendor. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +96,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_ekm_connection"><CopyableCode code="check_ekm_connection" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-vault_base_url"><code>vault_base_url</code></a></td>
     <td></td>
     <td>Checks the connectivity and authentication with the EKM proxy. The External Key Manager (EKM) Check operation checks the connectivity and authentication with the EKM proxy. This operation requires ekm/read permission.</td>
@@ -81,7 +125,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_ekm_connection"
@@ -94,8 +138,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Checks the connectivity and authentication with the EKM proxy. The External Key Manager (EKM) Check operation checks the connectivity and authentication with the EKM proxy. This operation requires ekm/read permission.
 
 ```sql
-EXEC azure.keyvault_administration.check_ekm_connections.check_ekm_connection 
-@vault_base_url='{{ vault_base_url }}' --required
+SELECT
+proxy_name,
+api_version,
+ekm_product,
+ekm_vendor,
+proxy_vendor
+FROM azure.keyvault_administration.check_ekm_connections
+WHERE vault_base_url = '{{ vault_base_url }}' -- required
 ;
 ```
 </TabItem>

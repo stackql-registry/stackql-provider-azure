@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>random_bytes</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_random_bytes"
+    values={[
+        { label: 'get_random_bytes', value: 'get_random_bytes' }
+    ]}
+>
+<TabItem value="get_random_bytes">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string (byte)</code></td>
+    <td>The bytes encoded as a base64url string. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +76,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_random_bytes"><CopyableCode code="get_random_bytes" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-count"><code>count</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-vault_name"><code>vault_name</code></a></td>
     <td></td>
     <td>Get the requested number of bytes containing random values. Get the requested number of bytes containing random values from a managed HSM.</td>
 </tr>
@@ -81,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_random_bytes"
@@ -94,12 +118,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get the requested number of bytes containing random values. Get the requested number of bytes containing random values from a managed HSM.
 
 ```sql
-EXEC azure.keyvault_keys.random_bytes.get_random_bytes 
-@vault_name='{{ vault_name }}' --required 
-@@json=
-'{
-"count": {{ count }}
-}'
+SELECT
+value
+FROM azure.keyvault_keys.random_bytes
+WHERE vault_name = '{{ vault_name }}' -- required
 ;
 ```
 </TabItem>

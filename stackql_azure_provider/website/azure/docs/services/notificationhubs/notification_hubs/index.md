@@ -33,14 +33,15 @@ Creates, updates, deletes, gets or lists a <code>notification_hubs</code> resour
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
+        { label: 'check_notification_hub_availability', value: 'check_notification_hub_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
 <table>
 <thead>
@@ -52,79 +53,29 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. E.g. "/subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;". # pylint: disable=line-too-long</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="claimType" /></td>
-    <td><code>string</code></td>
-    <td>Gets a string that describes the claim type.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="claimValue" /></td>
-    <td><code>string</code></td>
-    <td>Gets a string that describes the claim value.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="createdTime" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Gets the created time for this rule.</td>
-</tr>
-<tr>
     <td><CopyableCode code="keyName" /></td>
     <td><code>string</code></td>
-    <td>Gets a string that describes the authorization rule.</td>
+    <td>Gets or sets keyName of the created AuthorizationRule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="location" /></td>
+    <td><CopyableCode code="primaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Deprecated - only for compatibility.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="modifiedTime" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Gets the last modified time for this rule.</td>
+    <td>Gets or sets primaryConnectionString of the AuthorizationRule.</td>
 </tr>
 <tr>
     <td><CopyableCode code="primaryKey" /></td>
     <td><code>string</code></td>
-    <td>Gets a base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
+    <td>Gets or sets primaryKey of the created AuthorizationRule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="revision" /></td>
-    <td><code>integer</code></td>
-    <td>Gets the revision number for the rule.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="rights" /></td>
-    <td><code>array</code></td>
-    <td>Gets or sets the rights associated with the rule.</td>
+    <td><CopyableCode code="secondaryConnectionString" /></td>
+    <td><code>string</code></td>
+    <td>Gets or sets secondaryConnectionString of the created AuthorizationRule.</td>
 </tr>
 <tr>
     <td><CopyableCode code="secondaryKey" /></td>
     <td><code>string</code></td>
-    <td>Gets a base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="tags" /></td>
-    <td><code>object</code></td>
-    <td>Deprecated - only for compatibility.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+    <td>Gets or sets secondaryKey of the created AuthorizationRule.</td>
 </tr>
 </tbody>
 </table>
@@ -234,6 +185,60 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="xiaomiCredential" /></td>
     <td><code>object</code></td>
     <td>Description of a NotificationHub XiaomiCredential.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_notification_hub_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. E.g. "/subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;". # pylint: disable=line-too-long</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isAvailiable" /></td>
+    <td><code>boolean</code></td>
+    <td>Gets or sets true if the name is available and can be used to create new Namespace/NotificationHub. Otherwise false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>Deprecated - only for compatibility.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sku" /></td>
+    <td><code>object</code></td>
+    <td>The Sku description for a namespace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>Deprecated - only for compatibility.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
 </tr>
 </tbody>
 </table>
@@ -365,11 +370,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
+    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets an authorization rule for a NotificationHub by name. Gets an authorization rule for a NotificationHub by name.</td>
+    <td>Gets the Primary and Secondary ConnectionStrings to the NotificationHub. Gets the Primary and Secondary ConnectionStrings to the NotificationHub.</td>
 </tr>
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
@@ -377,6 +382,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the notification hub. Gets the notification hub.</td>
+</tr>
+<tr>
+    <td><a href="#check_notification_hub_availability"><CopyableCode code="check_notification_hub_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks the availability of the given notificationHub in a namespace. Checks the availability of the given notificationHub in a namespace.</td>
 </tr>
 <tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
@@ -421,11 +433,11 @@ The following methods are available for this resource:
     <td>Gets the authorization rules for a NotificationHub. Gets the authorization rules for a NotificationHub.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
+    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the Primary and Secondary ConnectionStrings to the NotificationHub. Gets the Primary and Secondary ConnectionStrings to the NotificationHub.</td>
+    <td>Gets an authorization rule for a NotificationHub by name. Gets an authorization rule for a NotificationHub by name.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
@@ -447,13 +459,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-notification_hub_name"><code>notification_hub_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Lists the PNS Credentials associated with a notification hub. Lists the PNS Credentials associated with a notification hub.</td>
-</tr>
-<tr>
-    <td><a href="#check_notification_hub_availability"><CopyableCode code="check_notification_hub_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Checks the availability of the given notificationHub in a namespace. Checks the availability of the given notificationHub in a namespace.</td>
 </tr>
 <tr>
     <td><a href="#debug_send"><CopyableCode code="debug_send" /></a></td>
@@ -526,34 +531,25 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
+        { label: 'check_notification_hub_availability', value: 'check_notification_hub_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
-Gets an authorization rule for a NotificationHub by name. Gets an authorization rule for a NotificationHub by name.
+Gets the Primary and Secondary ConnectionStrings to the NotificationHub. Gets the Primary and Secondary ConnectionStrings to the NotificationHub.
 
 ```sql
 SELECT
-id,
-name,
-claimType,
-claimValue,
-createdTime,
 keyName,
-location,
-modifiedTime,
+primaryConnectionString,
 primaryKey,
-revision,
-rights,
-secondaryKey,
-systemData,
-tags,
-type
+secondaryConnectionString,
+secondaryKey
 FROM azure.notificationhubs.notification_hubs
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
@@ -592,6 +588,27 @@ FROM azure.notificationhubs.notification_hubs
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
 AND notification_hub_name = '{{ notification_hub_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_notification_hub_availability">
+
+Checks the availability of the given notificationHub in a namespace. Checks the availability of the given notificationHub in a namespace.
+
+```sql
+SELECT
+id,
+name,
+isAvailiable,
+location,
+sku,
+systemData,
+tags,
+type
+FROM azure.notificationhubs.notification_hubs
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND namespace_name = '{{ namespace_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -878,11 +895,10 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_authorization_rules"
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
-        { label: 'list_keys', value: 'list_keys' },
+        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
         { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'get_pns_credentials', value: 'get_pns_credentials' },
-        { label: 'check_notification_hub_availability', value: 'check_notification_hub_availability' },
         { label: 'debug_send', value: 'debug_send' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
@@ -900,12 +916,12 @@ EXEC azure.notificationhubs.notification_hubs.list_authorization_rules
 ;
 ```
 </TabItem>
-<TabItem value="list_keys">
+<TabItem value="get_authorization_rule">
 
-Gets the Primary and Secondary ConnectionStrings to the NotificationHub. Gets the Primary and Secondary ConnectionStrings to the NotificationHub.
+Gets an authorization rule for a NotificationHub by name. Gets an authorization rule for a NotificationHub by name.
 
 ```sql
-EXEC azure.notificationhubs.notification_hubs.list_keys 
+EXEC azure.notificationhubs.notification_hubs.get_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @notification_hub_name='{{ notification_hub_name }}' --required, 
@@ -958,26 +974,6 @@ EXEC azure.notificationhubs.notification_hubs.get_pns_credentials
 @namespace_name='{{ namespace_name }}' --required, 
 @notification_hub_name='{{ notification_hub_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_notification_hub_availability">
-
-Checks the availability of the given notificationHub in a namespace. Checks the availability of the given notificationHub in a namespace.
-
-```sql
-EXEC azure.notificationhubs.notification_hubs.check_notification_hub_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@namespace_name='{{ namespace_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"location": "{{ location }}", 
-"tags": "{{ tags }}", 
-"isAvailiable": {{ isAvailiable }}, 
-"sku": "{{ sku }}"
-}'
 ;
 ```
 </TabItem>

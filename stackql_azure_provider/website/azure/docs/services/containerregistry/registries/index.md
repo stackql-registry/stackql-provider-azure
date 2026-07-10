@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get_private_link_resource', value: 'get_private_link_resource' },
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -250,6 +251,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="zoneRedundancy" /></td>
     <td><code>string</code></td>
     <td>Whether or not zone redundancy is enabled for this container registry. Known values are: "Enabled" and "Disabled". (Enabled, Disabled)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="availableLoginServerName" /></td>
+    <td><code>string</code></td>
+    <td>The complete login server name with domain name label (DNL) hash, if available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>If any, the error message that provides more detail for the reason that the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>The value that indicates whether the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>If any, the reason that the name is not available.</td>
 </tr>
 </tbody>
 </table>
@@ -614,6 +649,13 @@ The following methods are available for this resource:
     <td>Gets the properties of the specified container registry.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks whether the container registry name is available for use. The name must contain only alphanumeric characters, be globally unique, and between 5 and 50 characters in length.</td>
+</tr>
+<tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -690,13 +732,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Generate keys for a token of a specified container registry.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks whether the container registry name is available for use. The name must contain only alphanumeric characters, be globally unique, and between 5 and 50 characters in length.</td>
-</tr>
 </tbody>
 </table>
 
@@ -743,6 +778,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get_private_link_resource', value: 'get_private_link_resource' },
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -808,6 +844,21 @@ FROM azure.containerregistry.registries
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND registry_name = '{{ registry_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Checks whether the container registry name is available for use. The name must contain only alphanumeric characters, be globally unique, and between 5 and 50 characters in length.
+
+```sql
+SELECT
+availableLoginServerName,
+message,
+nameAvailable,
+reason
+FROM azure.containerregistry.registries
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1133,8 +1184,7 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_private_link_resources', value: 'list_private_link_resources' },
         { label: 'import_image', value: 'import_image' },
         { label: 'regenerate_credential', value: 'regenerate_credential' },
-        { label: 'generate_credentials', value: 'generate_credentials' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'generate_credentials', value: 'generate_credentials' }
     ]}
 >
 <TabItem value="list_usages">
@@ -1222,23 +1272,6 @@ EXEC azure.containerregistry.registries.generate_credentials
 "tokenId": "{{ tokenId }}", 
 "expiry": "{{ expiry }}", 
 "name": "{{ name }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks whether the container registry name is available for use. The name must contain only alphanumeric characters, be globally unique, and between 5 and 50 characters in length.
-
-```sql
-EXEC azure.containerregistry.registries.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}", 
-"resourceGroupName": "{{ resourceGroupName }}", 
-"autoGeneratedDomainNameLabelScope": "{{ autoGeneratedDomainNameLabelScope }}"
 }'
 ;
 ```

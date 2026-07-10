@@ -107,7 +107,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Gets the specified secret value resource. Get the information about the specified named secret value resources. The information does not include the actual value of the secret.</td>
 </tr>
@@ -121,21 +121,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Deletes the specified value of the named secret resource. Deletes the secret value resource identified by the name. The name of the resource is typically the version associated with that value. Deletion will fail if the specified value is in use.</td>
 </tr>
 <tr>
     <td><a href="#add_value"><CopyableCode code="add_value" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a></td>
+    <td><a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a></td>
     <td></td>
     <td>Adds the specified value as a new version of the specified secret resource. Creates a new value of the specified secret resource. The name of the value is typically the version identifier. Once created the value cannot be changed.</td>
 </tr>
 <tr>
     <td><a href="#show"><CopyableCode code="show" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-secret_resource_name"><code>secret_resource_name</code></a>, <a href="#parameter-secret_value_resource_name"><code>secret_value_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Lists the specified value of the secret resource. Lists the decrypted value of the specified named value of the secret resource. This is a privileged operation.</td>
 </tr>
@@ -191,8 +191,8 @@ SELECT
 name,
 value
 FROM azure.servicefabric_dataplane.mesh_secret_value
-WHERE secret_value_resource_name = '{{ secret_value_resource_name }}' -- required
-AND secret_resource_name = '{{ secret_resource_name }}' -- required
+WHERE secret_resource_name = '{{ secret_resource_name }}' -- required
+AND secret_value_resource_name = '{{ secret_value_resource_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
@@ -228,8 +228,8 @@ Deletes the specified value of the named secret resource. Deletes the secret val
 
 ```sql
 DELETE FROM azure.servicefabric_dataplane.mesh_secret_value
-WHERE secret_value_resource_name = '{{ secret_value_resource_name }}' --required
-AND secret_resource_name = '{{ secret_resource_name }}' --required
+WHERE secret_resource_name = '{{ secret_resource_name }}' --required
+AND secret_value_resource_name = '{{ secret_value_resource_name }}' --required
 AND endpoint = '{{ endpoint }}' --required
 ;
 ```
@@ -252,8 +252,8 @@ Adds the specified value as a new version of the specified secret resource. Crea
 
 ```sql
 EXEC azure.servicefabric_dataplane.mesh_secret_value.add_value 
-@secret_value_resource_name='{{ secret_value_resource_name }}' --required, 
 @secret_resource_name='{{ secret_resource_name }}' --required, 
+@secret_value_resource_name='{{ secret_value_resource_name }}' --required, 
 @endpoint='{{ endpoint }}' --required 
 @@json=
 '{
@@ -269,8 +269,8 @@ Lists the specified value of the secret resource. Lists the decrypted value of t
 
 ```sql
 EXEC azure.servicefabric_dataplane.mesh_secret_value.show 
-@secret_value_resource_name='{{ secret_value_resource_name }}' --required, 
 @secret_resource_name='{{ secret_resource_name }}' --required, 
+@secret_value_resource_name='{{ secret_value_resource_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

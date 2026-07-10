@@ -33,12 +33,37 @@ Creates, updates, deletes, gets or lists a <code>global_rulestack</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_advanced_security_objects"
     values={[
+        { label: 'list_advanced_security_objects', value: 'list_advanced_security_objects' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_advanced_security_objects">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="nextLink" /></td>
+    <td><code>string</code></td>
+    <td>next link.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>object</code></td>
+    <td>response value. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -235,6 +260,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_advanced_security_objects"><CopyableCode code="list_advanced_security_objects" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-global_rulestack_name"><code>global_rulestack_name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><a href="#parameter-skip"><code>skip</code></a>, <a href="#parameter-top"><code>top</code></a></td>
+    <td>Get the list of advanced security objects.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-global_rulestack_name"><code>global_rulestack_name</code></a></td>
@@ -275,13 +307,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-global_rulestack_name"><code>global_rulestack_name</code></a></td>
     <td></td>
     <td>Delete a GlobalRulestackResource.</td>
-</tr>
-<tr>
-    <td><a href="#list_advanced_security_objects"><CopyableCode code="list_advanced_security_objects" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-global_rulestack_name"><code>global_rulestack_name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td><a href="#parameter-skip"><code>skip</code></a>, <a href="#parameter-top"><code>top</code></a></td>
-    <td>Get the list of advanced security objects.</td>
 </tr>
 <tr>
     <td><a href="#list_app_ids"><CopyableCode code="list_app_ids" /></a></td>
@@ -391,12 +416,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_advanced_security_objects"
     values={[
+        { label: 'list_advanced_security_objects', value: 'list_advanced_security_objects' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_advanced_security_objects">
+
+Get the list of advanced security objects.
+
+```sql
+SELECT
+nextLink,
+value
+FROM azure_isv.paloaltonetworksngfw.global_rulestack
+WHERE global_rulestack_name = '{{ global_rulestack_name }}' -- required
+AND type = '{{ type }}' -- required
+AND skip = '{{ skip }}'
+AND top = '{{ top }}'
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a GlobalRulestackResource.
@@ -623,9 +665,8 @@ WHERE global_rulestack_name = '{{ global_rulestack_name }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_advanced_security_objects"
+    defaultValue="list_app_ids"
     values={[
-        { label: 'list_advanced_security_objects', value: 'list_advanced_security_objects' },
         { label: 'list_app_ids', value: 'list_app_ids' },
         { label: 'list_countries', value: 'list_countries' },
         { label: 'list_firewalls', value: 'list_firewalls' },
@@ -636,19 +677,6 @@ WHERE global_rulestack_name = '{{ global_rulestack_name }}' --required
         { label: 'revert', value: 'revert' }
     ]}
 >
-<TabItem value="list_advanced_security_objects">
-
-Get the list of advanced security objects.
-
-```sql
-EXEC azure_isv.paloaltonetworksngfw.global_rulestack.list_advanced_security_objects 
-@global_rulestack_name='{{ global_rulestack_name }}' --required, 
-@type='{{ type }}' --required, 
-@skip='{{ skip }}', 
-@top='{{ top }}'
-;
-```
-</TabItem>
 <TabItem value="list_app_ids">
 
 List of AppIds for GlobalRulestack ApiVersion.

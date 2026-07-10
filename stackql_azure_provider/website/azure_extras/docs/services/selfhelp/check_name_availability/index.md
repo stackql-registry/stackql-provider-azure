@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>check_name_availability</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_availability"
+    values={[
+        { label: 'check_availability', value: 'check_availability' }
+    ]}
+>
+<TabItem value="check_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Gets an error message explaining the 'reason' value with more details. This field is returned iif nameAvailable is false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Returns true or false depending on the availability of the name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Reason for why value is not available. This field is returned if nameAvailable is false.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_availability"><CopyableCode code="check_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-scope"><code>scope</code></a></td>
     <td></td>
     <td>This API is used to check the uniqueness of a resource name used for a diagnostic, troubleshooter or solutions.</td>
@@ -81,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_availability"
@@ -94,13 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 This API is used to check the uniqueness of a resource name used for a diagnostic, troubleshooter or solutions.
 
 ```sql
-EXEC azure_extras.selfhelp.check_name_availability.check_availability 
-@scope='{{ scope }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure_extras.selfhelp.check_name_availability
+WHERE scope = '{{ scope }}' -- required
 ;
 ```
 </TabItem>

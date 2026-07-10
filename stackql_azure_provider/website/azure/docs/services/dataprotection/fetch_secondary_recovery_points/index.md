@@ -32,8 +32,52 @@ Creates, updates, deletes, gets or lists a <code>fetch_secondary_recovery_points
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="objectType" /></td>
+    <td><code>string</code></td>
+    <td>Required. Default value is None.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +95,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$skipToken"><code>$skipToken</code></a></td>
     <td>Returns a list of Secondary Recovery Points for a DataSource in a vault, that can be used for Cross Region Restore.</td>
@@ -101,30 +145,31 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Returns a list of Secondary Recovery Points for a DataSource in a vault, that can be used for Cross Region Restore.
 
 ```sql
-EXEC azure.dataprotection.fetch_secondary_recovery_points.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$filter='{{ $filter }}', 
-@$skipToken='{{ $skipToken }}' 
-@@json=
-'{
-"sourceRegion": "{{ sourceRegion }}", 
-"sourceBackupInstanceId": "{{ sourceBackupInstanceId }}"
-}'
+SELECT
+id,
+name,
+objectType,
+systemData,
+type
+FROM azure.dataprotection.fetch_secondary_recovery_points
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $filter = '{{ $filter }}'
+AND $skipToken = '{{ $skipToken }}'
 ;
 ```
 </TabItem>

@@ -32,8 +32,72 @@ Creates, updates, deletes, gets or lists a <code>product_families</code> resourc
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_product_families"
+    values={[
+        { label: 'list_product_families', value: 'list_product_families' }
+    ]}
+>
+<TabItem value="list_product_families">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="availabilityInformation" /></td>
+    <td><code>object</code></td>
+    <td>Availability information of the product system.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="costInformation" /></td>
+    <td><code>object</code></td>
+    <td>Cost information for the product system.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>object</code></td>
+    <td>Description related to the product system.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="displayName" /></td>
+    <td><code>string</code></td>
+    <td>Display Name for the product system.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="filterableProperties" /></td>
+    <td><code>array</code></td>
+    <td>list of filters supported for a product.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hierarchyInformation" /></td>
+    <td><code>object</code></td>
+    <td>Hierarchy information of a product.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="imageInformation" /></td>
+    <td><code>array</code></td>
+    <td>Image information for the product system.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="productLines" /></td>
+    <td><code>array</code></td>
+    <td>List of product lines supported in the product family.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="resourceProviderDetails" /></td>
+    <td><code>array</code></td>
+    <td>Contains details related to resource provider.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +116,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_product_families"><CopyableCode code="list_product_families" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-filterableProperties"><code>filterableProperties</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$expand"><code>$expand</code></a>, <a href="#parameter-$skipToken"><code>$skipToken</code></a></td>
     <td>This method provides the list of product families for the given subscription.</td>
 </tr>
@@ -91,7 +155,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_product_families"
@@ -104,15 +168,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 This method provides the list of product families for the given subscription.
 
 ```sql
-EXEC azure_extras.edgeorder.product_families.list_product_families 
-@subscription_id='{{ subscription_id }}' --required, 
-@$expand='{{ $expand }}', 
-@$skipToken='{{ $skipToken }}' 
-@@json=
-'{
-"filterableProperties": "{{ filterableProperties }}", 
-"customerSubscriptionDetails": "{{ customerSubscriptionDetails }}"
-}'
+SELECT
+availabilityInformation,
+costInformation,
+description,
+displayName,
+filterableProperties,
+hierarchyInformation,
+imageInformation,
+productLines,
+resourceProviderDetails
+FROM azure_extras.edgeorder.product_families
+WHERE subscription_id = '{{ subscription_id }}' -- required
+AND $expand = '{{ $expand }}'
+AND $skipToken = '{{ $skipToken }}'
 ;
 ```
 </TabItem>

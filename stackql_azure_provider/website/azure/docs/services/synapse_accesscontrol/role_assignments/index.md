@@ -33,12 +33,32 @@ Creates, updates, deletes, gets or lists a <code>role_assignments</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_role_assignment_by_id"
+    defaultValue="check_principal_access"
     values={[
+        { label: 'check_principal_access', value: 'check_principal_access' },
         { label: 'get_role_assignment_by_id', value: 'get_role_assignment_by_id' },
         { label: 'list_role_assignments', value: 'list_role_assignments' }
     ]}
 >
+<TabItem value="check_principal_access">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="accessDecisions" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_role_assignment_by_id">
 
 <table>
@@ -135,6 +155,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_principal_access"><CopyableCode code="check_principal_access" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Check if the given principalId has access to perform list of actions at a given scope.</td>
+</tr>
+<tr>
     <td><a href="#get_role_assignment_by_id"><CopyableCode code="get_role_assignment_by_id" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -168,13 +195,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete role assignment by role assignment Id.</td>
-</tr>
-<tr>
-    <td><a href="#check_principal_access"><CopyableCode code="check_principal_access" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-subject"><code>subject</code></a>, <a href="#parameter-actions"><code>actions</code></a>, <a href="#parameter-scope"><code>scope</code></a></td>
-    <td></td>
-    <td>Check if the given principalId has access to perform list of actions at a given scope.</td>
 </tr>
 </tbody>
 </table>
@@ -228,12 +248,25 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_role_assignment_by_id"
+    defaultValue="check_principal_access"
     values={[
+        { label: 'check_principal_access', value: 'check_principal_access' },
         { label: 'get_role_assignment_by_id', value: 'get_role_assignment_by_id' },
         { label: 'list_role_assignments', value: 'list_role_assignments' }
     ]}
 >
+<TabItem value="check_principal_access">
+
+Check if the given principalId has access to perform list of actions at a given scope.
+
+```sql
+SELECT
+accessDecisions
+FROM azure.synapse_accesscontrol.role_assignments
+WHERE endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_role_assignment_by_id">
 
 Get role assignment by role assignment Id.
@@ -322,8 +355,7 @@ scope
     defaultValue="get_role_assignments"
     values={[
         { label: 'get_role_assignments', value: 'get_role_assignments' },
-        { label: 'delete_role_assignment_by_id', value: 'delete_role_assignment_by_id' },
-        { label: 'check_principal_access', value: 'check_principal_access' }
+        { label: 'delete_role_assignment_by_id', value: 'delete_role_assignment_by_id' }
     ]}
 >
 <TabItem value="get_role_assignments">
@@ -347,22 +379,6 @@ Delete role assignment by role assignment Id.
 EXEC azure.synapse_accesscontrol.role_assignments.delete_role_assignment_by_id 
 @role_assignment_id='{{ role_assignment_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_principal_access">
-
-Check if the given principalId has access to perform list of actions at a given scope.
-
-```sql
-EXEC azure.synapse_accesscontrol.role_assignments.check_principal_access 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"subject": "{{ subject }}", 
-"actions": "{{ actions }}", 
-"scope": "{{ scope }}"
-}'
 ;
 ```
 </TabItem>

@@ -33,12 +33,37 @@ Creates, updates, deletes, gets or lists an <code>endpoints</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_managed_proxy_details"
     values={[
+        { label: 'list_managed_proxy_details', value: 'list_managed_proxy_details' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_managed_proxy_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="expiresOn" /></td>
+    <td><code>integer</code></td>
+    <td>The expiration time of short lived proxy name in unix epoch. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="proxy" /></td>
+    <td><code>string</code></td>
+    <td>The short lived proxy name. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -145,6 +170,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_managed_proxy_details"><CopyableCode code="list_managed_proxy_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a></td>
+    <td></td>
+    <td>Fetches the managed proxy details.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a></td>
@@ -200,13 +232,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-expiresin"><code>expiresin</code></a></td>
     <td>Gets the ingress gateway endpoint credentials.</td>
 </tr>
-<tr>
-    <td><a href="#list_managed_proxy_details"><CopyableCode code="list_managed_proxy_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a>, <a href="#parameter-endpoint_name"><code>endpoint_name</code></a>, <a href="#parameter-service"><code>service</code></a></td>
-    <td></td>
-    <td>Fetches the managed proxy details.</td>
-</tr>
 </tbody>
 </table>
 
@@ -244,12 +269,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_managed_proxy_details"
     values={[
+        { label: 'list_managed_proxy_details', value: 'list_managed_proxy_details' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_managed_proxy_details">
+
+Fetches the managed proxy details.
+
+```sql
+SELECT
+expiresOn,
+proxy
+FROM azure.hybridconnectivity.endpoints
+WHERE resource_uri = '{{ resource_uri }}' -- required
+AND endpoint_name = '{{ endpoint_name }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the endpoint to the resource.
@@ -432,8 +472,7 @@ AND endpoint_name = '{{ endpoint_name }}' --required
     defaultValue="list_credentials"
     values={[
         { label: 'list_credentials', value: 'list_credentials' },
-        { label: 'list_ingress_gateway_credentials', value: 'list_ingress_gateway_credentials' },
-        { label: 'list_managed_proxy_details', value: 'list_managed_proxy_details' }
+        { label: 'list_ingress_gateway_credentials', value: 'list_ingress_gateway_credentials' }
     ]}
 >
 <TabItem value="list_credentials">
@@ -463,23 +502,6 @@ EXEC azure.hybridconnectivity.endpoints.list_ingress_gateway_credentials
 @expiresin='{{ expiresin }}' 
 @@json=
 '{
-"serviceName": "{{ serviceName }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="list_managed_proxy_details">
-
-Fetches the managed proxy details.
-
-```sql
-EXEC azure.hybridconnectivity.endpoints.list_managed_proxy_details 
-@resource_uri='{{ resource_uri }}' --required, 
-@endpoint_name='{{ endpoint_name }}' --required 
-@@json=
-'{
-"service": "{{ service }}", 
-"hostname": "{{ hostname }}", 
 "serviceName": "{{ serviceName }}"
 }'
 ;

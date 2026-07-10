@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>discovery</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query"
+    values={[
+        { label: 'query', value: 'query' }
+    ]}
+>
+<TabItem value="query">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="@search" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="continuationToken" /></td>
+    <td><code>string</code></td>
+    <td>The token used to get next batch of data. Absent if there's no more data.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>Search result value.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +86,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#query"><CopyableCode code="query" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get data using search.</td>
@@ -95,14 +129,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="query"
     values={[
-        { label: 'query', value: 'query' },
-        { label: 'suggest', value: 'suggest' },
-        { label: 'auto_complete', value: 'auto_complete' }
+        { label: 'query', value: 'query' }
     ]}
 >
 <TabItem value="query">
@@ -110,21 +142,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get data using search.
 
 ```sql
-EXEC azure.purview_datamap.discovery.query 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"keywords": "{{ keywords }}", 
-"limit": {{ limit }}, 
-"continuationToken": "{{ continuationToken }}", 
-"orderby": "{{ orderby }}", 
-"filter": "{{ filter }}", 
-"facets": "{{ facets }}", 
-"taxonomySetting": "{{ taxonomySetting }}"
-}'
+SELECT
+@search,
+continuationToken,
+value
+FROM azure.purview_datamap.discovery
+WHERE endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="suggest"
+    values={[
+        { label: 'suggest', value: 'suggest' },
+        { label: 'auto_complete', value: 'auto_complete' }
+    ]}
+>
 <TabItem value="suggest">
 
 Get search suggestions by query criteria.

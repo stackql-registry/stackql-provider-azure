@@ -33,11 +33,36 @@ Creates, updates, deletes, gets or lists a <code>pipeline_runs</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="query_by_factory"
     values={[
+        { label: 'query_by_factory', value: 'query_by_factory' },
         { label: 'get', value: 'get' }
     ]}
 >
+<TabItem value="query_by_factory">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="continuationToken" /></td>
+    <td><code>string</code></td>
+    <td>The continuation token for getting the next page of results, if any remaining results exist, null otherwise.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>List of pipeline runs. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -135,18 +160,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#query_by_factory"><CopyableCode code="query_by_factory" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Query pipeline runs in the factory based on input filter conditions.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-run_id"><code>run_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get a pipeline run by its run ID.</td>
-</tr>
-<tr>
-    <td><a href="#query_by_factory"><CopyableCode code="query_by_factory" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-lastUpdatedAfter"><code>lastUpdatedAfter</code></a>, <a href="#parameter-lastUpdatedBefore"><code>lastUpdatedBefore</code></a></td>
-    <td></td>
-    <td>Query pipeline runs in the factory based on input filter conditions.</td>
 </tr>
 <tr>
     <td><a href="#cancel"><CopyableCode code="cancel" /></a></td>
@@ -202,11 +227,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="query_by_factory"
     values={[
+        { label: 'query_by_factory', value: 'query_by_factory' },
         { label: 'get', value: 'get' }
     ]}
 >
+<TabItem value="query_by_factory">
+
+Query pipeline runs in the factory based on input filter conditions.
+
+```sql
+SELECT
+continuationToken,
+value
+FROM azure.datafactory.pipeline_runs
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a pipeline run by its run ID.
@@ -240,32 +281,11 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="query_by_factory"
+    defaultValue="cancel"
     values={[
-        { label: 'query_by_factory', value: 'query_by_factory' },
         { label: 'cancel', value: 'cancel' }
     ]}
 >
-<TabItem value="query_by_factory">
-
-Query pipeline runs in the factory based on input filter conditions.
-
-```sql
-EXEC azure.datafactory.pipeline_runs.query_by_factory 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"continuationToken": "{{ continuationToken }}", 
-"lastUpdatedAfter": "{{ lastUpdatedAfter }}", 
-"lastUpdatedBefore": "{{ lastUpdatedBefore }}", 
-"filters": "{{ filters }}", 
-"orderBy": "{{ orderBy }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="cancel">
 
 Cancel a pipeline run by its run ID.

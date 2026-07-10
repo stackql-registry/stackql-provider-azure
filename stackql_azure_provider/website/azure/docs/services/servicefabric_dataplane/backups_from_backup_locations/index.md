@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>backups_from_backup_locations</
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_backups_from_backup_location"
+    values={[
+        { label: 'get_backups_from_backup_location', value: 'get_backups_from_backup_location' }
+    ]}
+>
+<TabItem value="get_backups_from_backup_location">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="ContinuationToken" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="Items" /></td>
+    <td><code>array</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +81,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_backups_from_backup_location"><CopyableCode code="get_backups_from_backup_location" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-Storage"><code>Storage</code></a>, <a href="#parameter-BackupEntity"><code>BackupEntity</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-ContinuationToken"><code>ContinuationToken</code></a>, <a href="#parameter-MaxResults"><code>MaxResults</code></a></td>
     <td>Gets the list of backups available for the specified backed up entity at the specified backup location. Gets the list of backups available for the specified backed up entity (Application, Service or Partition) at the specified backup location (FileShare or Azure Blob Storage).</td>
 </tr>
@@ -96,7 +125,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_backups_from_backup_location"
@@ -109,19 +138,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the list of backups available for the specified backed up entity at the specified backup location. Gets the list of backups available for the specified backed up entity (Application, Service or Partition) at the specified backup location (FileShare or Azure Blob Storage).
 
 ```sql
-EXEC azure.servicefabric_dataplane.backups_from_backup_locations.get_backups_from_backup_location 
-@endpoint='{{ endpoint }}' --required, 
-@timeout='{{ timeout }}', 
-@ContinuationToken='{{ ContinuationToken }}', 
-@MaxResults='{{ MaxResults }}' 
-@@json=
-'{
-"StartDateTimeFilter": "{{ StartDateTimeFilter }}", 
-"EndDateTimeFilter": "{{ EndDateTimeFilter }}", 
-"Latest": {{ Latest }}, 
-"Storage": "{{ Storage }}", 
-"BackupEntity": "{{ BackupEntity }}"
-}'
+SELECT
+ContinuationToken,
+Items
+FROM azure.servicefabric_dataplane.backups_from_backup_locations
+WHERE endpoint = '{{ endpoint }}' -- required
+AND timeout = '{{ timeout }}'
+AND ContinuationToken = '{{ ContinuationToken }}'
+AND MaxResults = '{{ MaxResults }}'
 ;
 ```
 </TabItem>

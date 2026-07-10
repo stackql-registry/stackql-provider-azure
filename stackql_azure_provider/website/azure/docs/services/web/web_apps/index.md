@@ -36,13 +36,17 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get_instance_process_module_slot"
     values={[
         { label: 'get_instance_process_module_slot', value: 'get_instance_process_module_slot' },
+        { label: 'list_slot_differences_slot', value: 'list_slot_differences_slot' },
         { label: 'list_instance_process_threads_slot', value: 'list_instance_process_threads_slot' },
         { label: 'get_hybrid_connection_slot', value: 'get_hybrid_connection_slot' },
         { label: 'get_vnet_connection_gateway_slot', value: 'get_vnet_connection_gateway_slot' },
         { label: 'get_instance_process_module', value: 'get_instance_process_module' },
         { label: 'get_process_module_slot', value: 'get_process_module_slot' },
         { label: 'get_triggered_web_job_history_slot', value: 'get_triggered_web_job_history_slot' },
+        { label: 'list_slot_differences_from_production', value: 'list_slot_differences_from_production' },
+        { label: 'list_backup_status_secrets_slot', value: 'list_backup_status_secrets_slot' },
         { label: 'list_deployment_log_slot', value: 'list_deployment_log_slot' },
+        { label: 'list_function_keys_slot', value: 'list_function_keys_slot' },
         { label: 'list_instance_process_threads', value: 'list_instance_process_threads' },
         { label: 'list_instance_processes_slot', value: 'list_instance_processes_slot' },
         { label: 'list_process_threads_slot', value: 'list_process_threads_slot' },
@@ -53,13 +57,11 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
         { label: 'get_vnet_connection_slot', value: 'get_vnet_connection_slot' },
         { label: 'get_vnet_connection_gateway', value: 'get_vnet_connection_gateway' },
-        { label: 'get_backup_status_slot', value: 'get_backup_status_slot' },
         { label: 'get_app_setting_key_vault_reference_slot', value: 'get_app_setting_key_vault_reference_slot' },
         { label: 'get_site_connection_string_key_vault_reference_slot', value: 'get_site_connection_string_key_vault_reference_slot' },
         { label: 'get_configuration_snapshot_slot', value: 'get_configuration_snapshot_slot' },
         { label: 'get_slot_site_deployment_status_slot', value: 'get_slot_site_deployment_status_slot' },
         { label: 'get_domain_ownership_identifier_slot', value: 'get_domain_ownership_identifier_slot' },
-        { label: 'get_instance_function_slot', value: 'get_instance_function_slot' },
         { label: 'get_host_name_binding_slot', value: 'get_host_name_binding_slot' },
         { label: 'get_relay_service_connection_slot', value: 'get_relay_service_connection_slot' },
         { label: 'get_process_module', value: 'get_process_module' },
@@ -69,8 +71,10 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_site_extension_slot', value: 'get_site_extension_slot' },
         { label: 'get_triggered_web_job_history', value: 'get_triggered_web_job_history' },
         { label: 'get_instance_workflow_slot', value: 'get_instance_workflow_slot' },
-        { label: 'list_hybrid_connections_slot', value: 'list_hybrid_connections_slot' },
+        { label: 'list_application_settings_slot', value: 'list_application_settings_slot' },
+        { label: 'list_backup_status_secrets', value: 'list_backup_status_secrets' },
         { label: 'list_deployment_log', value: 'list_deployment_log' },
+        { label: 'list_function_keys', value: 'list_function_keys' },
         { label: 'list_instance_processes', value: 'list_instance_processes' },
         { label: 'list_process_threads', value: 'list_process_threads' },
         { label: 'list_network_features', value: 'list_network_features' },
@@ -78,13 +82,11 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
         { label: 'get_vnet_connection', value: 'get_vnet_connection' },
         { label: 'get_network_trace_operation', value: 'get_network_trace_operation' },
-        { label: 'get_backup_status', value: 'get_backup_status' },
         { label: 'get_app_setting_key_vault_reference', value: 'get_app_setting_key_vault_reference' },
         { label: 'get_site_connection_string_key_vault_reference', value: 'get_site_connection_string_key_vault_reference' },
         { label: 'get_configuration_snapshot', value: 'get_configuration_snapshot' },
         { label: 'get_production_site_deployment_status', value: 'get_production_site_deployment_status' },
         { label: 'get_domain_ownership_identifier', value: 'get_domain_ownership_identifier' },
-        { label: 'get_function', value: 'get_function' },
         { label: 'get_host_name_binding', value: 'get_host_name_binding' },
         { label: 'get_relay_service_connection', value: 'get_relay_service_connection' },
         { label: 'get_premier_add_on', value: 'get_premier_add_on' },
@@ -187,6 +189,75 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_slot_differences_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>Description of the setting difference.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="diffRule" /></td>
+    <td><code>string</code></td>
+    <td>Rule that describes how to process the setting difference during a slot swap.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="level" /></td>
+    <td><code>string</code></td>
+    <td>Level of the difference: Information, Warning or Error.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the setting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingType" /></td>
+    <td><code>string</code></td>
+    <td>The type of the setting: General, AppSetting or ConnectionString.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInCurrentSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the current slot.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInTargetSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the target slot.</td>
 </tr>
 </tbody>
 </table>
@@ -645,6 +716,174 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="list_slot_differences_from_production">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>Description of the setting difference.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="diffRule" /></td>
+    <td><code>string</code></td>
+    <td>Rule that describes how to process the setting difference during a slot swap.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="level" /></td>
+    <td><code>string</code></td>
+    <td>Level of the difference: Information, Warning or Error.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the setting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingType" /></td>
+    <td><code>string</code></td>
+    <td>The type of the setting: General, AppSetting or ConnectionString.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInCurrentSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the current slot.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInTargetSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the target slot.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_backup_status_secrets_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="blobName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the blob which contains data for this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="correlationId" /></td>
+    <td><code>string</code></td>
+    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="created" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of the backup creation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="databases" /></td>
+    <td><code>array</code></td>
+    <td>List of databases included in the backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="finishedTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp when this backup finished.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of a last restore operation which used this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="log" /></td>
+    <td><code>string</code></td>
+    <td>Details regarding this backup. Might contain an error message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="scheduled" /></td>
+    <td><code>boolean</code></td>
+    <td>True if this backup has been created due to a schedule being triggered.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sizeInBytes" /></td>
+    <td><code>integer</code></td>
+    <td>Size of the backup in bytes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="storageAccountUrl" /></td>
+    <td><code>string</code></td>
+    <td>SAS URL for the storage account container which contains this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="websiteSizeInBytes" /></td>
+    <td><code>integer</code></td>
+    <td>Size of the original web app which has been backed up.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list_deployment_log_slot">
 
 <table>
@@ -725,6 +964,45 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_function_keys_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td>Settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
 </tr>
 </tbody>
 </table>
@@ -1529,105 +1807,6 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="get_backup_status_slot">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="blobName" /></td>
-    <td><code>string</code></td>
-    <td>Name of the blob which contains data for this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="created" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of the backup creation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="databases" /></td>
-    <td><code>array</code></td>
-    <td>List of databases included in the backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="finishedTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp when this backup finished.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of a last restore operation which used this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="log" /></td>
-    <td><code>string</code></td>
-    <td>Details regarding this backup. Might contain an error message.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="scheduled" /></td>
-    <td><code>boolean</code></td>
-    <td>True if this backup has been created due to a schedule being triggered.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the backup in bytes.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="status" /></td>
-    <td><code>string</code></td>
-    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="storageAccountUrl" /></td>
-    <td><code>string</code></td>
-    <td>SAS URL for the storage account container which contains this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-<tr>
-    <td><CopyableCode code="websiteSizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the original web app which has been backed up.</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
 <TabItem value="get_app_setting_key_vault_reference_slot">
 
 <table>
@@ -2304,110 +2483,6 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="systemData" /></td>
     <td><code>object</code></td>
     <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_instance_function_slot">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="function_app_id" /></td>
-    <td><code>string</code></td>
-    <td>Function App ID.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config" /></td>
-    <td><code>object</code></td>
-    <td>Config information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config_href" /></td>
-    <td><code>string</code></td>
-    <td>Config URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="files" /></td>
-    <td><code>object</code></td>
-    <td>File list.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="href" /></td>
-    <td><code>string</code></td>
-    <td>Function URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="invoke_url_template" /></td>
-    <td><code>string</code></td>
-    <td>The invocation URL.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isDisabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Gets or sets a value indicating whether the function is disabled.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="language" /></td>
-    <td><code>string</code></td>
-    <td>The function language.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_href" /></td>
-    <td><code>string</code></td>
-    <td>Script URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_root_path_href" /></td>
-    <td><code>string</code></td>
-    <td>Script root path URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="secrets_file_href" /></td>
-    <td><code>string</code></td>
-    <td>Secrets file URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data" /></td>
-    <td><code>string</code></td>
-    <td>Test data used when testing via the Azure Portal.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data_href" /></td>
-    <td><code>string</code></td>
-    <td>Test data URI.</td>
 </tr>
 <tr>
     <td><CopyableCode code="type" /></td>
@@ -3143,7 +3218,46 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="list_hybrid_connections_slot">
+<TabItem value="list_application_settings_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td>Settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_backup_status_secrets">
 
 <table>
 <thead>
@@ -3165,9 +3279,29 @@ The following fields are returned by `SELECT` queries:
     <td>The name of the resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="hostname" /></td>
+    <td><CopyableCode code="blobName" /></td>
     <td><code>string</code></td>
-    <td>The hostname of the endpoint.</td>
+    <td>Name of the blob which contains data for this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="correlationId" /></td>
+    <td><code>string</code></td>
+    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="created" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of the backup creation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="databases" /></td>
+    <td><code>array</code></td>
+    <td>List of databases included in the backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="finishedTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp when this backup finished.</td>
 </tr>
 <tr>
     <td><CopyableCode code="kind" /></td>
@@ -3175,39 +3309,34 @@ The following fields are returned by `SELECT` queries:
     <td>Kind of resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="port" /></td>
+    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of a last restore operation which used this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="log" /></td>
+    <td><code>string</code></td>
+    <td>Details regarding this backup. Might contain an error message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="scheduled" /></td>
+    <td><code>boolean</code></td>
+    <td>True if this backup has been created due to a schedule being triggered.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sizeInBytes" /></td>
     <td><code>integer</code></td>
-    <td>The port of the endpoint.</td>
+    <td>Size of the backup in bytes.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="relayArmUri" /></td>
+    <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
-    <td>The ARM URI to the Service Bus relay.</td>
+    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
 </tr>
 <tr>
-    <td><CopyableCode code="relayName" /></td>
+    <td><CopyableCode code="storageAccountUrl" /></td>
     <td><code>string</code></td>
-    <td>The name of the Service Bus relay.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sendKeyName" /></td>
-    <td><code>string</code></td>
-    <td>The name of the Service Bus key which has Send permissions. This is used to authenticate to Service Bus.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sendKeyValue" /></td>
-    <td><code>string</code></td>
-    <td>The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned normally, use the POST /listKeys API instead.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="serviceBusNamespace" /></td>
-    <td><code>string</code></td>
-    <td>The name of the Service Bus namespace.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="serviceBusSuffix" /></td>
-    <td><code>string</code></td>
-    <td>The suffix for the service bus endpoint. By default this is .servicebus.windows.net.</td>
+    <td>SAS URL for the storage account container which contains this backup.</td>
 </tr>
 <tr>
     <td><CopyableCode code="systemData" /></td>
@@ -3218,6 +3347,11 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="websiteSizeInBytes" /></td>
+    <td><code>integer</code></td>
+    <td>Size of the original web app which has been backed up.</td>
 </tr>
 </tbody>
 </table>
@@ -3302,6 +3436,45 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_function_keys">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td>Settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
 </tr>
 </tbody>
 </table>
@@ -3880,105 +4053,6 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
     <td>Current status of the network trace operation, same as Operation.Status (InProgress/Succeeded/Failed).</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_backup_status">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="blobName" /></td>
-    <td><code>string</code></td>
-    <td>Name of the blob which contains data for this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="created" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of the backup creation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="databases" /></td>
-    <td><code>array</code></td>
-    <td>List of databases included in the backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="finishedTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp when this backup finished.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of a last restore operation which used this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="log" /></td>
-    <td><code>string</code></td>
-    <td>Details regarding this backup. Might contain an error message.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="scheduled" /></td>
-    <td><code>boolean</code></td>
-    <td>True if this backup has been created due to a schedule being triggered.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the backup in bytes.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="status" /></td>
-    <td><code>string</code></td>
-    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="storageAccountUrl" /></td>
-    <td><code>string</code></td>
-    <td>SAS URL for the storage account container which contains this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-<tr>
-    <td><CopyableCode code="websiteSizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the original web app which has been backed up.</td>
 </tr>
 </tbody>
 </table>
@@ -4659,110 +4733,6 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="systemData" /></td>
     <td><code>object</code></td>
     <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_function">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="function_app_id" /></td>
-    <td><code>string</code></td>
-    <td>Function App ID.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config" /></td>
-    <td><code>object</code></td>
-    <td>Config information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config_href" /></td>
-    <td><code>string</code></td>
-    <td>Config URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="files" /></td>
-    <td><code>object</code></td>
-    <td>File list.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="href" /></td>
-    <td><code>string</code></td>
-    <td>Function URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="invoke_url_template" /></td>
-    <td><code>string</code></td>
-    <td>The invocation URL.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isDisabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Gets or sets a value indicating whether the function is disabled.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="language" /></td>
-    <td><code>string</code></td>
-    <td>The function language.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_href" /></td>
-    <td><code>string</code></td>
-    <td>Script URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_root_path_href" /></td>
-    <td><code>string</code></td>
-    <td>Script root path URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="secrets_file_href" /></td>
-    <td><code>string</code></td>
-    <td>Secrets file URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data" /></td>
-    <td><code>string</code></td>
-    <td>Test data used when testing via the Azure Portal.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data_href" /></td>
-    <td><code>string</code></td>
-    <td>Test data URI.</td>
 </tr>
 <tr>
     <td><CopyableCode code="type" /></td>
@@ -6402,6 +6372,13 @@ The following methods are available for this resource:
     <td>Get process information by its ID for a specific scaled-out instance in a web site. Description for Get process information by its ID for a specific scaled-out instance in a web site.</td>
 </tr>
 <tr>
+    <td><a href="#list_slot_differences_slot"><CopyableCode code="list_slot_differences_slot" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
+</tr>
+<tr>
     <td><a href="#list_instance_process_threads_slot"><CopyableCode code="list_instance_process_threads_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6444,11 +6421,32 @@ The following methods are available for this resource:
     <td>Gets a triggered web job's history by its ID for an app, , or a deployment slot. Description for Gets a triggered web job's history by its ID for an app, , or a deployment slot.</td>
 </tr>
 <tr>
+    <td><a href="#list_slot_differences_from_production"><CopyableCode code="list_slot_differences_from_production" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
+</tr>
+<tr>
+    <td><a href="#list_backup_status_secrets_slot"><CopyableCode code="list_backup_status_secrets_slot" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
+</tr>
+<tr>
     <td><a href="#list_deployment_log_slot"><CopyableCode code="list_deployment_log_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List deployment log for specific deployment for an app, or a deployment slot. Description for List deployment log for specific deployment for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#list_function_keys_slot"><CopyableCode code="list_function_keys_slot" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#list_instance_process_threads"><CopyableCode code="list_instance_process_threads" /></a></td>
@@ -6521,13 +6519,6 @@ The following methods are available for this resource:
     <td>Gets an app's Virtual Network gateway. Description for Gets an app's Virtual Network gateway.</td>
 </tr>
 <tr>
-    <td><a href="#get_backup_status_slot"><CopyableCode code="get_backup_status_slot" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
-</tr>
-<tr>
     <td><a href="#get_app_setting_key_vault_reference_slot"><CopyableCode code="get_app_setting_key_vault_reference_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-app_setting_key"><code>app_setting_key</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6561,13 +6552,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get domain ownership identifier for web app. Description for Get domain ownership identifier for web app.</td>
-</tr>
-<tr>
-    <td><a href="#get_instance_function_slot"><CopyableCode code="get_instance_function_slot" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#get_host_name_binding_slot"><CopyableCode code="get_host_name_binding_slot" /></a></td>
@@ -6633,11 +6617,18 @@ The following methods are available for this resource:
     <td>Get workflow information by its ID for web site, or a deployment slot. Get workflow information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
-    <td><a href="#list_hybrid_connections_slot"><CopyableCode code="list_hybrid_connections_slot" /></a></td>
+    <td><a href="#list_application_settings_slot"><CopyableCode code="list_application_settings_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.</td>
+    <td>Gets the application settings of an app. Description for Gets the application settings of an app.</td>
+</tr>
+<tr>
+    <td><a href="#list_backup_status_secrets"><CopyableCode code="list_backup_status_secrets" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
 </tr>
 <tr>
     <td><a href="#list_deployment_log"><CopyableCode code="list_deployment_log" /></a></td>
@@ -6645,6 +6636,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List deployment log for specific deployment for an app, or a deployment slot. Description for List deployment log for specific deployment for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#list_function_keys"><CopyableCode code="list_function_keys" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#list_instance_processes"><CopyableCode code="list_instance_processes" /></a></td>
@@ -6696,13 +6694,6 @@ The following methods are available for this resource:
     <td>Gets a named operation for a network trace capturing (or deployment slot, if specified). Description for Gets a named operation for a network trace capturing (or deployment slot, if specified).</td>
 </tr>
 <tr>
-    <td><a href="#get_backup_status"><CopyableCode code="get_backup_status" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
-</tr>
-<tr>
     <td><a href="#get_app_setting_key_vault_reference"><CopyableCode code="get_app_setting_key_vault_reference" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-app_setting_key"><code>app_setting_key</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6736,13 +6727,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get domain ownership identifier for web app. Description for Get domain ownership identifier for web app.</td>
-</tr>
-<tr>
-    <td><a href="#get_function"><CopyableCode code="get_function" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#get_host_name_binding"><CopyableCode code="get_host_name_binding" /></a></td>
@@ -6850,13 +6834,6 @@ The following methods are available for this resource:
     <td>Gets an app's deployment slots. Description for Gets an app's deployment slots.</td>
 </tr>
 <tr>
-    <td><a href="#list_application_settings_slot"><CopyableCode code="list_application_settings_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets the application settings of an app. Description for Gets the application settings of an app.</td>
-</tr>
-<tr>
     <td><a href="#list_azure_storage_accounts_slot"><CopyableCode code="list_azure_storage_accounts_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6906,6 +6883,13 @@ The following methods are available for this resource:
     <td>This is to allow calling via powershell and ARM template. Description for This is to allow calling via powershell and ARM template.</td>
 </tr>
 <tr>
+    <td><a href="#list_hybrid_connections_slot"><CopyableCode code="list_hybrid_connections_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.</td>
+</tr>
+<tr>
     <td><a href="#list_relay_service_connections_slot"><CopyableCode code="list_relay_service_connections_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6946,13 +6930,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the publishing profile for an app (or deployment slot, if specified). Description for Gets the publishing profile for an app (or deployment slot, if specified).</td>
-</tr>
-<tr>
-    <td><a href="#list_slot_differences_slot"><CopyableCode code="list_slot_differences_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetSlot"><code>targetSlot</code></a>, <a href="#parameter-preserveVnet"><code>preserveVnet</code></a></td>
-    <td></td>
-    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
 </tr>
 <tr>
     <td><a href="#list_snapshots_slot"><CopyableCode code="list_snapshots_slot" /></a></td>
@@ -7102,13 +7079,6 @@ The following methods are available for this resource:
     <td>Gets the publishing profile for an app (or deployment slot, if specified). Description for Gets the publishing profile for an app (or deployment slot, if specified).</td>
 </tr>
 <tr>
-    <td><a href="#list_slot_differences_from_production"><CopyableCode code="list_slot_differences_from_production" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetSlot"><code>targetSlot</code></a>, <a href="#parameter-preserveVnet"><code>preserveVnet</code></a></td>
-    <td></td>
-    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
-</tr>
-<tr>
     <td><a href="#list_snapshots"><CopyableCode code="list_snapshots" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -7144,25 +7114,11 @@ The following methods are available for this resource:
     <td>Gets existing backups of an app. Description for Gets existing backups of an app.</td>
 </tr>
 <tr>
-    <td><a href="#list_backup_status_secrets"><CopyableCode code="list_backup_status_secrets" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
-</tr>
-<tr>
     <td><a href="#list_backups_slot"><CopyableCode code="list_backups_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets existing backups of an app. Description for Gets existing backups of an app.</td>
-</tr>
-<tr>
-    <td><a href="#list_backup_status_secrets_slot"><CopyableCode code="list_backup_status_secrets_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
 </tr>
 <tr>
     <td><a href="#list_basic_publishing_credentials_policies"><CopyableCode code="list_basic_publishing_credentials_policies" /></a></td>
@@ -7284,13 +7240,6 @@ The following methods are available for this resource:
     <td>List the functions for a web site, or a deployment slot. Description for List the functions for a web site, or a deployment slot.</td>
 </tr>
 <tr>
-    <td><a href="#list_function_keys"><CopyableCode code="list_function_keys" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
-</tr>
-<tr>
     <td><a href="#list_function_secrets"><CopyableCode code="list_function_secrets" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -7303,13 +7252,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List the functions for a web site, or a deployment slot. Description for List the functions for a web site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#list_function_keys_slot"><CopyableCode code="list_function_keys_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#list_function_secrets_slot"><CopyableCode code="list_function_secrets_slot" /></a></td>
@@ -7809,11 +7751,25 @@ The following methods are available for this resource:
     <td>Gets the private link resources. Description for Gets the private link resources.</td>
 </tr>
 <tr>
+    <td><a href="#get_backup_status"><CopyableCode code="get_backup_status" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
+</tr>
+<tr>
     <td><a href="#delete_backup"><CopyableCode code="delete_backup" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.</td>
+</tr>
+<tr>
+    <td><a href="#get_backup_status_slot"><CopyableCode code="get_backup_status_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
 </tr>
 <tr>
     <td><a href="#delete_backup_slot"><CopyableCode code="delete_backup_slot" /></a></td>
@@ -8215,6 +8171,13 @@ The following methods are available for this resource:
     <td>Get the MSDeploy Log for the last MSDeploy operation. Description for Get the MSDeploy Log for the last MSDeploy operation.</td>
 </tr>
 <tr>
+    <td><a href="#get_function"><CopyableCode code="get_function" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
+</tr>
+<tr>
     <td><a href="#create_function"><CopyableCode code="create_function" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8227,6 +8190,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#get_instance_function_slot"><CopyableCode code="get_instance_function_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#create_instance_function_slot"><CopyableCode code="create_instance_function_slot" /></a></td>
@@ -9558,13 +9528,17 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get_instance_process_module_slot"
     values={[
         { label: 'get_instance_process_module_slot', value: 'get_instance_process_module_slot' },
+        { label: 'list_slot_differences_slot', value: 'list_slot_differences_slot' },
         { label: 'list_instance_process_threads_slot', value: 'list_instance_process_threads_slot' },
         { label: 'get_hybrid_connection_slot', value: 'get_hybrid_connection_slot' },
         { label: 'get_vnet_connection_gateway_slot', value: 'get_vnet_connection_gateway_slot' },
         { label: 'get_instance_process_module', value: 'get_instance_process_module' },
         { label: 'get_process_module_slot', value: 'get_process_module_slot' },
         { label: 'get_triggered_web_job_history_slot', value: 'get_triggered_web_job_history_slot' },
+        { label: 'list_slot_differences_from_production', value: 'list_slot_differences_from_production' },
+        { label: 'list_backup_status_secrets_slot', value: 'list_backup_status_secrets_slot' },
         { label: 'list_deployment_log_slot', value: 'list_deployment_log_slot' },
+        { label: 'list_function_keys_slot', value: 'list_function_keys_slot' },
         { label: 'list_instance_process_threads', value: 'list_instance_process_threads' },
         { label: 'list_instance_processes_slot', value: 'list_instance_processes_slot' },
         { label: 'list_process_threads_slot', value: 'list_process_threads_slot' },
@@ -9575,13 +9549,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
         { label: 'get_vnet_connection_slot', value: 'get_vnet_connection_slot' },
         { label: 'get_vnet_connection_gateway', value: 'get_vnet_connection_gateway' },
-        { label: 'get_backup_status_slot', value: 'get_backup_status_slot' },
         { label: 'get_app_setting_key_vault_reference_slot', value: 'get_app_setting_key_vault_reference_slot' },
         { label: 'get_site_connection_string_key_vault_reference_slot', value: 'get_site_connection_string_key_vault_reference_slot' },
         { label: 'get_configuration_snapshot_slot', value: 'get_configuration_snapshot_slot' },
         { label: 'get_slot_site_deployment_status_slot', value: 'get_slot_site_deployment_status_slot' },
         { label: 'get_domain_ownership_identifier_slot', value: 'get_domain_ownership_identifier_slot' },
-        { label: 'get_instance_function_slot', value: 'get_instance_function_slot' },
         { label: 'get_host_name_binding_slot', value: 'get_host_name_binding_slot' },
         { label: 'get_relay_service_connection_slot', value: 'get_relay_service_connection_slot' },
         { label: 'get_process_module', value: 'get_process_module' },
@@ -9591,8 +9563,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_site_extension_slot', value: 'get_site_extension_slot' },
         { label: 'get_triggered_web_job_history', value: 'get_triggered_web_job_history' },
         { label: 'get_instance_workflow_slot', value: 'get_instance_workflow_slot' },
-        { label: 'list_hybrid_connections_slot', value: 'list_hybrid_connections_slot' },
+        { label: 'list_application_settings_slot', value: 'list_application_settings_slot' },
+        { label: 'list_backup_status_secrets', value: 'list_backup_status_secrets' },
         { label: 'list_deployment_log', value: 'list_deployment_log' },
+        { label: 'list_function_keys', value: 'list_function_keys' },
         { label: 'list_instance_processes', value: 'list_instance_processes' },
         { label: 'list_process_threads', value: 'list_process_threads' },
         { label: 'list_network_features', value: 'list_network_features' },
@@ -9600,13 +9574,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
         { label: 'get_vnet_connection', value: 'get_vnet_connection' },
         { label: 'get_network_trace_operation', value: 'get_network_trace_operation' },
-        { label: 'get_backup_status', value: 'get_backup_status' },
         { label: 'get_app_setting_key_vault_reference', value: 'get_app_setting_key_vault_reference' },
         { label: 'get_site_connection_string_key_vault_reference', value: 'get_site_connection_string_key_vault_reference' },
         { label: 'get_configuration_snapshot', value: 'get_configuration_snapshot' },
         { label: 'get_production_site_deployment_status', value: 'get_production_site_deployment_status' },
         { label: 'get_domain_ownership_identifier', value: 'get_domain_ownership_identifier' },
-        { label: 'get_function', value: 'get_function' },
         { label: 'get_host_name_binding', value: 'get_host_name_binding' },
         { label: 'get_relay_service_connection', value: 'get_relay_service_connection' },
         { label: 'get_premier_add_on', value: 'get_premier_add_on' },
@@ -9648,6 +9620,31 @@ AND process_id = '{{ process_id }}' -- required
 AND base_address = '{{ base_address }}' -- required
 AND slot = '{{ slot }}' -- required
 AND instance_id = '{{ instance_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_slot_differences_slot">
+
+Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
+
+```sql
+SELECT
+id,
+name,
+description,
+diffRule,
+kind,
+level,
+settingName,
+settingType,
+type,
+valueInCurrentSlot,
+valueInTargetSlot
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -9822,6 +9819,62 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+<TabItem value="list_slot_differences_from_production">
+
+Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
+
+```sql
+SELECT
+id,
+name,
+description,
+diffRule,
+kind,
+level,
+settingName,
+settingType,
+type,
+valueInCurrentSlot,
+valueInTargetSlot
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_backup_status_secrets_slot">
+
+Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
+
+```sql
+SELECT
+id,
+name,
+blobName,
+correlationId,
+created,
+databases,
+finishedTimeStamp,
+kind,
+lastRestoreTimeStamp,
+log,
+scheduled,
+sizeInBytes,
+status,
+storageAccountUrl,
+systemData,
+type,
+websiteSizeInBytes
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND backup_id = '{{ backup_id }}' -- required
+AND slot = '{{ slot }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list_deployment_log_slot">
 
 List deployment log for specific deployment for an app, or a deployment slot. Description for List deployment log for specific deployment for an app, or a deployment slot.
@@ -9846,6 +9899,26 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND id = '{{ id }}' -- required
+AND slot = '{{ slot }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_function_keys_slot">
+
+Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
+
+```sql
+SELECT
+id,
+name,
+kind,
+properties,
+type
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND function_name = '{{ function_name }}' -- required
 AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -10133,38 +10206,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
-<TabItem value="get_backup_status_slot">
-
-Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
-
-```sql
-SELECT
-id,
-name,
-blobName,
-correlationId,
-created,
-databases,
-finishedTimeStamp,
-kind,
-lastRestoreTimeStamp,
-log,
-scheduled,
-sizeInBytes,
-status,
-storageAccountUrl,
-systemData,
-type,
-websiteSizeInBytes
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND backup_id = '{{ backup_id }}' -- required
-AND slot = '{{ slot }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
 <TabItem value="get_app_setting_key_vault_reference_slot">
 
 Gets the config reference and status of an app. Description for Gets the config reference and status of an app.
@@ -10358,39 +10399,6 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' -- required
-AND slot = '{{ slot }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_instance_function_slot">
-
-Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
-
-```sql
-SELECT
-id,
-name,
-function_app_id,
-config,
-config_href,
-files,
-href,
-invoke_url_template,
-isDisabled,
-kind,
-language,
-script_href,
-script_root_path_href,
-secrets_file_href,
-systemData,
-test_data,
-test_data_href,
-type
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND function_name = '{{ function_name }}' -- required
 AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -10651,29 +10659,52 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
-<TabItem value="list_hybrid_connections_slot">
+<TabItem value="list_application_settings_slot">
 
-Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.
+Gets the application settings of an app. Description for Gets the application settings of an app.
 
 ```sql
 SELECT
 id,
 name,
-hostname,
 kind,
-port,
-relayArmUri,
-relayName,
-sendKeyName,
-sendKeyValue,
-serviceBusNamespace,
-serviceBusSuffix,
-systemData,
+properties,
 type
 FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND slot = '{{ slot }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_backup_status_secrets">
+
+Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
+
+```sql
+SELECT
+id,
+name,
+blobName,
+correlationId,
+created,
+databases,
+finishedTimeStamp,
+kind,
+lastRestoreTimeStamp,
+log,
+scheduled,
+sizeInBytes,
+status,
+storageAccountUrl,
+systemData,
+type,
+websiteSizeInBytes
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND backup_id = '{{ backup_id }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -10702,6 +10733,25 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND id = '{{ id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_function_keys">
+
+Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
+
+```sql
+SELECT
+id,
+name,
+kind,
+properties,
+type
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND function_name = '{{ function_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -10900,37 +10950,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
-<TabItem value="get_backup_status">
-
-Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
-
-```sql
-SELECT
-id,
-name,
-blobName,
-correlationId,
-created,
-databases,
-finishedTimeStamp,
-kind,
-lastRestoreTimeStamp,
-log,
-scheduled,
-sizeInBytes,
-status,
-storageAccountUrl,
-systemData,
-type,
-websiteSizeInBytes
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND backup_id = '{{ backup_id }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
 <TabItem value="get_app_setting_key_vault_reference">
 
 Gets the config reference and status of an app. Description for Gets the config reference and status of an app.
@@ -11120,38 +11139,6 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_function">
-
-Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
-
-```sql
-SELECT
-id,
-name,
-function_app_id,
-config,
-config_href,
-files,
-href,
-invoke_url_template,
-isDisabled,
-kind,
-language,
-script_href,
-script_root_path_href,
-secrets_file_href,
-systemData,
-test_data,
-test_data_href,
-type
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND function_name = '{{ function_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -12095,7 +12082,6 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
     defaultValue="list_slots"
     values={[
         { label: 'list_slots', value: 'list_slots' },
-        { label: 'list_application_settings_slot', value: 'list_application_settings_slot' },
         { label: 'list_azure_storage_accounts_slot', value: 'list_azure_storage_accounts_slot' },
         { label: 'list_connection_strings_slot', value: 'list_connection_strings_slot' },
         { label: 'list_metadata_slot', value: 'list_metadata_slot' },
@@ -12103,13 +12089,13 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_site_push_settings_slot', value: 'list_site_push_settings_slot' },
         { label: 'list_host_keys_slot', value: 'list_host_keys_slot' },
         { label: 'list_sync_status_slot', value: 'list_sync_status_slot' },
+        { label: 'list_hybrid_connections_slot', value: 'list_hybrid_connections_slot' },
         { label: 'list_relay_service_connections_slot', value: 'list_relay_service_connections_slot' },
         { label: 'list_site_backups_slot', value: 'list_site_backups_slot' },
         { label: 'list_sync_function_triggers_slot', value: 'list_sync_function_triggers_slot' },
         { label: 'list_perf_mon_counters_slot', value: 'list_perf_mon_counters_slot' },
         { label: 'list_premier_add_ons_slot', value: 'list_premier_add_ons_slot' },
         { label: 'list_publishing_profile_xml_with_secrets_slot', value: 'list_publishing_profile_xml_with_secrets_slot' },
-        { label: 'list_slot_differences_slot', value: 'list_slot_differences_slot' },
         { label: 'list_snapshots_slot', value: 'list_snapshots_slot' },
         { label: 'list_snapshots_from_dr_secondary_slot', value: 'list_snapshots_from_dr_secondary_slot' },
         { label: 'list_usages_slot', value: 'list_usages_slot' },
@@ -12131,15 +12117,12 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_perf_mon_counters', value: 'list_perf_mon_counters' },
         { label: 'list_premier_add_ons', value: 'list_premier_add_ons' },
         { label: 'list_publishing_profile_xml_with_secrets', value: 'list_publishing_profile_xml_with_secrets' },
-        { label: 'list_slot_differences_from_production', value: 'list_slot_differences_from_production' },
         { label: 'list_snapshots', value: 'list_snapshots' },
         { label: 'list_snapshots_from_dr_secondary', value: 'list_snapshots_from_dr_secondary' },
         { label: 'list_usages', value: 'list_usages' },
         { label: 'list_workflows_connections', value: 'list_workflows_connections' },
         { label: 'list_backups', value: 'list_backups' },
-        { label: 'list_backup_status_secrets', value: 'list_backup_status_secrets' },
         { label: 'list_backups_slot', value: 'list_backups_slot' },
-        { label: 'list_backup_status_secrets_slot', value: 'list_backup_status_secrets_slot' },
         { label: 'list_basic_publishing_credentials_policies', value: 'list_basic_publishing_credentials_policies' },
         { label: 'list_basic_publishing_credentials_policies_slot', value: 'list_basic_publishing_credentials_policies_slot' },
         { label: 'list_slot_configuration_names', value: 'list_slot_configuration_names' },
@@ -12157,10 +12140,8 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_domain_ownership_identifiers', value: 'list_domain_ownership_identifiers' },
         { label: 'list_domain_ownership_identifiers_slot', value: 'list_domain_ownership_identifiers_slot' },
         { label: 'list_functions', value: 'list_functions' },
-        { label: 'list_function_keys', value: 'list_function_keys' },
         { label: 'list_function_secrets', value: 'list_function_secrets' },
         { label: 'list_instance_functions_slot', value: 'list_instance_functions_slot' },
-        { label: 'list_function_keys_slot', value: 'list_function_keys_slot' },
         { label: 'list_function_secrets_slot', value: 'list_function_secrets_slot' },
         { label: 'list_host_name_bindings', value: 'list_host_name_bindings' },
         { label: 'list_host_name_bindings_slot', value: 'list_host_name_bindings_slot' },
@@ -12232,7 +12213,9 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'get_network_traces_v2', value: 'get_network_traces_v2' },
         { label: 'get_site_php_error_log_flag', value: 'get_site_php_error_log_flag' },
         { label: 'get_private_link_resources', value: 'get_private_link_resources' },
+        { label: 'get_backup_status', value: 'get_backup_status' },
         { label: 'delete_backup', value: 'delete_backup' },
+        { label: 'get_backup_status_slot', value: 'get_backup_status_slot' },
         { label: 'delete_backup_slot', value: 'delete_backup_slot' },
         { label: 'get_ftp_allowed', value: 'get_ftp_allowed' },
         { label: 'update_ftp_allowed', value: 'update_ftp_allowed' },
@@ -12290,8 +12273,10 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'get_instance_ms_deploy_status_slot', value: 'get_instance_ms_deploy_status_slot' },
         { label: 'create_instance_ms_deploy_operation_slot', value: 'create_instance_ms_deploy_operation_slot' },
         { label: 'get_instance_ms_deploy_log_slot', value: 'get_instance_ms_deploy_log_slot' },
+        { label: 'get_function', value: 'get_function' },
         { label: 'create_function', value: 'create_function' },
         { label: 'delete_function', value: 'delete_function' },
+        { label: 'get_instance_function_slot', value: 'get_instance_function_slot' },
         { label: 'create_instance_function_slot', value: 'create_instance_function_slot' },
         { label: 'delete_instance_function_slot', value: 'delete_instance_function_slot' },
         { label: 'create_or_update_host_name_binding', value: 'create_or_update_host_name_binding' },
@@ -12461,19 +12446,6 @@ EXEC azure.web.web_apps.list_slots
 ;
 ```
 </TabItem>
-<TabItem value="list_application_settings_slot">
-
-Gets the application settings of an app. Description for Gets the application settings of an app.
-
-```sql
-EXEC azure.web.web_apps.list_application_settings_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_azure_storage_accounts_slot">
 
 Gets the Azure storage account configurations of an app. Description for Gets the Azure storage account configurations of an app.
@@ -12565,6 +12537,19 @@ EXEC azure.web.web_apps.list_sync_status_slot
 ;
 ```
 </TabItem>
+<TabItem value="list_hybrid_connections_slot">
+
+Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.
+
+```sql
+EXEC azure.web.web_apps.list_hybrid_connections_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="list_relay_service_connections_slot">
 
 Gets hybrid connections configured for an app (or deployment slot, if specified). Description for Gets hybrid connections configured for an app (or deployment slot, if specified).
@@ -12645,24 +12630,6 @@ EXEC azure.web.web_apps.list_publishing_profile_xml_with_secrets_slot
 '{
 "format": "{{ format }}", 
 "includeDisasterRecoveryEndpoints": {{ includeDisasterRecoveryEndpoints }}
-}'
-;
-```
-</TabItem>
-<TabItem value="list_slot_differences_slot">
-
-Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
-
-```sql
-EXEC azure.web.web_apps.list_slot_differences_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetSlot": "{{ targetSlot }}", 
-"preserveVnet": {{ preserveVnet }}
 }'
 ;
 ```
@@ -12931,23 +12898,6 @@ EXEC azure.web.web_apps.list_publishing_profile_xml_with_secrets
 ;
 ```
 </TabItem>
-<TabItem value="list_slot_differences_from_production">
-
-Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
-
-```sql
-EXEC azure.web.web_apps.list_slot_differences_from_production 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetSlot": "{{ targetSlot }}", 
-"preserveVnet": {{ preserveVnet }}
-}'
-;
-```
-</TabItem>
 <TabItem value="list_snapshots">
 
 Returns all Snapshots to the user. Description for Returns all Snapshots to the user.
@@ -13009,24 +12959,6 @@ EXEC azure.web.web_apps.list_backups
 ;
 ```
 </TabItem>
-<TabItem value="list_backup_status_secrets">
-
-Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
-
-```sql
-EXEC azure.web.web_apps.list_backup_status_secrets 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@backup_id='{{ backup_id }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"kind": "{{ kind }}", 
-"properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="list_backups_slot">
 
 Gets existing backups of an app. Description for Gets existing backups of an app.
@@ -13037,25 +12969,6 @@ EXEC azure.web.web_apps.list_backups_slot
 @name='{{ name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_backup_status_secrets_slot">
-
-Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
-
-```sql
-EXEC azure.web.web_apps.list_backup_status_secrets_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@backup_id='{{ backup_id }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"kind": "{{ kind }}", 
-"properties": "{{ properties }}"
-}'
 ;
 ```
 </TabItem>
@@ -13275,19 +13188,6 @@ EXEC azure.web.web_apps.list_functions
 ;
 ```
 </TabItem>
-<TabItem value="list_function_keys">
-
-Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
-
-```sql
-EXEC azure.web.web_apps.list_function_keys 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@function_name='{{ function_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_function_secrets">
 
 Get function secrets for a function in a web site, or a deployment slot. Description for Get function secrets for a function in a web site, or a deployment slot.
@@ -13309,20 +13209,6 @@ List the functions for a web site, or a deployment slot. Description for List th
 EXEC azure.web.web_apps.list_instance_functions_slot 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_function_keys_slot">
-
-Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
-
-```sql
-EXEC azure.web.web_apps.list_function_keys_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@function_name='{{ function_name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
@@ -14347,6 +14233,19 @@ EXEC azure.web.web_apps.get_private_link_resources
 ;
 ```
 </TabItem>
+<TabItem value="get_backup_status">
+
+Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
+
+```sql
+EXEC azure.web.web_apps.get_backup_status 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@backup_id='{{ backup_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="delete_backup">
 
 Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.
@@ -14356,6 +14255,20 @@ EXEC azure.web.web_apps.delete_backup
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @backup_id='{{ backup_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_backup_status_slot">
+
+Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
+
+```sql
+EXEC azure.web.web_apps.get_backup_status_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@backup_id='{{ backup_id }}' --required, 
+@slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
@@ -15206,6 +15119,19 @@ EXEC azure.web.web_apps.get_instance_ms_deploy_log_slot
 ;
 ```
 </TabItem>
+<TabItem value="get_function">
+
+Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.get_function 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="create_function">
 
 Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.
@@ -15233,6 +15159,20 @@ EXEC azure.web.web_apps.delete_function
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @function_name='{{ function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_instance_function_slot">
+
+Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.get_instance_function_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

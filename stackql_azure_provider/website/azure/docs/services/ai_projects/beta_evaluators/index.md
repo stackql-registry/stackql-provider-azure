@@ -33,14 +33,34 @@ Creates, updates, deletes, gets or lists a <code>beta_evaluators</code> resource
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_version"
+    defaultValue="get_credentials"
     values={[
+        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'get_version', value: 'get_version' },
         { label: 'list_versions', value: 'list_versions' },
         { label: 'get_generation_job', value: 'get_generation_job' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_credentials">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="blobReference" /></td>
+    <td><code>object</code></td>
+    <td>Credential info to access the storage account. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_version">
 
 <table>
@@ -380,6 +400,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Get evaluator credentials. Retrieves SAS credentials for accessing the storage account associated with the specified evaluator version.</td>
+</tr>
+<tr>
     <td><a href="#get_version"><CopyableCode code="get_version" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -441,13 +468,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-evaluator_type"><code>evaluator_type</code></a>, <a href="#parameter-categories"><code>categories</code></a>, <a href="#parameter-definition"><code>definition</code></a></td>
     <td></td>
     <td>Update an evaluator version. Updates the specified evaluator version in place.</td>
-</tr>
-<tr>
-    <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-blob_uri"><code>blob_uri</code></a></td>
-    <td></td>
-    <td>Get evaluator credentials. Retrieves SAS credentials for accessing the storage account associated with the specified evaluator version.</td>
 </tr>
 <tr>
     <td><a href="#delete_generation_job"><CopyableCode code="delete_generation_job" /></a></td>
@@ -542,14 +562,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_version"
+    defaultValue="get_credentials"
     values={[
+        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'get_version', value: 'get_version' },
         { label: 'list_versions', value: 'list_versions' },
         { label: 'get_generation_job', value: 'get_generation_job' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_credentials">
+
+Get evaluator credentials. Retrieves SAS credentials for accessing the storage account associated with the specified evaluator version.
+
+```sql
+SELECT
+blobReference
+FROM azure.ai_projects.beta_evaluators
+WHERE name = '{{ name }}' -- required
+AND version = '{{ version }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_version">
 
 Get an evaluator version. Retrieves the specified evaluator version, returning 404 if it does not exist.
@@ -668,7 +703,6 @@ AND limit = '{{ limit }}'
         { label: 'create_generation_job', value: 'create_generation_job' },
         { label: 'delete_version', value: 'delete_version' },
         { label: 'update_version', value: 'update_version' },
-        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'delete_generation_job', value: 'delete_generation_job' },
         { label: 'pending_upload', value: 'pending_upload' },
         { label: 'cancel_generation_job', value: 'cancel_generation_job' }
@@ -756,22 +790,6 @@ EXEC azure.ai_projects.beta_evaluators.update_version
 "definition": "{{ definition }}", 
 "description": "{{ description }}", 
 "tags": "{{ tags }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_credentials">
-
-Get evaluator credentials. Retrieves SAS credentials for accessing the storage account associated with the specified evaluator version.
-
-```sql
-EXEC azure.ai_projects.beta_evaluators.get_credentials 
-@name='{{ name }}' --required, 
-@version='{{ version }}' --required, 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"blob_uri": "{{ blob_uri }}"
 }'
 ;
 ```

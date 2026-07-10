@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -180,6 +181,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="workspaceFeature" /></td>
     <td><code>string</code></td>
     <td>Whether or not existing server has a workspace created and if it allows connection from workspace. Known values are: "Connected" and "Disconnected". (Connected, Disconnected)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name whose availability was checked.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="available" /></td>
+    <td><code>boolean</code></td>
+    <td>True if the name is available, otherwise false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>A message explaining why the name is unavailable. Will be undefined if the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason code explaining why the name is unavailable. Will be undefined if the name is available. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
 </tr>
 </tbody>
 </table>
@@ -497,6 +532,13 @@ The following methods are available for this resource:
     <td>Gets a server.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Determines whether a resource can be created with the specified name.</td>
+</tr>
+<tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -552,13 +594,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Refresh external governance enablement status.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Determines whether a resource can be created with the specified name.</td>
-</tr>
 </tbody>
 </table>
 
@@ -604,6 +639,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -645,6 +681,21 @@ WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND server_name = '{{ server_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $expand = '{{ $expand }}'
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Determines whether a resource can be created with the specified name.
+
+```sql
+SELECT
+name,
+available,
+message,
+reason
+FROM azure.sql.servers
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -952,8 +1003,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="import_database"
     values={[
         { label: 'import_database', value: 'import_database' },
-        { label: 'refresh_status', value: 'refresh_status' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'refresh_status', value: 'refresh_status' }
     ]}
 >
 <TabItem value="import_database">
@@ -991,21 +1041,6 @@ EXEC azure.sql.servers.refresh_status
 @resource_group_name='{{ resource_group_name }}' --required, 
 @server_name='{{ server_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Determines whether a resource can be created with the specified name.
-
-```sql
-EXEC azure.sql.servers.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

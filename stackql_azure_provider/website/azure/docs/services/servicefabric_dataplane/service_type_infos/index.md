@@ -92,7 +92,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_service_type_info_by_name"><CopyableCode code="get_service_type_info_by_name" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-ApplicationTypeVersion"><code>ApplicationTypeVersion</code></a>, <a href="#parameter-application_type_name"><code>application_type_name</code></a>, <a href="#parameter-service_type_name"><code>service_type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_type_name"><code>application_type_name</code></a>, <a href="#parameter-service_type_name"><code>service_type_name</code></a>, <a href="#parameter-ApplicationTypeVersion"><code>ApplicationTypeVersion</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the information about a specific service type that is supported by a provisioned application type in a Service Fabric cluster. Gets the information about a specific service type that is supported by a provisioned application type in a Service Fabric cluster. The provided application type must exist. Otherwise, a 404 status is returned. A 204 response is returned if the specified service type is not found in the cluster.</td>
 </tr>
@@ -159,9 +159,9 @@ ServiceManifestName,
 ServiceManifestVersion,
 ServiceTypeDescription
 FROM azure.servicefabric_dataplane.service_type_infos
-WHERE ApplicationTypeVersion = '{{ ApplicationTypeVersion }}' -- required
-AND application_type_name = '{{ application_type_name }}' -- required
+WHERE application_type_name = '{{ application_type_name }}' -- required
 AND service_type_name = '{{ service_type_name }}' -- required
+AND ApplicationTypeVersion = '{{ ApplicationTypeVersion }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

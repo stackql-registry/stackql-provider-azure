@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get_certificate', value: 'get_certificate' },
         { label: 'get', value: 'get' },
+        { label: 'retrieve_certificate_actions', value: 'retrieve_certificate_actions' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -250,6 +251,30 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="validityInYears" /></td>
     <td><code>integer</code></td>
     <td>Duration in years (must be 1).</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="retrieve_certificate_actions">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="actionType" /></td>
+    <td><code>string</code></td>
+    <td>Action type. Known values are: "CertificateIssued", "CertificateOrderCanceled", "CertificateOrderCreated", "CertificateRevoked", "DomainValidationComplete", "FraudDetected", "OrgNameChange", "OrgValidationComplete", "SanDrop", "FraudCleared", "CertificateExpired", "CertificateExpirationWarning", "FraudDocumentationRequired", and "Unknown". (CertificateIssued, CertificateOrderCanceled, CertificateOrderCreated, CertificateRevoked, DomainValidationComplete, FraudDetected, OrgNameChange, OrgValidationComplete, SanDrop, FraudCleared, CertificateExpired, CertificateExpirationWarning, FraudDocumentationRequired, Unknown)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdAt" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Time at which the certificate action was performed.</td>
 </tr>
 </tbody>
 </table>
@@ -584,6 +609,13 @@ The following methods are available for this resource:
     <td>Get a certificate order. Description for Get a certificate order.</td>
 </tr>
 <tr>
+    <td><a href="#retrieve_certificate_actions"><CopyableCode code="retrieve_certificate_actions" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieve the list of certificate actions. Description for Retrieve the list of certificate actions.</td>
+</tr>
+<tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -696,13 +728,6 @@ The following methods are available for this resource:
     <td>Verify domain ownership for this certificate order. Description for Verify domain ownership for this certificate order.</td>
 </tr>
 <tr>
-    <td><a href="#retrieve_certificate_actions"><CopyableCode code="retrieve_certificate_actions" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Retrieve the list of certificate actions. Description for Retrieve the list of certificate actions.</td>
-</tr>
-<tr>
     <td><a href="#retrieve_certificate_email_history"><CopyableCode code="retrieve_certificate_email_history" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -762,6 +787,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get_certificate', value: 'get_certificate' },
         { label: 'get', value: 'get' },
+        { label: 'retrieve_certificate_actions', value: 'retrieve_certificate_actions' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
@@ -826,6 +852,21 @@ validityInYears
 FROM azure.certificateregistration.app_service_certificate_orders
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND certificate_order_name = '{{ certificate_order_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="retrieve_certificate_actions">
+
+Retrieve the list of certificate actions. Description for Retrieve the list of certificate actions.
+
+```sql
+SELECT
+actionType,
+createdAt
+FROM azure.certificateregistration.app_service_certificate_orders
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -1152,7 +1193,6 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'resend_request_emails', value: 'resend_request_emails' },
         { label: 'retrieve_site_seal', value: 'retrieve_site_seal' },
         { label: 'verify_domain_ownership', value: 'verify_domain_ownership' },
-        { label: 'retrieve_certificate_actions', value: 'retrieve_certificate_actions' },
         { label: 'retrieve_certificate_email_history', value: 'retrieve_certificate_email_history' },
         { label: 'validate_purchase_information', value: 'validate_purchase_information' }
     ]}
@@ -1307,18 +1347,6 @@ Verify domain ownership for this certificate order. Description for Verify domai
 EXEC azure.certificateregistration.app_service_certificate_orders.verify_domain_ownership 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @certificate_order_name='{{ certificate_order_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="retrieve_certificate_actions">
-
-Retrieve the list of certificate actions. Description for Retrieve the list of certificate actions.
-
-```sql
-EXEC azure.certificateregistration.app_service_certificate_orders.retrieve_certificate_actions 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

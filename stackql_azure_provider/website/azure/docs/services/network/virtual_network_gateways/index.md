@@ -33,12 +33,177 @@ Creates, updates, deletes, gets or lists a <code>virtual_network_gateways</code>
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_failover_all_test_details"
     values={[
+        { label: 'get_failover_all_test_details', value: 'get_failover_all_test_details' },
+        { label: 'get_failover_single_test_details', value: 'get_failover_single_test_details' },
+        { label: 'get_advertised_routes', value: 'get_advertised_routes' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_failover_all_test_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="circuits" /></td>
+    <td><code>array</code></td>
+    <td>All circuits in the peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="connections" /></td>
+    <td><code>array</code></td>
+    <td>All connections to the circuits in the peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endTime" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was completed.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="issues" /></td>
+    <td><code>array</code></td>
+    <td>A list of all issues with the test.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="peeringLocation" /></td>
+    <td><code>string</code></td>
+    <td>Peering location of the test.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was started.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed", "Stopping", "Completed", "StopFailed", "Invalid", and "Expired". (NotStarted, Starting, Running, StartFailed, Stopping, Completed, StopFailed, Invalid, Expired)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="testGuid" /></td>
+    <td><code>string</code></td>
+    <td>The unique GUID associated with the test.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="testType" /></td>
+    <td><code>string</code></td>
+    <td>The type of failover test. Known values are: "SingleSiteFailover", "MultiSiteFailover", and "All". (SingleSiteFailover, MultiSiteFailover, All)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_failover_single_test_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="endTimeUtc" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was completed.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="failoverConnectionDetails" /></td>
+    <td><code>array</code></td>
+    <td>List of all the failover connections for this peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nonRedundantRoutes" /></td>
+    <td><code>array</code></td>
+    <td>List of al the routes that were received only from this peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="peeringLocation" /></td>
+    <td><code>string</code></td>
+    <td>Peering location of the test.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="redundantRoutes" /></td>
+    <td><code>array</code></td>
+    <td>List of routes received from this peering as well as some other peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTimeUtc" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was started.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed", "Stopping", "Completed", "StopFailed", "Invalid", and "Expired". (NotStarted, Starting, Running, StartFailed, Stopping, Completed, StopFailed, Invalid, Expired)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="wasSimulationSuccessful" /></td>
+    <td><code>boolean</code></td>
+    <td>Whether the failover simulation was successful or not.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_advertised_routes">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="asPath" /></td>
+    <td><code>string</code></td>
+    <td>The route's AS path sequence.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="localAddress" /></td>
+    <td><code>string</code></td>
+    <td>The gateway's local address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="network" /></td>
+    <td><code>string</code></td>
+    <td>The route's network prefix.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nextHop" /></td>
+    <td><code>string</code></td>
+    <td>The route's next hop.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="origin" /></td>
+    <td><code>string</code></td>
+    <td>The source this route was learned from.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sourcePeer" /></td>
+    <td><code>string</code></td>
+    <td>The peer this route was learned from.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="weight" /></td>
+    <td><code>integer</code></td>
+    <td>The route's weight.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -445,6 +610,27 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_failover_all_test_details"><CopyableCode code="get_failover_all_test_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-fetchLatest"><code>fetchLatest</code></a></td>
+    <td></td>
+    <td>This operation retrieves the details of all the failover tests performed on the gateway for different peering locations.</td>
+</tr>
+<tr>
+    <td><a href="#get_failover_single_test_details"><CopyableCode code="get_failover_single_test_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-peeringLocation"><code>peeringLocation</code></a>, <a href="#parameter-failoverTestId"><code>failoverTestId</code></a></td>
+    <td></td>
+    <td>This operation retrieves the details of a particular failover test performed on the gateway based on the test Guid.</td>
+</tr>
+<tr>
+    <td><a href="#get_advertised_routes"><CopyableCode code="get_advertised_routes" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-peer"><code>peer</code></a></td>
+    <td></td>
+    <td>This operation retrieves a list of routes the virtual network gateway is advertising to the specified peer.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -522,13 +708,6 @@ The following methods are available for this resource:
     <td>This operation retrieves a list of routes the virtual network gateway has learned, including routes learned from BGP peers.</td>
 </tr>
 <tr>
-    <td><a href="#get_advertised_routes"><CopyableCode code="get_advertised_routes" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-peer"><code>peer</code></a></td>
-    <td></td>
-    <td>This operation retrieves a list of routes the virtual network gateway is advertising to the specified peer.</td>
-</tr>
-<tr>
     <td><a href="#get_resiliency_information"><CopyableCode code="get_resiliency_information" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -548,20 +727,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>The Get VpnclientIpsecParameters operation retrieves information about the vpnclient ipsec policy for P2S client of virtual network gateway in the specified resource group through Network resource provider.</td>
-</tr>
-<tr>
-    <td><a href="#get_failover_all_test_details"><CopyableCode code="get_failover_all_test_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-fetchLatest"><code>fetchLatest</code></a></td>
-    <td></td>
-    <td>This operation retrieves the details of all the failover tests performed on the gateway for different peering locations.</td>
-</tr>
-<tr>
-    <td><a href="#get_failover_single_test_details"><CopyableCode code="get_failover_single_test_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_gateway_name"><code>virtual_network_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-peeringLocation"><code>peeringLocation</code></a>, <a href="#parameter-failoverTestId"><code>failoverTestId</code></a></td>
-    <td></td>
-    <td>This operation retrieves the details of a particular failover test performed on the gateway based on the test Guid.</td>
 </tr>
 <tr>
     <td><a href="#get_vpnclient_connection_health"><CopyableCode code="get_vpnclient_connection_health" /></a></td>
@@ -764,12 +929,83 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_failover_all_test_details"
     values={[
+        { label: 'get_failover_all_test_details', value: 'get_failover_all_test_details' },
+        { label: 'get_failover_single_test_details', value: 'get_failover_single_test_details' },
+        { label: 'get_advertised_routes', value: 'get_advertised_routes' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_failover_all_test_details">
+
+This operation retrieves the details of all the failover tests performed on the gateway for different peering locations.
+
+```sql
+SELECT
+circuits,
+connections,
+endTime,
+issues,
+peeringLocation,
+startTime,
+status,
+testGuid,
+testType
+FROM azure.network.virtual_network_gateways
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND virtual_network_gateway_name = '{{ virtual_network_gateway_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND type = '{{ type }}' -- required
+AND fetchLatest = '{{ fetchLatest }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_failover_single_test_details">
+
+This operation retrieves the details of a particular failover test performed on the gateway based on the test Guid.
+
+```sql
+SELECT
+endTimeUtc,
+failoverConnectionDetails,
+nonRedundantRoutes,
+peeringLocation,
+redundantRoutes,
+startTimeUtc,
+status,
+wasSimulationSuccessful
+FROM azure.network.virtual_network_gateways
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND virtual_network_gateway_name = '{{ virtual_network_gateway_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND peeringLocation = '{{ peeringLocation }}' -- required
+AND failoverTestId = '{{ failoverTestId }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_advertised_routes">
+
+This operation retrieves a list of routes the virtual network gateway is advertising to the specified peer.
+
+```sql
+SELECT
+asPath,
+localAddress,
+network,
+nextHop,
+origin,
+sourcePeer,
+weight
+FROM azure.network.virtual_network_gateways
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND virtual_network_gateway_name = '{{ virtual_network_gateway_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND peer = '{{ peer }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the specified virtual network gateway by resource group.
@@ -1224,12 +1460,9 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'get_vpn_profile_package_url', value: 'get_vpn_profile_package_url' },
         { label: 'get_bgp_peer_status', value: 'get_bgp_peer_status' },
         { label: 'get_learned_routes', value: 'get_learned_routes' },
-        { label: 'get_advertised_routes', value: 'get_advertised_routes' },
         { label: 'get_resiliency_information', value: 'get_resiliency_information' },
         { label: 'get_routes_information', value: 'get_routes_information' },
         { label: 'get_vpnclient_ipsec_parameters', value: 'get_vpnclient_ipsec_parameters' },
-        { label: 'get_failover_all_test_details', value: 'get_failover_all_test_details' },
-        { label: 'get_failover_single_test_details', value: 'get_failover_single_test_details' },
         { label: 'get_vpnclient_connection_health', value: 'get_vpnclient_connection_health' },
         { label: 'reset', value: 'reset' },
         { label: 'reset_vpn_client_shared_key', value: 'reset_vpn_client_shared_key' },
@@ -1310,19 +1543,6 @@ EXEC azure.network.virtual_network_gateways.get_learned_routes
 ;
 ```
 </TabItem>
-<TabItem value="get_advertised_routes">
-
-This operation retrieves a list of routes the virtual network gateway is advertising to the specified peer.
-
-```sql
-EXEC azure.network.virtual_network_gateways.get_advertised_routes 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@virtual_network_gateway_name='{{ virtual_network_gateway_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@peer='{{ peer }}' --required
-;
-```
-</TabItem>
 <TabItem value="get_resiliency_information">
 
 This operation retrieves the resiliency information for an Express Route Gateway, including the gateway's current resiliency score and recommendations to further improve the score.
@@ -1358,34 +1578,6 @@ EXEC azure.network.virtual_network_gateways.get_vpnclient_ipsec_parameters
 @resource_group_name='{{ resource_group_name }}' --required, 
 @virtual_network_gateway_name='{{ virtual_network_gateway_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_failover_all_test_details">
-
-This operation retrieves the details of all the failover tests performed on the gateway for different peering locations.
-
-```sql
-EXEC azure.network.virtual_network_gateways.get_failover_all_test_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@virtual_network_gateway_name='{{ virtual_network_gateway_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@type='{{ type }}' --required, 
-@fetchLatest='{{ fetchLatest }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_failover_single_test_details">
-
-This operation retrieves the details of a particular failover test performed on the gateway based on the test Guid.
-
-```sql
-EXEC azure.network.virtual_network_gateways.get_failover_single_test_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@virtual_network_gateway_name='{{ virtual_network_gateway_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@peeringLocation='{{ peeringLocation }}' --required, 
-@failoverTestId='{{ failoverTestId }}' --required
 ;
 ```
 </TabItem>

@@ -33,8 +33,9 @@ Creates, updates, deletes, gets or lists a <code>phone_numbers</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="list_area_codes"
+    defaultValue="search_available_phone_numbers"
     values={[
+        { label: 'search_available_phone_numbers', value: 'search_available_phone_numbers' },
         { label: 'list_area_codes', value: 'list_area_codes' },
         { label: 'list_available_localities', value: 'list_available_localities' },
         { label: 'get_by_number', value: 'get_by_number' },
@@ -44,6 +45,70 @@ The following fields are returned by `SELECT` queries:
         { label: 'list_available_countries', value: 'list_available_countries' }
     ]}
 >
+<TabItem value="search_available_phone_numbers">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="assignmentType" /></td>
+    <td><code>string</code></td>
+    <td>Phone number's assignment type. Required. Known values are: "person" and "application".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="capabilities" /></td>
+    <td><code>object</code></td>
+    <td>Capabilities of a phone number. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="cost" /></td>
+    <td><code>object</code></td>
+    <td>The incurred cost for a single phone number. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="error" /></td>
+    <td><code>string</code></td>
+    <td>Mapping Error Messages to Codes. Known values are: "NoError", "UnknownErrorCode", "OutOfStock", "AuthorizationDenied", "MissingAddress", "InvalidAddress", "InvalidOfferModel", "NotEnoughLicenses", "NoWallet", "NotEnoughCredit", "NumbersPartiallyAcquired", "AllNumbersNotAcquired", "ReservationExpired", "PurchaseFailed", "BillingUnavailable", "ProvisioningFailed", and "UnknownSearchError".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="errorCode" /></td>
+    <td><code>integer</code></td>
+    <td>The error code of the search.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isAgreementToNotResellRequired" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates if do not resell agreement is required. If true, the phone numbers cannot be acquired unless the customer provides explicit agreement to not resell them.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="phoneNumberType" /></td>
+    <td><code>string</code></td>
+    <td>The phone number's type, e.g. geographic, tollFree, mobile. Required. Known values are: "geographic", "tollFree", and "mobile".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="phoneNumbers" /></td>
+    <td><code>array</code></td>
+    <td>The phone numbers that are available. Can be fewer than the desired search quantity. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="searchExpiresBy" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The date that this search result expires and phone numbers are no longer on hold. A search result expires in less than 15min, e.g. 2020-11-19T16:31:49.048Z. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="searchId" /></td>
+    <td><code>string</code></td>
+    <td>The search id. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list_area_codes">
 
 <table>
@@ -330,6 +395,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#search_available_phone_numbers"><CopyableCode code="search_available_phone_numbers" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-country_code"><code>country_code</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Search for available phone numbers to purchase. Search for available phone numbers to purchase.</td>
+</tr>
+<tr>
     <td><a href="#list_area_codes"><CopyableCode code="list_area_codes" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-country_code"><code>country_code</code></a>, <a href="#parameter-phoneNumberType"><code>phoneNumberType</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -440,13 +512,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-reservation_id"><code>reservation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Starts the purchase of all phone numbers in the reservation. Starts a long running operation to purchase all of the phone numbers in the reservation. Purchase can only be started for active reservations that at least one phone number. If any of the phone numbers in the reservation is from a country where reselling is not permitted, do not resell agreement is required. The response will include an 'Operation-Location' header that can be used to query the status of the operation.</td>
-</tr>
-<tr>
-    <td><a href="#search_available_phone_numbers"><CopyableCode code="search_available_phone_numbers" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-country_code"><code>country_code</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-phoneNumberType"><code>phoneNumberType</code></a>, <a href="#parameter-assignmentType"><code>assignmentType</code></a>, <a href="#parameter-capabilities"><code>capabilities</code></a></td>
-    <td></td>
-    <td>Search for available phone numbers to purchase. Search for available phone numbers to purchase.</td>
 </tr>
 <tr>
     <td><a href="#purchase_phone_numbers"><CopyableCode code="purchase_phone_numbers" /></a></td>
@@ -566,8 +631,9 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="list_area_codes"
+    defaultValue="search_available_phone_numbers"
     values={[
+        { label: 'search_available_phone_numbers', value: 'search_available_phone_numbers' },
         { label: 'list_area_codes', value: 'list_area_codes' },
         { label: 'list_available_localities', value: 'list_available_localities' },
         { label: 'get_by_number', value: 'get_by_number' },
@@ -577,6 +643,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'list_available_countries', value: 'list_available_countries' }
     ]}
 >
+<TabItem value="search_available_phone_numbers">
+
+Search for available phone numbers to purchase. Search for available phone numbers to purchase.
+
+```sql
+SELECT
+assignmentType,
+capabilities,
+cost,
+error,
+errorCode,
+isAgreementToNotResellRequired,
+phoneNumberType,
+phoneNumbers,
+searchExpiresBy,
+searchId
+FROM azure.communication_phonenumbers.phone_numbers
+WHERE country_code = '{{ country_code }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list_area_codes">
 
 Gets the list of available area codes. Gets the list of available area codes.
@@ -758,7 +846,6 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'delete_reservation', value: 'delete_reservation' },
         { label: 'browse_available_numbers', value: 'browse_available_numbers' },
         { label: 'purchase_reservation', value: 'purchase_reservation' },
-        { label: 'search_available_phone_numbers', value: 'search_available_phone_numbers' },
         { label: 'purchase_phone_numbers', value: 'purchase_phone_numbers' },
         { label: 'update_capabilities', value: 'update_capabilities' },
         { label: 'operator_information_search', value: 'operator_information_search' }
@@ -858,25 +945,6 @@ EXEC azure.communication_phonenumbers.phone_numbers.purchase_reservation
 @@json=
 '{
 "agreeToNotResell": {{ agreeToNotResell }}
-}'
-;
-```
-</TabItem>
-<TabItem value="search_available_phone_numbers">
-
-Search for available phone numbers to purchase. Search for available phone numbers to purchase.
-
-```sql
-EXEC azure.communication_phonenumbers.phone_numbers.search_available_phone_numbers 
-@country_code='{{ country_code }}' --required, 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"phoneNumberType": "{{ phoneNumberType }}", 
-"assignmentType": "{{ assignmentType }}", 
-"capabilities": "{{ capabilities }}", 
-"areaCode": "{{ areaCode }}", 
-"quantity": {{ quantity }}
 }'
 ;
 ```

@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_workspace', value: 'list_by_workspace' },
         { label: 'list_skus', value: 'list_skus' }
     ]}
@@ -140,6 +141,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="workspaceUID" /></td>
     <td><code>string</code></td>
     <td>The workspace unique identifier.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name that was checked.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Specifies a Boolean value that indicates if the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Message providing the reason why the given name is invalid. Known values are: "Invalid" and "AlreadyExists".</td>
 </tr>
 </tbody>
 </table>
@@ -317,6 +352,13 @@ The following methods are available for this resource:
     <td>Gets a Kusto pool.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks that the kusto pool name is valid and is not already in use.</td>
+</tr>
+<tr>
     <td><a href="#list_by_workspace"><CopyableCode code="list_by_workspace" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -378,13 +420,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-kusto_pool_name"><code>kusto_pool_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns a list of databases that are owned by this Kusto Pool and were followed by another Kusto Pool.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks that the kusto pool name is valid and is not already in use.</td>
 </tr>
 <tr>
     <td><a href="#stop"><CopyableCode code="stop" /></a></td>
@@ -481,6 +516,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_workspace', value: 'list_by_workspace' },
         { label: 'list_skus', value: 'list_skus' }
     ]}
@@ -513,6 +549,22 @@ FROM azure.synapse.kusto_pools
 WHERE workspace_name = '{{ workspace_name }}' -- required
 AND kusto_pool_name = '{{ kusto_pool_name }}' -- required
 AND resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Checks that the kusto pool name is valid and is not already in use.
+
+```sql
+SELECT
+name,
+message,
+nameAvailable,
+reason
+FROM azure.synapse.kusto_pools
+WHERE location = '{{ location }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -788,7 +840,6 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_skus_by_resource', value: 'list_skus_by_resource' },
         { label: 'list_language_extensions', value: 'list_language_extensions' },
         { label: 'list_follower_databases', value: 'list_follower_databases' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'stop', value: 'stop' },
         { label: 'start', value: 'start' },
         { label: 'add_language_extensions', value: 'add_language_extensions' },
@@ -832,22 +883,6 @@ EXEC azure.synapse.kusto_pools.list_follower_databases
 @kusto_pool_name='{{ kusto_pool_name }}' --required, 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks that the kusto pool name is valid and is not already in use.
-
-```sql
-EXEC azure.synapse.kusto_pools.check_name_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

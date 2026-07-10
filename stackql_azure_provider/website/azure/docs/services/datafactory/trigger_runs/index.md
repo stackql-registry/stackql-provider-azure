@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>trigger_runs</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query_by_factory"
+    values={[
+        { label: 'query_by_factory', value: 'query_by_factory' }
+    ]}
+>
+<TabItem value="query_by_factory">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="continuationToken" /></td>
+    <td><code>string</code></td>
+    <td>The continuation token for getting the next page of results, if any remaining results exist, null otherwise.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>List of trigger runs. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +81,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#query_by_factory"><CopyableCode code="query_by_factory" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-lastUpdatedAfter"><code>lastUpdatedAfter</code></a>, <a href="#parameter-lastUpdatedBefore"><code>lastUpdatedBefore</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Query trigger runs.</td>
 </tr>
@@ -115,14 +144,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="query_by_factory"
     values={[
-        { label: 'query_by_factory', value: 'query_by_factory' },
-        { label: 'rerun', value: 'rerun' },
-        { label: 'cancel', value: 'cancel' }
+        { label: 'query_by_factory', value: 'query_by_factory' }
     ]}
 >
 <TabItem value="query_by_factory">
@@ -130,21 +157,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Query trigger runs.
 
 ```sql
-EXEC azure.datafactory.trigger_runs.query_by_factory 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"continuationToken": "{{ continuationToken }}", 
-"lastUpdatedAfter": "{{ lastUpdatedAfter }}", 
-"lastUpdatedBefore": "{{ lastUpdatedBefore }}", 
-"filters": "{{ filters }}", 
-"orderBy": "{{ orderBy }}"
-}'
+SELECT
+continuationToken,
+value
+FROM azure.datafactory.trigger_runs
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="rerun"
+    values={[
+        { label: 'rerun', value: 'rerun' },
+        { label: 'cancel', value: 'cancel' }
+    ]}
+>
 <TabItem value="rerun">
 
 Rerun single trigger instance by runId.

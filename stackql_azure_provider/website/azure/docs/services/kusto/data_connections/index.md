@@ -33,12 +33,47 @@ Creates, updates, deletes, gets or lists a <code>data_connections</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_database', value: 'list_by_database' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name that was checked.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Specifies a Boolean value that indicates if the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Message providing the reason why the given name is invalid. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -145,6 +180,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks that the data connection name is valid and is not already in use.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-data_connection_name"><code>data_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -193,13 +235,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Checks that the data connection parameters are valid.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks that the data connection name is valid and is not already in use.</td>
-</tr>
 </tbody>
 </table>
 
@@ -247,12 +282,31 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_database', value: 'list_by_database' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Checks that the data connection name is valid and is not already in use.
+
+```sql
+SELECT
+name,
+message,
+nameAvailable,
+reason
+FROM azure.kusto.data_connections
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND database_name = '{{ database_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Returns a data connection.
@@ -474,8 +528,7 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="data_connection_validation"
     values={[
-        { label: 'data_connection_validation', value: 'data_connection_validation' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'data_connection_validation', value: 'data_connection_validation' }
     ]}
 >
 <TabItem value="data_connection_validation">
@@ -492,24 +545,6 @@ EXEC azure.kusto.data_connections.data_connection_validation
 '{
 "dataConnectionName": "{{ dataConnectionName }}", 
 "properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks that the data connection name is valid and is not already in use.
-
-```sql
-EXEC azure.kusto.data_connections.check_name_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
-@database_name='{{ database_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
 }'
 ;
 ```

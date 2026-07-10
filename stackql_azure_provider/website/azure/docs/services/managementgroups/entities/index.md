@@ -32,8 +32,92 @@ Creates, updates, deletes, gets or lists an <code>entities</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>The fully qualified ID for the entity. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the entity. For example, 00000000-0000-0000-0000-000000000000.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="displayName" /></td>
+    <td><code>string</code></td>
+    <td>The friendly name of the management group.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="inheritedPermissions" /></td>
+    <td><code>string</code></td>
+    <td>The users specific permissions to this item. Known values are: "noaccess", "view", "edit", and "delete". (noaccess, view, edit, delete)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="numberOfChildGroups" /></td>
+    <td><code>integer</code></td>
+    <td>Number of children is the number of Groups that are exactly one level underneath the current Group.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="numberOfChildren" /></td>
+    <td><code>integer</code></td>
+    <td>Number of children is the number of Groups and Subscriptions that are exactly one level underneath the current Group.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="numberOfDescendants" /></td>
+    <td><code>integer</code></td>
+    <td>Number of Descendants.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="parent" /></td>
+    <td><code>object</code></td>
+    <td>(Optional) The ID of the parent management group.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="parentDisplayNameChain" /></td>
+    <td><code>array</code></td>
+    <td>The parent display name chain from the root group to the immediate parent.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="parentNameChain" /></td>
+    <td><code>array</code></td>
+    <td>The parent name chain from the root group to the immediate parent.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="permissions" /></td>
+    <td><code>string</code></td>
+    <td>The users specific permissions to this item. Known values are: "noaccess", "view", "edit", and "delete". (noaccess, view, edit, delete)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tenantId" /></td>
+    <td><code>string</code></td>
+    <td>The AAD Tenant ID associated with the entity. For example, 00000000-0000-0000-0000-000000000000.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. For example, Microsoft.Management/managementGroups.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +135,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td></td>
     <td><a href="#parameter-$skiptoken"><code>$skiptoken</code></a>, <a href="#parameter-$skip"><code>$skip</code></a>, <a href="#parameter-$top"><code>$top</code></a>, <a href="#parameter-$select"><code>$select</code></a>, <a href="#parameter-$search"><code>$search</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$view"><code>$view</code></a>, <a href="#parameter-groupName"><code>groupName</code></a>, <a href="#parameter-Cache-Control"><code>Cache-Control</code></a></td>
     <td>List all entities (Management Groups, Subscriptions, etc.) for the authenticated user.</td>
@@ -121,29 +205,43 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 List all entities (Management Groups, Subscriptions, etc.) for the authenticated user.
 
 ```sql
-EXEC azure.managementgroups.entities.list_raw 
-@$skiptoken='{{ $skiptoken }}', 
-@$skip='{{ $skip }}', 
-@$top='{{ $top }}', 
-@$select='{{ $select }}', 
-@$search='{{ $search }}', 
-@$filter='{{ $filter }}', 
-@$view='{{ $view }}', 
-@groupName='{{ groupName }}', 
-@Cache-Control='{{ Cache-Control }}'
+SELECT
+id,
+name,
+displayName,
+inheritedPermissions,
+numberOfChildGroups,
+numberOfChildren,
+numberOfDescendants,
+parent,
+parentDisplayNameChain,
+parentNameChain,
+permissions,
+tenantId,
+type
+FROM azure.managementgroups.entities
+WHERE $skiptoken = '{{ $skiptoken }}'
+AND $skip = '{{ $skip }}'
+AND $top = '{{ $top }}'
+AND $select = '{{ $select }}'
+AND $search = '{{ $search }}'
+AND $filter = '{{ $filter }}'
+AND $view = '{{ $view }}'
+AND groupName = '{{ groupName }}'
+AND Cache-Control = '{{ Cache-Control }}'
 ;
 ```
 </TabItem>

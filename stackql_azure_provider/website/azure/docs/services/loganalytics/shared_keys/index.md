@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>shared_keys</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_shared_keys"
+    values={[
+        { label: 'get_shared_keys', value: 'get_shared_keys' }
+    ]}
+>
+<TabItem value="get_shared_keys">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="primarySharedKey" /></td>
+    <td><code>string</code></td>
+    <td>The primary shared key of a workspace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondarySharedKey" /></td>
+    <td><code>string</code></td>
+    <td>The secondary shared key of a workspace.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +81,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_shared_keys"><CopyableCode code="get_shared_keys" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the shared keys for a workspace.</td>
@@ -98,13 +127,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_shared_keys"
     values={[
-        { label: 'get_shared_keys', value: 'get_shared_keys' },
-        { label: 'regenerate', value: 'regenerate' }
+        { label: 'get_shared_keys', value: 'get_shared_keys' }
     ]}
 >
 <TabItem value="get_shared_keys">
@@ -112,13 +140,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Gets the shared keys for a workspace.
 
 ```sql
-EXEC azure.loganalytics.shared_keys.get_shared_keys 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+primarySharedKey,
+secondarySharedKey
+FROM azure.loganalytics.shared_keys
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="regenerate"
+    values={[
+        { label: 'regenerate', value: 'regenerate' }
+    ]}
+>
 <TabItem value="regenerate">
 
 Regenerates the shared keys for a Log Analytics Workspace. These keys are used to connect Microsoft Operational Insights agents to the workspace.

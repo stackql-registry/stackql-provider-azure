@@ -34,7 +34,7 @@ total resources: __9__
 <div class="providerDocColumn">
 <a href="/services/commvaultcontentstore/protection_groups/">protection_groups</a><br />
 <a href="/services/commvaultcontentstore/role_mappings/">role_mappings</a><br />
-<a href="/services/commvaultcontentstore/saa_s_operation_group/">saa_s_operation_group</a><br />
+<a href="/services/commvaultcontentstore/saas_operation_group/">saas_operation_group</a><br />
 <a href="/services/commvaultcontentstore/storages/">storages</a>
 </div>
 </div>

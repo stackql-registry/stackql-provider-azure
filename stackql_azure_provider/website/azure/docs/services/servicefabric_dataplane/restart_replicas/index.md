@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#restart_replica"><CopyableCode code="restart_replica" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Restarts a service replica of a persisted service running on a node. Restarts a service replica of a persisted service running on a node. Warning - There are no safety checks performed when this API is used. Incorrect use of this API can lead to availability loss for stateful services.</td>
 </tr>
@@ -116,8 +116,8 @@ Restarts a service replica of a persisted service running on a node. Restarts a 
 ```sql
 EXEC azure.servicefabric_dataplane.restart_replicas.restart_replica 
 @replica_id='{{ replica_id }}' --required, 
-@node_name='{{ node_name }}' --required, 
 @partition_id='{{ partition_id }}' --required, 
+@node_name='{{ node_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'
 ;

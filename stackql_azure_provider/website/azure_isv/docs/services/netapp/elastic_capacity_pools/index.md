@@ -33,12 +33,42 @@ Creates, updates, deletes, gets or lists an <code>elastic_capacity_pools</code> 
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_volume_file_path_availability"
     values={[
+        { label: 'check_volume_file_path_availability', value: 'check_volume_file_path_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_elastic_account', value: 'list_by_elastic_account' }
     ]}
 >
+<TabItem value="check_volume_file_path_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="isAvailable" /></td>
+    <td><code>string</code></td>
+    <td>True indicates name is valid and available. False indicates the name is invalid, unavailable, or both. Known values are: "True" and "False". (True, False)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>If reason == invalid, provide the user with the reason why the given name is invalid, and provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists, explain that resource name is already in use, and direct them to select a different name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Invalid indicates the name provided does not match Azure NetApp Files naming requirements. AlreadyExists indicates that the name is already in use and is therefore unavailable. Known values are: "Invalid" and "AlreadyExists". (Invalid, AlreadyExists)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -255,6 +285,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_volume_file_path_availability"><CopyableCode code="check_volume_file_path_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check if an Elastic Volume file path is available within the given Elastic Capacity Pool.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -303,13 +340,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Moves pool to another zone.</td>
 </tr>
-<tr>
-    <td><a href="#check_volume_file_path_availability"><CopyableCode code="check_volume_file_path_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-pool_name"><code>pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-filePath"><code>filePath</code></a></td>
-    <td></td>
-    <td>Check if an Elastic Volume file path is available within the given Elastic Capacity Pool.</td>
-</tr>
 </tbody>
 </table>
 
@@ -352,12 +382,30 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_volume_file_path_availability"
     values={[
+        { label: 'check_volume_file_path_availability', value: 'check_volume_file_path_availability' },
         { label: 'get', value: 'get' },
         { label: 'list_by_elastic_account', value: 'list_by_elastic_account' }
     ]}
 >
+<TabItem value="check_volume_file_path_availability">
+
+Check if an Elastic Volume file path is available within the given Elastic Capacity Pool.
+
+```sql
+SELECT
+isAvailable,
+message,
+reason
+FROM azure_isv.netapp.elastic_capacity_pools
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
+AND pool_name = '{{ pool_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get the NetApp Elastic Capacity Pool.
@@ -625,8 +673,7 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="change_zone"
     values={[
-        { label: 'change_zone', value: 'change_zone' },
-        { label: 'check_volume_file_path_availability', value: 'check_volume_file_path_availability' }
+        { label: 'change_zone', value: 'change_zone' }
     ]}
 >
 <TabItem value="change_zone">
@@ -642,23 +689,6 @@ EXEC azure_isv.netapp.elastic_capacity_pools.change_zone
 @@json=
 '{
 "newZone": "{{ newZone }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_volume_file_path_availability">
-
-Check if an Elastic Volume file path is available within the given Elastic Capacity Pool.
-
-```sql
-EXEC azure_isv.netapp.elastic_capacity_pools.check_volume_file_path_availability 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@account_name='{{ account_name }}' --required, 
-@pool_name='{{ pool_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"filePath": "{{ filePath }}"
 }'
 ;
 ```

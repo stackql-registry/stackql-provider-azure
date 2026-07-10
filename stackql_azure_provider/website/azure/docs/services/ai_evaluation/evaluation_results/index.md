@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists an <code>evaluation_results</code> reso
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_version"
+    defaultValue="get_credentials"
     values={[
+        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'get_version', value: 'get_version' },
         { label: 'list_versions', value: 'list_versions' },
         { label: 'list_latest', value: 'list_latest' }
     ]}
 >
+<TabItem value="get_credentials">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="blobReference" /></td>
+    <td><code>object</code></td>
+    <td>Credential info to access the storage account. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_version">
 
 <table>
@@ -220,6 +240,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Enable downloading json.</td>
+</tr>
+<tr>
     <td><a href="#get_version"><CopyableCode code="get_version" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -253,13 +280,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Create a new or update an existing EvaluationResult with the given version id.</td>
-</tr>
-<tr>
-    <td><a href="#get_credentials"><CopyableCode code="get_credentials" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-BlobUri"><code>BlobUri</code></a></td>
-    <td></td>
-    <td>Enable downloading json.</td>
 </tr>
 <tr>
     <td><a href="#start_pending_upload"><CopyableCode code="start_pending_upload" /></a></td>
@@ -325,13 +345,28 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_version"
+    defaultValue="get_credentials"
     values={[
+        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'get_version', value: 'get_version' },
         { label: 'list_versions', value: 'list_versions' },
         { label: 'list_latest', value: 'list_latest' }
     ]}
 >
+<TabItem value="get_credentials">
+
+Enable downloading json.
+
+```sql
+SELECT
+blobReference
+FROM azure.ai_evaluation.evaluation_results
+WHERE name = '{{ name }}' -- required
+AND version = '{{ version }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_version">
 
 Get the specific version of the EvaluationResult. The service returns 404 Not Found error if the EvaluationResult does not exist.
@@ -410,7 +445,6 @@ AND listViewType = '{{ listViewType }}'
     values={[
         { label: 'delete_version', value: 'delete_version' },
         { label: 'create_or_update_version', value: 'create_or_update_version' },
-        { label: 'get_credentials', value: 'get_credentials' },
         { label: 'start_pending_upload', value: 'start_pending_upload' }
     ]}
 >
@@ -442,22 +476,6 @@ EXEC azure.ai_evaluation.evaluation_results.create_or_update_version
 "blobUri": "{{ blobUri }}", 
 "description": "{{ description }}", 
 "tags": "{{ tags }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_credentials">
-
-Enable downloading json.
-
-```sql
-EXEC azure.ai_evaluation.evaluation_results.get_credentials 
-@name='{{ name }}' --required, 
-@version='{{ version }}' --required, 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"BlobUri": "{{ BlobUri }}"
 }'
 ;
 ```

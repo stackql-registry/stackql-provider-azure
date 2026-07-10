@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists an <code>integration_runtime_object_met
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="nextLink" /></td>
+    <td><code>string</code></td>
+    <td>The link to the next page of items.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>The SsisObjectMetadata items on this page. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +80,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get a SSIS integration runtime object metadata by specified path. The return is pageable metadata list.</td>
+</tr>
+<tr>
     <td><a href="#refresh"><CopyableCode code="refresh" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Refresh a SSIS integration runtime object metadata.</td>
-</tr>
-<tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get a SSIS integration runtime object metadata by specified path. The return is pageable metadata list.</td>
 </tr>
 </tbody>
 </table>
@@ -103,13 +132,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
+
+Get a SSIS integration runtime object metadata by specified path. The return is pageable metadata list.
+
+```sql
+SELECT
+nextLink,
+value
+FROM azure.datafactory.integration_runtime_object_metadata
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND integration_runtime_name = '{{ integration_runtime_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="refresh"
     values={[
-        { label: 'refresh', value: 'refresh' },
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'refresh', value: 'refresh' }
     ]}
 >
 <TabItem value="refresh">
@@ -122,23 +177,6 @@ EXEC azure.datafactory.integration_runtime_object_metadata.refresh
 @factory_name='{{ factory_name }}' --required, 
 @integration_runtime_name='{{ integration_runtime_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_raw">
-
-Get a SSIS integration runtime object metadata by specified path. The return is pageable metadata list.
-
-```sql
-EXEC azure.datafactory.integration_runtime_object_metadata.get_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@integration_runtime_name='{{ integration_runtime_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"metadataPath": "{{ metadataPath }}"
-}'
 ;
 ```
 </TabItem>

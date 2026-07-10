@@ -32,8 +32,62 @@ Creates, updates, deletes, gets or lists a <code>locations</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_trial_availability"
+    values={[
+        { label: 'check_trial_availability', value: 'check_trial_availability' },
+        { label: 'check_quota_availability', value: 'check_quota_availability' }
+    ]}
+>
+<TabItem value="check_trial_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="availableHosts" /></td>
+    <td><code>integer</code></td>
+    <td>Number of trial hosts available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Trial status. Known values are: "TrialAvailable", "TrialUsed", and "TrialDisabled". (TrialAvailable, TrialUsed, TrialDisabled)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_quota_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="hostsRemaining" /></td>
+    <td><code>object</code></td>
+    <td>Remaining hosts quota by sku type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="quotaEnabled" /></td>
+    <td><code>string</code></td>
+    <td>Host quota is active for current subscription. Known values are: "Enabled" and "Disabled". (Enabled, Disabled)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,14 +106,14 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_trial_availability"><CopyableCode code="check_trial_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Return trial status for subscription by region.</td>
 </tr>
 <tr>
     <td><a href="#check_quota_availability"><CopyableCode code="check_quota_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Return quota for subscription by region.</td>
@@ -93,7 +147,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_trial_availability"
@@ -107,17 +161,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Return trial status for subscription by region.
 
 ```sql
-EXEC azure_isv.avs.locations.check_trial_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"tier": "{{ tier }}", 
-"size": "{{ size }}", 
-"family": "{{ family }}", 
-"capacity": {{ capacity }}
-}'
+SELECT
+availableHosts,
+status
+FROM azure_isv.avs.locations
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -126,9 +175,12 @@ EXEC azure_isv.avs.locations.check_trial_availability
 Return quota for subscription by region.
 
 ```sql
-EXEC azure_isv.avs.locations.check_quota_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+hostsRemaining,
+quotaEnabled
+FROM azure_isv.avs.locations
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

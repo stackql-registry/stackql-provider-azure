@@ -32,8 +32,62 @@ Creates, updates, deletes, gets or lists a <code>managed_maintenance_window_stat
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="canApplyUpdates" /></td>
+    <td><code>boolean</code></td>
+    <td>If updates can be applied.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isRegionReady" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates if the region is ready to configure maintenance windows.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isWindowActive" /></td>
+    <td><code>boolean</code></td>
+    <td>If maintenance window is active.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isWindowEnabled" /></td>
+    <td><code>boolean</code></td>
+    <td>If maintenance window is enabled on this cluster.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastWindowEndTimeUTC" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Last window end time in UTC.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastWindowStartTimeUTC" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Last window start time in UTC.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastWindowStatusUpdateAtUTC" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Last window update time in UTC.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +105,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Action to get Maintenance Window Status of the Service Fabric Managed Clusters.</td>
@@ -91,23 +145,31 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_raw"
+    defaultValue="get"
     values={[
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'get', value: 'get' }
     ]}
 >
-<TabItem value="get_raw">
+<TabItem value="get">
 
 Action to get Maintenance Window Status of the Service Fabric Managed Clusters.
 
 ```sql
-EXEC azure.servicefabricmanagedclusters.managed_maintenance_window_status.get_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+canApplyUpdates,
+isRegionReady,
+isWindowActive,
+isWindowEnabled,
+lastWindowEndTimeUTC,
+lastWindowStartTimeUTC,
+lastWindowStatusUpdateAtUTC
+FROM azure.servicefabricmanagedclusters.managed_maintenance_window_status
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

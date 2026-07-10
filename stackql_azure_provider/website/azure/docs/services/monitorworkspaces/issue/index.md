@@ -33,12 +33,52 @@ Creates, updates, deletes, gets or lists an <code>issue</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="fetch_investigation_result"
     values={[
+        { label: 'fetch_investigation_result', value: 'fetch_investigation_result' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="fetch_investigation_result">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>The identifier of the investigation. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdAt" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The creation time of the investigation (in UTC).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastModifiedAt" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The last update time of the investigation (in UTC).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="origin" /></td>
+    <td><code>object</code></td>
+    <td>The origin of the investigation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="result" /></td>
+    <td><code>string</code></td>
+    <td>The result of this investigation. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -215,6 +255,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#fetch_investigation_result"><CopyableCode code="fetch_investigation_result" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-azure_monitor_workspace_name"><code>azure_monitor_workspace_name</code></a>, <a href="#parameter-issue_name"><code>issue_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Fetch investigation result.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-azure_monitor_workspace_name"><code>azure_monitor_workspace_name</code></a>, <a href="#parameter-issue_name"><code>issue_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -269,13 +316,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-azure_monitor_workspace_name"><code>azure_monitor_workspace_name</code></a>, <a href="#parameter-issue_name"><code>issue_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-result"><code>result</code></a></td>
     <td></td>
     <td>Adds investigation result.</td>
-</tr>
-<tr>
-    <td><a href="#fetch_investigation_result"><CopyableCode code="fetch_investigation_result" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-azure_monitor_workspace_name"><code>azure_monitor_workspace_name</code></a>, <a href="#parameter-issue_name"><code>issue_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-investigationId"><code>investigationId</code></a></td>
-    <td></td>
-    <td>Fetch investigation result.</td>
 </tr>
 <tr>
     <td><a href="#add_or_update_alerts"><CopyableCode code="add_or_update_alerts" /></a></td>
@@ -352,12 +392,32 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="fetch_investigation_result"
     values={[
+        { label: 'fetch_investigation_result', value: 'fetch_investigation_result' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="fetch_investigation_result">
+
+Fetch investigation result.
+
+```sql
+SELECT
+id,
+createdAt,
+lastModifiedAt,
+origin,
+result
+FROM azure.monitorworkspaces.issue
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND azure_monitor_workspace_name = '{{ azure_monitor_workspace_name }}' -- required
+AND issue_name = '{{ issue_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get issue properties.
@@ -568,7 +628,6 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_alerts', value: 'list_alerts' },
         { label: 'list_resources', value: 'list_resources' },
         { label: 'add_investigation_result', value: 'add_investigation_result' },
-        { label: 'fetch_investigation_result', value: 'fetch_investigation_result' },
         { label: 'add_or_update_alerts', value: 'add_or_update_alerts' },
         { label: 'add_or_update_resources', value: 'add_or_update_resources' },
         { label: 'fetch_background_visualization', value: 'fetch_background_visualization' },
@@ -626,23 +685,6 @@ EXEC azure.monitorworkspaces.issue.add_investigation_result
 "createdAt": "{{ createdAt }}", 
 "lastModifiedAt": "{{ lastModifiedAt }}", 
 "result": "{{ result }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="fetch_investigation_result">
-
-Fetch investigation result.
-
-```sql
-EXEC azure.monitorworkspaces.issue.fetch_investigation_result 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@azure_monitor_workspace_name='{{ azure_monitor_workspace_name }}' --required, 
-@issue_name='{{ issue_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"investigationId": "{{ investigationId }}"
 }'
 ;
 ```

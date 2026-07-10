@@ -33,13 +33,53 @@ Creates, updates, deletes, gets or lists a <code>cloud_vm_clusters</code> resour
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_private_ip_addresses"
     values={[
+        { label: 'list_private_ip_addresses', value: 'list_private_ip_addresses' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_private_ip_addresses">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="displayName" /></td>
+    <td><code>string</code></td>
+    <td>PrivateIpAddresses displayName. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hostnameLabel" /></td>
+    <td><code>string</code></td>
+    <td>PrivateIpAddresses hostnameLabel. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ipAddress" /></td>
+    <td><code>string</code></td>
+    <td>PrivateIpAddresses ipAddress. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ocid" /></td>
+    <td><code>string</code></td>
+    <td>PrivateIpAddresses Id. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="subnetId" /></td>
+    <td><code>string</code></td>
+    <td>PrivateIpAddresses subnetId. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -970,6 +1010,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_private_ip_addresses"><CopyableCode code="list_private_ip_addresses" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloudvmclustername"><code>cloudvmclustername</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>List Private IP Addresses by the provided filter.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloudvmclustername"><code>cloudvmclustername</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1017,13 +1064,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloudvmclustername"><code>cloudvmclustername</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Delete a CloudVmCluster.</td>
-</tr>
-<tr>
-    <td><a href="#list_private_ip_addresses"><CopyableCode code="list_private_ip_addresses" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cloudvmclustername"><code>cloudvmclustername</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-subnetId"><code>subnetId</code></a>, <a href="#parameter-vnicId"><code>vnicId</code></a></td>
-    <td></td>
-    <td>List Private IP Addresses by the provided filter.</td>
 </tr>
 <tr>
     <td><a href="#add_vms"><CopyableCode code="add_vms" /></a></td>
@@ -1076,13 +1116,32 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_private_ip_addresses"
     values={[
+        { label: 'list_private_ip_addresses', value: 'list_private_ip_addresses' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="list_private_ip_addresses">
+
+List Private IP Addresses by the provided filter.
+
+```sql
+SELECT
+displayName,
+hostnameLabel,
+ipAddress,
+ocid,
+subnetId
+FROM azure_isv.oracledatabase.cloud_vm_clusters
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cloudvmclustername = '{{ cloudvmclustername }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a CloudVmCluster.
@@ -1537,30 +1596,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_private_ip_addresses"
+    defaultValue="add_vms"
     values={[
-        { label: 'list_private_ip_addresses', value: 'list_private_ip_addresses' },
         { label: 'add_vms', value: 'add_vms' },
         { label: 'remove_vms', value: 'remove_vms' }
     ]}
 >
-<TabItem value="list_private_ip_addresses">
-
-List Private IP Addresses by the provided filter.
-
-```sql
-EXEC azure_isv.oracledatabase.cloud_vm_clusters.list_private_ip_addresses 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cloudvmclustername='{{ cloudvmclustername }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"subnetId": "{{ subnetId }}", 
-"vnicId": "{{ vnicId }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="add_vms">
 
 Add VMs to the VM Cluster.

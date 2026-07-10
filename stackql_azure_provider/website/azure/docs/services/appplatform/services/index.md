@@ -33,13 +33,43 @@ Creates, updates, deletes, gets or lists a <code>services</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Message why the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates whether the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Reason why the name is not available.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -340,6 +370,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks that the resource name is valid and is not already in use.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-service_name"><code>service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -472,13 +509,6 @@ The following methods are available for this resource:
     <td></td>
     <td>Disable an APM globally.</td>
 </tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-type"><code>type</code></a>, <a href="#parameter-name"><code>name</code></a></td>
-    <td></td>
-    <td>Checks that the resource name is valid and is not already in use.</td>
-</tr>
 </tbody>
 </table>
 
@@ -521,13 +551,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Checks that the resource name is valid and is not already in use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.appplatform.services
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a Service and its properties.
@@ -841,8 +887,7 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'start', value: 'start' },
         { label: 'flush_vnet_dns_setting', value: 'flush_vnet_dns_setting' },
         { label: 'enable_apm_globally', value: 'enable_apm_globally' },
-        { label: 'disable_apm_globally', value: 'disable_apm_globally' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'disable_apm_globally', value: 'disable_apm_globally' }
     ]}
 >
 <TabItem value="list_test_keys">
@@ -997,22 +1042,6 @@ EXEC azure.appplatform.services.disable_apm_globally
 @@json=
 '{
 "resourceId": "{{ resourceId }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks that the resource name is valid and is not already in use.
-
-```sql
-EXEC azure.appplatform.services.check_name_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"type": "{{ type }}", 
-"name": "{{ name }}"
 }'
 ;
 ```

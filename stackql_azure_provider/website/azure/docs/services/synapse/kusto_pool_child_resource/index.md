@@ -32,8 +32,47 @@ Creates, updates, deletes, gets or lists a <code>kusto_pool_child_resource</code
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_name_availability"
+    values={[
+        { label: 'check_name_availability', value: 'check_name_availability' }
+    ]}
+>
+<TabItem value="check_name_availability">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name that was checked.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Specifies a Boolean value that indicates if the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Message providing the reason why the given name is invalid. Known values are: "Invalid" and "AlreadyExists".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +91,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-kusto_pool_name"><code>kusto_pool_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-kusto_pool_name"><code>kusto_pool_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Checks that the Kusto Pool child resource name is valid and is not already in use.</td>
 </tr>
@@ -96,7 +135,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_name_availability"
@@ -109,16 +148,16 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Checks that the Kusto Pool child resource name is valid and is not already in use.
 
 ```sql
-EXEC azure.synapse.kusto_pool_child_resource.check_name_availability 
-@workspace_name='{{ workspace_name }}' --required, 
-@kusto_pool_name='{{ kusto_pool_name }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+name,
+message,
+nameAvailable,
+reason
+FROM azure.synapse.kusto_pool_child_resource
+WHERE workspace_name = '{{ workspace_name }}' -- required
+AND kusto_pool_name = '{{ kusto_pool_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

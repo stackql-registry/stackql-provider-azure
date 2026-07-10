@@ -32,8 +32,47 @@ Creates, updates, deletes, gets or lists a <code>resource_usage</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="currentValue" /></td>
+    <td><code>integer</code></td>
+    <td>Actual value of usage on the specified resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="limit" /></td>
+    <td><code>integer</code></td>
+    <td>Quota of the specified resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="resourceType" /></td>
+    <td><code>string</code></td>
+    <td>Resource type for which the usage is provided.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="unit" /></td>
+    <td><code>string</code></td>
+    <td>Unit of the usage. e.g. count. "count" (count)</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +90,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check the quota and actual usage of the CDN profiles under the given subscription.</td>
@@ -81,21 +120,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Check the quota and actual usage of the CDN profiles under the given subscription.
 
 ```sql
-EXEC azure.cdn.resource_usage.list_raw 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+currentValue,
+limit,
+resourceType,
+unit
+FROM azure.cdn.resource_usage
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

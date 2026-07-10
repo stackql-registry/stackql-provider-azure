@@ -36,7 +36,9 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'get_jail_break_dataset_with_type', value: 'get_jail_break_dataset_with_type' },
         { label: 'get_attack_objectives', value: 'get_attack_objectives' },
+        { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -119,6 +121,25 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="get_jail_break_dataset_with_type">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_attack_objectives">
 
 <table>
@@ -154,6 +175,25 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="Source" /></td>
     <td><code>array</code></td>
     <td>List of sources. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_template_parameters_image">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
 </tr>
 </tbody>
 </table>
@@ -262,6 +302,13 @@ The following methods are available for this resource:
     <td>Get a redteam by name.</td>
 </tr>
 <tr>
+    <td><a href="#get_jail_break_dataset_with_type"><CopyableCode code="get_jail_break_dataset_with_type" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Get the jailbreak dataset with type.</td>
+</tr>
+<tr>
     <td><a href="#get_attack_objectives"><CopyableCode code="get_attack_objectives" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-riskCategory"><code>riskCategory</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -269,18 +316,18 @@ The following methods are available for this resource:
     <td>Get the attack objectives.</td>
 </tr>
 <tr>
+    <td><a href="#get_template_parameters_image"><CopyableCode code="get_template_parameters_image" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Get the template parameters image.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-top"><code>top</code></a>, <a href="#parameter-skip"><code>skip</code></a>, <a href="#parameter-maxpagesize"><code>maxpagesize</code></a></td>
     <td>List a redteam by name.</td>
-</tr>
-<tr>
-    <td><a href="#get_jail_break_dataset_with_type"><CopyableCode code="get_jail_break_dataset_with_type" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Get the jailbreak dataset with type.</td>
 </tr>
 <tr>
     <td><a href="#get_jail_break_dataset"><CopyableCode code="get_jail_break_dataset" /></a></td>
@@ -302,13 +349,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get template parameters.</td>
-</tr>
-<tr>
-    <td><a href="#get_template_parameters_image"><CopyableCode code="get_template_parameters_image" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Get the template parameters image.</td>
 </tr>
 <tr>
     <td><a href="#create_run"><CopyableCode code="create_run" /></a></td>
@@ -430,7 +470,9 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get"
     values={[
         { label: 'get', value: 'get' },
+        { label: 'get_jail_break_dataset_with_type', value: 'get_jail_break_dataset_with_type' },
         { label: 'get_attack_objectives', value: 'get_attack_objectives' },
+        { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -459,6 +501,19 @@ AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
+<TabItem value="get_jail_break_dataset_with_type">
+
+Get the jailbreak dataset with type.
+
+```sql
+SELECT
+value
+FROM azure.ai_evaluation.red_teams
+WHERE type_name = '{{ type_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_attack_objectives">
 
 Get the attack objectives.
@@ -476,6 +531,19 @@ AND endpoint = '{{ endpoint }}' -- required
 AND lang = '{{ lang }}'
 AND strategy = '{{ strategy }}'
 AND targetType = '{{ targetType }}'
+;
+```
+</TabItem>
+<TabItem value="get_template_parameters_image">
+
+Get the template parameters image.
+
+```sql
+SELECT
+value
+FROM azure.ai_evaluation.red_teams
+WHERE path = '{{ path }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
@@ -512,13 +580,11 @@ AND maxpagesize = '{{ maxpagesize }}'
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_jail_break_dataset_with_type"
+    defaultValue="get_jail_break_dataset"
     values={[
-        { label: 'get_jail_break_dataset_with_type', value: 'get_jail_break_dataset_with_type' },
         { label: 'get_jail_break_dataset', value: 'get_jail_break_dataset' },
         { label: 'get_template_parameters_with_type', value: 'get_template_parameters_with_type' },
         { label: 'get_template_parameters', value: 'get_template_parameters' },
-        { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
         { label: 'create_run', value: 'create_run' },
         { label: 'upload_run', value: 'upload_run' },
         { label: 'upload_update_run', value: 'upload_update_run' },
@@ -526,17 +592,6 @@ AND maxpagesize = '{{ maxpagesize }}'
         { label: 'operation_results', value: 'operation_results' }
     ]}
 >
-<TabItem value="get_jail_break_dataset_with_type">
-
-Get the jailbreak dataset with type.
-
-```sql
-EXEC azure.ai_evaluation.red_teams.get_jail_break_dataset_with_type 
-@type_name='{{ type_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="get_jail_break_dataset">
 
 Get the jailbreak dataset.
@@ -564,17 +619,6 @@ Get template parameters.
 
 ```sql
 EXEC azure.ai_evaluation.red_teams.get_template_parameters 
-@endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_template_parameters_image">
-
-Get the template parameters image.
-
-```sql
-EXEC azure.ai_evaluation.red_teams.get_template_parameters_image 
-@path='{{ path }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

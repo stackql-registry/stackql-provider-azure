@@ -32,8 +32,82 @@ Creates, updates, deletes, gets or lists a <code>backup_status</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="acquireStorageAccountLock" /></td>
+    <td><code>string</code></td>
+    <td>Specifies whether the storage account lock has been acquired or not. Known values are: "Acquire" and "NotAcquire". (Acquire, NotAcquire)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="containerName" /></td>
+    <td><code>string</code></td>
+    <td>Specifies the product specific container name. E.g. iaasvmcontainer;iaasvmcontainer;csname;vmname.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="errorCode" /></td>
+    <td><code>string</code></td>
+    <td>ErrorCode in case of intent failed.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="errorMessage" /></td>
+    <td><code>string</code></td>
+    <td>ErrorMessage in case of intent failed.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="fabricName" /></td>
+    <td><code>string</code></td>
+    <td>Specifies the fabric name - Azure or AD. Known values are: "Invalid" and "Azure". (Invalid, Azure)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="policyName" /></td>
+    <td><code>string</code></td>
+    <td>Specifies the policy name which is used for protection.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="protectedItemName" /></td>
+    <td><code>string</code></td>
+    <td>Specifies the product specific ds name. E.g. vm;iaasvmcontainer;csname;vmname.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="protectedItemsCount" /></td>
+    <td><code>integer</code></td>
+    <td>Number of protected items.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="protectionStatus" /></td>
+    <td><code>string</code></td>
+    <td>Specifies whether the container is registered or not. Known values are: "Invalid", "NotProtected", "Protecting", "Protected", and "ProtectionFailed". (Invalid, NotProtected, Protecting, Protected, ProtectionFailed)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="registrationStatus" /></td>
+    <td><code>string</code></td>
+    <td>Container registration status.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="vaultId" /></td>
+    <td><code>string</code></td>
+    <td>Specifies the arm resource id of the vault.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +125,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-azure_region"><code>azure_region</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the container backup status. Get the container backup status.</td>
@@ -86,28 +160,34 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_raw"
+    defaultValue="get"
     values={[
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'get', value: 'get' }
     ]}
 >
-<TabItem value="get_raw">
+<TabItem value="get">
 
 Get the container backup status. Get the container backup status.
 
 ```sql
-EXEC azure.recoveryservicesbackup.backup_status.get_raw 
-@azure_region='{{ azure_region }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"resourceType": "{{ resourceType }}", 
-"resourceId": "{{ resourceId }}", 
-"poLogicalName": "{{ poLogicalName }}"
-}'
+SELECT
+acquireStorageAccountLock,
+containerName,
+errorCode,
+errorMessage,
+fabricName,
+policyName,
+protectedItemName,
+protectedItemsCount,
+protectionStatus,
+registrationStatus,
+vaultId
+FROM azure.recoveryservicesbackup.backup_status
+WHERE azure_region = '{{ azure_region }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

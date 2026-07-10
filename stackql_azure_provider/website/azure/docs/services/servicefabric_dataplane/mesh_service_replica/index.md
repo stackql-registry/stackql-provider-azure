@@ -122,7 +122,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-replica_name"><code>replica_name</code></a>, <a href="#parameter-application_resource_name"><code>application_resource_name</code></a>, <a href="#parameter-service_resource_name"><code>service_resource_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_resource_name"><code>application_resource_name</code></a>, <a href="#parameter-service_resource_name"><code>service_resource_name</code></a>, <a href="#parameter-replica_name"><code>replica_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Gets the given replica of the service of an application. Gets the information about the service replica with the given name. The information include the description and other properties of the service replica.</td>
 </tr>
@@ -193,9 +193,9 @@ networkRefs,
 osType,
 replicaName
 FROM azure.servicefabric_dataplane.mesh_service_replica
-WHERE replica_name = '{{ replica_name }}' -- required
-AND application_resource_name = '{{ application_resource_name }}' -- required
+WHERE application_resource_name = '{{ application_resource_name }}' -- required
 AND service_resource_name = '{{ service_resource_name }}' -- required
+AND replica_name = '{{ replica_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 ;
 ```

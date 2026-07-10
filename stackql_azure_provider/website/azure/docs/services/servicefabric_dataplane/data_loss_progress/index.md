@@ -82,7 +82,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_data_loss_progress"><CopyableCode code="get_data_loss_progress" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-service_id"><code>service_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the progress of a partition data loss operation started using the StartDataLoss API. Gets the progress of a data loss operation started with StartDataLoss, using the OperationId.</td>
 </tr>
@@ -147,9 +147,9 @@ SELECT
 InvokeDataLossResult,
 State
 FROM azure.servicefabric_dataplane.data_loss_progress
-WHERE OperationId = '{{ OperationId }}' -- required
-AND service_id = '{{ service_id }}' -- required
+WHERE service_id = '{{ service_id }}' -- required
 AND partition_id = '{{ partition_id }}' -- required
+AND OperationId = '{{ OperationId }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

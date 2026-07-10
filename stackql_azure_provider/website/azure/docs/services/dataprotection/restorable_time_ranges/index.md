@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>restorable_time_ranges</code> r
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="find"
+    values={[
+        { label: 'find', value: 'find' }
+    ]}
+>
+<TabItem value="find">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id represents the complete path to the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource name associated with the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="objectType" /></td>
+    <td><code>string</code></td>
+    <td>:vartype object_type: str</td>
+</tr>
+<tr>
+    <td><CopyableCode code="restorableTimeRanges" /></td>
+    <td><code>array</code></td>
+    <td>Returns the Restore Ranges available on the Backup Instance.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Metadata pertaining to creation and last modification of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/...</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +101,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#find"><CopyableCode code="find" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-backup_instance_name"><code>backup_instance_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-sourceDataStoreType"><code>sourceDataStoreType</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-backup_instance_name"><code>backup_instance_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>find.</td>
 </tr>
@@ -96,7 +145,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="find"
@@ -109,17 +158,18 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 find.
 
 ```sql
-EXEC azure.dataprotection.restorable_time_ranges.find 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@vault_name='{{ vault_name }}' --required, 
-@backup_instance_name='{{ backup_instance_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"sourceDataStoreType": "{{ sourceDataStoreType }}", 
-"startTime": "{{ startTime }}", 
-"endTime": "{{ endTime }}"
-}'
+SELECT
+id,
+name,
+objectType,
+restorableTimeRanges,
+systemData,
+type
+FROM azure.dataprotection.restorable_time_ranges
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND vault_name = '{{ vault_name }}' -- required
+AND backup_instance_name = '{{ backup_instance_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

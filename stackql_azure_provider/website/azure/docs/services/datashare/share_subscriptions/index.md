@@ -33,12 +33,102 @@ Creates, updates, deletes, gets or lists a <code>share_subscriptions</code> reso
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_synchronization_details"
     values={[
+        { label: 'list_synchronization_details', value: 'list_synchronization_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_account', value: 'list_by_account' }
     ]}
 >
+<TabItem value="list_synchronization_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Name of the data set.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataSetId" /></td>
+    <td><code>string</code></td>
+    <td>Id of data set.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataSetType" /></td>
+    <td><code>string</code></td>
+    <td>Type of the data set. Known values are: "Blob", "Container", "BlobFolder", "AdlsGen2FileSystem", "AdlsGen2Folder", "AdlsGen2File", "AdlsGen1Folder", "AdlsGen1File", "KustoCluster", "KustoDatabase", "SqlDBTable", "SqlDWTable", and "SynapseWorkspaceSqlPoolTable".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="durationMs" /></td>
+    <td><code>integer</code></td>
+    <td>Duration of data set level copy.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>End time of data set level copy.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="filesRead" /></td>
+    <td><code>integer</code></td>
+    <td>The number of files read from the source data set.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="filesWritten" /></td>
+    <td><code>integer</code></td>
+    <td>The number of files written into the sink data set.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Error message if any.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="rowsCopied" /></td>
+    <td><code>integer</code></td>
+    <td>The number of files copied into the sink data set.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="rowsRead" /></td>
+    <td><code>integer</code></td>
+    <td>The number of rows read from the source data set.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sizeRead" /></td>
+    <td><code>integer</code></td>
+    <td>The size of the data read from the source data set in bytes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sizeWritten" /></td>
+    <td><code>integer</code></td>
+    <td>The size of the data written into the sink data set in bytes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Start time of data set level copy.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Raw Status.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="vCore" /></td>
+    <td><code>integer</code></td>
+    <td>The vCore units consumed for the data set synchronization.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -275,6 +365,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_synchronization_details"><CopyableCode code="list_synchronization_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-share_subscription_name"><code>share_subscription_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-$skipToken"><code>$skipToken</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a></td>
+    <td>List data set level details for a share subscription synchronization. List synchronization details.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-share_subscription_name"><code>share_subscription_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -308,13 +405,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-share_subscription_name"><code>share_subscription_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$skipToken"><code>$skipToken</code></a></td>
     <td>Get source share synchronization settings for a shareSubscription. Get synchronization settings set on a share.</td>
-</tr>
-<tr>
-    <td><a href="#list_synchronization_details"><CopyableCode code="list_synchronization_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-share_subscription_name"><code>share_subscription_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-synchronizationId"><code>synchronizationId</code></a></td>
-    <td><a href="#parameter-$skipToken"><code>$skipToken</code></a>, <a href="#parameter-$filter"><code>$filter</code></a>, <a href="#parameter-$orderby"><code>$orderby</code></a></td>
-    <td>List data set level details for a share subscription synchronization. List synchronization details.</td>
 </tr>
 <tr>
     <td><a href="#list_synchronizations"><CopyableCode code="list_synchronizations" /></a></td>
@@ -394,12 +484,45 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_synchronization_details"
     values={[
+        { label: 'list_synchronization_details', value: 'list_synchronization_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_account', value: 'list_by_account' }
     ]}
 >
+<TabItem value="list_synchronization_details">
+
+List data set level details for a share subscription synchronization. List synchronization details.
+
+```sql
+SELECT
+name,
+dataSetId,
+dataSetType,
+durationMs,
+endTime,
+filesRead,
+filesWritten,
+message,
+rowsCopied,
+rowsRead,
+sizeRead,
+sizeWritten,
+startTime,
+status,
+vCore
+FROM azure.datashare.share_subscriptions
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
+AND share_subscription_name = '{{ share_subscription_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $skipToken = '{{ $skipToken }}'
+AND $filter = '{{ $filter }}'
+AND $orderby = '{{ $orderby }}'
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get shareSubscription in an account. Get a shareSubscription in an account.
@@ -565,7 +688,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_source_share_synchronization_settings"
     values={[
         { label: 'list_source_share_synchronization_settings', value: 'list_source_share_synchronization_settings' },
-        { label: 'list_synchronization_details', value: 'list_synchronization_details' },
         { label: 'list_synchronizations', value: 'list_synchronizations' },
         { label: 'cancel_synchronization', value: 'cancel_synchronization' },
         { label: 'synchronize', value: 'synchronize' }
@@ -582,26 +704,6 @@ EXEC azure.datashare.share_subscriptions.list_source_share_synchronization_setti
 @share_subscription_name='{{ share_subscription_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @$skipToken='{{ $skipToken }}'
-;
-```
-</TabItem>
-<TabItem value="list_synchronization_details">
-
-List data set level details for a share subscription synchronization. List synchronization details.
-
-```sql
-EXEC azure.datashare.share_subscriptions.list_synchronization_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@account_name='{{ account_name }}' --required, 
-@share_subscription_name='{{ share_subscription_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$skipToken='{{ $skipToken }}', 
-@$filter='{{ $filter }}', 
-@$orderby='{{ $orderby }}' 
-@@json=
-'{
-"synchronizationId": "{{ synchronizationId }}"
-}'
 ;
 ```
 </TabItem>

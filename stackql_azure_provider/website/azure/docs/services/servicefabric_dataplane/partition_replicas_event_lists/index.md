@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_partition_replicas_event_list"><CopyableCode code="get_partition_replicas_event_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-EndTimeUtc"><code>EndTimeUtc</code></a>, <a href="#parameter-StartTimeUtc"><code>StartTimeUtc</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-EndTimeUtc"><code>EndTimeUtc</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-StartTimeUtc"><code>StartTimeUtc</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-EventsTypesFilter"><code>EventsTypesFilter</code></a>, <a href="#parameter-ExcludeAnalysisEvents"><code>ExcludeAnalysisEvents</code></a>, <a href="#parameter-SkipCorrelationLookup"><code>SkipCorrelationLookup</code></a></td>
     <td>Gets all Replicas-related events for a Partition. The response is list of ReplicaEvent objects.</td>
 </tr>
@@ -131,8 +131,8 @@ Gets all Replicas-related events for a Partition. The response is list of Replic
 ```sql
 EXEC azure.servicefabric_dataplane.partition_replicas_event_lists.get_partition_replicas_event_list 
 @EndTimeUtc='{{ EndTimeUtc }}' --required, 
-@StartTimeUtc='{{ StartTimeUtc }}' --required, 
 @partition_id='{{ partition_id }}' --required, 
+@StartTimeUtc='{{ StartTimeUtc }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}', 
 @EventsTypesFilter='{{ EventsTypesFilter }}', 

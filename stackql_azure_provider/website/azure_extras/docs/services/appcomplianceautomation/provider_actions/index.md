@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>provider_actions</code> resourc
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_in_use_storage_accounts"
+    values={[
+        { label: 'list_in_use_storage_accounts', value: 'list_in_use_storage_accounts' }
+    ]}
+>
+<TabItem value="list_in_use_storage_accounts">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="storageAccountList" /></td>
+    <td><code>array</code></td>
+    <td>The storage account list which in use in related reports.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_in_use_storage_accounts"><CopyableCode code="list_in_use_storage_accounts" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td></td>
     <td></td>
     <td>List the storage accounts which are in use by related reports.</td>
@@ -111,17 +135,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_in_use_storage_accounts"
     values={[
-        { label: 'list_in_use_storage_accounts', value: 'list_in_use_storage_accounts' },
-        { label: 'get_collection_count', value: 'get_collection_count' },
-        { label: 'get_overview_status', value: 'get_overview_status' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
-        { label: 'onboard', value: 'onboard' },
-        { label: 'trigger_evaluation', value: 'trigger_evaluation' }
+        { label: 'list_in_use_storage_accounts', value: 'list_in_use_storage_accounts' }
     ]}
 >
 <TabItem value="list_in_use_storage_accounts">
@@ -129,14 +148,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 List the storage accounts which are in use by related reports.
 
 ```sql
-EXEC azure_extras.appcomplianceautomation.provider_actions.list_in_use_storage_accounts 
-@@json=
-'{
-"subscriptionIds": "{{ subscriptionIds }}"
-}'
+SELECT
+storageAccountList
+FROM azure_extras.appcomplianceautomation.provider_actions
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="get_collection_count"
+    values={[
+        { label: 'get_collection_count', value: 'get_collection_count' },
+        { label: 'get_overview_status', value: 'get_overview_status' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
+        { label: 'onboard', value: 'onboard' },
+        { label: 'trigger_evaluation', value: 'trigger_evaluation' }
+    ]}
+>
 <TabItem value="get_collection_count">
 
 Get the count of reports.

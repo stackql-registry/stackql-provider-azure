@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_service_type_info_list"><CopyableCode code="get_service_type_info_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-ApplicationTypeVersion"><code>ApplicationTypeVersion</code></a>, <a href="#parameter-application_type_name"><code>application_type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-application_type_name"><code>application_type_name</code></a>, <a href="#parameter-ApplicationTypeVersion"><code>ApplicationTypeVersion</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the list containing the information about service types that are supported by a provisioned application type in a Service Fabric cluster. Gets the list containing the information about service types that are supported by a provisioned application type in a Service Fabric cluster. The provided application type must exist. Otherwise, a 404 status is returned.</td>
 </tr>
@@ -110,8 +110,8 @@ Gets the list containing the information about service types that are supported 
 
 ```sql
 EXEC azure.servicefabric_dataplane.service_type_info_lists.get_service_type_info_list 
-@ApplicationTypeVersion='{{ ApplicationTypeVersion }}' --required, 
 @application_type_name='{{ application_type_name }}' --required, 
+@ApplicationTypeVersion='{{ ApplicationTypeVersion }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'
 ;

@@ -33,13 +33,93 @@ Creates, updates, deletes, gets or lists a <code>sap_virtual_instances</code> re
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_sizing_recommendations"
     values={[
+        { label: 'get_sizing_recommendations', value: 'get_sizing_recommendations' },
+        { label: 'get_disk_configurations', value: 'get_disk_configurations' },
+        { label: 'get_sap_supported_sku', value: 'get_sap_supported_sku' },
+        { label: 'get_availability_zone_details', value: 'get_availability_zone_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="get_sizing_recommendations">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="deploymentType" /></td>
+    <td><code>string</code></td>
+    <td>The deployment type. Eg: SingleServer/ThreeTier. Required. Known values are: "SingleServer" and "ThreeTier".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_disk_configurations">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="volumeConfigurations" /></td>
+    <td><code>object</code></td>
+    <td>The disk configuration for the db volume. For HANA, Required volumes are: ['hana/data', 'hana/log', hana/shared', 'usr/sap', 'os'], Optional volume : ['backup'].</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_sap_supported_sku">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="supportedSkus" /></td>
+    <td><code>array</code></td>
+    <td>Gets the list of SAP supported SKUs.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_availability_zone_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="availabilityZonePairs" /></td>
+    <td><code>array</code></td>
+    <td>Gets the list of availability zone pairs.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -355,6 +435,34 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_sizing_recommendations"><CopyableCode code="get_sizing_recommendations" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the sizing recommendations.</td>
+</tr>
+<tr>
+    <td><a href="#get_disk_configurations"><CopyableCode code="get_disk_configurations" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get the SAP Disk Configuration Layout prod/non-prod SAP System.</td>
+</tr>
+<tr>
+    <td><a href="#get_sap_supported_sku"><CopyableCode code="get_sap_supported_sku" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get a list of SAP supported SKUs for ASCS, Application and Database tier.</td>
+</tr>
+<tr>
+    <td><a href="#get_availability_zone_details"><CopyableCode code="get_availability_zone_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get the recommended SAP Availability Zone Pair Details for your region.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-sap_virtual_instance_name"><code>sap_virtual_instance_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -395,34 +503,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-sap_virtual_instance_name"><code>sap_virtual_instance_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a Virtual Instance for SAP solutions resource and its child resources, that is the associated Central Services Instance, Application Server Instances and Database Instance.</td>
-</tr>
-<tr>
-    <td><a href="#get_sizing_recommendations"><CopyableCode code="get_sizing_recommendations" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-appLocation"><code>appLocation</code></a>, <a href="#parameter-environment"><code>environment</code></a>, <a href="#parameter-sapProduct"><code>sapProduct</code></a>, <a href="#parameter-deploymentType"><code>deploymentType</code></a>, <a href="#parameter-saps"><code>saps</code></a>, <a href="#parameter-dbMemory"><code>dbMemory</code></a>, <a href="#parameter-databaseType"><code>databaseType</code></a></td>
-    <td></td>
-    <td>Gets the sizing recommendations.</td>
-</tr>
-<tr>
-    <td><a href="#get_sap_supported_sku"><CopyableCode code="get_sap_supported_sku" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-appLocation"><code>appLocation</code></a>, <a href="#parameter-environment"><code>environment</code></a>, <a href="#parameter-sapProduct"><code>sapProduct</code></a>, <a href="#parameter-deploymentType"><code>deploymentType</code></a>, <a href="#parameter-databaseType"><code>databaseType</code></a></td>
-    <td></td>
-    <td>Get a list of SAP supported SKUs for ASCS, Application and Database tier.</td>
-</tr>
-<tr>
-    <td><a href="#get_disk_configurations"><CopyableCode code="get_disk_configurations" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-appLocation"><code>appLocation</code></a>, <a href="#parameter-environment"><code>environment</code></a>, <a href="#parameter-sapProduct"><code>sapProduct</code></a>, <a href="#parameter-databaseType"><code>databaseType</code></a>, <a href="#parameter-deploymentType"><code>deploymentType</code></a>, <a href="#parameter-dbVmSku"><code>dbVmSku</code></a></td>
-    <td></td>
-    <td>Get the SAP Disk Configuration Layout prod/non-prod SAP System.</td>
-</tr>
-<tr>
-    <td><a href="#get_availability_zone_details"><CopyableCode code="get_availability_zone_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-appLocation"><code>appLocation</code></a>, <a href="#parameter-sapProduct"><code>sapProduct</code></a>, <a href="#parameter-databaseType"><code>databaseType</code></a></td>
-    <td></td>
-    <td>Get the recommended SAP Availability Zone Pair Details for your region.</td>
 </tr>
 <tr>
     <td><a href="#start"><CopyableCode code="start" /></a></td>
@@ -480,13 +560,69 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_sizing_recommendations"
     values={[
+        { label: 'get_sizing_recommendations', value: 'get_sizing_recommendations' },
+        { label: 'get_disk_configurations', value: 'get_disk_configurations' },
+        { label: 'get_sap_supported_sku', value: 'get_sap_supported_sku' },
+        { label: 'get_availability_zone_details', value: 'get_availability_zone_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="get_sizing_recommendations">
+
+Gets the sizing recommendations.
+
+```sql
+SELECT
+deploymentType
+FROM azure_isv.workloadssapvirtualinstance.sap_virtual_instances
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_disk_configurations">
+
+Get the SAP Disk Configuration Layout prod/non-prod SAP System.
+
+```sql
+SELECT
+volumeConfigurations
+FROM azure_isv.workloadssapvirtualinstance.sap_virtual_instances
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_sap_supported_sku">
+
+Get a list of SAP supported SKUs for ASCS, Application and Database tier.
+
+```sql
+SELECT
+supportedSkus
+FROM azure_isv.workloadssapvirtualinstance.sap_virtual_instances
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_availability_zone_details">
+
+Get the recommended SAP Availability Zone Pair Details for your region.
+
+```sql
+SELECT
+availabilityZonePairs
+FROM azure_isv.workloadssapvirtualinstance.sap_virtual_instances
+WHERE location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets a Virtual Instance for SAP solutions resource.
@@ -739,96 +875,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_sizing_recommendations"
+    defaultValue="start"
     values={[
-        { label: 'get_sizing_recommendations', value: 'get_sizing_recommendations' },
-        { label: 'get_sap_supported_sku', value: 'get_sap_supported_sku' },
-        { label: 'get_disk_configurations', value: 'get_disk_configurations' },
-        { label: 'get_availability_zone_details', value: 'get_availability_zone_details' },
         { label: 'start', value: 'start' },
         { label: 'stop', value: 'stop' }
     ]}
 >
-<TabItem value="get_sizing_recommendations">
-
-Gets the sizing recommendations.
-
-```sql
-EXEC azure_isv.workloadssapvirtualinstance.sap_virtual_instances.get_sizing_recommendations 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"appLocation": "{{ appLocation }}", 
-"environment": "{{ environment }}", 
-"sapProduct": "{{ sapProduct }}", 
-"deploymentType": "{{ deploymentType }}", 
-"saps": {{ saps }}, 
-"dbMemory": {{ dbMemory }}, 
-"databaseType": "{{ databaseType }}", 
-"dbScaleMethod": "{{ dbScaleMethod }}", 
-"highAvailabilityType": "{{ highAvailabilityType }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_sap_supported_sku">
-
-Get a list of SAP supported SKUs for ASCS, Application and Database tier.
-
-```sql
-EXEC azure_isv.workloadssapvirtualinstance.sap_virtual_instances.get_sap_supported_sku 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"appLocation": "{{ appLocation }}", 
-"environment": "{{ environment }}", 
-"sapProduct": "{{ sapProduct }}", 
-"deploymentType": "{{ deploymentType }}", 
-"databaseType": "{{ databaseType }}", 
-"highAvailabilityType": "{{ highAvailabilityType }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_disk_configurations">
-
-Get the SAP Disk Configuration Layout prod/non-prod SAP System.
-
-```sql
-EXEC azure_isv.workloadssapvirtualinstance.sap_virtual_instances.get_disk_configurations 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"appLocation": "{{ appLocation }}", 
-"environment": "{{ environment }}", 
-"sapProduct": "{{ sapProduct }}", 
-"databaseType": "{{ databaseType }}", 
-"deploymentType": "{{ deploymentType }}", 
-"dbVmSku": "{{ dbVmSku }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_availability_zone_details">
-
-Get the recommended SAP Availability Zone Pair Details for your region.
-
-```sql
-EXEC azure_isv.workloadssapvirtualinstance.sap_virtual_instances.get_availability_zone_details 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"appLocation": "{{ appLocation }}", 
-"sapProduct": "{{ sapProduct }}", 
-"databaseType": "{{ databaseType }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="start">
 
 Starts the SAP application, that is the Central Services instance and Application server instances.

@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>schema_groups</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_schema_groups"
+    values={[
+        { label: 'list_schema_groups', value: 'list_schema_groups' }
+    ]}
+>
+<TabItem value="list_schema_groups">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_schema_groups"><CopyableCode code="list_schema_groups" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-fully_qualified_namespace"><code>fully_qualified_namespace</code></a></td>
     <td></td>
     <td>Get list of schema groups. Gets the list of schema groups user is authorized to access.</td>
@@ -81,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_schema_groups"
@@ -94,8 +118,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get list of schema groups. Gets the list of schema groups user is authorized to access.
 
 ```sql
-EXEC azure.schemaregistry.schema_groups.list_schema_groups 
-@fully_qualified_namespace='{{ fully_qualified_namespace }}' --required
+SELECT
+value
+FROM azure.schemaregistry.schema_groups
+WHERE fully_qualified_namespace = '{{ fully_qualified_namespace }}' -- required
 ;
 ```
 </TabItem>

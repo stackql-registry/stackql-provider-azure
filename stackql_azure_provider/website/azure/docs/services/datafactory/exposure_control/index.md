@@ -32,8 +32,82 @@ Creates, updates, deletes, gets or lists an <code>exposure_control</code> resour
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query_feature_values_by_factory"
+    values={[
+        { label: 'query_feature_values_by_factory', value: 'query_feature_values_by_factory' },
+        { label: 'get_feature_value_by_factory', value: 'get_feature_value_by_factory' },
+        { label: 'get_feature_value', value: 'get_feature_value' }
+    ]}
+>
+<TabItem value="query_feature_values_by_factory">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="exposureControlResponses" /></td>
+    <td><code>array</code></td>
+    <td>List of exposure control feature values. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_feature_value_by_factory">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="featureName" /></td>
+    <td><code>string</code></td>
+    <td>The feature name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td>The feature value.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_feature_value">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="featureName" /></td>
+    <td><code>string</code></td>
+    <td>The feature name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td>The feature value.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,25 +125,25 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#query_feature_values_by_factory"><CopyableCode code="query_feature_values_by_factory" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get list of exposure control features for specific factory.</td>
+</tr>
+<tr>
     <td><a href="#get_feature_value_by_factory"><CopyableCode code="get_feature_value_by_factory" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get exposure control feature for specific factory.</td>
 </tr>
 <tr>
     <td><a href="#get_feature_value"><CopyableCode code="get_feature_value" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-location_id"><code>location_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get exposure control feature for specific location.</td>
-</tr>
-<tr>
-    <td><a href="#query_feature_values_by_factory"><CopyableCode code="query_feature_values_by_factory" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-exposureControlRequests"><code>exposureControlRequests</code></a></td>
-    <td></td>
-    <td>Get list of exposure control features for specific factory.</td>
 </tr>
 </tbody>
 </table>
@@ -110,30 +184,42 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_feature_value_by_factory"
+    defaultValue="query_feature_values_by_factory"
     values={[
+        { label: 'query_feature_values_by_factory', value: 'query_feature_values_by_factory' },
         { label: 'get_feature_value_by_factory', value: 'get_feature_value_by_factory' },
-        { label: 'get_feature_value', value: 'get_feature_value' },
-        { label: 'query_feature_values_by_factory', value: 'query_feature_values_by_factory' }
+        { label: 'get_feature_value', value: 'get_feature_value' }
     ]}
 >
+<TabItem value="query_feature_values_by_factory">
+
+Get list of exposure control features for specific factory.
+
+```sql
+SELECT
+exposureControlResponses
+FROM azure.datafactory.exposure_control
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_feature_value_by_factory">
 
 Get exposure control feature for specific factory.
 
 ```sql
-EXEC azure.datafactory.exposure_control.get_feature_value_by_factory 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"featureName": "{{ featureName }}", 
-"featureType": "{{ featureType }}"
-}'
+SELECT
+featureName,
+value
+FROM azure.datafactory.exposure_control
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -142,30 +228,12 @@ EXEC azure.datafactory.exposure_control.get_feature_value_by_factory
 Get exposure control feature for specific location.
 
 ```sql
-EXEC azure.datafactory.exposure_control.get_feature_value 
-@location_id='{{ location_id }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"featureName": "{{ featureName }}", 
-"featureType": "{{ featureType }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="query_feature_values_by_factory">
-
-Get list of exposure control features for specific factory.
-
-```sql
-EXEC azure.datafactory.exposure_control.query_feature_values_by_factory 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"exposureControlRequests": "{{ exposureControlRequests }}"
-}'
+SELECT
+featureName,
+value
+FROM azure.datafactory.exposure_control
+WHERE location_id = '{{ location_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

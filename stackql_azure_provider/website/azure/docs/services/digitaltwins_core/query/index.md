@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>query</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query_twins"
+    values={[
+        { label: 'query_twins', value: 'query_twins' }
+    ]}
+>
+<TabItem value="query_twins">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="continuationToken" /></td>
+    <td><code>string</code></td>
+    <td>A token which can be used to construct a new QuerySpecification to retrieve the next set of results.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>The query results. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +81,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#query_twins"><CopyableCode code="query_twins" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-traceparent"><code>traceparent</code></a>, <a href="#parameter-tracestate"><code>tracestate</code></a>, <a href="#parameter-max-items-per-page"><code>max-items-per-page</code></a></td>
     <td>Executes a query that allows traversing relationships and filtering by property values. Status codes: * 200 OK * 400 Bad Request * BadRequest - The continuation token is invalid. * SqlQueryError - The query contains some errors. * TimeoutError - The query execution timed out after 60 seconds. Try simplifying the query or adding conditions to reduce the result size. * 429 Too Many Requests * QuotaReachedError - The maximum query rate limit has been reached.</td>
@@ -96,7 +125,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="query_twins"
@@ -109,16 +138,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Executes a query that allows traversing relationships and filtering by property values. Status codes: * 200 OK * 400 Bad Request * BadRequest - The continuation token is invalid. * SqlQueryError - The query contains some errors. * TimeoutError - The query execution timed out after 60 seconds. Try simplifying the query or adding conditions to reduce the result size. * 429 Too Many Requests * QuotaReachedError - The maximum query rate limit has been reached.
 
 ```sql
-EXEC azure.digitaltwins_core.query.query_twins 
-@endpoint='{{ endpoint }}' --required, 
-@traceparent='{{ traceparent }}', 
-@tracestate='{{ tracestate }}', 
-@max-items-per-page='{{ max-items-per-page }}' 
-@@json=
-'{
-"query": "{{ query }}", 
-"continuationToken": "{{ continuationToken }}"
-}'
+SELECT
+continuationToken,
+value
+FROM azure.digitaltwins_core.query
+WHERE endpoint = '{{ endpoint }}' -- required
+AND traceparent = '{{ traceparent }}'
+AND tracestate = '{{ tracestate }}'
+AND max-items-per-page = '{{ max-items-per-page }}'
 ;
 ```
 </TabItem>

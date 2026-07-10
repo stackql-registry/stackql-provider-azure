@@ -33,12 +33,37 @@ Creates, updates, deletes, gets or lists an <code>entities</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_insights"
     values={[
+        { label: 'get_insights', value: 'get_insights' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_insights">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="metaData" /></td>
+    <td><code>object</code></td>
+    <td>The metadata from the get insights operation results.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>The insights result values.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -135,6 +160,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_insights"><CopyableCode code="get_insights" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-entity_id"><code>entity_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Execute Insights for an entity.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-entity_id"><code>entity_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -147,13 +179,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets all entities.</td>
-</tr>
-<tr>
-    <td><a href="#get_insights"><CopyableCode code="get_insights" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-entity_id"><code>entity_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-startTime"><code>startTime</code></a>, <a href="#parameter-endTime"><code>endTime</code></a></td>
-    <td></td>
-    <td>Execute Insights for an entity.</td>
 </tr>
 <tr>
     <td><a href="#run_playbook"><CopyableCode code="run_playbook" /></a></td>
@@ -228,12 +253,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_insights"
     values={[
+        { label: 'get_insights', value: 'get_insights' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_insights">
+
+Execute Insights for an entity.
+
+```sql
+SELECT
+metaData,
+value
+FROM azure.securityinsight.entities
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND entity_id = '{{ entity_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets an entity.
@@ -277,34 +319,13 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_insights"
+    defaultValue="run_playbook"
     values={[
-        { label: 'get_insights', value: 'get_insights' },
         { label: 'run_playbook', value: 'run_playbook' },
         { label: 'expand', value: 'expand' },
         { label: 'queries', value: 'queries' }
     ]}
 >
-<TabItem value="get_insights">
-
-Execute Insights for an entity.
-
-```sql
-EXEC azure.securityinsight.entities.get_insights 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@entity_id='{{ entity_id }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"startTime": "{{ startTime }}", 
-"endTime": "{{ endTime }}", 
-"addDefaultExtendedTimeRange": {{ addDefaultExtendedTimeRange }}, 
-"insightQueryIds": "{{ insightQueryIds }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="run_playbook">
 
 Triggers playbook on a specific entity.

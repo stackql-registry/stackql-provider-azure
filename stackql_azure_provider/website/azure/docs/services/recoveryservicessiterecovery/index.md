@@ -55,7 +55,7 @@ total resources: __31__
 <a href="/services/recoveryservicessiterecovery/replication_storage_classifications/">replication_storage_classifications</a><br />
 <a href="/services/recoveryservicessiterecovery/replication_vault_health/">replication_vault_health</a><br />
 <a href="/services/recoveryservicessiterecovery/replication_vault_setting/">replication_vault_setting</a><br />
-<a href="/services/recoveryservicessiterecovery/replicationv_centers/">replicationv_centers</a><br />
+<a href="/services/recoveryservicessiterecovery/replication_vcenters/">replication_vcenters</a><br />
 <a href="/services/recoveryservicessiterecovery/supported_operating_systems/">supported_operating_systems</a><br />
 <a href="/services/recoveryservicessiterecovery/target_compute_sizes/">target_compute_sizes</a>
 </div>

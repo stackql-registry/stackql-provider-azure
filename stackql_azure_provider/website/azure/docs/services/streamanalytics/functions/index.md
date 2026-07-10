@@ -33,12 +33,52 @@ Creates, updates, deletes, gets or lists a <code>functions</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="retrieve_default_definition"
     values={[
+        { label: 'retrieve_default_definition', value: 'retrieve_default_definition' },
         { label: 'get', value: 'get' },
         { label: 'list_by_streaming_job', value: 'list_by_streaming_job' }
     ]}
 >
+<TabItem value="retrieve_default_definition">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="etag" /></td>
+    <td><code>string</code></td>
+    <td>The current entity tag for the function. This is an opaque string. You can use it to detect whether the resource has changed between requests. You can also use it in the If-Match or If-None-Match headers for write operations for optimistic concurrency.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td></td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -135,6 +175,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#retrieve_default_definition"><CopyableCode code="retrieve_default_definition" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-job_name"><code>job_name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieves the default definition of a function based on the parameters specified.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-job_name"><code>job_name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -182,13 +229,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-job_name"><code>job_name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Tests if the information provided for a function is valid. This can range from testing the connection to the underlying web service behind the function or making sure the function code provided is syntactically correct.</td>
-</tr>
-<tr>
-    <td><a href="#retrieve_default_definition"><CopyableCode code="retrieve_default_definition" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-job_name"><code>job_name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-bindingType"><code>bindingType</code></a></td>
-    <td></td>
-    <td>Retrieves the default definition of a function based on the parameters specified.</td>
 </tr>
 </tbody>
 </table>
@@ -247,12 +287,32 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="retrieve_default_definition"
     values={[
+        { label: 'retrieve_default_definition', value: 'retrieve_default_definition' },
         { label: 'get', value: 'get' },
         { label: 'list_by_streaming_job', value: 'list_by_streaming_job' }
     ]}
 >
+<TabItem value="retrieve_default_definition">
+
+Retrieves the default definition of a function based on the parameters specified.
+
+```sql
+SELECT
+id,
+name,
+etag,
+properties,
+type
+FROM azure.streamanalytics.functions
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND job_name = '{{ job_name }}' -- required
+AND function_name = '{{ function_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets details about the specified function.
@@ -480,8 +540,7 @@ AND subscription_id = '{{ subscription_id }}' --required
 <Tabs
     defaultValue="test"
     values={[
-        { label: 'test', value: 'test' },
-        { label: 'retrieve_default_definition', value: 'retrieve_default_definition' }
+        { label: 'test', value: 'test' }
     ]}
 >
 <TabItem value="test">
@@ -498,23 +557,6 @@ EXEC azure.streamanalytics.functions.test
 '{
 "name": "{{ name }}", 
 "properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="retrieve_default_definition">
-
-Retrieves the default definition of a function based on the parameters specified.
-
-```sql
-EXEC azure.streamanalytics.functions.retrieve_default_definition 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@job_name='{{ job_name }}' --required, 
-@function_name='{{ function_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"bindingType": "{{ bindingType }}"
 }'
 ;
 ```

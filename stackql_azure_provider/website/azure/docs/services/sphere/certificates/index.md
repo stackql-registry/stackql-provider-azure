@@ -33,12 +33,62 @@ Creates, updates, deletes, gets or lists a <code>certificates</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="retrieve_proof_of_possession_nonce"
     values={[
+        { label: 'retrieve_proof_of_possession_nonce', value: 'retrieve_proof_of_possession_nonce' },
         { label: 'get', value: 'get' },
         { label: 'list_by_catalog', value: 'list_by_catalog' }
     ]}
 >
+<TabItem value="retrieve_proof_of_possession_nonce">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="certificate" /></td>
+    <td><code>string</code></td>
+    <td>The certificate as a UTF-8 encoded base 64 string.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="expiryUtc" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The certificate expiry date.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="notBeforeUtc" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The certificate not before date.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning", "Updating", "Deleting", and "Accepted".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The certificate status. Known values are: "Active", "Inactive", "Expired", and "Revoked".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="subject" /></td>
+    <td><code>string</code></td>
+    <td>The certificate subject.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="thumbprint" /></td>
+    <td><code>string</code></td>
+    <td>The certificate thumbprint.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -195,6 +245,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#retrieve_proof_of_possession_nonce"><CopyableCode code="retrieve_proof_of_possession_nonce" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-catalog_name"><code>catalog_name</code></a>, <a href="#parameter-serial_number"><code>serial_number</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the proof of possession nonce.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-catalog_name"><code>catalog_name</code></a>, <a href="#parameter-serial_number"><code>serial_number</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -214,13 +271,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-catalog_name"><code>catalog_name</code></a>, <a href="#parameter-serial_number"><code>serial_number</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves cert chain.</td>
-</tr>
-<tr>
-    <td><a href="#retrieve_proof_of_possession_nonce"><CopyableCode code="retrieve_proof_of_possession_nonce" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-catalog_name"><code>catalog_name</code></a>, <a href="#parameter-serial_number"><code>serial_number</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-proofOfPossessionNonce"><code>proofOfPossessionNonce</code></a></td>
-    <td></td>
-    <td>Gets the proof of possession nonce.</td>
 </tr>
 </tbody>
 </table>
@@ -284,12 +334,34 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="retrieve_proof_of_possession_nonce"
     values={[
+        { label: 'retrieve_proof_of_possession_nonce', value: 'retrieve_proof_of_possession_nonce' },
         { label: 'get', value: 'get' },
         { label: 'list_by_catalog', value: 'list_by_catalog' }
     ]}
 >
+<TabItem value="retrieve_proof_of_possession_nonce">
+
+Gets the proof of possession nonce.
+
+```sql
+SELECT
+certificate,
+expiryUtc,
+notBeforeUtc,
+provisioningState,
+status,
+subject,
+thumbprint
+FROM azure.sphere.certificates
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND catalog_name = '{{ catalog_name }}' -- required
+AND serial_number = '{{ serial_number }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get a Certificate.
@@ -351,8 +423,7 @@ AND $maxpagesize = '{{ $maxpagesize }}'
 <Tabs
     defaultValue="retrieve_cert_chain"
     values={[
-        { label: 'retrieve_cert_chain', value: 'retrieve_cert_chain' },
-        { label: 'retrieve_proof_of_possession_nonce', value: 'retrieve_proof_of_possession_nonce' }
+        { label: 'retrieve_cert_chain', value: 'retrieve_cert_chain' }
     ]}
 >
 <TabItem value="retrieve_cert_chain">
@@ -365,23 +436,6 @@ EXEC azure.sphere.certificates.retrieve_cert_chain
 @catalog_name='{{ catalog_name }}' --required, 
 @serial_number='{{ serial_number }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="retrieve_proof_of_possession_nonce">
-
-Gets the proof of possession nonce.
-
-```sql
-EXEC azure.sphere.certificates.retrieve_proof_of_possession_nonce 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@catalog_name='{{ catalog_name }}' --required, 
-@serial_number='{{ serial_number }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"proofOfPossessionNonce": "{{ proofOfPossessionNonce }}"
-}'
 ;
 ```
 </TabItem>

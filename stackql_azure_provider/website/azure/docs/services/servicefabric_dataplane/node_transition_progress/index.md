@@ -82,7 +82,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_node_transition_progress"><CopyableCode code="get_node_transition_progress" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-OperationId"><code>OperationId</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the progress of an operation started using StartNodeTransition. Gets the progress of an operation started with StartNodeTransition using the provided OperationId.</td>
 </tr>
@@ -142,8 +142,8 @@ SELECT
 NodeTransitionResult,
 State
 FROM azure.servicefabric_dataplane.node_transition_progress
-WHERE OperationId = '{{ OperationId }}' -- required
-AND node_name = '{{ node_name }}' -- required
+WHERE node_name = '{{ node_name }}' -- required
+AND OperationId = '{{ OperationId }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

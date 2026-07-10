@@ -32,8 +32,72 @@ Creates, updates, deletes, gets or lists a <code>data_flow_debug_session</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query_by_factory"
+    values={[
+        { label: 'query_by_factory', value: 'query_by_factory' }
+    ]}
+>
+<TabItem value="query_by_factory">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="computeType" /></td>
+    <td><code>string</code></td>
+    <td>Compute type of the cluster.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="coreCount" /></td>
+    <td><code>integer</code></td>
+    <td>Core count of the cluster.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataFlowName" /></td>
+    <td><code>string</code></td>
+    <td>The name of the data flow.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="integrationRuntimeName" /></td>
+    <td><code>string</code></td>
+    <td>Attached integration runtime name of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastActivityTime" /></td>
+    <td><code>string</code></td>
+    <td>Last activity time of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nodeCount" /></td>
+    <td><code>integer</code></td>
+    <td>Node count of the cluster. (deprecated property).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sessionId" /></td>
+    <td><code>string</code></td>
+    <td>The ID of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string</code></td>
+    <td>Start time of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="timeToLiveInMinutes" /></td>
+    <td><code>integer</code></td>
+    <td>Compute type of the cluster.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,6 +115,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#query_by_factory"><CopyableCode code="query_by_factory" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Query all active data flow debug sessions.</td>
+</tr>
+<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -63,13 +134,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a data flow debug session.</td>
-</tr>
-<tr>
-    <td><a href="#query_by_factory"><CopyableCode code="query_by_factory" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-factory_name"><code>factory_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Query all active data flow debug sessions.</td>
 </tr>
 <tr>
     <td><a href="#add_data_flow"><CopyableCode code="add_data_flow" /></a></td>
@@ -118,6 +182,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tr>
 </tbody>
 </table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="query_by_factory"
+    values={[
+        { label: 'query_by_factory', value: 'query_by_factory' }
+    ]}
+>
+<TabItem value="query_by_factory">
+
+Query all active data flow debug sessions.
+
+```sql
+SELECT
+computeType,
+coreCount,
+dataFlowName,
+integrationRuntimeName,
+lastActivityTime,
+nodeCount,
+sessionId,
+startTime,
+timeToLiveInMinutes
+FROM azure.datafactory.data_flow_debug_session
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND factory_name = '{{ factory_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
 
 ## `INSERT` examples
 
@@ -222,25 +319,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="query_by_factory"
+    defaultValue="add_data_flow"
     values={[
-        { label: 'query_by_factory', value: 'query_by_factory' },
         { label: 'add_data_flow', value: 'add_data_flow' },
         { label: 'execute_command', value: 'execute_command' }
     ]}
 >
-<TabItem value="query_by_factory">
-
-Query all active data flow debug sessions.
-
-```sql
-EXEC azure.datafactory.data_flow_debug_session.query_by_factory 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@factory_name='{{ factory_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="add_data_flow">
 
 Add a data flow into debug session.

@@ -147,14 +147,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_service_replica_detail_info"><CopyableCode code="get_deployed_service_replica_detail_info" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-replica_id"><code>replica_id</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the details of replica deployed on a Service Fabric node. Gets the details of the replica deployed on a Service Fabric node. The information includes service kind, service name, current service operation, current service operation start date time, partition ID, replica/instance ID, reported load, and other information.</td>
 </tr>
 <tr>
     <td><a href="#get_deployed_service_replica_detail_info_by_partition_id"><CopyableCode code="get_deployed_service_replica_detail_info_by_partition_id" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-partition_id"><code>partition_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the details of replica deployed on a Service Fabric node. Gets the details of the replica deployed on a Service Fabric node. The information includes service kind, service name, current service operation, current service operation start date time, partition ID, replica/instance ID, reported load, and other information.</td>
 </tr>
@@ -225,8 +225,8 @@ ServiceKind,
 ServiceName
 FROM azure.servicefabric_dataplane.deployed_service_replica_detail_infos
 WHERE replica_id = '{{ replica_id }}' -- required
-AND node_name = '{{ node_name }}' -- required
 AND partition_id = '{{ partition_id }}' -- required
+AND node_name = '{{ node_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;
@@ -245,8 +245,8 @@ ReportedLoad,
 ServiceKind,
 ServiceName
 FROM azure.servicefabric_dataplane.deployed_service_replica_detail_infos
-WHERE node_name = '{{ node_name }}' -- required
-AND partition_id = '{{ partition_id }}' -- required
+WHERE partition_id = '{{ partition_id }}' -- required
+AND node_name = '{{ node_name }}' -- required
 AND endpoint = '{{ endpoint }}' -- required
 AND timeout = '{{ timeout }}'
 ;

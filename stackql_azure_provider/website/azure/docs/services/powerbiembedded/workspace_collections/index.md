@@ -37,6 +37,7 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get_by_name', value: 'get_by_name' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -134,6 +135,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>Resource type.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Specifies a Boolean value that indicates whether the specified Power BI Workspace Collection name is available to use.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Reason why the workspace collection name cannot be used. Known values are: "Unavailable" and "Invalid".</td>
 </tr>
 </tbody>
 </table>
@@ -219,6 +249,13 @@ The following methods are available for this resource:
     <td>Retrieves all existing Power BI workspace collections in the specified resource group.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Verify the specified Power BI Workspace Collection name is valid and not already in use.</td>
+</tr>
+<tr>
     <td><a href="#list_by_subscription"><CopyableCode code="list_by_subscription" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -252,13 +289,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_collection_name"><code>workspace_collection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Retrieves the primary and secondary access keys for the specified Power BI Workspace Collection.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Verify the specified Power BI Workspace Collection name is valid and not already in use.</td>
 </tr>
 <tr>
     <td><a href="#regenerate_key"><CopyableCode code="regenerate_key" /></a></td>
@@ -320,6 +350,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get_by_name', value: 'get_by_name' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
@@ -358,6 +389,21 @@ tags,
 type
 FROM azure.powerbiembedded.workspace_collections
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Verify the specified Power BI Workspace Collection name is valid and not already in use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.powerbiembedded.workspace_collections
+WHERE location = '{{ location }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -520,7 +566,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="get_access_keys"
     values={[
         { label: 'get_access_keys', value: 'get_access_keys' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'regenerate_key', value: 'regenerate_key' },
         { label: 'migrate', value: 'migrate' }
     ]}
@@ -534,22 +579,6 @@ EXEC azure.powerbiembedded.workspace_collections.get_access_keys
 @resource_group_name='{{ resource_group_name }}' --required, 
 @workspace_collection_name='{{ workspace_collection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Verify the specified Power BI Workspace Collection name is valid and not already in use.
-
-```sql
-EXEC azure.powerbiembedded.workspace_collections.check_name_availability 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

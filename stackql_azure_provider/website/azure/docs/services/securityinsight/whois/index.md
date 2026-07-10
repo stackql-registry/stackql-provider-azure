@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>whois</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_whois_by_domain"
+    values={[
+        { label: 'list_whois_by_domain', value: 'list_whois_by_domain' }
+    ]}
+>
+<TabItem value="list_whois_by_domain">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="created" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The timestamp at which this record was created.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="domain" /></td>
+    <td><code>string</code></td>
+    <td>The domain for this whois record.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="expires" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The timestamp at which this record will expire.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="parsedWhois" /></td>
+    <td><code>object</code></td>
+    <td>The whois record for a given domain.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="server" /></td>
+    <td><code>string</code></td>
+    <td>The hostname of this registrar's whois server.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="updated" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The timestamp at which this record was last updated.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +101,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_whois_by_domain"><CopyableCode code="list_whois_by_domain" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-enrichment_type"><code>enrichment_type</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get whois information for a single domain name.</td>
@@ -96,7 +145,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_whois_by_domain"
@@ -109,15 +158,18 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get whois information for a single domain name.
 
 ```sql
-EXEC azure.securityinsight.whois.list_whois_by_domain 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@enrichment_type='{{ enrichment_type }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"domain": "{{ domain }}"
-}'
+SELECT
+created,
+domain,
+expires,
+parsedWhois,
+server,
+updated
+FROM azure.securityinsight.whois
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND enrichment_type = '{{ enrichment_type }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

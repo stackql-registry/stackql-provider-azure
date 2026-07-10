@@ -32,8 +32,77 @@ Creates, updates, deletes, gets or lists a <code>recovery_points_recommended_for
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="eTag" /></td>
+    <td><code>string</code></td>
+    <td>Optional ETag.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="location" /></td>
+    <td><code>string</code></td>
+    <td>The geo-location where the resource lives.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="objectType" /></td>
+    <td><code>string</code></td>
+    <td>This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. Required. Default value is None.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="tags" /></td>
+    <td><code>object</code></td>
+    <td>Resource tags.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="threatInfo" /></td>
+    <td><code>array</code></td>
+    <td>Recovery point threat information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="threatStatus" /></td>
+    <td><code>string</code></td>
+    <td>Threat status of the recovery point. Known values are: "Unknown", "Healthy", "UnHealthy", "Warning", and "NotAvailable". (Unknown, Healthy, UnHealthy, Warning, NotAvailable)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +120,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-vault_name"><code>vault_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-fabric_name"><code>fabric_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-protected_item_name"><code>protected_item_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Lists the recovery points recommended for move to another tier.</td>
@@ -106,31 +175,37 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Lists the recovery points recommended for move to another tier.
 
 ```sql
-EXEC azure.recoveryservicesbackup.recovery_points_recommended_for_move.list_raw 
-@vault_name='{{ vault_name }}' --required, 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@fabric_name='{{ fabric_name }}' --required, 
-@container_name='{{ container_name }}' --required, 
-@protected_item_name='{{ protected_item_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"objectType": "{{ objectType }}", 
-"excludedRPList": "{{ excludedRPList }}"
-}'
+SELECT
+id,
+name,
+eTag,
+location,
+objectType,
+systemData,
+tags,
+threatInfo,
+threatStatus,
+type
+FROM azure.recoveryservicesbackup.recovery_points_recommended_for_move
+WHERE vault_name = '{{ vault_name }}' -- required
+AND resource_group_name = '{{ resource_group_name }}' -- required
+AND fabric_name = '{{ fabric_name }}' -- required
+AND container_name = '{{ container_name }}' -- required
+AND protected_item_name = '{{ protected_item_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

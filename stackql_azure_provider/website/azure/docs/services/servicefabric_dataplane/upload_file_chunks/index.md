@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#upload_file_chunk"><CopyableCode code="upload_file_chunk" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-content_path"><code>content_path</code></a>, <a href="#parameter-Content-Range"><code>Content-Range</code></a>, <a href="#parameter-session-id"><code>session-id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-session-id"><code>session-id</code></a>, <a href="#parameter-Content-Range"><code>Content-Range</code></a>, <a href="#parameter-content_path"><code>content_path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Uploads a file chunk to the image store relative path. Uploads a file chunk to the image store with the specified upload session ID and image store relative path. This API allows user to resume the file upload operation. user doesn't have to restart the file upload from scratch whenever there is a network interruption. Use this option if the file size is large. To perform a resumable file upload, user need to break the file into multiple chunks and upload these chunks to the image store one-by-one. Chunks don't have to be uploaded in order. If the file represented by the image store relative path already exists, it will be overwritten when the upload session commits.</td>
 </tr>
@@ -115,9 +115,9 @@ Uploads a file chunk to the image store relative path. Uploads a file chunk to t
 
 ```sql
 EXEC azure.servicefabric_dataplane.upload_file_chunks.upload_file_chunk 
-@content_path='{{ content_path }}' --required, 
-@Content-Range='{{ Content-Range }}' --required, 
 @session-id='{{ session-id }}' --required, 
+@Content-Range='{{ Content-Range }}' --required, 
+@content_path='{{ content_path }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @timeout='{{ timeout }}'
 ;

@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists an <code>answers</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_answers"
+    values={[
+        { label: 'get_answers', value: 'get_answers' }
+    ]}
+>
+<TabItem value="get_answers">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="answers" /></td>
+    <td><code>array</code></td>
+    <td>Represents Answer Result list.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_answers"><CopyableCode code="get_answers" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-projectName"><code>projectName</code></a>, <a href="#parameter-deploymentName"><code>deploymentName</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Answers the specified question using your knowledge base.</td>
@@ -91,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_answers"
@@ -104,24 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Answers the specified question using your knowledge base.
 
 ```sql
-EXEC azure.ai_language_questionanswering.answers.get_answers 
-@projectName='{{ projectName }}' --required, 
-@deploymentName='{{ deploymentName }}' --required, 
-@endpoint='{{ endpoint }}' --required 
-@@json=
-'{
-"qnaId": {{ qnaId }}, 
-"question": "{{ question }}", 
-"top": {{ top }}, 
-"userId": "{{ userId }}", 
-"confidenceScoreThreshold": {{ confidenceScoreThreshold }}, 
-"context": "{{ context }}", 
-"rankerType": "{{ rankerType }}", 
-"filters": "{{ filters }}", 
-"answerSpanRequest": "{{ answerSpanRequest }}", 
-"includeUnstructuredSources": {{ includeUnstructuredSources }}, 
-"queryPreferences": "{{ queryPreferences }}"
-}'
+SELECT
+answers
+FROM azure.ai_language_questionanswering.answers
+WHERE projectName = '{{ projectName }}' -- required
+AND deploymentName = '{{ deploymentName }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>

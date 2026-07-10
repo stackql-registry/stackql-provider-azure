@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists an <code>all_traffic_filters</code> res
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="rulesets" /></td>
+    <td><code>array</code></td>
+    <td>List of elastic traffic filters in the account.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +75,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control. List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control.</td>
@@ -91,23 +115,25 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control. List all traffic filters associated with your Elastic monitor resource, helping you manage network traffic control.
 
 ```sql
-EXEC azure_isv.elastic.all_traffic_filters.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+rulesets
+FROM azure_isv.elastic.all_traffic_filters
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

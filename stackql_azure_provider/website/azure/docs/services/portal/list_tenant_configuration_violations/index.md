@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>list_tenant_configuration_viola
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Id of the item that violates tenant configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="errorMessage" /></td>
+    <td><code>string</code></td>
+    <td>Error message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="userId" /></td>
+    <td><code>string</code></td>
+    <td>Id of the user who owns violated item.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +85,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td></td>
     <td></td>
     <td>Gets list of items that violate tenant's configuration.</td>
@@ -76,21 +110,24 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Gets list of items that violate tenant's configuration.
 
 ```sql
-EXEC azure.portal.list_tenant_configuration_violations.list_raw 
-
+SELECT
+id,
+errorMessage,
+userId
+FROM azure.portal.list_tenant_configuration_violations
 ;
 ```
 </TabItem>

@@ -32,8 +32,77 @@ Creates, updates, deletes, gets or lists a <code>billing_hub_service</code> reso
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_usage"
+    values={[
+        { label: 'get_usage', value: 'get_usage' },
+        { label: 'get_free_hour_balance', value: 'get_free_hour_balance' }
+    ]}
+>
+<TabItem value="get_usage">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="nextRequest" /></td>
+    <td><code>object</code></td>
+    <td>:vartype next_request: ~azure.mgmt.testbase.models.BillingHubGetUsageRequest</td>
+</tr>
+<tr>
+    <td><CopyableCode code="packageUsageEntries" /></td>
+    <td><code>array</code></td>
+    <td>:vartype package_usage_entries: list[~azure.mgmt.testbase.models.BillingHubPackageUsage]</td>
+</tr>
+<tr>
+    <td><CopyableCode code="totalCharges" /></td>
+    <td><code>number</code></td>
+    <td>:vartype total_charges: float</td>
+</tr>
+<tr>
+    <td><CopyableCode code="totalUsedBillableHours" /></td>
+    <td><code>number</code></td>
+    <td>:vartype total_used_billable_hours: float</td>
+</tr>
+<tr>
+    <td><CopyableCode code="totalUsedFreeHours" /></td>
+    <td><code>number</code></td>
+    <td>:vartype total_used_free_hours: float</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_free_hour_balance">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="incrementEntries" /></td>
+    <td><code>array</code></td>
+    <td>:vartype increment_entries: list[~azure.mgmt.testbase.models.BillingHubFreeHourIncrementEntry]</td>
+</tr>
+<tr>
+    <td><CopyableCode code="totalRemainingFreeHours" /></td>
+    <td><code>number</code></td>
+    <td>:vartype total_remaining_free_hours: float</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +120,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_usage"><CopyableCode code="get_usage" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>get_usage.</td>
+</tr>
+<tr>
     <td><a href="#get_free_hour_balance"><CopyableCode code="get_free_hour_balance" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>get_free_hour_balance.</td>
-</tr>
-<tr>
-    <td><a href="#get_usage"><CopyableCode code="get_usage" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-startTimeStamp"><code>startTimeStamp</code></a>, <a href="#parameter-endTimeStamp"><code>endTimeStamp</code></a></td>
-    <td></td>
-    <td>get_usage.</td>
 </tr>
 </tbody>
 </table>
@@ -98,43 +167,45 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_free_hour_balance"
+    defaultValue="get_usage"
     values={[
-        { label: 'get_free_hour_balance', value: 'get_free_hour_balance' },
-        { label: 'get_usage', value: 'get_usage' }
+        { label: 'get_usage', value: 'get_usage' },
+        { label: 'get_free_hour_balance', value: 'get_free_hour_balance' }
     ]}
 >
-<TabItem value="get_free_hour_balance">
-
-get_free_hour_balance.
-
-```sql
-EXEC azure_extras.testbase.billing_hub_service.get_free_hour_balance 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@test_base_account_name='{{ test_base_account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="get_usage">
 
 get_usage.
 
 ```sql
-EXEC azure_extras.testbase.billing_hub_service.get_usage 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@test_base_account_name='{{ test_base_account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"startTimeStamp": "{{ startTimeStamp }}", 
-"endTimeStamp": "{{ endTimeStamp }}", 
-"pageSize": {{ pageSize }}, 
-"pageIndex": {{ pageIndex }}
-}'
+SELECT
+nextRequest,
+packageUsageEntries,
+totalCharges,
+totalUsedBillableHours,
+totalUsedFreeHours
+FROM azure_extras.testbase.billing_hub_service
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND test_base_account_name = '{{ test_base_account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_free_hour_balance">
+
+get_free_hour_balance.
+
+```sql
+SELECT
+incrementEntries,
+totalRemainingFreeHours
+FROM azure_extras.testbase.billing_hub_service
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND test_base_account_name = '{{ test_base_account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

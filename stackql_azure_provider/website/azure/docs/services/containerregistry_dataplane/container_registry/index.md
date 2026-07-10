@@ -37,7 +37,8 @@ The following fields are returned by `SELECT` queries:
     values={[
         { label: 'get_manifest', value: 'get_manifest' },
         { label: 'get_manifest_properties', value: 'get_manifest_properties' },
-        { label: 'get_properties', value: 'get_properties' }
+        { label: 'get_properties', value: 'get_properties' },
+        { label: 'get_repositories', value: 'get_repositories' }
     ]}
 >
 <TabItem value="get_manifest">
@@ -192,6 +193,25 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="get_repositories">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 </Tabs>
 
 ## Methods
@@ -231,6 +251,13 @@ The following methods are available for this resource:
     <td>Get repository attributes.</td>
 </tr>
 <tr>
+    <td><a href="#get_repositories"><CopyableCode code="get_repositories" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-last"><code>last</code></a>, <a href="#parameter-n"><code>n</code></a></td>
+    <td>List repositories.</td>
+</tr>
+<tr>
     <td><a href="#create_manifest"><CopyableCode code="create_manifest" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -243,13 +270,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-reference"><code>reference</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete the manifest identified by `name` and `reference`. Note that a manifest can *only* be deleted by `digest`.</td>
-</tr>
-<tr>
-    <td><a href="#get_repositories"><CopyableCode code="get_repositories" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-last"><code>last</code></a>, <a href="#parameter-n"><code>n</code></a></td>
-    <td>List repositories.</td>
 </tr>
 <tr>
     <td><a href="#delete_repository"><CopyableCode code="delete_repository" /></a></td>
@@ -380,7 +400,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     values={[
         { label: 'get_manifest', value: 'get_manifest' },
         { label: 'get_manifest_properties', value: 'get_manifest_properties' },
-        { label: 'get_properties', value: 'get_properties' }
+        { label: 'get_properties', value: 'get_properties' },
+        { label: 'get_repositories', value: 'get_repositories' }
     ]}
 >
 <TabItem value="get_manifest">
@@ -443,6 +464,20 @@ AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
+<TabItem value="get_repositories">
+
+List repositories.
+
+```sql
+SELECT
+value
+FROM azure.containerregistry_dataplane.container_registry
+WHERE endpoint = '{{ endpoint }}' -- required
+AND last = '{{ last }}'
+AND n = '{{ n }}'
+;
+```
+</TabItem>
 </Tabs>
 
 
@@ -453,7 +488,6 @@ AND endpoint = '{{ endpoint }}' -- required
     values={[
         { label: 'create_manifest', value: 'create_manifest' },
         { label: 'delete_manifest', value: 'delete_manifest' },
-        { label: 'get_repositories', value: 'get_repositories' },
         { label: 'delete_repository', value: 'delete_repository' },
         { label: 'update_properties', value: 'update_properties' },
         { label: 'get_tags', value: 'get_tags' },
@@ -490,18 +524,6 @@ EXEC azure.containerregistry_dataplane.container_registry.delete_manifest
 @name='{{ name }}' --required, 
 @reference='{{ reference }}' --required, 
 @endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_repositories">
-
-List repositories.
-
-```sql
-EXEC azure.containerregistry_dataplane.container_registry.get_repositories 
-@endpoint='{{ endpoint }}' --required, 
-@last='{{ last }}', 
-@n='{{ n }}'
 ;
 ```
 </TabItem>

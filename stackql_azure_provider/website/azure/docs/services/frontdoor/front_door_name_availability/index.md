@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>front_door_name_availability</c
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check"
+    values={[
+        { label: 'check', value: 'check' }
+    ]}
+>
+<TabItem value="check">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed error message describing why the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailability" /></td>
+    <td><code>string</code></td>
+    <td>Indicates whether the name is available. Known values are: "Available" and "Unavailable". (Available, Unavailable)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +86,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check"><CopyableCode code="check" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td></td>
     <td></td>
     <td>Check the availability of a Front Door resource name.</td>
 </tr>
@@ -76,7 +110,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check"
@@ -89,12 +123,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Check the availability of a Front Door resource name.
 
 ```sql
-EXEC azure.frontdoor.front_door_name_availability.check 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+message,
+nameAvailability,
+reason
+FROM azure.frontdoor.front_door_name_availability
 ;
 ```
 </TabItem>

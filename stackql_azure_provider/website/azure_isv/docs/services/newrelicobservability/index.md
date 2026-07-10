@@ -35,7 +35,7 @@ total resources: __10__
 <a href="/services/newrelicobservability/operations/">operations</a><br />
 <a href="/services/newrelicobservability/organizations/">organizations</a><br />
 <a href="/services/newrelicobservability/plans/">plans</a><br />
-<a href="/services/newrelicobservability/saa_s/">saa_s</a><br />
+<a href="/services/newrelicobservability/saas/">saas</a><br />
 <a href="/services/newrelicobservability/tag_rules/">tag_rules</a>
 </div>
 </div>

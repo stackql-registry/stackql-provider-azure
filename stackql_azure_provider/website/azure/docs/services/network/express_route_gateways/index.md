@@ -33,13 +33,68 @@ Creates, updates, deletes, gets or lists an <code>express_route_gateways</code> 
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_failover_single_test_details"
     values={[
+        { label: 'get_failover_single_test_details', value: 'get_failover_single_test_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="get_failover_single_test_details">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="endTimeUtc" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was completed.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="failoverConnectionDetails" /></td>
+    <td><code>array</code></td>
+    <td>List of all the failover connections for this peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nonRedundantRoutes" /></td>
+    <td><code>array</code></td>
+    <td>List of al the routes that were received only from this peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="peeringLocation" /></td>
+    <td><code>string</code></td>
+    <td>Peering location of the test.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="redundantRoutes" /></td>
+    <td><code>array</code></td>
+    <td>List of routes received from this peering as well as some other peering location.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTimeUtc" /></td>
+    <td><code>string</code></td>
+    <td>Time when the test was started.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed", "Stopping", "Completed", "StopFailed", "Invalid", and "Expired". (NotStarted, Starting, Running, StartFailed, Stopping, Completed, StopFailed, Invalid, Expired)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="wasSimulationSuccessful" /></td>
+    <td><code>boolean</code></td>
+    <td>Whether the failover simulation was successful or not.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -265,6 +320,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_failover_single_test_details"><CopyableCode code="get_failover_single_test_details" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-express_route_gateway_name"><code>express_route_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-peeringLocation"><code>peeringLocation</code></a>, <a href="#parameter-failoverTestId"><code>failoverTestId</code></a></td>
+    <td></td>
+    <td>Retrieves the details of a particular failover test performed on the ExpressRoute gateway based on the test Guid.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-express_route_gateway_name"><code>express_route_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -319,13 +381,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-express_route_gateway_name"><code>express_route_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-fetchLatest"><code>fetchLatest</code></a></td>
     <td>Retrieves the details of all the failover tests performed on the ExpressRoute gateway for different peering locations.</td>
-</tr>
-<tr>
-    <td><a href="#get_failover_single_test_details"><CopyableCode code="get_failover_single_test_details" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-express_route_gateway_name"><code>express_route_gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-peeringLocation"><code>peeringLocation</code></a>, <a href="#parameter-failoverTestId"><code>failoverTestId</code></a></td>
-    <td></td>
-    <td>Retrieves the details of a particular failover test performed on the ExpressRoute gateway based on the test Guid.</td>
 </tr>
 <tr>
     <td><a href="#get_routes_information"><CopyableCode code="get_routes_information" /></a></td>
@@ -417,13 +472,37 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_failover_single_test_details"
     values={[
+        { label: 'get_failover_single_test_details', value: 'get_failover_single_test_details' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list_by_subscription', value: 'list_by_subscription' }
     ]}
 >
+<TabItem value="get_failover_single_test_details">
+
+Retrieves the details of a particular failover test performed on the ExpressRoute gateway based on the test Guid.
+
+```sql
+SELECT
+endTimeUtc,
+failoverConnectionDetails,
+nonRedundantRoutes,
+peeringLocation,
+redundantRoutes,
+startTimeUtc,
+status,
+wasSimulationSuccessful
+FROM azure.network.express_route_gateways
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND express_route_gateway_name = '{{ express_route_gateway_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND peeringLocation = '{{ peeringLocation }}' -- required
+AND failoverTestId = '{{ failoverTestId }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Fetches the details of a ExpressRoute gateway in a resource group.
@@ -706,7 +785,6 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="get_failover_all_tests_details"
     values={[
         { label: 'get_failover_all_tests_details', value: 'get_failover_all_tests_details' },
-        { label: 'get_failover_single_test_details', value: 'get_failover_single_test_details' },
         { label: 'get_routes_information', value: 'get_routes_information' },
         { label: 'get_resiliency_information', value: 'get_resiliency_information' },
         { label: 'start_site_failover_test', value: 'start_site_failover_test' },
@@ -724,20 +802,6 @@ EXEC azure.network.express_route_gateways.get_failover_all_tests_details
 @subscription_id='{{ subscription_id }}' --required, 
 @type='{{ type }}', 
 @fetchLatest={{ fetchLatest }}
-;
-```
-</TabItem>
-<TabItem value="get_failover_single_test_details">
-
-Retrieves the details of a particular failover test performed on the ExpressRoute gateway based on the test Guid.
-
-```sql
-EXEC azure.network.express_route_gateways.get_failover_single_test_details 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@express_route_gateway_name='{{ express_route_gateway_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@peeringLocation='{{ peeringLocation }}' --required, 
-@failoverTestId='{{ failoverTestId }}' --required
 ;
 ```
 </TabItem>

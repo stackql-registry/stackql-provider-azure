@@ -38,6 +38,7 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_build_database_connection', value: 'get_build_database_connection' },
         { label: 'get_user_provided_function_app_for_static_site_build', value: 'get_user_provided_function_app_for_static_site_build' },
         { label: 'get_linked_backend_for_build', value: 'get_linked_backend_for_build' },
+        { label: 'list_static_site_users', value: 'list_static_site_users' },
         { label: 'list_static_site_build_functions', value: 'list_static_site_build_functions' },
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
         { label: 'get_database_connection', value: 'get_database_connection' },
@@ -223,6 +224,60 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_static_site_users">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="displayName" /></td>
+    <td><code>string</code></td>
+    <td>The display name for the static site user.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provider" /></td>
+    <td><code>string</code></td>
+    <td>The identity provider for the static site user.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="roles" /></td>
+    <td><code>string</code></td>
+    <td>The roles for the static site user, in free-form string format.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="userId" /></td>
+    <td><code>string</code></td>
+    <td>The user id for the static site user.</td>
 </tr>
 </tbody>
 </table>
@@ -1016,6 +1071,13 @@ The following methods are available for this resource:
     <td>Returns the details of a linked backend linked to a static site build by name. Returns the details of a linked backend linked to a static site build by name.</td>
 </tr>
 <tr>
+    <td><a href="#list_static_site_users"><CopyableCode code="list_static_site_users" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-authprovider"><code>authprovider</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the list of users of a static site. Description for Gets the list of users of a static site.</td>
+</tr>
+<tr>
     <td><a href="#list_static_site_build_functions"><CopyableCode code="list_static_site_build_functions" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-environment_name"><code>environment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1140,13 +1202,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes a static site. Description for Deletes a static site.</td>
-</tr>
-<tr>
-    <td><a href="#list_static_site_users"><CopyableCode code="list_static_site_users" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-authprovider"><code>authprovider</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets the list of users of a static site. Description for Gets the list of users of a static site.</td>
 </tr>
 <tr>
     <td><a href="#list_static_site_app_settings"><CopyableCode code="list_static_site_app_settings" /></a></td>
@@ -1628,6 +1683,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_build_database_connection', value: 'get_build_database_connection' },
         { label: 'get_user_provided_function_app_for_static_site_build', value: 'get_user_provided_function_app_for_static_site_build' },
         { label: 'get_linked_backend_for_build', value: 'get_linked_backend_for_build' },
+        { label: 'list_static_site_users', value: 'list_static_site_users' },
         { label: 'list_static_site_build_functions', value: 'list_static_site_build_functions' },
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
         { label: 'get_database_connection', value: 'get_database_connection' },
@@ -1708,6 +1764,28 @@ WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND environment_name = '{{ environment_name }}' -- required
 AND linked_backend_name = '{{ linked_backend_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_static_site_users">
+
+Gets the list of users of a static site. Description for Gets the list of users of a static site.
+
+```sql
+SELECT
+id,
+name,
+displayName,
+kind,
+provider,
+roles,
+type,
+userId
+FROM azure.web.static_sites
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND authprovider = '{{ authprovider }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -2376,9 +2454,8 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_static_site_users"
+    defaultValue="list_static_site_app_settings"
     values={[
-        { label: 'list_static_site_users', value: 'list_static_site_users' },
         { label: 'list_static_site_app_settings', value: 'list_static_site_app_settings' },
         { label: 'list_static_site_configured_roles', value: 'list_static_site_configured_roles' },
         { label: 'list_static_site_function_app_settings', value: 'list_static_site_function_app_settings' },
@@ -2435,19 +2512,6 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'preview_workflow', value: 'preview_workflow' }
     ]}
 >
-<TabItem value="list_static_site_users">
-
-Gets the list of users of a static site. Description for Gets the list of users of a static site.
-
-```sql
-EXEC azure.web.static_sites.list_static_site_users 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@authprovider='{{ authprovider }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_static_site_app_settings">
 
 Gets the application settings of a static site. Description for Gets the application settings of a static site.

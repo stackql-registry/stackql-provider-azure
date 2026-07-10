@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_deployed_service_type_info_by_name"><CopyableCode code="get_deployed_service_type_info_by_name" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-service_type_name"><code>service_type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-service_type_name"><code>service_type_name</code></a>, <a href="#parameter-application_id"><code>application_id</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-ServiceManifestName"><code>ServiceManifestName</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the information about a specified service type of the application deployed on a node in a Service Fabric cluster. Gets the list containing the information about a specific service type from the applications deployed on a node in a Service Fabric cluster. The response includes the name of the service type, its registration status, the code package that registered it and activation ID of the service package. Each entry represents one activation of a service type, differentiated by the activation ID.</td>
 </tr>
@@ -120,9 +120,9 @@ Gets the information about a specified service type of the application deployed 
 
 ```sql
 EXEC azure.servicefabric_dataplane.deployed_service_type_infos.get_deployed_service_type_info_by_name 
+@service_type_name='{{ service_type_name }}' --required, 
 @application_id='{{ application_id }}' --required, 
 @node_name='{{ node_name }}' --required, 
-@service_type_name='{{ service_type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required, 
 @ServiceManifestName='{{ ServiceManifestName }}', 
 @timeout='{{ timeout }}'
