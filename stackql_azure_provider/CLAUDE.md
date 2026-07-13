@@ -162,8 +162,8 @@ mgmt packages: `https://management.azure.com/`. Data-plane packages:
 # offline archetype tests (16 checks, one per codegen/flatten regime)
 STACKQL=stackql bash bin/integration-tests.sh --describe-only
 
-# full meta-route walk (server-based; every service/resource/method + invariants)
-npm run start-server && npm run test-meta-routes -- azure && npm run stop-server
+# full meta-route walk (one-stop: fresh server start/stop is built in)
+npm run test-meta-routes -- all        # or a single provider name
 
 # live (creds in ./.env, sourced automatically; AZURE_SUBSCRIPTION_ID required)
 bash bin/integration-tests.sh --select-only
