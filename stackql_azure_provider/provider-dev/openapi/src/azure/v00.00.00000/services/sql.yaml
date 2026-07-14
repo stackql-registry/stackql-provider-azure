@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Sql Management Client
-  description: The Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.
+  title: Azure SQL Database
+  description: SQL servers, databases, elastic pools, managed instances, failover groups and security configuration.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

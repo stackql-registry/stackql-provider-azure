@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Batch Management Client
-  description: The Batch Management Client.
+  title: Azure Batch
+  description: "Large-scale parallel and HPC batch computing: accounts, pools, applications and certificates."
   contact:
     name: StackQL Studios
     url: https://stackql.io/

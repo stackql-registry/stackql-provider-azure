@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Dev Center Mgmt Client
-  description: DevCenter Management API.
+  title: Azure Dev Center (Microsoft Dev Box)
+  description: Dev centers, projects, dev box definitions, pools and environment types for developer self-service.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

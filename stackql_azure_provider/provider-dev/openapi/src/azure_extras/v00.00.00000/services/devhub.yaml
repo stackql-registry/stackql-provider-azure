@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Dev Hub Mgmt Client
-  description: The AKS Developer Hub Service Client.
+  title: Microsoft DevHub
+  description: GitHub workflow bootstrapping and ADO pipeline templates for AKS deployments (Microsoft.DevHub).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

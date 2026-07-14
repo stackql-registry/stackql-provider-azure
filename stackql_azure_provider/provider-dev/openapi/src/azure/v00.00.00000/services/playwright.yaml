@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Playwright Mgmt Client
-  description: Playwright Service Management API provides access to Playwright workspace resources and their operations through Azure Resource Manager.
+  title: Azure Playwright
+  description: Playwright workspaces for cloud-hosted browser testing (Microsoft.LoadTestService playwright workspaces).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

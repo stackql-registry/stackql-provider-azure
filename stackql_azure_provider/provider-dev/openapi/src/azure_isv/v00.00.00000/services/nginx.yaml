@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Nginx Management Client
-  description: NginxManagementClient.
+  title: NGINXaaS - An Azure Native ISV Service
+  description: NGINX as a Service deployments, configurations and certificates by F5.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

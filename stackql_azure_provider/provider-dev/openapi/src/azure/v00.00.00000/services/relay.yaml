@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Relay
-  description: This is the Microsoft Azure Relay Client Library.
+  title: Azure Relay
+  description: Relay namespaces, hybrid connections and WCF relays.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

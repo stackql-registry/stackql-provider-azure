@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Cdn Management Client
-  description: Use these APIs to manage Azure Front Door and CDN resources through the Azure Resource Manager. You must make sure that requests made to these resources are secure.
+  title: Azure Content Delivery Network
+  description: CDN and Azure Front Door (Standard/Premium) profiles, endpoints, rules and WAF policies.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

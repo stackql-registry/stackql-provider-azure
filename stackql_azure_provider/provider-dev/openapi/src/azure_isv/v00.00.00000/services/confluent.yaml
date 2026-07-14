@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Confluent Management Client
-  description: ConfluentManagementClient.
+  title: Apache Kafka & Apache Flink on Confluent Cloud - An Azure Native ISV Service
+  description: Confluent Cloud organizations and cluster access managed natively on Azure.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

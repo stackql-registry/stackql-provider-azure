@@ -1,0 +1,287 @@
+--- 
+title: guest_agents
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - guest_agents
+  - azure_stack_hci_vm
+  - azure_stack
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage azure_stack resources using SQL
+custom_edit_url: null
+image: /img/stackql-azure_stack-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes, gets or lists a <code>guest_agents</code> resource.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><CopyableCode code="guest_agents" /></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure_stack.azure_stack_hci_vm.guest_agents" /></td></tr>
+</tbody></table>
+
+## Fields
+
+The following fields are returned by `SELECT` queries:
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="credentials" /></td>
+    <td><code>object</code></td>
+    <td>Username / Password Credentials to provision guest agent.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningAction" /></td>
+    <td><code>string</code></td>
+    <td>The guest agent provisioning action. Known values are: "install", "uninstall", and "repair". (install, uninstall, repair)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>Provisioning state of the virtual machine instance. Known values are: "Succeeded", "Failed", "InProgress", "Accepted", "Deleting", and "Canceled". (Succeeded, Failed, InProgress, Accepted, Deleting, Canceled)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The guest agent status.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
+
+## Methods
+
+The following methods are available for this resource:
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+    <th>Optional Params</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
+    <td></td>
+    <td>Implements GuestAgent GET method.</td>
+</tr>
+<tr>
+    <td><a href="#create"><CopyableCode code="create" /></a></td>
+    <td><CopyableCode code="insert" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
+    <td></td>
+    <td>Create Or Update GuestAgent.</td>
+</tr>
+<tr>
+    <td><a href="#delete"><CopyableCode code="delete" /></a></td>
+    <td><CopyableCode code="delete" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
+    <td></td>
+    <td>Implements GuestAgent DELETE method.</td>
+</tr>
+<tr>
+    <td><a href="#list_by_virtual_machine_instance"><CopyableCode code="list_by_virtual_machine_instance" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
+    <td></td>
+    <td>Returns the list of GuestAgent of the given vm.</td>
+</tr>
+</tbody>
+</table>
+
+## Parameters
+
+Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#methods) section to see which parameters are required or optional for each operation.
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr id="parameter-resource_uri">
+    <td><CopyableCode code="resource_uri" /></td>
+    <td><code>string</code></td>
+    <td>The fully qualified Azure Resource manager identifier of the resource. Required.</td>
+</tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
+
+Implements GuestAgent GET method.
+
+```sql
+SELECT
+id,
+name,
+credentials,
+provisioningAction,
+provisioningState,
+status,
+systemData,
+type
+FROM azure_stack.azure_stack_hci_vm.guest_agents
+WHERE resource_uri = '{{ resource_uri }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## `INSERT` examples
+
+<Tabs
+    defaultValue="create"
+    values={[
+        { label: 'create', value: 'create' },
+        { label: 'Manifest', value: 'manifest' }
+    ]}
+>
+<TabItem value="create">
+
+Create Or Update GuestAgent.
+
+```sql
+INSERT INTO azure_stack.azure_stack_hci_vm.guest_agents (
+properties,
+resource_uri
+)
+SELECT 
+'{{ properties }}',
+'{{ resource_uri }}'
+RETURNING
+id,
+name,
+properties,
+systemData,
+type
+;
+```
+</TabItem>
+<TabItem value="manifest">
+
+<CodeBlock language="yaml">{`# Description fields are for documentation purposes
+- name: guest_agents
+  props:
+    - name: resource_uri
+      value: "{{ resource_uri }}"
+      description: Required parameter for the guest_agents resource.
+    - name: properties
+      description: |
+        The resource-specific properties for this resource.
+      value:
+        credentials:
+          username: "{{ username }}"
+          password: "{{ password }}"
+        provisioningAction: "{{ provisioningAction }}"
+        status: "{{ status }}"
+        provisioningState: "{{ provisioningState }}"
+`}</CodeBlock>
+
+</TabItem>
+</Tabs>
+
+
+## `DELETE` examples
+
+<Tabs
+    defaultValue="delete"
+    values={[
+        { label: 'delete', value: 'delete' }
+    ]}
+>
+<TabItem value="delete">
+
+Implements GuestAgent DELETE method.
+
+```sql
+DELETE FROM azure_stack.azure_stack_hci_vm.guest_agents
+WHERE resource_uri = '{{ resource_uri }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="list_by_virtual_machine_instance"
+    values={[
+        { label: 'list_by_virtual_machine_instance', value: 'list_by_virtual_machine_instance' }
+    ]}
+>
+<TabItem value="list_by_virtual_machine_instance">
+
+Returns the list of GuestAgent of the given vm.
+
+```sql
+EXEC azure_stack.azure_stack_hci_vm.guest_agents.list_by_virtual_machine_instance 
+@resource_uri='{{ resource_uri }}' --required
+;
+```
+</TabItem>
+</Tabs>

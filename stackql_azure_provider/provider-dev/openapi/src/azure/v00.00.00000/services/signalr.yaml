@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Signal R Management Client
-  description: REST API for Azure SignalR Service.
+  title: Azure SignalR Service
+  description: SignalR resources, custom domains, replicas and private endpoints for real-time messaging.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

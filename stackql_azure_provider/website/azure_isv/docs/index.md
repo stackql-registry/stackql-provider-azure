@@ -20,8 +20,8 @@ Provision, manage, and integrate independent software vendor services on Azure.
 
 :::info[Provider Summary] 
 
-total services: __30__  
-total resources: __307__  
+total services: __27__  
+total resources: __220__  
 
 :::
 
@@ -49,37 +49,34 @@ To authenticate using an Azure Service Principal, set the following environment 
 ## Services
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/arizeaiobservabilityeval/">arizeaiobservabilityeval</a><br />
+<a href="/services/arize_ai_observability_eval/">arize_ai_observability_eval</a><br />
 <a href="/services/astro/">astro</a><br />
-<a href="/services/avs/">avs</a><br />
-<a href="/services/commvaultcontentstore/">commvaultcontentstore</a><br />
+<a href="/services/commvault_content_store/">commvault_content_store</a><br />
 <a href="/services/confluent/">confluent</a><br />
-<a href="/services/connectedvmware/">connectedvmware</a><br />
 <a href="/services/databricks/">databricks</a><br />
 <a href="/services/datadog/">datadog</a><br />
-<a href="/services/dellstorage/">dellstorage</a><br />
+<a href="/services/dell_storage/">dell_storage</a><br />
 <a href="/services/dynatrace/">dynatrace</a><br />
 <a href="/services/elastic/">elastic</a><br />
-<a href="/services/hanaonazure/">hanaonazure</a><br />
-<a href="/services/informaticadatamanagement/">informaticadatamanagement</a><br />
-<a href="/services/lambdatesthyperexecute/">lambdatesthyperexecute</a><br />
-<a href="/services/mongodbatlas/">mongodbatlas</a><br />
+<a href="/services/hana_on_azure/">hana_on_azure</a><br />
+<a href="/services/informatica_data_management/">informatica_data_management</a><br />
+<a href="/services/lambda_test_hyper_execute/">lambda_test_hyper_execute</a><br />
+<a href="/services/mongodb_atlas/">mongodb_atlas</a><br />
+<a href="/services/napster_omni_agent_api/">napster_omni_agent_api</a><br />
 </div>
 <div class="providerDocColumn">
-<a href="/services/neonpostgres/">neonpostgres</a><br />
-<a href="/services/netapp/">netapp</a><br />
-<a href="/services/newrelicobservability/">newrelicobservability</a><br />
+<a href="/services/neon_postgres/">neon_postgres</a><br />
+<a href="/services/new_relic_observability/">new_relic_observability</a><br />
 <a href="/services/nginx/">nginx</a><br />
-<a href="/services/oracledatabase/">oracledatabase</a><br />
-<a href="/services/paloaltonetworksngfw/">paloaltonetworksngfw</a><br />
-<a href="/services/purestorageblock/">purestorageblock</a><br />
+<a href="/services/oracle_database/">oracle_database</a><br />
+<a href="/services/palo_alto_networks_ngfw/">palo_alto_networks_ngfw</a><br />
+<a href="/services/pinecone_vector_db/">pinecone_vector_db</a><br />
+<a href="/services/pure_storage_block/">pure_storage_block</a><br />
 <a href="/services/qumulo/">qumulo</a><br />
-<a href="/services/redhatopenshift/">redhatopenshift</a><br />
-<a href="/services/redis/">redis</a><br />
-<a href="/services/redisenterprise/">redisenterprise</a><br />
-<a href="/services/vmwarecloudsimple/">vmwarecloudsimple</a><br />
-<a href="/services/weightsandbiases/">weightsandbiases</a><br />
+<a href="/services/terraform/">terraform</a><br />
+<a href="/services/vmware_cloud_simple/">vmware_cloud_simple</a><br />
+<a href="/services/weights_and_biases/">weights_and_biases</a><br />
 <a href="/services/workloads/">workloads</a><br />
-<a href="/services/workloadssapvirtualinstance/">workloadssapvirtualinstance</a><br />
+<a href="/services/workloads_sap_virtual_instance/">workloads_sap_virtual_instance</a><br />
 </div>
 </div>

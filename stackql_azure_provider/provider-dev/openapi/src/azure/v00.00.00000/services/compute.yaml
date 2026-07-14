@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Compute Management Client
-  description: Compute Client.
+  title: Azure Compute
+  description: Virtual machines, VM scale sets, disks, images, compute galleries, availability sets and related compute primitives.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

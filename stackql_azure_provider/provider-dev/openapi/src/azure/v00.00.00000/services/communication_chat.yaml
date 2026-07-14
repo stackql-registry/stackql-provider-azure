@@ -6,8 +6,8 @@ servers:
         default: ""
         description: The service endpoint host (no scheme).
 info:
-  title: Chat Client
-  description: A client to interact with the AzureCommunicationService Chat gateway. This client provides operations to create chat thread, delete chat thread, get chat thread client by thread id, list chat threads.
+  title: Azure Communication Services - Chat (Data Plane)
+  description: Chat threads, participants and messages.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

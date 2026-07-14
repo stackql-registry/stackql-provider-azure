@@ -6,8 +6,8 @@ servers:
         default: ""
         description: Storage account name.
 info:
-  title: Queues Client
-  description: QueuesClient.
+  title: Azure Queue Storage (Data Plane)
+  description: Queues and queue message operations.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

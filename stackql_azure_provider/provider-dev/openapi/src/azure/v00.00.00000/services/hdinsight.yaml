@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: H D Insight Management Client
-  description: The HDInsight Management Client.
+  title: Azure HDInsight
+  description: Managed Hadoop, Spark, Kafka, HBase clusters plus HDInsight on AKS cluster pools.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Dynatrace Observability Mgmt Client
-  description: DynatraceObservabilityMgmtClient.
+  title: Azure Native Dynatrace Service
+  description: Dynatrace environments with unified Azure billing and monitored-resource wiring.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

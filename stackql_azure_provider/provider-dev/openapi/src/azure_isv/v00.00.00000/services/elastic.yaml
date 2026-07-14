@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Elastic
-  description: This is the Microsoft Azure Elastic Management Client Library.
+  title: Elastic Cloud (Elasticsearch) - An Azure Native ISV Service
+  description: Elasticsearch deployments with unified Azure billing, log forwarding and traffic filters.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

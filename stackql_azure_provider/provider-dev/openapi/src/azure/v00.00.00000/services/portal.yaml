@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Portal
-  description: This is the Microsoft Azure Portal Management Client Library.
+  title: Azure Portal Dashboards
+  description: Shared portal dashboards and tenant configurations (Microsoft.Portal).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

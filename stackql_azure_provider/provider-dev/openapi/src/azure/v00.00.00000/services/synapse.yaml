@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Synapse Management Client
-  description: Azure Synapse Analytics Management Client.
+  title: Azure Synapse Analytics
+  description: Synapse workspaces, SQL/Spark pools, integration runtimes, private link hubs and Kusto pools.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

@@ -6,8 +6,8 @@ servers:
         default: ""
         description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
-  title: Load Test Administration Client
-  description: LoadTestAdministrationClient.
+  title: Azure Load Testing (Data Plane)
+  description: Create and run load tests, test profiles and fetch results and metrics.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

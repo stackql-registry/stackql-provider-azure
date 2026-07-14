@@ -1,6 +1,8 @@
 stackql
 .stackql/
 ref/
+uat-results.log
+
 
 # local credentials - never commit
 .env
@@ -16,10 +18,15 @@ stackql-server.log
 # dir - re-include ours (build artifacts are excluded by website/.gitignore)
 !website/
 
+# same problem for `bin/` (upstream ignores it as build output) - ours holds
+# the committed build wrappers and test harnesses
+!bin/
+
 # website build artifacts
 website/*/build/
 website/*/.docusaurus/
 
 # python
+.venv/
 __pycache__/
 *.pyc

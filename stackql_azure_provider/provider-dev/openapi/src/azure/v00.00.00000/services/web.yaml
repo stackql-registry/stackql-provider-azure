@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Web Site Management Client
-  description: WebSiteManagementClient.
+  title: Azure App Service
+  description: Web apps, function apps, App Service plans, environments, static web apps, certificates and deployment slots.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

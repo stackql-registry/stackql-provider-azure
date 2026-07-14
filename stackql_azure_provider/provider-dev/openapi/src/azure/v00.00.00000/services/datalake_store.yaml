@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Data Lake Store Account Management Client
-  description: Creates an Azure Data Lake Store account management client.
+  title: Azure Data Lake Storage Gen1
+  description: Data Lake Storage Gen1 accounts, firewall and trusted ID provider rules (retired upstream).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

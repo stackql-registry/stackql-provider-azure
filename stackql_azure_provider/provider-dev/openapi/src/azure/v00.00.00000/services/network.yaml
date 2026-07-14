@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Network Management Client
-  description: NetworkManagementClient.
+  title: Azure Networking
+  description: Virtual networks, subnets, NICs, load balancers, firewalls, bastions, gateways, public IPs, NSGs and the rest of the core networking surface.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

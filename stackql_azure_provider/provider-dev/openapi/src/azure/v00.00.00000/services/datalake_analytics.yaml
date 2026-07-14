@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Data Lake Analytics Account Management Client
-  description: Creates an Azure Data Lake Analytics account management client.
+  title: Azure Data Lake Analytics
+  description: On-demand U-SQL analytics accounts and jobs (retired upstream).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

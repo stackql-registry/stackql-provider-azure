@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Storage Management Client
-  description: The Azure Storage Management API.
+  title: Azure Storage
+  description: Storage accounts, blob/file/queue/table service properties, containers, shares and management policies.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

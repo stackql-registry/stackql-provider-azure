@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Oep
-  description: This is the Microsoft Azure Oep Management Client Library.
+  title: Azure Data Manager for Energy
+  description: OSDU-based energy data platform instances (Open Energy Platform).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

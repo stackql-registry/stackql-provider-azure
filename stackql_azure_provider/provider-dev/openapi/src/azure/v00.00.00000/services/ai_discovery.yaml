@@ -6,8 +6,8 @@ servers:
         default: ""
         description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
-  title: Bookshelf Client
-  description: BookshelfClient.
+  title: Azure AI Discovery (Data Plane)
+  description: Data-plane operations for the Azure AI discovery surface.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

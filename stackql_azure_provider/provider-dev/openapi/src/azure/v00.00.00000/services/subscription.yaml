@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Subscription Client
-  description: SubscriptionClient.
+  title: Azure Subscriptions
+  description: Subscription aliases, creation, rename, cancel and tenant policy.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

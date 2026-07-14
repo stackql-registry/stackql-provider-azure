@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Dev Spaces Management Client
-  description: Dev Spaces Client.
+  title: Azure Dev Spaces
+  description: Team development against AKS clusters (retired upstream).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

@@ -6,8 +6,8 @@ servers:
         default: ""
         description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
-  title: Batch Client
-  description: BatchClient.
+  title: Azure Batch (Data Plane)
+  description: Data-plane operations for Batch jobs, tasks, pools, nodes and job schedules.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

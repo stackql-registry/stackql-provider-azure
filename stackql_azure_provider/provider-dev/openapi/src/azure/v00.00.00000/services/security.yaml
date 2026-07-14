@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Security Management Client
-  description: SecurityManagementClient.
+  title: Microsoft Defender for Cloud
+  description: "Security posture and workload protection: assessments, alerts, pricings, secure scores and compliance."
   contact:
     name: StackQL Studios
     url: https://stackql.io/

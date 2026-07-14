@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Search Management Client
-  description: SearchManagementClient.
+  title: Azure AI Search
+  description: Management plane for search services, admin/query keys, private endpoints and shared private links.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

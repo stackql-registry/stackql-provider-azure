@@ -180,3 +180,6 @@ uv.lock
 
 # Sphinx generated documentation (anchored to repo root; stackql_azure_provider/website is committed)
 /website/
+
+# Local Netlify folder
+.netlify

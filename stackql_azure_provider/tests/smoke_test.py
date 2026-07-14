@@ -101,6 +101,20 @@ class Smoke:
 
         from pystackql import StackQL
 
+        # This provider requires stackql >= v0.10.542 (casing engine +
+        # golang_template_json response transforms). pystackql's downloaded
+        # binary can be older - upgrade it in place before doing anything.
+        probe = StackQL(output="dict")
+        ver = str(getattr(probe, "version", "") or "").lstrip("v")
+        def _vtuple(v):
+            try:
+                return tuple(int(x) for x in v.split("."))
+            except ValueError:
+                return (0,)
+        if _vtuple(ver) < (0, 10, 542):
+            print(f"stackql binary {ver or 'unknown'} is too old (< 0.10.542) - upgrading...")
+            probe.upgrade()
+
         if args.registry == "local":
             reg_path = (BASE_DIR / "provider-dev" / "openapi").resolve()
             reg_url = "file://" + reg_path.as_posix()

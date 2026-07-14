@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Azure Maps Management Client
-  description: Resource Provider.
+  title: Azure Maps
+  description: Management plane for Maps accounts, creators and shared-key/SAS credentials.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

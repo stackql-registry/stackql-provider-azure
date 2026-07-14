@@ -6,8 +6,8 @@ servers:
         default: ""
         description: Search service name.
 info:
-  title: Search Client
-  description: SearchClient.
+  title: Azure AI Search - Documents (Data Plane)
+  description: Indexes, indexers, data sources, skillsets, synonym maps and document search.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

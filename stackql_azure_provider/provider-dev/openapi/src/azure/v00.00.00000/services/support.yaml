@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Support
-  description: This is the Microsoft Azure Support Management Client Library.
+  title: Azure Support
+  description: Support tickets, communications, file attachments and problem classifications.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

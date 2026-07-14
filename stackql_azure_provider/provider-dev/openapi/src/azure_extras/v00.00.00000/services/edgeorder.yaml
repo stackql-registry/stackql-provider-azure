@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Edge Order Management Client
-  description: The EdgeOrder Client.
+  title: Azure Edge Hardware Center
+  description: Order and track first-party edge hardware devices.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Cosmos D B Management Client
-  description: Azure Cosmos DB Throughput Pool REST API.
+  title: Azure Cosmos DB
+  description: "Globally distributed multi-model database accounts: SQL/NoSQL, MongoDB, Cassandra, Gremlin and Table APIs."
   contact:
     name: StackQL Studios
     url: https://stackql.io/

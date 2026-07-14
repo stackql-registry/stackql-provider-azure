@@ -11,8 +11,8 @@ servers:
         default: ""
         description: Storage account name (Azure Table Storage).
 info:
-  title: Tables Base Client
-  description: Base class for TableClient
+  title: Azure Tables (Data Plane)
+  description: Table and entity operations against Azure Table Storage and Cosmos DB Table API endpoints.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

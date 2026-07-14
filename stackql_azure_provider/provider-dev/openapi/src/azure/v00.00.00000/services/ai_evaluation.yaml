@@ -6,8 +6,8 @@ servers:
         default: ""
         description: The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter.
 info:
-  title: Evaluation Service One D P Client
-  description: Use Azure AI Evaluation SDK to assess the performance of your generative AI applications. Generative AI application generations are quantitatively measured with mathematical based metrics, AI-assisted quality and safety metrics. Metrics are defined as `evaluators`. Built-in or custom evaluators can provide comprehensive insights into the application's capabilities and limitations.
+  title: Azure AI Evaluation (Data Plane)
+  description: Evaluate generative AI model and agent outputs with built-in and custom evaluators.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Testbase
-  description: This is the Microsoft Azure Testbase Management Client Library.
+  title: Test Base for Microsoft 365
+  description: Application compatibility testing against Windows updates.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

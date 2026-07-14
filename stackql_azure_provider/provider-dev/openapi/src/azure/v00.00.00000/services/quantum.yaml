@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Azure Quantum Mgmt Client
-  description: AzureQuantumMgmtClient.
+  title: Azure Quantum
+  description: Quantum workspaces and provider offerings.
   contact:
     name: StackQL Studios
     url: https://stackql.io/

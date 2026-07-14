@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Fabric Mgmt Client
-  description: FabricMgmtClient.
+  title: Microsoft Fabric
+  description: Fabric capacities management (Microsoft.Fabric).
   contact:
     name: StackQL Studios
     url: https://stackql.io/

@@ -2,8 +2,8 @@ openapi: 3.0.0
 servers:
   - url: https://management.azure.com/
 info:
-  title: Microsoft Datadog Client
-  description: MicrosoftDatadogClient.
+  title: Datadog - An Azure Native ISV Service
+  description: Datadog organizations with unified Azure billing, log and metric forwarding.
   contact:
     name: StackQL Studios
     url: https://stackql.io/
