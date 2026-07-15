@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>configurations</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="configurations" /></td>
+    <td><code>object</code></td>
+    <td>The configuration object for the specified configuration for the specified cluster.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,6 +75,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets all configuration information for an HDI cluster.</td>
+</tr>
+<tr>
     <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-configuration_name"><code>configuration_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -63,13 +94,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-configuration_name"><code>configuration_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Configures the HTTP settings on the specified cluster. This API is deprecated, please use UpdateGatewaySettings in cluster endpoint instead.</td>
-</tr>
-<tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-cluster_name"><code>cluster_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets all configuration information for an HDI cluster.</td>
 </tr>
 </tbody>
 </table>
@@ -110,14 +134,38 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
+## `SELECT` examples
+
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
+
+Gets all configuration information for an HDI cluster.
+
+```sql
+SELECT
+configurations
+FROM azure.hdinsight.configurations
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND cluster_name = '{{ cluster_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="get_raw"
     values={[
         { label: 'get_raw', value: 'get_raw' },
-        { label: 'update', value: 'update' },
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'update', value: 'update' }
     ]}
 >
 <TabItem value="get_raw">
@@ -142,18 +190,6 @@ EXEC azure.hdinsight.configurations.update
 @resource_group_name='{{ resource_group_name }}' --required, 
 @cluster_name='{{ cluster_name }}' --required, 
 @configuration_name='{{ configuration_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_raw">
-
-Gets all configuration information for an HDI cluster.
-
-```sql
-EXEC azure.hdinsight.configurations.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@cluster_name='{{ cluster_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

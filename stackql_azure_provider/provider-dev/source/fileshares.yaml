@@ -499,6 +499,11 @@ components:
           $ref: '#/components/schemas/PublicNetworkAccess'
           description: 'Gets or sets allow or disallow public network access to azure managed file share. Known
             values are: "Enabled" and "Disabled".'
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -512,20 +517,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
-    FileShareUsageDataResponse:
-      type: object
-      description: Response structure for file shares usage in the specified subscription/location.
-      properties:
-        properties:
-          $ref: '#/components/schemas/FileShareUsageDataOutput'
-          description: The properties of the file share usage data. Required.
-      required:
-      - properties
     FileShareUsageDataOutput:
       type: object
       description: File shares usage result.
@@ -544,15 +535,13 @@ components:
           description: The number of active file shares. Required.
       required:
       - fileShareCount
-    FileShareLimitsResponse:
+    FileShareUsageDataResponseFlattened:
       type: object
-      description: Response structure for file share limits API.
+      description: Flattened view of FileShareUsageDataResponse ('properties' hoisted to the top level).
       properties:
-        properties:
-          $ref: '#/components/schemas/FileShareLimitsOutput'
-          description: The properties of the file share limits. Required.
-      required:
-      - properties
+        liveShares:
+          $ref: '#/components/schemas/LiveSharesUsageData'
+          description: File share usage data for active file shares. Required.
     FileShareLimitsOutput:
       type: object
       description: File share limits API result.
@@ -640,6 +629,16 @@ components:
       - scalarThroughputMiBPerSec
       - guardrailIOPerSecScalar
       - guardrailThroughputScalar
+    FileShareLimitsResponseFlattened:
+      type: object
+      description: Flattened view of FileShareLimitsResponse ('properties' hoisted to the top level).
+      properties:
+        limits:
+          $ref: '#/components/schemas/FileShareLimits'
+          description: The limits for the file share. Required.
+        provisioningConstants:
+          $ref: '#/components/schemas/FileShareProvisioningConstants'
+          description: The provisioning constants for the file share. Required.
     FileShareProvisioningRecommendationInput:
       type: object
       description: File share provisioning parameters recommendation API input structure.
@@ -650,15 +649,6 @@ components:
             of remaining provisioning parameters. Required.
       required:
       - provisionedStorageGiB
-    FileShareProvisioningRecommendationResponse:
-      type: object
-      description: Response structure for file share provisioning parameters recommendation API.
-      properties:
-        properties:
-          $ref: '#/components/schemas/FileShareProvisioningRecommendationOutput'
-          description: The properties of the file share provisioning recommendation output. Required.
-      required:
-      - properties
     FileShareProvisioningRecommendationOutput:
       type: object
       description: File share provisioning parameters recommendation API result.
@@ -678,6 +668,22 @@ components:
       - provisionedIOPerSec
       - provisionedThroughputMiBPerSec
       - availableRedundancyOptions
+    FileShareProvisioningRecommendationResponseFlattened:
+      type: object
+      description: Flattened view of FileShareProvisioningRecommendationResponse ('properties' hoisted to the top
+        level).
+      properties:
+        provisionedIOPerSec:
+          type: integer
+          description: The recommended value of provisioned IO / sec of the share. Required.
+        provisionedThroughputMiBPerSec:
+          type: integer
+          description: The recommended value of provisioned throughput / sec of the share. Required.
+        availableRedundancyOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Redundancy'
+          description: Redundancy options for the share. Required.
     OperationDisplay:
       type: object
       description: Localized display information for an operation.
@@ -1292,7 +1298,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: file_shares
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.FileShares/locations/{location}/getUsageData?api-version=2026-06-01:
     post:
       operationId: InformationalOperations_get_usage_data
@@ -1315,10 +1321,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FileShareUsageDataResponse'
+                $ref: '#/components/schemas/FileShareUsageDataResponseFlattened'
       x-stackql-resource: informational_operations
       x-stackql-method: get_usage_data
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   /subscriptions/{subscription_id}/providers/Microsoft.FileShares/locations/{location}/getLimits?api-version=2026-06-01:
     post:
       operationId: InformationalOperations_get_limits
@@ -1341,10 +1348,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FileShareLimitsResponse'
+                $ref: '#/components/schemas/FileShareLimitsResponseFlattened'
       x-stackql-resource: informational_operations
       x-stackql-method: get_limits
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/providers/Microsoft.FileShares/locations/{location}/getProvisioningRecommendation?api-version=2026-06-01
   : post:
       operationId: InformationalOperations_get_provisioning_recommendation
@@ -1379,10 +1387,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FileShareProvisioningRecommendationResponse'
+                $ref: '#/components/schemas/FileShareProvisioningRecommendationResponseFlattened'
       x-stackql-resource: informational_operations
       x-stackql-method: get_provisioning_recommendation
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   /providers/Microsoft.FileShares/operations?api-version=2026-06-01:
     get:
       operationId: fileshares_list

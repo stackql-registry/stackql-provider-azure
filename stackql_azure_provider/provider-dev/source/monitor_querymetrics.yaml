@@ -139,4 +139,4 @@ paths:
                 properties: {}
       x-stackql-resource: query_resources
       x-stackql-method: query_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

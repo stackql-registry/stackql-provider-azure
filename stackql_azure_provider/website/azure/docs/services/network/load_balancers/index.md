@@ -33,13 +33,33 @@ Creates, updates, deletes, gets or lists a <code>load_balancers</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_inbound_nat_rule_port_mappings"
     values={[
+        { label: 'list_inbound_nat_rule_port_mappings', value: 'list_inbound_nat_rule_port_mappings' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_all', value: 'list_all' }
     ]}
 >
+<TabItem value="list_inbound_nat_rule_port_mappings">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="inboundNatRulePortMappings" /></td>
+    <td><code>array</code></td>
+    <td>Collection of inbound NAT rule port mappings.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -370,6 +390,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_inbound_nat_rule_port_mappings"><CopyableCode code="list_inbound_nat_rule_port_mappings" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-group_name"><code>group_name</code></a>, <a href="#parameter-load_balancer_name"><code>load_balancer_name</code></a>, <a href="#parameter-backend_pool_name"><code>backend_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>List of inbound NAT rule port mappings.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-load_balancer_name"><code>load_balancer_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -417,13 +444,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-load_balancer_name"><code>load_balancer_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes the specified load balancer.</td>
-</tr>
-<tr>
-    <td><a href="#list_inbound_nat_rule_port_mappings"><CopyableCode code="list_inbound_nat_rule_port_mappings" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-group_name"><code>group_name</code></a>, <a href="#parameter-load_balancer_name"><code>load_balancer_name</code></a>, <a href="#parameter-backend_pool_name"><code>backend_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>List of inbound NAT rule port mappings.</td>
 </tr>
 <tr>
     <td><a href="#migrate_to_ip_based"><CopyableCode code="migrate_to_ip_based" /></a></td>
@@ -501,13 +521,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="list_inbound_nat_rule_port_mappings"
     values={[
+        { label: 'list_inbound_nat_rule_port_mappings', value: 'list_inbound_nat_rule_port_mappings' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_all', value: 'list_all' }
     ]}
 >
+<TabItem value="list_inbound_nat_rule_port_mappings">
+
+List of inbound NAT rule port mappings.
+
+```sql
+SELECT
+inboundNatRulePortMappings
+FROM azure.network.load_balancers
+WHERE group_name = '{{ group_name }}' -- required
+AND load_balancer_name = '{{ load_balancer_name }}' -- required
+AND backend_pool_name = '{{ backend_pool_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the specified load balancer.
@@ -1057,31 +1093,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_inbound_nat_rule_port_mappings"
+    defaultValue="migrate_to_ip_based"
     values={[
-        { label: 'list_inbound_nat_rule_port_mappings', value: 'list_inbound_nat_rule_port_mappings' },
         { label: 'migrate_to_ip_based', value: 'migrate_to_ip_based' },
         { label: 'swap_public_ip_addresses', value: 'swap_public_ip_addresses' }
     ]}
 >
-<TabItem value="list_inbound_nat_rule_port_mappings">
-
-List of inbound NAT rule port mappings.
-
-```sql
-EXEC azure.network.load_balancers.list_inbound_nat_rule_port_mappings 
-@group_name='{{ group_name }}' --required, 
-@load_balancer_name='{{ load_balancer_name }}' --required, 
-@backend_pool_name='{{ backend_pool_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"ipConfiguration": "{{ ipConfiguration }}", 
-"ipAddress": "{{ ipAddress }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="migrate_to_ip_based">
 
 Migrate load balancer to IP Based.

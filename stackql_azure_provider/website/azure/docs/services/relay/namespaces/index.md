@@ -33,15 +33,16 @@ Creates, updates, deletes, gets or lists a <code>namespaces</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
 <table>
 <thead>
@@ -53,24 +54,29 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
+    <td><CopyableCode code="keyName" /></td>
     <td><code>string</code></td>
-    <td>Resource ID.</td>
+    <td>A string that describes the authorization rule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="name" /></td>
+    <td><CopyableCode code="primaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Resource name.</td>
+    <td>Primary connection string of the created namespace authorization rule.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="rights" /></td>
-    <td><code>array</code></td>
-    <td>The rights associated with the rule. Required.</td>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit primary key for signing and validating the SAS token.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="type" /></td>
+    <td><CopyableCode code="secondaryConnectionString" /></td>
     <td><code>string</code></td>
-    <td>Resource type.</td>
+    <td>Secondary connection string of the created namespace authorization rule.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>A base64-encoded 256-bit secondary key for signing and validating the SAS token.</td>
 </tr>
 </tbody>
 </table>
@@ -209,6 +215,35 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="updatedAt" /></td>
     <td><code>string (date-time)</code></td>
     <td>The time the namespace was updated.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed info regarding the reason associated with the namespace.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Value indicating namespace is available. Returns true if the namespace is available; otherwise, false.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason for unavailability of a namespace. Known values are: "None", "InvalidName", "SubscriptionIsDisabled", "NameInUse", "NameInLockdown", and "TooManyNamespaceInCurrentSubscription".</td>
 </tr>
 </tbody>
 </table>
@@ -300,11 +335,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
+    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Authorization rule for a namespace by name.</td>
+    <td>Primary and secondary connection strings to the namespace.</td>
 </tr>
 <tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
@@ -321,18 +356,18 @@ The following methods are available for this resource:
     <td>Lists all the available namespaces within the ResourceGroup.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check the specified namespace name availability.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Lists all the available namespaces within the subscription regardless of the resourceGroups.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates or updates an authorization rule for a namespace.</td>
 </tr>
 <tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
@@ -349,25 +384,11 @@ The following methods are available for this resource:
     <td>Creates or updates a namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates or updates an authorization rule for a namespace.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Create Azure Relay namespace.</td>
-</tr>
-<tr>
-    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a namespace authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -384,18 +405,25 @@ The following methods are available for this resource:
     <td>Authorization rules for a namespace.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
+    <td><a href="#get_authorization_rule"><CopyableCode code="get_authorization_rule" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Primary and secondary connection strings to the namespace.</td>
+    <td>Authorization rule for a namespace by name.</td>
 </tr>
 <tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><a href="#create_or_update_authorization_rule"><CopyableCode code="create_or_update_authorization_rule" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
-    <td>Check the specified namespace name availability.</td>
+    <td>Creates or updates an authorization rule for a namespace.</td>
+</tr>
+<tr>
+    <td><a href="#delete_authorization_rule"><CopyableCode code="delete_authorization_rule" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-authorization_rule_name"><code>authorization_rule_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a namespace authorization rule.</td>
 </tr>
 <tr>
     <td><a href="#regenerate_keys"><CopyableCode code="regenerate_keys" /></a></td>
@@ -446,24 +474,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_authorization_rule"
+    defaultValue="list_keys"
     values={[
-        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'list_keys', value: 'list_keys' },
         { label: 'get', value: 'get' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="get_authorization_rule">
+<TabItem value="list_keys">
 
-Authorization rule for a namespace by name.
+Primary and secondary connection strings to the namespace.
 
 ```sql
 SELECT
-id,
-name,
-rights,
-type
+keyName,
+primaryConnectionString,
+primaryKey,
+secondaryConnectionString,
+secondaryKey
 FROM azure.relay.namespaces
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND namespace_name = '{{ namespace_name }}' -- required
@@ -519,6 +549,20 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+<TabItem value="check_name_availability">
+
+Check the specified namespace name availability.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.relay.namespaces
+WHERE subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list">
 
 Lists all the available namespaces within the subscription regardless of the resourceGroups.
@@ -547,39 +591,12 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an authorization rule for a namespace.
-
-```sql
-INSERT INTO azure.relay.namespaces (
-properties,
-resource_group_name,
-namespace_name,
-authorization_rule_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ namespace_name }}',
-'{{ authorization_rule_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create Azure Relay namespace.
@@ -622,16 +639,9 @@ type
     - name: namespace_name
       value: "{{ namespace_name }}"
       description: Required parameter for the namespaces resource.
-    - name: authorization_rule_name
-      value: "{{ authorization_rule_name }}"
-      description: Required parameter for the namespaces resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the namespaces resource.
-    - name: properties
-      value:
-        rights:
-          - "{{ rights }}"
     - name: location
       value: "{{ location }}"
       description: |
@@ -689,33 +699,11 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_authorization_rule"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_authorization_rule">
-
-Creates or updates an authorization rule for a namespace.
-
-```sql
-REPLACE azure.relay.namespaces
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-properties,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Create Azure Relay namespace.
@@ -747,25 +735,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_authorization_rule"
+    defaultValue="delete"
     values={[
-        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_authorization_rule">
-
-Deletes a namespace authorization rule.
-
-```sql
-DELETE FROM azure.relay.namespaces
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND authorization_rule_name = '{{ authorization_rule_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes an existing namespace. This operation also removes all associated resources under the namespace.
@@ -787,8 +761,9 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="list_authorization_rules"
     values={[
         { label: 'list_authorization_rules', value: 'list_authorization_rules' },
-        { label: 'list_keys', value: 'list_keys' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
+        { label: 'get_authorization_rule', value: 'get_authorization_rule' },
+        { label: 'create_or_update_authorization_rule', value: 'create_or_update_authorization_rule' },
+        { label: 'delete_authorization_rule', value: 'delete_authorization_rule' },
         { label: 'regenerate_keys', value: 'regenerate_keys' }
     ]}
 >
@@ -804,12 +779,12 @@ EXEC azure.relay.namespaces.list_authorization_rules
 ;
 ```
 </TabItem>
-<TabItem value="list_keys">
+<TabItem value="get_authorization_rule">
 
-Primary and secondary connection strings to the namespace.
+Authorization rule for a namespace by name.
 
 ```sql
-EXEC azure.relay.namespaces.list_keys 
+EXEC azure.relay.namespaces.get_authorization_rule 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @namespace_name='{{ namespace_name }}' --required, 
 @authorization_rule_name='{{ authorization_rule_name }}' --required, 
@@ -817,17 +792,33 @@ EXEC azure.relay.namespaces.list_keys
 ;
 ```
 </TabItem>
-<TabItem value="check_name_availability">
+<TabItem value="create_or_update_authorization_rule">
 
-Check the specified namespace name availability.
+Creates or updates an authorization rule for a namespace.
 
 ```sql
-EXEC azure.relay.namespaces.check_name_availability 
+EXEC azure.relay.namespaces.create_or_update_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required 
 @@json=
 '{
-"name": "{{ name }}"
+"properties": "{{ properties }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="delete_authorization_rule">
+
+Deletes a namespace authorization rule.
+
+```sql
+EXEC azure.relay.namespaces.delete_authorization_rule 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@authorization_rule_name='{{ authorization_rule_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

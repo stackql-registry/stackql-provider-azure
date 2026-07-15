@@ -15182,9 +15182,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: dedicated_hosts
       x-stackql-method: list_available_sizes
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list_paged
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/hostGroups/{host_group_name}/hosts/{host_name}/redeploy?api-version=2026-03-01
   : post:
       operationId: DedicatedHosts_begin_redeploy
@@ -15639,7 +15655,7 @@ paths:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
       x-stackql-resource: disk_accesses
       x-stackql-method: update_a_private_endpoint_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: DiskAccesses_begin_delete_a_private_endpoint_connection
       description: Deletes a private endpoint connection under a disk access resource.
@@ -15674,7 +15690,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: disk_accesses
       x-stackql-method: delete_a_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/diskEncryptionSets/{disk_encryption_set_name}?api-version=2025-01-02
   : get:
       operationId: DiskEncryptionSets_get
@@ -15925,9 +15941,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: disk_encryption_sets
       x-stackql-method: list_associated_resources
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list_paged
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/restorePointCollections/{restore_point_collection_name}/restorePoints/{vm_restore_point_name}/diskRestorePoints/{disk_restore_point_name}?api-version=2025-01-02
   : get:
       operationId: DiskRestorePoint_get
@@ -22855,7 +22887,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VirtualMachineScaleSetVMFlattened'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -22922,7 +22954,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VirtualMachineScaleSetVM'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: update
       x-stackql-verb: UPDATE
     delete:
@@ -22962,7 +22994,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtual_machine_scale_set_name}/virtualMachines?api-version=2026-03-01
@@ -23016,7 +23048,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedVirtualMachineScaleSetVMFlattened'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -23057,7 +23089,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VirtualMachineScaleSetVMInstanceView'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: get_instance_view
       x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/approveRollingUpgrade?api-version=2026-03-01
@@ -23091,7 +23123,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: approve_rolling_upgrade
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/deallocate?api-version=2026-03-01
@@ -23127,7 +23159,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: deallocate
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/reimage?api-version=2026-03-01
@@ -23182,7 +23214,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: reimage
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/reimageall?api-version=2026-03-01
@@ -23217,7 +23249,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: reimage_all
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/simulateEviction?api-version=2026-03-01
@@ -23251,7 +23283,7 @@ paths:
       responses:
         '200':
           description: Success
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: simulate_eviction
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/attachDetachDataDisks?api-version=2026-03-01
@@ -23306,7 +23338,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StorageProfile'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: attach_detach_data_disks
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/performMaintenance?api-version=2026-03-01
@@ -23340,7 +23372,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: perform_maintenance
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/powerOff?api-version=2026-03-01
@@ -23383,7 +23415,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: power_off
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/redeploy?api-version=2026-03-01
@@ -23418,7 +23450,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: redeploy
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/restart?api-version=2026-03-01
@@ -23452,7 +23484,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: restart
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/retrieveBootDiagnosticsData?api-version=2026-03-01
@@ -23499,9 +23531,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RetrieveBootDiagnosticsDataResult'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: retrieve_boot_diagnostics_data
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/start?api-version=2026-03-01
   : post:
       operationId: VirtualMachineScaleSetVMs_begin_start
@@ -23533,7 +23565,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: start
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/virtualMachines/{instance_id}/runCommand?api-version=2026-03-01
@@ -23596,7 +23628,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RunCommandResult'
-      x-stackql-resource: virtual_machine_scale_set_v_ms
+      x-stackql-resource: virtual_machine_scale_set_vms
       x-stackql-method: run_command
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}?api-version=2026-03-01
@@ -24177,7 +24209,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: virtual_machine_scale_sets
       x-stackql-method: delete_instances
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{vm_scale_set_name}/forceRecoveryServiceFabricPlatformUpdateDomainWalk?api-version=2026-03-01
   : post:
       operationId: VirtualMachineScaleSets_force_recovery_service_fabric_platform_update_domain_walk
@@ -25664,7 +25696,7 @@ paths:
                 $ref: '#/components/schemas/RetrieveBootDiagnosticsDataResult'
       x-stackql-resource: virtual_machines
       x-stackql-method: retrieve_boot_diagnostics_data
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachines/{vm_name}/simulateEviction?api-version=2026-03-01
   : post:
       operationId: VirtualMachines_simulate_eviction

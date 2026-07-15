@@ -33,14 +33,55 @@ Creates, updates, deletes, gets or lists a <code>storage_accounts</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_customer_initiated_migration"
+    defaultValue="list_account_sas"
     values={[
+        { label: 'list_account_sas', value: 'list_account_sas' },
+        { label: 'list_service_sas', value: 'list_service_sas' },
         { label: 'get_customer_initiated_migration', value: 'get_customer_initiated_migration' },
-        { label: 'get_properties', value: 'get_properties' },
+        { label: 'list_keys', value: 'list_keys' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_account_sas">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="accountSasToken" /></td>
+    <td><code>string</code></td>
+    <td>List SAS credentials of storage account.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_service_sas">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="serviceSasToken" /></td>
+    <td><code>string</code></td>
+    <td>List service SAS credentials of specific resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get_customer_initiated_migration">
 
 <table>
@@ -95,7 +136,7 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="get_properties">
+<TabItem value="list_keys">
 
 <table>
 <thead>
@@ -107,289 +148,38 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="accessTier" /></td>
-    <td><code>string</code></td>
-    <td>Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium' access tier is the default value for premium block blobs storage account type and it cannot be changed for the premium block blobs storage account type. Known values are: "Hot", "Cool", "Premium", "Cold", and "Smart". (Hot, Cool, Premium, Cold, Smart)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="accountMigrationInProgress" /></td>
-    <td><code>boolean</code></td>
-    <td>If customer initiated account migration is in progress, the value will be true else it will be null.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="allowBlobPublicAccess" /></td>
-    <td><code>boolean</code></td>
-    <td>Allow or disallow public access to all blobs or containers in the storage account. The default interpretation is false for this property.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="allowCrossTenantReplication" /></td>
-    <td><code>boolean</code></td>
-    <td>Allow or disallow cross AAD tenant object replication. Set this property to true for new or existing accounts only if object replication policies will involve storage accounts in different AAD tenants. The default interpretation is false for new accounts to follow best security practices by default.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="allowSharedKeyAccess" /></td>
-    <td><code>boolean</code></td>
-    <td>Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="allowSharedKeyAccessForServices" /></td>
-    <td><code>object</code></td>
-    <td>Indicate shared key access properties at service level.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="allowedCopyScope" /></td>
-    <td><code>string</code></td>
-    <td>Restrict copy to and from Storage Accounts within an AAD tenant or with Private Links to the same VNet. Known values are: "PrivateLink", "AAD", and "All". (PrivateLink, AAD, All)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="azureFilesIdentityBasedAuthentication" /></td>
-    <td><code>object</code></td>
-    <td>Provides the identity based authentication settings for Azure Files.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="blobRestoreStatus" /></td>
-    <td><code>object</code></td>
-    <td>Blob restore status.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="creationTime" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Gets the creation date and time of the storage account in UTC.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="customDomain" /></td>
-    <td><code>object</code></td>
-    <td>Gets the custom domain the user assigned to this storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="dataCollaborationPolicyProperties" /></td>
-    <td><code>object</code></td>
-    <td>Data Collaboration policy for the storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="defaultToOAuthAuthentication" /></td>
-    <td><code>boolean</code></td>
-    <td>A boolean flag which indicates whether the default authentication is OAuth or not. The default interpretation is false for this property.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="dnsEndpointType" /></td>
-    <td><code>string</code></td>
-    <td>Allows you to specify the type of endpoint. Set this to AzureDNSZone to create a large number of accounts in a single subscription, which creates accounts in an Azure DNS Zone and the endpoint URL will have an alphanumeric DNS Zone identifier. Known values are: "Standard" and "AzureDnsZone". (Standard, AzureDnsZone)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="dualStackEndpointPreference" /></td>
-    <td><code>object</code></td>
-    <td>Maintains information about the Internet protocol opted by the user.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="enableExtendedGroups" /></td>
-    <td><code>boolean</code></td>
-    <td>Enables extended group support with local users feature, if set to true.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="encryption" /></td>
-    <td><code>object</code></td>
-    <td>Encryption settings to be used for server-side encryption for the storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="extendedLocation" /></td>
-    <td><code>object</code></td>
-    <td>The extendedLocation of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="failoverInProgress" /></td>
-    <td><code>boolean</code></td>
-    <td>If the failover is in progress, the value will be true, otherwise, it will be null.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="geoPriorityReplicationStatus" /></td>
-    <td><code>object</code></td>
-    <td>Status indicating whether Geo Priority Replication is enabled for the account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="geoReplicationStats" /></td>
-    <td><code>object</code></td>
-    <td>Geo Replication Stats.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="identity" /></td>
-    <td><code>object</code></td>
-    <td>The identity of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="immutableStorageWithVersioning" /></td>
-    <td><code>object</code></td>
-    <td>The property is immutable and can only be set to true at the account creation time. When set to true, it enables object level immutability for all the containers in the account by default.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isHnsEnabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Account HierarchicalNamespace enabled if sets to true.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isLocalUserEnabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Enables local users feature, if set to true.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isNfsV3Enabled" /></td>
-    <td><code>boolean</code></td>
-    <td>NFS 3.0 protocol support enabled if set to true.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isSftpEnabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Enables Secure File Transfer Protocol, if set to true.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isSkuConversionBlocked" /></td>
-    <td><code>boolean</code></td>
-    <td>This property will be set to true or false on an event of ongoing migration. Default value is null.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="keyCreationTime" /></td>
-    <td><code>object</code></td>
-    <td>Storage account keys creation time.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="keyPolicy" /></td>
-    <td><code>object</code></td>
-    <td>KeyPolicy assigned to the storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Gets the Kind. Known values are: "Storage", "StorageV2", "BlobStorage", "FileStorage", and "BlockBlobStorage". (Storage, StorageV2, BlobStorage, FileStorage, BlockBlobStorage)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="largeFileSharesState" /></td>
-    <td><code>string</code></td>
-    <td>Allow large file shares if sets to Enabled. It cannot be disabled once it is enabled. Known values are: "Disabled" and "Enabled". (Disabled, Enabled)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastGeoFailoverTime" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Gets the timestamp of the most recent instance of a failover to the secondary location. Only the most recent timestamp is retained. This element is not returned if there has never been a failover instance. Only available if the accountType is Standard_GRS or Standard_RAGRS.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="location" /></td>
-    <td><code>string</code></td>
-    <td>The geo-location where the resource lives. Required.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="minimumTlsVersion" /></td>
-    <td><code>string</code></td>
-    <td>Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. Minimum TLS version 1.3 version is not supported. Known values are: "TLS1_0", "TLS1_1", "TLS1_2", and "TLS1_3". (TLS1_0, TLS1_1, TLS1_2, TLS1_3)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="networkAcls" /></td>
-    <td><code>object</code></td>
-    <td>Network rule set.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="placement" /></td>
-    <td><code>object</code></td>
-    <td>Optional. Gets or sets the zonal placement details for the storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="primaryEndpoints" /></td>
-    <td><code>object</code></td>
-    <td>Gets the URLs that are used to perform a retrieval of a public blob, queue, or table object. Note that Standard_ZRS and Premium_LRS accounts only return the blob endpoint.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="primaryLocation" /></td>
-    <td><code>string</code></td>
-    <td>Gets the location of the primary data center for the storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="privateEndpointConnections" /></td>
+    <td><CopyableCode code="keys" /></td>
     <td><code>array</code></td>
-    <td>List of private endpoint connection associated with the specified storage account.</td>
+    <td>Gets the list of storage account keys and their properties for the specified storage account.</td>
 </tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
 <tr>
-    <td><CopyableCode code="provisioningState" /></td>
+    <td><CopyableCode code="message" /></td>
     <td><code>string</code></td>
-    <td>Gets the status of the storage account at the time the operation was called. Known values are: "Creating", "ResolvingDNS", and "Succeeded". (Creating, ResolvingDNS, Succeeded)</td>
+    <td>Gets an error message explaining the Reason value in more detail.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="publicNetworkAccess" /></td>
-    <td><code>string</code></td>
-    <td>Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account. Known values are: "Enabled", "Disabled", and "SecuredByPerimeter". (Enabled, Disabled, SecuredByPerimeter)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="routingPreference" /></td>
-    <td><code>object</code></td>
-    <td>Maintains information about the network routing choice opted by the user for data transfer.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sasPolicy" /></td>
-    <td><code>object</code></td>
-    <td>SasPolicy assigned to the storage account.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="secondaryEndpoints" /></td>
-    <td><code>object</code></td>
-    <td>Gets the URLs that are used to perform a retrieval of a public blob, queue, or table object from the secondary location of the storage account. Only available if the SKU name is Standard_RAGRS.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="secondaryLocation" /></td>
-    <td><code>string</code></td>
-    <td>Gets the location of the geo-replicated secondary for the storage account. Only available if the accountType is Standard_GRS or Standard_RAGRS.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sku" /></td>
-    <td><code>object</code></td>
-    <td>Gets the SKU.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="statusOfPrimary" /></td>
-    <td><code>string</code></td>
-    <td>Gets the status indicating whether the primary location of the storage account is available or unavailable. Known values are: "available" and "unavailable". (available, unavailable)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="statusOfSecondary" /></td>
-    <td><code>string</code></td>
-    <td>Gets the status indicating whether the secondary location of the storage account is available or unavailable. Only available if the SKU name is Standard_GRS or Standard_RAGRS. Known values are: "available" and "unavailable". (available, unavailable)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="storageAccountSkuConversionStatus" /></td>
-    <td><code>object</code></td>
-    <td>This property is readOnly and is set by server during asynchronous storage account sku conversion operations.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="supportsHttpsTrafficOnly" /></td>
+    <td><CopyableCode code="nameAvailable" /></td>
     <td><code>boolean</code></td>
-    <td>Allows https traffic only to storage service if sets to true.</td>
+    <td>Gets a boolean value that indicates whether the name is available for you to use. If true, the name is available. If false, the name has already been taken or is invalid and cannot be used.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="tags" /></td>
-    <td><code>object</code></td>
-    <td>Resource tags.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
+    <td><CopyableCode code="reason" /></td>
     <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-<tr>
-    <td><CopyableCode code="zones" /></td>
-    <td><code>array</code></td>
-    <td>The availability zones.</td>
+    <td>Gets the reason that a storage account name could not be used. The Reason element is only returned if NameAvailable is false. Known values are: "AccountNameInvalid" and "AlreadyExists". (AccountNameInvalid, AlreadyExists)</td>
 </tr>
 </tbody>
 </table>
@@ -1010,6 +800,20 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_account_sas"><CopyableCode code="list_account_sas" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>List SAS credentials of a storage account.</td>
+</tr>
+<tr>
+    <td><a href="#list_service_sas"><CopyableCode code="list_service_sas" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>List service SAS credentials of a specific resource.</td>
+</tr>
+<tr>
     <td><a href="#get_customer_initiated_migration"><CopyableCode code="get_customer_initiated_migration" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-migration_name"><code>migration_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1017,11 +821,18 @@ The following methods are available for this resource:
     <td>Gets the status of the ongoing migration for the specified storage account.</td>
 </tr>
 <tr>
-    <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
+    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$expand"><code>$expand</code></a></td>
-    <td>Returns the properties for the specified storage account including but not limited to name, SKU name, location, and account status. The ListKeys operation should be used to retrieve storage keys.</td>
+    <td>Lists the access keys or Kerberos keys (if active directory enabled) for the specified storage account.</td>
+</tr>
+<tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Checks that the storage account name is valid and is not already in use.</td>
 </tr>
 <tr>
     <td><a href="#list_by_resource_group"><CopyableCode code="list_by_resource_group" /></a></td>
@@ -1059,32 +870,11 @@ The following methods are available for this resource:
     <td>Deletes a storage account in Microsoft Azure.</td>
 </tr>
 <tr>
-    <td><a href="#list_keys"><CopyableCode code="list_keys" /></a></td>
+    <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$expand"><code>$expand</code></a></td>
-    <td>Lists the access keys or Kerberos keys (if active directory enabled) for the specified storage account.</td>
-</tr>
-<tr>
-    <td><a href="#list_account_sas"><CopyableCode code="list_account_sas" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-signedServices"><code>signedServices</code></a>, <a href="#parameter-signedResourceTypes"><code>signedResourceTypes</code></a>, <a href="#parameter-signedPermission"><code>signedPermission</code></a>, <a href="#parameter-signedExpiry"><code>signedExpiry</code></a></td>
-    <td></td>
-    <td>List SAS credentials of a storage account.</td>
-</tr>
-<tr>
-    <td><a href="#list_service_sas"><CopyableCode code="list_service_sas" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-canonicalizedResource"><code>canonicalizedResource</code></a></td>
-    <td></td>
-    <td>List service SAS credentials of a specific resource.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Checks that the storage account name is valid and is not already in use.</td>
+    <td>Returns the properties for the specified storage account including but not limited to name, SKU name, location, and account status. The ListKeys operation should be used to retrieve storage keys.</td>
 </tr>
 <tr>
     <td><a href="#regenerate_key"><CopyableCode code="regenerate_key" /></a></td>
@@ -1179,7 +969,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-$expand">
     <td><CopyableCode code="$expand" /></td>
     <td><code>string</code></td>
-    <td>Specifies type of the key to be listed. Possible value is kerb. Known values are "kerb" and None. Default value is "kerb".</td>
+    <td>May be used to expand the properties within account's properties. By default, data is not included when fetching properties. Currently we only support geoReplicationStats and blobRestoreStatus. Known values are: "geoReplicationStats" and "blobRestoreStatus". Default value is None.</td>
 </tr>
 <tr id="parameter-failoverType">
     <td><CopyableCode code="failoverType" /></td>
@@ -1192,14 +982,45 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_customer_initiated_migration"
+    defaultValue="list_account_sas"
     values={[
+        { label: 'list_account_sas', value: 'list_account_sas' },
+        { label: 'list_service_sas', value: 'list_service_sas' },
         { label: 'get_customer_initiated_migration', value: 'get_customer_initiated_migration' },
-        { label: 'get_properties', value: 'get_properties' },
+        { label: 'list_keys', value: 'list_keys' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list_by_resource_group', value: 'list_by_resource_group' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="list_account_sas">
+
+List SAS credentials of a storage account.
+
+```sql
+SELECT
+accountSasToken
+FROM azure.storage.storage_accounts
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_service_sas">
+
+List service SAS credentials of a specific resource.
+
+```sql
+SELECT
+serviceSasToken
+FROM azure.storage.storage_accounts
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND account_name = '{{ account_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get_customer_initiated_migration">
 
 Gets the status of the ongoing migration for the specified storage account.
@@ -1222,74 +1043,32 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
-<TabItem value="get_properties">
+<TabItem value="list_keys">
 
-Returns the properties for the specified storage account including but not limited to name, SKU name, location, and account status. The ListKeys operation should be used to retrieve storage keys.
+Lists the access keys or Kerberos keys (if active directory enabled) for the specified storage account.
 
 ```sql
 SELECT
-id,
-name,
-accessTier,
-accountMigrationInProgress,
-allowBlobPublicAccess,
-allowCrossTenantReplication,
-allowSharedKeyAccess,
-allowSharedKeyAccessForServices,
-allowedCopyScope,
-azureFilesIdentityBasedAuthentication,
-blobRestoreStatus,
-creationTime,
-customDomain,
-dataCollaborationPolicyProperties,
-defaultToOAuthAuthentication,
-dnsEndpointType,
-dualStackEndpointPreference,
-enableExtendedGroups,
-encryption,
-extendedLocation,
-failoverInProgress,
-geoPriorityReplicationStatus,
-geoReplicationStats,
-identity,
-immutableStorageWithVersioning,
-isHnsEnabled,
-isLocalUserEnabled,
-isNfsV3Enabled,
-isSftpEnabled,
-isSkuConversionBlocked,
-keyCreationTime,
-keyPolicy,
-kind,
-largeFileSharesState,
-lastGeoFailoverTime,
-location,
-minimumTlsVersion,
-networkAcls,
-placement,
-primaryEndpoints,
-primaryLocation,
-privateEndpointConnections,
-provisioningState,
-publicNetworkAccess,
-routingPreference,
-sasPolicy,
-secondaryEndpoints,
-secondaryLocation,
-sku,
-statusOfPrimary,
-statusOfSecondary,
-storageAccountSkuConversionStatus,
-supportsHttpsTrafficOnly,
-systemData,
-tags,
-type,
-zones
+keys
 FROM azure.storage.storage_accounts
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND account_name = '{{ account_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 AND $expand = '{{ $expand }}'
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Checks that the storage account name is valid and is not already in use.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.storage.storage_accounts
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -1740,12 +1519,9 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_keys"
+    defaultValue="get_properties"
     values={[
-        { label: 'list_keys', value: 'list_keys' },
-        { label: 'list_account_sas', value: 'list_account_sas' },
-        { label: 'list_service_sas', value: 'list_service_sas' },
-        { label: 'check_name_availability', value: 'check_name_availability' },
+        { label: 'get_properties', value: 'get_properties' },
         { label: 'regenerate_key', value: 'regenerate_key' },
         { label: 'failover', value: 'failover' },
         { label: 'hierarchical_namespace_migration', value: 'hierarchical_namespace_migration' },
@@ -1755,87 +1531,16 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'revoke_user_delegation_keys', value: 'revoke_user_delegation_keys' }
     ]}
 >
-<TabItem value="list_keys">
+<TabItem value="get_properties">
 
-Lists the access keys or Kerberos keys (if active directory enabled) for the specified storage account.
+Returns the properties for the specified storage account including but not limited to name, SKU name, location, and account status. The ListKeys operation should be used to retrieve storage keys.
 
 ```sql
-EXEC azure.storage.storage_accounts.list_keys 
+EXEC azure.storage.storage_accounts.get_properties 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required, 
 @$expand='{{ $expand }}'
-;
-```
-</TabItem>
-<TabItem value="list_account_sas">
-
-List SAS credentials of a storage account.
-
-```sql
-EXEC azure.storage.storage_accounts.list_account_sas 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@account_name='{{ account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"signedServices": "{{ signedServices }}", 
-"signedResourceTypes": "{{ signedResourceTypes }}", 
-"signedPermission": "{{ signedPermission }}", 
-"signedIp": "{{ signedIp }}", 
-"signedProtocol": "{{ signedProtocol }}", 
-"signedStart": "{{ signedStart }}", 
-"signedExpiry": "{{ signedExpiry }}", 
-"keyToSign": "{{ keyToSign }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="list_service_sas">
-
-List service SAS credentials of a specific resource.
-
-```sql
-EXEC azure.storage.storage_accounts.list_service_sas 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@account_name='{{ account_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"canonicalizedResource": "{{ canonicalizedResource }}", 
-"signedResource": "{{ signedResource }}", 
-"signedPermission": "{{ signedPermission }}", 
-"signedIp": "{{ signedIp }}", 
-"signedProtocol": "{{ signedProtocol }}", 
-"signedStart": "{{ signedStart }}", 
-"signedExpiry": "{{ signedExpiry }}", 
-"signedIdentifier": "{{ signedIdentifier }}", 
-"startPk": "{{ startPk }}", 
-"endPk": "{{ endPk }}", 
-"startRk": "{{ startRk }}", 
-"endRk": "{{ endRk }}", 
-"keyToSign": "{{ keyToSign }}", 
-"rscc": "{{ rscc }}", 
-"rscd": "{{ rscd }}", 
-"rsce": "{{ rsce }}", 
-"rscl": "{{ rscl }}", 
-"rsct": "{{ rsct }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Checks that the storage account name is valid and is not already in use.
-
-```sql
-EXEC azure.storage.storage_accounts.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

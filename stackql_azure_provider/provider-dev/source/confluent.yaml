@@ -26,21 +26,6 @@ components:
           scopes:
             user_impersonation: impersonate your user account
   schemas:
-    AccessListUsersSuccessResponse:
-      type: object
-      description: List users success response.
-      properties:
-        kind:
-          type: string
-          description: Type of response.
-        metadata:
-          $ref: '#/components/schemas/ConfluentListMetadata'
-          description: Metadata of the list.
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserRecord'
-          description: Data of the users list.
     ConfluentListMetadata:
       type: object
       description: Metadata of the list.
@@ -101,9 +86,9 @@ components:
         deleted_at:
           type: string
           description: Deleted Date time.
-    AccessListServiceAccountsSuccessResponse:
+    AccessListUsersSuccessResponse:
       type: object
-      description: List service accounts success response.
+      description: List users success response.
       properties:
         kind:
           type: string
@@ -114,8 +99,8 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ServiceAccountRecord'
-          description: Data of the service accounts list.
+            $ref: '#/components/schemas/UserRecord'
+          description: Data of the users list.
     ServiceAccountRecord:
       type: object
       description: Record of the service account.
@@ -135,9 +120,9 @@ components:
         description:
           type: string
           description: Description of the service account.
-    AccessListInvitationsSuccessResponse:
+    AccessListServiceAccountsSuccessResponse:
       type: object
-      description: List invitations success response.
+      description: List service accounts success response.
       properties:
         kind:
           type: string
@@ -148,8 +133,8 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/InvitationRecord'
-          description: Data of the invitations list.
+            $ref: '#/components/schemas/ServiceAccountRecord'
+          description: Data of the service accounts list.
     InvitationRecord:
       type: object
       description: Record of the invitation.
@@ -178,21 +163,21 @@ components:
         expires_at:
           type: string
           description: Expiration date time of the invitation.
-    AccessListEnvironmentsSuccessResponse:
+    AccessListInvitationsSuccessResponse:
       type: object
-      description: Details of the environments returned on successful response.
+      description: List invitations success response.
       properties:
         kind:
           type: string
           description: Type of response.
         metadata:
           $ref: '#/components/schemas/ConfluentListMetadata'
-          description: Metadata of the environment list.
+          description: Metadata of the list.
         data:
           type: array
           items:
-            $ref: '#/components/schemas/EnvironmentRecord'
-          description: Environment list data.
+            $ref: '#/components/schemas/InvitationRecord'
+          description: Data of the invitations list.
     EnvironmentRecord:
       type: object
       description: Details about environment name, metadata and environment id of an environment.
@@ -209,21 +194,21 @@ components:
         display_name:
           type: string
           description: Display name of the user.
-    AccessListClusterSuccessResponse:
+    AccessListEnvironmentsSuccessResponse:
       type: object
-      description: Details of the clusters returned on successful response.
+      description: Details of the environments returned on successful response.
       properties:
         kind:
           type: string
           description: Type of response.
         metadata:
           $ref: '#/components/schemas/ConfluentListMetadata'
-          description: Metadata of the list.
+          description: Metadata of the environment list.
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ClusterRecord'
-          description: List of clusters.
+            $ref: '#/components/schemas/EnvironmentRecord'
+          description: Environment list data.
     ClusterRecord:
       type: object
       description: Details of cluster record.
@@ -348,9 +333,9 @@ components:
         cku:
           type: integer
           description: The number of Confluent Kafka Units.
-    AccessListRoleBindingsSuccessResponse:
+    AccessListClusterSuccessResponse:
       type: object
-      description: Details of the role bindings returned on successful response.
+      description: Details of the clusters returned on successful response.
       properties:
         kind:
           type: string
@@ -361,8 +346,8 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/RoleBindingRecord'
-          description: List of role binding.
+            $ref: '#/components/schemas/ClusterRecord'
+          description: List of clusters.
     RoleBindingRecord:
       type: object
       description: Details on principal, role name and crn pattern of a role binding.
@@ -385,6 +370,21 @@ components:
         crn_pattern:
           type: string
           description: A CRN that specifies the scope and resource patterns necessary for the role to bind.
+    AccessListRoleBindingsSuccessResponse:
+      type: object
+      description: Details of the role bindings returned on successful response.
+      properties:
+        kind:
+          type: string
+          description: Type of response.
+        metadata:
+          $ref: '#/components/schemas/ConfluentListMetadata'
+          description: Metadata of the list.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleBindingRecord'
+          description: List of role binding.
     AccessRoleBindingNameListSuccessResponse:
       type: object
       description: Details of the role binding names returned on successful response.
@@ -1023,15 +1023,6 @@ components:
             $ref: '#/components/schemas/OrganizationResourceFlattened'
         nextLink:
           type: string
-    ListRegionsSuccessResponse:
-      type: object
-      description: Result of POST request to list regions supported by confluent.
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegionRecord'
-          description: List of regions supported by confluent.
     RegionRecord:
       type: object
       description: Details of region record.
@@ -1073,6 +1064,15 @@ components:
           items:
             type: string
           description: ':vartype packages: list[str]'
+    ListRegionsSuccessResponse:
+      type: object
+      description: Result of POST request to list regions supported by confluent.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionRecord'
+          description: List of regions supported by confluent.
     SCEnvironmentRecordFlattened:
       type: object
       description: Flattened view of SCEnvironmentRecord ('properties' hoisted to the top level).
@@ -1571,7 +1571,7 @@ paths:
                 $ref: '#/components/schemas/AccessListUsersSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_users
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listServiceAccounts?api-version=2025-08-18-preview
   : post:
       operationId: Access_list_service_accounts
@@ -1614,7 +1614,7 @@ paths:
                 $ref: '#/components/schemas/AccessListServiceAccountsSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_service_accounts
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listInvitations?api-version=2025-08-18-preview
   : post:
       operationId: Access_list_invitations
@@ -1657,7 +1657,7 @@ paths:
                 $ref: '#/components/schemas/AccessListInvitationsSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_invitations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listEnvironments?api-version=2025-08-18-preview
   : post:
       operationId: Access_list_environments
@@ -1700,7 +1700,7 @@ paths:
                 $ref: '#/components/schemas/AccessListEnvironmentsSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_environments
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listClusters?api-version=2025-08-18-preview
   : post:
       operationId: Access_list_clusters
@@ -1743,7 +1743,7 @@ paths:
                 $ref: '#/components/schemas/AccessListClusterSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_clusters
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listRoleBindings?api-version=2025-08-18-preview
   : post:
       operationId: Access_list_role_bindings
@@ -1786,7 +1786,7 @@ paths:
                 $ref: '#/components/schemas/AccessListRoleBindingsSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_role_bindings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/listRoleBindingNameList?api-version=2025-08-18-preview
   : post:
       operationId: Access_list_role_binding_name_list
@@ -1829,7 +1829,7 @@ paths:
                 $ref: '#/components/schemas/AccessRoleBindingNameListSuccessResponse'
       x-stackql-resource: access
       x-stackql-method: list_role_binding_name_list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/deleteRoleBinding/{role_binding_id}?api-version=2025-08-18-preview
   : delete:
       operationId: Access_delete_role_binding
@@ -1859,11 +1859,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: access
       x-stackql-method: delete_role_binding
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/access/default/createInvitation?api-version=2025-08-18-preview
   : post:
       operationId: Access_invite_user
@@ -1962,7 +1962,7 @@ paths:
                 $ref: '#/components/schemas/RoleBindingRecord'
       x-stackql-resource: access
       x-stackql-method: create_role_binding
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/clusters/{cluster_id}?api-version=2025-08-18-preview
   : put:
       operationId: Cluster_create_or_update
@@ -2743,7 +2743,7 @@ paths:
                 $ref: '#/components/schemas/ListRegionsSuccessResponse'
       x-stackql-resource: organization
       x-stackql-method: list_regions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments?api-version=2025-08-18-preview
   : get:
       operationId: Organization_list_environments
@@ -2964,11 +2964,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: organization
       x-stackql-method: delete_cluster_api_key
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Confluent/organizations/{organization_name}/environments/{environment_id}/schemaRegistryClusters/{cluster_id}?api-version=2025-08-18-preview
   : get:
       operationId: Organization_get_schema_registry_cluster_by_id
@@ -3070,7 +3070,7 @@ paths:
                 $ref: '#/components/schemas/APIKeyRecord'
       x-stackql-resource: organization
       x-stackql-method: create_api_key
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /providers/Microsoft.Confluent/operations?api-version=2025-08-18-preview:
     get:
       operationId: OrganizationOperations_list

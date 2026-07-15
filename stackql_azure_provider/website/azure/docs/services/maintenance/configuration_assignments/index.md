@@ -303,23 +303,9 @@ The following methods are available for this resource:
     <td>Get Configuration records within a subscription and resource group. Get Configuration records within a subscription and resource group.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_parent"><CopyableCode code="create_or_update_parent" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Register configuration for resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Register configuration for resource.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_parent"><CopyableCode code="create_or_update_parent" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Register configuration for resource.</td>
 </tr>
@@ -329,18 +315,25 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Register configuration for resource.</td>
-</tr>
-<tr>
-    <td><a href="#delete_parent"><CopyableCode code="delete_parent" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Unregister configuration for resource.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Unregister configuration for resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_parent"><CopyableCode code="create_or_update_parent" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Register configuration for resource.</td>
+</tr>
+<tr>
+    <td><a href="#delete_parent"><CopyableCode code="delete_parent" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-configuration_assignment_name"><code>configuration_assignment_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Unregister configuration for resource.</td>
 </tr>
@@ -378,7 +371,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-resource_name">
     <td><CopyableCode code="resource_name" /></td>
     <td><code>string</code></td>
-    <td>Resource parent name. Required.</td>
+    <td>Resource name. Required.</td>
 </tr>
 <tr id="parameter-resource_parent_name">
     <td><CopyableCode code="resource_parent_name" /></td>
@@ -393,7 +386,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-resource_type">
     <td><CopyableCode code="resource_type" /></td>
     <td><code>string</code></td>
-    <td>Resource parent type. Required.</td>
+    <td>Resource type. Required.</td>
 </tr>
 <tr id="parameter-subscription_id">
     <td><CopyableCode code="subscription_id" /></td>
@@ -518,51 +511,12 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_parent"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_parent', value: 'create_or_update_parent' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_parent">
-
-Register configuration for resource.
-
-```sql
-INSERT INTO azure.maintenance.configuration_assignments (
-properties,
-location,
-resource_group_name,
-provider_name,
-resource_parent_type,
-resource_parent_name,
-resource_type,
-resource_name,
-configuration_assignment_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ location }}',
-'{{ resource_group_name }}',
-'{{ provider_name }}',
-'{{ resource_parent_type }}',
-'{{ resource_parent_name }}',
-'{{ resource_type }}',
-'{{ resource_name }}',
-'{{ configuration_assignment_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Register configuration for resource.
@@ -608,12 +562,6 @@ type
     - name: provider_name
       value: "{{ provider_name }}"
       description: Required parameter for the configuration_assignments resource.
-    - name: resource_parent_type
-      value: "{{ resource_parent_type }}"
-      description: Required parameter for the configuration_assignments resource.
-    - name: resource_parent_name
-      value: "{{ resource_parent_name }}"
-      description: Required parameter for the configuration_assignments resource.
     - name: resource_type
       value: "{{ resource_type }}"
       description: Required parameter for the configuration_assignments resource.
@@ -657,39 +605,11 @@ type
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_parent"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_parent', value: 'create_or_update_parent' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_parent">
-
-Register configuration for resource.
-
-```sql
-REPLACE azure.maintenance.configuration_assignments
-SET 
-properties = '{{ properties }}',
-location = '{{ location }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND provider_name = '{{ provider_name }}' --required
-AND resource_parent_type = '{{ resource_parent_type }}' --required
-AND resource_parent_name = '{{ resource_parent_name }}' --required
-AND resource_type = '{{ resource_type }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND configuration_assignment_name = '{{ configuration_assignment_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-location,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Register configuration for resource.
@@ -721,29 +641,11 @@ type;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_parent"
+    defaultValue="delete"
     values={[
-        { label: 'delete_parent', value: 'delete_parent' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_parent">
-
-Unregister configuration for resource.
-
-```sql
-DELETE FROM azure.maintenance.configuration_assignments
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND provider_name = '{{ provider_name }}' --required
-AND resource_parent_type = '{{ resource_parent_type }}' --required
-AND resource_parent_name = '{{ resource_parent_name }}' --required
-AND resource_type = '{{ resource_type }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND configuration_assignment_name = '{{ configuration_assignment_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Unregister configuration for resource.
@@ -756,6 +658,57 @@ AND resource_type = '{{ resource_type }}' --required
 AND resource_name = '{{ resource_name }}' --required
 AND configuration_assignment_name = '{{ configuration_assignment_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_or_update_parent"
+    values={[
+        { label: 'create_or_update_parent', value: 'create_or_update_parent' },
+        { label: 'delete_parent', value: 'delete_parent' }
+    ]}
+>
+<TabItem value="create_or_update_parent">
+
+Register configuration for resource.
+
+```sql
+EXEC azure.maintenance.configuration_assignments.create_or_update_parent 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@provider_name='{{ provider_name }}' --required, 
+@resource_parent_type='{{ resource_parent_type }}' --required, 
+@resource_parent_name='{{ resource_parent_name }}' --required, 
+@resource_type='{{ resource_type }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@configuration_assignment_name='{{ configuration_assignment_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"location": "{{ location }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_parent">
+
+Unregister configuration for resource.
+
+```sql
+EXEC azure.maintenance.configuration_assignments.delete_parent 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@provider_name='{{ provider_name }}' --required, 
+@resource_parent_type='{{ resource_parent_type }}' --required, 
+@resource_parent_name='{{ resource_parent_name }}' --required, 
+@resource_type='{{ resource_type }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@configuration_assignment_name='{{ configuration_assignment_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

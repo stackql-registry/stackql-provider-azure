@@ -844,7 +844,7 @@ paths:
                 $ref: '#/components/schemas/OpenShiftClusterAdminKubeconfig'
       x-stackql-resource: open_shift_clusters
       x-stackql-method: list_admin_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RedHatOpenShift/openShiftClusters/{resource_name}/listCredentials?api-version=2025-07-25
   : post:
       operationId: OpenShiftClusters_list_credentials
@@ -877,7 +877,7 @@ paths:
                 $ref: '#/components/schemas/OpenShiftClusterCredentials'
       x-stackql-resource: open_shift_clusters
       x-stackql-method: list_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.RedHatOpenShift/locations/{location}/openShiftVersions/{open_shift_version}?api-version=2025-07-25
   : get:
       operationId: OpenShiftVersions_get

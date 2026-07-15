@@ -49,12 +49,12 @@ total resources: __76__
 <a href="/services/security/device_security_groups/">device_security_groups</a><br />
 <a href="/services/security/discovered_security_solutions/">discovered_security_solutions</a><br />
 <a href="/services/security/external_security_solutions/">external_security_solutions</a><br />
-<a href="/services/security/git_hub_issues/">git_hub_issues</a><br />
-<a href="/services/security/git_hub_owners/">git_hub_owners</a><br />
-<a href="/services/security/git_hub_repos/">git_hub_repos</a><br />
 <a href="/services/security/git_lab_groups/">git_lab_groups</a><br />
 <a href="/services/security/git_lab_projects/">git_lab_projects</a><br />
 <a href="/services/security/git_lab_subgroups/">git_lab_subgroups</a><br />
+<a href="/services/security/github_issues/">github_issues</a><br />
+<a href="/services/security/github_owners/">github_owners</a><br />
+<a href="/services/security/github_repos/">github_repos</a><br />
 <a href="/services/security/governance_assignments/">governance_assignments</a><br />
 <a href="/services/security/governance_rules/">governance_rules</a><br />
 <a href="/services/security/health_reports/">health_reports</a><br />

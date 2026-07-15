@@ -370,76 +370,6 @@ The following methods are available for this resource:
     <td>Lists the Gremlin databases under an existing Azure Cosmos DB database account.</td>
 </tr>
 <tr>
-    <td><a href="#create_update_gremlin_graph"><CopyableCode code="create_update_gremlin_graph" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB Gremlin graph.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_gremlin_database"><CopyableCode code="create_update_gremlin_database" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB Gremlin database.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_gremlin_role_definition"><CopyableCode code="create_update_gremlin_role_definition" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB Gremlin Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_gremlin_role_assignment"><CopyableCode code="create_update_gremlin_role_assignment" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB Gremlin Role Assignment.</td>
-</tr>
-<tr>
-    <td><a href="#update_gremlin_graph_throughput"><CopyableCode code="update_gremlin_graph_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB Gremlin graph.</td>
-</tr>
-<tr>
-    <td><a href="#update_gremlin_database_throughput"><CopyableCode code="update_gremlin_database_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB Gremlin database.</td>
-</tr>
-<tr>
-    <td><a href="#delete_gremlin_graph"><CopyableCode code="delete_gremlin_graph" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Gremlin graph.</td>
-</tr>
-<tr>
-    <td><a href="#delete_gremlin_database"><CopyableCode code="delete_gremlin_database" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Gremlin database.</td>
-</tr>
-<tr>
-    <td><a href="#delete_gremlin_role_definition"><CopyableCode code="delete_gremlin_role_definition" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Gremlin Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#delete_gremlin_role_assignment"><CopyableCode code="delete_gremlin_role_assignment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB Gremlin Role Assignment.</td>
-</tr>
-<tr>
     <td><a href="#list_gremlin_role_definitions"><CopyableCode code="list_gremlin_role_definitions" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -461,6 +391,20 @@ The following methods are available for this resource:
     <td>Gets the RUs per second of the Gremlin database under an existing Azure Cosmos DB database account with the provided name.</td>
 </tr>
 <tr>
+    <td><a href="#update_gremlin_database_throughput"><CopyableCode code="update_gremlin_database_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB Gremlin database.</td>
+</tr>
+<tr>
+    <td><a href="#update_gremlin_graph_throughput"><CopyableCode code="update_gremlin_graph_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB Gremlin graph.</td>
+</tr>
+<tr>
     <td><a href="#get_gremlin_database"><CopyableCode code="get_gremlin_database" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -468,11 +412,67 @@ The following methods are available for this resource:
     <td>Gets the Gremlin databases under an existing Azure Cosmos DB database account with the provided name.</td>
 </tr>
 <tr>
+    <td><a href="#create_update_gremlin_database"><CopyableCode code="create_update_gremlin_database" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB Gremlin database.</td>
+</tr>
+<tr>
+    <td><a href="#delete_gremlin_database"><CopyableCode code="delete_gremlin_database" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Gremlin database.</td>
+</tr>
+<tr>
     <td><a href="#get_gremlin_graph"><CopyableCode code="get_gremlin_graph" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the Gremlin graph under an existing Azure Cosmos DB database account.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_gremlin_graph"><CopyableCode code="create_update_gremlin_graph" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB Gremlin graph.</td>
+</tr>
+<tr>
+    <td><a href="#delete_gremlin_graph"><CopyableCode code="delete_gremlin_graph" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-graph_name"><code>graph_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Gremlin graph.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_gremlin_role_definition"><CopyableCode code="create_update_gremlin_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB Gremlin Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#delete_gremlin_role_definition"><CopyableCode code="delete_gremlin_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Gremlin Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_gremlin_role_assignment"><CopyableCode code="create_update_gremlin_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB Gremlin Role Assignment.</td>
+</tr>
+<tr>
+    <td><a href="#delete_gremlin_role_assignment"><CopyableCode code="delete_gremlin_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB Gremlin Role Assignment.</td>
 </tr>
 <tr>
     <td><a href="#migrate_gremlin_database_to_autoscale"><CopyableCode code="migrate_gremlin_database_to_autoscale" /></a></td>
@@ -689,338 +689,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_update_gremlin_graph"
-    values={[
-        { label: 'create_update_gremlin_graph', value: 'create_update_gremlin_graph' },
-        { label: 'create_update_gremlin_database', value: 'create_update_gremlin_database' },
-        { label: 'create_update_gremlin_role_definition', value: 'create_update_gremlin_role_definition' },
-        { label: 'create_update_gremlin_role_assignment', value: 'create_update_gremlin_role_assignment' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_update_gremlin_graph">
-
-Create or update an Azure Cosmos DB Gremlin graph.
-
-```sql
-INSERT INTO azure.cosmosdb.gremlin_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-graph_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ graph_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_gremlin_database">
-
-Create or update an Azure Cosmos DB Gremlin database.
-
-```sql
-INSERT INTO azure.cosmosdb.gremlin_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_gremlin_role_definition">
-
-Creates or updates an Azure Cosmos DB Gremlin Role Definition.
-
-```sql
-INSERT INTO azure.cosmosdb.gremlin_resources (
-properties,
-resource_group_name,
-account_name,
-role_definition_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_definition_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_gremlin_role_assignment">
-
-Creates or updates an Azure Cosmos DB Gremlin Role Assignment.
-
-```sql
-INSERT INTO azure.cosmosdb.gremlin_resources (
-properties,
-resource_group_name,
-account_name,
-role_assignment_id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ role_assignment_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: gremlin_resources
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: database_name
-      value: "{{ database_name }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: graph_name
-      value: "{{ graph_name }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: role_definition_id
-      value: "{{ role_definition_id }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: role_assignment_id
-      value: "{{ role_assignment_id }}"
-      description: Required parameter for the gremlin_resources resource.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        The location of the resource group to which the resource belongs.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example, the default experience for a template type is set with "defaultExperience": "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
-    - name: identity
-      description: |
-        Identity for the resource.
-      value:
-        principalId: "{{ principalId }}"
-        tenantId: "{{ tenantId }}"
-        type: "{{ type }}"
-        userAssignedIdentities: "{{ userAssignedIdentities }}"
-    - name: properties
-      description: |
-        Properties to create and update an Azure Cosmos DB Gremlin Role Assignment.
-      value:
-        roleDefinitionId: "{{ roleDefinitionId }}"
-        scope: "{{ scope }}"
-        principalId: "{{ principalId }}"
-        provisioningState: "{{ provisioningState }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_gremlin_graph_throughput"
-    values={[
-        { label: 'update_gremlin_graph_throughput', value: 'update_gremlin_graph_throughput' },
-        { label: 'update_gremlin_database_throughput', value: 'update_gremlin_database_throughput' }
-    ]}
->
-<TabItem value="update_gremlin_graph_throughput">
-
-Update RUs per second of an Azure Cosmos DB Gremlin graph.
-
-```sql
-UPDATE azure.cosmosdb.gremlin_resources
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-identity = '{{ identity }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND graph_name = '{{ graph_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="update_gremlin_database_throughput">
-
-Update RUs per second of an Azure Cosmos DB Gremlin database.
-
-```sql
-UPDATE azure.cosmosdb.gremlin_resources
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-identity = '{{ identity }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_gremlin_graph"
-    values={[
-        { label: 'delete_gremlin_graph', value: 'delete_gremlin_graph' },
-        { label: 'delete_gremlin_database', value: 'delete_gremlin_database' },
-        { label: 'delete_gremlin_role_definition', value: 'delete_gremlin_role_definition' },
-        { label: 'delete_gremlin_role_assignment', value: 'delete_gremlin_role_assignment' }
-    ]}
->
-<TabItem value="delete_gremlin_graph">
-
-Deletes an existing Azure Cosmos DB Gremlin graph.
-
-```sql
-DELETE FROM azure.cosmosdb.gremlin_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND graph_name = '{{ graph_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_gremlin_database">
-
-Deletes an existing Azure Cosmos DB Gremlin database.
-
-```sql
-DELETE FROM azure.cosmosdb.gremlin_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_gremlin_role_definition">
-
-Deletes an existing Azure Cosmos DB Gremlin Role Definition.
-
-```sql
-DELETE FROM azure.cosmosdb.gremlin_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_definition_id = '{{ role_definition_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_gremlin_role_assignment">
-
-Deletes an existing Azure Cosmos DB Gremlin Role Assignment.
-
-```sql
-DELETE FROM azure.cosmosdb.gremlin_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND role_assignment_id = '{{ role_assignment_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -1029,8 +697,18 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_gremlin_role_definitions', value: 'list_gremlin_role_definitions' },
         { label: 'list_gremlin_role_assignments', value: 'list_gremlin_role_assignments' },
         { label: 'get_gremlin_database_throughput', value: 'get_gremlin_database_throughput' },
+        { label: 'update_gremlin_database_throughput', value: 'update_gremlin_database_throughput' },
+        { label: 'update_gremlin_graph_throughput', value: 'update_gremlin_graph_throughput' },
         { label: 'get_gremlin_database', value: 'get_gremlin_database' },
+        { label: 'create_update_gremlin_database', value: 'create_update_gremlin_database' },
+        { label: 'delete_gremlin_database', value: 'delete_gremlin_database' },
         { label: 'get_gremlin_graph', value: 'get_gremlin_graph' },
+        { label: 'create_update_gremlin_graph', value: 'create_update_gremlin_graph' },
+        { label: 'delete_gremlin_graph', value: 'delete_gremlin_graph' },
+        { label: 'create_update_gremlin_role_definition', value: 'create_update_gremlin_role_definition' },
+        { label: 'delete_gremlin_role_definition', value: 'delete_gremlin_role_definition' },
+        { label: 'create_update_gremlin_role_assignment', value: 'create_update_gremlin_role_assignment' },
+        { label: 'delete_gremlin_role_assignment', value: 'delete_gremlin_role_assignment' },
         { label: 'migrate_gremlin_database_to_autoscale', value: 'migrate_gremlin_database_to_autoscale' },
         { label: 'migrate_gremlin_database_to_manual_throughput', value: 'migrate_gremlin_database_to_manual_throughput' },
         { label: 'migrate_gremlin_graph_to_autoscale', value: 'migrate_gremlin_graph_to_autoscale' },
@@ -1075,12 +753,86 @@ EXEC azure.cosmosdb.gremlin_resources.get_gremlin_database_throughput
 ;
 ```
 </TabItem>
+<TabItem value="update_gremlin_database_throughput">
+
+Update RUs per second of an Azure Cosmos DB Gremlin database.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.update_gremlin_database_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_gremlin_graph_throughput">
+
+Update RUs per second of an Azure Cosmos DB Gremlin graph.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.update_gremlin_graph_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@graph_name='{{ graph_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_gremlin_database">
 
 Gets the Gremlin databases under an existing Azure Cosmos DB database account with the provided name.
 
 ```sql
 EXEC azure.cosmosdb.gremlin_resources.get_gremlin_database 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_gremlin_database">
+
+Create or update an Azure Cosmos DB Gremlin database.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.create_update_gremlin_database 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_gremlin_database">
+
+Deletes an existing Azure Cosmos DB Gremlin database.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.delete_gremlin_database 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @database_name='{{ database_name }}' --required, 
@@ -1098,6 +850,101 @@ EXEC azure.cosmosdb.gremlin_resources.get_gremlin_graph
 @account_name='{{ account_name }}' --required, 
 @database_name='{{ database_name }}' --required, 
 @graph_name='{{ graph_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_gremlin_graph">
+
+Create or update an Azure Cosmos DB Gremlin graph.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.create_update_gremlin_graph 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@graph_name='{{ graph_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_gremlin_graph">
+
+Deletes an existing Azure Cosmos DB Gremlin graph.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.delete_gremlin_graph 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@graph_name='{{ graph_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_gremlin_role_definition">
+
+Creates or updates an Azure Cosmos DB Gremlin Role Definition.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.create_update_gremlin_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_gremlin_role_definition">
+
+Deletes an existing Azure Cosmos DB Gremlin Role Definition.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.delete_gremlin_role_definition 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_gremlin_role_assignment">
+
+Creates or updates an Azure Cosmos DB Gremlin Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.create_update_gremlin_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_gremlin_role_assignment">
+
+Deletes an existing Azure Cosmos DB Gremlin Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.gremlin_resources.delete_gremlin_role_assignment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

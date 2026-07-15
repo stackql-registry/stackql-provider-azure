@@ -371,7 +371,7 @@ paths:
                 $ref: '#/components/schemas/LabelResource'
       x-stackql-resource: labels
       x-stackql-method: create_and_update
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Labels_update
       description: Update a Label.
@@ -553,7 +553,7 @@ paths:
                 $ref: '#/components/schemas/WorkspaceResource'
       x-stackql-resource: workspaces
       x-stackql-method: create_and_update
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Workspaces_update
       description: Update a Workspace.

@@ -3013,7 +3013,7 @@ paths:
                 $ref: '#/components/schemas/UpgradableVersionPathResult'
       x-stackql-resource: clusters
       x-stackql-method: list_upgradable_versions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.ServiceFabric/operations?api-version=2026-03-01-preview:
     get:
       operationId: servicefabric_list

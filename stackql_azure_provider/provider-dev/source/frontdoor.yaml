@@ -165,6 +165,11 @@ components:
       enum:
       - Microsoft.Network/frontDoors
       - Microsoft.Network/frontDoors/frontendEndpoints
+    Availability:
+      type: string
+      enum:
+      - Available
+      - Unavailable
     CheckNameAvailabilityOutput:
       type: object
       description: Output of check name availability API.
@@ -178,11 +183,6 @@ components:
         message:
           type: string
           description: The detailed error message describing why the name is not available.
-    Availability:
-      type: string
-      enum:
-      - Available
-      - Unavailable
     FrontDoorProperties:
       type: object
       description: The JSON object that contains the properties required to create an endpoint.
@@ -2173,7 +2173,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: endpoints
       x-stackql-method: purge_content
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/NetworkExperimentProfiles/{profile_name}/Experiments/{experiment_name}?api-version=2025-10-01
   : get:
       operationId: Experiments_get
@@ -2417,7 +2417,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: front_door_name_availability
       x-stackql-method: check
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.Network/checkFrontDoorNameAvailability?api-version=2025-10-01:
     post:
       operationId: FrontDoorNameAvailabilityWithSubscription_check
@@ -2454,7 +2454,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: front_door_name_availability_with_subscription
       x-stackql-method: check
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/frontDoors/{front_door_name}?api-version=2025-10-01
   : get:
       operationId: FrontDoors_get

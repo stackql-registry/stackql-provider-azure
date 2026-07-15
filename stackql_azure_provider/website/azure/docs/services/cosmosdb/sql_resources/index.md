@@ -578,125 +578,6 @@ The following methods are available for this resource:
     <td>Lists the SQL databases under an existing Azure Cosmos DB database account.</td>
 </tr>
 <tr>
-    <td><a href="#create_update_sql_stored_procedure"><CopyableCode code="create_update_sql_stored_procedure" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-stored_procedure_name"><code>stored_procedure_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB SQL storedProcedure.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_sql_user_defined_function"><CopyableCode code="create_update_sql_user_defined_function" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-user_defined_function_name"><code>user_defined_function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB SQL userDefinedFunction.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_sql_trigger"><CopyableCode code="create_update_sql_trigger" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-trigger_name"><code>trigger_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB SQL trigger.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_client_encryption_key"><CopyableCode code="create_update_client_encryption_key" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-client_encryption_key_name"><code>client_encryption_key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update a ClientEncryptionKey. This API is meant to be invoked via tools such as the Azure Powershell (instead of directly).</td>
-</tr>
-<tr>
-    <td><a href="#create_update_sql_container"><CopyableCode code="create_update_sql_container" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB SQL container.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_sql_database"><CopyableCode code="create_update_sql_database" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Create or update an Azure Cosmos DB SQL database.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_sql_role_definition"><CopyableCode code="create_update_sql_role_definition" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB SQL Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#create_update_sql_role_assignment"><CopyableCode code="create_update_sql_role_assignment" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or updates an Azure Cosmos DB SQL Role Assignment.</td>
-</tr>
-<tr>
-    <td><a href="#update_sql_container_throughput"><CopyableCode code="update_sql_container_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB SQL container.</td>
-</tr>
-<tr>
-    <td><a href="#update_sql_database_throughput"><CopyableCode code="update_sql_database_throughput" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Update RUs per second of an Azure Cosmos DB SQL database.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_stored_procedure"><CopyableCode code="delete_sql_stored_procedure" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-stored_procedure_name"><code>stored_procedure_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL storedProcedure.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_user_defined_function"><CopyableCode code="delete_sql_user_defined_function" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-user_defined_function_name"><code>user_defined_function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL userDefinedFunction.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_trigger"><CopyableCode code="delete_sql_trigger" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-trigger_name"><code>trigger_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL trigger.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_container"><CopyableCode code="delete_sql_container" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL container.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_database"><CopyableCode code="delete_sql_database" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL database.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_role_definition"><CopyableCode code="delete_sql_role_definition" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL Role Definition.</td>
-</tr>
-<tr>
-    <td><a href="#delete_sql_role_assignment"><CopyableCode code="delete_sql_role_assignment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes an existing Azure Cosmos DB SQL Role Assignment.</td>
-</tr>
-<tr>
     <td><a href="#list_sql_containers"><CopyableCode code="list_sql_containers" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -739,11 +620,32 @@ The following methods are available for this resource:
     <td>Gets the SQL database under an existing Azure Cosmos DB database account with the provided name.</td>
 </tr>
 <tr>
+    <td><a href="#create_update_sql_database"><CopyableCode code="create_update_sql_database" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB SQL database.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_database"><CopyableCode code="delete_sql_database" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL database.</td>
+</tr>
+<tr>
     <td><a href="#get_sql_database_throughput"><CopyableCode code="get_sql_database_throughput" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the RUs per second of the SQL database under an existing Azure Cosmos DB database account with the provided name.</td>
+</tr>
+<tr>
+    <td><a href="#update_sql_database_throughput"><CopyableCode code="update_sql_database_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB SQL database.</td>
 </tr>
 <tr>
     <td><a href="#get_sql_container_throughput"><CopyableCode code="get_sql_container_throughput" /></a></td>
@@ -753,11 +655,109 @@ The following methods are available for this resource:
     <td>Gets the RUs per second of the SQL container under an existing Azure Cosmos DB database account.</td>
 </tr>
 <tr>
+    <td><a href="#update_sql_container_throughput"><CopyableCode code="update_sql_container_throughput" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Update RUs per second of an Azure Cosmos DB SQL container.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_client_encryption_key"><CopyableCode code="create_update_client_encryption_key" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-client_encryption_key_name"><code>client_encryption_key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update a ClientEncryptionKey. This API is meant to be invoked via tools such as the Azure Powershell (instead of directly).</td>
+</tr>
+<tr>
     <td><a href="#get_sql_container"><CopyableCode code="get_sql_container" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the SQL container under an existing Azure Cosmos DB database account.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_sql_container"><CopyableCode code="create_update_sql_container" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB SQL container.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_container"><CopyableCode code="delete_sql_container" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL container.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_sql_stored_procedure"><CopyableCode code="create_update_sql_stored_procedure" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-stored_procedure_name"><code>stored_procedure_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB SQL storedProcedure.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_stored_procedure"><CopyableCode code="delete_sql_stored_procedure" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-stored_procedure_name"><code>stored_procedure_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL storedProcedure.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_sql_user_defined_function"><CopyableCode code="create_update_sql_user_defined_function" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-user_defined_function_name"><code>user_defined_function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB SQL userDefinedFunction.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_user_defined_function"><CopyableCode code="delete_sql_user_defined_function" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-user_defined_function_name"><code>user_defined_function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL userDefinedFunction.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_sql_trigger"><CopyableCode code="create_update_sql_trigger" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-trigger_name"><code>trigger_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Create or update an Azure Cosmos DB SQL trigger.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_trigger"><CopyableCode code="delete_sql_trigger" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-database_name"><code>database_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-trigger_name"><code>trigger_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL trigger.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_sql_role_definition"><CopyableCode code="create_update_sql_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB SQL Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_role_definition"><CopyableCode code="delete_sql_role_definition" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-role_definition_id"><code>role_definition_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL Role Definition.</td>
+</tr>
+<tr>
+    <td><a href="#create_update_sql_role_assignment"><CopyableCode code="create_update_sql_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or updates an Azure Cosmos DB SQL Role Assignment.</td>
+</tr>
+<tr>
+    <td><a href="#delete_sql_role_assignment"><CopyableCode code="delete_sql_role_assignment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-role_assignment_id"><code>role_assignment_id</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes an existing Azure Cosmos DB SQL Role Assignment.</td>
 </tr>
 <tr>
     <td><a href="#migrate_sql_database_to_autoscale"><CopyableCode code="migrate_sql_database_to_autoscale" /></a></td>
@@ -1085,550 +1085,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_update_sql_stored_procedure"
-    values={[
-        { label: 'create_update_sql_stored_procedure', value: 'create_update_sql_stored_procedure' },
-        { label: 'create_update_sql_user_defined_function', value: 'create_update_sql_user_defined_function' },
-        { label: 'create_update_sql_trigger', value: 'create_update_sql_trigger' },
-        { label: 'create_update_client_encryption_key', value: 'create_update_client_encryption_key' },
-        { label: 'create_update_sql_container', value: 'create_update_sql_container' },
-        { label: 'create_update_sql_database', value: 'create_update_sql_database' },
-        { label: 'create_update_sql_role_definition', value: 'create_update_sql_role_definition' },
-        { label: 'create_update_sql_role_assignment', value: 'create_update_sql_role_assignment' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_update_sql_stored_procedure">
-
-Create or update an Azure Cosmos DB SQL storedProcedure.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-container_name,
-stored_procedure_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ container_name }}',
-'{{ stored_procedure_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_sql_user_defined_function">
-
-Create or update an Azure Cosmos DB SQL userDefinedFunction.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-container_name,
-user_defined_function_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ container_name }}',
-'{{ user_defined_function_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_sql_trigger">
-
-Create or update an Azure Cosmos DB SQL trigger.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-container_name,
-trigger_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ container_name }}',
-'{{ trigger_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_client_encryption_key">
-
-Create or update a ClientEncryptionKey. This API is meant to be invoked via tools such as the Azure Powershell (instead of directly).
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-properties,
-resource_group_name,
-account_name,
-database_name,
-client_encryption_key_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ client_encryption_key_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_sql_container">
-
-Create or update an Azure Cosmos DB SQL container.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-container_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ container_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_sql_database">
-
-Create or update an Azure Cosmos DB SQL database.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-location,
-tags,
-identity,
-properties,
-resource_group_name,
-account_name,
-database_name,
-subscription_id
-)
-SELECT 
-'{{ location }}',
-'{{ tags }}',
-'{{ identity }}',
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ database_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_sql_role_definition">
-
-Creates or updates an Azure Cosmos DB SQL Role Definition.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-properties,
-role_definition_id,
-resource_group_name,
-account_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ role_definition_id }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_update_sql_role_assignment">
-
-Creates or updates an Azure Cosmos DB SQL Role Assignment.
-
-```sql
-INSERT INTO azure.cosmosdb.sql_resources (
-properties,
-role_assignment_id,
-resource_group_name,
-account_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ role_assignment_id }}',
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: sql_resources
-  props:
-    - name: resource_group_name
-      value: "{{ resource_group_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: account_name
-      value: "{{ account_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: database_name
-      value: "{{ database_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: container_name
-      value: "{{ container_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: stored_procedure_name
-      value: "{{ stored_procedure_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: subscription_id
-      value: "{{ subscription_id }}"
-      description: Required parameter for the sql_resources resource.
-    - name: user_defined_function_name
-      value: "{{ user_defined_function_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: trigger_name
-      value: "{{ trigger_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: client_encryption_key_name
-      value: "{{ client_encryption_key_name }}"
-      description: Required parameter for the sql_resources resource.
-    - name: role_definition_id
-      value: "{{ role_definition_id }}"
-      description: Required parameter for the sql_resources resource.
-    - name: role_assignment_id
-      value: "{{ role_assignment_id }}"
-      description: Required parameter for the sql_resources resource.
-    - name: location
-      value: "{{ location }}"
-      description: |
-        The location of the resource group to which the resource belongs.
-    - name: tags
-      value: "{{ tags }}"
-      description: |
-        Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example, the default experience for a template type is set with "defaultExperience": "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
-    - name: identity
-      description: |
-        Identity for the resource.
-      value:
-        principalId: "{{ principalId }}"
-        tenantId: "{{ tenantId }}"
-        type: "{{ type }}"
-        userAssignedIdentities: "{{ userAssignedIdentities }}"
-    - name: properties
-      description: |
-        Properties to create and update an Azure Cosmos DB SQL Role Assignment.
-      value:
-        roleDefinitionId: "{{ roleDefinitionId }}"
-        scope: "{{ scope }}"
-        principalId: "{{ principalId }}"
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_sql_container_throughput"
-    values={[
-        { label: 'update_sql_container_throughput', value: 'update_sql_container_throughput' },
-        { label: 'update_sql_database_throughput', value: 'update_sql_database_throughput' }
-    ]}
->
-<TabItem value="update_sql_container_throughput">
-
-Update RUs per second of an Azure Cosmos DB SQL container.
-
-```sql
-UPDATE azure.cosmosdb.sql_resources
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-identity = '{{ identity }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="update_sql_database_throughput">
-
-Update RUs per second of an Azure Cosmos DB SQL database.
-
-```sql
-UPDATE azure.cosmosdb.sql_resources
-SET 
-location = '{{ location }}',
-tags = '{{ tags }}',
-identity = '{{ identity }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-identity,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_sql_stored_procedure"
-    values={[
-        { label: 'delete_sql_stored_procedure', value: 'delete_sql_stored_procedure' },
-        { label: 'delete_sql_user_defined_function', value: 'delete_sql_user_defined_function' },
-        { label: 'delete_sql_trigger', value: 'delete_sql_trigger' },
-        { label: 'delete_sql_container', value: 'delete_sql_container' },
-        { label: 'delete_sql_database', value: 'delete_sql_database' },
-        { label: 'delete_sql_role_definition', value: 'delete_sql_role_definition' },
-        { label: 'delete_sql_role_assignment', value: 'delete_sql_role_assignment' }
-    ]}
->
-<TabItem value="delete_sql_stored_procedure">
-
-Deletes an existing Azure Cosmos DB SQL storedProcedure.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND stored_procedure_name = '{{ stored_procedure_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_sql_user_defined_function">
-
-Deletes an existing Azure Cosmos DB SQL userDefinedFunction.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND user_defined_function_name = '{{ user_defined_function_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_sql_trigger">
-
-Deletes an existing Azure Cosmos DB SQL trigger.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND trigger_name = '{{ trigger_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_sql_container">
-
-Deletes an existing Azure Cosmos DB SQL container.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_sql_database">
-
-Deletes an existing Azure Cosmos DB SQL database.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND database_name = '{{ database_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_sql_role_definition">
-
-Deletes an existing Azure Cosmos DB SQL Role Definition.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE role_definition_id = '{{ role_definition_id }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_sql_role_assignment">
-
-Deletes an existing Azure Cosmos DB SQL Role Assignment.
-
-```sql
-DELETE FROM azure.cosmosdb.sql_resources
-WHERE role_assignment_id = '{{ role_assignment_id }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -1640,9 +1096,26 @@ AND subscription_id = '{{ subscription_id }}' --required
         { label: 'list_sql_role_definitions', value: 'list_sql_role_definitions' },
         { label: 'list_sql_role_assignments', value: 'list_sql_role_assignments' },
         { label: 'get_sql_database', value: 'get_sql_database' },
+        { label: 'create_update_sql_database', value: 'create_update_sql_database' },
+        { label: 'delete_sql_database', value: 'delete_sql_database' },
         { label: 'get_sql_database_throughput', value: 'get_sql_database_throughput' },
+        { label: 'update_sql_database_throughput', value: 'update_sql_database_throughput' },
         { label: 'get_sql_container_throughput', value: 'get_sql_container_throughput' },
+        { label: 'update_sql_container_throughput', value: 'update_sql_container_throughput' },
+        { label: 'create_update_client_encryption_key', value: 'create_update_client_encryption_key' },
         { label: 'get_sql_container', value: 'get_sql_container' },
+        { label: 'create_update_sql_container', value: 'create_update_sql_container' },
+        { label: 'delete_sql_container', value: 'delete_sql_container' },
+        { label: 'create_update_sql_stored_procedure', value: 'create_update_sql_stored_procedure' },
+        { label: 'delete_sql_stored_procedure', value: 'delete_sql_stored_procedure' },
+        { label: 'create_update_sql_user_defined_function', value: 'create_update_sql_user_defined_function' },
+        { label: 'delete_sql_user_defined_function', value: 'delete_sql_user_defined_function' },
+        { label: 'create_update_sql_trigger', value: 'create_update_sql_trigger' },
+        { label: 'delete_sql_trigger', value: 'delete_sql_trigger' },
+        { label: 'create_update_sql_role_definition', value: 'create_update_sql_role_definition' },
+        { label: 'delete_sql_role_definition', value: 'delete_sql_role_definition' },
+        { label: 'create_update_sql_role_assignment', value: 'create_update_sql_role_assignment' },
+        { label: 'delete_sql_role_assignment', value: 'delete_sql_role_assignment' },
         { label: 'migrate_sql_database_to_autoscale', value: 'migrate_sql_database_to_autoscale' },
         { label: 'migrate_sql_database_to_manual_throughput', value: 'migrate_sql_database_to_manual_throughput' },
         { label: 'migrate_sql_container_to_autoscale', value: 'migrate_sql_container_to_autoscale' },
@@ -1728,6 +1201,39 @@ EXEC azure.cosmosdb.sql_resources.get_sql_database
 ;
 ```
 </TabItem>
+<TabItem value="create_update_sql_database">
+
+Create or update an Azure Cosmos DB SQL database.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_database 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_database">
+
+Deletes an existing Azure Cosmos DB SQL database.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_database 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_sql_database_throughput">
 
 Gets the RUs per second of the SQL database under an existing Azure Cosmos DB database account with the provided name.
@@ -1738,6 +1244,26 @@ EXEC azure.cosmosdb.sql_resources.get_sql_database_throughput
 @account_name='{{ account_name }}' --required, 
 @database_name='{{ database_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="update_sql_database_throughput">
+
+Update RUs per second of an Azure Cosmos DB SQL database.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.update_sql_database_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>
@@ -1755,6 +1281,45 @@ EXEC azure.cosmosdb.sql_resources.get_sql_container_throughput
 ;
 ```
 </TabItem>
+<TabItem value="update_sql_container_throughput">
+
+Update RUs per second of an Azure Cosmos DB SQL container.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.update_sql_container_throughput 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_update_client_encryption_key">
+
+Create or update a ClientEncryptionKey. This API is meant to be invoked via tools such as the Azure Powershell (instead of directly).
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_client_encryption_key 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@client_encryption_key_name='{{ client_encryption_key_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_sql_container">
 
 Gets the SQL container under an existing Azure Cosmos DB database account.
@@ -1765,6 +1330,212 @@ EXEC azure.cosmosdb.sql_resources.get_sql_container
 @account_name='{{ account_name }}' --required, 
 @database_name='{{ database_name }}' --required, 
 @container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_sql_container">
+
+Create or update an Azure Cosmos DB SQL container.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_container 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_container">
+
+Deletes an existing Azure Cosmos DB SQL container.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_container 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_sql_stored_procedure">
+
+Create or update an Azure Cosmos DB SQL storedProcedure.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_stored_procedure 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@stored_procedure_name='{{ stored_procedure_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_stored_procedure">
+
+Deletes an existing Azure Cosmos DB SQL storedProcedure.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_stored_procedure 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@stored_procedure_name='{{ stored_procedure_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_sql_user_defined_function">
+
+Create or update an Azure Cosmos DB SQL userDefinedFunction.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_user_defined_function 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@user_defined_function_name='{{ user_defined_function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_user_defined_function">
+
+Deletes an existing Azure Cosmos DB SQL userDefinedFunction.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_user_defined_function 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@user_defined_function_name='{{ user_defined_function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_sql_trigger">
+
+Create or update an Azure Cosmos DB SQL trigger.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_trigger 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@trigger_name='{{ trigger_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"location": "{{ location }}", 
+"tags": "{{ tags }}", 
+"identity": "{{ identity }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_trigger">
+
+Deletes an existing Azure Cosmos DB SQL trigger.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_trigger 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@database_name='{{ database_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@trigger_name='{{ trigger_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_sql_role_definition">
+
+Creates or updates an Azure Cosmos DB SQL Role Definition.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_role_definition 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_role_definition">
+
+Deletes an existing Azure Cosmos DB SQL Role Definition.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_role_definition 
+@role_definition_id='{{ role_definition_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_update_sql_role_assignment">
+
+Creates or updates an Azure Cosmos DB SQL Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.create_update_sql_role_assignment 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_sql_role_assignment">
+
+Deletes an existing Azure Cosmos DB SQL Role Assignment.
+
+```sql
+EXEC azure.cosmosdb.sql_resources.delete_sql_role_assignment 
+@role_assignment_id='{{ role_assignment_id }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

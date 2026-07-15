@@ -1589,4 +1589,4 @@ paths:
                 properties: {}
       x-stackql-resource: check_service_provider_availabilities
       x-stackql-method: check_service_provider_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

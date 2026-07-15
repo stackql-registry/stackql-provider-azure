@@ -503,13 +503,6 @@ components:
           description: The managed service identities assigned to this resource.
       required:
       - location
-    GetKeyVaultStatusResponse:
-      type: object
-      description: Result of getKeyVaultStatus with information about how volumes under NetApp account are encrypted.
-      properties:
-        properties:
-          $ref: '#/components/schemas/GetKeyVaultStatusResponseProperties'
-          description: Represents the properties of the getKeyVaultStatus.
     GetKeyVaultStatusResponseProperties:
       type: object
       description: Properties which represents Change key vault status.
@@ -540,6 +533,25 @@ components:
         privateEndpointId:
           type: string
           description: Identifier of the private endpoint to reach the Azure Key Vault.
+    GetKeyVaultStatusResponseFlattened:
+      type: object
+      description: Flattened view of GetKeyVaultStatusResponse ('properties' hoisted to the top level).
+      properties:
+        keyVaultUri:
+          type: string
+          description: The URI of the key vault/managed HSM that should be used for encryption.
+        keyName:
+          type: string
+          description: The name of the key that should be used for encryption.
+        keyVaultResourceId:
+          type: string
+          description: Azure resource ID of the key vault/managed HSM that should be used for encryption.
+        keyVaultPrivateEndpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyVaultPrivateEndpoint'
+          description: Pairs of virtual network ID and private endpoint ID. Every virtual network that has volumes
+            encrypted with customer-managed keys needs its own key vault private endpoint.
     AccountPropertiesPatch:
       type: object
       description: NetApp account patch properties.
@@ -3030,6 +3042,16 @@ components:
           type: string
           description: The Azure Resource URI for an Active Directory configuration. This is used by all the SMB
             volumes within the pool.
+    CheckElasticResourceAvailabilityStatus:
+      type: string
+      enum:
+      - 'True'
+      - 'False'
+    CheckElasticResourceAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckElasticResourceAvailabilityResponse:
       type: object
       description: Information regarding availability of a resource.
@@ -3048,16 +3070,6 @@ components:
           description: If reason == invalid, provide the user with the reason why the given name is invalid, and
             provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists,
             explain that resource name is already in use, and direct them to select a different name.
-    CheckElasticResourceAvailabilityStatus:
-      type: string
-      enum:
-      - 'True'
-      - 'False'
-    CheckElasticResourceAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     ElasticSnapshotPolicyProperties:
       type: object
       description: Elastic Snapshot policy properties.
@@ -3699,6 +3711,11 @@ components:
       - Microsoft.NetApp/netAppAccounts/capacityPools/volumes/snapshots
       - Microsoft.NetApp/netAppAccounts/backupVaults/backups
       - Microsoft.NetApp/netAppAccounts/capacityPools/volumes/backups
+    InAvailabilityReasonType:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckAvailabilityResponse:
       type: object
       description: Information regarding availability of a resource.
@@ -3717,11 +3734,6 @@ components:
           description: If reason == invalid, provide the user with the reason why the given name is invalid, and
             provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists,
             explain that resource name is already in use, and direct them to select a different name.
-    InAvailabilityReasonType:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     CheckQuotaNameResourceTypes:
       type: string
       enum:
@@ -3765,6 +3777,32 @@ components:
         isAvailable:
           type: boolean
           description: Available availability zone.
+    NetworkFeatures:
+      type: string
+      enum:
+      - Basic
+      - Standard
+      - Basic_Standard
+      - Standard_Basic
+    NetworkSiblingSetProvisioningState:
+      type: string
+      enum:
+      - Succeeded
+      - Failed
+      - Canceled
+      - Updating
+    NicInfo:
+      type: object
+      description: NIC information and list of volumes for which the NIC has the primary mount IP Address.
+      properties:
+        ipAddress:
+          type: string
+          description: IP Address.
+        volumeResourceIds:
+          type: array
+          items:
+            type: string
+          description: Volume resource Ids.
     NetworkSiblingSet:
       type: object
       description: Describes the contents of a network sibling set.
@@ -3792,32 +3830,6 @@ components:
           items:
             $ref: '#/components/schemas/NicInfo'
           description: List of NIC information.
-    NetworkFeatures:
-      type: string
-      enum:
-      - Basic
-      - Standard
-      - Basic_Standard
-      - Standard_Basic
-    NetworkSiblingSetProvisioningState:
-      type: string
-      enum:
-      - Succeeded
-      - Failed
-      - Canceled
-      - Updating
-    NicInfo:
-      type: object
-      description: NIC information and list of volumes for which the NIC has the primary mount IP Address.
-      properties:
-        ipAddress:
-          type: string
-          description: IP Address.
-        volumeResourceIds:
-          type: array
-          items:
-            type: string
-          description: Volume resource Ids.
     QuotaItemProperties:
       type: object
       description: QuotaItem Properties.
@@ -5600,9 +5612,47 @@ components:
             $ref: '#/components/schemas/SubvolumeInfoFlattened'
         nextLink:
           type: string
-    SubvolumeModel:
+    SubvolumeModelProperties:
       type: object
-      description: Result of the post subvolume and action is to get metadata of the subvolume.
+      description: Properties which represents actual subvolume model which is stored as a file in the system.
+      properties:
+        path:
+          type: string
+          description: Path to the subvolume.
+        parentPath:
+          type: string
+          description: Path to the parent subvolume.
+        size:
+          type: integer
+          description: Size of subvolume.
+        bytesUsed:
+          type: integer
+          description: Bytes used.
+        permissions:
+          type: string
+          description: Permissions of the subvolume.
+        creationTimeStamp:
+          type: string
+          format: date-time
+          description: Creation time and date.
+        accessedTimeStamp:
+          type: string
+          format: date-time
+          description: Most recent access time and date.
+        modifiedTimeStamp:
+          type: string
+          format: date-time
+          description: Most recent modification time and date.
+        changedTimeStamp:
+          type: string
+          format: date-time
+          description: Most recent change time and date.
+        provisioningState:
+          type: string
+          description: Azure lifecycle management.
+    SubvolumeModelFlattened:
+      type: object
+      description: Flattened view of SubvolumeModel ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -5613,13 +5663,6 @@ components:
         type:
           type: string
           description: Resource type.
-        properties:
-          $ref: '#/components/schemas/SubvolumeModelProperties'
-          description: It represents the minimal properties of the subvolume.
-    SubvolumeModelProperties:
-      type: object
-      description: Properties which represents actual subvolume model which is stored as a file in the system.
-      properties:
         path:
           type: string
           description: Path to the subvolume.
@@ -5968,6 +6011,12 @@ components:
       enum:
       - None
       - Deleted
+    ReplicationMirrorState:
+      type: string
+      enum:
+      - Uninitialized
+      - Mirrored
+      - Broken
     Replication:
       type: object
       description: Replication properties.
@@ -5999,12 +6048,6 @@ components:
           type: string
           format: date-time
           description: Replication deletion time.
-    ReplicationMirrorState:
-      type: string
-      enum:
-      - Uninitialized
-      - Mirrored
-      - Broken
     PagedReplication:
       type: object
       properties:
@@ -6014,13 +6057,6 @@ components:
             $ref: '#/components/schemas/Replication'
         nextLink:
           type: string
-    ListQuotaReportResult:
-      type: object
-      description: '* Result of ListQuotaReportResponse.'
-      properties:
-        properties:
-          $ref: '#/components/schemas/ListQuotaReportResponse'
-          description: Represents the properties of the ListQuotaReport.
     ListQuotaReportResponse:
       type: object
       description: Quota Report for volume.
@@ -6054,6 +6090,15 @@ components:
         isDerivedQuota:
           type: boolean
           description: Flag to indicate whether the quota is derived from default quota.
+    ListQuotaReportResultFlattened:
+      type: object
+      description: Flattened view of ListQuotaReportResult ('properties' hoisted to the top level).
+      properties:
+        quotaReportRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuotaReport'
+          description: List of quota reports.
     VolumePatchProperties:
       type: object
       description: Patchable volume properties.
@@ -6461,10 +6506,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetKeyVaultStatusResponse'
+                $ref: '#/components/schemas/GetKeyVaultStatusResponseFlattened'
       x-stackql-resource: accounts
       x-stackql-method: get_change_key_vault_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/renewCredentials?api-version=2026-04-15-preview
   : post:
       operationId: Accounts_begin_renew_credentials
@@ -8473,7 +8519,7 @@ paths:
                 $ref: '#/components/schemas/PeeringPassphrases'
       x-stackql-resource: caches
       x-stackql-method: list_peering_passphrases
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/capacityPools/{pool_name}/caches/{cache_name}/poolChange?api-version=2026-04-15-preview
   : post:
       operationId: Caches_begin_pool_change
@@ -9763,7 +9809,7 @@ paths:
                 $ref: '#/components/schemas/CheckElasticResourceAvailabilityResponse'
       x-stackql-resource: elastic_capacity_pools
       x-stackql-method: check_volume_file_path_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/elasticAccounts/{account_name}/elasticSnapshotPolicies/{snapshot_policy_name}?api-version=2026-04-15-preview
   : get:
       operationId: ElasticSnapshotPolicies_get
@@ -10572,7 +10618,7 @@ paths:
                 $ref: '#/components/schemas/CheckAvailabilityResponse'
       x-stackql-resource: net_app_resource
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.NetApp/locations/{location}/checkFilePathAvailability?api-version=2026-04-15-preview
   : post:
       operationId: NetAppResource_check_file_path_availability
@@ -10620,7 +10666,7 @@ paths:
                 $ref: '#/components/schemas/CheckAvailabilityResponse'
       x-stackql-resource: net_app_resource
       x-stackql-method: check_file_path_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.NetApp/locations/{location}/checkQuotaAvailability?api-version=2026-04-15-preview
   : post:
       operationId: NetAppResource_check_quota_availability
@@ -10669,7 +10715,7 @@ paths:
                 $ref: '#/components/schemas/CheckAvailabilityResponse'
       x-stackql-resource: net_app_resource
       x-stackql-method: check_quota_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.NetApp/locations/{location}/regionInfo?api-version=2026-04-15-preview:
     get:
       operationId: NetAppResource_query_region_info
@@ -10741,7 +10787,7 @@ paths:
                 $ref: '#/components/schemas/NetworkSiblingSet'
       x-stackql-resource: net_app_resource
       x-stackql-method: query_network_sibling_set
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.NetApp/locations/{location}/updateNetworkSiblingSet?api-version=2026-04-15-preview
   : post:
       operationId: NetAppResource_begin_update_network_sibling_set
@@ -12353,10 +12399,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubvolumeModel'
+                $ref: '#/components/schemas/SubvolumeModelFlattened'
       x-stackql-resource: subvolumes
       x-stackql-method: get_metadata
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/volumeGroups/{volume_group_name}?api-version=2026-04-15-preview
   : get:
       operationId: VolumeGroups_get
@@ -13103,7 +13150,7 @@ paths:
                 $ref: '#/components/schemas/GetGroupIdListForLDAPUserResponse'
       x-stackql-resource: volumes
       x-stackql-method: list_get_group_id_list_for_ldap_user
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/capacityPools/{pool_name}/volumes/{volume_name}/listReplications?api-version=2026-04-15-preview
   : post:
       operationId: Volumes_list_replications
@@ -13158,7 +13205,8 @@ paths:
                 $ref: '#/components/schemas/PagedReplication'
       x-stackql-resource: volumes
       x-stackql-method: list_replications
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/capacityPools/{pool_name}/volumes/{volume_name}/listQuotaReport?api-version=2026-04-15-preview
   : post:
       operationId: Volumes_begin_list_quota_report
@@ -13223,10 +13271,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListQuotaReportResult'
+                $ref: '#/components/schemas/ListQuotaReportResultFlattened'
       x-stackql-resource: volumes
       x-stackql-method: list_quota_report
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/capacityPools/{pool_name}/volumes/{volume_name}/populateAvailabilityZone?api-version=2026-04-15-preview
   : post:
       operationId: Volumes_begin_populate_availability_zone
@@ -13685,7 +13734,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: volumes
       x-stackql-method: delete_replication
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.NetApp/netAppAccounts/{account_name}/capacityPools/{pool_name}/volumes/{volume_name}/authorizeReplication?api-version=2026-04-15-preview
   : post:
       operationId: Volumes_begin_authorize_replication

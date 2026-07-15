@@ -1318,4 +1318,4 @@ paths:
           description: Success
       x-stackql-resource: blob
       x-stackql-method: query
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

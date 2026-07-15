@@ -1090,15 +1090,6 @@ components:
             and "ThreeTier".'
       required:
       - deploymentType
-    SAPSupportedResourceSkusResult:
-      type: object
-      description: The list of supported SKUs for different resources which are part of SAP deployment.
-      properties:
-        supportedSkus:
-          type: array
-          items:
-            $ref: '#/components/schemas/SAPSupportedSku'
-          description: Gets the list of SAP supported SKUs.
     SAPSupportedSku:
       type: object
       description: The SAP supported SKU.
@@ -1112,6 +1103,15 @@ components:
         isDatabaseCertified:
           type: boolean
           description: True if the Sku is certified for Database server in the SAP system.
+    SAPSupportedResourceSkusResult:
+      type: object
+      description: The list of supported SKUs for different resources which are part of SAP deployment.
+      properties:
+        supportedSkus:
+          type: array
+          items:
+            $ref: '#/components/schemas/SAPSupportedSku'
+          description: Gets the list of SAP supported SKUs.
     SAPDiskConfigurationsResult:
       type: object
       description: The list of disk configuration for vmSku which are part of SAP deployment.
@@ -1121,15 +1121,6 @@ components:
           properties: {}
           description: 'The disk configuration for the db volume. For HANA, Required volumes are: [''hana/data'',
             ''hana/log'', hana/shared'', ''usr/sap'', ''os''], Optional volume : [''backup''].'
-    SAPAvailabilityZoneDetailsResult:
-      type: object
-      description: The list of supported availability zone pairs which are part of SAP HA deployment.
-      properties:
-        availabilityZonePairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/SAPAvailabilityZonePair'
-          description: Gets the list of availability zone pairs.
     SAPAvailabilityZonePair:
       type: object
       description: The SAP Availability Zone Pair.
@@ -1140,6 +1131,15 @@ components:
         zoneB:
           type: integer
           description: The zone B.
+    SAPAvailabilityZoneDetailsResult:
+      type: object
+      description: The list of supported availability zone pairs which are part of SAP HA deployment.
+      properties:
+        availabilityZonePairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SAPAvailabilityZonePair'
+          description: Gets the list of availability zone pairs.
     SAPVirtualInstance:
       type: object
       description: Define the Virtual Instance for SAP solutions resource.
@@ -2443,7 +2443,7 @@ paths:
                 $ref: '#/components/schemas/SAPSizingRecommendationResult'
       x-stackql-resource: sap_virtual_instances
       x-stackql-method: get_sizing_recommendations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Workloads/locations/{location}/sapVirtualInstanceMetadata/default/getSapSupportedSku?api-version=2024-09-01
   : post:
       operationId: SAPVirtualInstances_get_sap_supported_sku
@@ -2502,7 +2502,7 @@ paths:
                 $ref: '#/components/schemas/SAPSupportedResourceSkusResult'
       x-stackql-resource: sap_virtual_instances
       x-stackql-method: get_sap_supported_sku
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Workloads/locations/{location}/sapVirtualInstanceMetadata/default/getDiskConfigurations?api-version=2024-09-01
   : post:
       operationId: SAPVirtualInstances_get_disk_configurations
@@ -2562,7 +2562,7 @@ paths:
                 $ref: '#/components/schemas/SAPDiskConfigurationsResult'
       x-stackql-resource: sap_virtual_instances
       x-stackql-method: get_disk_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Workloads/locations/{location}/sapVirtualInstanceMetadata/default/getAvailabilityZoneDetails?api-version=2024-09-01
   : post:
       operationId: SAPVirtualInstances_get_availability_zone_details
@@ -2608,7 +2608,7 @@ paths:
                 $ref: '#/components/schemas/SAPAvailabilityZoneDetailsResult'
       x-stackql-resource: sap_virtual_instances
       x-stackql-method: get_availability_zone_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Workloads/sapVirtualInstances/{sap_virtual_instance_name}/start?api-version=2024-09-01
   : post:
       operationId: SAPVirtualInstances_begin_start

@@ -677,7 +677,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: hybrid_connections
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Relay/namespaces/{namespace_name}/hybridConnections/{hybrid_connection_name}/authorizationRules/{authorization_rule_name}?api-version=2017-04-01
   : get:
       operationId: HybridConnections_get_authorization_rule
@@ -782,7 +782,7 @@ paths:
                 $ref: '#/components/schemas/AuthorizationRule'
       x-stackql-resource: hybrid_connections
       x-stackql-method: create_or_update_authorization_rule
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: HybridConnections_delete_authorization_rule
       description: Deletes a hybrid connection authorization rule.
@@ -817,11 +817,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: hybrid_connections
       x-stackql-method: delete_authorization_rule
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Relay/namespaces/{namespace_name}/hybridConnections/{hybrid_connection_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2017-04-01
   : post:
       operationId: HybridConnections_regenerate_keys
@@ -1163,7 +1163,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: namespaces
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Relay/namespaces/{namespace_name}/authorizationRules/{authorization_rule_name}?api-version=2017-04-01
   : get:
       operationId: Namespaces_get_authorization_rule
@@ -1256,7 +1256,7 @@ paths:
                 $ref: '#/components/schemas/AuthorizationRule'
       x-stackql-resource: namespaces
       x-stackql-method: create_or_update_authorization_rule
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: Namespaces_delete_authorization_rule
       description: Deletes a namespace authorization rule.
@@ -1285,11 +1285,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: namespaces
       x-stackql-method: delete_authorization_rule
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.Relay/checkNameAvailability?api-version=2017-04-01:
     post:
       operationId: Namespaces_check_name_availability
@@ -1323,7 +1323,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: namespaces
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Relay/namespaces/{namespace_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2017-04-01
   : post:
       operationId: Namespaces_regenerate_keys
@@ -1646,7 +1646,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: wcf_relays
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Relay/namespaces/{namespace_name}/wcfRelays/{relay_name}/authorizationRules/{authorization_rule_name}?api-version=2017-04-01
   : get:
       operationId: WCFRelays_get_authorization_rule
@@ -1751,7 +1751,7 @@ paths:
                 $ref: '#/components/schemas/AuthorizationRule'
       x-stackql-resource: wcf_relays
       x-stackql-method: create_or_update_authorization_rule
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WCFRelays_delete_authorization_rule
       description: Deletes a WCF relay authorization rule.
@@ -1786,11 +1786,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: wcf_relays
       x-stackql-method: delete_authorization_rule
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Relay/namespaces/{namespace_name}/wcfRelays/{relay_name}/authorizationRules/{authorization_rule_name}/regenerateKeys?api-version=2017-04-01
   : post:
       operationId: WCFRelays_regenerate_keys

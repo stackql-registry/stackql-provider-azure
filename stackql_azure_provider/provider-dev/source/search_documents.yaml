@@ -53,7 +53,7 @@ paths:
           description: Success
       x-stackql-resource: retrieves
       x-stackql-method: retrieve
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /indexes('{index_name}')/docs/$count?api-version=2026-05-01-preview:
     get:
       operationId: _SearchClient_get_document_count
@@ -67,9 +67,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: integer
       x-stackql-resource: document_counts
       x-stackql-method: get_document_count
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   /indexes('{index_name}')/docs('{key_name}')?api-version=2026-05-01-preview:
     get:
       operationId: _SearchClient_get_document

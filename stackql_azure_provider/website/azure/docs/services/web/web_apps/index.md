@@ -36,13 +36,17 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get_instance_process_module_slot"
     values={[
         { label: 'get_instance_process_module_slot', value: 'get_instance_process_module_slot' },
+        { label: 'list_slot_differences_slot', value: 'list_slot_differences_slot' },
         { label: 'list_instance_process_threads_slot', value: 'list_instance_process_threads_slot' },
         { label: 'get_hybrid_connection_slot', value: 'get_hybrid_connection_slot' },
         { label: 'get_vnet_connection_gateway_slot', value: 'get_vnet_connection_gateway_slot' },
         { label: 'get_instance_process_module', value: 'get_instance_process_module' },
         { label: 'get_process_module_slot', value: 'get_process_module_slot' },
         { label: 'get_triggered_web_job_history_slot', value: 'get_triggered_web_job_history_slot' },
+        { label: 'list_slot_differences_from_production', value: 'list_slot_differences_from_production' },
+        { label: 'list_backup_status_secrets_slot', value: 'list_backup_status_secrets_slot' },
         { label: 'list_deployment_log_slot', value: 'list_deployment_log_slot' },
+        { label: 'list_function_keys_slot', value: 'list_function_keys_slot' },
         { label: 'list_instance_process_threads', value: 'list_instance_process_threads' },
         { label: 'list_instance_processes_slot', value: 'list_instance_processes_slot' },
         { label: 'list_process_threads_slot', value: 'list_process_threads_slot' },
@@ -53,13 +57,11 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
         { label: 'get_vnet_connection_slot', value: 'get_vnet_connection_slot' },
         { label: 'get_vnet_connection_gateway', value: 'get_vnet_connection_gateway' },
-        { label: 'get_backup_status_slot', value: 'get_backup_status_slot' },
         { label: 'get_app_setting_key_vault_reference_slot', value: 'get_app_setting_key_vault_reference_slot' },
         { label: 'get_site_connection_string_key_vault_reference_slot', value: 'get_site_connection_string_key_vault_reference_slot' },
         { label: 'get_configuration_snapshot_slot', value: 'get_configuration_snapshot_slot' },
         { label: 'get_slot_site_deployment_status_slot', value: 'get_slot_site_deployment_status_slot' },
         { label: 'get_domain_ownership_identifier_slot', value: 'get_domain_ownership_identifier_slot' },
-        { label: 'get_instance_function_slot', value: 'get_instance_function_slot' },
         { label: 'get_host_name_binding_slot', value: 'get_host_name_binding_slot' },
         { label: 'get_relay_service_connection_slot', value: 'get_relay_service_connection_slot' },
         { label: 'get_process_module', value: 'get_process_module' },
@@ -69,8 +71,10 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_site_extension_slot', value: 'get_site_extension_slot' },
         { label: 'get_triggered_web_job_history', value: 'get_triggered_web_job_history' },
         { label: 'get_instance_workflow_slot', value: 'get_instance_workflow_slot' },
-        { label: 'list_hybrid_connections_slot', value: 'list_hybrid_connections_slot' },
+        { label: 'list_application_settings_slot', value: 'list_application_settings_slot' },
+        { label: 'list_backup_status_secrets', value: 'list_backup_status_secrets' },
         { label: 'list_deployment_log', value: 'list_deployment_log' },
+        { label: 'list_function_keys', value: 'list_function_keys' },
         { label: 'list_instance_processes', value: 'list_instance_processes' },
         { label: 'list_process_threads', value: 'list_process_threads' },
         { label: 'list_network_features', value: 'list_network_features' },
@@ -78,13 +82,11 @@ The following fields are returned by `SELECT` queries:
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
         { label: 'get_vnet_connection', value: 'get_vnet_connection' },
         { label: 'get_network_trace_operation', value: 'get_network_trace_operation' },
-        { label: 'get_backup_status', value: 'get_backup_status' },
         { label: 'get_app_setting_key_vault_reference', value: 'get_app_setting_key_vault_reference' },
         { label: 'get_site_connection_string_key_vault_reference', value: 'get_site_connection_string_key_vault_reference' },
         { label: 'get_configuration_snapshot', value: 'get_configuration_snapshot' },
         { label: 'get_production_site_deployment_status', value: 'get_production_site_deployment_status' },
         { label: 'get_domain_ownership_identifier', value: 'get_domain_ownership_identifier' },
-        { label: 'get_function', value: 'get_function' },
         { label: 'get_host_name_binding', value: 'get_host_name_binding' },
         { label: 'get_relay_service_connection', value: 'get_relay_service_connection' },
         { label: 'get_premier_add_on', value: 'get_premier_add_on' },
@@ -187,6 +189,75 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_slot_differences_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>Description of the setting difference.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="diffRule" /></td>
+    <td><code>string</code></td>
+    <td>Rule that describes how to process the setting difference during a slot swap.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="level" /></td>
+    <td><code>string</code></td>
+    <td>Level of the difference: Information, Warning or Error.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the setting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingType" /></td>
+    <td><code>string</code></td>
+    <td>The type of the setting: General, AppSetting or ConnectionString.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInCurrentSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the current slot.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInTargetSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the target slot.</td>
 </tr>
 </tbody>
 </table>
@@ -645,6 +716,174 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
+<TabItem value="list_slot_differences_from_production">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>Description of the setting difference.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="diffRule" /></td>
+    <td><code>string</code></td>
+    <td>Rule that describes how to process the setting difference during a slot swap.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="level" /></td>
+    <td><code>string</code></td>
+    <td>Level of the difference: Information, Warning or Error.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the setting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="settingType" /></td>
+    <td><code>string</code></td>
+    <td>The type of the setting: General, AppSetting or ConnectionString.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInCurrentSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the current slot.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="valueInTargetSlot" /></td>
+    <td><code>string</code></td>
+    <td>Value of the setting in the target slot.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_backup_status_secrets_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="blobName" /></td>
+    <td><code>string</code></td>
+    <td>Name of the blob which contains data for this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="correlationId" /></td>
+    <td><code>string</code></td>
+    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="created" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of the backup creation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="databases" /></td>
+    <td><code>array</code></td>
+    <td>List of databases included in the backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="finishedTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp when this backup finished.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of a last restore operation which used this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="log" /></td>
+    <td><code>string</code></td>
+    <td>Details regarding this backup. Might contain an error message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="scheduled" /></td>
+    <td><code>boolean</code></td>
+    <td>True if this backup has been created due to a schedule being triggered.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sizeInBytes" /></td>
+    <td><code>integer</code></td>
+    <td>Size of the backup in bytes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="storageAccountUrl" /></td>
+    <td><code>string</code></td>
+    <td>SAS URL for the storage account container which contains this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="websiteSizeInBytes" /></td>
+    <td><code>integer</code></td>
+    <td>Size of the original web app which has been backed up.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="list_deployment_log_slot">
 
 <table>
@@ -725,6 +964,45 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_function_keys_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td>Settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
 </tr>
 </tbody>
 </table>
@@ -1529,105 +1807,6 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="get_backup_status_slot">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="blobName" /></td>
-    <td><code>string</code></td>
-    <td>Name of the blob which contains data for this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="created" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of the backup creation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="databases" /></td>
-    <td><code>array</code></td>
-    <td>List of databases included in the backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="finishedTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp when this backup finished.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of a last restore operation which used this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="log" /></td>
-    <td><code>string</code></td>
-    <td>Details regarding this backup. Might contain an error message.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="scheduled" /></td>
-    <td><code>boolean</code></td>
-    <td>True if this backup has been created due to a schedule being triggered.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the backup in bytes.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="status" /></td>
-    <td><code>string</code></td>
-    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="storageAccountUrl" /></td>
-    <td><code>string</code></td>
-    <td>SAS URL for the storage account container which contains this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-<tr>
-    <td><CopyableCode code="websiteSizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the original web app which has been backed up.</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
 <TabItem value="get_app_setting_key_vault_reference_slot">
 
 <table>
@@ -2304,110 +2483,6 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="systemData" /></td>
     <td><code>object</code></td>
     <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_instance_function_slot">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="function_app_id" /></td>
-    <td><code>string</code></td>
-    <td>Function App ID.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config" /></td>
-    <td><code>object</code></td>
-    <td>Config information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config_href" /></td>
-    <td><code>string</code></td>
-    <td>Config URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="files" /></td>
-    <td><code>object</code></td>
-    <td>File list.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="href" /></td>
-    <td><code>string</code></td>
-    <td>Function URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="invoke_url_template" /></td>
-    <td><code>string</code></td>
-    <td>The invocation URL.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isDisabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Gets or sets a value indicating whether the function is disabled.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="language" /></td>
-    <td><code>string</code></td>
-    <td>The function language.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_href" /></td>
-    <td><code>string</code></td>
-    <td>Script URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_root_path_href" /></td>
-    <td><code>string</code></td>
-    <td>Script root path URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="secrets_file_href" /></td>
-    <td><code>string</code></td>
-    <td>Secrets file URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data" /></td>
-    <td><code>string</code></td>
-    <td>Test data used when testing via the Azure Portal.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data_href" /></td>
-    <td><code>string</code></td>
-    <td>Test data URI.</td>
 </tr>
 <tr>
     <td><CopyableCode code="type" /></td>
@@ -3143,7 +3218,46 @@ The following fields are returned by `SELECT` queries:
 </tbody>
 </table>
 </TabItem>
-<TabItem value="list_hybrid_connections_slot">
+<TabItem value="list_application_settings_slot">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td>Settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_backup_status_secrets">
 
 <table>
 <thead>
@@ -3165,9 +3279,29 @@ The following fields are returned by `SELECT` queries:
     <td>The name of the resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="hostname" /></td>
+    <td><CopyableCode code="blobName" /></td>
     <td><code>string</code></td>
-    <td>The hostname of the endpoint.</td>
+    <td>Name of the blob which contains data for this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="correlationId" /></td>
+    <td><code>string</code></td>
+    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="created" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of the backup creation.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="databases" /></td>
+    <td><code>array</code></td>
+    <td>List of databases included in the backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="finishedTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp when this backup finished.</td>
 </tr>
 <tr>
     <td><CopyableCode code="kind" /></td>
@@ -3175,39 +3309,34 @@ The following fields are returned by `SELECT` queries:
     <td>Kind of resource.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="port" /></td>
+    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Timestamp of a last restore operation which used this backup.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="log" /></td>
+    <td><code>string</code></td>
+    <td>Details regarding this backup. Might contain an error message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="scheduled" /></td>
+    <td><code>boolean</code></td>
+    <td>True if this backup has been created due to a schedule being triggered.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sizeInBytes" /></td>
     <td><code>integer</code></td>
-    <td>The port of the endpoint.</td>
+    <td>Size of the backup in bytes.</td>
 </tr>
 <tr>
-    <td><CopyableCode code="relayArmUri" /></td>
+    <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
-    <td>The ARM URI to the Service Bus relay.</td>
+    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
 </tr>
 <tr>
-    <td><CopyableCode code="relayName" /></td>
+    <td><CopyableCode code="storageAccountUrl" /></td>
     <td><code>string</code></td>
-    <td>The name of the Service Bus relay.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sendKeyName" /></td>
-    <td><code>string</code></td>
-    <td>The name of the Service Bus key which has Send permissions. This is used to authenticate to Service Bus.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sendKeyValue" /></td>
-    <td><code>string</code></td>
-    <td>The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned normally, use the POST /listKeys API instead.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="serviceBusNamespace" /></td>
-    <td><code>string</code></td>
-    <td>The name of the Service Bus namespace.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="serviceBusSuffix" /></td>
-    <td><code>string</code></td>
-    <td>The suffix for the service bus endpoint. By default this is .servicebus.windows.net.</td>
+    <td>SAS URL for the storage account container which contains this backup.</td>
 </tr>
 <tr>
     <td><CopyableCode code="systemData" /></td>
@@ -3218,6 +3347,11 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="websiteSizeInBytes" /></td>
+    <td><code>integer</code></td>
+    <td>Size of the original web app which has been backed up.</td>
 </tr>
 </tbody>
 </table>
@@ -3302,6 +3436,45 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="type" /></td>
     <td><code>string</code></td>
     <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list_function_keys">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource Id.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Resource Name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="properties" /></td>
+    <td><code>object</code></td>
+    <td>Settings.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Resource type.</td>
 </tr>
 </tbody>
 </table>
@@ -3880,105 +4053,6 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
     <td>Current status of the network trace operation, same as Operation.Status (InProgress/Succeeded/Failed).</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_backup_status">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="blobName" /></td>
-    <td><code>string</code></td>
-    <td>Name of the blob which contains data for this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="correlationId" /></td>
-    <td><code>string</code></td>
-    <td>Unique correlation identifier. Please use this along with the timestamp while communicating with Azure support.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="created" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of the backup creation.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="databases" /></td>
-    <td><code>array</code></td>
-    <td>List of databases included in the backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="finishedTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp when this backup finished.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="lastRestoreTimeStamp" /></td>
-    <td><code>string (date-time)</code></td>
-    <td>Timestamp of a last restore operation which used this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="log" /></td>
-    <td><code>string</code></td>
-    <td>Details regarding this backup. Might contain an error message.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="scheduled" /></td>
-    <td><code>boolean</code></td>
-    <td>True if this backup has been created due to a schedule being triggered.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="sizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the backup in bytes.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="status" /></td>
-    <td><code>string</code></td>
-    <td>Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created", "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted". (InProgress, Failed, Succeeded, TimedOut, Created, Skipped, PartiallySucceeded, DeleteInProgress, DeleteFailed, Deleted)</td>
-</tr>
-<tr>
-    <td><CopyableCode code="storageAccountUrl" /></td>
-    <td><code>string</code></td>
-    <td>SAS URL for the storage account container which contains this backup.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-<tr>
-    <td><CopyableCode code="websiteSizeInBytes" /></td>
-    <td><code>integer</code></td>
-    <td>Size of the original web app which has been backed up.</td>
 </tr>
 </tbody>
 </table>
@@ -4659,110 +4733,6 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="systemData" /></td>
     <td><code>object</code></td>
     <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="type" /></td>
-    <td><code>string</code></td>
-    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
-</tr>
-</tbody>
-</table>
-</TabItem>
-<TabItem value="get_function">
-
-<table>
-<thead>
-    <tr>
-    <th>Name</th>
-    <th>Datatype</th>
-    <th>Description</th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td><CopyableCode code="id" /></td>
-    <td><code>string</code></td>
-    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="name" /></td>
-    <td><code>string</code></td>
-    <td>The name of the resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="function_app_id" /></td>
-    <td><code>string</code></td>
-    <td>Function App ID.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config" /></td>
-    <td><code>object</code></td>
-    <td>Config information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="config_href" /></td>
-    <td><code>string</code></td>
-    <td>Config URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="files" /></td>
-    <td><code>object</code></td>
-    <td>File list.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="href" /></td>
-    <td><code>string</code></td>
-    <td>Function URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="invoke_url_template" /></td>
-    <td><code>string</code></td>
-    <td>The invocation URL.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="isDisabled" /></td>
-    <td><code>boolean</code></td>
-    <td>Gets or sets a value indicating whether the function is disabled.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="kind" /></td>
-    <td><code>string</code></td>
-    <td>Kind of resource.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="language" /></td>
-    <td><code>string</code></td>
-    <td>The function language.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_href" /></td>
-    <td><code>string</code></td>
-    <td>Script URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="script_root_path_href" /></td>
-    <td><code>string</code></td>
-    <td>Script root path URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="secrets_file_href" /></td>
-    <td><code>string</code></td>
-    <td>Secrets file URI.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="systemData" /></td>
-    <td><code>object</code></td>
-    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data" /></td>
-    <td><code>string</code></td>
-    <td>Test data used when testing via the Azure Portal.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="test_data_href" /></td>
-    <td><code>string</code></td>
-    <td>Test data URI.</td>
 </tr>
 <tr>
     <td><CopyableCode code="type" /></td>
@@ -6402,6 +6372,13 @@ The following methods are available for this resource:
     <td>Get process information by its ID for a specific scaled-out instance in a web site. Description for Get process information by its ID for a specific scaled-out instance in a web site.</td>
 </tr>
 <tr>
+    <td><a href="#list_slot_differences_slot"><CopyableCode code="list_slot_differences_slot" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
+</tr>
+<tr>
     <td><a href="#list_instance_process_threads_slot"><CopyableCode code="list_instance_process_threads_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6444,11 +6421,32 @@ The following methods are available for this resource:
     <td>Gets a triggered web job's history by its ID for an app, , or a deployment slot. Description for Gets a triggered web job's history by its ID for an app, , or a deployment slot.</td>
 </tr>
 <tr>
+    <td><a href="#list_slot_differences_from_production"><CopyableCode code="list_slot_differences_from_production" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
+</tr>
+<tr>
+    <td><a href="#list_backup_status_secrets_slot"><CopyableCode code="list_backup_status_secrets_slot" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
+</tr>
+<tr>
     <td><a href="#list_deployment_log_slot"><CopyableCode code="list_deployment_log_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List deployment log for specific deployment for an app, or a deployment slot. Description for List deployment log for specific deployment for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#list_function_keys_slot"><CopyableCode code="list_function_keys_slot" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#list_instance_process_threads"><CopyableCode code="list_instance_process_threads" /></a></td>
@@ -6474,7 +6472,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#list_network_features_slot"><CopyableCode code="list_network_features_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-view"><code>view</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-view_name"><code>view_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets all network features used by the app (or deployment slot, if specified). Description for Gets all network features used by the app (or deployment slot, if specified).</td>
 </tr>
@@ -6521,13 +6519,6 @@ The following methods are available for this resource:
     <td>Gets an app's Virtual Network gateway. Description for Gets an app's Virtual Network gateway.</td>
 </tr>
 <tr>
-    <td><a href="#get_backup_status_slot"><CopyableCode code="get_backup_status_slot" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
-</tr>
-<tr>
     <td><a href="#get_app_setting_key_vault_reference_slot"><CopyableCode code="get_app_setting_key_vault_reference_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-app_setting_key"><code>app_setting_key</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -6561,13 +6552,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get domain ownership identifier for web app. Description for Get domain ownership identifier for web app.</td>
-</tr>
-<tr>
-    <td><a href="#get_instance_function_slot"><CopyableCode code="get_instance_function_slot" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#get_host_name_binding_slot"><CopyableCode code="get_host_name_binding_slot" /></a></td>
@@ -6633,11 +6617,18 @@ The following methods are available for this resource:
     <td>Get workflow information by its ID for web site, or a deployment slot. Get workflow information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
-    <td><a href="#list_hybrid_connections_slot"><CopyableCode code="list_hybrid_connections_slot" /></a></td>
+    <td><a href="#list_application_settings_slot"><CopyableCode code="list_application_settings_slot" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.</td>
+    <td>Gets the application settings of an app. Description for Gets the application settings of an app.</td>
+</tr>
+<tr>
+    <td><a href="#list_backup_status_secrets"><CopyableCode code="list_backup_status_secrets" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
 </tr>
 <tr>
     <td><a href="#list_deployment_log"><CopyableCode code="list_deployment_log" /></a></td>
@@ -6645,6 +6636,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List deployment log for specific deployment for an app, or a deployment slot. Description for List deployment log for specific deployment for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#list_function_keys"><CopyableCode code="list_function_keys" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#list_instance_processes"><CopyableCode code="list_instance_processes" /></a></td>
@@ -6663,7 +6661,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#list_network_features"><CopyableCode code="list_network_features" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-view"><code>view</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-view_name"><code>view_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets all network features used by the app (or deployment slot, if specified). Description for Gets all network features used by the app (or deployment slot, if specified).</td>
 </tr>
@@ -6694,13 +6692,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a named operation for a network trace capturing (or deployment slot, if specified). Description for Gets a named operation for a network trace capturing (or deployment slot, if specified).</td>
-</tr>
-<tr>
-    <td><a href="#get_backup_status"><CopyableCode code="get_backup_status" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
 </tr>
 <tr>
     <td><a href="#get_app_setting_key_vault_reference"><CopyableCode code="get_app_setting_key_vault_reference" /></a></td>
@@ -6736,13 +6727,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get domain ownership identifier for web app. Description for Get domain ownership identifier for web app.</td>
-</tr>
-<tr>
-    <td><a href="#get_function"><CopyableCode code="get_function" /></a></td>
-    <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#get_host_name_binding"><CopyableCode code="get_host_name_binding" /></a></td>
@@ -6815,305 +6799,11 @@ The following methods are available for this resource:
     <td>Get all apps for a subscription. Description for Get all apps for a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_hybrid_connection_slot"><CopyableCode code="create_or_update_hybrid_connection_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection_gateway_slot"><CopyableCode code="create_or_update_vnet_connection_gateway_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_secret_slot"><CopyableCode code="create_or_update_host_secret_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a host level secret. Description for Add or update a host level secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_function_secret_slot"><CopyableCode code="create_or_update_function_secret_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a function secret. Description for Add or update a function secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_slot"><CopyableCode code="create_or_update_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_hybrid_connection"><CopyableCode code="create_or_update_hybrid_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection_slot"><CopyableCode code="create_or_update_vnet_connection_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection_gateway"><CopyableCode code="create_or_update_vnet_connection_gateway" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_domain_ownership_identifier_slot"><CopyableCode code="create_or_update_domain_ownership_identifier_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_name_binding_slot"><CopyableCode code="create_or_update_host_name_binding_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_relay_service_connection_slot"><CopyableCode code="create_or_update_relay_service_connection_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_public_certificate_slot"><CopyableCode code="create_or_update_public_certificate_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_site_container_slot"><CopyableCode code="create_or_update_site_container_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_secret"><CopyableCode code="create_or_update_host_secret" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a host level secret. Description for Add or update a host level secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_function_secret"><CopyableCode code="create_or_update_function_secret" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a function secret. Description for Add or update a function secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_deployment_slot"><CopyableCode code="create_deployment_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_instance_ms_deploy_operation_slot"><CopyableCode code="create_instance_ms_deploy_operation_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.</td>
-</tr>
-<tr>
-    <td><a href="#create_instance_function_slot"><CopyableCode code="create_instance_function_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection"><CopyableCode code="create_or_update_vnet_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_configuration_slot"><CopyableCode code="create_or_update_configuration_slot" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates the configuration of an app. Description for Updates the configuration of an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_domain_ownership_identifier"><CopyableCode code="create_or_update_domain_ownership_identifier" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_name_binding"><CopyableCode code="create_or_update_host_name_binding" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_relay_service_connection"><CopyableCode code="create_or_update_relay_service_connection" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_public_certificate"><CopyableCode code="create_or_update_public_certificate" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_site_container"><CopyableCode code="create_or_update_site_container" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_deployment"><CopyableCode code="create_deployment" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_instance_ms_deploy_operation"><CopyableCode code="create_instance_ms_deploy_operation" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.</td>
-</tr>
-<tr>
-    <td><a href="#create_function"><CopyableCode code="create_function" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_configuration"><CopyableCode code="create_or_update_configuration" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates the configuration of an app. Description for Updates the configuration of an app.</td>
-</tr>
-<tr>
-    <td><a href="#update_hybrid_connection_slot"><CopyableCode code="update_hybrid_connection_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
-</tr>
-<tr>
-    <td><a href="#update_vnet_connection_gateway_slot"><CopyableCode code="update_vnet_connection_gateway_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#update_hybrid_connection"><CopyableCode code="update_hybrid_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
-</tr>
-<tr>
-    <td><a href="#update_vnet_connection_slot"><CopyableCode code="update_vnet_connection_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#update_vnet_connection_gateway"><CopyableCode code="update_vnet_connection_gateway" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#update_domain_ownership_identifier_slot"><CopyableCode code="update_domain_ownership_identifier_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
-</tr>
-<tr>
-    <td><a href="#update_relay_service_connection_slot"><CopyableCode code="update_relay_service_connection_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#update_premier_add_on_slot"><CopyableCode code="update_premier_add_on_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates a named add-on of an app. Description for Updates a named add-on of an app.</td>
-</tr>
-<tr>
-    <td><a href="#update_slot"><CopyableCode code="update_slot" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
-</tr>
-<tr>
-    <td><a href="#update_vnet_connection"><CopyableCode code="update_vnet_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#update_domain_ownership_identifier"><CopyableCode code="update_domain_ownership_identifier" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
-</tr>
-<tr>
-    <td><a href="#update_relay_service_connection"><CopyableCode code="update_relay_service_connection" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#update_premier_add_on"><CopyableCode code="update_premier_add_on" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates a named add-on of an app. Description for Updates a named add-on of an app.</td>
 </tr>
 <tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
@@ -7123,431 +6813,11 @@ The following methods are available for this resource:
     <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_hybrid_connection_slot"><CopyableCode code="create_or_update_hybrid_connection_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection_gateway_slot"><CopyableCode code="create_or_update_vnet_connection_gateway_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_secret_slot"><CopyableCode code="create_or_update_host_secret_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a host level secret. Description for Add or update a host level secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_function_secret_slot"><CopyableCode code="create_or_update_function_secret_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a function secret. Description for Add or update a function secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_slot"><CopyableCode code="create_or_update_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
-    <td></td>
-    <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_hybrid_connection"><CopyableCode code="create_or_update_hybrid_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection_slot"><CopyableCode code="create_or_update_vnet_connection_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection_gateway"><CopyableCode code="create_or_update_vnet_connection_gateway" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_domain_ownership_identifier_slot"><CopyableCode code="create_or_update_domain_ownership_identifier_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_name_binding_slot"><CopyableCode code="create_or_update_host_name_binding_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_relay_service_connection_slot"><CopyableCode code="create_or_update_relay_service_connection_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_public_certificate_slot"><CopyableCode code="create_or_update_public_certificate_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_site_container_slot"><CopyableCode code="create_or_update_site_container_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_secret"><CopyableCode code="create_or_update_host_secret" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a host level secret. Description for Add or update a host level secret.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_function_secret"><CopyableCode code="create_or_update_function_secret" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Add or update a function secret. Description for Add or update a function secret.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_vnet_connection"><CopyableCode code="create_or_update_vnet_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_configuration_slot"><CopyableCode code="create_or_update_configuration_slot" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates the configuration of an app. Description for Updates the configuration of an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_domain_ownership_identifier"><CopyableCode code="create_or_update_domain_ownership_identifier" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_host_name_binding"><CopyableCode code="create_or_update_host_name_binding" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_relay_service_connection"><CopyableCode code="create_or_update_relay_service_connection" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_public_certificate"><CopyableCode code="create_or_update_public_certificate" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_site_container"><CopyableCode code="create_or_update_site_container" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_configuration"><CopyableCode code="create_or_update_configuration" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates the configuration of an app. Description for Updates the configuration of an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_hybrid_connection_slot"><CopyableCode code="delete_hybrid_connection_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_instance_process_slot"><CopyableCode code="delete_instance_process_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_host_secret_slot"><CopyableCode code="delete_host_secret_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a host level secret. Description for Delete a host level secret.</td>
-</tr>
-<tr>
-    <td><a href="#delete_function_secret_slot"><CopyableCode code="delete_function_secret_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a function secret. Description for Delete a function secret.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection_slot"><CopyableCode code="delete_private_endpoint_connection_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_hybrid_connection"><CopyableCode code="delete_hybrid_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_vnet_connection_slot"><CopyableCode code="delete_vnet_connection_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.</td>
-</tr>
-<tr>
-    <td><a href="#delete_backup_slot"><CopyableCode code="delete_backup_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.</td>
-</tr>
-<tr>
-    <td><a href="#delete_continuous_web_job_slot"><CopyableCode code="delete_continuous_web_job_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-web_job_name"><code>web_job_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_deployment_slot"><CopyableCode code="delete_deployment_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_domain_ownership_identifier_slot"><CopyableCode code="delete_domain_ownership_identifier_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_instance_function_slot"><CopyableCode code="delete_instance_function_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_host_name_binding_slot"><CopyableCode code="delete_host_name_binding_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_relay_service_connection_slot"><CopyableCode code="delete_relay_service_connection_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.</td>
-</tr>
-<tr>
-    <td><a href="#delete_instance_process"><CopyableCode code="delete_instance_process" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_process_slot"><CopyableCode code="delete_process_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_premier_add_on_slot"><CopyableCode code="delete_premier_add_on_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a premier add-on from an app. Description for Delete a premier add-on from an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_public_certificate_slot"><CopyableCode code="delete_public_certificate_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_site_container_slot"><CopyableCode code="delete_site_container_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_site_extension_slot"><CopyableCode code="delete_site_extension_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-site_extension_id"><code>site_extension_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_host_secret"><CopyableCode code="delete_host_secret" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a host level secret. Description for Delete a host level secret.</td>
-</tr>
-<tr>
-    <td><a href="#delete_function_secret"><CopyableCode code="delete_function_secret" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a function secret. Description for Delete a function secret.</td>
-</tr>
-<tr>
-    <td><a href="#delete_slot"><CopyableCode code="delete_slot" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td><a href="#parameter-deleteMetrics"><code>deleteMetrics</code></a>, <a href="#parameter-deleteEmptyServerFarm"><code>deleteEmptyServerFarm</code></a></td>
-    <td>Deletes a web, mobile, or API app, or one of the deployment slots. Description for Deletes a web, mobile, or API app, or one of the deployment slots.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
-</tr>
-<tr>
-    <td><a href="#delete_vnet_connection"><CopyableCode code="delete_vnet_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.</td>
-</tr>
-<tr>
-    <td><a href="#delete_backup"><CopyableCode code="delete_backup" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.</td>
-</tr>
-<tr>
-    <td><a href="#delete_continuous_web_job"><CopyableCode code="delete_continuous_web_job" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-web_job_name"><code>web_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_deployment"><CopyableCode code="delete_deployment" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_domain_ownership_identifier"><CopyableCode code="delete_domain_ownership_identifier" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_function"><CopyableCode code="delete_function" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_host_name_binding"><CopyableCode code="delete_host_name_binding" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_relay_service_connection"><CopyableCode code="delete_relay_service_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.</td>
-</tr>
-<tr>
-    <td><a href="#delete_process"><CopyableCode code="delete_process" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
-</tr>
-<tr>
-    <td><a href="#delete_premier_add_on"><CopyableCode code="delete_premier_add_on" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Delete a premier add-on from an app. Description for Delete a premier add-on from an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_public_certificate"><CopyableCode code="delete_public_certificate" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
-</tr>
-<tr>
-    <td><a href="#delete_site_container"><CopyableCode code="delete_site_container" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#delete_site_extension"><CopyableCode code="delete_site_extension" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-site_extension_id"><code>site_extension_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -7562,13 +6832,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets an app's deployment slots. Description for Gets an app's deployment slots.</td>
-</tr>
-<tr>
-    <td><a href="#list_application_settings_slot"><CopyableCode code="list_application_settings_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets the application settings of an app. Description for Gets the application settings of an app.</td>
 </tr>
 <tr>
     <td><a href="#list_azure_storage_accounts_slot"><CopyableCode code="list_azure_storage_accounts_slot" /></a></td>
@@ -7620,6 +6883,13 @@ The following methods are available for this resource:
     <td>This is to allow calling via powershell and ARM template. Description for This is to allow calling via powershell and ARM template.</td>
 </tr>
 <tr>
+    <td><a href="#list_hybrid_connections_slot"><CopyableCode code="list_hybrid_connections_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.</td>
+</tr>
+<tr>
     <td><a href="#list_relay_service_connections_slot"><CopyableCode code="list_relay_service_connections_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -7660,13 +6930,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the publishing profile for an app (or deployment slot, if specified). Description for Gets the publishing profile for an app (or deployment slot, if specified).</td>
-</tr>
-<tr>
-    <td><a href="#list_slot_differences_slot"><CopyableCode code="list_slot_differences_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetSlot"><code>targetSlot</code></a>, <a href="#parameter-preserveVnet"><code>preserveVnet</code></a></td>
-    <td></td>
-    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
 </tr>
 <tr>
     <td><a href="#list_snapshots_slot"><CopyableCode code="list_snapshots_slot" /></a></td>
@@ -7816,13 +7079,6 @@ The following methods are available for this resource:
     <td>Gets the publishing profile for an app (or deployment slot, if specified). Description for Gets the publishing profile for an app (or deployment slot, if specified).</td>
 </tr>
 <tr>
-    <td><a href="#list_slot_differences_from_production"><CopyableCode code="list_slot_differences_from_production" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetSlot"><code>targetSlot</code></a>, <a href="#parameter-preserveVnet"><code>preserveVnet</code></a></td>
-    <td></td>
-    <td>Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.</td>
-</tr>
-<tr>
     <td><a href="#list_snapshots"><CopyableCode code="list_snapshots" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -7858,25 +7114,11 @@ The following methods are available for this resource:
     <td>Gets existing backups of an app. Description for Gets existing backups of an app.</td>
 </tr>
 <tr>
-    <td><a href="#list_backup_status_secrets"><CopyableCode code="list_backup_status_secrets" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
-</tr>
-<tr>
     <td><a href="#list_backups_slot"><CopyableCode code="list_backups_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets existing backups of an app. Description for Gets existing backups of an app.</td>
-</tr>
-<tr>
-    <td><a href="#list_backup_status_secrets_slot"><CopyableCode code="list_backup_status_secrets_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.</td>
 </tr>
 <tr>
     <td><a href="#list_basic_publishing_credentials_policies"><CopyableCode code="list_basic_publishing_credentials_policies" /></a></td>
@@ -7998,13 +7240,6 @@ The following methods are available for this resource:
     <td>List the functions for a web site, or a deployment slot. Description for List the functions for a web site, or a deployment slot.</td>
 </tr>
 <tr>
-    <td><a href="#list_function_keys"><CopyableCode code="list_function_keys" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
-</tr>
-<tr>
     <td><a href="#list_function_secrets"><CopyableCode code="list_function_secrets" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8017,13 +7252,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List the functions for a web site, or a deployment slot. Description for List the functions for a web site, or a deployment slot.</td>
-</tr>
-<tr>
-    <td><a href="#list_function_keys_slot"><CopyableCode code="list_function_keys_slot" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#list_function_secrets_slot"><CopyableCode code="list_function_secrets_slot" /></a></td>
@@ -8194,6 +7422,27 @@ The following methods are available for this resource:
     <td>Gets the details of a web, mobile, or API app. Description for Gets the details of a web, mobile, or API app.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_slot"><CopyableCode code="create_or_update_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
+    <td></td>
+    <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
+</tr>
+<tr>
+    <td><a href="#update_slot"><CopyableCode code="update_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_slot"><CopyableCode code="delete_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-deleteMetrics"><code>deleteMetrics</code></a>, <a href="#parameter-deleteEmptyServerFarm"><code>deleteEmptyServerFarm</code></a></td>
+    <td>Deletes a web, mobile, or API app, or one of the deployment slots. Description for Deletes a web, mobile, or API app, or one of the deployment slots.</td>
+</tr>
+<tr>
     <td><a href="#get_auth_settings_slot"><CopyableCode code="get_auth_settings_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8271,6 +7520,13 @@ The following methods are available for this resource:
     <td>Approves or rejects a private endpoint connection. Description for Approves or rejects a private endpoint connection.</td>
 </tr>
 <tr>
+    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
+</tr>
+<tr>
     <td><a href="#get_private_endpoint_connection_list"><CopyableCode code="get_private_endpoint_connection_list" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8285,11 +7541,130 @@ The following methods are available for this resource:
     <td>Approves or rejects a private endpoint connection. Description for Approves or rejects a private endpoint connection.</td>
 </tr>
 <tr>
+    <td><a href="#delete_private_endpoint_connection_slot"><CopyableCode code="delete_private_endpoint_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
+</tr>
+<tr>
     <td><a href="#get_private_endpoint_connection_list_slot"><CopyableCode code="get_private_endpoint_connection_list_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the list of private endpoint connections associated with a site. Description for Gets the list of private endpoint connections associated with a site.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_hybrid_connection"><CopyableCode code="create_or_update_hybrid_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
+</tr>
+<tr>
+    <td><a href="#update_hybrid_connection"><CopyableCode code="update_hybrid_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
+</tr>
+<tr>
+    <td><a href="#delete_hybrid_connection"><CopyableCode code="delete_hybrid_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_hybrid_connection_slot"><CopyableCode code="create_or_update_hybrid_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
+</tr>
+<tr>
+    <td><a href="#update_hybrid_connection_slot"><CopyableCode code="update_hybrid_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.</td>
+</tr>
+<tr>
+    <td><a href="#delete_hybrid_connection_slot"><CopyableCode code="delete_hybrid_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-namespace_name"><code>namespace_name</code></a>, <a href="#parameter-relay_name"><code>relay_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_vnet_connection_slot"><CopyableCode code="create_or_update_vnet_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#update_vnet_connection_slot"><CopyableCode code="update_vnet_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#delete_vnet_connection_slot"><CopyableCode code="delete_vnet_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_vnet_connection"><CopyableCode code="create_or_update_vnet_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#update_vnet_connection"><CopyableCode code="update_vnet_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#delete_vnet_connection"><CopyableCode code="delete_vnet_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_vnet_connection_gateway_slot"><CopyableCode code="create_or_update_vnet_connection_gateway_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#update_vnet_connection_gateway_slot"><CopyableCode code="update_vnet_connection_gateway_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_vnet_connection_gateway"><CopyableCode code="create_or_update_vnet_connection_gateway" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#update_vnet_connection_gateway"><CopyableCode code="update_vnet_connection_gateway" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-vnet_name"><code>vnet_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).</td>
 </tr>
 <tr>
     <td><a href="#get_auth_settings"><CopyableCode code="get_auth_settings" /></a></td>
@@ -8374,6 +7749,34 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the private link resources. Description for Gets the private link resources.</td>
+</tr>
+<tr>
+    <td><a href="#get_backup_status"><CopyableCode code="get_backup_status" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
+</tr>
+<tr>
+    <td><a href="#delete_backup"><CopyableCode code="delete_backup" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.</td>
+</tr>
+<tr>
+    <td><a href="#get_backup_status_slot"><CopyableCode code="get_backup_status_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.</td>
+</tr>
+<tr>
+    <td><a href="#delete_backup_slot"><CopyableCode code="delete_backup_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-backup_id"><code>backup_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.</td>
 </tr>
 <tr>
     <td><a href="#get_ftp_allowed"><CopyableCode code="get_ftp_allowed" /></a></td>
@@ -8537,6 +7940,13 @@ The following methods are available for this resource:
     <td>Gets the configuration of an app, such as platform version and bitness, default documents, virtual applications, Always On, etc. Description for Gets the configuration of an app, such as platform version and bitness, default documents, virtual applications, Always On, etc.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_configuration"><CopyableCode code="create_or_update_configuration" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates the configuration of an app. Description for Updates the configuration of an app.</td>
+</tr>
+<tr>
     <td><a href="#update_configuration"><CopyableCode code="update_configuration" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8549,6 +7959,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the configuration of an app, such as platform version and bitness, default documents, virtual applications, Always On, etc. Description for Gets the configuration of an app, such as platform version and bitness, default documents, virtual applications, Always On, etc.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_configuration_slot"><CopyableCode code="create_or_update_configuration_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates the configuration of an app. Description for Updates the configuration of an app.</td>
 </tr>
 <tr>
     <td><a href="#update_configuration_slot"><CopyableCode code="update_configuration_slot" /></a></td>
@@ -8565,11 +7982,25 @@ The following methods are available for this resource:
     <td>Gets a continuous web job by its ID for an app, or a deployment slot. Description for Gets a continuous web job by its ID for an app, or a deployment slot.</td>
 </tr>
 <tr>
+    <td><a href="#delete_continuous_web_job"><CopyableCode code="delete_continuous_web_job" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-web_job_name"><code>web_job_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.</td>
+</tr>
+<tr>
     <td><a href="#get_continuous_web_job_slot"><CopyableCode code="get_continuous_web_job_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-web_job_name"><code>web_job_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets a continuous web job by its ID for an app, or a deployment slot. Description for Gets a continuous web job by its ID for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_continuous_web_job_slot"><CopyableCode code="delete_continuous_web_job_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-web_job_name"><code>web_job_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#get_deployment"><CopyableCode code="get_deployment" /></a></td>
@@ -8579,11 +8010,81 @@ The following methods are available for this resource:
     <td>Get a deployment by its ID for an app, or a deployment slot. Description for Get a deployment by its ID for an app, or a deployment slot.</td>
 </tr>
 <tr>
+    <td><a href="#create_deployment"><CopyableCode code="create_deployment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_deployment"><CopyableCode code="delete_deployment" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.</td>
+</tr>
+<tr>
     <td><a href="#get_deployment_slot"><CopyableCode code="get_deployment_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get a deployment by its ID for an app, or a deployment slot. Description for Get a deployment by its ID for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#create_deployment_slot"><CopyableCode code="create_deployment_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_deployment_slot"><CopyableCode code="delete_deployment_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-id"><code>id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_domain_ownership_identifier"><CopyableCode code="create_or_update_domain_ownership_identifier" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
+</tr>
+<tr>
+    <td><a href="#update_domain_ownership_identifier"><CopyableCode code="update_domain_ownership_identifier" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
+</tr>
+<tr>
+    <td><a href="#delete_domain_ownership_identifier"><CopyableCode code="delete_domain_ownership_identifier" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_domain_ownership_identifier_slot"><CopyableCode code="create_or_update_domain_ownership_identifier_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
+</tr>
+<tr>
+    <td><a href="#update_domain_ownership_identifier_slot"><CopyableCode code="update_domain_ownership_identifier_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.</td>
+</tr>
+<tr>
+    <td><a href="#delete_domain_ownership_identifier_slot"><CopyableCode code="delete_domain_ownership_identifier_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-domain_ownership_identifier_name"><code>domain_ownership_identifier_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.</td>
 </tr>
 <tr>
     <td><a href="#get_ms_deploy_status"><CopyableCode code="get_ms_deploy_status" /></a></td>
@@ -8612,6 +8113,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the status of the last MSDeploy operation. Description for Get the status of the last MSDeploy operation.</td>
+</tr>
+<tr>
+    <td><a href="#create_instance_ms_deploy_operation"><CopyableCode code="create_instance_ms_deploy_operation" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.</td>
 </tr>
 <tr>
     <td><a href="#get_instance_ms_deploy_log"><CopyableCode code="get_instance_ms_deploy_log" /></a></td>
@@ -8649,11 +8157,130 @@ The following methods are available for this resource:
     <td>Get the status of the last MSDeploy operation. Description for Get the status of the last MSDeploy operation.</td>
 </tr>
 <tr>
+    <td><a href="#create_instance_ms_deploy_operation_slot"><CopyableCode code="create_instance_ms_deploy_operation_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.</td>
+</tr>
+<tr>
     <td><a href="#get_instance_ms_deploy_log_slot"><CopyableCode code="get_instance_ms_deploy_log_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the MSDeploy Log for the last MSDeploy operation. Description for Get the MSDeploy Log for the last MSDeploy operation.</td>
+</tr>
+<tr>
+    <td><a href="#get_function"><CopyableCode code="get_function" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#create_function"><CopyableCode code="create_function" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_function"><CopyableCode code="delete_function" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#get_instance_function_slot"><CopyableCode code="get_instance_function_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#create_instance_function_slot"><CopyableCode code="create_instance_function_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_instance_function_slot"><CopyableCode code="delete_instance_function_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_host_name_binding"><CopyableCode code="create_or_update_host_name_binding" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_host_name_binding"><CopyableCode code="delete_host_name_binding" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_host_name_binding_slot"><CopyableCode code="create_or_update_host_name_binding_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_host_name_binding_slot"><CopyableCode code="delete_host_name_binding_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-host_name"><code>host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_relay_service_connection"><CopyableCode code="create_or_update_relay_service_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#update_relay_service_connection"><CopyableCode code="update_relay_service_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#delete_relay_service_connection"><CopyableCode code="delete_relay_service_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_relay_service_connection_slot"><CopyableCode code="create_or_update_relay_service_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#update_relay_service_connection_slot"><CopyableCode code="update_relay_service_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).</td>
+</tr>
+<tr>
+    <td><a href="#delete_relay_service_connection_slot"><CopyableCode code="delete_relay_service_connection_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-entity_name"><code>entity_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.</td>
 </tr>
 <tr>
     <td><a href="#get_instance_info"><CopyableCode code="get_instance_info" /></a></td>
@@ -8677,6 +8304,13 @@ The following methods are available for this resource:
     <td>Get process information by its ID for a specific scaled-out instance in a web site. Description for Get process information by its ID for a specific scaled-out instance in a web site.</td>
 </tr>
 <tr>
+    <td><a href="#delete_instance_process"><CopyableCode code="delete_instance_process" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
+</tr>
+<tr>
     <td><a href="#get_instance_process_dump"><CopyableCode code="get_instance_process_dump" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8689,6 +8323,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get process information by its ID for a specific scaled-out instance in a web site. Description for Get process information by its ID for a specific scaled-out instance in a web site.</td>
+</tr>
+<tr>
+    <td><a href="#delete_process"><CopyableCode code="delete_process" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
 </tr>
 <tr>
     <td><a href="#get_process_dump"><CopyableCode code="get_process_dump" /></a></td>
@@ -8705,6 +8346,13 @@ The following methods are available for this resource:
     <td>Get process information by its ID for a specific scaled-out instance in a web site. Description for Get process information by its ID for a specific scaled-out instance in a web site.</td>
 </tr>
 <tr>
+    <td><a href="#delete_instance_process_slot"><CopyableCode code="delete_instance_process_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
+</tr>
+<tr>
     <td><a href="#get_instance_process_dump_slot"><CopyableCode code="get_instance_process_dump_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-instance_id"><code>instance_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8717,6 +8365,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get process information by its ID for a specific scaled-out instance in a web site. Description for Get process information by its ID for a specific scaled-out instance in a web site.</td>
+</tr>
+<tr>
+    <td><a href="#delete_process_slot"><CopyableCode code="delete_process_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-process_id"><code>process_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.</td>
 </tr>
 <tr>
     <td><a href="#get_process_dump_slot"><CopyableCode code="get_process_dump_slot" /></a></td>
@@ -8803,11 +8458,39 @@ The following methods are available for this resource:
     <td>Updates a named add-on of an app. Description for Updates a named add-on of an app.</td>
 </tr>
 <tr>
+    <td><a href="#update_premier_add_on"><CopyableCode code="update_premier_add_on" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates a named add-on of an app. Description for Updates a named add-on of an app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_premier_add_on"><CopyableCode code="delete_premier_add_on" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a premier add-on from an app. Description for Delete a premier add-on from an app.</td>
+</tr>
+<tr>
     <td><a href="#add_premier_add_on_slot"><CopyableCode code="add_premier_add_on_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Updates a named add-on of an app. Description for Updates a named add-on of an app.</td>
+</tr>
+<tr>
+    <td><a href="#update_premier_add_on_slot"><CopyableCode code="update_premier_add_on_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates a named add-on of an app. Description for Updates a named add-on of an app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_premier_add_on_slot"><CopyableCode code="delete_premier_add_on_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-premier_add_on_name"><code>premier_add_on_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a premier add-on from an app. Description for Delete a premier add-on from an app.</td>
 </tr>
 <tr>
     <td><a href="#get_private_access"><CopyableCode code="get_private_access" /></a></td>
@@ -8838,6 +8521,62 @@ The following methods are available for this resource:
     <td>Sets data around private site access enablement and authorized Virtual Networks that can access the site. Description for Sets data around private site access enablement and authorized Virtual Networks that can access the site.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_public_certificate"><CopyableCode code="create_or_update_public_certificate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_public_certificate"><CopyableCode code="delete_public_certificate" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_public_certificate_slot"><CopyableCode code="create_or_update_public_certificate_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates a hostname binding for an app. Description for Creates a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#delete_public_certificate_slot"><CopyableCode code="delete_public_certificate_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-public_certificate_name"><code>public_certificate_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_site_container"><CopyableCode code="create_or_update_site_container" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_site_container"><CopyableCode code="delete_site_container" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_site_container_slot"><CopyableCode code="create_or_update_site_container_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_site_container_slot"><CopyableCode code="delete_site_container_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.</td>
+</tr>
+<tr>
     <td><a href="#install_site_extension"><CopyableCode code="install_site_extension" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-site_extension_id"><code>site_extension_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -8845,11 +8584,25 @@ The following methods are available for this resource:
     <td>Install site extension on a web site, or a deployment slot. Description for Install site extension on a web site, or a deployment slot.</td>
 </tr>
 <tr>
+    <td><a href="#delete_site_extension"><CopyableCode code="delete_site_extension" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-site_extension_id"><code>site_extension_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.</td>
+</tr>
+<tr>
     <td><a href="#install_site_extension_slot"><CopyableCode code="install_site_extension_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-site_extension_id"><code>site_extension_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Install site extension on a web site, or a deployment slot. Description for Install site extension on a web site, or a deployment slot.</td>
+</tr>
+<tr>
+    <td><a href="#delete_site_extension_slot"><CopyableCode code="delete_site_extension_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-site_extension_id"><code>site_extension_id</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.</td>
 </tr>
 <tr>
     <td><a href="#get_source_control_slot"><CopyableCode code="get_source_control_slot" /></a></td>
@@ -9039,6 +8792,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Syncs function trigger metadata to the management database. Description for Syncs function trigger metadata to the management database.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_host_secret_slot"><CopyableCode code="create_or_update_host_secret_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Add or update a host level secret. Description for Add or update a host level secret.</td>
+</tr>
+<tr>
+    <td><a href="#delete_host_secret_slot"><CopyableCode code="delete_host_secret_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a host level secret. Description for Delete a host level secret.</td>
 </tr>
 <tr>
     <td><a href="#is_cloneable_slot"><CopyableCode code="is_cloneable_slot" /></a></td>
@@ -9258,6 +9025,20 @@ The following methods are available for this resource:
     <td>Syncs function trigger metadata to the management database. Description for Syncs function trigger metadata to the management database.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_host_secret"><CopyableCode code="create_or_update_host_secret" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Add or update a host level secret. Description for Add or update a host level secret.</td>
+</tr>
+<tr>
+    <td><a href="#delete_host_secret"><CopyableCode code="delete_host_secret" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-key_type"><code>key_type</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a host level secret. Description for Delete a host level secret.</td>
+</tr>
+<tr>
     <td><a href="#is_cloneable"><CopyableCode code="is_cloneable" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -9461,6 +9242,34 @@ The following methods are available for this resource:
     <td>Stop a continuous web job for an app, or a deployment slot. Description for Stop a continuous web job for an app, or a deployment slot.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_function_secret"><CopyableCode code="create_or_update_function_secret" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Add or update a function secret. Description for Add or update a function secret.</td>
+</tr>
+<tr>
+    <td><a href="#delete_function_secret"><CopyableCode code="delete_function_secret" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a function secret. Description for Delete a function secret.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_function_secret_slot"><CopyableCode code="create_or_update_function_secret_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Add or update a function secret. Description for Add or update a function secret.</td>
+</tr>
+<tr>
+    <td><a href="#delete_function_secret_slot"><CopyableCode code="delete_function_secret_slot" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-function_name"><code>function_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete a function secret. Description for Delete a function secret.</td>
+</tr>
+<tr>
     <td><a href="#run_triggered_web_job_slot"><CopyableCode code="run_triggered_web_job_slot" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-web_job_name"><code>web_job_name</code></a>, <a href="#parameter-slot"><code>slot</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -9533,7 +9342,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-function_name">
     <td><CopyableCode code="function_name" /></td>
     <td><code>string</code></td>
-    <td>Function name. Required.</td>
+    <td>Required.</td>
 </tr>
 <tr id="parameter-gateway_name">
     <td><CopyableCode code="gateway_name" /></td>
@@ -9635,15 +9444,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td></td>
 </tr>
-<tr id="parameter-view">
-    <td><CopyableCode code="view" /></td>
+<tr id="parameter-view_name">
+    <td><CopyableCode code="view_name" /></td>
     <td><code>string</code></td>
     <td>The type of view. Only "summary" is supported at this time. Required.</td>
 </tr>
 <tr id="parameter-vnet_name">
     <td><CopyableCode code="vnet_name" /></td>
     <td><code>string</code></td>
-    <td>Name of the virtual network. Required.</td>
+    <td>Name of the Virtual Network. Required.</td>
 </tr>
 <tr id="parameter-web_job_name">
     <td><CopyableCode code="web_job_name" /></td>
@@ -9719,13 +9528,17 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get_instance_process_module_slot"
     values={[
         { label: 'get_instance_process_module_slot', value: 'get_instance_process_module_slot' },
+        { label: 'list_slot_differences_slot', value: 'list_slot_differences_slot' },
         { label: 'list_instance_process_threads_slot', value: 'list_instance_process_threads_slot' },
         { label: 'get_hybrid_connection_slot', value: 'get_hybrid_connection_slot' },
         { label: 'get_vnet_connection_gateway_slot', value: 'get_vnet_connection_gateway_slot' },
         { label: 'get_instance_process_module', value: 'get_instance_process_module' },
         { label: 'get_process_module_slot', value: 'get_process_module_slot' },
         { label: 'get_triggered_web_job_history_slot', value: 'get_triggered_web_job_history_slot' },
+        { label: 'list_slot_differences_from_production', value: 'list_slot_differences_from_production' },
+        { label: 'list_backup_status_secrets_slot', value: 'list_backup_status_secrets_slot' },
         { label: 'list_deployment_log_slot', value: 'list_deployment_log_slot' },
+        { label: 'list_function_keys_slot', value: 'list_function_keys_slot' },
         { label: 'list_instance_process_threads', value: 'list_instance_process_threads' },
         { label: 'list_instance_processes_slot', value: 'list_instance_processes_slot' },
         { label: 'list_process_threads_slot', value: 'list_process_threads_slot' },
@@ -9736,13 +9549,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_hybrid_connection', value: 'get_hybrid_connection' },
         { label: 'get_vnet_connection_slot', value: 'get_vnet_connection_slot' },
         { label: 'get_vnet_connection_gateway', value: 'get_vnet_connection_gateway' },
-        { label: 'get_backup_status_slot', value: 'get_backup_status_slot' },
         { label: 'get_app_setting_key_vault_reference_slot', value: 'get_app_setting_key_vault_reference_slot' },
         { label: 'get_site_connection_string_key_vault_reference_slot', value: 'get_site_connection_string_key_vault_reference_slot' },
         { label: 'get_configuration_snapshot_slot', value: 'get_configuration_snapshot_slot' },
         { label: 'get_slot_site_deployment_status_slot', value: 'get_slot_site_deployment_status_slot' },
         { label: 'get_domain_ownership_identifier_slot', value: 'get_domain_ownership_identifier_slot' },
-        { label: 'get_instance_function_slot', value: 'get_instance_function_slot' },
         { label: 'get_host_name_binding_slot', value: 'get_host_name_binding_slot' },
         { label: 'get_relay_service_connection_slot', value: 'get_relay_service_connection_slot' },
         { label: 'get_process_module', value: 'get_process_module' },
@@ -9752,8 +9563,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_site_extension_slot', value: 'get_site_extension_slot' },
         { label: 'get_triggered_web_job_history', value: 'get_triggered_web_job_history' },
         { label: 'get_instance_workflow_slot', value: 'get_instance_workflow_slot' },
-        { label: 'list_hybrid_connections_slot', value: 'list_hybrid_connections_slot' },
+        { label: 'list_application_settings_slot', value: 'list_application_settings_slot' },
+        { label: 'list_backup_status_secrets', value: 'list_backup_status_secrets' },
         { label: 'list_deployment_log', value: 'list_deployment_log' },
+        { label: 'list_function_keys', value: 'list_function_keys' },
         { label: 'list_instance_processes', value: 'list_instance_processes' },
         { label: 'list_process_threads', value: 'list_process_threads' },
         { label: 'list_network_features', value: 'list_network_features' },
@@ -9761,13 +9574,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
         { label: 'get_private_endpoint_connection', value: 'get_private_endpoint_connection' },
         { label: 'get_vnet_connection', value: 'get_vnet_connection' },
         { label: 'get_network_trace_operation', value: 'get_network_trace_operation' },
-        { label: 'get_backup_status', value: 'get_backup_status' },
         { label: 'get_app_setting_key_vault_reference', value: 'get_app_setting_key_vault_reference' },
         { label: 'get_site_connection_string_key_vault_reference', value: 'get_site_connection_string_key_vault_reference' },
         { label: 'get_configuration_snapshot', value: 'get_configuration_snapshot' },
         { label: 'get_production_site_deployment_status', value: 'get_production_site_deployment_status' },
         { label: 'get_domain_ownership_identifier', value: 'get_domain_ownership_identifier' },
-        { label: 'get_function', value: 'get_function' },
         { label: 'get_host_name_binding', value: 'get_host_name_binding' },
         { label: 'get_relay_service_connection', value: 'get_relay_service_connection' },
         { label: 'get_premier_add_on', value: 'get_premier_add_on' },
@@ -9809,6 +9620,31 @@ AND process_id = '{{ process_id }}' -- required
 AND base_address = '{{ base_address }}' -- required
 AND slot = '{{ slot }}' -- required
 AND instance_id = '{{ instance_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_slot_differences_slot">
+
+Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
+
+```sql
+SELECT
+id,
+name,
+description,
+diffRule,
+kind,
+level,
+settingName,
+settingType,
+type,
+valueInCurrentSlot,
+valueInTargetSlot
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -9983,6 +9819,62 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+<TabItem value="list_slot_differences_from_production">
+
+Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
+
+```sql
+SELECT
+id,
+name,
+description,
+diffRule,
+kind,
+level,
+settingName,
+settingType,
+type,
+valueInCurrentSlot,
+valueInTargetSlot
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_backup_status_secrets_slot">
+
+Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
+
+```sql
+SELECT
+id,
+name,
+blobName,
+correlationId,
+created,
+databases,
+finishedTimeStamp,
+kind,
+lastRestoreTimeStamp,
+log,
+scheduled,
+sizeInBytes,
+status,
+storageAccountUrl,
+systemData,
+type,
+websiteSizeInBytes
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND backup_id = '{{ backup_id }}' -- required
+AND slot = '{{ slot }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="list_deployment_log_slot">
 
 List deployment log for specific deployment for an app, or a deployment slot. Description for List deployment log for specific deployment for an app, or a deployment slot.
@@ -10007,6 +9899,26 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND id = '{{ id }}' -- required
+AND slot = '{{ slot }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_function_keys_slot">
+
+Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
+
+```sql
+SELECT
+id,
+name,
+kind,
+properties,
+type
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND function_name = '{{ function_name }}' -- required
 AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -10148,7 +10060,7 @@ virtualNetworkName
 FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
-AND view = '{{ view }}' -- required
+AND view_name = '{{ view_name }}' -- required
 AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -10290,38 +10202,6 @@ WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND vnet_name = '{{ vnet_name }}' -- required
 AND gateway_name = '{{ gateway_name }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_backup_status_slot">
-
-Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
-
-```sql
-SELECT
-id,
-name,
-blobName,
-correlationId,
-created,
-databases,
-finishedTimeStamp,
-kind,
-lastRestoreTimeStamp,
-log,
-scheduled,
-sizeInBytes,
-status,
-storageAccountUrl,
-systemData,
-type,
-websiteSizeInBytes
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND backup_id = '{{ backup_id }}' -- required
-AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -10519,39 +10399,6 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' -- required
-AND slot = '{{ slot }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_instance_function_slot">
-
-Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
-
-```sql
-SELECT
-id,
-name,
-function_app_id,
-config,
-config_href,
-files,
-href,
-invoke_url_template,
-isDisabled,
-kind,
-language,
-script_href,
-script_root_path_href,
-secrets_file_href,
-systemData,
-test_data,
-test_data_href,
-type
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND function_name = '{{ function_name }}' -- required
 AND slot = '{{ slot }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
@@ -10812,29 +10659,52 @@ AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
-<TabItem value="list_hybrid_connections_slot">
+<TabItem value="list_application_settings_slot">
 
-Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.
+Gets the application settings of an app. Description for Gets the application settings of an app.
 
 ```sql
 SELECT
 id,
 name,
-hostname,
 kind,
-port,
-relayArmUri,
-relayName,
-sendKeyName,
-sendKeyValue,
-serviceBusNamespace,
-serviceBusSuffix,
-systemData,
+properties,
 type
 FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND slot = '{{ slot }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_backup_status_secrets">
+
+Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
+
+```sql
+SELECT
+id,
+name,
+blobName,
+correlationId,
+created,
+databases,
+finishedTimeStamp,
+kind,
+lastRestoreTimeStamp,
+log,
+scheduled,
+sizeInBytes,
+status,
+storageAccountUrl,
+systemData,
+type,
+websiteSizeInBytes
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND backup_id = '{{ backup_id }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -10863,6 +10733,25 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND id = '{{ id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list_function_keys">
+
+Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
+
+```sql
+SELECT
+id,
+name,
+kind,
+properties,
+type
+FROM azure.web.web_apps
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND name = '{{ name }}' -- required
+AND function_name = '{{ function_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -10970,7 +10859,7 @@ virtualNetworkName
 FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
-AND view = '{{ view }}' -- required
+AND view_name = '{{ view_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -11057,37 +10946,6 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND operation_id = '{{ operation_id }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_backup_status">
-
-Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
-
-```sql
-SELECT
-id,
-name,
-blobName,
-correlationId,
-created,
-databases,
-finishedTimeStamp,
-kind,
-lastRestoreTimeStamp,
-log,
-scheduled,
-sizeInBytes,
-status,
-storageAccountUrl,
-systemData,
-type,
-websiteSizeInBytes
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND backup_id = '{{ backup_id }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -11281,38 +11139,6 @@ FROM azure.web.web_apps
 WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND name = '{{ name }}' -- required
 AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' -- required
-AND subscription_id = '{{ subscription_id }}' -- required
-;
-```
-</TabItem>
-<TabItem value="get_function">
-
-Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
-
-```sql
-SELECT
-id,
-name,
-function_app_id,
-config,
-config_href,
-files,
-href,
-invoke_url_template,
-isDisabled,
-kind,
-language,
-script_href,
-script_root_path_href,
-secrets_file_href,
-systemData,
-test_data,
-test_data_href,
-type
-FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' -- required
-AND name = '{{ name }}' -- required
-AND function_name = '{{ function_name }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
@@ -11751,619 +11577,12 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_hybrid_connection_slot"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_hybrid_connection_slot', value: 'create_or_update_hybrid_connection_slot' },
-        { label: 'create_or_update_vnet_connection_gateway_slot', value: 'create_or_update_vnet_connection_gateway_slot' },
-        { label: 'create_or_update_host_secret_slot', value: 'create_or_update_host_secret_slot' },
-        { label: 'create_or_update_function_secret_slot', value: 'create_or_update_function_secret_slot' },
-        { label: 'create_or_update_slot', value: 'create_or_update_slot' },
-        { label: 'create_or_update_hybrid_connection', value: 'create_or_update_hybrid_connection' },
-        { label: 'create_or_update_vnet_connection_slot', value: 'create_or_update_vnet_connection_slot' },
-        { label: 'create_or_update_vnet_connection_gateway', value: 'create_or_update_vnet_connection_gateway' },
-        { label: 'create_or_update_domain_ownership_identifier_slot', value: 'create_or_update_domain_ownership_identifier_slot' },
-        { label: 'create_or_update_host_name_binding_slot', value: 'create_or_update_host_name_binding_slot' },
-        { label: 'create_or_update_relay_service_connection_slot', value: 'create_or_update_relay_service_connection_slot' },
-        { label: 'create_or_update_public_certificate_slot', value: 'create_or_update_public_certificate_slot' },
-        { label: 'create_or_update_site_container_slot', value: 'create_or_update_site_container_slot' },
-        { label: 'create_or_update_host_secret', value: 'create_or_update_host_secret' },
-        { label: 'create_or_update_function_secret', value: 'create_or_update_function_secret' },
-        { label: 'create_deployment_slot', value: 'create_deployment_slot' },
-        { label: 'create_instance_ms_deploy_operation_slot', value: 'create_instance_ms_deploy_operation_slot' },
-        { label: 'create_instance_function_slot', value: 'create_instance_function_slot' },
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_vnet_connection', value: 'create_or_update_vnet_connection' },
-        { label: 'create_or_update_configuration_slot', value: 'create_or_update_configuration_slot' },
-        { label: 'create_or_update_domain_ownership_identifier', value: 'create_or_update_domain_ownership_identifier' },
-        { label: 'create_or_update_host_name_binding', value: 'create_or_update_host_name_binding' },
-        { label: 'create_or_update_relay_service_connection', value: 'create_or_update_relay_service_connection' },
-        { label: 'create_or_update_public_certificate', value: 'create_or_update_public_certificate' },
-        { label: 'create_or_update_site_container', value: 'create_or_update_site_container' },
-        { label: 'create_deployment', value: 'create_deployment' },
-        { label: 'create_instance_ms_deploy_operation', value: 'create_instance_ms_deploy_operation' },
-        { label: 'create_function', value: 'create_function' },
-        { label: 'create_or_update_configuration', value: 'create_or_update_configuration' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_hybrid_connection_slot">
-
-Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-namespace_name,
-relay_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ namespace_name }}',
-'{{ relay_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_vnet_connection_gateway_slot">
-
-Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-vnet_name,
-gateway_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ vnet_name }}',
-'{{ gateway_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_host_secret_slot">
-
-Add or update a host level secret. Description for Add or update a host level secret.
-
-```sql
-INSERT INTO azure.web.web_apps (
-name,
-value,
-resource_group_name,
-name,
-key_type,
-key_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ name }}',
-'{{ value }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ key_type }}',
-'{{ key_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-name,
-value
-;
-```
-</TabItem>
-<TabItem value="create_or_update_function_secret_slot">
-
-Add or update a function secret. Description for Add or update a function secret.
-
-```sql
-INSERT INTO azure.web.web_apps (
-name,
-value,
-resource_group_name,
-name,
-function_name,
-key_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ name }}',
-'{{ value }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ function_name }}',
-'{{ key_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-name,
-value
-;
-```
-</TabItem>
-<TabItem value="create_or_update_slot">
-
-Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-tags,
-location,
-properties,
-identity,
-extendedLocation,
-kind,
-resource_group_name,
-name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ tags }}',
-'{{ location }}' /* required */,
-'{{ properties }}',
-'{{ identity }}',
-'{{ extendedLocation }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-extendedLocation,
-identity,
-kind,
-location,
-properties,
-systemData,
-tags,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_hybrid_connection">
-
-Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-namespace_name,
-relay_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ namespace_name }}',
-'{{ relay_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_vnet_connection_slot">
-
-Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-vnet_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ vnet_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_vnet_connection_gateway">
-
-Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-vnet_name,
-gateway_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ vnet_name }}',
-'{{ gateway_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_domain_ownership_identifier_slot">
-
-Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-domain_ownership_identifier_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ domain_ownership_identifier_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_host_name_binding_slot">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-host_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ host_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_relay_service_connection_slot">
-
-Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-entity_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ entity_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_public_certificate_slot">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-public_certificate_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ public_certificate_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_site_container_slot">
-
-Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-slot,
-container_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ slot }}',
-'{{ container_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_host_secret">
-
-Add or update a host level secret. Description for Add or update a host level secret.
-
-```sql
-INSERT INTO azure.web.web_apps (
-name,
-value,
-resource_group_name,
-name,
-key_type,
-key_name,
-subscription_id
-)
-SELECT 
-'{{ name }}',
-'{{ value }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ key_type }}',
-'{{ key_name }}',
-'{{ subscription_id }}'
-RETURNING
-name,
-value
-;
-```
-</TabItem>
-<TabItem value="create_or_update_function_secret">
-
-Add or update a function secret. Description for Add or update a function secret.
-
-```sql
-INSERT INTO azure.web.web_apps (
-name,
-value,
-resource_group_name,
-name,
-function_name,
-key_name,
-subscription_id
-)
-SELECT 
-'{{ name }}',
-'{{ value }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ function_name }}',
-'{{ key_name }}',
-'{{ subscription_id }}'
-RETURNING
-name,
-value
-;
-```
-</TabItem>
-<TabItem value="create_deployment_slot">
-
-Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-id,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ id }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_instance_ms_deploy_operation_slot">
-
-Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.
-
-```sql
-INSERT INTO azure.web.web_apps (
-kind,
-properties,
-resource_group_name,
-name,
-slot,
-instance_id,
-subscription_id
-)
-SELECT 
-'{{ kind }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ slot }}',
-'{{ instance_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_instance_function_slot">
-
-Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-function_name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ function_name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
@@ -12404,334 +11623,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_vnet_connection">
-
-Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-vnet_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ vnet_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_configuration_slot">
-
-Updates the configuration of an app. Description for Updates the configuration of an app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-slot,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ slot }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_domain_ownership_identifier">
-
-Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-domain_ownership_identifier_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ domain_ownership_identifier_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_host_name_binding">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-host_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ host_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_relay_service_connection">
-
-Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-entity_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ entity_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_public_certificate">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-public_certificate_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ public_certificate_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_site_container">
-
-Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-container_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ container_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_deployment">
-
-Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-id,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_instance_ms_deploy_operation">
-
-Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.
-
-```sql
-INSERT INTO azure.web.web_apps (
-kind,
-properties,
-resource_group_name,
-name,
-instance_id,
-subscription_id
-)
-SELECT 
-'{{ kind }}',
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ instance_id }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_function">
-
-Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-function_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ function_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_configuration">
-
-Updates the configuration of an app. Description for Updates the configuration of an app.
-
-```sql
-INSERT INTO azure.web.web_apps (
-properties,
-kind,
-resource_group_name,
-name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -12743,243 +11634,9 @@ type
     - name: name
       value: "{{ name }}"
       description: Required parameter for the web_apps resource.
-    - name: namespace_name
-      value: "{{ namespace_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: relay_name
-      value: "{{ relay_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: slot
-      value: "{{ slot }}"
-      description: Required parameter for the web_apps resource.
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the web_apps resource.
-    - name: vnet_name
-      value: "{{ vnet_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: gateway_name
-      value: "{{ gateway_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: key_type
-      value: "{{ key_type }}"
-      description: Required parameter for the web_apps resource.
-    - name: key_name
-      value: "{{ key_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: function_name
-      value: "{{ function_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: domain_ownership_identifier_name
-      value: "{{ domain_ownership_identifier_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: host_name
-      value: "{{ host_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: entity_name
-      value: "{{ entity_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: public_certificate_name
-      value: "{{ public_certificate_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: container_name
-      value: "{{ container_name }}"
-      description: Required parameter for the web_apps resource.
-    - name: id
-      value: "{{ id }}"
-      description: Required parameter for the web_apps resource.
-    - name: instance_id
-      value: "{{ instance_id }}"
-      description: Required parameter for the web_apps resource.
-    - name: properties
-      description: |
-        Core resource properties.
-      value:
-        numberOfWorkers: {{ numberOfWorkers }}
-        defaultDocuments:
-          - "{{ defaultDocuments }}"
-        netFrameworkVersion: "{{ netFrameworkVersion }}"
-        phpVersion: "{{ phpVersion }}"
-        pythonVersion: "{{ pythonVersion }}"
-        nodeVersion: "{{ nodeVersion }}"
-        powerShellVersion: "{{ powerShellVersion }}"
-        linuxFxVersion: "{{ linuxFxVersion }}"
-        windowsFxVersion: "{{ windowsFxVersion }}"
-        requestTracingEnabled: {{ requestTracingEnabled }}
-        requestTracingExpirationTime: "{{ requestTracingExpirationTime }}"
-        remoteDebuggingEnabled: {{ remoteDebuggingEnabled }}
-        remoteDebuggingVersion: "{{ remoteDebuggingVersion }}"
-        httpLoggingEnabled: {{ httpLoggingEnabled }}
-        acrUseManagedIdentityCreds: {{ acrUseManagedIdentityCreds }}
-        acrUserManagedIdentityID: "{{ acrUserManagedIdentityID }}"
-        logsDirectorySizeLimit: {{ logsDirectorySizeLimit }}
-        detailedErrorLoggingEnabled: {{ detailedErrorLoggingEnabled }}
-        publishingUsername: "{{ publishingUsername }}"
-        appSettings:
-          - name: "{{ name }}"
-            value: "{{ value }}"
-        metadata:
-          - name: "{{ name }}"
-            value: "{{ value }}"
-        connectionStrings:
-          - name: "{{ name }}"
-            connectionString: "{{ connectionString }}"
-            type: "{{ type }}"
-        machineKey:
-          validation: "{{ validation }}"
-          validationKey: "{{ validationKey }}"
-          decryption: "{{ decryption }}"
-          decryptionKey: "{{ decryptionKey }}"
-        handlerMappings:
-          - extension: "{{ extension }}"
-            scriptProcessor: "{{ scriptProcessor }}"
-            arguments: "{{ arguments }}"
-        documentRoot: "{{ documentRoot }}"
-        scmType: "{{ scmType }}"
-        use32BitWorkerProcess: {{ use32BitWorkerProcess }}
-        webSocketsEnabled: {{ webSocketsEnabled }}
-        alwaysOn: {{ alwaysOn }}
-        javaVersion: "{{ javaVersion }}"
-        javaContainer: "{{ javaContainer }}"
-        javaContainerVersion: "{{ javaContainerVersion }}"
-        appCommandLine: "{{ appCommandLine }}"
-        managedPipelineMode: "{{ managedPipelineMode }}"
-        virtualApplications:
-          - virtualPath: "{{ virtualPath }}"
-            physicalPath: "{{ physicalPath }}"
-            preloadEnabled: {{ preloadEnabled }}
-            virtualDirectories: "{{ virtualDirectories }}"
-        loadBalancing: "{{ loadBalancing }}"
-        experiments:
-          rampUpRules:
-            - actionHostName: "{{ actionHostName }}"
-              reroutePercentage: {{ reroutePercentage }}
-              changeStep: {{ changeStep }}
-              changeIntervalInMinutes: {{ changeIntervalInMinutes }}
-              minReroutePercentage: {{ minReroutePercentage }}
-              maxReroutePercentage: {{ maxReroutePercentage }}
-              changeDecisionCallbackUrl: "{{ changeDecisionCallbackUrl }}"
-              name: "{{ name }}"
-        limits:
-          maxPercentageCpu: {{ maxPercentageCpu }}
-          maxMemoryInMb: {{ maxMemoryInMb }}
-          maxDiskSizeInMb: {{ maxDiskSizeInMb }}
-        autoHealEnabled: {{ autoHealEnabled }}
-        autoHealRules:
-          triggers:
-            requests:
-              count: {{ count }}
-              timeInterval: "{{ timeInterval }}"
-            privateBytesInKB: {{ privateBytesInKB }}
-            statusCodes:
-              - status: {{ status }}
-                subStatus: {{ subStatus }}
-                win32Status: {{ win32Status }}
-                count: {{ count }}
-                timeInterval: "{{ timeInterval }}"
-                path: "{{ path }}"
-            slowRequests:
-              timeTaken: "{{ timeTaken }}"
-              path: "{{ path }}"
-              count: {{ count }}
-              timeInterval: "{{ timeInterval }}"
-            slowRequestsWithPath:
-              - timeTaken: "{{ timeTaken }}"
-                path: "{{ path }}"
-                count: {{ count }}
-                timeInterval: "{{ timeInterval }}"
-            statusCodesRange:
-              - statusCodes: "{{ statusCodes }}"
-                path: "{{ path }}"
-                count: {{ count }}
-                timeInterval: "{{ timeInterval }}"
-          actions:
-            actionType: "{{ actionType }}"
-            customAction:
-              exe: "{{ exe }}"
-              parameters: "{{ parameters }}"
-            minProcessExecutionTime: "{{ minProcessExecutionTime }}"
-        tracingOptions: "{{ tracingOptions }}"
-        vnetName: "{{ vnetName }}"
-        vnetRouteAllEnabled: {{ vnetRouteAllEnabled }}
-        vnetPrivatePortsCount: {{ vnetPrivatePortsCount }}
-        cors:
-          allowedOrigins:
-            - "{{ allowedOrigins }}"
-          supportCredentials: {{ supportCredentials }}
-        push:
-          id: "{{ id }}"
-          name: "{{ name }}"
-          kind: "{{ kind }}"
-          type: "{{ type }}"
-          properties:
-            isPushEnabled: {{ isPushEnabled }}
-            tagWhitelistJson: "{{ tagWhitelistJson }}"
-            tagsRequiringAuth: "{{ tagsRequiringAuth }}"
-            dynamicTagsJson: "{{ dynamicTagsJson }}"
-        apiDefinition:
-          url: "{{ url }}"
-        apiManagementConfig:
-          id: "{{ id }}"
-        autoSwapSlotName: "{{ autoSwapSlotName }}"
-        localMySqlEnabled: {{ localMySqlEnabled }}
-        managedServiceIdentityId: {{ managedServiceIdentityId }}
-        xManagedServiceIdentityId: {{ xManagedServiceIdentityId }}
-        keyVaultReferenceIdentity: "{{ keyVaultReferenceIdentity }}"
-        ipSecurityRestrictions:
-          - ipAddress: "{{ ipAddress }}"
-            subnetMask: "{{ subnetMask }}"
-            vnetSubnetResourceId: "{{ vnetSubnetResourceId }}"
-            vnetTrafficTag: {{ vnetTrafficTag }}
-            subnetTrafficTag: {{ subnetTrafficTag }}
-            action: "{{ action }}"
-            tag: "{{ tag }}"
-            priority: {{ priority }}
-            name: "{{ name }}"
-            description: "{{ description }}"
-            headers: "{{ headers }}"
-        ipSecurityRestrictionsDefaultAction: "{{ ipSecurityRestrictionsDefaultAction }}"
-        scmIpSecurityRestrictions:
-          - ipAddress: "{{ ipAddress }}"
-            subnetMask: "{{ subnetMask }}"
-            vnetSubnetResourceId: "{{ vnetSubnetResourceId }}"
-            vnetTrafficTag: {{ vnetTrafficTag }}
-            subnetTrafficTag: {{ subnetTrafficTag }}
-            action: "{{ action }}"
-            tag: "{{ tag }}"
-            priority: {{ priority }}
-            name: "{{ name }}"
-            description: "{{ description }}"
-            headers: "{{ headers }}"
-        scmIpSecurityRestrictionsDefaultAction: "{{ scmIpSecurityRestrictionsDefaultAction }}"
-        scmIpSecurityRestrictionsUseMain: {{ scmIpSecurityRestrictionsUseMain }}
-        http20Enabled: {{ http20Enabled }}
-        http20ProxyFlag: {{ http20ProxyFlag }}
-        minTlsVersion: "{{ minTlsVersion }}"
-        minTlsCipherSuite: "{{ minTlsCipherSuite }}"
-        scmMinTlsVersion: "{{ scmMinTlsVersion }}"
-        ftpsState: "{{ ftpsState }}"
-        preWarmedInstanceCount: {{ preWarmedInstanceCount }}
-        functionAppScaleLimit: {{ functionAppScaleLimit }}
-        elasticWebAppScaleLimit: {{ elasticWebAppScaleLimit }}
-        healthCheckPath: "{{ healthCheckPath }}"
-        functionsRuntimeScaleMonitoringEnabled: {{ functionsRuntimeScaleMonitoringEnabled }}
-        websiteTimeZone: "{{ websiteTimeZone }}"
-        minimumElasticInstanceCount: {{ minimumElasticInstanceCount }}
-        azureStorageAccounts: "{{ azureStorageAccounts }}"
-        publicNetworkAccess: "{{ publicNetworkAccess }}"
-    - name: kind
-      value: "{{ kind }}"
-      description: |
-        Kind of resource. If the resource is an app, you can refer to \`https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference \`_ for details supported values for kind.
-    - name: name
-      value: "{{ name }}"
-      description: |
-        Key name.
-    - name: value
-      value: "{{ value }}"
-      description: |
-        Key value.
     - name: tags
       value: "{{ tags }}"
       description: |
@@ -12988,6 +11645,308 @@ type
       value: "{{ location }}"
       description: |
         The geo-location where the resource lives. Required.
+    - name: properties
+      description: |
+        Site resource specific properties.
+      value:
+        state: "{{ state }}"
+        hostNames:
+          - "{{ hostNames }}"
+        repositorySiteName: "{{ repositorySiteName }}"
+        usageState: "{{ usageState }}"
+        enabled: {{ enabled }}
+        enabledHostNames:
+          - "{{ enabledHostNames }}"
+        availabilityState: "{{ availabilityState }}"
+        hostNameSslStates:
+          - name: "{{ name }}"
+            sslState: "{{ sslState }}"
+            virtualIP: "{{ virtualIP }}"
+            thumbprint: "{{ thumbprint }}"
+            toUpdate: {{ toUpdate }}
+            hostType: "{{ hostType }}"
+        serverFarmId: "{{ serverFarmId }}"
+        reserved: {{ reserved }}
+        isXenon: {{ isXenon }}
+        hyperV: {{ hyperV }}
+        lastModifiedTimeUtc: "{{ lastModifiedTimeUtc }}"
+        dnsConfiguration:
+          dnsServers:
+            - "{{ dnsServers }}"
+          dnsAltServer: "{{ dnsAltServer }}"
+          dnsRetryAttemptTimeout: {{ dnsRetryAttemptTimeout }}
+          dnsRetryAttemptCount: {{ dnsRetryAttemptCount }}
+          dnsMaxCacheTimeout: {{ dnsMaxCacheTimeout }}
+          dnsLegacySortOrder: {{ dnsLegacySortOrder }}
+        outboundVnetRouting:
+          allTraffic: {{ allTraffic }}
+          applicationTraffic: {{ applicationTraffic }}
+          contentShareTraffic: {{ contentShareTraffic }}
+          imagePullTraffic: {{ imagePullTraffic }}
+          backupRestoreTraffic: {{ backupRestoreTraffic }}
+        siteConfig:
+          numberOfWorkers: {{ numberOfWorkers }}
+          defaultDocuments:
+            - "{{ defaultDocuments }}"
+          netFrameworkVersion: "{{ netFrameworkVersion }}"
+          phpVersion: "{{ phpVersion }}"
+          pythonVersion: "{{ pythonVersion }}"
+          nodeVersion: "{{ nodeVersion }}"
+          powerShellVersion: "{{ powerShellVersion }}"
+          linuxFxVersion: "{{ linuxFxVersion }}"
+          windowsFxVersion: "{{ windowsFxVersion }}"
+          requestTracingEnabled: {{ requestTracingEnabled }}
+          requestTracingExpirationTime: "{{ requestTracingExpirationTime }}"
+          remoteDebuggingEnabled: {{ remoteDebuggingEnabled }}
+          remoteDebuggingVersion: "{{ remoteDebuggingVersion }}"
+          httpLoggingEnabled: {{ httpLoggingEnabled }}
+          acrUseManagedIdentityCreds: {{ acrUseManagedIdentityCreds }}
+          acrUserManagedIdentityID: "{{ acrUserManagedIdentityID }}"
+          logsDirectorySizeLimit: {{ logsDirectorySizeLimit }}
+          detailedErrorLoggingEnabled: {{ detailedErrorLoggingEnabled }}
+          publishingUsername: "{{ publishingUsername }}"
+          appSettings:
+            - name: "{{ name }}"
+              value: "{{ value }}"
+          metadata:
+            - name: "{{ name }}"
+              value: "{{ value }}"
+          connectionStrings:
+            - name: "{{ name }}"
+              connectionString: "{{ connectionString }}"
+              type: "{{ type }}"
+          machineKey:
+            validation: "{{ validation }}"
+            validationKey: "{{ validationKey }}"
+            decryption: "{{ decryption }}"
+            decryptionKey: "{{ decryptionKey }}"
+          handlerMappings:
+            - extension: "{{ extension }}"
+              scriptProcessor: "{{ scriptProcessor }}"
+              arguments: "{{ arguments }}"
+          documentRoot: "{{ documentRoot }}"
+          scmType: "{{ scmType }}"
+          use32BitWorkerProcess: {{ use32BitWorkerProcess }}
+          webSocketsEnabled: {{ webSocketsEnabled }}
+          alwaysOn: {{ alwaysOn }}
+          javaVersion: "{{ javaVersion }}"
+          javaContainer: "{{ javaContainer }}"
+          javaContainerVersion: "{{ javaContainerVersion }}"
+          appCommandLine: "{{ appCommandLine }}"
+          managedPipelineMode: "{{ managedPipelineMode }}"
+          virtualApplications:
+            - virtualPath: "{{ virtualPath }}"
+              physicalPath: "{{ physicalPath }}"
+              preloadEnabled: {{ preloadEnabled }}
+              virtualDirectories: "{{ virtualDirectories }}"
+          loadBalancing: "{{ loadBalancing }}"
+          experiments:
+            rampUpRules:
+              - actionHostName: "{{ actionHostName }}"
+                reroutePercentage: {{ reroutePercentage }}
+                changeStep: {{ changeStep }}
+                changeIntervalInMinutes: {{ changeIntervalInMinutes }}
+                minReroutePercentage: {{ minReroutePercentage }}
+                maxReroutePercentage: {{ maxReroutePercentage }}
+                changeDecisionCallbackUrl: "{{ changeDecisionCallbackUrl }}"
+                name: "{{ name }}"
+          limits:
+            maxPercentageCpu: {{ maxPercentageCpu }}
+            maxMemoryInMb: {{ maxMemoryInMb }}
+            maxDiskSizeInMb: {{ maxDiskSizeInMb }}
+          autoHealEnabled: {{ autoHealEnabled }}
+          autoHealRules:
+            triggers:
+              requests:
+                count: {{ count }}
+                timeInterval: "{{ timeInterval }}"
+              privateBytesInKB: {{ privateBytesInKB }}
+              statusCodes:
+                - status: {{ status }}
+                  subStatus: {{ subStatus }}
+                  win32Status: {{ win32Status }}
+                  count: {{ count }}
+                  timeInterval: "{{ timeInterval }}"
+                  path: "{{ path }}"
+              slowRequests:
+                timeTaken: "{{ timeTaken }}"
+                path: "{{ path }}"
+                count: {{ count }}
+                timeInterval: "{{ timeInterval }}"
+              slowRequestsWithPath:
+                - timeTaken: "{{ timeTaken }}"
+                  path: "{{ path }}"
+                  count: {{ count }}
+                  timeInterval: "{{ timeInterval }}"
+              statusCodesRange:
+                - statusCodes: "{{ statusCodes }}"
+                  path: "{{ path }}"
+                  count: {{ count }}
+                  timeInterval: "{{ timeInterval }}"
+            actions:
+              actionType: "{{ actionType }}"
+              customAction:
+                exe: "{{ exe }}"
+                parameters: "{{ parameters }}"
+              minProcessExecutionTime: "{{ minProcessExecutionTime }}"
+          tracingOptions: "{{ tracingOptions }}"
+          vnetName: "{{ vnetName }}"
+          vnetRouteAllEnabled: {{ vnetRouteAllEnabled }}
+          vnetPrivatePortsCount: {{ vnetPrivatePortsCount }}
+          cors:
+            allowedOrigins:
+              - "{{ allowedOrigins }}"
+            supportCredentials: {{ supportCredentials }}
+          push:
+            id: "{{ id }}"
+            name: "{{ name }}"
+            kind: "{{ kind }}"
+            type: "{{ type }}"
+            properties:
+              isPushEnabled: {{ isPushEnabled }}
+              tagWhitelistJson: "{{ tagWhitelistJson }}"
+              tagsRequiringAuth: "{{ tagsRequiringAuth }}"
+              dynamicTagsJson: "{{ dynamicTagsJson }}"
+          apiDefinition:
+            url: "{{ url }}"
+          apiManagementConfig:
+            id: "{{ id }}"
+          autoSwapSlotName: "{{ autoSwapSlotName }}"
+          localMySqlEnabled: {{ localMySqlEnabled }}
+          managedServiceIdentityId: {{ managedServiceIdentityId }}
+          xManagedServiceIdentityId: {{ xManagedServiceIdentityId }}
+          keyVaultReferenceIdentity: "{{ keyVaultReferenceIdentity }}"
+          ipSecurityRestrictions:
+            - ipAddress: "{{ ipAddress }}"
+              subnetMask: "{{ subnetMask }}"
+              vnetSubnetResourceId: "{{ vnetSubnetResourceId }}"
+              vnetTrafficTag: {{ vnetTrafficTag }}
+              subnetTrafficTag: {{ subnetTrafficTag }}
+              action: "{{ action }}"
+              tag: "{{ tag }}"
+              priority: {{ priority }}
+              name: "{{ name }}"
+              description: "{{ description }}"
+              headers: "{{ headers }}"
+          ipSecurityRestrictionsDefaultAction: "{{ ipSecurityRestrictionsDefaultAction }}"
+          scmIpSecurityRestrictions:
+            - ipAddress: "{{ ipAddress }}"
+              subnetMask: "{{ subnetMask }}"
+              vnetSubnetResourceId: "{{ vnetSubnetResourceId }}"
+              vnetTrafficTag: {{ vnetTrafficTag }}
+              subnetTrafficTag: {{ subnetTrafficTag }}
+              action: "{{ action }}"
+              tag: "{{ tag }}"
+              priority: {{ priority }}
+              name: "{{ name }}"
+              description: "{{ description }}"
+              headers: "{{ headers }}"
+          scmIpSecurityRestrictionsDefaultAction: "{{ scmIpSecurityRestrictionsDefaultAction }}"
+          scmIpSecurityRestrictionsUseMain: {{ scmIpSecurityRestrictionsUseMain }}
+          http20Enabled: {{ http20Enabled }}
+          http20ProxyFlag: {{ http20ProxyFlag }}
+          minTlsVersion: "{{ minTlsVersion }}"
+          minTlsCipherSuite: "{{ minTlsCipherSuite }}"
+          scmMinTlsVersion: "{{ scmMinTlsVersion }}"
+          ftpsState: "{{ ftpsState }}"
+          preWarmedInstanceCount: {{ preWarmedInstanceCount }}
+          functionAppScaleLimit: {{ functionAppScaleLimit }}
+          elasticWebAppScaleLimit: {{ elasticWebAppScaleLimit }}
+          healthCheckPath: "{{ healthCheckPath }}"
+          functionsRuntimeScaleMonitoringEnabled: {{ functionsRuntimeScaleMonitoringEnabled }}
+          websiteTimeZone: "{{ websiteTimeZone }}"
+          minimumElasticInstanceCount: {{ minimumElasticInstanceCount }}
+          azureStorageAccounts: "{{ azureStorageAccounts }}"
+          publicNetworkAccess: "{{ publicNetworkAccess }}"
+        functionAppConfig:
+          deployment:
+            storage:
+              type: "{{ type }}"
+              value: "{{ value }}"
+              authentication:
+                type: "{{ type }}"
+                userAssignedIdentityResourceId: "{{ userAssignedIdentityResourceId }}"
+                storageAccountConnectionStringName: "{{ storageAccountConnectionStringName }}"
+          runtime:
+            name: "{{ name }}"
+            version: "{{ version }}"
+          scaleAndConcurrency:
+            alwaysReady:
+              - name: "{{ name }}"
+                instanceCount: {{ instanceCount }}
+            maximumInstanceCount: {{ maximumInstanceCount }}
+            instanceMemoryMB: {{ instanceMemoryMB }}
+            triggers:
+              http:
+                perInstanceConcurrency: {{ perInstanceConcurrency }}
+          siteUpdateStrategy:
+            type: "{{ type }}"
+        daprConfig:
+          enabled: {{ enabled }}
+          appId: "{{ appId }}"
+          appPort: {{ appPort }}
+          httpReadBufferSize: {{ httpReadBufferSize }}
+          httpMaxRequestSize: {{ httpMaxRequestSize }}
+          logLevel: "{{ logLevel }}"
+          enableApiLogging: {{ enableApiLogging }}
+        workloadProfileName: "{{ workloadProfileName }}"
+        resourceConfig:
+          cpu: {{ cpu }}
+          memory: "{{ memory }}"
+        trafficManagerHostNames:
+          - "{{ trafficManagerHostNames }}"
+        scmSiteAlsoStopped: {{ scmSiteAlsoStopped }}
+        targetSwapSlot: "{{ targetSwapSlot }}"
+        hostingEnvironmentProfile:
+          id: "{{ id }}"
+          name: "{{ name }}"
+          type: "{{ type }}"
+        clientAffinityEnabled: {{ clientAffinityEnabled }}
+        clientAffinityPartitioningEnabled: {{ clientAffinityPartitioningEnabled }}
+        clientAffinityProxyEnabled: {{ clientAffinityProxyEnabled }}
+        clientCertEnabled: {{ clientCertEnabled }}
+        clientCertMode: "{{ clientCertMode }}"
+        clientCertExclusionPaths: "{{ clientCertExclusionPaths }}"
+        ipMode: "{{ ipMode }}"
+        endToEndEncryptionEnabled: {{ endToEndEncryptionEnabled }}
+        sshEnabled: {{ sshEnabled }}
+        hostNamesDisabled: {{ hostNamesDisabled }}
+        customDomainVerificationId: "{{ customDomainVerificationId }}"
+        outboundIpAddresses: "{{ outboundIpAddresses }}"
+        possibleOutboundIpAddresses: "{{ possibleOutboundIpAddresses }}"
+        containerSize: {{ containerSize }}
+        dailyMemoryTimeQuota: {{ dailyMemoryTimeQuota }}
+        suspendedTill: "{{ suspendedTill }}"
+        maxNumberOfWorkers: {{ maxNumberOfWorkers }}
+        cloningInfo:
+          correlationId: "{{ correlationId }}"
+          overwrite: {{ overwrite }}
+          cloneCustomHostNames: {{ cloneCustomHostNames }}
+          cloneSourceControl: {{ cloneSourceControl }}
+          sourceWebAppId: "{{ sourceWebAppId }}"
+          sourceWebAppLocation: "{{ sourceWebAppLocation }}"
+          hostingEnvironment: "{{ hostingEnvironment }}"
+          appSettingsOverrides: "{{ appSettingsOverrides }}"
+          configureLoadBalancing: {{ configureLoadBalancing }}
+          trafficManagerProfileId: "{{ trafficManagerProfileId }}"
+          trafficManagerProfileName: "{{ trafficManagerProfileName }}"
+        resourceGroup: "{{ resourceGroup }}"
+        isDefaultContainer: {{ isDefaultContainer }}
+        defaultHostName: "{{ defaultHostName }}"
+        slotSwapStatus:
+          timestampUtc: "{{ timestampUtc }}"
+          sourceSlotName: "{{ sourceSlotName }}"
+          destinationSlotName: "{{ destinationSlotName }}"
+        httpsOnly: {{ httpsOnly }}
+        redundancyMode: "{{ redundancyMode }}"
+        inProgressOperationId: "{{ inProgressOperationId }}"
+        publicNetworkAccess: "{{ publicNetworkAccess }}"
+        storageAccountRequired: {{ storageAccountRequired }}
+        keyVaultReferenceIdentity: "{{ keyVaultReferenceIdentity }}"
+        autoGeneratedDomainNameLabelScope: "{{ autoGeneratedDomainNameLabelScope }}"
+        virtualNetworkSubnetId: "{{ virtualNetworkSubnetId }}"
+        managedEnvironmentId: "{{ managedEnvironmentId }}"
+        sku: "{{ sku }}"
     - name: identity
       description: |
         Managed service identity.
@@ -13002,6 +11961,10 @@ type
       value:
         name: "{{ name }}"
         type: "{{ type }}"
+    - name: kind
+      value: "{{ kind }}"
+      description: |
+        Kind of resource. If the resource is an app, you can refer to \`https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference \`_ for details supported values for kind.
 `}</CodeBlock>
 
 </TabItem>
@@ -13011,342 +11974,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_hybrid_connection_slot"
+    defaultValue="update"
     values={[
-        { label: 'update_hybrid_connection_slot', value: 'update_hybrid_connection_slot' },
-        { label: 'update_vnet_connection_gateway_slot', value: 'update_vnet_connection_gateway_slot' },
-        { label: 'update_hybrid_connection', value: 'update_hybrid_connection' },
-        { label: 'update_vnet_connection_slot', value: 'update_vnet_connection_slot' },
-        { label: 'update_vnet_connection_gateway', value: 'update_vnet_connection_gateway' },
-        { label: 'update_domain_ownership_identifier_slot', value: 'update_domain_ownership_identifier_slot' },
-        { label: 'update_relay_service_connection_slot', value: 'update_relay_service_connection_slot' },
-        { label: 'update_premier_add_on_slot', value: 'update_premier_add_on_slot' },
-        { label: 'update_slot', value: 'update_slot' },
-        { label: 'update_vnet_connection', value: 'update_vnet_connection' },
-        { label: 'update_domain_ownership_identifier', value: 'update_domain_ownership_identifier' },
-        { label: 'update_relay_service_connection', value: 'update_relay_service_connection' },
-        { label: 'update_premier_add_on', value: 'update_premier_add_on' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_hybrid_connection_slot">
-
-Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_vnet_connection_gateway_slot">
-
-Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND gateway_name = '{{ gateway_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_hybrid_connection">
-
-Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_vnet_connection_slot">
-
-Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_vnet_connection_gateway">
-
-Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND gateway_name = '{{ gateway_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_domain_ownership_identifier_slot">
-
-Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_relay_service_connection_slot">
-
-Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND entity_name = '{{ entity_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_premier_add_on_slot">
-
-Updates a named add-on of an app. Description for Updates a named add-on of an app.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND premier_add_on_name = '{{ premier_add_on_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="update_slot">
-
-Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}',
-identity = '{{ identity }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-extendedLocation,
-identity,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="update_vnet_connection">
-
-Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_domain_ownership_identifier">
-
-Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_relay_service_connection">
-
-Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND entity_name = '{{ entity_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="update_premier_add_on">
-
-Updates a named add-on of an app. Description for Updates a named add-on of an app.
-
-```sql
-UPDATE azure.web.web_apps
-SET 
-kind = '{{ kind }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND premier_add_on_name = '{{ premier_add_on_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
@@ -13380,390 +12012,11 @@ type;
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_hybrid_connection_slot"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_hybrid_connection_slot', value: 'create_or_update_hybrid_connection_slot' },
-        { label: 'create_or_update_vnet_connection_gateway_slot', value: 'create_or_update_vnet_connection_gateway_slot' },
-        { label: 'create_or_update_host_secret_slot', value: 'create_or_update_host_secret_slot' },
-        { label: 'create_or_update_function_secret_slot', value: 'create_or_update_function_secret_slot' },
-        { label: 'create_or_update_slot', value: 'create_or_update_slot' },
-        { label: 'create_or_update_hybrid_connection', value: 'create_or_update_hybrid_connection' },
-        { label: 'create_or_update_vnet_connection_slot', value: 'create_or_update_vnet_connection_slot' },
-        { label: 'create_or_update_vnet_connection_gateway', value: 'create_or_update_vnet_connection_gateway' },
-        { label: 'create_or_update_domain_ownership_identifier_slot', value: 'create_or_update_domain_ownership_identifier_slot' },
-        { label: 'create_or_update_host_name_binding_slot', value: 'create_or_update_host_name_binding_slot' },
-        { label: 'create_or_update_relay_service_connection_slot', value: 'create_or_update_relay_service_connection_slot' },
-        { label: 'create_or_update_public_certificate_slot', value: 'create_or_update_public_certificate_slot' },
-        { label: 'create_or_update_site_container_slot', value: 'create_or_update_site_container_slot' },
-        { label: 'create_or_update_host_secret', value: 'create_or_update_host_secret' },
-        { label: 'create_or_update_function_secret', value: 'create_or_update_function_secret' },
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_vnet_connection', value: 'create_or_update_vnet_connection' },
-        { label: 'create_or_update_configuration_slot', value: 'create_or_update_configuration_slot' },
-        { label: 'create_or_update_domain_ownership_identifier', value: 'create_or_update_domain_ownership_identifier' },
-        { label: 'create_or_update_host_name_binding', value: 'create_or_update_host_name_binding' },
-        { label: 'create_or_update_relay_service_connection', value: 'create_or_update_relay_service_connection' },
-        { label: 'create_or_update_public_certificate', value: 'create_or_update_public_certificate' },
-        { label: 'create_or_update_site_container', value: 'create_or_update_site_container' },
-        { label: 'create_or_update_configuration', value: 'create_or_update_configuration' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_hybrid_connection_slot">
-
-Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_vnet_connection_gateway_slot">
-
-Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND gateway_name = '{{ gateway_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_host_secret_slot">
-
-Add or update a host level secret. Description for Add or update a host level secret.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-name = '{{ name }}',
-value = '{{ value }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND key_type = '{{ key_type }}' --required
-AND key_name = '{{ key_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-name,
-value;
-```
-</TabItem>
-<TabItem value="create_or_update_function_secret_slot">
-
-Add or update a function secret. Description for Add or update a function secret.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-name = '{{ name }}',
-value = '{{ value }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND function_name = '{{ function_name }}' --required
-AND key_name = '{{ key_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-name,
-value;
-```
-</TabItem>
-<TabItem value="create_or_update_slot">
-
-Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-tags = '{{ tags }}',
-location = '{{ location }}',
-properties = '{{ properties }}',
-identity = '{{ identity }}',
-extendedLocation = '{{ extendedLocation }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND location = '{{ location }}' --required
-RETURNING
-id,
-name,
-extendedLocation,
-identity,
-kind,
-location,
-properties,
-systemData,
-tags,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_hybrid_connection">
-
-Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_vnet_connection_slot">
-
-Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_vnet_connection_gateway">
-
-Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND gateway_name = '{{ gateway_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_domain_ownership_identifier_slot">
-
-Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_host_name_binding_slot">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND host_name = '{{ host_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_relay_service_connection_slot">
-
-Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND entity_name = '{{ entity_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_public_certificate_slot">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND public_certificate_name = '{{ public_certificate_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_site_container_slot">
-
-Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_host_secret">
-
-Add or update a host level secret. Description for Add or update a host level secret.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-name = '{{ name }}',
-value = '{{ value }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND key_type = '{{ key_type }}' --required
-AND key_name = '{{ key_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-name,
-value;
-```
-</TabItem>
-<TabItem value="create_or_update_function_secret">
-
-Add or update a function secret. Description for Add or update a function secret.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-name = '{{ name }}',
-value = '{{ value }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND function_name = '{{ function_name }}' --required
-AND key_name = '{{ key_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-name,
-value;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
@@ -13795,746 +12048,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_vnet_connection">
-
-Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_configuration_slot">
-
-Updates the configuration of an app. Description for Updates the configuration of an app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_domain_ownership_identifier">
-
-Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_host_name_binding">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND host_name = '{{ host_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_relay_service_connection">
-
-Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND entity_name = '{{ entity_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_public_certificate">
-
-Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND public_certificate_name = '{{ public_certificate_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_site_container">
-
-Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_configuration">
-
-Updates the configuration of an app. Description for Updates the configuration of an app.
-
-```sql
-REPLACE azure.web.web_apps
-SET 
-properties = '{{ properties }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-systemData,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_hybrid_connection_slot"
+    defaultValue="delete"
     values={[
-        { label: 'delete_hybrid_connection_slot', value: 'delete_hybrid_connection_slot' },
-        { label: 'delete_instance_process_slot', value: 'delete_instance_process_slot' },
-        { label: 'delete_host_secret_slot', value: 'delete_host_secret_slot' },
-        { label: 'delete_function_secret_slot', value: 'delete_function_secret_slot' },
-        { label: 'delete_private_endpoint_connection_slot', value: 'delete_private_endpoint_connection_slot' },
-        { label: 'delete_hybrid_connection', value: 'delete_hybrid_connection' },
-        { label: 'delete_vnet_connection_slot', value: 'delete_vnet_connection_slot' },
-        { label: 'delete_backup_slot', value: 'delete_backup_slot' },
-        { label: 'delete_continuous_web_job_slot', value: 'delete_continuous_web_job_slot' },
-        { label: 'delete_deployment_slot', value: 'delete_deployment_slot' },
-        { label: 'delete_domain_ownership_identifier_slot', value: 'delete_domain_ownership_identifier_slot' },
-        { label: 'delete_instance_function_slot', value: 'delete_instance_function_slot' },
-        { label: 'delete_host_name_binding_slot', value: 'delete_host_name_binding_slot' },
-        { label: 'delete_relay_service_connection_slot', value: 'delete_relay_service_connection_slot' },
-        { label: 'delete_instance_process', value: 'delete_instance_process' },
-        { label: 'delete_process_slot', value: 'delete_process_slot' },
-        { label: 'delete_premier_add_on_slot', value: 'delete_premier_add_on_slot' },
-        { label: 'delete_public_certificate_slot', value: 'delete_public_certificate_slot' },
-        { label: 'delete_site_container_slot', value: 'delete_site_container_slot' },
-        { label: 'delete_site_extension_slot', value: 'delete_site_extension_slot' },
-        { label: 'delete_host_secret', value: 'delete_host_secret' },
-        { label: 'delete_function_secret', value: 'delete_function_secret' },
-        { label: 'delete_slot', value: 'delete_slot' },
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
-        { label: 'delete_vnet_connection', value: 'delete_vnet_connection' },
-        { label: 'delete_backup', value: 'delete_backup' },
-        { label: 'delete_continuous_web_job', value: 'delete_continuous_web_job' },
-        { label: 'delete_deployment', value: 'delete_deployment' },
-        { label: 'delete_domain_ownership_identifier', value: 'delete_domain_ownership_identifier' },
-        { label: 'delete_function', value: 'delete_function' },
-        { label: 'delete_host_name_binding', value: 'delete_host_name_binding' },
-        { label: 'delete_relay_service_connection', value: 'delete_relay_service_connection' },
-        { label: 'delete_process', value: 'delete_process' },
-        { label: 'delete_premier_add_on', value: 'delete_premier_add_on' },
-        { label: 'delete_public_certificate', value: 'delete_public_certificate' },
-        { label: 'delete_site_container', value: 'delete_site_container' },
-        { label: 'delete_site_extension', value: 'delete_site_extension' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_hybrid_connection_slot">
-
-Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_instance_process_slot">
-
-Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND process_id = '{{ process_id }}' --required
-AND slot = '{{ slot }}' --required
-AND instance_id = '{{ instance_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_host_secret_slot">
-
-Delete a host level secret. Description for Delete a host level secret.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND key_type = '{{ key_type }}' --required
-AND key_name = '{{ key_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_function_secret_slot">
-
-Delete a function secret. Description for Delete a function secret.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND function_name = '{{ function_name }}' --required
-AND key_name = '{{ key_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_private_endpoint_connection_slot">
-
-Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_hybrid_connection">
-
-Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND namespace_name = '{{ namespace_name }}' --required
-AND relay_name = '{{ relay_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_vnet_connection_slot">
-
-Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_backup_slot">
-
-Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND backup_id = '{{ backup_id }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_continuous_web_job_slot">
-
-Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND web_job_name = '{{ web_job_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_deployment_slot">
-
-Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND id = '{{ id }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_domain_ownership_identifier_slot">
-
-Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_instance_function_slot">
-
-Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND function_name = '{{ function_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_host_name_binding_slot">
-
-Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND host_name = '{{ host_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_relay_service_connection_slot">
-
-Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND entity_name = '{{ entity_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_instance_process">
-
-Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND process_id = '{{ process_id }}' --required
-AND instance_id = '{{ instance_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_process_slot">
-
-Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND process_id = '{{ process_id }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_premier_add_on_slot">
-
-Delete a premier add-on from an app. Description for Delete a premier add-on from an app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND premier_add_on_name = '{{ premier_add_on_name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_public_certificate_slot">
-
-Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND public_certificate_name = '{{ public_certificate_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_site_container_slot">
-
-Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_site_extension_slot">
-
-Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND site_extension_id = '{{ site_extension_id }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_host_secret">
-
-Delete a host level secret. Description for Delete a host level secret.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND key_type = '{{ key_type }}' --required
-AND key_name = '{{ key_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_function_secret">
-
-Delete a function secret. Description for Delete a function secret.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND function_name = '{{ function_name }}' --required
-AND key_name = '{{ key_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_slot">
-
-Deletes a web, mobile, or API app, or one of the deployment slots. Description for Deletes a web, mobile, or API app, or one of the deployment slots.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND slot = '{{ slot }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND deleteMetrics = '{{ deleteMetrics }}'
-AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
-;
-```
-</TabItem>
-<TabItem value="delete_private_endpoint_connection">
-
-Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_vnet_connection">
-
-Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND vnet_name = '{{ vnet_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_backup">
-
-Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND backup_id = '{{ backup_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_continuous_web_job">
-
-Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND web_job_name = '{{ web_job_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_deployment">
-
-Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND id = '{{ id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_domain_ownership_identifier">
-
-Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND domain_ownership_identifier_name = '{{ domain_ownership_identifier_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_function">
-
-Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND function_name = '{{ function_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_host_name_binding">
-
-Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND host_name = '{{ host_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_relay_service_connection">
-
-Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND entity_name = '{{ entity_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_process">
-
-Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND process_id = '{{ process_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_premier_add_on">
-
-Delete a premier add-on from an app. Description for Delete a premier add-on from an app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND premier_add_on_name = '{{ premier_add_on_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_public_certificate">
-
-Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND public_certificate_name = '{{ public_certificate_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_site_container">
-
-Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="delete_site_extension">
-
-Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.
-
-```sql
-DELETE FROM azure.web.web_apps
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND site_extension_id = '{{ site_extension_id }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a web, mobile, or API app, or one of the deployment slots. Description for Deletes a web, mobile, or API app, or one of the deployment slots.
@@ -14558,7 +12082,6 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
     defaultValue="list_slots"
     values={[
         { label: 'list_slots', value: 'list_slots' },
-        { label: 'list_application_settings_slot', value: 'list_application_settings_slot' },
         { label: 'list_azure_storage_accounts_slot', value: 'list_azure_storage_accounts_slot' },
         { label: 'list_connection_strings_slot', value: 'list_connection_strings_slot' },
         { label: 'list_metadata_slot', value: 'list_metadata_slot' },
@@ -14566,13 +12089,13 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_site_push_settings_slot', value: 'list_site_push_settings_slot' },
         { label: 'list_host_keys_slot', value: 'list_host_keys_slot' },
         { label: 'list_sync_status_slot', value: 'list_sync_status_slot' },
+        { label: 'list_hybrid_connections_slot', value: 'list_hybrid_connections_slot' },
         { label: 'list_relay_service_connections_slot', value: 'list_relay_service_connections_slot' },
         { label: 'list_site_backups_slot', value: 'list_site_backups_slot' },
         { label: 'list_sync_function_triggers_slot', value: 'list_sync_function_triggers_slot' },
         { label: 'list_perf_mon_counters_slot', value: 'list_perf_mon_counters_slot' },
         { label: 'list_premier_add_ons_slot', value: 'list_premier_add_ons_slot' },
         { label: 'list_publishing_profile_xml_with_secrets_slot', value: 'list_publishing_profile_xml_with_secrets_slot' },
-        { label: 'list_slot_differences_slot', value: 'list_slot_differences_slot' },
         { label: 'list_snapshots_slot', value: 'list_snapshots_slot' },
         { label: 'list_snapshots_from_dr_secondary_slot', value: 'list_snapshots_from_dr_secondary_slot' },
         { label: 'list_usages_slot', value: 'list_usages_slot' },
@@ -14594,15 +12117,12 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_perf_mon_counters', value: 'list_perf_mon_counters' },
         { label: 'list_premier_add_ons', value: 'list_premier_add_ons' },
         { label: 'list_publishing_profile_xml_with_secrets', value: 'list_publishing_profile_xml_with_secrets' },
-        { label: 'list_slot_differences_from_production', value: 'list_slot_differences_from_production' },
         { label: 'list_snapshots', value: 'list_snapshots' },
         { label: 'list_snapshots_from_dr_secondary', value: 'list_snapshots_from_dr_secondary' },
         { label: 'list_usages', value: 'list_usages' },
         { label: 'list_workflows_connections', value: 'list_workflows_connections' },
         { label: 'list_backups', value: 'list_backups' },
-        { label: 'list_backup_status_secrets', value: 'list_backup_status_secrets' },
         { label: 'list_backups_slot', value: 'list_backups_slot' },
-        { label: 'list_backup_status_secrets_slot', value: 'list_backup_status_secrets_slot' },
         { label: 'list_basic_publishing_credentials_policies', value: 'list_basic_publishing_credentials_policies' },
         { label: 'list_basic_publishing_credentials_policies_slot', value: 'list_basic_publishing_credentials_policies_slot' },
         { label: 'list_slot_configuration_names', value: 'list_slot_configuration_names' },
@@ -14620,10 +12140,8 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_domain_ownership_identifiers', value: 'list_domain_ownership_identifiers' },
         { label: 'list_domain_ownership_identifiers_slot', value: 'list_domain_ownership_identifiers_slot' },
         { label: 'list_functions', value: 'list_functions' },
-        { label: 'list_function_keys', value: 'list_function_keys' },
         { label: 'list_function_secrets', value: 'list_function_secrets' },
         { label: 'list_instance_functions_slot', value: 'list_instance_functions_slot' },
-        { label: 'list_function_keys_slot', value: 'list_function_keys_slot' },
         { label: 'list_function_secrets_slot', value: 'list_function_secrets_slot' },
         { label: 'list_host_name_bindings', value: 'list_host_name_bindings' },
         { label: 'list_host_name_bindings_slot', value: 'list_host_name_bindings_slot' },
@@ -14648,6 +12166,9 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'list_instance_workflows_slot', value: 'list_instance_workflows_slot' },
         { label: 'list_workflows', value: 'list_workflows' },
         { label: 'get_slot', value: 'get_slot' },
+        { label: 'create_or_update_slot', value: 'create_or_update_slot' },
+        { label: 'update_slot', value: 'update_slot' },
+        { label: 'delete_slot', value: 'delete_slot' },
         { label: 'get_auth_settings_slot', value: 'get_auth_settings_slot' },
         { label: 'get_backup_configuration_slot', value: 'get_backup_configuration_slot' },
         { label: 'get_web_site_container_logs_slot', value: 'get_web_site_container_logs_slot' },
@@ -14659,9 +12180,27 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'get_site_php_error_log_flag_slot', value: 'get_site_php_error_log_flag_slot' },
         { label: 'get_private_link_resources_slot', value: 'get_private_link_resources_slot' },
         { label: 'approve_or_reject_private_endpoint_connection', value: 'approve_or_reject_private_endpoint_connection' },
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'get_private_endpoint_connection_list', value: 'get_private_endpoint_connection_list' },
         { label: 'approve_or_reject_private_endpoint_connection_slot', value: 'approve_or_reject_private_endpoint_connection_slot' },
+        { label: 'delete_private_endpoint_connection_slot', value: 'delete_private_endpoint_connection_slot' },
         { label: 'get_private_endpoint_connection_list_slot', value: 'get_private_endpoint_connection_list_slot' },
+        { label: 'create_or_update_hybrid_connection', value: 'create_or_update_hybrid_connection' },
+        { label: 'update_hybrid_connection', value: 'update_hybrid_connection' },
+        { label: 'delete_hybrid_connection', value: 'delete_hybrid_connection' },
+        { label: 'create_or_update_hybrid_connection_slot', value: 'create_or_update_hybrid_connection_slot' },
+        { label: 'update_hybrid_connection_slot', value: 'update_hybrid_connection_slot' },
+        { label: 'delete_hybrid_connection_slot', value: 'delete_hybrid_connection_slot' },
+        { label: 'create_or_update_vnet_connection_slot', value: 'create_or_update_vnet_connection_slot' },
+        { label: 'update_vnet_connection_slot', value: 'update_vnet_connection_slot' },
+        { label: 'delete_vnet_connection_slot', value: 'delete_vnet_connection_slot' },
+        { label: 'create_or_update_vnet_connection', value: 'create_or_update_vnet_connection' },
+        { label: 'update_vnet_connection', value: 'update_vnet_connection' },
+        { label: 'delete_vnet_connection', value: 'delete_vnet_connection' },
+        { label: 'create_or_update_vnet_connection_gateway_slot', value: 'create_or_update_vnet_connection_gateway_slot' },
+        { label: 'update_vnet_connection_gateway_slot', value: 'update_vnet_connection_gateway_slot' },
+        { label: 'create_or_update_vnet_connection_gateway', value: 'create_or_update_vnet_connection_gateway' },
+        { label: 'update_vnet_connection_gateway', value: 'update_vnet_connection_gateway' },
         { label: 'get_auth_settings', value: 'get_auth_settings' },
         { label: 'get_backup_configuration', value: 'get_backup_configuration' },
         { label: 'get_web_site_container_logs', value: 'get_web_site_container_logs' },
@@ -14674,6 +12213,10 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'get_network_traces_v2', value: 'get_network_traces_v2' },
         { label: 'get_site_php_error_log_flag', value: 'get_site_php_error_log_flag' },
         { label: 'get_private_link_resources', value: 'get_private_link_resources' },
+        { label: 'get_backup_status', value: 'get_backup_status' },
+        { label: 'delete_backup', value: 'delete_backup' },
+        { label: 'get_backup_status_slot', value: 'get_backup_status_slot' },
+        { label: 'delete_backup_slot', value: 'delete_backup_slot' },
         { label: 'get_ftp_allowed', value: 'get_ftp_allowed' },
         { label: 'update_ftp_allowed', value: 'update_ftp_allowed' },
         { label: 'get_scm_allowed', value: 'get_scm_allowed' },
@@ -14697,32 +12240,68 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'get_diagnostic_logs_configuration_slot', value: 'get_diagnostic_logs_configuration_slot' },
         { label: 'update_diagnostic_logs_config_slot', value: 'update_diagnostic_logs_config_slot' },
         { label: 'get_configuration', value: 'get_configuration' },
+        { label: 'create_or_update_configuration', value: 'create_or_update_configuration' },
         { label: 'update_configuration', value: 'update_configuration' },
         { label: 'get_configuration_slot', value: 'get_configuration_slot' },
+        { label: 'create_or_update_configuration_slot', value: 'create_or_update_configuration_slot' },
         { label: 'update_configuration_slot', value: 'update_configuration_slot' },
         { label: 'get_continuous_web_job', value: 'get_continuous_web_job' },
+        { label: 'delete_continuous_web_job', value: 'delete_continuous_web_job' },
         { label: 'get_continuous_web_job_slot', value: 'get_continuous_web_job_slot' },
+        { label: 'delete_continuous_web_job_slot', value: 'delete_continuous_web_job_slot' },
         { label: 'get_deployment', value: 'get_deployment' },
+        { label: 'create_deployment', value: 'create_deployment' },
+        { label: 'delete_deployment', value: 'delete_deployment' },
         { label: 'get_deployment_slot', value: 'get_deployment_slot' },
+        { label: 'create_deployment_slot', value: 'create_deployment_slot' },
+        { label: 'delete_deployment_slot', value: 'delete_deployment_slot' },
+        { label: 'create_or_update_domain_ownership_identifier', value: 'create_or_update_domain_ownership_identifier' },
+        { label: 'update_domain_ownership_identifier', value: 'update_domain_ownership_identifier' },
+        { label: 'delete_domain_ownership_identifier', value: 'delete_domain_ownership_identifier' },
+        { label: 'create_or_update_domain_ownership_identifier_slot', value: 'create_or_update_domain_ownership_identifier_slot' },
+        { label: 'update_domain_ownership_identifier_slot', value: 'update_domain_ownership_identifier_slot' },
+        { label: 'delete_domain_ownership_identifier_slot', value: 'delete_domain_ownership_identifier_slot' },
         { label: 'get_ms_deploy_status', value: 'get_ms_deploy_status' },
         { label: 'create_ms_deploy_operation', value: 'create_ms_deploy_operation' },
         { label: 'get_ms_deploy_log', value: 'get_ms_deploy_log' },
         { label: 'get_instance_ms_deploy_status', value: 'get_instance_ms_deploy_status' },
+        { label: 'create_instance_ms_deploy_operation', value: 'create_instance_ms_deploy_operation' },
         { label: 'get_instance_ms_deploy_log', value: 'get_instance_ms_deploy_log' },
         { label: 'get_ms_deploy_status_slot', value: 'get_ms_deploy_status_slot' },
         { label: 'create_ms_deploy_operation_slot', value: 'create_ms_deploy_operation_slot' },
         { label: 'get_ms_deploy_log_slot', value: 'get_ms_deploy_log_slot' },
         { label: 'get_instance_ms_deploy_status_slot', value: 'get_instance_ms_deploy_status_slot' },
+        { label: 'create_instance_ms_deploy_operation_slot', value: 'create_instance_ms_deploy_operation_slot' },
         { label: 'get_instance_ms_deploy_log_slot', value: 'get_instance_ms_deploy_log_slot' },
+        { label: 'get_function', value: 'get_function' },
+        { label: 'create_function', value: 'create_function' },
+        { label: 'delete_function', value: 'delete_function' },
+        { label: 'get_instance_function_slot', value: 'get_instance_function_slot' },
+        { label: 'create_instance_function_slot', value: 'create_instance_function_slot' },
+        { label: 'delete_instance_function_slot', value: 'delete_instance_function_slot' },
+        { label: 'create_or_update_host_name_binding', value: 'create_or_update_host_name_binding' },
+        { label: 'delete_host_name_binding', value: 'delete_host_name_binding' },
+        { label: 'create_or_update_host_name_binding_slot', value: 'create_or_update_host_name_binding_slot' },
+        { label: 'delete_host_name_binding_slot', value: 'delete_host_name_binding_slot' },
+        { label: 'create_or_update_relay_service_connection', value: 'create_or_update_relay_service_connection' },
+        { label: 'update_relay_service_connection', value: 'update_relay_service_connection' },
+        { label: 'delete_relay_service_connection', value: 'delete_relay_service_connection' },
+        { label: 'create_or_update_relay_service_connection_slot', value: 'create_or_update_relay_service_connection_slot' },
+        { label: 'update_relay_service_connection_slot', value: 'update_relay_service_connection_slot' },
+        { label: 'delete_relay_service_connection_slot', value: 'delete_relay_service_connection_slot' },
         { label: 'get_instance_info', value: 'get_instance_info' },
         { label: 'get_instance_info_slot', value: 'get_instance_info_slot' },
         { label: 'get_instance_process', value: 'get_instance_process' },
+        { label: 'delete_instance_process', value: 'delete_instance_process' },
         { label: 'get_instance_process_dump', value: 'get_instance_process_dump' },
         { label: 'get_process', value: 'get_process' },
+        { label: 'delete_process', value: 'delete_process' },
         { label: 'get_process_dump', value: 'get_process_dump' },
         { label: 'get_instance_process_slot', value: 'get_instance_process_slot' },
+        { label: 'delete_instance_process_slot', value: 'delete_instance_process_slot' },
         { label: 'get_instance_process_dump_slot', value: 'get_instance_process_dump_slot' },
         { label: 'get_process_slot', value: 'get_process_slot' },
+        { label: 'delete_process_slot', value: 'delete_process_slot' },
         { label: 'get_process_dump_slot', value: 'get_process_dump_slot' },
         { label: 'get_migrate_my_sql_status', value: 'get_migrate_my_sql_status' },
         { label: 'get_migrate_my_sql_status_slot', value: 'get_migrate_my_sql_status_slot' },
@@ -14735,13 +12314,27 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'update_swift_virtual_network_connection_with_check_slot', value: 'update_swift_virtual_network_connection_with_check_slot' },
         { label: 'delete_swift_virtual_network_slot', value: 'delete_swift_virtual_network_slot' },
         { label: 'add_premier_add_on', value: 'add_premier_add_on' },
+        { label: 'update_premier_add_on', value: 'update_premier_add_on' },
+        { label: 'delete_premier_add_on', value: 'delete_premier_add_on' },
         { label: 'add_premier_add_on_slot', value: 'add_premier_add_on_slot' },
+        { label: 'update_premier_add_on_slot', value: 'update_premier_add_on_slot' },
+        { label: 'delete_premier_add_on_slot', value: 'delete_premier_add_on_slot' },
         { label: 'get_private_access', value: 'get_private_access' },
         { label: 'put_private_access_vnet', value: 'put_private_access_vnet' },
         { label: 'get_private_access_slot', value: 'get_private_access_slot' },
         { label: 'put_private_access_vnet_slot', value: 'put_private_access_vnet_slot' },
+        { label: 'create_or_update_public_certificate', value: 'create_or_update_public_certificate' },
+        { label: 'delete_public_certificate', value: 'delete_public_certificate' },
+        { label: 'create_or_update_public_certificate_slot', value: 'create_or_update_public_certificate_slot' },
+        { label: 'delete_public_certificate_slot', value: 'delete_public_certificate_slot' },
+        { label: 'create_or_update_site_container', value: 'create_or_update_site_container' },
+        { label: 'delete_site_container', value: 'delete_site_container' },
+        { label: 'create_or_update_site_container_slot', value: 'create_or_update_site_container_slot' },
+        { label: 'delete_site_container_slot', value: 'delete_site_container_slot' },
         { label: 'install_site_extension', value: 'install_site_extension' },
+        { label: 'delete_site_extension', value: 'delete_site_extension' },
         { label: 'install_site_extension_slot', value: 'install_site_extension_slot' },
+        { label: 'delete_site_extension_slot', value: 'delete_site_extension_slot' },
         { label: 'get_source_control_slot', value: 'get_source_control_slot' },
         { label: 'create_or_update_source_control_slot', value: 'create_or_update_source_control_slot' },
         { label: 'update_source_control_slot', value: 'update_source_control_slot' },
@@ -14769,6 +12362,8 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'update_site_push_settings_slot', value: 'update_site_push_settings_slot' },
         { label: 'discover_backup_slot', value: 'discover_backup_slot' },
         { label: 'sync_functions_slot', value: 'sync_functions_slot' },
+        { label: 'create_or_update_host_secret_slot', value: 'create_or_update_host_secret_slot' },
+        { label: 'delete_host_secret_slot', value: 'delete_host_secret_slot' },
         { label: 'is_cloneable_slot', value: 'is_cloneable_slot' },
         { label: 'start_web_site_network_trace_slot', value: 'start_web_site_network_trace_slot' },
         { label: 'start_web_site_network_trace_operation_slot', value: 'start_web_site_network_trace_operation_slot' },
@@ -14800,6 +12395,8 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'update_site_push_settings', value: 'update_site_push_settings' },
         { label: 'discover_backup', value: 'discover_backup' },
         { label: 'sync_functions', value: 'sync_functions' },
+        { label: 'create_or_update_host_secret', value: 'create_or_update_host_secret' },
+        { label: 'delete_host_secret', value: 'delete_host_secret' },
         { label: 'is_cloneable', value: 'is_cloneable' },
         { label: 'update_machine_key', value: 'update_machine_key' },
         { label: 'migrate_storage', value: 'migrate_storage' },
@@ -14829,6 +12426,10 @@ AND deleteEmptyServerFarm = '{{ deleteEmptyServerFarm }}'
         { label: 'stop_continuous_web_job', value: 'stop_continuous_web_job' },
         { label: 'start_continuous_web_job_slot', value: 'start_continuous_web_job_slot' },
         { label: 'stop_continuous_web_job_slot', value: 'stop_continuous_web_job_slot' },
+        { label: 'create_or_update_function_secret', value: 'create_or_update_function_secret' },
+        { label: 'delete_function_secret', value: 'delete_function_secret' },
+        { label: 'create_or_update_function_secret_slot', value: 'create_or_update_function_secret_slot' },
+        { label: 'delete_function_secret_slot', value: 'delete_function_secret_slot' },
         { label: 'run_triggered_web_job_slot', value: 'run_triggered_web_job_slot' },
         { label: 'run_triggered_web_job', value: 'run_triggered_web_job' }
     ]}
@@ -14841,19 +12442,6 @@ Gets an app's deployment slots. Description for Gets an app's deployment slots.
 EXEC azure.web.web_apps.list_slots 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_application_settings_slot">
-
-Gets the application settings of an app. Description for Gets the application settings of an app.
-
-```sql
-EXEC azure.web.web_apps.list_application_settings_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
@@ -14949,6 +12537,19 @@ EXEC azure.web.web_apps.list_sync_status_slot
 ;
 ```
 </TabItem>
+<TabItem value="list_hybrid_connections_slot">
+
+Retrieves all Service Bus Hybrid Connections used by this Web App. Description for Retrieves all Service Bus Hybrid Connections used by this Web App.
+
+```sql
+EXEC azure.web.web_apps.list_hybrid_connections_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="list_relay_service_connections_slot">
 
 Gets hybrid connections configured for an app (or deployment slot, if specified). Description for Gets hybrid connections configured for an app (or deployment slot, if specified).
@@ -15029,24 +12630,6 @@ EXEC azure.web.web_apps.list_publishing_profile_xml_with_secrets_slot
 '{
 "format": "{{ format }}", 
 "includeDisasterRecoveryEndpoints": {{ includeDisasterRecoveryEndpoints }}
-}'
-;
-```
-</TabItem>
-<TabItem value="list_slot_differences_slot">
-
-Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
-
-```sql
-EXEC azure.web.web_apps.list_slot_differences_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetSlot": "{{ targetSlot }}", 
-"preserveVnet": {{ preserveVnet }}
 }'
 ;
 ```
@@ -15315,23 +12898,6 @@ EXEC azure.web.web_apps.list_publishing_profile_xml_with_secrets
 ;
 ```
 </TabItem>
-<TabItem value="list_slot_differences_from_production">
-
-Get the difference in configuration settings between two web app slots. Description for Get the difference in configuration settings between two web app slots.
-
-```sql
-EXEC azure.web.web_apps.list_slot_differences_from_production 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetSlot": "{{ targetSlot }}", 
-"preserveVnet": {{ preserveVnet }}
-}'
-;
-```
-</TabItem>
 <TabItem value="list_snapshots">
 
 Returns all Snapshots to the user. Description for Returns all Snapshots to the user.
@@ -15393,24 +12959,6 @@ EXEC azure.web.web_apps.list_backups
 ;
 ```
 </TabItem>
-<TabItem value="list_backup_status_secrets">
-
-Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
-
-```sql
-EXEC azure.web.web_apps.list_backup_status_secrets 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@backup_id='{{ backup_id }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"kind": "{{ kind }}", 
-"properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="list_backups_slot">
 
 Gets existing backups of an app. Description for Gets existing backups of an app.
@@ -15421,25 +12969,6 @@ EXEC azure.web.web_apps.list_backups_slot
 @name='{{ name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_backup_status_secrets_slot">
-
-Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body. Description for Gets status of a web app backup that may be in progress, including secrets associated with the backup, such as the Azure Storage SAS URL. Also can be used to update the SAS URL for the backup if a new URL is passed in the request body.
-
-```sql
-EXEC azure.web.web_apps.list_backup_status_secrets_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@backup_id='{{ backup_id }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"kind": "{{ kind }}", 
-"properties": "{{ properties }}"
-}'
 ;
 ```
 </TabItem>
@@ -15659,19 +13188,6 @@ EXEC azure.web.web_apps.list_functions
 ;
 ```
 </TabItem>
-<TabItem value="list_function_keys">
-
-Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
-
-```sql
-EXEC azure.web.web_apps.list_function_keys 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@function_name='{{ function_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="list_function_secrets">
 
 Get function secrets for a function in a web site, or a deployment slot. Description for Get function secrets for a function in a web site, or a deployment slot.
@@ -15693,20 +13209,6 @@ List the functions for a web site, or a deployment slot. Description for List th
 EXEC azure.web.web_apps.list_instance_functions_slot 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
-@slot='{{ slot }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_function_keys_slot">
-
-Get function keys for a function in a web site, or a deployment slot. Description for Get function keys for a function in a web site, or a deployment slot.
-
-```sql
-EXEC azure.web.web_apps.list_function_keys_slot 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@name='{{ name }}' --required, 
-@function_name='{{ function_name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
@@ -16020,6 +13522,62 @@ EXEC azure.web.web_apps.get_slot
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_slot">
+
+Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}", 
+"location": "{{ location }}", 
+"properties": "{{ properties }}", 
+"identity": "{{ identity }}", 
+"extendedLocation": "{{ extendedLocation }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_slot">
+
+Creates a new web, mobile, or API app in an existing resource group, or updates an existing app. Description for Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
+
+```sql
+EXEC azure.web.web_apps.update_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}", 
+"identity": "{{ identity }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_slot">
+
+Deletes a web, mobile, or API app, or one of the deployment slots. Description for Deletes a web, mobile, or API app, or one of the deployment slots.
+
+```sql
+EXEC azure.web.web_apps.delete_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required, 
+@deleteMetrics={{ deleteMetrics }}, 
+@deleteEmptyServerFarm={{ deleteEmptyServerFarm }}
+;
+```
+</TabItem>
 <TabItem value="get_auth_settings_slot">
 
 Gets the Authentication/Authorization settings of an app. Description for Gets the Authentication/Authorization settings of an app.
@@ -16171,6 +13729,19 @@ EXEC azure.web.web_apps.approve_or_reject_private_endpoint_connection
 ;
 ```
 </TabItem>
+<TabItem value="delete_private_endpoint_connection">
+
+Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
+
+```sql
+EXEC azure.web.web_apps.delete_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_private_endpoint_connection_list">
 
 Gets the list of private endpoint connections associated with a site. Description for Gets the list of private endpoint connections associated with a site.
@@ -16202,6 +13773,20 @@ EXEC azure.web.web_apps.approve_or_reject_private_endpoint_connection_slot
 ;
 ```
 </TabItem>
+<TabItem value="delete_private_endpoint_connection_slot">
+
+Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
+
+```sql
+EXEC azure.web.web_apps.delete_private_endpoint_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_private_endpoint_connection_list_slot">
 
 Gets the list of private endpoint connections associated with a site. Description for Gets the list of private endpoint connections associated with a site.
@@ -16212,6 +13797,292 @@ EXEC azure.web.web_apps.get_private_endpoint_connection_list_slot
 @name='{{ name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_hybrid_connection">
+
+Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_hybrid_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_hybrid_connection">
+
+Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
+
+```sql
+EXEC azure.web.web_apps.update_hybrid_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_hybrid_connection">
+
+Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.
+
+```sql
+EXEC azure.web.web_apps.delete_hybrid_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_hybrid_connection_slot">
+
+Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_hybrid_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_hybrid_connection_slot">
+
+Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid Connection using a Service Bus relay.
+
+```sql
+EXEC azure.web.web_apps.update_hybrid_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_hybrid_connection_slot">
+
+Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from this site.
+
+```sql
+EXEC azure.web.web_apps.delete_hybrid_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@namespace_name='{{ namespace_name }}' --required, 
+@relay_name='{{ relay_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_vnet_connection_slot">
+
+Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
+
+```sql
+EXEC azure.web.web_apps.create_or_update_vnet_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_vnet_connection_slot">
+
+Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
+
+```sql
+EXEC azure.web.web_apps.update_vnet_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_vnet_connection_slot">
+
+Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.
+
+```sql
+EXEC azure.web.web_apps.delete_vnet_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_vnet_connection">
+
+Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
+
+```sql
+EXEC azure.web.web_apps.create_or_update_vnet_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_vnet_connection">
+
+Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH). Description for Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties (PATCH).
+
+```sql
+EXEC azure.web.web_apps.update_vnet_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_vnet_connection">
+
+Deletes a connection from an app (or deployment slot to a named virtual network. Description for Deletes a connection from an app (or deployment slot to a named virtual network.
+
+```sql
+EXEC azure.web.web_apps.delete_vnet_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_vnet_connection_gateway_slot">
+
+Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
+
+```sql
+EXEC azure.web.web_apps.create_or_update_vnet_connection_gateway_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@gateway_name='{{ gateway_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_vnet_connection_gateway_slot">
+
+Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
+
+```sql
+EXEC azure.web.web_apps.update_vnet_connection_gateway_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@gateway_name='{{ gateway_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_vnet_connection_gateway">
+
+Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
+
+```sql
+EXEC azure.web.web_apps.create_or_update_vnet_connection_gateway 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@gateway_name='{{ gateway_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_vnet_connection_gateway">
+
+Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH).
+
+```sql
+EXEC azure.web.web_apps.update_vnet_connection_gateway 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@vnet_name='{{ vnet_name }}' --required, 
+@gateway_name='{{ gateway_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
 ;
 ```
 </TabItem>
@@ -16358,6 +14229,60 @@ Gets the private link resources. Description for Gets the private link resources
 EXEC azure.web.web_apps.get_private_link_resources 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_backup_status">
+
+Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
+
+```sql
+EXEC azure.web.web_apps.get_backup_status 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@backup_id='{{ backup_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_backup">
+
+Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.
+
+```sql
+EXEC azure.web.web_apps.delete_backup 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@backup_id='{{ backup_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_backup_status_slot">
+
+Gets a backup of an app by its ID. Description for Gets a backup of an app by its ID.
+
+```sql
+EXEC azure.web.web_apps.get_backup_status_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@backup_id='{{ backup_id }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_backup_slot">
+
+Deletes a backup of an app by its ID. Description for Deletes a backup of an app by its ID.
+
+```sql
+EXEC azure.web.web_apps.delete_backup_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@backup_id='{{ backup_id }}' --required, 
+@slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
@@ -16689,6 +14614,23 @@ EXEC azure.web.web_apps.get_configuration
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_configuration">
+
+Updates the configuration of an app. Description for Updates the configuration of an app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_configuration 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="update_configuration">
 
 Updates the configuration of an app. Description for Updates the configuration of an app.
@@ -16716,6 +14658,24 @@ EXEC azure.web.web_apps.get_configuration_slot
 @name='{{ name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_configuration_slot">
+
+Updates the configuration of an app. Description for Updates the configuration of an app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_configuration_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
 ;
 ```
 </TabItem>
@@ -16750,12 +14710,39 @@ EXEC azure.web.web_apps.get_continuous_web_job
 ;
 ```
 </TabItem>
+<TabItem value="delete_continuous_web_job">
+
+Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_continuous_web_job 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@web_job_name='{{ web_job_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_continuous_web_job_slot">
 
 Gets a continuous web job by its ID for an app, or a deployment slot. Description for Gets a continuous web job by its ID for an app, or a deployment slot.
 
 ```sql
 EXEC azure.web.web_apps.get_continuous_web_job_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@web_job_name='{{ web_job_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_continuous_web_job_slot">
+
+Delete a continuous web job by its ID for an app, or a deployment slot. Description for Delete a continuous web job by its ID for an app, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_continuous_web_job_slot 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @web_job_name='{{ web_job_name }}' --required, 
@@ -16777,6 +14764,37 @@ EXEC azure.web.web_apps.get_deployment
 ;
 ```
 </TabItem>
+<TabItem value="create_deployment">
+
+Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.create_deployment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@id='{{ id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_deployment">
+
+Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_deployment 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@id='{{ id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_deployment_slot">
 
 Get a deployment by its ID for an app, or a deployment slot. Description for Get a deployment by its ID for an app, or a deployment slot.
@@ -16786,6 +14804,140 @@ EXEC azure.web.web_apps.get_deployment_slot
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @id='{{ id }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_deployment_slot">
+
+Create a deployment for an app, or a deployment slot. Description for Create a deployment for an app, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.create_deployment_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@id='{{ id }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_deployment_slot">
+
+Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment by its ID for an app, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_deployment_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@id='{{ id }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_domain_ownership_identifier">
+
+Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_domain_ownership_identifier 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_ownership_identifier_name='{{ domain_ownership_identifier_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_domain_ownership_identifier">
+
+Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
+
+```sql
+EXEC azure.web.web_apps.update_domain_ownership_identifier 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_ownership_identifier_name='{{ domain_ownership_identifier_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_domain_ownership_identifier">
+
+Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.
+
+```sql
+EXEC azure.web.web_apps.delete_domain_ownership_identifier 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_ownership_identifier_name='{{ domain_ownership_identifier_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_domain_ownership_identifier_slot">
+
+Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_domain_ownership_identifier_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_ownership_identifier_name='{{ domain_ownership_identifier_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_domain_ownership_identifier_slot">
+
+Creates a domain ownership identifier for web app, or updates an existing ownership identifier. Description for Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
+
+```sql
+EXEC azure.web.web_apps.update_domain_ownership_identifier_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_ownership_identifier_name='{{ domain_ownership_identifier_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_domain_ownership_identifier_slot">
+
+Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership identifier for a web app.
+
+```sql
+EXEC azure.web.web_apps.delete_domain_ownership_identifier_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@domain_ownership_identifier_name='{{ domain_ownership_identifier_name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
@@ -16842,6 +14994,24 @@ EXEC azure.web.web_apps.get_instance_ms_deploy_status
 @name='{{ name }}' --required, 
 @instance_id='{{ instance_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_instance_ms_deploy_operation">
+
+Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.
+
+```sql
+EXEC azure.web.web_apps.create_instance_ms_deploy_operation 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@instance_id='{{ instance_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>
@@ -16916,6 +15086,25 @@ EXEC azure.web.web_apps.get_instance_ms_deploy_status_slot
 ;
 ```
 </TabItem>
+<TabItem value="create_instance_ms_deploy_operation_slot">
+
+Invoke the MSDeploy web app extension. Description for Invoke the MSDeploy web app extension.
+
+```sql
+EXEC azure.web.web_apps.create_instance_ms_deploy_operation_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@instance_id='{{ instance_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_instance_ms_deploy_log_slot">
 
 Get the MSDeploy Log for the last MSDeploy operation. Description for Get the MSDeploy Log for the last MSDeploy operation.
@@ -16926,6 +15115,262 @@ EXEC azure.web.web_apps.get_instance_ms_deploy_log_slot
 @name='{{ name }}' --required, 
 @slot='{{ slot }}' --required, 
 @instance_id='{{ instance_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_function">
+
+Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.get_function 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_function">
+
+Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.create_function 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_function">
+
+Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_function 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="get_instance_function_slot">
+
+Get function information by its ID for web site, or a deployment slot. Description for Get function information by its ID for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.get_instance_function_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_instance_function_slot">
+
+Create function for web site, or a deployment slot. Description for Create function for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.create_instance_function_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_instance_function_slot">
+
+Delete a function for web site, or a deployment slot. Description for Delete a function for web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_instance_function_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_host_name_binding">
+
+Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_host_name_binding 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@host_name='{{ host_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_host_name_binding">
+
+Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.delete_host_name_binding 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@host_name='{{ host_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_host_name_binding_slot">
+
+Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_host_name_binding_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@host_name='{{ host_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_host_name_binding_slot">
+
+Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.delete_host_name_binding_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@host_name='{{ host_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_relay_service_connection">
+
+Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
+
+```sql
+EXEC azure.web.web_apps.create_or_update_relay_service_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@entity_name='{{ entity_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_relay_service_connection">
+
+Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
+
+```sql
+EXEC azure.web.web_apps.update_relay_service_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@entity_name='{{ entity_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_relay_service_connection">
+
+Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.
+
+```sql
+EXEC azure.web.web_apps.delete_relay_service_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@entity_name='{{ entity_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_relay_service_connection_slot">
+
+Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
+
+```sql
+EXEC azure.web.web_apps.create_or_update_relay_service_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@entity_name='{{ entity_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_relay_service_connection_slot">
+
+Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description for Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH).
+
+```sql
+EXEC azure.web.web_apps.update_relay_service_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@entity_name='{{ entity_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_relay_service_connection_slot">
+
+Deletes a relay service connection by its name. Description for Deletes a relay service connection by its name.
+
+```sql
+EXEC azure.web.web_apps.delete_relay_service_connection_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@entity_name='{{ entity_name }}' --required, 
+@slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```
@@ -16971,6 +15416,20 @@ EXEC azure.web.web_apps.get_instance_process
 ;
 ```
 </TabItem>
+<TabItem value="delete_instance_process">
+
+Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
+
+```sql
+EXEC azure.web.web_apps.delete_instance_process 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@process_id='{{ process_id }}' --required, 
+@instance_id='{{ instance_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_instance_process_dump">
 
 Get a memory dump of a process by its ID for a specific scaled-out instance in a web site. Description for Get a memory dump of a process by its ID for a specific scaled-out instance in a web site.
@@ -16991,6 +15450,19 @@ Get process information by its ID for a specific scaled-out instance in a web si
 
 ```sql
 EXEC azure.web.web_apps.get_process 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@process_id='{{ process_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_process">
+
+Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
+
+```sql
+EXEC azure.web.web_apps.delete_process 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @process_id='{{ process_id }}' --required, 
@@ -17026,6 +15498,21 @@ EXEC azure.web.web_apps.get_instance_process_slot
 ;
 ```
 </TabItem>
+<TabItem value="delete_instance_process_slot">
+
+Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
+
+```sql
+EXEC azure.web.web_apps.delete_instance_process_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@process_id='{{ process_id }}' --required, 
+@slot='{{ slot }}' --required, 
+@instance_id='{{ instance_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="get_instance_process_dump_slot">
 
 Get a memory dump of a process by its ID for a specific scaled-out instance in a web site. Description for Get a memory dump of a process by its ID for a specific scaled-out instance in a web site.
@@ -17047,6 +15534,20 @@ Get process information by its ID for a specific scaled-out instance in a web si
 
 ```sql
 EXEC azure.web.web_apps.get_process_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@process_id='{{ process_id }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_process_slot">
+
+Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site. Description for Terminate a process by its ID for a web site, or a deployment slot, or specific scaled-out instance in a web site.
+
+```sql
+EXEC azure.web.web_apps.delete_process_slot 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @process_id='{{ process_id }}' --required, 
@@ -17234,6 +15735,37 @@ EXEC azure.web.web_apps.add_premier_add_on
 ;
 ```
 </TabItem>
+<TabItem value="update_premier_add_on">
+
+Updates a named add-on of an app. Description for Updates a named add-on of an app.
+
+```sql
+EXEC azure.web.web_apps.update_premier_add_on 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@premier_add_on_name='{{ premier_add_on_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_premier_add_on">
+
+Delete a premier add-on from an app. Description for Delete a premier add-on from an app.
+
+```sql
+EXEC azure.web.web_apps.delete_premier_add_on 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@premier_add_on_name='{{ premier_add_on_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="add_premier_add_on_slot">
 
 Updates a named add-on of an app. Description for Updates a named add-on of an app.
@@ -17252,6 +15784,39 @@ EXEC azure.web.web_apps.add_premier_add_on_slot
 "properties": "{{ properties }}", 
 "kind": "{{ kind }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="update_premier_add_on_slot">
+
+Updates a named add-on of an app. Description for Updates a named add-on of an app.
+
+```sql
+EXEC azure.web.web_apps.update_premier_add_on_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@premier_add_on_name='{{ premier_add_on_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"kind": "{{ kind }}", 
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_premier_add_on_slot">
+
+Delete a premier add-on from an app. Description for Delete a premier add-on from an app.
+
+```sql
+EXEC azure.web.web_apps.delete_premier_add_on_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@premier_add_on_name='{{ premier_add_on_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>
@@ -17315,6 +15880,134 @@ EXEC azure.web.web_apps.put_private_access_vnet_slot
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_public_certificate">
+
+Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_public_certificate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@public_certificate_name='{{ public_certificate_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_public_certificate">
+
+Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.delete_public_certificate 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@public_certificate_name='{{ public_certificate_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_public_certificate_slot">
+
+Creates a hostname binding for an app. Description for Creates a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_public_certificate_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@public_certificate_name='{{ public_certificate_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_public_certificate_slot">
+
+Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
+
+```sql
+EXEC azure.web.web_apps.delete_public_certificate_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@public_certificate_name='{{ public_certificate_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_site_container">
+
+Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_site_container 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_site_container">
+
+Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_site_container 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_site_container_slot">
+
+Creates or Updates a site container for a site, or a deployment slot. Creates or Updates a site container for a site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_site_container_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_site_container_slot">
+
+Deletes a site container for a site, or a deployment slot. Deletes a site container for a site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_site_container_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="install_site_extension">
 
 Install site extension on a web site, or a deployment slot. Description for Install site extension on a web site, or a deployment slot.
@@ -17328,12 +16021,39 @@ EXEC azure.web.web_apps.install_site_extension
 ;
 ```
 </TabItem>
+<TabItem value="delete_site_extension">
+
+Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_site_extension 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@site_extension_id='{{ site_extension_id }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="install_site_extension_slot">
 
 Install site extension on a web site, or a deployment slot. Description for Install site extension on a web site, or a deployment slot.
 
 ```sql
 EXEC azure.web.web_apps.install_site_extension_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@site_extension_id='{{ site_extension_id }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_site_extension_slot">
+
+Remove a site extension from a web site, or a deployment slot. Description for Remove a site extension from a web site, or a deployment slot.
+
+```sql
+EXEC azure.web.web_apps.delete_site_extension_slot 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @site_extension_id='{{ site_extension_id }}' --required, 
@@ -17760,6 +16480,41 @@ Syncs function trigger metadata to the management database. Description for Sync
 EXEC azure.web.web_apps.sync_functions_slot 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_host_secret_slot">
+
+Add or update a host level secret. Description for Add or update a host level secret.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_host_secret_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@key_type='{{ key_type }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"value": "{{ value }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_host_secret_slot">
+
+Delete a host level secret. Description for Delete a host level secret.
+
+```sql
+EXEC azure.web.web_apps.delete_host_secret_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@key_type='{{ key_type }}' --required, 
+@key_name='{{ key_name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
@@ -18243,6 +16998,39 @@ EXEC azure.web.web_apps.sync_functions
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_host_secret">
+
+Add or update a host level secret. Description for Add or update a host level secret.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_host_secret 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@key_type='{{ key_type }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"value": "{{ value }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_host_secret">
+
+Delete a host level secret. Description for Delete a host level secret.
+
+```sql
+EXEC azure.web.web_apps.delete_host_secret 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@key_type='{{ key_type }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
 <TabItem value="is_cloneable">
 
 Shows whether an app can be cloned to another resource group or subscription. Description for Shows whether an app can be cloned to another resource group or subscription.
@@ -18656,6 +17444,74 @@ EXEC azure.web.web_apps.stop_continuous_web_job_slot
 @resource_group_name='{{ resource_group_name }}' --required, 
 @name='{{ name }}' --required, 
 @web_job_name='{{ web_job_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_function_secret">
+
+Add or update a function secret. Description for Add or update a function secret.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_function_secret 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"value": "{{ value }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_function_secret">
+
+Delete a function secret. Description for Delete a function secret.
+
+```sql
+EXEC azure.web.web_apps.delete_function_secret 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_function_secret_slot">
+
+Add or update a function secret. Description for Add or update a function secret.
+
+```sql
+EXEC azure.web.web_apps.create_or_update_function_secret_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@key_name='{{ key_name }}' --required, 
+@slot='{{ slot }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"value": "{{ value }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_function_secret_slot">
+
+Delete a function secret. Description for Delete a function secret.
+
+```sql
+EXEC azure.web.web_apps.delete_function_secret_slot 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@function_name='{{ function_name }}' --required, 
+@key_name='{{ key_name }}' --required, 
 @slot='{{ slot }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;

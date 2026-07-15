@@ -5400,7 +5400,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: recovery_plan_actions
       x-stackql-method: check_readiness
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/Microsoft.Management/serviceGroups/{service_group_name}/providers/Microsoft.AzureResilienceManagement/recoveryPlans/{recovery_plan_name}/failover?api-version=2026-04-01-preview
   : post:
       operationId: RecoveryPlanActions_begin_failover

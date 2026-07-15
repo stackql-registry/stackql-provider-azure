@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists an <code>integration_runtime_object_met
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="nextLink" /></td>
+    <td><code>string</code></td>
+    <td>The link to the next page of results, if any remaining results exist.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>List of SSIS object metadata.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +80,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Get integration runtime object metadata. Get object metadata from an integration runtime.</td>
+</tr>
+<tr>
     <td><a href="#refresh"><CopyableCode code="refresh" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Refresh integration runtime object metadata. Refresh the object metadata in an integration runtime.</td>
-</tr>
-<tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Get integration runtime object metadata. Get object metadata from an integration runtime.</td>
 </tr>
 </tbody>
 </table>
@@ -103,13 +132,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
+## `SELECT` examples
+
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
+
+Get integration runtime object metadata. Get object metadata from an integration runtime.
+
+```sql
+SELECT
+nextLink,
+value
+FROM azure.synapse.integration_runtime_object_metadata
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND integration_runtime_name = '{{ integration_runtime_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="refresh"
     values={[
-        { label: 'refresh', value: 'refresh' },
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'refresh', value: 'refresh' }
     ]}
 >
 <TabItem value="refresh">
@@ -122,23 +177,6 @@ EXEC azure.synapse.integration_runtime_object_metadata.refresh
 @workspace_name='{{ workspace_name }}' --required, 
 @integration_runtime_name='{{ integration_runtime_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="list_raw">
-
-Get integration runtime object metadata. Get object metadata from an integration runtime.
-
-```sql
-EXEC azure.synapse.integration_runtime_object_metadata.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@integration_runtime_name='{{ integration_runtime_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"metadataPath": "{{ metadataPath }}"
-}'
 ;
 ```
 </TabItem>

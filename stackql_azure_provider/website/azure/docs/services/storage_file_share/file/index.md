@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-sharesnapshot"><code>sharesnapshot</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-lease-id"><code>x-ms-lease-id</code></a>, <a href="#parameter-x-ms-allow-trailing-dot"><code>x-ms-allow-trailing-dot</code></a>, <a href="#parameter-x-ms-file-request-intent"><code>x-ms-file-request-intent</code></a></td>
     <td>Returns all user-defined metadata, standard HTTP properties, and system properties for the file. It does not return the content of the file.</td>
 </tr>
@@ -73,15 +73,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -130,9 +125,8 @@ Returns all user-defined metadata, standard HTTP properties, and system properti
 
 ```sql
 EXEC azure.storage_file_share.file.get_properties 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@account='{{ account }}' --required, 
 @sharesnapshot='{{ sharesnapshot }}', 
 @timeout='{{ timeout }}', 
 @x-ms-lease-id='{{ x-ms-lease-id }}', 

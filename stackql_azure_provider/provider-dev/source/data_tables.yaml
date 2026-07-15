@@ -337,7 +337,7 @@ paths:
           description: Success
       x-stackql-resource: service
       x-stackql-method: set_properties
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /?restype=service&comp=stats:
     get:
       operationId: Service_get_statistics
@@ -423,7 +423,7 @@ paths:
           description: Success
       x-stackql-resource: table
       x-stackql-method: set_access_policy
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /Tables:
     get:
       operationId: Table_query
@@ -695,7 +695,7 @@ paths:
           description: Success
       x-stackql-resource: table
       x-stackql-method: update_entity
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     patch:
       operationId: Table_merge_entity
       description: Merge entity in a table.
@@ -759,11 +759,11 @@ paths:
           type: integer
         description: The timeout parameter is expressed in seconds. Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: table
       x-stackql-method: delete_entity
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /{table_name}:
     post:
       operationId: Table_insert_entity

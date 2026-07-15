@@ -32,8 +32,67 @@ Creates, updates, deletes, gets or lists an <code>active_security_admin_rules</c
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_active_security_admin_rules"
+    values={[
+        { label: 'list_active_security_admin_rules', value: 'list_active_security_admin_rules' }
+    ]}
+>
+<TabItem value="list_active_security_admin_rules">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource ID.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="commitTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Deployment time string.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="configurationDescription" /></td>
+    <td><code>string</code></td>
+    <td>A description of the security admin configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Whether the rule is custom or default. Required. Known values are: "Custom" and "Default".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="region" /></td>
+    <td><code>string</code></td>
+    <td>Deployment region.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ruleCollectionAppliesToGroups" /></td>
+    <td><code>array</code></td>
+    <td>Groups for rule collection.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ruleCollectionDescription" /></td>
+    <td><code>string</code></td>
+    <td>A description of the rule collection.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ruleGroups" /></td>
+    <td><code>array</code></td>
+    <td>Effective configuration groups.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +111,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_active_security_admin_rules"><CopyableCode code="list_active_security_admin_rules" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_manager_name"><code>network_manager_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a></td>
     <td>Lists active security admin rules in a network manager.</td>
@@ -96,7 +155,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_active_security_admin_rules"
@@ -109,16 +168,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Lists active security admin rules in a network manager.
 
 ```sql
-EXEC azure.network.active_security_admin_rules.list_active_security_admin_rules 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_manager_name='{{ network_manager_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}' 
-@@json=
-'{
-"regions": "{{ regions }}", 
-"skipToken": "{{ skipToken }}"
-}'
+SELECT
+id,
+commitTime,
+configurationDescription,
+kind,
+region,
+ruleCollectionAppliesToGroups,
+ruleCollectionDescription,
+ruleGroups
+FROM azure.network.active_security_admin_rules
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_manager_name = '{{ network_manager_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>

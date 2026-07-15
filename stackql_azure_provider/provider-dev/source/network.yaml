@@ -9044,46 +9044,6 @@ components:
           description: The link to the next page of items.
       required:
       - value
-    ExpressRouteLinkFailoverAllTestsDetails:
-      type: object
-      description: ExpressRoute circuit link failover test details for all tests.
-      properties:
-        status:
-          $ref: '#/components/schemas/FailoverTestStatus'
-          description: 'The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed",
-            "Stopping", "Completed", "StopFailed", "Invalid", and "Expired".'
-        startTime:
-          type: string
-          description: Time when the test was started.
-        endTime:
-          type: string
-          description: Time when the test was completed.
-        testGuid:
-          type: string
-          description: The unique GUID associated with the test.
-        testType:
-          $ref: '#/components/schemas/FailoverTestType'
-          description: 'The type of failover test. Known values are: "SingleSiteFailover", "MultiSiteFailover",
-            and "All".'
-        issues:
-          type: array
-          items:
-            type: string
-          description: A list of all issues with the test.
-        wasSimulationSuccessful:
-          type: boolean
-          description: Whether the failover simulation was successful or not.
-        circuitTestCategory:
-          $ref: '#/components/schemas/MaintenanceTestCategory'
-          description: 'The maintenance test category. Known values are: "BgpDisconnect" and "ASPathPrepend".'
-        linkType:
-          $ref: '#/components/schemas/ExpressRouteFailoverLinkType'
-          description: 'The link type. Known values are: "Primary" and "Secondary".'
-        bgpStatus:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpressRouteLinkFailoverTestBgpStatus'
-          description: The BGP status details.
     FailoverTestStatus:
       type: string
       enum:
@@ -9139,6 +9099,76 @@ components:
       - Undefined
       - Connected
       - Disconnected
+    ExpressRouteLinkFailoverAllTestsDetails:
+      type: object
+      description: ExpressRoute circuit link failover test details for all tests.
+      properties:
+        status:
+          $ref: '#/components/schemas/FailoverTestStatus'
+          description: 'The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed",
+            "Stopping", "Completed", "StopFailed", "Invalid", and "Expired".'
+        startTime:
+          type: string
+          description: Time when the test was started.
+        endTime:
+          type: string
+          description: Time when the test was completed.
+        testGuid:
+          type: string
+          description: The unique GUID associated with the test.
+        testType:
+          $ref: '#/components/schemas/FailoverTestType'
+          description: 'The type of failover test. Known values are: "SingleSiteFailover", "MultiSiteFailover",
+            and "All".'
+        issues:
+          type: array
+          items:
+            type: string
+          description: A list of all issues with the test.
+        wasSimulationSuccessful:
+          type: boolean
+          description: Whether the failover simulation was successful or not.
+        circuitTestCategory:
+          $ref: '#/components/schemas/MaintenanceTestCategory'
+          description: 'The maintenance test category. Known values are: "BgpDisconnect" and "ASPathPrepend".'
+        linkType:
+          $ref: '#/components/schemas/ExpressRouteFailoverLinkType'
+          description: 'The link type. Known values are: "Primary" and "Secondary".'
+        bgpStatus:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpressRouteLinkFailoverTestBgpStatus'
+          description: The BGP status details.
+    ExpressRouteLinkFailoverRouteList:
+      type: object
+      description: Represents a list of failover routes for an ExpressRoute link.
+      properties:
+        beforeSimulation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpressRouteLinkFailoverRoute'
+          description: The routes before the simulation.
+        duringSimulation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpressRouteLinkFailoverRoute'
+          description: The routes during the simulation.
+    ExpressRouteLinkFailoverRoute:
+      type: object
+      description: Represents a failover route for an ExpressRoute link.
+      properties:
+        route:
+          type: string
+          description: The route.
+        nextHop:
+          type: string
+          description: The next hop.
+        primaryASPath:
+          type: string
+          description: The AS path for primary link.
+        secondaryASPath:
+          type: string
+          description: The AS path for secondary link.
     ExpressRouteLinkFailoverSingleTestDetails:
       type: object
       description: ExpressRoute circuit link failover single test details.
@@ -9176,36 +9206,6 @@ components:
           items:
             $ref: '#/components/schemas/ExpressRouteLinkFailoverTestBgpStatus'
           description: The BGP status details.
-    ExpressRouteLinkFailoverRouteList:
-      type: object
-      description: Represents a list of failover routes for an ExpressRoute link.
-      properties:
-        beforeSimulation:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpressRouteLinkFailoverRoute'
-          description: The routes before the simulation.
-        duringSimulation:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpressRouteLinkFailoverRoute'
-          description: The routes during the simulation.
-    ExpressRouteLinkFailoverRoute:
-      type: object
-      description: Represents a failover route for an ExpressRoute link.
-      properties:
-        route:
-          type: string
-          description: The route.
-        nextHop:
-          type: string
-          description: The next hop.
-        primaryASPath:
-          type: string
-          description: The AS path for primary link.
-        secondaryASPath:
-          type: string
-          description: The AS path for secondary link.
     ExpressRouteConnectionProperties:
       type: object
       description: Properties of the ExpressRouteConnection subresource.
@@ -9735,6 +9735,40 @@ components:
             $ref: '#/components/schemas/ExpressRouteGatewayFlattened'
         nextLink:
           type: string
+    ExpressRouteFailoverCircuitResourceDetails:
+      type: object
+      description: ExpressRouteFailoverCircuitResourceDetails.
+      properties:
+        nrpResourceUri:
+          type: string
+          description: NRP Resource URI of the circuit.
+        name:
+          type: string
+          description: Circuit Name.
+        connectionName:
+          type: string
+          description: Connection name associated with the circuit.
+    ExpressRouteFailoverConnectionResourceDetails:
+      type: object
+      description: ExpressRouteFailoverConnectionResourceDetails.
+      properties:
+        nrpResourceUri:
+          type: string
+          description: NRP Resource URI of the connection.
+        name:
+          type: string
+          description: Connection Name.
+        status:
+          $ref: '#/components/schemas/FailoverConnectionStatus'
+          description: 'The current status of the connection. Known values are: "Connected" and "Disconnected".'
+        lastUpdatedTime:
+          type: string
+          description: Time when the connection was last updated.
+    FailoverConnectionStatus:
+      type: string
+      enum:
+      - Connected
+      - Disconnected
     ExpressRouteFailoverTestDetails:
       type: object
       description: ExpressRoute failover test details.
@@ -9774,75 +9808,6 @@ components:
           items:
             type: string
           description: A list of all issues with the test.
-    ExpressRouteFailoverCircuitResourceDetails:
-      type: object
-      description: ExpressRouteFailoverCircuitResourceDetails.
-      properties:
-        nrpResourceUri:
-          type: string
-          description: NRP Resource URI of the circuit.
-        name:
-          type: string
-          description: Circuit Name.
-        connectionName:
-          type: string
-          description: Connection name associated with the circuit.
-    ExpressRouteFailoverConnectionResourceDetails:
-      type: object
-      description: ExpressRouteFailoverConnectionResourceDetails.
-      properties:
-        nrpResourceUri:
-          type: string
-          description: NRP Resource URI of the connection.
-        name:
-          type: string
-          description: Connection Name.
-        status:
-          $ref: '#/components/schemas/FailoverConnectionStatus'
-          description: 'The current status of the connection. Known values are: "Connected" and "Disconnected".'
-        lastUpdatedTime:
-          type: string
-          description: Time when the connection was last updated.
-    FailoverConnectionStatus:
-      type: string
-      enum:
-      - Connected
-      - Disconnected
-    ExpressRouteFailoverSingleTestDetails:
-      type: object
-      description: ExpressRoute failover single test details.
-      properties:
-        peeringLocation:
-          type: string
-          description: Peering location of the test.
-        status:
-          $ref: '#/components/schemas/FailoverTestStatusForSingleTest'
-          description: 'The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed",
-            "Stopping", "Completed", "StopFailed", "Invalid", and "Expired".'
-        startTimeUtc:
-          type: string
-          description: Time when the test was started.
-        endTimeUtc:
-          type: string
-          description: Time when the test was completed.
-        redundantRoutes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpressRouteFailoverRedundantRoute'
-          description: List of routes received from this peering as well as some other peering location.
-        nonRedundantRoutes:
-          type: array
-          items:
-            type: string
-          description: List of al the routes that were received only from this peering location.
-        wasSimulationSuccessful:
-          type: boolean
-          description: Whether the failover simulation was successful or not.
-        failoverConnectionDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/FailoverConnectionDetails'
-          description: List of all the failover connections for this peering location.
     FailoverTestStatusForSingleTest:
       type: string
       enum:
@@ -9883,6 +9848,57 @@ components:
           type: boolean
           description: Whether the customer was able to establish connectivity through this failover connection
             or not.
+    ExpressRouteFailoverSingleTestDetails:
+      type: object
+      description: ExpressRoute failover single test details.
+      properties:
+        peeringLocation:
+          type: string
+          description: Peering location of the test.
+        status:
+          $ref: '#/components/schemas/FailoverTestStatusForSingleTest'
+          description: 'The current status of the test. Known values are: "NotStarted", "Starting", "Running", "StartFailed",
+            "Stopping", "Completed", "StopFailed", "Invalid", and "Expired".'
+        startTimeUtc:
+          type: string
+          description: Time when the test was started.
+        endTimeUtc:
+          type: string
+          description: Time when the test was completed.
+        redundantRoutes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpressRouteFailoverRedundantRoute'
+          description: List of routes received from this peering as well as some other peering location.
+        nonRedundantRoutes:
+          type: array
+          items:
+            type: string
+          description: List of al the routes that were received only from this peering location.
+        wasSimulationSuccessful:
+          type: boolean
+          description: Whether the failover simulation was successful or not.
+        failoverConnectionDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/FailoverConnectionDetails'
+          description: List of all the failover connections for this peering location.
+    GatewayRouteSet:
+      type: object
+      description: GatewayRouteSet.
+      properties:
+        name:
+          type: string
+          description: Route Set name.
+        locations:
+          type: array
+          items:
+            type: string
+          description: List of different locations from where the routes are learned.
+        details:
+          type: object
+          properties: {}
+          description: List of different Route Sources.
     GatewayRouteSetsInformation:
       type: object
       description: Gateway Route Sets Information.
@@ -9907,53 +9923,6 @@ components:
           type: object
           properties: {}
           description: Dictionary containing map of the circuit id and circuit details.
-    GatewayRouteSet:
-      type: object
-      description: GatewayRouteSet.
-      properties:
-        name:
-          type: string
-          description: Route Set name.
-        locations:
-          type: array
-          items:
-            type: string
-          description: List of different locations from where the routes are learned.
-        details:
-          type: object
-          properties: {}
-          description: List of different Route Sources.
-    GatewayResiliencyInformation:
-      type: object
-      description: Gateway Resiliency Information.
-      properties:
-        overallScore:
-          type: string
-          description: Current Resiliency Score for the gateway.
-        scoreChange:
-          type: string
-          description: Update in the Resiliency Score for the gateway from the last computed score.
-        minScoreFromRecommendations:
-          type: string
-          description: Minimum increase expected in the score if the at least one of the recommendations is applied
-            for the gateway.
-        maxScoreFromRecommendations:
-          type: string
-          description: Maximum increase expected in the score if all of the recommendations are applied for the
-            gateway.
-        lastComputedTime:
-          type: string
-          format: date-time
-          description: Timestamp denoting the last time when the resiliency score was computed for the gateway.
-        nextEligibleComputeTime:
-          type: string
-          format: date-time
-          description: Timestamp denoting the next eligible time to re-compute the resiliency score for the gateway.
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResiliencyRecommendationComponents'
-          description: List of Resiliency based Recommendation Components for the gateway.
     ResiliencyRecommendationComponents:
       type: object
       description: Gateway Resiliency based Recommendations.
@@ -9994,6 +9963,37 @@ components:
         callToActionLink:
           type: string
           description: Link to the public documentation for the associated recommendation.
+    GatewayResiliencyInformation:
+      type: object
+      description: Gateway Resiliency Information.
+      properties:
+        overallScore:
+          type: string
+          description: Current Resiliency Score for the gateway.
+        scoreChange:
+          type: string
+          description: Update in the Resiliency Score for the gateway from the last computed score.
+        minScoreFromRecommendations:
+          type: string
+          description: Minimum increase expected in the score if the at least one of the recommendations is applied
+            for the gateway.
+        maxScoreFromRecommendations:
+          type: string
+          description: Maximum increase expected in the score if all of the recommendations are applied for the
+            gateway.
+        lastComputedTime:
+          type: string
+          format: date-time
+          description: Timestamp denoting the last time when the resiliency score was computed for the gateway.
+        nextEligibleComputeTime:
+          type: string
+          format: date-time
+          description: Timestamp denoting the next eligible time to re-compute the resiliency score for the gateway.
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResiliencyRecommendationComponents'
+          description: List of Resiliency based Recommendation Components for the gateway.
     ExpressRouteLinkPropertiesFormat:
       type: object
       description: ExpressRouteLink Resource Properties.
@@ -11195,18 +11195,6 @@ components:
       enum:
       - Ascending
       - Descending
-    QueryResults:
-      type: object
-      description: Query result.
-      properties:
-        matchingRecordsCount:
-          type: integer
-          description: Number of total records matching the query.
-        signatures:
-          type: array
-          items:
-            $ref: '#/components/schemas/SingleQueryResult'
-          description: Array containing the results of the query.
     SingleQueryResult:
       type: object
       description: SingleQueryResult.
@@ -11254,6 +11242,18 @@ components:
         inheritedFromParentPolicy:
           type: boolean
           description: Describes if this override is inherited from base policy or not.
+    QueryResults:
+      type: object
+      description: Query result.
+      properties:
+        matchingRecordsCount:
+          type: integer
+          description: Number of total records matching the query.
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/SingleQueryResult'
+          description: Array containing the results of the query.
     SignaturesOverridesProperties:
       type: object
       description: Will contain the properties of the resource (the actual signature overrides).
@@ -12077,15 +12077,6 @@ components:
         etag:
           type: string
           description: A unique read-only string that changes whenever the resource is updated.
-    InterconnectGroupNodeAvailability:
-      type: object
-      description: Represents node availability information for subgroups within an interconnect group.
-      properties:
-        subgroupsNodeAvailability:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubgroupNodeAvailabilityEntry'
-          description: The list of subgroup node availability entries.
     SubgroupNodeAvailabilityEntry:
       type: object
       description: Represents the node availability information for a single subgroup.
@@ -12105,6 +12096,15 @@ components:
         count:
           type: integer
           description: The total node count for the subgroup.
+    InterconnectGroupNodeAvailability:
+      type: object
+      description: Represents node availability information for subgroups within an interconnect group.
+      properties:
+        subgroupsNodeAvailability:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubgroupNodeAvailabilityEntry'
+          description: The list of subgroup node availability entries.
     IpAllocationPropertiesFormat:
       type: object
       description: Properties of the IpAllocation.
@@ -12459,6 +12459,18 @@ components:
             $ref: '#/components/schemas/PoolAssociation'
         nextLink:
           type: string
+    ResourceBasics:
+      type: object
+      description: Representation of basic resource information.
+      properties:
+        resourceId:
+          type: string
+          description: ResourceId of the Azure resource.
+        addressPrefixes:
+          type: array
+          items:
+            type: string
+          description: List of IP address prefixes of the resource.
     PoolUsage:
       type: object
       description: IpamPool usage information.
@@ -12501,18 +12513,6 @@ components:
         numberOfAvailableIPAddresses:
           type: string
           description: Total number of available IP addresses in the IpamPool.
-    ResourceBasics:
-      type: object
-      description: Representation of basic resource information.
-      properties:
-        resourceId:
-          type: string
-          description: ResourceId of the Azure resource.
-        addressPrefixes:
-          type: array
-          items:
-            type: string
-          description: List of IP address prefixes of the resource.
     IpamPool:
       type: object
       description: Instance of Pool resource.
@@ -13553,15 +13553,6 @@ components:
         sku:
           $ref: '#/components/schemas/LoadBalancerSku'
           description: The load balancer SKU.
-    BackendAddressInboundNatRulePortMappings:
-      type: object
-      description: The response for a QueryInboundNatRulePortMapping API.
-      properties:
-        inboundNatRulePortMappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/InboundNatRulePortMapping'
-          description: Collection of inbound NAT rule port mappings.
     InboundNatRulePortMapping:
       type: object
       description: Individual port mappings for inbound NAT rule created for backend pool.
@@ -13579,6 +13570,15 @@ components:
         backendPort:
           type: integer
           description: Backend port.
+    BackendAddressInboundNatRulePortMappings:
+      type: object
+      description: The response for a QueryInboundNatRulePortMapping API.
+      properties:
+        inboundNatRulePortMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboundNatRulePortMapping'
+          description: Collection of inbound NAT rule port mappings.
     MigratedPools:
       type: object
       description: The response for a migrateToIpBased API.
@@ -16493,17 +16493,6 @@ components:
         etag:
           type: string
           description: A unique read-only string that changes whenever the resource is updated.
-    AvailableProvidersList:
-      type: object
-      description: List of available countries with details.
-      properties:
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/AvailableProvidersListCountry'
-          description: List of available countries. Required.
-      required:
-      - countries
     AvailableProvidersListCountry:
       type: object
       description: Country details.
@@ -16550,26 +16539,17 @@ components:
           items:
             type: string
           description: A list of Internet service providers.
-    Topology:
+    AvailableProvidersList:
       type: object
-      description: Topology of the specified resource group.
+      description: List of available countries with details.
       properties:
-        id:
-          type: string
-          description: GUID representing the operation id.
-        createdDateTime:
-          type: string
-          format: date-time
-          description: The datetime when the topology was initially created for the resource group.
-        lastModified:
-          type: string
-          format: date-time
-          description: The datetime when the topology was last modified.
-        resources:
+        countries:
           type: array
           items:
-            $ref: '#/components/schemas/TopologyResource'
-          description: A list of topology resources.
+            $ref: '#/components/schemas/AvailableProvidersListCountry'
+          description: List of available countries. Required.
+      required:
+      - countries
     TopologyResource:
       type: object
       description: The network resource topology information for the given resource group.
@@ -16607,6 +16587,36 @@ components:
       enum:
       - Associated
       - Contains
+    Topology:
+      type: object
+      description: Topology of the specified resource group.
+      properties:
+        id:
+          type: string
+          description: GUID representing the operation id.
+        createdDateTime:
+          type: string
+          format: date-time
+          description: The datetime when the topology was initially created for the resource group.
+        lastModified:
+          type: string
+          format: date-time
+          description: The datetime when the topology was last modified.
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopologyResource'
+          description: A list of topology resources.
+    NextHopType:
+      type: string
+      enum:
+      - Internet
+      - VirtualAppliance
+      - VirtualNetworkGateway
+      - VnetLocal
+      - HyperNetGateway
+      - VirtualApplianceEcmp
+      - None
     NextHopResult:
       type: object
       description: The information about next hop from the specified VM.
@@ -16623,25 +16633,6 @@ components:
           description: The resource identifier for the route table associated with the route being returned. If
             the route being returned does not correspond to any user created routes then this field will be the
             string 'System Route'.
-    NextHopType:
-      type: string
-      enum:
-      - Internet
-      - VirtualAppliance
-      - VirtualNetworkGateway
-      - VnetLocal
-      - HyperNetGateway
-      - VirtualApplianceEcmp
-      - None
-    SecurityGroupViewResult:
-      type: object
-      description: The information about security rules applied to the specified VM.
-      properties:
-        networkInterfaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecurityGroupNetworkInterface'
-          description: List of network interfaces on the specified VM.
     SecurityGroupNetworkInterface:
       type: object
       description: Network interface and all its associated security rules.
@@ -16696,6 +16687,15 @@ components:
           items:
             $ref: '#/components/schemas/SecurityRule'
           description: Collection of custom security rules.
+    SecurityGroupViewResult:
+      type: object
+      description: The information about security rules applied to the specified VM.
+      properties:
+        networkInterfaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityGroupNetworkInterface'
+          description: List of network interfaces on the specified VM.
     TroubleshootingProperties:
       type: object
       description: Storage location provided for troubleshoot.
@@ -16709,26 +16709,6 @@ components:
       required:
       - storageId
       - storagePath
-    TroubleshootingResult:
-      type: object
-      description: Troubleshooting information gained from specified resource.
-      properties:
-        startTime:
-          type: string
-          format: date-time
-          description: The start time of the troubleshooting.
-        endTime:
-          type: string
-          format: date-time
-          description: The end time of the troubleshooting.
-        code:
-          type: string
-          description: The result code of the troubleshooting.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/TroubleshootingDetails'
-          description: Information from troubleshooting.
     TroubleshootingDetails:
       type: object
       description: Information gained from troubleshooting of specified resource.
@@ -16766,25 +16746,26 @@ components:
         actionUriText:
           type: string
           description: The information from the URI for the recommended troubleshooting actions.
-    FlowLogInformation:
+    TroubleshootingResult:
       type: object
-      description: Information on the configuration of flow log and traffic analytics (optional) .
+      description: Troubleshooting information gained from specified resource.
       properties:
-        targetResourceId:
+        startTime:
           type: string
-          description: The ID of the resource to configure for flow log and traffic analytics (optional) . Required.
-        properties:
-          $ref: '#/components/schemas/FlowLogProperties'
-          description: Properties of the flow log. Required.
-        flowAnalyticsConfiguration:
-          $ref: '#/components/schemas/TrafficAnalyticsProperties'
-          description: Parameters that define the configuration of traffic analytics.
-        identity:
-          $ref: '#/components/schemas/ManagedServiceIdentity'
-          description: FlowLog resource Managed Identity.
-      required:
-      - targetResourceId
-      - properties
+          format: date-time
+          description: The start time of the troubleshooting.
+        endTime:
+          type: string
+          format: date-time
+          description: The end time of the troubleshooting.
+        code:
+          type: string
+          description: The result code of the troubleshooting.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TroubleshootingDetails'
+          description: Information from troubleshooting.
     FlowLogProperties:
       type: object
       description: Parameters that define the configuration of flow log.
@@ -16815,6 +16796,42 @@ components:
       required:
       - storageId
       - enabled
+    FlowLogInformationFlattened:
+      type: object
+      description: Flattened view of FlowLogInformation ('properties' hoisted to the top level).
+      properties:
+        targetResourceId:
+          type: string
+          description: The ID of the resource to configure for flow log and traffic analytics (optional) . Required.
+        flowAnalyticsConfiguration:
+          $ref: '#/components/schemas/TrafficAnalyticsProperties'
+          description: Parameters that define the configuration of traffic analytics.
+        identity:
+          $ref: '#/components/schemas/ManagedServiceIdentity'
+          description: FlowLog resource Managed Identity.
+        storageId:
+          type: string
+          description: ID of the storage account which is used to store the flow log. Required.
+        enabledFilteringCriteria:
+          type: string
+          description: Optional field to filter network traffic logs based on SrcIP, SrcPort, DstIP, DstPort, Protocol,
+            Encryption, Direction and Action. If not specified, all network traffic will be logged.
+        recordTypes:
+          type: string
+          description: Optional field to filter network traffic logs based on flow states. Value of this field could
+            be any comma separated combination string of letters B,C,E or D. B represents Begin, when a flow is
+            created. C represents Continue for an ongoing flow generated at every five-minute interval. E represents
+            End, when a flow is terminated. D represents Deny, when a flow is denied. If not specified, all network
+            traffic will be logged.
+        enabled:
+          type: boolean
+          description: Flag to enable/disable flow logging. Required.
+        retentionPolicy:
+          $ref: '#/components/schemas/RetentionPolicyParameters'
+          description: Parameters that define the retention policy for flow log.
+        format:
+          $ref: '#/components/schemas/FlowLogFormatParameters'
+          description: Parameters that define the flow log format.
     AzureReachabilityReportLocation:
       type: object
       description: Parameters that define a geographic location.
@@ -16830,25 +16847,6 @@ components:
           description: The name of the city or town.
       required:
       - country
-    AzureReachabilityReport:
-      type: object
-      description: Azure reachability report details.
-      properties:
-        aggregationLevel:
-          type: string
-          description: The aggregation level of Azure reachability report. Can be Country, State or City. Required.
-        providerLocation:
-          $ref: '#/components/schemas/AzureReachabilityReportLocation'
-          description: Parameters that define a geographic location. Required.
-        reachabilityReport:
-          type: array
-          items:
-            $ref: '#/components/schemas/AzureReachabilityReportItem'
-          description: List of Azure reachability report items. Required.
-      required:
-      - aggregationLevel
-      - providerLocation
-      - reachabilityReport
     AzureReachabilityReportItem:
       type: object
       description: Azure reachability report details for a given provider location.
@@ -16875,6 +16873,25 @@ components:
         score:
           type: integer
           description: The relative latency score between 1 and 100, higher values indicating a faster connection.
+    AzureReachabilityReport:
+      type: object
+      description: Azure reachability report details.
+      properties:
+        aggregationLevel:
+          type: string
+          description: The aggregation level of Azure reachability report. Can be Country, State or City. Required.
+        providerLocation:
+          $ref: '#/components/schemas/AzureReachabilityReportLocation'
+          description: Parameters that define a geographic location. Required.
+        reachabilityReport:
+          type: array
+          items:
+            $ref: '#/components/schemas/AzureReachabilityReportItem'
+          description: List of Azure reachability report items. Required.
+      required:
+      - aggregationLevel
+      - providerLocation
+      - reachabilityReport
     VerbosityLevel:
       type: string
       enum:
@@ -16912,15 +16929,6 @@ components:
       enum:
       - Inbound
       - Outbound
-    NetworkConfigurationDiagnosticResponse:
-      type: object
-      description: Results of network configuration diagnostic on the target resource.
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkConfigurationDiagnosticResult'
-          description: List of network configuration diagnostic results.
     NetworkConfigurationDiagnosticResult:
       type: object
       description: Network configuration diagnostic result corresponded to provided traffic query.
@@ -16993,6 +17001,15 @@ components:
         destinationPortMatched:
           type: boolean
           description: Value indicating whether destination port is matched.
+    NetworkConfigurationDiagnosticResponse:
+      type: object
+      description: Results of network configuration diagnostic on the target resource.
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkConfigurationDiagnosticResult'
+          description: List of network configuration diagnostic results.
     IpFlowProtocol:
       type: string
       enum:
@@ -17013,6 +17030,25 @@ components:
       enum:
       - Allow
       - Deny
+    FlowLogInformation:
+      type: object
+      description: Information on the configuration of flow log and traffic analytics (optional) .
+      properties:
+        targetResourceId:
+          type: string
+          description: The ID of the resource to configure for flow log and traffic analytics (optional) . Required.
+        properties:
+          $ref: '#/components/schemas/FlowLogProperties'
+          description: Properties of the flow log. Required.
+        flowAnalyticsConfiguration:
+          $ref: '#/components/schemas/TrafficAnalyticsProperties'
+          description: Parameters that define the configuration of traffic analytics.
+        identity:
+          $ref: '#/components/schemas/ManagedServiceIdentity'
+          description: FlowLog resource Managed Identity.
+      required:
+      - targetResourceId
+      - properties
     ConnectivitySource:
       type: object
       description: Parameters that define the source of the connection.
@@ -17073,33 +17109,6 @@ components:
       type: string
       enum:
       - Get
-    ConnectivityInformation:
-      type: object
-      description: Information on the connectivity status.
-      properties:
-        hops:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectivityHop'
-          description: List of hops between the source and the destination.
-        connectionStatus:
-          $ref: '#/components/schemas/ConnectionStatus'
-          description: 'The connection status. Known values are: "Unknown", "Connected", "Disconnected", and "Degraded".'
-        avgLatencyInMs:
-          type: integer
-          description: Average latency in milliseconds.
-        minLatencyInMs:
-          type: integer
-          description: Minimum latency in milliseconds.
-        maxLatencyInMs:
-          type: integer
-          description: Maximum latency in milliseconds.
-        probesSent:
-          type: integer
-          description: Total number of probes sent.
-        probesFailed:
-          type: integer
-          description: Number of failed probes.
     ConnectivityHop:
       type: object
       description: Information about a hop between the source and the destination.
@@ -17229,6 +17238,33 @@ components:
       - Connected
       - Disconnected
       - Degraded
+    ConnectivityInformation:
+      type: object
+      description: Information on the connectivity status.
+      properties:
+        hops:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectivityHop'
+          description: List of hops between the source and the destination.
+        connectionStatus:
+          $ref: '#/components/schemas/ConnectionStatus'
+          description: 'The connection status. Known values are: "Unknown", "Connected", "Disconnected", and "Degraded".'
+        avgLatencyInMs:
+          type: integer
+          description: Average latency in milliseconds.
+        minLatencyInMs:
+          type: integer
+          description: Minimum latency in milliseconds.
+        maxLatencyInMs:
+          type: integer
+          description: Maximum latency in milliseconds.
+        probesSent:
+          type: integer
+          description: Total number of probes sent.
+        probesFailed:
+          type: integer
+          description: Number of failed probes.
     OperationDisplay:
       type: object
       description: Display metadata associated with the operation.
@@ -17783,6 +17819,22 @@ components:
             $ref: '#/components/schemas/PacketCaptureResultFlattened'
         nextLink:
           type: string
+    PcStatus:
+      type: string
+      enum:
+      - NotStarted
+      - Running
+      - Stopped
+      - Error
+      - Unknown
+    PcError:
+      type: string
+      enum:
+      - InternalError
+      - AgentStopped
+      - CaptureFailed
+      - LocalFileFailed
+      - StorageFailed
     PacketCaptureQueryStatusResult:
       type: object
       description: Status of packet capture session.
@@ -17809,22 +17861,6 @@ components:
           items:
             $ref: '#/components/schemas/PcError'
           description: List of errors of packet capture session.
-    PcStatus:
-      type: string
-      enum:
-      - NotStarted
-      - Running
-      - Stopped
-      - Error
-      - Unknown
-    PcError:
-      type: string
-      enum:
-      - InternalError
-      - AgentStopped
-      - CaptureFailed
-      - LocalFileFailed
-      - StorageFailed
     PacketCaptureParameters:
       type: object
       description: Parameters that define the create packet capture operation.
@@ -25414,22 +25450,6 @@ components:
             $ref: '#/components/schemas/VpnSiteLinkConnectionFlattened'
         nextLink:
           type: string
-    ConnectionSharedKeyResult:
-      type: object
-      description: SharedKey Resource .
-      properties:
-        id:
-          type: string
-          description: Resource ID.
-        name:
-          type: string
-          description: Name of the resource.
-        type:
-          type: string
-          description: Resource type.
-        properties:
-          $ref: '#/components/schemas/SharedKeyProperties'
-          description: Properties of the shared key.
     SharedKeyProperties:
       type: object
       description: Parameters for SharedKey.
@@ -25476,6 +25496,22 @@ components:
             $ref: '#/components/schemas/ConnectionSharedKeyResultFlattened'
         nextLink:
           type: string
+    ConnectionSharedKeyResult:
+      type: object
+      description: SharedKey Resource .
+      properties:
+        id:
+          type: string
+          description: Resource ID.
+        name:
+          type: string
+          description: Name of the resource.
+        type:
+          type: string
+          description: Resource type.
+        properties:
+          $ref: '#/components/schemas/SharedKeyProperties'
+          description: Properties of the shared key.
     VpnServerConfigurationsResponse:
       type: object
       description: VpnServerConfigurations list associated with VirtualWan Response.
@@ -26782,20 +26818,67 @@ components:
         properties:
           $ref: '#/components/schemas/NetworkGroupProperties'
           description: The network configuration group properties.
-    ActiveConnectivityConfigurationsListResult:
+    ActiveConnectivityConfigurationFlattened:
       type: object
-      description: Result of the request to list active connectivity configurations. It contains a list of active
-        connectivity configurations and a skiptoken to get the next set of results.
+      description: Flattened view of ActiveConnectivityConfiguration ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Connectivity configuration ID.
+        configurationGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationGroup'
+          description: Effective configuration groups.
+        commitTime:
+          type: string
+          format: date-time
+          description: Deployment time string.
+        region:
+          type: string
+          description: Deployment region.
+        description:
+          type: string
+          description: A description of the connectivity configuration.
+        connectivityTopology:
+          $ref: '#/components/schemas/ConnectivityTopology'
+          description: 'Connectivity topology type. Required. Known values are: "HubAndSpoke" and "Mesh".'
+        hubs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hub'
+          description: List of hubItems.
+        isGlobal:
+          $ref: '#/components/schemas/IsGlobal'
+          description: 'Flag if global mesh is supported. Known values are: "False" and "True".'
+        connectivityCapabilities:
+          $ref: '#/components/schemas/ConnectivityConfigurationPropertiesConnectivityCapabilities'
+          description: Collection of additional settings to enhance specific topology behaviors of the connectivity
+            configuration resource.
+        appliesToGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectivityGroupItem'
+          description: Groups for configuration. Required.
+        provisioningState:
+          $ref: '#/components/schemas/ProvisioningState'
+          description: 'The provisioning state of the connectivity configuration resource. Known values are: "Failed",
+            "Succeeded", "Canceled", "Creating", "Updating", and "Deleting".'
+        deleteExistingPeering:
+          $ref: '#/components/schemas/DeleteExistingPeering'
+          description: 'Flag if need to remove current existing peerings. Known values are: "False" and "True".'
+        resourceGuid:
+          type: string
+          description: Unique identifier for this resource.
+    ActiveConnectivityConfigurationsListResultFlattened:
+      type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/ActiveConnectivityConfiguration'
-          description: Gets a page of active connectivity configurations.
-        skipToken:
+            $ref: '#/components/schemas/ActiveConnectivityConfigurationFlattened'
+        nextLink:
           type: string
-          description: When present, the value can be passed to a subsequent query call (together with the same
-            query and scopes used in the current request) to retrieve the next page of data.
     ActiveBaseSecurityAdminRule:
       type: object
       description: 'Network base admin rule. You probably want to use the sub-classes and not this class directly.
@@ -26861,20 +26944,60 @@ components:
           items:
             $ref: '#/components/schemas/ConfigurationGroup'
           description: Effective configuration groups.
-    NetworkManagerEffectiveConnectivityConfigurationListResult:
+    EffectiveConnectivityConfigurationFlattened:
       type: object
-      description: Result of the request to list networkManagerEffectiveConnectivityConfiguration. It contains a
-        list of groups and a skiptoken to get the next set of results.
+      description: Flattened view of EffectiveConnectivityConfiguration ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Connectivity configuration ID.
+        configurationGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationGroup'
+          description: Effective configuration groups.
+        description:
+          type: string
+          description: A description of the connectivity configuration.
+        connectivityTopology:
+          $ref: '#/components/schemas/ConnectivityTopology'
+          description: 'Connectivity topology type. Required. Known values are: "HubAndSpoke" and "Mesh".'
+        hubs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hub'
+          description: List of hubItems.
+        isGlobal:
+          $ref: '#/components/schemas/IsGlobal'
+          description: 'Flag if global mesh is supported. Known values are: "False" and "True".'
+        connectivityCapabilities:
+          $ref: '#/components/schemas/ConnectivityConfigurationPropertiesConnectivityCapabilities'
+          description: Collection of additional settings to enhance specific topology behaviors of the connectivity
+            configuration resource.
+        appliesToGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectivityGroupItem'
+          description: Groups for configuration. Required.
+        provisioningState:
+          $ref: '#/components/schemas/ProvisioningState'
+          description: 'The provisioning state of the connectivity configuration resource. Known values are: "Failed",
+            "Succeeded", "Canceled", "Creating", "Updating", and "Deleting".'
+        deleteExistingPeering:
+          $ref: '#/components/schemas/DeleteExistingPeering'
+          description: 'Flag if need to remove current existing peerings. Known values are: "False" and "True".'
+        resourceGuid:
+          type: string
+          description: Unique identifier for this resource.
+    NetworkManagerEffectiveConnectivityConfigurationListResultFlattened:
+      type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/EffectiveConnectivityConfiguration'
-          description: Gets a page of NetworkManagerEffectiveConnectivityConfiguration.
-        skipToken:
+            $ref: '#/components/schemas/EffectiveConnectivityConfigurationFlattened'
+        nextLink:
           type: string
-          description: When present, the value can be passed to a subsequent query call (together with the same
-            query and scopes used in the current request) to retrieve the next page of data.
     EffectiveBaseSecurityAdminRule:
       type: object
       description: 'Network base admin rule. You probably want to use the sub-classes and not this class directly.
@@ -26966,6 +27089,11 @@ components:
             $ref: '#/components/schemas/BastionShareableLink'
         nextLink:
           type: string
+    BastionConnectProtocol:
+      type: string
+      enum:
+      - SSH
+      - RDP
     BastionActiveSession:
       type: object
       description: The session detail for a target.
@@ -27004,11 +27132,6 @@ components:
         sessionDurationInMins:
           type: number
           description: Duration in mins the session has been active.
-    BastionConnectProtocol:
-      type: string
-      enum:
-      - SSH
-      - RDP
     PagedBastionActiveSession:
       type: object
       properties:
@@ -28022,9 +28145,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: application_gateways
       x-stackql-method: list_available_server_variables
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   ? /subscriptions/{subscription_id}/providers/Microsoft.Network/applicationGatewayAvailableRequestHeaders?api-version=2025-07-01
   : get:
       operationId: ApplicationGateways_list_available_request_headers
@@ -28038,9 +28175,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: application_gateways
       x-stackql-method: list_available_request_headers
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   ? /subscriptions/{subscription_id}/providers/Microsoft.Network/applicationGatewayAvailableResponseHeaders?api-version=2025-07-01
   : get:
       operationId: ApplicationGateways_list_available_response_headers
@@ -28054,9 +28205,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: application_gateways
       x-stackql-method: list_available_response_headers
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /subscriptions/{subscription_id}/providers/Microsoft.Network/applicationGatewayAvailableWafRuleSets?api-version=2025-07-01:
     get:
       operationId: ApplicationGateways_list_available_waf_rule_sets
@@ -28963,7 +29128,7 @@ paths:
                 $ref: '#/components/schemas/IPPrefixesList'
       x-stackql-resource: azure_firewalls
       x-stackql-method: list_learned_prefixes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/azureFirewalls/{azure_firewall_name}/packetCapture?api-version=2025-07-01
   : post:
       operationId: AzureFirewalls_begin_packet_capture
@@ -31888,7 +32053,8 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteCircuitsArpTableListResult'
       x-stackql-resource: express_route_circuits
       x-stackql-method: list_arp_table
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCircuits/{circuit_name}/peerings/{peering_name}/routeTables/{device_path}?api-version=2025-07-01
   : post:
       operationId: ExpressRouteCircuits_begin_list_routes_table
@@ -31933,7 +32099,8 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteCircuitsRoutesTableListResult'
       x-stackql-resource: express_route_circuits
       x-stackql-method: list_routes_table
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCircuits/{circuit_name}/peerings/{peering_name}/routeTablesSummary/{device_path}?api-version=2025-07-01
   : post:
       operationId: ExpressRouteCircuits_begin_list_routes_table_summary
@@ -31978,7 +32145,8 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteCircuitsRoutesTableSummaryListResult'
       x-stackql-resource: express_route_circuits
       x-stackql-method: list_routes_table_summary
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCircuits/{circuit_name}/stats?api-version=2025-07-01
   : get:
       operationId: ExpressRouteCircuits_get_stats
@@ -32054,7 +32222,7 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteLinkFailoverAllTestsDetails'
       x-stackql-resource: express_route_circuits
       x-stackql-method: get_circuit_link_failover_all_tests_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCircuits/{circuit_name}/getCircuitLinkFailoverSingleTestDetails?api-version=2025-07-01
   : post:
       operationId: ExpressRouteCircuits_begin_get_circuit_link_failover_single_test_details
@@ -32104,7 +32272,7 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteLinkFailoverSingleTestDetails'
       x-stackql-resource: express_route_circuits
       x-stackql-method: get_circuit_link_failover_single_test_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCircuits/{circuit_name}/peerings/{peering_name}/stats?api-version=2025-07-01
   : get:
       operationId: ExpressRouteCircuits_get_peering_stats
@@ -32783,7 +32951,8 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteCircuitsArpTableListResult'
       x-stackql-resource: express_route_cross_connections
       x-stackql-method: list_arp_table
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCrossConnections/{cross_connection_name}/peerings/{peering_name}/routeTablesSummary/{device_path}?api-version=2025-07-01
   : post:
       operationId: ExpressRouteCrossConnections_begin_list_routes_table_summary
@@ -32828,7 +32997,8 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteCrossConnectionsRoutesTableSummaryListResult'
       x-stackql-resource: express_route_cross_connections
       x-stackql-method: list_routes_table_summary
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteCrossConnections/{cross_connection_name}/peerings/{peering_name}/routeTables/{device_path}?api-version=2025-07-01
   : post:
       operationId: ExpressRouteCrossConnections_begin_list_routes_table
@@ -32873,7 +33043,8 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteCircuitsRoutesTableListResult'
       x-stackql-resource: express_route_cross_connections
       x-stackql-method: list_routes_table
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteGateways/{express_route_gateway_name}?api-version=2025-07-01
   : get:
       operationId: ExpressRouteGateways_get
@@ -33124,7 +33295,7 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteFailoverTestDetails'
       x-stackql-resource: express_route_gateways
       x-stackql-method: get_failover_all_tests_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteGateways/{express_route_gateway_name}/getFailoverSingleTestDetails?api-version=2025-07-01
   : post:
       operationId: ExpressRouteGateways_begin_get_failover_single_test_details
@@ -33169,7 +33340,7 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteFailoverSingleTestDetails'
       x-stackql-resource: express_route_gateways
       x-stackql-method: get_failover_single_test_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteGateways/{express_route_gateway_name}/getRoutesInformation?api-version=2025-07-01
   : post:
       operationId: ExpressRouteGateways_begin_get_routes_information
@@ -33207,7 +33378,7 @@ paths:
                 $ref: '#/components/schemas/GatewayRouteSetsInformation'
       x-stackql-resource: express_route_gateways
       x-stackql-method: get_routes_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteGateways/{express_route_gateway_name}/getResiliencyInformation?api-version=2025-07-01
   : post:
       operationId: ExpressRouteGateways_begin_get_resiliency_information
@@ -33245,7 +33416,7 @@ paths:
                 $ref: '#/components/schemas/GatewayResiliencyInformation'
       x-stackql-resource: express_route_gateways
       x-stackql-method: get_resiliency_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/expressRouteGateways/{express_route_gateway_name}/startSiteFailoverTest?api-version=2025-07-01
   : post:
       operationId: ExpressRouteGateways_begin_start_site_failover_test
@@ -34311,7 +34482,7 @@ paths:
                 $ref: '#/components/schemas/SignatureOverridesFilterValuesResponse'
       x-stackql-resource: firewall_policy_idps_signatures_filter_values
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/firewallPolicies/{firewall_policy_name}/listIdpsSignatures?api-version=2025-07-01
   : post:
       operationId: FirewallPolicyIdpsSignatures_list
@@ -34368,7 +34539,7 @@ paths:
                 $ref: '#/components/schemas/QueryResults'
       x-stackql-resource: firewall_policy_idps_signatures
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/firewallPolicies/{firewall_policy_name}/signatureOverrides/default?api-version=2025-07-01
   : get:
       operationId: FirewallPolicyIdpsSignaturesOverrides_get
@@ -35864,7 +36035,7 @@ paths:
                 $ref: '#/components/schemas/InterconnectGroupNodeAvailability'
       x-stackql-resource: interconnect_groups
       x-stackql-method: get_node_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/IpAllocations/{ip_allocation_name}?api-version=2025-07-01
   : get:
       operationId: IpAllocations_get
@@ -36208,7 +36379,7 @@ paths:
                 $ref: '#/components/schemas/IpGroup'
       x-stackql-resource: ip_groups
       x-stackql-method: update_groups
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: IpGroups_begin_delete
       description: Deletes the specified ipGroups.
@@ -36572,7 +36743,8 @@ paths:
                 $ref: '#/components/schemas/PagedPoolAssociation'
       x-stackql-resource: ipam_pools
       x-stackql-method: list_associated_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkManagers/{network_manager_name}/ipamPools/{pool_name}/getPoolUsage?api-version=2025-07-01
   : post:
       operationId: IpamPools_get_pool_usage
@@ -36610,7 +36782,7 @@ paths:
                 $ref: '#/components/schemas/PoolUsage'
       x-stackql-resource: ipam_pools
       x-stackql-method: get_pool_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/loadBalancers/{load_balancer_name}/backendAddressPools/{backend_address_pool_name}?api-version=2025-07-01
   : get:
       operationId: LoadBalancerBackendAddressPools_get
@@ -37416,7 +37588,7 @@ paths:
                 $ref: '#/components/schemas/BackendAddressInboundNatRulePortMappings'
       x-stackql-resource: load_balancers
       x-stackql-method: list_inbound_nat_rule_port_mappings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{group_name}/providers/Microsoft.Network/loadBalancers/{load_balancer_name}/migrateToIpBased?api-version=2025-07-01
   : post:
       operationId: LoadBalancers_migrate_to_ip_based
@@ -38964,7 +39136,8 @@ paths:
                 $ref: '#/components/schemas/EffectiveNetworkSecurityGroupListResult'
       x-stackql-resource: network_interfaces
       x-stackql-method: list_effective_network_security_groups
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/microsoft.Compute/virtualMachineScaleSets/{virtual_machine_scale_set_name}/virtualMachines/{virtualmachine_index}/networkInterfaces/{network_interface_name}/ipConfigurations?api-version=2018-10-01
   : get:
       operationId: NetworkInterfaces_list_virtual_machine_scale_set_ip_configurations
@@ -39221,7 +39394,8 @@ paths:
                 $ref: '#/components/schemas/EffectiveRouteListResult'
       x-stackql-resource: network_interfaces
       x-stackql-method: get_effective_route_table
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtual_machine_scale_set_name}/virtualMachines/{virtualmachine_index}/networkInterfaces/{network_interface_name}/ipConfigurations/{ip_configuration_name}?api-version=2018-10-01
   : get:
       operationId: NetworkInterfaces_get_virtual_machine_scale_set_ip_configuration
@@ -39394,7 +39568,8 @@ paths:
                 $ref: '#/components/schemas/NetworkManagerDeploymentStatusListResult'
       x-stackql-resource: network_manager_deployment_status
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkManagers/{network_manager_name}/routingConfigurations/{configuration_name}?api-version=2025-07-01
   : get:
       operationId: NetworkManagerRoutingConfigurations_get
@@ -42043,7 +42218,7 @@ paths:
                 $ref: '#/components/schemas/NetworkVirtualApplianceInstanceId'
       x-stackql-resource: network_virtual_appliances
       x-stackql-method: get_boot_diagnostic_logs
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkVirtualAppliances/{network_virtual_appliance_name}/restart?api-version=2025-07-01
   : post:
       operationId: NetworkVirtualAppliances_begin_restart
@@ -42394,7 +42569,7 @@ paths:
                 $ref: '#/components/schemas/AvailableProvidersList'
       x-stackql-resource: network_watchers
       x-stackql-method: list_available_providers
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/topology?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_get_topology
@@ -42442,7 +42617,7 @@ paths:
                 $ref: '#/components/schemas/Topology'
       x-stackql-resource: network_watchers
       x-stackql-method: get_topology
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/nextHop?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_next_hop
@@ -42499,7 +42674,7 @@ paths:
                 $ref: '#/components/schemas/NextHopResult'
       x-stackql-resource: network_watchers
       x-stackql-method: get_next_hop
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/securityGroupView?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_vm_security_rules
@@ -42543,7 +42718,7 @@ paths:
                 $ref: '#/components/schemas/SecurityGroupViewResult'
       x-stackql-resource: network_watchers
       x-stackql-method: get_vm_security_rules
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/troubleshoot?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_troubleshooting
@@ -42591,7 +42766,7 @@ paths:
                 $ref: '#/components/schemas/TroubleshootingResult'
       x-stackql-resource: network_watchers
       x-stackql-method: get_troubleshooting
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/queryTroubleshootResult?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_troubleshooting_result
@@ -42635,7 +42810,7 @@ paths:
                 $ref: '#/components/schemas/TroubleshootingResult'
       x-stackql-resource: network_watchers
       x-stackql-method: get_troubleshooting_result
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/queryFlowLogStatus?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_flow_log_status
@@ -42677,10 +42852,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FlowLogInformation'
+                $ref: '#/components/schemas/FlowLogInformationFlattened'
       x-stackql-resource: network_watchers
       x-stackql-method: get_flow_log_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/azureReachabilityReport?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_azure_reachability_report
@@ -42745,7 +42921,7 @@ paths:
                 $ref: '#/components/schemas/AzureReachabilityReport'
       x-stackql-resource: network_watchers
       x-stackql-method: get_azure_reachability_report
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/networkConfigurationDiagnostic?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_get_network_configuration_diagnostic
@@ -42803,7 +42979,7 @@ paths:
                 $ref: '#/components/schemas/NetworkConfigurationDiagnosticResponse'
       x-stackql-resource: network_watchers
       x-stackql-method: get_network_configuration_diagnostic
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/ipFlowVerify?api-version=2025-07-01
   : post:
       operationId: NetworkWatchers_begin_verify_ip_flow
@@ -42991,7 +43167,7 @@ paths:
                 $ref: '#/components/schemas/ConnectivityInformation'
       x-stackql-resource: network_watchers
       x-stackql-method: check_connectivity
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Network/operations?api-version=2025-07-01:
     get:
       operationId: network_list
@@ -43039,7 +43215,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/P2SVpnGatewayFlattened'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -43091,7 +43267,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/P2SVpnGateway'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     patch:
@@ -43133,7 +43309,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/P2SVpnGateway'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: update_tags
       x-stackql-verb: UPDATE
     delete:
@@ -43160,7 +43336,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: delete
       x-stackql-verb: DELETE
   /subscriptions/{subscription_id}/providers/Microsoft.Network/p2svpnGateways?api-version=2025-07-01:
@@ -43180,7 +43356,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedP2SVpnGatewayFlattened'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -43209,7 +43385,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedP2SVpnGatewayFlattened'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: list_by_resource_group
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -43217,7 +43393,7 @@ paths:
       x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/p2svpnGateways/{gateway_name}/getP2sVpnConnectionHealth?api-version=2025-07-01
   : post:
-      operationId: P2SVpnGateways_begin_get_p2_s_vpn_connection_health
+      operationId: P2SVpnGateways_begin_get_p2s_vpn_connection_health
       description: Gets the connection health of P2S clients of the virtual wan P2SVpnGateway in the specified resource
         group.
       parameters:
@@ -43244,13 +43420,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/P2SVpnGateway'
-      x-stackql-resource: p2_s_vpn_gateways
-      x-stackql-method: get_p2_s_vpn_connection_health
-      x-stackql-verb: EXEC
+                $ref: '#/components/schemas/P2SVpnGatewayFlattened'
+      x-stackql-resource: p2s_vpn_gateways
+      x-stackql-method: get_p2s_vpn_connection_health
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/p2svpnGateways/{gateway_name}/getP2sVpnConnectionHealthDetailed?api-version=2025-07-01
   : post:
-      operationId: P2SVpnGateways_begin_get_p2_s_vpn_connection_health_detailed
+      operationId: P2SVpnGateways_begin_get_p2s_vpn_connection_health_detailed
       description: Gets the sas url to get the connection health detail of P2S clients of the virtual wan P2SVpnGateway
         in the specified resource group.
       parameters:
@@ -43294,9 +43471,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/P2SVpnConnectionHealth'
-      x-stackql-resource: p2_s_vpn_gateways
-      x-stackql-method: get_p2_s_vpn_connection_health_detailed
-      x-stackql-verb: EXEC
+      x-stackql-resource: p2s_vpn_gateways
+      x-stackql-method: get_p2s_vpn_connection_health_detailed
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/p2svpnGateways/{gateway_name}/reset?api-version=2025-07-01
   : post:
       operationId: P2SVpnGateways_begin_reset
@@ -43326,7 +43503,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/P2SVpnGateway'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: reset
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/p2svpnGateways/{gateway_name}/generatevpnprofile?api-version=2025-07-01
@@ -43368,12 +43545,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VpnProfileResponse'
-      x-stackql-resource: p2_s_vpn_gateways
+      x-stackql-resource: p2s_vpn_gateways
       x-stackql-method: generate_vpn_profile
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/p2svpnGateways/{p2s_vpn_gateway_name}/disconnectP2sVpnConnections?api-version=2025-07-01
   : post:
-      operationId: P2SVpnGateways_begin_disconnect_p2_s_vpn_connections
+      operationId: P2SVpnGateways_begin_disconnect_p2s_vpn_connections
       description: Disconnect P2S vpn connections of the virtual wan P2SVpnGateway in the specified resource group.
       parameters:
       - name: resource_group_name
@@ -43408,8 +43585,8 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: p2_s_vpn_gateways
-      x-stackql-method: disconnect_p2_s_vpn_connections
+      x-stackql-resource: p2s_vpn_gateways
+      x-stackql-method: disconnect_p2s_vpn_connections
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/packetCaptures/{packet_capture_name}?api-version=2025-07-01
   : get:
@@ -43604,7 +43781,7 @@ paths:
                 $ref: '#/components/schemas/PacketCaptureQueryStatusResult'
       x-stackql-resource: packet_captures
       x-stackql-method: get_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkWatchers/{network_watcher_name}/packetCaptures/{packet_capture_name}/stop?api-version=2025-07-01
   : post:
       operationId: PacketCaptures_begin_stop
@@ -44429,7 +44606,7 @@ paths:
                 $ref: '#/components/schemas/PrivateEndpointConnection'
       x-stackql-resource: private_link_services
       x-stackql-method: update_private_endpoint_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: PrivateLinkServices_begin_delete_private_endpoint_connection
       description: Delete private end point connection for a private link service in a subscription.
@@ -44463,7 +44640,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: private_link_services
       x-stackql-method: delete_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/providers/Microsoft.Network/locations/{location}/checkPrivateLinkServiceVisibility?api-version=2025-07-01
   : post:
       operationId: PrivateLinkServices_begin_check_private_link_service_visibility
@@ -44499,7 +44676,7 @@ paths:
                 $ref: '#/components/schemas/PrivateLinkServiceVisibility'
       x-stackql-resource: private_link_services
       x-stackql-method: check_private_link_service_visibility
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/locations/{location}/checkPrivateLinkServiceVisibility?api-version=2025-07-01
   : post:
       operationId: PrivateLinkServices_begin_check_private_link_service_visibility_by_resource_group
@@ -44542,7 +44719,7 @@ paths:
                 $ref: '#/components/schemas/PrivateLinkServiceVisibility'
       x-stackql-resource: private_link_services
       x-stackql-method: check_private_link_service_visibility_by_resource_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/publicIPAddresses/{public_ip_address_name}?api-version=2025-07-01
   : get:
       operationId: PublicIPAddresses_get
@@ -51192,7 +51369,7 @@ paths:
                 $ref: '#/components/schemas/PeerRoute'
       x-stackql-resource: virtual_hub_bgp_connections
       x-stackql-method: list_learned_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualHubs/{hub_name}/bgpConnections/{connection_name}/advertisedRoutes?api-version=2025-07-01
   : post:
       operationId: VirtualHubBgpConnections_begin_list_advertised_routes
@@ -51230,7 +51407,7 @@ paths:
                 $ref: '#/components/schemas/PeerRoute'
       x-stackql-resource: virtual_hub_bgp_connections
       x-stackql-method: list_advertised_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualHubs/{virtual_hub_name}/ipConfigurations/{ip_config_name}?api-version=2025-07-01
   : get:
       operationId: VirtualHubIpConfiguration_get
@@ -51429,7 +51606,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VirtualHubRouteTableV2Flattened'
-      x-stackql-resource: virtual_hub_route_table_v2_s
+      x-stackql-resource: virtual_hub_route_table_v2s
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -51484,7 +51661,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VirtualHubRouteTableV2'
-      x-stackql-resource: virtual_hub_route_table_v2_s
+      x-stackql-resource: virtual_hub_route_table_v2s
       x-stackql-method: create_or_update
       x-stackql-verb: INSERT
     delete:
@@ -51517,7 +51694,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: virtual_hub_route_table_v2_s
+      x-stackql-resource: virtual_hub_route_table_v2s
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualHubs/{virtual_hub_name}/routeTables?api-version=2025-07-01
@@ -51549,7 +51726,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedVirtualHubRouteTableV2Flattened'
-      x-stackql-resource: virtual_hub_route_table_v2_s
+      x-stackql-resource: virtual_hub_route_table_v2s
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -51805,7 +51982,8 @@ paths:
                 $ref: '#/components/schemas/VirtualHubEffectiveRouteList'
       x-stackql-resource: virtual_hubs
       x-stackql-method: get_effective_virtual_hub_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualHubs/{virtual_hub_name}/inboundRoutes?api-version=2025-07-01
   : post:
       operationId: VirtualHubs_begin_get_inbound_routes
@@ -51851,7 +52029,8 @@ paths:
                 $ref: '#/components/schemas/EffectiveRouteMapRouteList'
       x-stackql-resource: virtual_hubs
       x-stackql-method: get_inbound_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualHubs/{virtual_hub_name}/outboundRoutes?api-version=2025-07-01
   : post:
       operationId: VirtualHubs_begin_get_outbound_routes
@@ -51897,7 +52076,8 @@ paths:
                 $ref: '#/components/schemas/EffectiveRouteMapRouteList'
       x-stackql-resource: virtual_hubs
       x-stackql-method: get_outbound_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkAppliances/{virtual_network_appliance_name}?api-version=2025-07-01
   : get:
       operationId: VirtualNetworkAppliances_get
@@ -52368,7 +52548,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionSharedKey'
       x-stackql-resource: virtual_network_gateway_connections
       x-stackql-method: set_shared_key
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/connections/{virtual_network_gateway_connection_name}/getikesas?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGatewayConnections_begin_get_ike_sas
@@ -52397,7 +52577,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: virtual_network_gateway_connections
       x-stackql-method: get_ike_sas
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/connections/{virtual_network_gateway_connection_name}/sharedkey/reset?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGatewayConnections_begin_reset_shared_key
@@ -52969,7 +53149,8 @@ paths:
                 $ref: '#/components/schemas/RadiusAuthServerListResult'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: list_radius_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getvpnprofilepackageurl?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_vpn_profile_package_url
@@ -52998,7 +53179,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_vpn_profile_package_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getBgpPeerStatus?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_bgp_peer_status
@@ -53036,7 +53217,8 @@ paths:
                 $ref: '#/components/schemas/BgpPeerStatusListResult'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_bgp_peer_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getLearnedRoutes?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_learned_routes
@@ -53069,7 +53251,8 @@ paths:
                 $ref: '#/components/schemas/GatewayRouteListResult'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_learned_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getAdvertisedRoutes?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_advertised_routes
@@ -53108,7 +53291,8 @@ paths:
                 $ref: '#/components/schemas/GatewayRouteListResult'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_advertised_routes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getResiliencyInformation?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_resiliency_information
@@ -53147,7 +53331,7 @@ paths:
                 $ref: '#/components/schemas/GatewayResiliencyInformation'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_resiliency_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getRoutesInformation?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_routes_information
@@ -53186,7 +53370,7 @@ paths:
                 $ref: '#/components/schemas/GatewayRouteSetsInformation'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_routes_information
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getvpnclientipsecparameters?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_vpnclient_ipsec_parameters
@@ -53219,7 +53403,7 @@ paths:
                 $ref: '#/components/schemas/VpnClientIPsecParameters'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_vpnclient_ipsec_parameters
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getFailoverAllTestsDetails?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_failover_all_test_details
@@ -53264,7 +53448,7 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteFailoverTestDetails'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_failover_all_test_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getFailoverSingleTestDetails?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_failover_single_test_details
@@ -53309,7 +53493,7 @@ paths:
                 $ref: '#/components/schemas/ExpressRouteFailoverSingleTestDetails'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_failover_single_test_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/getVpnClientConnectionHealth?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_get_vpnclient_connection_health
@@ -53342,7 +53526,8 @@ paths:
                 $ref: '#/components/schemas/VpnClientConnectionHealthDetailListResult'
       x-stackql-resource: virtual_network_gateways
       x-stackql-method: get_vpnclient_connection_health
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{virtual_network_gateway_name}/reset?api-version=2025-07-01
   : post:
       operationId: VirtualNetworkGateways_begin_reset
@@ -54654,7 +54839,8 @@ paths:
                 $ref: '#/components/schemas/PagedPublicIpDdosProtectionStatusResult'
       x-stackql-resource: virtual_networks
       x-stackql-method: list_ddos_protection_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{virtual_network_name}/checkIPAddressAvailability?api-version=2025-07-01
   : get:
       operationId: VirtualNetworks_check_ip_address_availability
@@ -55890,10 +56076,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConnectionSharedKeyResult'
+                $ref: '#/components/schemas/ConnectionSharedKeyResultFlattened'
       x-stackql-resource: vpn_link_connections
       x-stackql-method: list_default_shared_key
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/vpnGateways/{gateway_name}/vpnConnections/{connection_name}/vpnLinkConnections/{link_connection_name}/sharedKeys/default?api-version=2025-07-01
   : get:
       operationId: VpnLinkConnections_get_default_shared_key
@@ -55999,7 +56186,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionSharedKeyResult'
       x-stackql-resource: vpn_link_connections
       x-stackql-method: set_or_init_default_shared_key
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/vpnGateways/{gateway_name}/vpnConnections/{connection_name}/vpnLinkConnections/{link_connection_name}/sharedKeys?api-version=2025-07-01
   : get:
       operationId: VpnLinkConnections_get_all_shared_keys
@@ -56086,7 +56273,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: vpn_link_connections
       x-stackql-method: get_ike_sas
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/vpnGateways/{gateway_name}/vpnConnections/{connection_name}/vpnLinkConnections/{link_connection_name}/resetconnection?api-version=2025-07-01
   : post:
       operationId: VpnLinkConnections_begin_reset_connection
@@ -56158,7 +56345,7 @@ paths:
                 $ref: '#/components/schemas/VpnServerConfigurationsResponse'
       x-stackql-resource: vpn_server_configurations_associated_with_virtual_wan
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/vpnServerConfigurations/{vpn_server_configuration_name}?api-version=2025-07-01
   : get:
       operationId: VpnServerConfigurations_get
@@ -56403,7 +56590,8 @@ paths:
                 $ref: '#/components/schemas/RadiusAuthServerListResult'
       x-stackql-resource: vpn_server_configurations
       x-stackql-method: list_radius_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/vpnGateways/{gateway_name}/vpnConnections/{connection_name}/vpnLinkConnections/{link_connection_name}?api-version=2025-07-01
   : get:
       operationId: VpnSiteLinkConnections_get
@@ -57044,10 +57232,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ActiveConnectivityConfigurationsListResult'
+                $ref: '#/components/schemas/ActiveConnectivityConfigurationsListResultFlattened'
       x-stackql-resource: active_connectivity_configurations
       x-stackql-method: list_active_connectivity_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/networkManagers/{network_manager_name}/listActiveSecurityAdminRules?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_list_active_security_admin_rules
@@ -57102,7 +57293,8 @@ paths:
                 $ref: '#/components/schemas/ActiveSecurityAdminRulesListResult'
       x-stackql-resource: active_security_admin_rules
       x-stackql-method: list_active_security_admin_rules
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{virtual_network_name}/listNetworkManagerEffectiveConnectivityConfigurations?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_list_network_manager_effective_connectivity_configurations
@@ -57149,10 +57341,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NetworkManagerEffectiveConnectivityConfigurationListResult'
+                $ref: '#/components/schemas/NetworkManagerEffectiveConnectivityConfigurationListResultFlattened'
       x-stackql-resource: network_manager_effective_connectivity_configurations
       x-stackql-method: list_network_manager_effective_connectivity_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/virtualNetworks/{virtual_network_name}/listNetworkManagerEffectiveSecurityAdminRules?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_list_network_manager_effective_security_admin_rules
@@ -57202,7 +57397,8 @@ paths:
                 $ref: '#/components/schemas/NetworkManagerEffectiveSecurityAdminRulesListResult'
       x-stackql-resource: network_manager_effective_security_admin_rules
       x-stackql-method: list_network_manager_effective_security_admin_rules
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/bastionHosts/{bastion_host_name}/getShareableLinks?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_get_bastion_shareable_link
@@ -57246,7 +57442,8 @@ paths:
                 $ref: '#/components/schemas/PagedBastionShareableLink'
       x-stackql-resource: bastion_shareable_links
       x-stackql-method: get_bastion_shareable_link
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/bastionHosts/{bastion_host_name}/getActiveSessions?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_begin_get_active_sessions
@@ -57278,7 +57475,8 @@ paths:
                 $ref: '#/components/schemas/PagedBastionActiveSession'
       x-stackql-resource: active_sessions
       x-stackql-method: get_active_sessions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/bastionHosts/{bastion_host_name}/createShareableLinks?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_begin_put_bastion_shareable_link
@@ -57402,7 +57600,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: bastion_shareable_links
       x-stackql-method: delete_bastion_shareable_link_by_token
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Network/bastionHosts/{bastion_host_name}/disconnectActiveSessions?api-version=2025-07-01
   : post:
       operationId: _NetworkManagementClient_disconnect_active_sessions

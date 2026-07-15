@@ -134,27 +134,6 @@ components:
           description: The resource-specific properties for this resource.
       required:
       - location
-    Deployment:
-      type: object
-      description: An deployment resource belonging to a device group resource. Variables are only populated by
-        the server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: 'Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-            # pylint: disable=line-too-long'
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/DeploymentProperties'
-          description: The resource-specific properties for this resource.
     DeploymentProperties:
       type: object
       description: The properties of deployment. Variables are only populated by the server, and will be ignored
@@ -235,19 +214,9 @@ components:
           type: string
           description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
             "Updating", "Deleting", and "Accepted".'
-    PagedDeployment:
+    DeploymentFlattened:
       type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Deployment'
-        nextLink:
-          type: string
-    DeviceGroup:
-      type: object
-      description: An device group resource belonging to a product resource. Variables are only populated by the
-        server, and will be ignored when sending a request.
+      description: Flattened view of Deployment ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -262,9 +231,31 @@ components:
         systemData:
           $ref: '#/components/schemas/SystemData'
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/DeviceGroupProperties'
-          description: The resource-specific properties for this resource.
+        deploymentId:
+          type: string
+          description: Deployment ID.
+        deployedImages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          description: Images deployed.
+        deploymentDateUtc:
+          type: string
+          format: date-time
+          description: Deployment date UTC.
+        provisioningState:
+          type: string
+          description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
+            "Updating", "Deleting", and "Accepted".'
+    PagedDeploymentFlattened:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentFlattened'
+        nextLink:
+          type: string
     DeviceGroupProperties:
       type: object
       description: The properties of deviceGroup. Variables are only populated by the server, and will be ignored
@@ -293,13 +284,53 @@ components:
           type: string
           description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
             "Updating", "Deleting", and "Accepted".'
-    PagedDeviceGroup:
+    DeviceGroupFlattened:
+      type: object
+      description: Flattened view of DeviceGroup ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: 'Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+            # pylint: disable=line-too-long'
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        description:
+          type: string
+          description: Description of the device group.
+        osFeedType:
+          type: string
+          description: 'Operating system feed type of the device group. Known values are: "Retail" and "RetailEval".'
+        updatePolicy:
+          type: string
+          description: 'Update policy of the device group. Known values are: "UpdateAll" and "No3rdPartyAppUpdates".'
+        allowCrashDumpsCollection:
+          type: string
+          description: 'Flag to define if the user allows for crash dump collection. Known values are: "Enabled"
+            and "Disabled".'
+        regionalDataBoundary:
+          type: string
+          description: 'Regional data boundary for the device group. Known values are: "None" and "EU".'
+        hasDeployment:
+          type: boolean
+          description: Deployment status for the device group.
+        provisioningState:
+          type: string
+          description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
+            "Updating", "Deleting", and "Accepted".'
+    PagedDeviceGroupFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceGroup'
+            $ref: '#/components/schemas/DeviceGroupFlattened'
         nextLink:
           type: string
     DeviceInsight:
@@ -350,27 +381,6 @@ components:
             $ref: '#/components/schemas/DeviceInsight'
         nextLink:
           type: string
-    Device:
-      type: object
-      description: An device resource belonging to a device group resource. Variables are only populated by the
-        server, and will be ignored when sending a request.
-      properties:
-        id:
-          type: string
-          description: 'Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-            # pylint: disable=line-too-long'
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/DeviceProperties'
-          description: The resource-specific properties for this resource.
     DeviceProperties:
       type: object
       description: The properties of device. Variables are only populated by the server, and will be ignored when
@@ -400,13 +410,54 @@ components:
           type: string
           description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
             "Updating", "Deleting", and "Accepted".'
-    PagedDevice:
+    DeviceFlattened:
+      type: object
+      description: Flattened view of Device ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: 'Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+            # pylint: disable=line-too-long'
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        deviceId:
+          type: string
+          description: Device ID.
+        chipSku:
+          type: string
+          description: SKU of the chip.
+        lastAvailableOsVersion:
+          type: string
+          description: OS version available for installation when update requested.
+        lastInstalledOsVersion:
+          type: string
+          description: OS version running on device when update requested.
+        lastOsUpdateUtc:
+          type: string
+          format: date-time
+          description: Time when update requested and new OS version available.
+        lastUpdateRequestUtc:
+          type: string
+          format: date-time
+          description: Time when update was last requested.
+        provisioningState:
+          type: string
+          description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
+            "Updating", "Deleting", and "Accepted".'
+    PagedDeviceFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/Device'
+            $ref: '#/components/schemas/DeviceFlattened'
         nextLink:
           type: string
     CountDevicesResponse:
@@ -535,9 +586,10 @@ components:
           type: string
           description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
             "Updating", "Deleting", and "Accepted".'
-    DeploymentFlattened:
+    Deployment:
       type: object
-      description: Flattened view of Deployment ('properties' hoisted to the top level).
+      description: An deployment resource belonging to a device group resource. Variables are only populated by
+        the server, and will be ignored when sending a request.
       properties:
         id:
           type: string
@@ -552,34 +604,13 @@ components:
         systemData:
           $ref: '#/components/schemas/SystemData'
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        deploymentId:
-          type: string
-          description: Deployment ID.
-        deployedImages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Image'
-          description: Images deployed.
-        deploymentDateUtc:
-          type: string
-          format: date-time
-          description: Deployment date UTC.
-        provisioningState:
-          type: string
-          description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
-            "Updating", "Deleting", and "Accepted".'
-    PagedDeploymentFlattened:
+        properties:
+          $ref: '#/components/schemas/DeploymentProperties'
+          description: The resource-specific properties for this resource.
+    DeviceGroup:
       type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentFlattened'
-        nextLink:
-          type: string
-    DeviceGroupFlattened:
-      type: object
-      description: Flattened view of DeviceGroup ('properties' hoisted to the top level).
+      description: An device group resource belonging to a product resource. Variables are only populated by the
+        server, and will be ignored when sending a request.
       properties:
         id:
           type: string
@@ -594,38 +625,9 @@ components:
         systemData:
           $ref: '#/components/schemas/SystemData'
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        description:
-          type: string
-          description: Description of the device group.
-        osFeedType:
-          type: string
-          description: 'Operating system feed type of the device group. Known values are: "Retail" and "RetailEval".'
-        updatePolicy:
-          type: string
-          description: 'Update policy of the device group. Known values are: "UpdateAll" and "No3rdPartyAppUpdates".'
-        allowCrashDumpsCollection:
-          type: string
-          description: 'Flag to define if the user allows for crash dump collection. Known values are: "Enabled"
-            and "Disabled".'
-        regionalDataBoundary:
-          type: string
-          description: 'Regional data boundary for the device group. Known values are: "None" and "EU".'
-        hasDeployment:
-          type: boolean
-          description: Deployment status for the device group.
-        provisioningState:
-          type: string
-          description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
-            "Updating", "Deleting", and "Accepted".'
-    PagedDeviceGroupFlattened:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceGroupFlattened'
-        nextLink:
-          type: string
+        properties:
+          $ref: '#/components/schemas/DeviceGroupProperties'
+          description: The resource-specific properties for this resource.
     DeviceGroupUpdateProperties:
       type: object
       description: The updatable properties of the DeviceGroup.
@@ -646,9 +648,10 @@ components:
         regionalDataBoundary:
           type: string
           description: 'Regional data boundary for the device group. Known values are: "None" and "EU".'
-    DeviceFlattened:
+    Device:
       type: object
-      description: Flattened view of Device ('properties' hoisted to the top level).
+      description: An device resource belonging to a device group resource. Variables are only populated by the
+        server, and will be ignored when sending a request.
       properties:
         id:
           type: string
@@ -663,39 +666,9 @@ components:
         systemData:
           $ref: '#/components/schemas/SystemData'
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        deviceId:
-          type: string
-          description: Device ID.
-        chipSku:
-          type: string
-          description: SKU of the chip.
-        lastAvailableOsVersion:
-          type: string
-          description: OS version available for installation when update requested.
-        lastInstalledOsVersion:
-          type: string
-          description: OS version running on device when update requested.
-        lastOsUpdateUtc:
-          type: string
-          format: date-time
-          description: Time when update requested and new OS version available.
-        lastUpdateRequestUtc:
-          type: string
-          format: date-time
-          description: Time when update was last requested.
-        provisioningState:
-          type: string
-          description: 'The status of the last operation. Known values are: "Succeeded", "Failed", "Canceled", "Provisioning",
-            "Updating", "Deleting", and "Accepted".'
-    PagedDeviceFlattened:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceFlattened'
-        nextLink:
-          type: string
+        properties:
+          $ref: '#/components/schemas/DeviceProperties'
+          description: The resource-specific properties for this resource.
     DeviceUpdateProperties:
       type: object
       description: The updatable properties of the Device.
@@ -897,6 +870,15 @@ components:
         description:
           type: string
           description: Description of the product.
+    PagedDeviceGroup:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroup'
+        nextLink:
+          type: string
 paths:
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}?api-version=2024-04-01
   : get:
@@ -1154,10 +1136,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedDeployment'
+                $ref: '#/components/schemas/PagedDeploymentFlattened'
       x-stackql-resource: catalogs
       x-stackql-method: list_deployments
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}/listDeviceGroups?api-version=2024-04-01
   : post:
       operationId: Catalogs_list_device_groups
@@ -1220,10 +1205,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedDeviceGroup'
+                $ref: '#/components/schemas/PagedDeviceGroupFlattened'
       x-stackql-resource: catalogs
       x-stackql-method: list_device_groups
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}/listDeviceInsights?api-version=2024-04-01
   : post:
       operationId: Catalogs_list_device_insights
@@ -1279,7 +1267,8 @@ paths:
                 $ref: '#/components/schemas/PagedDeviceInsight'
       x-stackql-resource: catalogs
       x-stackql-method: list_device_insights
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}/listDevices?api-version=2024-04-01
   : post:
       operationId: Catalogs_list_devices
@@ -1332,10 +1321,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedDevice'
+                $ref: '#/components/schemas/PagedDeviceFlattened'
       x-stackql-resource: catalogs
       x-stackql-method: list_devices
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}/countDevices?api-version=2024-04-01
   : post:
       operationId: Catalogs_count_devices
@@ -1541,7 +1533,7 @@ paths:
                 $ref: '#/components/schemas/CertificateChainResponse'
       x-stackql-resource: certificates
       x-stackql-method: retrieve_cert_chain
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}/certificates/{serial_number}/retrieveProofOfPossessionNonce?api-version=2024-04-01
   : post:
       operationId: Certificates_retrieve_proof_of_possession_nonce
@@ -1591,7 +1583,7 @@ paths:
                 $ref: '#/components/schemas/ProofOfPossessionNonceResponse'
       x-stackql-resource: certificates
       x-stackql-method: retrieve_proof_of_possession_nonce
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureSphere/catalogs/{catalog_name}/products/{product_name}/deviceGroups/{device_group_name}/deployments/{deployment_name}?api-version=2024-04-01
   : get:
       operationId: Deployments_get

@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_synonym_map"><CopyableCode code="create_synonym_map" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Creates a new synonym map.</td>
 </tr>
 <tr>
     <td><a href="#get_synonym_map"><CopyableCode code="get_synonym_map" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-synonym_map_name"><code>synonym_map_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-synonym_map_name"><code>synonym_map_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves a synonym map definition.</td>
 </tr>
@@ -80,10 +80,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>Search service name. (default: )</td>
 </tr>
 <tr id="parameter-synonym_map_name">
     <td><CopyableCode code="synonym_map_name" /></td>
@@ -108,10 +108,10 @@ Creates a new synonym map.
 
 ```sql
 INSERT INTO azure.search_documents.synonym_maps (
-endpoint
+search_service_name
 )
 SELECT 
-'{{ endpoint }}'
+'{{ search_service_name }}'
 ;
 ```
 </TabItem>
@@ -120,8 +120,8 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: synonym_maps
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: search_service_name
+      value: "{{ search_service_name }}"
       description: Required parameter for the synonym_maps resource.
 `}</CodeBlock>
 
@@ -144,7 +144,7 @@ Retrieves a synonym map definition.
 ```sql
 EXEC azure.search_documents.synonym_maps.get_synonym_map 
 @synonym_map_name='{{ synonym_map_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

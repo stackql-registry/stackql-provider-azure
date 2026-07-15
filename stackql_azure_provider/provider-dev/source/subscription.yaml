@@ -1071,11 +1071,11 @@ paths:
           type: string
         description: The ID of the target subscription. The value must be an UUID. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: subscriptions
       x-stackql-method: delete_target_directory
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /providers/Microsoft.Subscription/subscriptions/{subscription_id}/acceptChangeTenant?api-version=2025-11-01-preview:
     post:
       operationId: Subscriptions_accept_target_directory

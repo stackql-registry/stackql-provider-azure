@@ -32,8 +32,47 @@ Creates, updates, deletes, gets or lists a <code>bastion_shareable_links</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_bastion_shareable_link"
+    values={[
+        { label: 'get_bastion_shareable_link', value: 'get_bastion_shareable_link' }
+    ]}
+>
+<TabItem value="get_bastion_shareable_link">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="bsl" /></td>
+    <td><code>string</code></td>
+    <td>The unique Bastion Shareable Link to the virtual machine.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdAt" /></td>
+    <td><code>string</code></td>
+    <td>The time when the link was created.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Optional field indicating the warning or error message related to the vm in case of partial failure.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="vm" /></td>
+    <td><code>object</code></td>
+    <td>Reference of the virtual machine resource. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +90,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_bastion_shareable_link"><CopyableCode code="get_bastion_shareable_link" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-bastion_host_name"><code>bastion_host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Return the Bastion Shareable Links for all the VMs specified in the request.</td>
+</tr>
+<tr>
     <td><a href="#delete_bastion_shareable_link"><CopyableCode code="delete_bastion_shareable_link" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-bastion_host_name"><code>bastion_host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes the Bastion Shareable Links for all the VMs specified in the request.</td>
-</tr>
-<tr>
-    <td><a href="#get_bastion_shareable_link"><CopyableCode code="get_bastion_shareable_link" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-bastion_host_name"><code>bastion_host_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Return the Bastion Shareable Links for all the VMs specified in the request.</td>
 </tr>
 <tr>
     <td><a href="#put_bastion_shareable_link"><CopyableCode code="put_bastion_shareable_link" /></a></td>
@@ -112,6 +151,34 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get_bastion_shareable_link"
+    values={[
+        { label: 'get_bastion_shareable_link', value: 'get_bastion_shareable_link' }
+    ]}
+>
+<TabItem value="get_bastion_shareable_link">
+
+Return the Bastion Shareable Links for all the VMs specified in the request.
+
+```sql
+SELECT
+bsl,
+createdAt,
+message,
+vm
+FROM azure.network.bastion_shareable_links
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND bastion_host_name = '{{ bastion_host_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
 ## `DELETE` examples
 
 <Tabs
@@ -138,29 +205,12 @@ AND subscription_id = '{{ subscription_id }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_bastion_shareable_link"
+    defaultValue="put_bastion_shareable_link"
     values={[
-        { label: 'get_bastion_shareable_link', value: 'get_bastion_shareable_link' },
         { label: 'put_bastion_shareable_link', value: 'put_bastion_shareable_link' },
         { label: 'delete_bastion_shareable_link_by_token', value: 'delete_bastion_shareable_link_by_token' }
     ]}
 >
-<TabItem value="get_bastion_shareable_link">
-
-Return the Bastion Shareable Links for all the VMs specified in the request.
-
-```sql
-EXEC azure.network.bastion_shareable_links.get_bastion_shareable_link 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@bastion_host_name='{{ bastion_host_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"vms": "{{ vms }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="put_bastion_shareable_link">
 
 Creates a Bastion Shareable Links for all the VMs specified in the request.

@@ -87,14 +87,6 @@ components:
       required:
       - id
       - isDataAction
-    CheckPrincipalAccessResponse:
-      type: object
-      description: Check access response details.
-      properties:
-        accessDecisions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckAccessDecision'
     CheckAccessDecision:
       type: object
       description: Check access response details.
@@ -105,6 +97,14 @@ components:
           type: string
         roleAssignment:
           $ref: '#/components/schemas/RoleAssignmentDetails'
+    CheckPrincipalAccessResponse:
+      type: object
+      description: Check access response details.
+      properties:
+        accessDecisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckAccessDecision'
     SynapseRbacPermission:
       type: object
       description: Synapse role definition details.
@@ -268,11 +268,11 @@ paths:
           type: string
         description: The ID of the role assignment.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: role_assignments
       x-stackql-method: delete_role_assignment_by_id
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /rbac/getMyAssignedRoles?api-version=2020-02-01-preview:
     post:
       operationId: AccessControlClient_get_caller_role_assignments
@@ -283,7 +283,7 @@ paths:
           description: Success
       x-stackql-resource: caller_role_assignments
       x-stackql-method: get_caller_role_assignments
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /roleAssignments?api-version=2020-12-01:
     get:
       operationId: RoleAssignments_list_role_assignments
@@ -401,11 +401,11 @@ paths:
           type: string
         description: Scope of the Synapse Built-in Role.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: role_assignments
       x-stackql-method: delete_role_assignment_by_id
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /checkAccessSynapseRbac?api-version=2020-12-01:
     post:
       operationId: RoleAssignments_check_principal_access
@@ -439,7 +439,7 @@ paths:
                 $ref: '#/components/schemas/CheckPrincipalAccessResponse'
       x-stackql-resource: role_assignments
       x-stackql-method: check_principal_access
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /roleDefinitions?api-version=2020-12-01:
     get:
       operationId: RoleDefinitions_list_role_definitions

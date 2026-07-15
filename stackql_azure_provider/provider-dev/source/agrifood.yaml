@@ -1438,7 +1438,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: locations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.AgFoodPlatform/operations?api-version=2021-09-01-preview:
     get:
       operationId: agrifood_list

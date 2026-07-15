@@ -5060,7 +5060,7 @@ paths:
                 $ref: '#/components/schemas/ApmSecretKeys'
       x-stackql-resource: apms
       x-stackql-method: list_secret_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/applicationAccelerators/{application_accelerator_name}?api-version=2023-12-01
   : get:
       operationId: ApplicationAccelerators_get
@@ -5642,7 +5642,7 @@ paths:
                 $ref: '#/components/schemas/ResourceUploadDefinition'
       x-stackql-resource: apps
       x-stackql-method: get_resource_upload_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/apps/{app_name}/setActiveDeployments?api-version=2023-12-01
   : post:
       operationId: Apps_begin_set_active_deployments
@@ -6080,7 +6080,7 @@ paths:
                 $ref: '#/components/schemas/BuildServiceAgentPoolResource'
       x-stackql-resource: build_service_agent_pool
       x-stackql-method: update_put
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/buildServices/{build_service_name}/agentPools?api-version=2023-12-01
   : get:
       operationId: BuildServiceAgentPool_list
@@ -6349,7 +6349,7 @@ paths:
                 $ref: '#/components/schemas/DeploymentList'
       x-stackql-resource: build_service_builder
       x-stackql-method: list_deployments
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/buildServices/{build_service_name}?api-version=2023-12-01
   : put:
       operationId: BuildService_begin_create_or_update
@@ -6890,7 +6890,7 @@ paths:
                 $ref: '#/components/schemas/BuildResultLog'
       x-stackql-resource: build_service
       x-stackql-method: get_build_result_log
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/buildServices/{build_service_name}/getResourceUploadUrl?api-version=2023-12-01
   : post:
       operationId: BuildService_get_resource_upload_url
@@ -6929,7 +6929,7 @@ paths:
                 $ref: '#/components/schemas/ResourceUploadDefinition'
       x-stackql-resource: build_service
       x-stackql-method: get_resource_upload_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/buildServices/{build_service_name}/supportedBuildpacks/{buildpack_name}?api-version=2023-12-01
   : get:
       operationId: BuildService_get_supported_buildpack
@@ -7497,7 +7497,7 @@ paths:
                 $ref: '#/components/schemas/ConfigServerResource'
       x-stackql-resource: config_servers
       x-stackql-method: update_put
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     patch:
       operationId: ConfigServers_begin_update_patch
       description: Update the config server.
@@ -7539,7 +7539,7 @@ paths:
                 $ref: '#/components/schemas/ConfigServerResource'
       x-stackql-resource: config_servers
       x-stackql-method: update_patch
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/configServers/validate?api-version=2023-12-01
   : post:
       operationId: ConfigServers_begin_validate
@@ -8872,7 +8872,7 @@ paths:
                 $ref: '#/components/schemas/RemoteDebugging'
       x-stackql-resource: deployments
       x-stackql-method: get_remote_debugging_config
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/apps/{app_name}/deployments/{deployment_name}/getLogFileUrl?api-version=2023-12-01
   : post:
       operationId: Deployments_get_log_file_url
@@ -8917,7 +8917,7 @@ paths:
                 $ref: '#/components/schemas/LogFileUrlResponse'
       x-stackql-resource: deployments
       x-stackql-method: get_log_file_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/apps/{app_name}/deployments/{deployment_name}/start?api-version=2023-12-01
   : post:
       operationId: Deployments_begin_start
@@ -10030,7 +10030,7 @@ paths:
           description: Success
       x-stackql-resource: gateways
       x-stackql-method: list_env_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/gateways/{gateway_name}/restart?api-version=2023-12-01
   : post:
       operationId: Gateways_begin_restart
@@ -10192,7 +10192,7 @@ paths:
                 $ref: '#/components/schemas/MonitoringSettingResource'
       x-stackql-resource: monitoring_settings
       x-stackql-method: update_put
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     patch:
       operationId: MonitoringSettings_begin_update_patch
       description: Update the Monitoring Setting.
@@ -10234,7 +10234,7 @@ paths:
                 $ref: '#/components/schemas/MonitoringSettingResource'
       x-stackql-resource: monitoring_settings
       x-stackql-method: update_patch
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /providers/Microsoft.AppPlatform/operations?api-version=2023-12-01:
     get:
       operationId: appplatform_list
@@ -10837,7 +10837,7 @@ paths:
                 $ref: '#/components/schemas/TestKeys'
       x-stackql-resource: services
       x-stackql-method: list_test_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/supportedApmTypes?api-version=2023-12-01
   : get:
       operationId: Services_list_supported_apm_types
@@ -10904,7 +10904,7 @@ paths:
                 $ref: '#/components/schemas/GloballyEnabledApms'
       x-stackql-resource: services
       x-stackql-method: list_globally_enabled_apms
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppPlatform/Spring/{service_name}/supportedServerVersions?api-version=2023-12-01
   : get:
       operationId: Services_list_supported_server_versions
@@ -11256,7 +11256,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailability'
       x-stackql-resource: services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.AppPlatform/skus?api-version=2023-12-01:
     get:
       operationId: Skus_list

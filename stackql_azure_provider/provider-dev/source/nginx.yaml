@@ -544,6 +544,17 @@ components:
       enum:
       - Info
       - Warning
+    NginxDeploymentDefaultWafPolicyProperties:
+      type: object
+      description: Nginx Deployment Default Waf Policy Properties.
+      properties:
+        content:
+          type: string
+          format: byte
+          description: ':vartype content: bytes'
+        filepath:
+          type: string
+          description: ':vartype filepath: str'
     NginxDeploymentDefaultWafPolicyListResponse:
       type: object
       description: Nginx Deployment Default Waf Policy List Response.
@@ -556,17 +567,6 @@ components:
         nextLink:
           type: string
           description: ':vartype next_link: str'
-    NginxDeploymentDefaultWafPolicyProperties:
-      type: object
-      description: Nginx Deployment Default Waf Policy Properties.
-      properties:
-        content:
-          type: string
-          format: byte
-          description: ':vartype content: bytes'
-        filepath:
-          type: string
-          description: ':vartype filepath: str'
     NginxDeploymentProperties:
       type: object
       description: Nginx Deployment Properties.
@@ -1805,7 +1805,7 @@ paths:
                 $ref: '#/components/schemas/NginxDeploymentDefaultWafPolicyListResponse'
       x-stackql-resource: default_waf_policy
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Nginx.NginxPlus/nginxDeployments/{deployment_name}?api-version=2025-11-01
   : get:
       operationId: Deployments_get

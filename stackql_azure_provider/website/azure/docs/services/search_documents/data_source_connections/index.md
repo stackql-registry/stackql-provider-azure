@@ -53,14 +53,14 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_data_source_connection"><CopyableCode code="create_data_source_connection" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Creates a new datasource.</td>
 </tr>
 <tr>
     <td><a href="#get_data_source_connection"><CopyableCode code="get_data_source_connection" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-data_source_name"><code>data_source_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-data_source_name"><code>data_source_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves a datasource definition.</td>
 </tr>
@@ -85,10 +85,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>The name of the datasource. Required.</td>
 </tr>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>Search service name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -108,10 +108,10 @@ Creates a new datasource.
 
 ```sql
 INSERT INTO azure.search_documents.data_source_connections (
-endpoint
+search_service_name
 )
 SELECT 
-'{{ endpoint }}'
+'{{ search_service_name }}'
 ;
 ```
 </TabItem>
@@ -120,8 +120,8 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: data_source_connections
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: search_service_name
+      value: "{{ search_service_name }}"
       description: Required parameter for the data_source_connections resource.
 `}</CodeBlock>
 
@@ -144,7 +144,7 @@ Retrieves a datasource definition.
 ```sql
 EXEC azure.search_documents.data_source_connections.get_data_source_connection 
 @data_source_name='{{ data_source_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

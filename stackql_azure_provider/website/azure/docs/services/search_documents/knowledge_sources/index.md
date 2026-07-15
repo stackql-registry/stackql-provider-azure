@@ -53,21 +53,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#create_knowledge_source"><CopyableCode code="create_knowledge_source" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Creates a new knowledge source.</td>
 </tr>
 <tr>
     <td><a href="#list_knowledge_sources"><CopyableCode code="list_knowledge_sources" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Lists all knowledge sources available for a search service.</td>
 </tr>
 <tr>
     <td><a href="#get_knowledge_source"><CopyableCode code="get_knowledge_source" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-source_name"><code>source_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-source_name"><code>source_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves a knowledge source definition.</td>
 </tr>
@@ -87,10 +87,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>Search service name. (default: )</td>
 </tr>
 <tr id="parameter-source_name">
     <td><CopyableCode code="source_name" /></td>
@@ -115,10 +115,10 @@ Creates a new knowledge source.
 
 ```sql
 INSERT INTO azure.search_documents.knowledge_sources (
-endpoint
+search_service_name
 )
 SELECT 
-'{{ endpoint }}'
+'{{ search_service_name }}'
 ;
 ```
 </TabItem>
@@ -127,8 +127,8 @@ SELECT
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: knowledge_sources
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
+    - name: search_service_name
+      value: "{{ search_service_name }}"
       description: Required parameter for the knowledge_sources resource.
 `}</CodeBlock>
 
@@ -151,7 +151,7 @@ Lists all knowledge sources available for a search service.
 
 ```sql
 EXEC azure.search_documents.knowledge_sources.list_knowledge_sources 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>
@@ -162,7 +162,7 @@ Retrieves a knowledge source definition.
 ```sql
 EXEC azure.search_documents.knowledge_sources.get_knowledge_source 
 @source_name='{{ source_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

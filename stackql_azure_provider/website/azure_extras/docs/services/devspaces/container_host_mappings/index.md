@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>container_host_mappings</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_container_host_mapping"
+    values={[
+        { label: 'get_container_host_mapping', value: 'get_container_host_mapping' }
+    ]}
+>
+<TabItem value="get_container_host_mapping">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="containerHostResourceId" /></td>
+    <td><code>string</code></td>
+    <td>ARM ID of the Container Host resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="mappedControllerResourceId" /></td>
+    <td><code>string</code></td>
+    <td>ARM ID of the mapped Controller resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +81,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_container_host_mapping"><CopyableCode code="get_container_host_mapping" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-location"><code>location</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns container host mapping object for a container host resource ID if an associated controller exists. Returns container host mapping object for a container host resource ID if an associated controller exists.</td>
@@ -91,7 +120,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_container_host_mapping"
@@ -104,14 +133,13 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Returns container host mapping object for a container host resource ID if an associated controller exists. Returns container host mapping object for a container host resource ID if an associated controller exists.
 
 ```sql
-EXEC azure_extras.devspaces.container_host_mappings.get_container_host_mapping 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@location='{{ location }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"containerHostResourceId": "{{ containerHostResourceId }}"
-}'
+SELECT
+containerHostResourceId,
+mappedControllerResourceId
+FROM azure_extras.devspaces.container_host_mappings
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND location = '{{ location }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

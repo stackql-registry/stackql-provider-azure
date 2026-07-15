@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists an <code>organizations</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_api_key"
+    values={[
+        { label: 'get_api_key', value: 'get_api_key' }
+    ]}
+>
+<TabItem value="get_api_key">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="apiKey" /></td>
+    <td><code>string</code></td>
+    <td>The User Api Key Generated based on GenerateApiKey flag. This is applicable for non-Portal clients only.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_api_key"><CopyableCode code="get_api_key" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Fetch the User API Key from the internal database, if it was generated and stored during the creation of the Elasticsearch Organization. Fetch the User API Key from the internal database, if it was generated and stored during the creation of the Elasticsearch Organization.</td>
@@ -105,14 +129,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_api_key"
     values={[
-        { label: 'get_api_key', value: 'get_api_key' },
-        { label: 'get_elastic_to_azure_subscription_mapping', value: 'get_elastic_to_azure_subscription_mapping' },
-        { label: 'resubscribe', value: 'resubscribe' }
+        { label: 'get_api_key', value: 'get_api_key' }
     ]}
 >
 <TabItem value="get_api_key">
@@ -120,15 +142,25 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Fetch the User API Key from the internal database, if it was generated and stored during the creation of the Elasticsearch Organization. Fetch the User API Key from the internal database, if it was generated and stored during the creation of the Elasticsearch Organization.
 
 ```sql
-EXEC azure_isv.elastic.organizations.get_api_key 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"emailId": "{{ emailId }}"
-}'
+SELECT
+apiKey
+FROM azure_isv.elastic.organizations
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="get_elastic_to_azure_subscription_mapping"
+    values={[
+        { label: 'get_elastic_to_azure_subscription_mapping', value: 'get_elastic_to_azure_subscription_mapping' },
+        { label: 'resubscribe', value: 'resubscribe' }
+    ]}
+>
 <TabItem value="get_elastic_to_azure_subscription_mapping">
 
 Retrieve mapping details between the Elastic Organization and Azure Subscription for the logged-in user. Retrieve mapping details between the Elastic Organization and Azure Subscription for the logged-in user.

@@ -1808,7 +1808,7 @@ paths:
                 $ref: '#/components/schemas/RouteDirections'
       x-stackql-resource: route
       x-stackql-method: get_route_directions_with_additional_parameters
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /route/range/{format}?api-version=1.0:
     get:
       operationId: Route_get_route_range

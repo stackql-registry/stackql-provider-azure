@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#retrieve"><CopyableCode code="retrieve" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td><a href="#parameter-x-ms-query-source-authorization"><code>x-ms-query-source-authorization</code></a></td>
     <td>KnowledgeBase retrieves relevant data from backing stores.</td>
 </tr>
@@ -73,15 +73,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
-</tr>
 <tr id="parameter-knowledge_base_name">
     <td><CopyableCode code="knowledge_base_name" /></td>
     <td><code>string</code></td>
     <td></td>
+</tr>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
+    <td><code>string</code></td>
+    <td>Search service name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-query-source-authorization">
     <td><CopyableCode code="x-ms-query-source-authorization" /></td>
@@ -106,7 +106,7 @@ KnowledgeBase retrieves relevant data from backing stores.
 ```sql
 EXEC azure.search_documents.retrieves.retrieve 
 @knowledge_base_name='{{ knowledge_base_name }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@search_service_name='{{ search_service_name }}' --required, 
 @x-ms-query-source-authorization='{{ x-ms-query-source-authorization }}'
 ;
 ```

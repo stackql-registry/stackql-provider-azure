@@ -1544,6 +1544,11 @@ components:
           $ref: '#/components/schemas/PublicNetworkAccess'
           description: 'Control permission for data plane traffic coming from public networks while private endpoint
             is enabled. Known values are: "Enabled" and "Disabled".'
+    ServiceNameUnavailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     ServicesNameAvailabilityInfo:
       type: object
       description: The properties indicating whether a given service name is available.
@@ -1557,11 +1562,6 @@ components:
         message:
           type: string
           description: The detailed reason message.
-    ServiceNameUnavailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     PagedPrivateLinkResourceDescriptionFlattened:
       type: object
       properties:
@@ -3043,7 +3043,7 @@ paths:
                 $ref: '#/components/schemas/ServicesNameAvailabilityInfo'
       x-stackql-resource: services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.HealthcareApis/workspaces/{workspace_name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2025-04-01-preview
   : get:
       operationId: WorkspacePrivateEndpointConnections_get

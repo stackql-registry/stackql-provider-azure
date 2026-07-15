@@ -795,6 +795,11 @@ components:
         kind:
           type: string
           description: Kind of resource.
+    DomainType:
+      type: string
+      enum:
+      - Regular
+      - SoftDeleted
     DomainAvailabilityCheckResult:
       type: object
       description: Domain availability check result.
@@ -810,11 +815,6 @@ components:
           description: 'Valid values are Regular domain: Azure will charge the full price of domain registration,
             SoftDeleted: Purchasing this domain will simply restore it and this operation will not cost anything.
             Known values are: "Regular" and "SoftDeleted".'
-    DomainType:
-      type: string
-      enum:
-      - Regular
-      - SoftDeleted
     TopLevelDomainProperties:
       type: object
       description: TopLevelDomain resource specific properties.
@@ -1187,7 +1187,8 @@ paths:
                 $ref: '#/components/schemas/PagedNameIdentifier'
       x-stackql-resource: domains
       x-stackql-method: list_recommendations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DomainRegistration/domains/{domain_name}/domainOwnershipIdentifiers/{name}?api-version=2024-11-01
   : get:
       operationId: Domains_get_ownership_identifier
@@ -1278,7 +1279,7 @@ paths:
                 $ref: '#/components/schemas/DomainOwnershipIdentifier'
       x-stackql-resource: domains
       x-stackql-method: create_or_update_ownership_identifier
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Domains_update_ownership_identifier
       description: Creates an ownership identifier for a domain or updates identifier details for an existing identifier.
@@ -1330,7 +1331,7 @@ paths:
                 $ref: '#/components/schemas/DomainOwnershipIdentifier'
       x-stackql-resource: domains
       x-stackql-method: update_ownership_identifier
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: Domains_delete_ownership_identifier
       description: Delete ownership identifier for domain. Description for Delete ownership identifier for domain.
@@ -1359,11 +1360,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: domains
       x-stackql-method: delete_ownership_identifier
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.DomainRegistration/generateSsoRequest?api-version=2024-11-01:
     post:
       operationId: Domains_get_control_center_sso_request
@@ -1384,7 +1385,7 @@ paths:
                 $ref: '#/components/schemas/DomainControlCenterSsoRequest'
       x-stackql-resource: domains
       x-stackql-method: get_control_center_sso_request
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DomainRegistration/domains/{domain_name}/renew?api-version=2024-11-01
   : post:
       operationId: Domains_renew
@@ -1475,7 +1476,7 @@ paths:
                 $ref: '#/components/schemas/DomainAvailabilityCheckResult'
       x-stackql-resource: domains
       x-stackql-method: check_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.DomainRegistration/topLevelDomains/{name}?api-version=2024-11-01:
     get:
       operationId: TopLevelDomains_get
@@ -1568,4 +1569,5 @@ paths:
                 $ref: '#/components/schemas/PagedTldLegalAgreement'
       x-stackql-resource: top_level_domains
       x-stackql-method: list_agreements
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value

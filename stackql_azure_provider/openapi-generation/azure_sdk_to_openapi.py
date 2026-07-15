@@ -1203,11 +1203,75 @@ _LIST_QUALIFIERS = re.compile(
 )
 
 
-def infer_verb(method_name: str, http_method: str) -> str:
+_MUTATION_PREFIXES = (
+    "create_or_update", "create_or_replace", "create_update", "create",
+    "update", "replace", "set", "delete", "purge",
+)
+_NOUN_QUALIFIERS = re.compile(r"^(by|in|at|with|all)(_|$)")
+
+
+def _mutation_noun(n: str) -> Optional[str]:
+    """Trailing noun of a mutation method after its verb prefix, or None if
+    the method has no mutation prefix. Qualifier tails (by_*/in_*/all/...)
+    count as no noun."""
+    for p in _MUTATION_PREFIXES:
+        if n == p:
+            return ""
+        if n.startswith(p + "_"):
+            rest = n[len(p) + 1:]
+            if not rest or _NOUN_QUALIFIERS.match(rest):
+                return ""
+            return rest
+    return None
+
+
+def _noun_targets_resource(noun: str, resource: str) -> bool:
+    """Does a mutation method's trailing noun address the resource itself
+    (vs a sub-object)? `tags` always counts as a field update on the
+    resource. Matching is loose across singular/plural/group-prefix forms:
+    create_update_table targets table_resources, set_secret targets secrets.
+    """
+    if noun == "" or noun == "tags":
+        return True
+    if resource in (noun, pluralise(noun)):
+        return True
+    if resource.startswith(noun) or pluralise(noun).startswith(resource):
+        return True
+    return False
+
+
+_READ_PREFIX = re.compile(
+    r"^(get|list|query|search|check|find|fetch|lookup|retrieve)(_|$)"
+)
+
+
+def infer_verb(method_name: str, http_method: str, resource: str = "") -> str:
     n = method_name[6:] if method_name.startswith("begin_") else method_name
     if http_method == "get" and (n == "get" or n == "list" or n.startswith("get_") or n.startswith("list_")):
         return "SELECT"
-    if n.startswith("create_or_update") or n.startswith("create_or_replace"):
+    # RULE (POST reads are SELECTs): Azure uses POST for read operations that
+    # carry a body or return secrets (checkNameAvailability, listKeys,
+    # policyinsights queries, list_available_*). A read-prefixed POST is
+    # non-mutating by convention and returns data - map it to SELECT; the
+    # stage-2 zero-column guard still demotes any without an introspectable
+    # row schema. (POST-with-body SELECTs are the proven aws-json pattern.)
+    if http_method == "post" and _READ_PREFIX.match(n):
+        return "SELECT"
+
+    # RULE (sub-object demotion): a mutation-shaped method whose trailing
+    # noun does NOT address the resource itself (create_or_update_
+    # immutability_policy on blob_containers, update_table_throughput on
+    # table_resources, delete_instances on virtual_machine_scale_sets) is
+    # EXEC-only. Mutation buckets must contain only methods that mutate the
+    # resource - required because router precedence within a bucket is
+    # strictly most-descriptive-signature-first, and a sub-object method
+    # with a longer signature would otherwise capture the resource's own
+    # INSERT/UPDATE/DELETE.
+    noun = _mutation_noun(n)
+    if noun is not None and resource and not _noun_targets_resource(noun, resource):
+        return "EXEC"
+
+    if n.startswith("create_or_update") or n.startswith("create_or_replace") or n.startswith("create_update"):
         return "INSERT"
     if n.startswith("create") and http_method in ("put", "post"):
         return "INSERT"
@@ -1542,10 +1606,10 @@ def build_spec_for_package(
 
         method_name = op.name[6:] if op.name.startswith("begin_") else op.name
         resource = infer_resource(op.group, op.name, alias)
-        verb = infer_verb(op.name, bf.http_method)
         # mastered fix-ups (name-overrides.json) applied over the inference
         resource = OVERRIDES.resource_name(alias, resource)
         method_name = OVERRIDES.method_name(alias, resource, method_name)
+        verb = infer_verb(op.name, bf.http_method, resource)
         verb = OVERRIDES.verb(alias, resource, method_name, verb)
 
         url_snaked, renames = snake_path(bf.url)
@@ -1696,6 +1760,43 @@ def build_spec_for_package(
                     flatten_kind = "singleton"
                 else:
                     response_schema = model_index.ref(model_name)
+        elif verb == "SELECT" and (
+            m_ps := re.search(r"\b(?:ItemPaged|AsyncItemPaged|Iterable)\[\s*['\"]?(str|int|float|bool)\b", ret)
+        ):
+            # paged scalar rows (ItemPaged[str]): wire is {value: ["a", ...]};
+            # wrap each element as {"value": <scalar>} via a response template
+            # so the rows have an introspectable column
+            st = {"str": "string", "int": "integer", "float": "number", "bool": "boolean"}[m_ps.group(1)]
+            key = _safe_property_name((op.paged_key or "value").split(":")[-1])
+            response_schema = {
+                "type": "object",
+                "properties": {
+                    key: {"type": "array", "items": {"type": "object", "properties": {"value": {"type": st}}}},
+                    "nextLink": {"type": "string"},
+                },
+            }
+            object_key = f"$.{key}"
+            flatten_kind = "scalar_list_paged"
+        elif verb == "SELECT" and (
+            m_ls := re.match(r"^(?:typing\.)?(?:List|list|Sequence)\[\s*['\"]?(str|int|float|bool)\b", ret)
+        ):
+            # bare array-of-scalar body: wrap as {"value": [{"value": s}, ...]}
+            st = {"str": "string", "int": "integer", "float": "number", "bool": "boolean"}[m_ls.group(1)]
+            response_schema = {
+                "type": "object",
+                "properties": {
+                    "value": {"type": "array", "items": {"type": "object", "properties": {"value": {"type": st}}}},
+                },
+            }
+            object_key = "$.value"
+            flatten_kind = "scalar_list"
+        elif verb == "SELECT" and ret in ("str", "int", "float"):
+            # bare scalar body -> single row {"value": <scalar>}. bool returns
+            # are deliberately excluded: they are almost always header-only
+            # existence checks (get_entity_tag) with EMPTY bodies.
+            st = {"str": "string", "int": "integer", "float": "number"}[ret]
+            response_schema = {"type": "object", "properties": {"value": {"type": st}}}
+            flatten_kind = "scalar"
         elif re.search(r"->?\s*bool$", ret) or ret == "bool":
             response_schema = {"type": "boolean"}
 

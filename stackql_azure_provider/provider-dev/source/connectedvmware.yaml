@@ -2893,7 +2893,7 @@ paths:
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenter_name}/inventoryItems?api-version=2023-10-01
   : get:
-      operationId: InventoryItems_list_by_v_center
+      operationId: InventoryItems_list_by_vcenter
       description: Implements GET inventoryItems in a vCenter. Returns the list of inventoryItems of the given vCenter.
       parameters:
       - name: resource_group_name
@@ -2921,7 +2921,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PagedInventoryItemFlattened'
       x-stackql-resource: inventory_items
-      x-stackql-method: list_by_v_center
+      x-stackql-method: list_by_vcenter
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
       x-stackql-flatten: list
@@ -3199,7 +3199,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VCenterFlattened'
-      x-stackql-resource: v_centers
+      x-stackql-resource: vcenters
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -3268,7 +3268,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VCenter'
-      x-stackql-resource: v_centers
+      x-stackql-resource: vcenters
       x-stackql-method: create
       x-stackql-verb: INSERT
     patch:
@@ -3310,7 +3310,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VCenter'
-      x-stackql-resource: v_centers
+      x-stackql-resource: vcenters
       x-stackql-method: update
       x-stackql-verb: UPDATE
     delete:
@@ -3343,7 +3343,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: v_centers
+      x-stackql-resource: vcenters
       x-stackql-method: delete
       x-stackql-verb: DELETE
   /subscriptions/{subscription_id}/providers/Microsoft.ConnectedVMwarevSphere/vcenters?api-version=2023-10-01:
@@ -3363,7 +3363,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedVCenterFlattened'
-      x-stackql-resource: v_centers
+      x-stackql-resource: vcenters
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -3392,7 +3392,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedVCenterFlattened'
-      x-stackql-resource: v_centers
+      x-stackql-resource: vcenters
       x-stackql-method: list_by_resource_group
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value

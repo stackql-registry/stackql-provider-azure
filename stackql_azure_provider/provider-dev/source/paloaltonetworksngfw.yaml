@@ -726,32 +726,6 @@ components:
           description: rulestack description. Required.
       required:
       - azureId
-    LogSettings:
-      type: object
-      description: Log Settings for Firewall.
-      properties:
-        logType:
-          type: string
-          description: 'One of possible log type. Known values are: "TRAFFIC", "THREAT", "DECRYPTION", "WILDFIRE",
-            "DLP", and "AUDIT".'
-        logOption:
-          type: string
-          description: 'Log option SAME/INDIVIDUAL. Known values are: "SAME_DESTINATION" and "INDIVIDUAL_DESTINATION".'
-        applicationInsights:
-          $ref: '#/components/schemas/ApplicationInsights'
-          description: Application Insight details.
-        commonDestination:
-          $ref: '#/components/schemas/LogDestination'
-          description: Common destination configurations.
-        trafficLogDestination:
-          $ref: '#/components/schemas/LogDestination'
-          description: Traffic destination configurations.
-        threatLogDestination:
-          $ref: '#/components/schemas/LogDestination'
-          description: Threat destination configurations.
-        decryptLogDestination:
-          $ref: '#/components/schemas/LogDestination'
-          description: Decrypt destination configurations.
     ApplicationInsights:
       type: object
       description: Application Insights key.
@@ -826,6 +800,32 @@ components:
         secondaryKey:
           type: string
           description: Secondary Key value for Monitor.
+    LogSettings:
+      type: object
+      description: Log Settings for Firewall.
+      properties:
+        logType:
+          type: string
+          description: 'One of possible log type. Known values are: "TRAFFIC", "THREAT", "DECRYPTION", "WILDFIRE",
+            "DLP", and "AUDIT".'
+        logOption:
+          type: string
+          description: 'Log option SAME/INDIVIDUAL. Known values are: "SAME_DESTINATION" and "INDIVIDUAL_DESTINATION".'
+        applicationInsights:
+          $ref: '#/components/schemas/ApplicationInsights'
+          description: Application Insight details.
+        commonDestination:
+          $ref: '#/components/schemas/LogDestination'
+          description: Common destination configurations.
+        trafficLogDestination:
+          $ref: '#/components/schemas/LogDestination'
+          description: Traffic destination configurations.
+        threatLogDestination:
+          $ref: '#/components/schemas/LogDestination'
+          description: Threat destination configurations.
+        decryptLogDestination:
+          $ref: '#/components/schemas/LogDestination'
+          description: Decrypt destination configurations.
     SupportInfo:
       type: object
       description: Support information for the resource.
@@ -1220,18 +1220,6 @@ components:
               description: Security Profile.
       required:
       - location
-    AdvSecurityObjectListResponse:
-      type: object
-      description: advanced security object. All required parameters must be populated in order to send to server.
-      properties:
-        value:
-          $ref: '#/components/schemas/AdvSecurityObjectModel'
-          description: response value. Required.
-        nextLink:
-          type: string
-          description: next link.
-      required:
-      - value
     AdvSecurityObjectModel:
       type: object
       description: List of custom and predefined url category. All required parameters must be populated in order
@@ -1259,6 +1247,18 @@ components:
           description: description value.
       required:
       - name
+    AdvSecurityObjectListResponse:
+      type: object
+      description: advanced security object. All required parameters must be populated in order to send to server.
+      properties:
+        value:
+          $ref: '#/components/schemas/AdvSecurityObjectModel'
+          description: response value. Required.
+        nextLink:
+          type: string
+          description: next link.
+      required:
+      - value
     ListAppIdResponse:
       type: object
       description: ListAppIdResponse. All required parameters must be populated in order to send to server.
@@ -1273,6 +1273,18 @@ components:
           description: ':vartype next_link: str'
       required:
       - value
+    Country:
+      type: object
+      description: Country Description. All required parameters must be populated in order to send to server.
+      properties:
+        code:
+          type: string
+          description: country code. Required.
+        description:
+          type: string
+          description: code description.
+      required:
+      - code
     CountriesResponse:
       type: object
       description: Countries Response Object. All required parameters must be populated in order to send to server.
@@ -1287,18 +1299,6 @@ components:
           description: The link to the next page of items.
       required:
       - value
-    Country:
-      type: object
-      description: Country Description. All required parameters must be populated in order to send to server.
-      properties:
-        code:
-          type: string
-          description: country code. Required.
-        description:
-          type: string
-          description: code description.
-      required:
-      - code
     ListFirewallsResponse:
       type: object
       description: List firewalls response. All required parameters must be populated in order to send to server.
@@ -1311,21 +1311,6 @@ components:
         nextLink:
           type: string
           description: next link.
-      required:
-      - value
-    PredefinedUrlCategoriesResponse:
-      type: object
-      description: predefined url categories response. All required parameters must be populated in order to send
-        to server.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/PredefinedUrlCategory'
-          description: The PredefinedUrlCategory items on this page. Required.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
       required:
       - value
     PredefinedUrlCategory:
@@ -1342,17 +1327,19 @@ components:
       required:
       - action
       - name
-    SecurityServicesResponse:
+    PredefinedUrlCategoriesResponse:
       type: object
-      description: Security services list response. All required parameters must be populated in order to send to
-        server.
+      description: predefined url categories response. All required parameters must be populated in order to send
+        to server.
       properties:
         value:
-          $ref: '#/components/schemas/SecurityServicesTypeList'
-          description: response value. Required.
+          type: array
+          items:
+            $ref: '#/components/schemas/PredefinedUrlCategory'
+          description: The PredefinedUrlCategory items on this page. Required.
         nextLink:
           type: string
-          description: next link.
+          description: The link to the next page of items.
       required:
       - value
     SecurityServicesTypeList:
@@ -1369,6 +1356,19 @@ components:
           description: list. Required.
       required:
       - entry
+    SecurityServicesResponse:
+      type: object
+      description: Security services list response. All required parameters must be populated in order to send to
+        server.
+      properties:
+        value:
+          $ref: '#/components/schemas/SecurityServicesTypeList'
+          description: response value. Required.
+        nextLink:
+          type: string
+          description: next link.
+      required:
+      - value
     Changelog:
       type: object
       description: Changelog list. All required parameters must be populated in order to send to server.
@@ -1684,46 +1684,6 @@ components:
                 "Deleting", "Succeeded", "Failed", "Canceled", "Deleted", and "NotSpecified".'
       required:
       - properties
-    RuleCounter:
-      type: object
-      description: Rule counter. All required parameters must be populated in order to send to server.
-      properties:
-        priority:
-          type: string
-          description: priority number. Required.
-        ruleStackName:
-          type: string
-          description: rule Stack Name.
-        ruleListName:
-          type: string
-          description: rule list name.
-        firewallName:
-          type: string
-          description: firewall name.
-        ruleName:
-          type: string
-          description: rule name. Required.
-        hitCount:
-          type: integer
-          description: hit count.
-        appSeen:
-          $ref: '#/components/schemas/AppSeenData'
-          description: apps seen.
-        timestamp:
-          type: string
-          format: date-time
-          description: timestamp of response.
-        requestTimestamp:
-          type: string
-          format: date-time
-          description: timestamp of request.
-        lastUpdatedTimestamp:
-          type: string
-          format: date-time
-          description: last updated timestamp.
-      required:
-      - priority
-      - ruleName
     AppSeenData:
       type: object
       description: Data Type for App Seen. All required parameters must be populated in order to send to server.
@@ -1772,6 +1732,46 @@ components:
       - tag
       - technology
       - standardPorts
+    RuleCounter:
+      type: object
+      description: Rule counter. All required parameters must be populated in order to send to server.
+      properties:
+        priority:
+          type: string
+          description: priority number. Required.
+        ruleStackName:
+          type: string
+          description: rule Stack Name.
+        ruleListName:
+          type: string
+          description: rule list name.
+        firewallName:
+          type: string
+          description: firewall name.
+        ruleName:
+          type: string
+          description: rule name. Required.
+        hitCount:
+          type: integer
+          description: hit count.
+        appSeen:
+          $ref: '#/components/schemas/AppSeenData'
+          description: apps seen.
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp of response.
+        requestTimestamp:
+          type: string
+          format: date-time
+          description: timestamp of request.
+        lastUpdatedTimestamp:
+          type: string
+          format: date-time
+          description: last updated timestamp.
+      required:
+      - priority
+      - ruleName
     RuleCounterReset:
       type: object
       description: Rule counter reset. Variables are only populated by the server, and will be ignored when sending
@@ -3362,7 +3362,7 @@ paths:
                 $ref: '#/components/schemas/GlobalRulestackInfo'
       x-stackql-resource: firewalls
       x-stackql-method: get_global_rulestack
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/firewalls/{firewall_name}/getLogProfile?api-version=2025-10-08
   : post:
       operationId: Firewalls_get_log_profile
@@ -3394,7 +3394,7 @@ paths:
                 $ref: '#/components/schemas/LogSettings'
       x-stackql-resource: firewalls
       x-stackql-method: get_log_profile
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/firewalls/{firewall_name}/getSupportInfo?api-version=2025-10-08
   : post:
       operationId: Firewalls_get_support_info
@@ -3432,7 +3432,7 @@ paths:
                 $ref: '#/components/schemas/SupportInfo'
       x-stackql-resource: firewalls
       x-stackql-method: get_support_info
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/firewalls/{firewall_name}/saveLogProfile?api-version=2025-10-08
   : post:
       operationId: Firewalls_save_log_profile
@@ -3980,7 +3980,7 @@ paths:
                 $ref: '#/components/schemas/AdvSecurityObjectListResponse'
       x-stackql-resource: global_rulestack
       x-stackql-method: list_advanced_security_objects
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/listAppIds?api-version=2025-10-08:
     post:
       operationId: GlobalRulestack_list_app_ids
@@ -4025,7 +4025,7 @@ paths:
                 $ref: '#/components/schemas/ListAppIdResponse'
       x-stackql-resource: global_rulestack
       x-stackql-method: list_app_ids
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/listCountries?api-version=2025-10-08:
     post:
       operationId: GlobalRulestack_list_countries
@@ -4058,7 +4058,7 @@ paths:
                 $ref: '#/components/schemas/CountriesResponse'
       x-stackql-resource: global_rulestack
       x-stackql-method: list_countries
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/listFirewalls?api-version=2025-10-08:
     post:
       operationId: GlobalRulestack_list_firewalls
@@ -4079,7 +4079,7 @@ paths:
                 $ref: '#/components/schemas/ListFirewallsResponse'
       x-stackql-resource: global_rulestack
       x-stackql-method: list_firewalls
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/listPredefinedUrlCategories?api-version=2025-10-08
   : post:
       operationId: GlobalRulestack_list_predefined_url_categories
@@ -4112,7 +4112,7 @@ paths:
                 $ref: '#/components/schemas/PredefinedUrlCategoriesResponse'
       x-stackql-resource: global_rulestack
       x-stackql-method: list_predefined_url_categories
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/listSecurityServices?api-version=2025-10-08:
     post:
       operationId: GlobalRulestack_list_security_services
@@ -4152,7 +4152,7 @@ paths:
                 $ref: '#/components/schemas/SecurityServicesResponse'
       x-stackql-resource: global_rulestack
       x-stackql-method: list_security_services
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/getChangeLog?api-version=2025-10-08:
     post:
       operationId: GlobalRulestack_get_change_log
@@ -4173,7 +4173,7 @@ paths:
                 $ref: '#/components/schemas/Changelog'
       x-stackql-resource: global_rulestack
       x-stackql-method: get_change_log
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/commit?api-version=2025-10-08:
     post:
       operationId: GlobalRulestack_begin_commit
@@ -4469,7 +4469,7 @@ paths:
                 $ref: '#/components/schemas/RuleCounter'
       x-stackql-resource: local_rules
       x-stackql-method: get_counters
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/localRules/{priority}/refreshCounters?api-version=2025-10-08
   : post:
       operationId: LocalRules_refresh_counters
@@ -4842,7 +4842,7 @@ paths:
                 $ref: '#/components/schemas/AdvSecurityObjectListResponse'
       x-stackql-resource: local_rulestacks
       x-stackql-method: list_advanced_security_objects
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/listAppIds?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_list_app_ids
@@ -4892,9 +4892,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: local_rulestacks
       x-stackql-method: list_app_ids
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list_paged
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/listCountries?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_list_countries
@@ -4938,7 +4954,8 @@ paths:
                 $ref: '#/components/schemas/PagedCountry'
       x-stackql-resource: local_rulestacks
       x-stackql-method: list_countries
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/listFirewalls?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_list_firewalls
@@ -4970,7 +4987,7 @@ paths:
                 $ref: '#/components/schemas/ListFirewallsResponse'
       x-stackql-resource: local_rulestacks
       x-stackql-method: list_firewalls
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/listPredefinedUrlCategories?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_list_predefined_url_categories
@@ -5014,7 +5031,8 @@ paths:
                 $ref: '#/components/schemas/PagedPredefinedUrlCategory'
       x-stackql-resource: local_rulestacks
       x-stackql-method: list_predefined_url_categories
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/listSecurityServices?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_list_security_services
@@ -5065,7 +5083,7 @@ paths:
                 $ref: '#/components/schemas/SecurityServicesResponse'
       x-stackql-resource: local_rulestacks
       x-stackql-method: list_security_services
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/getChangeLog?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_get_change_log
@@ -5097,7 +5115,7 @@ paths:
                 $ref: '#/components/schemas/Changelog'
       x-stackql-resource: local_rulestacks
       x-stackql-method: get_change_log
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/getSupportInfo?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_get_support_info
@@ -5135,7 +5153,7 @@ paths:
                 $ref: '#/components/schemas/SupportInfo'
       x-stackql-resource: local_rulestacks
       x-stackql-method: get_support_info
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{local_rulestack_name}/commit?api-version=2025-10-08
   : post:
       operationId: LocalRulestacks_begin_commit
@@ -5374,7 +5392,7 @@ paths:
                 $ref: '#/components/schemas/CloudManagerTenantList'
       x-stackql-resource: palo_alto_networks_cloudngfw_operations
       x-stackql-method: list_cloud_manager_tenants
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/PaloAltoNetworks.Cloudngfw/listProductSerialNumberStatus?api-version=2025-10-08:
     post:
       operationId: PaloAltoNetworksCloudngfwOperations_list_product_serial_number_status
@@ -5394,7 +5412,7 @@ paths:
                 $ref: '#/components/schemas/ProductSerialNumberStatus'
       x-stackql-resource: palo_alto_networks_cloudngfw_operations
       x-stackql-method: list_product_serial_number_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/PaloAltoNetworks.Cloudngfw/listSupportInfo?api-version=2025-10-08:
     post:
       operationId: PaloAltoNetworksCloudngfwOperations_list_support_info
@@ -5414,7 +5432,7 @@ paths:
                 $ref: '#/components/schemas/SupportInfoModel'
       x-stackql-resource: palo_alto_networks_cloudngfw_operations
       x-stackql-method: list_support_info
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/PaloAltoNetworks.Cloudngfw/createProductSerialNumber?api-version=2025-10-08:
     post:
       operationId: PaloAltoNetworksCloudngfwOperations_create_product_serial_number
@@ -5434,7 +5452,7 @@ paths:
                 $ref: '#/components/schemas/ProductSerialNumberRequestStatus'
       x-stackql-resource: palo_alto_networks_cloudngfw_operations
       x-stackql-method: create_product_serial_number
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/postRules/{priority}?api-version=2025-10-08:
     get:
       operationId: PostRules_get
@@ -5641,7 +5659,7 @@ paths:
                 $ref: '#/components/schemas/RuleCounter'
       x-stackql-resource: post_rules
       x-stackql-method: get_counters
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/postRules/{priority}/refreshCounters?api-version=2025-10-08
   : post:
       operationId: PostRules_refresh_counters
@@ -5910,7 +5928,7 @@ paths:
                 $ref: '#/components/schemas/RuleCounter'
       x-stackql-resource: pre_rules
       x-stackql-method: get_counters
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{global_rulestack_name}/preRules/{priority}/refreshCounters?api-version=2025-10-08
   : post:
       operationId: PreRules_refresh_counters

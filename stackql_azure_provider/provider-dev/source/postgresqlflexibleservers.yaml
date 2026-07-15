@@ -399,15 +399,6 @@ components:
           description: Backup Name for the current backup. Required.
       required:
       - backupName
-    LtrPreBackupResponse:
-      type: object
-      description: Response for the LTR pre-backup API call.
-      properties:
-        properties:
-          $ref: '#/components/schemas/BackupsLongTermRetentionResponseProperties'
-          description: Additional Properties for the pre backup response. Required.
-      required:
-      - properties
     BackupsLongTermRetentionResponseProperties:
       type: object
       description: Response for the pre-backup request.
@@ -418,6 +409,14 @@ components:
             may be used for size limitations, parallelism, or redundancy etc. Required.
       required:
       - numberOfContainers
+    LtrPreBackupResponseFlattened:
+      type: object
+      description: Flattened view of LtrPreBackupResponse ('properties' hoisted to the top level).
+      properties:
+        numberOfContainers:
+          type: integer
+          description: Number of storage containers the plugin will use during backup. More than one containers
+            may be used for size limitations, parallelism, or redundancy etc. Required.
     BackupStoreDetails:
       type: object
       description: Details about the target where the backup content will be stored.
@@ -2039,6 +2038,11 @@ components:
         targetServerPassword:
           type: string
           description: Password for the user of the target server.
+    MigrationNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     MigrationNameAvailability:
       type: object
       description: Availability of a migration name.
@@ -2061,7 +2065,7 @@ components:
       required:
       - name
       - type
-    MigrationNameAvailabilityReason:
+    CheckNameAvailabilityReason:
       type: string
       enum:
       - Invalid
@@ -2085,11 +2089,6 @@ components:
         type:
           type: string
           description: Type of resource. It can be 'Microsoft.DBforPostgreSQL/flexibleServers' or 'Microsoft.DBforPostgreSQL/flexibleServers/virtualendpoints'.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: Display metadata associated with the operation.
@@ -3515,6 +3514,16 @@ components:
         properties:
           $ref: '#/components/schemas/VirtualEndpointResourceProperties'
           description: Properties of the pair of virtual endpoints.
+    DelegatedSubnetUsage:
+      type: object
+      description: Delegated subnet usage data.
+      properties:
+        subnetName:
+          type: string
+          description: Name of the delegated subnet for which IP addresses are in use.
+        usage:
+          type: integer
+          description: Number of IP addresses used by the delegated subnet.
     VirtualNetworkSubnetUsageModel:
       type: object
       description: Virtual network subnet usage data.
@@ -3530,16 +3539,6 @@ components:
         subscriptionId:
           type: string
           description: subscriptionId of the delegated subnet usage.
-    DelegatedSubnetUsage:
-      type: object
-      description: Delegated subnet usage data.
-      properties:
-        subnetName:
-          type: string
-          description: Name of the delegated subnet for which IP addresses are in use.
-        usage:
-          type: integer
-          description: Number of IP addresses used by the delegated subnet.
 paths:
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{server_name}/administrators/{object_id}?api-version=2026-04-01-preview
   : get:
@@ -4074,10 +4073,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LtrPreBackupResponse'
+                $ref: '#/components/schemas/LtrPreBackupResponseFlattened'
       x-stackql-resource: backups_long_term_retention
       x-stackql-method: check_prerequisites
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{server_name}/startLtrBackup?api-version=2026-04-01-preview
   : post:
       operationId: BackupsLongTermRetention_begin_start
@@ -5222,7 +5222,7 @@ paths:
                 $ref: '#/components/schemas/MigrationNameAvailability'
       x-stackql-resource: migrations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.DBforPostgreSQL/checkNameAvailability?api-version=2026-04-01-preview:
     post:
       operationId: NameAvailability_check_globally
@@ -5256,7 +5256,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityModel'
       x-stackql-resource: name_availability
       x-stackql-method: check_globally
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.DBforPostgreSQL/locations/{location_name}/checkNameAvailability?api-version=2026-04-01-preview
   : post:
       operationId: NameAvailability_check_with_location
@@ -5295,7 +5295,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityModel'
       x-stackql-resource: name_availability
       x-stackql-method: check_with_location
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.DBforPostgreSQL/operations?api-version=2026-04-01-preview:
     get:
       operationId: postgresqlflexibleservers_list
@@ -5322,9 +5322,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: private_dns_zone_suffix
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{server_name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2026-04-01-preview
   : get:
       operationId: PrivateEndpointConnections_get
@@ -6370,4 +6378,4 @@ paths:
                 $ref: '#/components/schemas/VirtualNetworkSubnetUsageModel'
       x-stackql-resource: virtual_network_subnet_usage
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

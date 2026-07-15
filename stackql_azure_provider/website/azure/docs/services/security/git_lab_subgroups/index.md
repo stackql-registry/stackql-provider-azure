@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>git_lab_subgroups</code> resour
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="nextLink" /></td>
+    <td><code>string</code></td>
+    <td>The link to the next page of items.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>array</code></td>
+    <td>The GitLabGroup items on this page.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +80,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-security_connector_name"><code>security_connector_name</code></a>, <a href="#parameter-group_fq_name"><code>group_fq_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets nested subgroups of given GitLab Group which are onboarded to the connector. Gets nested subgroups of given GitLab Group which are onboarded to the connector.</td>
@@ -96,24 +125,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Gets nested subgroups of given GitLab Group which are onboarded to the connector. Gets nested subgroups of given GitLab Group which are onboarded to the connector.
 
 ```sql
-EXEC azure.security.git_lab_subgroups.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@security_connector_name='{{ security_connector_name }}' --required, 
-@group_fq_name='{{ group_fq_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+nextLink,
+value
+FROM azure.security.git_lab_subgroups
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND security_connector_name = '{{ security_connector_name }}' -- required
+AND group_fq_name = '{{ group_fq_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

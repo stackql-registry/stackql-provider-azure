@@ -136,15 +136,6 @@ components:
           description: Kind of matching policy to be applied. Required. "Prebuilt"
       required:
       - kind
-    AnswersResult:
-      type: object
-      description: Represents List of Question Answers.
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/KnowledgeBaseAnswer'
-          description: Represents Answer Result list.
     KnowledgeBaseAnswer:
       type: object
       description: Represents knowledge base answer.
@@ -219,6 +210,15 @@ components:
         length:
           type: integer
           description: The length of the answer span.
+    AnswersResult:
+      type: object
+      description: Represents List of Question Answers.
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeBaseAnswer'
+          description: Represents Answer Result list.
     TextDocument:
       type: object
       description: Represent input text record to be queried.
@@ -238,15 +238,6 @@ components:
       - TextElements_v8
       - UnicodeCodePoint
       - Utf16CodeUnit
-    AnswersFromTextResult:
-      type: object
-      description: Represents the answer results.
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TextAnswer'
-          description: Represents the answer results.
     TextAnswer:
       type: object
       description: Represents answer result.
@@ -269,6 +260,15 @@ components:
         length:
           type: integer
           description: The length of the sentence.
+    AnswersFromTextResult:
+      type: object
+      description: Represents the answer results.
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextAnswer'
+          description: Represents the answer results.
 paths:
   /:query-knowledgebases?api-version=2025-05-15-preview:
     post:
@@ -336,7 +336,7 @@ paths:
                 $ref: '#/components/schemas/AnswersResult'
       x-stackql-resource: answers
       x-stackql-method: get_answers
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /:query-text?api-version=2025-05-15-preview:
     post:
       operationId: _QuestionAnsweringClient_get_answers_from_text
@@ -378,4 +378,4 @@ paths:
                 $ref: '#/components/schemas/AnswersFromTextResult'
       x-stackql-resource: answers_from_texts
       x-stackql-method: get_answers_from_text
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

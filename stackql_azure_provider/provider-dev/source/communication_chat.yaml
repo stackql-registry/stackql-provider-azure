@@ -771,7 +771,7 @@ paths:
           description: Success
       x-stackql-resource: chat_thread
       x-stackql-method: update_chat_message
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: ChatThread_delete_chat_message
       description: Deletes a message. Deletes a message.
@@ -789,11 +789,11 @@ paths:
           type: string
         description: The message id. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: chat_thread
       x-stackql-method: delete_chat_message
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /chat/threads/{chat_thread_id}/participants/:remove?api-version=2024-03-07:
     post:
       operationId: ChatThread_remove_chat_participant

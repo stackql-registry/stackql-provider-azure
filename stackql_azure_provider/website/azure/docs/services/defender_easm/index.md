@@ -18,20 +18,17 @@ defender_easm service documentation.
 
 :::info[Service Summary]
 
-total resources: __6__  
+total resources: __3__  
 
 :::
 
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/defender_easm/assets/">assets</a><br />
-<a href="/services/defender_easm/discovery_groups/">discovery_groups</a><br />
-<a href="/services/defender_easm/discovery_templates/">discovery_templates</a>
+<a href="/services/defender_easm/labels/">labels</a><br />
+<a href="/services/defender_easm/operations/">operations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/services/defender_easm/reports/">reports</a><br />
-<a href="/services/defender_easm/saved_filters/">saved_filters</a><br />
-<a href="/services/defender_easm/tasks/">tasks</a>
+<a href="/services/defender_easm/workspaces/">workspaces</a>
 </div>
 </div>

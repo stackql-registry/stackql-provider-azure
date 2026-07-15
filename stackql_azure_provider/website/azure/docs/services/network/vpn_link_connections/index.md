@@ -33,13 +33,13 @@ Creates, updates, deletes, gets or lists a <code>vpn_link_connections</code> res
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_default_shared_key"
+    defaultValue="list_default_shared_key"
     values={[
-        { label: 'get_default_shared_key', value: 'get_default_shared_key' },
+        { label: 'list_default_shared_key', value: 'list_default_shared_key' },
         { label: 'list_by_vpn_connection', value: 'list_by_vpn_connection' }
     ]}
 >
-<TabItem value="get_default_shared_key">
+<TabItem value="list_default_shared_key">
 
 <table>
 <thead>
@@ -230,11 +230,11 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_default_shared_key"><CopyableCode code="get_default_shared_key" /></a></td>
+    <td><a href="#list_default_shared_key"><CopyableCode code="list_default_shared_key" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-link_connection_name"><code>link_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the shared key of VpnLink connection specified.</td>
+    <td>Gets the value of the shared key of VpnLink connection specified.</td>
 </tr>
 <tr>
     <td><a href="#list_by_vpn_connection"><CopyableCode code="list_by_vpn_connection" /></a></td>
@@ -244,18 +244,18 @@ The following methods are available for this resource:
     <td>Retrieves all vpn site link connections for a particular virtual wan vpn gateway vpn connection.</td>
 </tr>
 <tr>
-    <td><a href="#set_or_init_default_shared_key"><CopyableCode code="set_or_init_default_shared_key" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-link_connection_name"><code>link_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Sets or auto generates the shared key based on the user input. If users give a shared key value, it does the set operation. If key length is given, the operation creates a random key of the pre-defined length.</td>
-</tr>
-<tr>
-    <td><a href="#list_default_shared_key"><CopyableCode code="list_default_shared_key" /></a></td>
+    <td><a href="#get_default_shared_key"><CopyableCode code="get_default_shared_key" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-link_connection_name"><code>link_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
-    <td>Gets the value of the shared key of VpnLink connection specified.</td>
+    <td>Gets the shared key of VpnLink connection specified.</td>
+</tr>
+<tr>
+    <td><a href="#set_or_init_default_shared_key"><CopyableCode code="set_or_init_default_shared_key" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-gateway_name"><code>gateway_name</code></a>, <a href="#parameter-connection_name"><code>connection_name</code></a>, <a href="#parameter-link_connection_name"><code>link_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Sets or auto generates the shared key based on the user input. If users give a shared key value, it does the set operation. If key length is given, the operation creates a random key of the pre-defined length.</td>
 </tr>
 <tr>
     <td><a href="#get_all_shared_keys"><CopyableCode code="get_all_shared_keys" /></a></td>
@@ -325,15 +325,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_default_shared_key"
+    defaultValue="list_default_shared_key"
     values={[
-        { label: 'get_default_shared_key', value: 'get_default_shared_key' },
+        { label: 'list_default_shared_key', value: 'list_default_shared_key' },
         { label: 'list_by_vpn_connection', value: 'list_by_vpn_connection' }
     ]}
 >
-<TabItem value="get_default_shared_key">
+<TabItem value="list_default_shared_key">
 
-Gets the shared key of VpnLink connection specified.
+Gets the value of the shared key of VpnLink connection specified.
 
 ```sql
 SELECT
@@ -392,62 +392,49 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="set_or_init_default_shared_key"
-    values={[
-        { label: 'set_or_init_default_shared_key', value: 'set_or_init_default_shared_key' }
-    ]}
->
-<TabItem value="set_or_init_default_shared_key">
-
-Sets or auto generates the shared key based on the user input. If users give a shared key value, it does the set operation. If key length is given, the operation creates a random key of the pre-defined length.
-
-```sql
-REPLACE azure.network.vpn_link_connections
-SET 
-id = '{{ id }}',
-name = '{{ name }}',
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND gateway_name = '{{ gateway_name }}' --required
-AND connection_name = '{{ connection_name }}' --required
-AND link_connection_name = '{{ link_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_default_shared_key"
+    defaultValue="get_default_shared_key"
     values={[
-        { label: 'list_default_shared_key', value: 'list_default_shared_key' },
+        { label: 'get_default_shared_key', value: 'get_default_shared_key' },
+        { label: 'set_or_init_default_shared_key', value: 'set_or_init_default_shared_key' },
         { label: 'get_all_shared_keys', value: 'get_all_shared_keys' },
         { label: 'get_ike_sas', value: 'get_ike_sas' },
         { label: 'reset_connection', value: 'reset_connection' }
     ]}
 >
-<TabItem value="list_default_shared_key">
+<TabItem value="get_default_shared_key">
 
-Gets the value of the shared key of VpnLink connection specified.
+Gets the shared key of VpnLink connection specified.
 
 ```sql
-EXEC azure.network.vpn_link_connections.list_default_shared_key 
+EXEC azure.network.vpn_link_connections.get_default_shared_key 
 @resource_group_name='{{ resource_group_name }}' --required, 
 @gateway_name='{{ gateway_name }}' --required, 
 @connection_name='{{ connection_name }}' --required, 
 @link_connection_name='{{ link_connection_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="set_or_init_default_shared_key">
+
+Sets or auto generates the shared key based on the user input. If users give a shared key value, it does the set operation. If key length is given, the operation creates a random key of the pre-defined length.
+
+```sql
+EXEC azure.network.vpn_link_connections.set_or_init_default_shared_key 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@gateway_name='{{ gateway_name }}' --required, 
+@connection_name='{{ connection_name }}' --required, 
+@link_connection_name='{{ link_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"id": "{{ id }}", 
+"name": "{{ name }}", 
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

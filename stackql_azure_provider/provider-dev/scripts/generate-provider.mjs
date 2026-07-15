@@ -12,7 +12,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import YAML from 'yaml';
+import {
+  loadYaml,
+  dumpYaml,
+  derefSchema,
+  requiredParamsOf,
+  verifySignatureUniqueness,
+  NAME_INFERRED,
+} from './lib/common.mjs';
 
 const args = parseArgs({
   options: {
@@ -56,11 +63,72 @@ const providerForService = (alias) =>
   serviceMap.defaultProvider ||
   defaultProviderName;
 const overridesForService = (alias) => (serviceMap.services && serviceMap.services[alias]) || {};
+// Cosmetic rename: `name` overrides the stage-1 alias in ALL emitted surfaces
+// (service file name, resource ids, providerServices key). Map keys stay
+// stage-1 aliases (they match provider-dev/source/ files and the stage-1
+// name-overrides keys).
+const finalNameForService = (alias) => overridesForService(alias).name || alias;
+
+// Service consolidation: entries with `mergeInto: '<final name>'` are folded
+// into a single service doc. The target's metadata comes from the map entry
+// whose key or final name equals the mergeInto value (may be a virtual entry
+// with no source file, e.g. ai_language). Member entries may carry
+// `dropResources: [...]` (superseded duplicates) and
+// `resourceRenames: {old: new}` (cross-member resource-name collisions).
+const mergeGroups = {}; // final target name -> [stage-1 member aliases]
+for (const [alias, meta] of Object.entries(serviceMap.services || {})) {
+  if (meta.mergeInto) {
+    (mergeGroups[meta.mergeInto] = mergeGroups[meta.mergeInto] || []).push(alias);
+  }
+}
+// A base member is one whose own final name equals the target (its spec
+// seeds the merge); pull it into the group list too. A virtual target entry
+// (metadata only, e.g. ai_language) has no source file and is NOT a member.
+for (const target of Object.keys(mergeGroups)) {
+  for (const [alias, meta] of Object.entries(serviceMap.services || {})) {
+    if (
+      !meta.mergeInto &&
+      finalNameForService(alias) === target &&
+      fs.existsSync(path.join(sourceDir, `${alias}.yaml`))
+    ) {
+      mergeGroups[target].unshift(alias);
+    }
+  }
+  mergeGroups[target] = [...new Set(mergeGroups[target])];
+}
+const mergeMemberAliases = new Set(Object.values(mergeGroups).flat());
+
+// Guard: final service names must be unique across the whole map (renames +
+// merge targets), otherwise two services would write the same file.
+{
+  const seen = new Map();
+  for (const alias of Object.keys(serviceMap.services || {})) {
+    const meta = serviceMap.services[alias];
+    // virtual merge-target entries (metadata only, no source file) are not services
+    if (mergeGroups[alias] && !fs.existsSync(path.join(sourceDir, `${alias}.yaml`))) continue;
+    const fin = meta.mergeInto || finalNameForService(alias);
+    if (seen.has(fin) && !(meta.mergeInto || mergeMemberAliases.has(alias))) {
+      console.error(`FAIL: final service name '${fin}' claimed by both '${seen.get(fin)}' and '${alias}'`);
+      process.exit(1);
+    }
+    if (!meta.mergeInto && !mergeMemberAliases.has(alias)) seen.set(fin, alias);
+  }
+  // merge targets may not collide with a non-member service's final name
+  for (const target of Object.keys(mergeGroups)) {
+    if (seen.has(target) && !mergeGroups[target].includes(seen.get(target))) {
+      console.error(`FAIL: merge target '${target}' collides with service '${seen.get(target)}'`);
+      process.exit(1);
+    }
+  }
+}
 
 const allProviderNames = [
   ...new Set([
     serviceMap.defaultProvider || defaultProviderName,
-    ...Object.values(serviceMap.services || {}).map((s) => s.provider),
+    // title-only entries (default-provider services) have no `provider` key
+    ...Object.values(serviceMap.services || {})
+      .map((s) => s.provider)
+      .filter(Boolean),
   ]),
 ];
 
@@ -120,39 +188,18 @@ function singletonFlattenTemplate() {
   return `{{ $row := . }}${ROW_TEMPLATE}`;
 }
 
-/**
- * Resolve a one-level `$ref` to its target schema within the given spec.
- */
-function derefSchema(spec, schema) {
-  if (!schema || typeof schema !== 'object') return null;
-  if (!schema.$ref) return schema;
-  const m = /^#\/components\/schemas\/([^/]+)$/.exec(schema.$ref);
-  if (!m) return null;
-  return ((spec.components && spec.components.schemas) || {})[m[1]] || null;
+// Scalar-response wraps: give scalar / array-of-scalar bodies an
+// introspectable row shape ({"value": ...}) so they are selectable.
+function scalarListPagedTemplate(key) {
+  return `{"${key}": [{{- range $i, $v := index . "${key}" }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}], "nextLink": {{ toJson (index . "nextLink") }}}`;
 }
 
-/**
- * Required-param signature of an operation: sorted names of required
- * path/query/header params + required body properties. Mirrors stackql's
- * router view (with `requestBodyTranslate: naive`, body fields surface under
- * their native names).
- */
-function requiredParamsOf(op, spec) {
-  const names = new Set();
-  for (const p of op.parameters || []) {
-    if (p && p.required) names.add(p.name);
-  }
-  const body = op.requestBody && op.requestBody.content;
-  if (body) {
-    for (const ct of Object.keys(body)) {
-      let schema = body[ct] && body[ct].schema;
-      schema = derefSchema(spec, schema);
-      if (schema && Array.isArray(schema.required)) {
-        for (const r of schema.required) names.add(r);
-      }
-    }
-  }
-  return [...names].sort();
+function scalarListTemplate() {
+  return `{"value": [{{- range $i, $v := . }}{{ if $i }},{{ end }}{"value": {{ toJson $v }}}{{- end }}]}`;
+}
+
+function scalarTemplate() {
+  return `{"value": {{ toJson . }}}`;
 }
 
 /**
@@ -249,13 +296,17 @@ function rewriteService(spec, serviceAlias, providerName) {
         // overrideMediaType is REQUIRED for the transform to fire: any-sdk's
         // isOverridable() gates response transforms on it being non-empty
         // (JSON in, JSON out here).
+        const bodies = {
+          list: () => listFlattenTemplate(flattenKey || 'value'),
+          singleton: () => singletonFlattenTemplate(),
+          scalar_list_paged: () => scalarListPagedTemplate(flattenKey || 'value'),
+          scalar_list: () => scalarListTemplate(),
+          scalar: () => scalarTemplate(),
+        };
         responseBlock.overrideMediaType = 'application/json';
         responseBlock.transform = {
           type: 'golang_template_json_v0.3.0',
-          body:
-            flatten === 'list'
-              ? listFlattenTemplate(flattenKey || 'value')
-              : singletonFlattenTemplate(),
+          body: (bodies[flatten] || bodies.singleton)(),
         };
       }
 
@@ -321,9 +372,9 @@ function rewriteService(spec, serviceAlias, providerName) {
           verbCands.push({ method: methodKey, requiredParams: finalSig });
         };
         pushCand(verbKey);
-        // PUT create_or_update is both INSERT (create) and REPLACE (full
-        // update) in ARM semantics.
-        if (verbKey === 'insert' && /^create_or_(update|replace)/.test(methodKey)) {
+        // PUT create_or_update / create_update (cosmos style) is both INSERT
+        // (create) and REPLACE (full update) in ARM semantics.
+        if (verbKey === 'insert' && /^create_(or_)?(update|replace)/.test(methodKey)) {
           pushCand('replace');
         }
       }
@@ -371,6 +422,13 @@ function rewriteService(spec, serviceAlias, providerName) {
         sigToWinner.set(sig, cand.method);
         survivors.push(cand);
       }
+      // RULE (router precedence): within every (resource, sqlVerb) bucket,
+      // methods are ordered by number of required params, HIGHEST first -
+      // stackql picks the first method whose required params are satisfiable
+      // from the query, so the most descriptive signature must lead. Applies
+      // uniformly to ALL verbs. (Sub-object siblings that would capture a
+      // resource's own DML are kept out of mutation buckets upstream - stage
+      // 1 demotes mismatched-noun mutation methods to EXEC.)
       survivors.sort((a, b) => b.requiredParams.length - a.requiredParams.length);
       bucket.sqlVerbs[verbKey] = survivors.map((c) => ({
         $ref: `#/components/x-stackQL-resources/${resource}/methods/${c.method}`,
@@ -388,20 +446,11 @@ function rewriteService(spec, serviceAlias, providerName) {
   // stackql name-infers SQL verbs in SHOW METHODS for methods literally
   // named get/list/select/aggregatedList (select), create/insert (insert)
   // and delete (delete) - regardless of sqlVerbs membership (any-sdk
-  // resource.getDefaultSQLVerbForMethodKey). Any such method that did NOT
-  // survive into its inferred bucket (EXEC verb, no columns, or
-  // dedupe-demoted) is renamed `<name>_raw` so the SHOW output stays
-  // honest. Demoted methods are never referenced from any sqlVerbs array,
-  // so the rekey is safe.
-  const NAME_INFERRED = {
-    get: 'select',
-    list: 'select',
-    select: 'select',
-    aggregatedList: 'select',
-    create: 'insert',
-    insert: 'insert',
-    delete: 'delete',
-  };
+  // resource.getDefaultSQLVerbForMethodKey; the NAME_INFERRED table lives in
+  // lib/common.mjs). Any such method that did NOT survive into its inferred
+  // bucket (EXEC verb, no columns, or dedupe-demoted) is renamed
+  // `<name>_raw` so the SHOW output stays honest. Demoted methods are never
+  // referenced from any sqlVerbs array, so the rekey is safe.
   for (const bucket of Object.values(stackqlResources)) {
     for (const [name, verbKey] of Object.entries(NAME_INFERRED)) {
       if (!bucket.methods[name]) continue;
@@ -436,56 +485,6 @@ function rewriteService(spec, serviceAlias, providerName) {
   return { spec, demotions, execOnly };
 }
 
-/**
- * Build-time guard: no (resource, sqlVerb) bucket may contain two methods
- * with the same required-params signature.
- */
-function verifySignatureUniqueness(spec, alias) {
-  const resources = (spec.components && spec.components['x-stackQL-resources']) || {};
-  for (const [rName, r] of Object.entries(resources)) {
-    for (const [verbKey, refs] of Object.entries(r.sqlVerbs || {})) {
-      const seen = new Map();
-      for (const ref of refs) {
-        const m = ref.$ref.split('/').pop();
-        const method = (r.methods || {})[m];
-        if (!method) continue;
-        const opRefStr = method.operation && method.operation.$ref;
-        if (!opRefStr) continue;
-        const parts = opRefStr.replace(/^#\/paths\//, '').split('/');
-        const httpVerb = parts.pop();
-        const pathKey = parts.join('/').replace(/~1/g, '/').replace(/~0/g, '~');
-        const op = ((spec.paths || {})[pathKey] || {})[httpVerb];
-        if (!op) continue;
-        const sig = requiredParamsOf(op, spec).join(',');
-        if (seen.has(sig)) {
-          const err = new Error(
-            `[${alias}] duplicate required-params signature in (resource=${rName}, verb=${verbKey}): ` +
-              `methods [${seen.get(sig)}, ${m}] both require [${sig || '(none)'}].`
-          );
-          err.code = 'DUPLICATE_SIGNATURE';
-          throw err;
-        }
-        seen.set(sig, m);
-      }
-    }
-  }
-}
-
-function loadYaml(p) {
-  return YAML.parse(fs.readFileSync(p, 'utf8'));
-}
-
-function dumpYaml(p, obj) {
-  fs.writeFileSync(
-    p,
-    YAML.stringify(obj, {
-      lineWidth: 0,
-      aliasDuplicateObjects: false,
-      version: '1.1',
-    })
-  );
-}
-
 const sourceFiles = fs
   .readdirSync(sourceDir)
   .filter((f) => f.endsWith('.yaml') || f.endsWith('.yml'))
@@ -495,30 +494,23 @@ console.log(`Processing ${sourceFiles.length} services from ${sourceDir}`);
 
 const providerServices = {};
 const skippedServices = [];
+const untitledServices = [];
 let totalResources = 0;
 let totalMethods = 0;
 
-for (const file of sourceFiles) {
-  const srcPath = path.join(sourceDir, file);
-  let spec;
-  try {
-    spec = loadYaml(srcPath);
-  } catch (err) {
-    console.error(`  fail  ${file}: ${err.message}`);
-    continue;
-  }
+// Emit one final service: build resources, verify, write, register.
+// `stage1Alias` is only used for log/skip bookkeeping; all emitted surfaces
+// use `finalName`.
+function emitService(spec, stage1Alias, finalName, targetProvider, title, description) {
+  spec.info = spec.info || {};
+  spec.info.title = title;
+  spec.info.description = description;
+  spec.info['x-serviceAlias'] = finalName;
 
-  const alias = (spec.info && spec.info['x-serviceAlias']) || file.replace(/\.ya?ml$/, '');
-  const targetProvider = providerForService(alias);
-  const overrides = overridesForService(alias);
-  const title = overrides.title || (spec.info && spec.info.title) || alias;
-  const description =
-    overrides.description || (spec.info && spec.info.description) || `${alias} API`;
-
-  const { demotions, execOnly } = rewriteService(spec, alias, targetProvider);
+  const { demotions, execOnly } = rewriteService(spec, finalName, targetProvider);
 
   try {
-    verifySignatureUniqueness(spec, alias);
+    verifySignatureUniqueness(spec, finalName);
   } catch (err) {
     if (err.code === 'DUPLICATE_SIGNATURE') {
       console.error(`\n  FAIL  ${err.message}`);
@@ -531,9 +523,9 @@ for (const file of sourceFiles) {
   const resourceCount = Object.keys(resources).length;
 
   if (resourceCount === 0) {
-    console.log(`  skip  ${alias}  (no resources after pruning)`);
-    skippedServices.push(alias);
-    continue;
+    console.log(`  skip  ${stage1Alias}  (no resources after pruning)`);
+    skippedServices.push(stage1Alias);
+    return;
   }
 
   totalResources += resourceCount;
@@ -541,29 +533,225 @@ for (const file of sourceFiles) {
     totalMethods += Object.keys(r.methods || {}).length;
   }
 
-  const outPath = path.join(outputBase, targetProvider, version, 'services', `${alias}.yaml`);
+  const outPath = path.join(outputBase, targetProvider, version, 'services', `${finalName}.yaml`);
   dumpYaml(outPath, spec);
 
   const notes = [];
   if (demotions.length) notes.push(`${demotions.length} demoted`);
   if (execOnly.length) notes.push(`${execOnly.length} exec-only`);
+  if (finalName !== stage1Alias) notes.push(`from ${stage1Alias}`);
   const tail = notes.length ? ` [${notes.join(', ')}]` : '';
-  console.log(`  ok    ${targetProvider}/${alias}  (${resourceCount} resources)${tail}`);
+  console.log(`  ok    ${targetProvider}/${finalName}  (${resourceCount} resources)${tail}`);
 
   providerServices[targetProvider] = providerServices[targetProvider] || {};
-  providerServices[targetProvider][alias] = {
-    id: `${alias}:${version}`,
-    name: alias,
+  providerServices[targetProvider][finalName] = {
+    id: `${finalName}:${version}`,
+    name: finalName,
     preferred: true,
-    service: { $ref: `${targetProvider}/${version}/services/${alias}.yaml` },
+    service: { $ref: `${targetProvider}/${version}/services/${finalName}.yaml` },
     title,
     version,
     description,
   };
 }
 
+// Apply a merge member's pre-merge transforms to its breadcrumbed spec:
+// dropResources removes superseded operations (base-package duplicates of
+// newer dedicated packages); resourceRenames resolves cross-member resource
+// name collisions.
+function applyMemberTransforms(spec, meta, alias) {
+  const drop = new Set(meta.dropResources || []);
+  const renames = meta.resourceRenames || {};
+  for (const [pathKey, pathItem] of Object.entries(spec.paths || {})) {
+    for (const [verb, op] of Object.entries(pathItem || {})) {
+      if (!HTTP_METHODS.has(verb) || !op || typeof op !== 'object') continue;
+      const r = op['x-stackql-resource'];
+      if (!r) continue;
+      if (drop.has(r)) {
+        delete pathItem[verb];
+      } else if (renames[r]) {
+        op['x-stackql-resource'] = renames[r];
+      }
+    }
+    if (!Object.keys(pathItem || {}).some((k) => HTTP_METHODS.has(k))) {
+      delete spec.paths[pathKey];
+    }
+  }
+}
+
+// Merge `member` into `target` (both stage-1 breadcrumbed specs). Servers
+// must be identical - a stackql service doc has exactly ONE servers block
+// and the request router resolves hosts per service doc, which is why
+// mgmt-plane and data-plane services can never be merged. Colliding schema
+// names with different content are renamed `<Name>_<suffix>` (internal only
+// - column inference resolves refs, names are not user-visible).
+function mergeSpecInto(target, member, memberAlias, targetName) {
+  if (JSON.stringify(target.servers || null) !== JSON.stringify(member.servers || null)) {
+    console.error(
+      `FAIL: merge into '${targetName}': member '${memberAlias}' has different servers ` +
+        `(${JSON.stringify(member.servers)} vs ${JSON.stringify(target.servers)})`
+    );
+    process.exit(1);
+  }
+
+  // suffix for renaming: the member alias tail beyond the shared prefix,
+  // falling back to the whole alias
+  const suffix = memberAlias.replace(/^[a-z0-9]+_/, '').replace(/[^a-z0-9_]/g, '') || memberAlias;
+
+  for (const section of ['schemas', 'parameters']) {
+    const tgt = ((target.components = target.components || {})[section] =
+      (target.components[section] || {}));
+    const src = (member.components && member.components[section]) || {};
+    const renames = {};
+    for (const [name, def] of Object.entries(src)) {
+      if (!(name in tgt)) continue;
+      if (JSON.stringify(tgt[name]) === JSON.stringify(def)) continue; // identical - share
+      renames[name] = `${name}_${suffix}`;
+    }
+    if (Object.keys(renames).length) {
+      // rewrite all $refs in the member spec to the renamed components
+      const rewrite = (node) => {
+        if (Array.isArray(node)) return node.forEach(rewrite);
+        if (!node || typeof node !== 'object') return;
+        if (typeof node.$ref === 'string') {
+          const m = new RegExp(`^#/components/${section}/([^/]+)$`).exec(node.$ref);
+          if (m && renames[m[1]]) node.$ref = `#/components/${section}/${renames[m[1]]}`;
+        }
+        Object.values(node).forEach(rewrite);
+      };
+      rewrite(member);
+      for (const [oldName, newName] of Object.entries(renames)) {
+        src[newName] = src[oldName];
+        delete src[oldName];
+      }
+    }
+    for (const [name, def] of Object.entries(src)) {
+      if (!(name in tgt)) tgt[name] = def;
+    }
+  }
+
+  // securitySchemes: merge by key, fail on conflicting definitions
+  const tgtSec = ((target.components = target.components || {}).securitySchemes =
+    target.components.securitySchemes || {});
+  for (const [k, v] of Object.entries((member.components && member.components.securitySchemes) || {})) {
+    if (k in tgtSec && JSON.stringify(tgtSec[k]) !== JSON.stringify(v)) {
+      console.error(`FAIL: merge into '${targetName}': conflicting securityScheme '${k}' from '${memberAlias}'`);
+      process.exit(1);
+    }
+    tgtSec[k] = v;
+  }
+
+  // paths: api-version is baked into path keys, so identical keys mean a
+  // genuine duplicate - refuse rather than silently prefer one
+  target.paths = target.paths || {};
+  for (const [pathKey, pathItem] of Object.entries(member.paths || {})) {
+    if (pathKey in target.paths) {
+      console.error(`FAIL: merge into '${targetName}': duplicate path key from '${memberAlias}': ${pathKey}`);
+      process.exit(1);
+    }
+    target.paths[pathKey] = pathItem;
+  }
+
+  // cross-member resource collisions must have been resolved by
+  // dropResources/resourceRenames - verify none remain
+  const seen = new Map();
+  for (const [pathKey, pathItem] of Object.entries(target.paths)) {
+    for (const [verb, op] of Object.entries(pathItem || {})) {
+      if (!HTTP_METHODS.has(verb) || !op || typeof op !== 'object') continue;
+      const r = op['x-stackql-resource'];
+      const m = op['x-stackql-method'];
+      if (!r || !m) continue;
+      const key = `${r}.${m}`;
+      if (seen.has(key) && seen.get(key) !== pathKey + verb) {
+        console.error(
+          `FAIL: merge into '${targetName}': resource.method collision '${key}' ` +
+            `(add resourceRenames/dropResources to the member entries in the service map)`
+        );
+        process.exit(1);
+      }
+      seen.set(key, pathKey + verb);
+    }
+  }
+}
+
+const pendingMerge = {}; // target final name -> { alias: spec }
+
+for (const file of sourceFiles) {
+  const srcPath = path.join(sourceDir, file);
+  let spec;
+  try {
+    spec = loadYaml(srcPath);
+  } catch (err) {
+    console.error(`  fail  ${file}: ${err.message}`);
+    continue;
+  }
+
+  const alias = (spec.info && spec.info['x-serviceAlias']) || file.replace(/\.ya?ml$/, '');
+  const overrides = overridesForService(alias);
+
+  // merge members are stashed and folded after the main pass
+  if (mergeMemberAliases.has(alias)) {
+    const target = overrides.mergeInto || finalNameForService(alias);
+    (pendingMerge[target] = pendingMerge[target] || {})[alias] = spec;
+    continue;
+  }
+
+  const targetProvider = providerForService(alias);
+  const finalName = finalNameForService(alias);
+  const title = overrides.title || (spec.info && spec.info.title) || finalName;
+  const description =
+    overrides.description || (spec.info && spec.info.description) || `${finalName} API`;
+  // Every service is expected to carry a mastered Azure product-name title in
+  // service-provider-map.json; without one the SDK client-class name
+  // ("FooMgmtClient") leaks into SHOW SERVICES and the web docs.
+  if (!overrides.title) untitledServices.push(alias);
+  emitService(spec, alias, finalName, targetProvider, title, description);
+}
+
+// ----- consolidation pass: fold merge groups into single services -----
+for (const [target, members] of Object.entries(mergeGroups)) {
+  const collected = pendingMerge[target] || {};
+  const missing = members.filter((m) => !collected[m]);
+  if (missing.length) {
+    console.error(`FAIL: merge target '${target}' is missing member source specs: ${missing.join(', ')}`);
+    process.exit(1);
+  }
+  // target metadata: the map entry keyed by the base member (final name ==
+  // target) or a virtual entry keyed by the target name itself
+  const baseAlias = members.find((m) => finalNameForService(m) === target && !overridesForService(m).mergeInto);
+  const targetMeta = baseAlias ? overridesForService(baseAlias) : overridesForService(target);
+  const targetProvider =
+    targetMeta.provider || serviceMap.defaultProvider || defaultProviderName;
+  if (!targetMeta.title) untitledServices.push(target);
+
+  const order = baseAlias
+    ? [baseAlias, ...members.filter((m) => m !== baseAlias).sort()]
+    : [...members].sort();
+
+  let merged = null;
+  for (const m of order) {
+    const spec = collected[m];
+    applyMemberTransforms(spec, overridesForService(m), m);
+    if (!merged) {
+      merged = spec;
+    } else {
+      mergeSpecInto(merged, spec, m, target);
+    }
+  }
+  console.log(`  merge ${target} <- ${order.join(', ')}`);
+
+  const title = targetMeta.title || target;
+  const description = targetMeta.description || `${target} API`;
+  emitService(merged, order[0], target, targetProvider, title, description);
+}
+
 for (const pn of allProviderNames) {
-  const services = providerServices[pn] || {};
+  // renames and late-folded merges perturb insertion order - re-sort so
+  // providerServices is always alphabetical by final service name
+  const services = {};
+  for (const k of Object.keys(providerServices[pn] || {}).sort()) {
+    services[k] = providerServices[pn][k];
+  }
   if (Object.keys(services).length === 0) {
     console.log(`  note  provider ${pn} has no services - skipping provider.yaml`);
     continue;
@@ -597,3 +785,9 @@ const skipNote = skippedServices.length
 console.log(
   `\nWrote ${allProviderNames.length} providers, ${writtenCount} services (${totalResources} resources, ${totalMethods} methods) to ${outputBase}${skipNote}`
 );
+if (untitledServices.length) {
+  console.warn(
+    `\nWARN: ${untitledServices.length} services have no mastered title in ${path.basename(mapPath)} ` +
+      `(SDK client-class name leaks into SHOW SERVICES): ${untitledServices.join(', ')}`
+  );
+}

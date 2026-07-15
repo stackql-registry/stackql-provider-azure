@@ -1192,7 +1192,7 @@ paths:
                 $ref: '#/components/schemas/DiscoveryEngine'
       x-stackql-resource: investigations
       x-stackql-method: update_discovery_engine
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /projects/{project_name}/investigations/{investigation_name}/discoveryEngine/workingMemory?api-version=2026-02-01-preview:
     get:
       operationId: Investigations_get_discovery_engine_memory
@@ -1466,7 +1466,7 @@ paths:
                 $ref: '#/components/schemas/KnowledgeBaseVersion'
       x-stackql-resource: knowledge_base_versions
       x-stackql-method: delete_latest_version
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /knowledgeBases/{knowledge_base_name}/versions/{version_name}/operations/{operation_id}?api-version=2026-02-01-preview:
     get:
       operationId: KnowledgeBaseVersions_get_operation_status

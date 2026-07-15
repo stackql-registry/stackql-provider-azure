@@ -517,26 +517,6 @@ components:
             $ref: '#/components/schemas/DatadogApiKey'
         nextLink:
           type: string
-    DatadogHost:
-      type: object
-      description: DatadogHost.
-      properties:
-        name:
-          type: string
-          description: The name of the host.
-        aliases:
-          type: array
-          items:
-            type: string
-          description: The aliases for the host installed via the Datadog agent.
-        apps:
-          type: array
-          items:
-            type: string
-          description: The Datadog integrations reporting metrics for the host.
-        meta:
-          $ref: '#/components/schemas/DatadogHostMetadata'
-          description: ':vartype meta: ~azure.mgmt.datadog.models.DatadogHostMetadata'
     DatadogHostMetadata:
       type: object
       description: DatadogHostMetadata.
@@ -570,6 +550,26 @@ components:
         transport:
           type: string
           description: The transport.
+    DatadogHost:
+      type: object
+      description: DatadogHost.
+      properties:
+        name:
+          type: string
+          description: The name of the host.
+        aliases:
+          type: array
+          items:
+            type: string
+          description: The aliases for the host installed via the Datadog agent.
+        apps:
+          type: array
+          items:
+            type: string
+          description: The Datadog integrations reporting metrics for the host.
+        meta:
+          $ref: '#/components/schemas/DatadogHostMetadata'
+          description: ':vartype meta: ~azure.mgmt.datadog.models.DatadogHostMetadata'
     PagedDatadogHost:
       type: object
       properties:
@@ -1421,7 +1421,8 @@ paths:
                 $ref: '#/components/schemas/PagedDatadogApiKey'
       x-stackql-resource: monitors
       x-stackql-method: list_api_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Datadog/monitors/{monitor_name}/listHosts?api-version=2023-01-01
   : post:
       operationId: Monitors_list_hosts
@@ -1453,7 +1454,8 @@ paths:
                 $ref: '#/components/schemas/PagedDatadogHost'
       x-stackql-resource: monitors
       x-stackql-method: list_hosts
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Datadog/monitors/{monitor_name}/listLinkedResources?api-version=2023-01-01
   : post:
       operationId: Monitors_list_linked_resources
@@ -1486,7 +1488,8 @@ paths:
                 $ref: '#/components/schemas/PagedLinkedResource'
       x-stackql-resource: monitors
       x-stackql-method: list_linked_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Datadog/monitors/{monitor_name}/listMonitoredResources?api-version=2023-01-01
   : post:
       operationId: Monitors_list_monitored_resources
@@ -1519,7 +1522,8 @@ paths:
                 $ref: '#/components/schemas/PagedMonitoredResource'
       x-stackql-resource: monitors
       x-stackql-method: list_monitored_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Datadog/monitors/{monitor_name}/getDefaultKey?api-version=2023-01-01
   : post:
       operationId: Monitors_get_default_key
@@ -1551,7 +1555,7 @@ paths:
                 $ref: '#/components/schemas/DatadogApiKey'
       x-stackql-resource: monitors
       x-stackql-method: get_default_key
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Datadog/monitors/{monitor_name}/setDefaultKey?api-version=2023-01-01
   : post:
       operationId: Monitors_set_default_key

@@ -33,12 +33,15 @@ Creates, updates, deletes, gets or lists a <code>rai_svc</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get_attack_objectives"
+    defaultValue="get_jail_break_dataset_with_type"
     values={[
-        { label: 'get_attack_objectives', value: 'get_attack_objectives' }
+        { label: 'get_jail_break_dataset_with_type', value: 'get_jail_break_dataset_with_type' },
+        { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
+        { label: 'get_operation_result', value: 'get_operation_result' },
+        { label: 'get_annotation', value: 'get_annotation' }
     ]}
 >
-<TabItem value="get_attack_objectives">
+<TabItem value="get_jail_break_dataset_with_type">
 
 <table>
 <thead>
@@ -50,29 +53,66 @@ The following fields are returned by `SELECT` queries:
 </thead>
 <tbody>
 <tr>
-    <td><CopyableCode code="Id" /></td>
+    <td><CopyableCode code="value" /></td>
     <td><code>string</code></td>
-    <td>The unique identifier. Required.</td>
+    <td></td>
 </tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_template_parameters_image">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
 <tr>
-    <td><CopyableCode code="Messages" /></td>
-    <td><code>array</code></td>
-    <td>The messages. Required.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="Metadata" /></td>
-    <td><code>object</code></td>
-    <td>The metadata.</td>
-</tr>
-<tr>
-    <td><CopyableCode code="Modality" /></td>
+    <td><CopyableCode code="value" /></td>
     <td><code>string</code></td>
-    <td>The modality. Required.</td>
+    <td></td>
 </tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_operation_result">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
 <tr>
-    <td><CopyableCode code="Source" /></td>
-    <td><code>array</code></td>
-    <td>List of sources. Required.</td>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_annotation">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td></td>
 </tr>
 </tbody>
 </table>
@@ -95,25 +135,39 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_attack_objectives"><CopyableCode code="get_attack_objectives" /></a></td>
+    <td><a href="#get_jail_break_dataset_with_type"><CopyableCode code="get_jail_break_dataset_with_type" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-lang"><code>lang</code></a>, <a href="#parameter-strategy"><code>strategy</code></a>, <a href="#parameter-targetType"><code>targetType</code></a></td>
-    <td>Get the attack objectives.</td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Get the jailbreak dataset with type.</td>
+</tr>
+<tr>
+    <td><a href="#get_template_parameters_image"><CopyableCode code="get_template_parameters_image" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Get the template parameters image.</td>
+</tr>
+<tr>
+    <td><a href="#get_operation_result"><CopyableCode code="get_operation_result" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-api-key"><code>api-key</code></a>, <a href="#parameter-model-endpoint"><code>model-endpoint</code></a></td>
+    <td>Get the operation result.</td>
 </tr>
 <tr>
     <td><a href="#get_annotation"><CopyableCode code="get_annotation" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get the supported annotation tasks.</td>
 </tr>
 <tr>
-    <td><a href="#get_jail_break_dataset_with_type"><CopyableCode code="get_jail_break_dataset_with_type" /></a></td>
+    <td><a href="#get_attack_objectives"><CopyableCode code="get_attack_objectives" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Get the jailbreak dataset with type.</td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-lang"><code>lang</code></a>, <a href="#parameter-strategy"><code>strategy</code></a>, <a href="#parameter-targetType"><code>targetType</code></a></td>
+    <td>Get the attack objectives.</td>
 </tr>
 <tr>
     <td><a href="#get_jail_break_dataset"><CopyableCode code="get_jail_break_dataset" /></a></td>
@@ -125,7 +179,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_template_parameters_with_type"><CopyableCode code="get_template_parameters_with_type" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-type"><code>type</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-type_name"><code>type_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get template parameters with type.</td>
 </tr>
@@ -135,20 +189,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get template parameters.</td>
-</tr>
-<tr>
-    <td><a href="#get_template_parameters_image"><CopyableCode code="get_template_parameters_image" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Get the template parameters image.</td>
-</tr>
-<tr>
-    <td><a href="#get_operation_result"><CopyableCode code="get_operation_result" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-api-key"><code>api-key</code></a>, <a href="#parameter-model-endpoint"><code>model-endpoint</code></a></td>
-    <td>Get the operation result.</td>
 </tr>
 <tr>
     <td><a href="#submit_annotation"><CopyableCode code="submit_annotation" /></a></td>
@@ -190,7 +230,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-operation_id">
     <td><CopyableCode code="operation_id" /></td>
@@ -202,8 +242,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><code>string</code></td>
     <td>Image path. Required.</td>
 </tr>
-<tr id="parameter-type">
-    <td><CopyableCode code="type" /></td>
+<tr id="parameter-type_name">
+    <td><CopyableCode code="type_name" /></td>
     <td><code>string</code></td>
     <td>Type for the template parameters. Required.</td>
 </tr>
@@ -238,27 +278,64 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get_attack_objectives"
+    defaultValue="get_jail_break_dataset_with_type"
     values={[
-        { label: 'get_attack_objectives', value: 'get_attack_objectives' }
+        { label: 'get_jail_break_dataset_with_type', value: 'get_jail_break_dataset_with_type' },
+        { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
+        { label: 'get_operation_result', value: 'get_operation_result' },
+        { label: 'get_annotation', value: 'get_annotation' }
     ]}
 >
-<TabItem value="get_attack_objectives">
+<TabItem value="get_jail_break_dataset_with_type">
 
-Get the attack objectives.
+Get the jailbreak dataset with type.
 
 ```sql
 SELECT
-Id,
-Messages,
-Metadata,
-Modality,
-Source
+value
+FROM azure.ai_evaluation.rai_svc
+WHERE type_name = '{{ type_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_template_parameters_image">
+
+Get the template parameters image.
+
+```sql
+SELECT
+value
+FROM azure.ai_evaluation.rai_svc
+WHERE path = '{{ path }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_operation_result">
+
+Get the operation result.
+
+```sql
+SELECT
+value
+FROM azure.ai_evaluation.rai_svc
+WHERE operation_id = '{{ operation_id }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND api-key = '{{ api-key }}'
+AND model-endpoint = '{{ model-endpoint }}'
+;
+```
+</TabItem>
+<TabItem value="get_annotation">
+
+Get the supported annotation tasks.
+
+```sql
+SELECT
+value
 FROM azure.ai_evaluation.rai_svc
 WHERE endpoint = '{{ endpoint }}' -- required
-AND lang = '{{ lang }}'
-AND strategy = '{{ strategy }}'
-AND targetType = '{{ targetType }}'
 ;
 ```
 </TabItem>
@@ -268,38 +345,27 @@ AND targetType = '{{ targetType }}'
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_annotation"
+    defaultValue="get_attack_objectives"
     values={[
-        { label: 'get_annotation', value: 'get_annotation' },
-        { label: 'get_jail_break_dataset_with_type', value: 'get_jail_break_dataset_with_type' },
+        { label: 'get_attack_objectives', value: 'get_attack_objectives' },
         { label: 'get_jail_break_dataset', value: 'get_jail_break_dataset' },
         { label: 'get_template_parameters_with_type', value: 'get_template_parameters_with_type' },
         { label: 'get_template_parameters', value: 'get_template_parameters' },
-        { label: 'get_template_parameters_image', value: 'get_template_parameters_image' },
-        { label: 'get_operation_result', value: 'get_operation_result' },
         { label: 'submit_annotation', value: 'submit_annotation' },
         { label: 'submit_simulation', value: 'submit_simulation' },
         { label: 'submit_aoai_evaluation', value: 'submit_aoai_evaluation' }
     ]}
 >
-<TabItem value="get_annotation">
+<TabItem value="get_attack_objectives">
 
-Get the supported annotation tasks.
-
-```sql
-EXEC azure.ai_evaluation.rai_svc.get_annotation 
-@endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_jail_break_dataset_with_type">
-
-Get the jailbreak dataset with type.
+Get the attack objectives.
 
 ```sql
-EXEC azure.ai_evaluation.rai_svc.get_jail_break_dataset_with_type 
-@type='{{ type }}' --required, 
-@endpoint='{{ endpoint }}' --required
+EXEC azure.ai_evaluation.rai_svc.get_attack_objectives 
+@endpoint='{{ endpoint }}' --required, 
+@lang='{{ lang }}', 
+@strategy='{{ strategy }}', 
+@targetType='{{ targetType }}'
 ;
 ```
 </TabItem>
@@ -319,7 +385,7 @@ Get template parameters with type.
 
 ```sql
 EXEC azure.ai_evaluation.rai_svc.get_template_parameters_with_type 
-@type='{{ type }}' --required, 
+@type_name='{{ type_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```
@@ -331,30 +397,6 @@ Get template parameters.
 ```sql
 EXEC azure.ai_evaluation.rai_svc.get_template_parameters 
 @endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_template_parameters_image">
-
-Get the template parameters image.
-
-```sql
-EXEC azure.ai_evaluation.rai_svc.get_template_parameters_image 
-@path='{{ path }}' --required, 
-@endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_operation_result">
-
-Get the operation result.
-
-```sql
-EXEC azure.ai_evaluation.rai_svc.get_operation_result 
-@operation_id='{{ operation_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@api-key='{{ api-key }}', 
-@model-endpoint='{{ model-endpoint }}'
 ;
 ```
 </TabItem>

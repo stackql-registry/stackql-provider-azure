@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists an <code>integration_runtime_auth_keys<
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="authKey1" /></td>
+    <td><code>string</code></td>
+    <td>The primary integration runtime authentication key.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="authKey2" /></td>
+    <td><code>string</code></td>
+    <td>The secondary integration runtime authentication key.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +80,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>List integration runtime authentication keys. List authentication keys in an integration runtime.</td>
+</tr>
+<tr>
     <td><a href="#regenerate"><CopyableCode code="regenerate" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Regenerate integration runtime authentication key. Regenerate the authentication key for an integration runtime.</td>
-</tr>
-<tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>List integration runtime authentication keys. List authentication keys in an integration runtime.</td>
 </tr>
 </tbody>
 </table>
@@ -103,13 +132,39 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
+## `SELECT` examples
+
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
+
+List integration runtime authentication keys. List authentication keys in an integration runtime.
+
+```sql
+SELECT
+authKey1,
+authKey2
+FROM azure.synapse.integration_runtime_auth_keys
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND integration_runtime_name = '{{ integration_runtime_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="regenerate"
     values={[
-        { label: 'regenerate', value: 'regenerate' },
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'regenerate', value: 'regenerate' }
     ]}
 >
 <TabItem value="regenerate">
@@ -126,19 +181,6 @@ EXEC azure.synapse.integration_runtime_auth_keys.regenerate
 '{
 "keyName": "{{ keyName }}"
 }'
-;
-```
-</TabItem>
-<TabItem value="list_raw">
-
-List integration runtime authentication keys. List authentication keys in an integration runtime.
-
-```sql
-EXEC azure.synapse.integration_runtime_auth_keys.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@integration_runtime_name='{{ integration_runtime_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

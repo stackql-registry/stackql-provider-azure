@@ -51,13 +51,6 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#create_invitation"><CopyableCode code="create_invitation" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-sent_share_invitation_id"><code>sent_share_invitation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a sent share invitation. Create a recipient for a given sent share.</td>
-</tr>
-<tr>
     <td><a href="#create_or_replace"><CopyableCode code="create_or_replace" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -70,13 +63,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Create or replace a sent share. Create or replace a sent share.</td>
-</tr>
-<tr>
-    <td><a href="#delete_invitation"><CopyableCode code="delete_invitation" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-sent_share_invitation_id"><code>sent_share_invitation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete Invitation in a share. Delete a sent share invitation.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -114,6 +100,20 @@ The following methods are available for this resource:
     <td>Get sent share invitation for a given sent share. Get recipient for a given sent share.</td>
 </tr>
 <tr>
+    <td><a href="#create_invitation"><CopyableCode code="create_invitation" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-sent_share_invitation_id"><code>sent_share_invitation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a sent share invitation. Create a recipient for a given sent share.</td>
+</tr>
+<tr>
+    <td><a href="#delete_invitation"><CopyableCode code="delete_invitation" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-sent_share_invitation_id"><code>sent_share_invitation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete Invitation in a share. Delete a sent share invitation.</td>
+</tr>
+<tr>
     <td><a href="#notify_user_invitation"><CopyableCode code="notify_user_invitation" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-sent_share_id"><code>sent_share_id</code></a>, <a href="#parameter-sent_share_invitation_id"><code>sent_share_invitation_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -139,7 +139,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-referenceName">
     <td><CopyableCode code="referenceName" /></td>
@@ -177,30 +177,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_invitation"
+    defaultValue="create_or_replace"
     values={[
-        { label: 'create_invitation', value: 'create_invitation' },
         { label: 'create_or_replace', value: 'create_or_replace' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_invitation">
-
-Create a sent share invitation. Create a recipient for a given sent share.
-
-```sql
-INSERT INTO azure.purview_sharing.sent_shares (
-sent_share_id,
-sent_share_invitation_id,
-endpoint
-)
-SELECT 
-'{{ sent_share_id }}',
-'{{ sent_share_invitation_id }}',
-'{{ endpoint }}'
-;
-```
-</TabItem>
 <TabItem value="create_or_replace">
 
 Create or replace a sent share. Create or replace a sent share.
@@ -223,9 +205,6 @@ SELECT
   props:
     - name: sent_share_id
       value: "{{ sent_share_id }}"
-      description: Required parameter for the sent_shares resource.
-    - name: sent_share_invitation_id
-      value: "{{ sent_share_invitation_id }}"
       description: Required parameter for the sent_shares resource.
     - name: endpoint
       value: "{{ endpoint }}"
@@ -263,24 +242,11 @@ AND endpoint = '{{ endpoint }}' --required;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_invitation"
+    defaultValue="delete"
     values={[
-        { label: 'delete_invitation', value: 'delete_invitation' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_invitation">
-
-Delete Invitation in a share. Delete a sent share invitation.
-
-```sql
-DELETE FROM azure.purview_sharing.sent_shares
-WHERE sent_share_id = '{{ sent_share_id }}' --required
-AND sent_share_invitation_id = '{{ sent_share_invitation_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Deletes a sent share. Delete a sent share.
@@ -304,6 +270,8 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'list_raw', value: 'list_raw' },
         { label: 'list_invitations', value: 'list_invitations' },
         { label: 'get_invitation', value: 'get_invitation' },
+        { label: 'create_invitation', value: 'create_invitation' },
+        { label: 'delete_invitation', value: 'delete_invitation' },
         { label: 'notify_user_invitation', value: 'notify_user_invitation' }
     ]}
 >
@@ -350,6 +318,30 @@ Get sent share invitation for a given sent share. Get recipient for a given sent
 
 ```sql
 EXEC azure.purview_sharing.sent_shares.get_invitation 
+@sent_share_id='{{ sent_share_id }}' --required, 
+@sent_share_invitation_id='{{ sent_share_invitation_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_invitation">
+
+Create a sent share invitation. Create a recipient for a given sent share.
+
+```sql
+EXEC azure.purview_sharing.sent_shares.create_invitation 
+@sent_share_id='{{ sent_share_id }}' --required, 
+@sent_share_invitation_id='{{ sent_share_invitation_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_invitation">
+
+Delete Invitation in a share. Delete a sent share invitation.
+
+```sql
+EXEC azure.purview_sharing.sent_shares.delete_invitation 
 @sent_share_id='{{ sent_share_id }}' --required, 
 @sent_share_invitation_id='{{ sent_share_invitation_id }}' --required, 
 @endpoint='{{ endpoint }}' --required

@@ -433,6 +433,11 @@ components:
           type: string
           description: The URI of the Azure storage account used to store workspace artifacts, test results, and
             reports.
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -446,11 +451,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
 paths:
   /providers/Microsoft.LoadTestService/operations?api-version=2026-02-01-preview:
     get:
@@ -849,4 +849,4 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: playwright_workspaces
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

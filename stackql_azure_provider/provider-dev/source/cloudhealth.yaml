@@ -836,21 +836,6 @@ components:
         properties:
           $ref: '#/components/schemas/EntityProperties'
           description: The resource-specific properties for this resource.
-    EntityHistoryResponse:
-      type: object
-      description: Response containing entity health state transitions.
-      properties:
-        entityName:
-          type: string
-          description: Name of the entity. Required.
-        history:
-          type: array
-          items:
-            $ref: '#/components/schemas/HealthStateTransition'
-          description: List of health state transitions. Required.
-      required:
-      - entityName
-      - history
     HealthStateTransition:
       type: object
       description: A health state transition record.
@@ -874,24 +859,20 @@ components:
       - previousState
       - newState
       - occurredAt
-    SignalHistoryResponse:
+    EntityHistoryResponse:
       type: object
-      description: Response containing signal history.
+      description: Response containing entity health state transitions.
       properties:
         entityName:
           type: string
           description: Name of the entity. Required.
-        signalName:
-          type: string
-          description: Name of the signal. Required.
         history:
           type: array
           items:
-            $ref: '#/components/schemas/SignalHistoryDataPoint'
-          description: Signal history data points. Required.
+            $ref: '#/components/schemas/HealthStateTransition'
+          description: List of health state transitions. Required.
       required:
       - entityName
-      - signalName
       - history
     SignalHistoryDataPoint:
       type: object
@@ -914,6 +895,25 @@ components:
       required:
       - occurredAt
       - healthState
+    SignalHistoryResponse:
+      type: object
+      description: Response containing signal history.
+      properties:
+        entityName:
+          type: string
+          description: Name of the entity. Required.
+        signalName:
+          type: string
+          description: Name of the signal. Required.
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignalHistoryDataPoint'
+          description: Signal history data points. Required.
+      required:
+      - entityName
+      - signalName
+      - history
     HealthReportEvaluationRule:
       type: object
       description: Evaluation rules for the health report.
@@ -1820,7 +1820,7 @@ paths:
                 $ref: '#/components/schemas/EntityHistoryResponse'
       x-stackql-resource: entities
       x-stackql-method: get_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CloudHealth/healthmodels/{health_model_name}/entities/{entity_name}/getSignalHistory?api-version=2026-01-01-preview
   : post:
       operationId: Entities_get_signal_history
@@ -1878,7 +1878,7 @@ paths:
                 $ref: '#/components/schemas/SignalHistoryResponse'
       x-stackql-resource: entities
       x-stackql-method: get_signal_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CloudHealth/healthmodels/{health_model_name}/entities/{entity_name}/ingestHealthReport?api-version=2026-01-01-preview
   : post:
       operationId: Entities_ingest_health_report

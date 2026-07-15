@@ -721,11 +721,11 @@ paths:
           type: string
         description: Digest of a BLOB. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: container_registry_blob
       x-stackql-method: delete_blob
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /{next_blob_uuid_link}?api-version=2021-07-01:
     get:
       operationId: ContainerRegistryBlob_get_upload_status
@@ -891,7 +891,7 @@ paths:
           description: Success
       x-stackql-resource: container_registry
       x-stackql-method: create_manifest
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: ContainerRegistry_delete_manifest
       description: Delete the manifest identified by `name` and `reference`. Note that a manifest can *only* be
@@ -910,11 +910,11 @@ paths:
           type: string
         description: Digest of a BLOB. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: container_registry
       x-stackql-method: delete_manifest
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /acr/v1/_catalog?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_repositories
@@ -936,9 +936,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  repositories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: container_registry
       x-stackql-method: get_repositories
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.repositories
+      x-stackql-flatten: scalar_list_paged
   /acr/v1/{name}?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_properties
@@ -971,11 +987,11 @@ paths:
           type: string
         description: Name of the image (including the namespace). Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: container_registry
       x-stackql-method: delete_repository
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: ContainerRegistry_update_properties
       description: Update the attribute identified by `name` where `reference` is the name of the repository.
@@ -1014,7 +1030,7 @@ paths:
                 $ref: '#/components/schemas/ContainerRepositoryProperties'
       x-stackql-resource: container_registry
       x-stackql-method: update_properties
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /acr/v1/{name}/_tags?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_tags
@@ -1133,7 +1149,7 @@ paths:
                 $ref: '#/components/schemas/ArtifactTagProperties'
       x-stackql-resource: container_registry
       x-stackql-method: update_tag_attributes
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: ContainerRegistry_delete_tag
       description: Delete tag.
@@ -1151,11 +1167,11 @@ paths:
           type: string
         description: Tag name. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: container_registry
       x-stackql-method: delete_tag
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /acr/v1/{name}/_manifests?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_get_manifests
@@ -1268,7 +1284,7 @@ paths:
                 $ref: '#/components/schemas/ArtifactManifestProperties'
       x-stackql-resource: container_registry
       x-stackql-method: update_manifest_properties
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /v2/?api-version=2021-07-01:
     get:
       operationId: ContainerRegistry_check_docker_v2_support

@@ -33,12 +33,37 @@ Creates, updates, deletes, gets or lists a <code>test_results</code> resource.
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_console_log_download_url"
     values={[
+        { label: 'get_console_log_download_url', value: 'get_console_log_download_url' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_console_log_download_url">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="downloadUrl" /></td>
+    <td><code>string</code></td>
+    <td>The download URL.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="expirationTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Expiry date of the download URL.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -345,6 +370,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_console_log_download_url"><CopyableCode code="get_console_log_download_url" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-package_name"><code>package_name</code></a>, <a href="#parameter-test_result_name"><code>test_result_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the download URL of the test execution console log file.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-package_name"><code>package_name</code></a>, <a href="#parameter-test_result_name"><code>test_result_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -371,13 +403,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-package_name"><code>package_name</code></a>, <a href="#parameter-test_result_name"><code>test_result_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the download URL of the test execution screen recording.</td>
-</tr>
-<tr>
-    <td><a href="#get_console_log_download_url"><CopyableCode code="get_console_log_download_url" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-test_base_account_name"><code>test_base_account_name</code></a>, <a href="#parameter-package_name"><code>package_name</code></a>, <a href="#parameter-test_result_name"><code>test_result_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-logFileName"><code>logFileName</code></a></td>
-    <td></td>
-    <td>Gets the download URL of the test execution console log file.</td>
 </tr>
 </tbody>
 </table>
@@ -436,12 +461,30 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_console_log_download_url"
     values={[
+        { label: 'get_console_log_download_url', value: 'get_console_log_download_url' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="get_console_log_download_url">
+
+Gets the download URL of the test execution console log file.
+
+```sql
+SELECT
+downloadUrl,
+expirationTime
+FROM azure_extras.testbase.test_results
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND test_base_account_name = '{{ test_base_account_name }}' -- required
+AND package_name = '{{ package_name }}' -- required
+AND test_result_name = '{{ test_result_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Get the Test Result by Id with specified OS Update type for a Test Base Package.
@@ -534,8 +577,7 @@ AND $filter = '{{ $filter }}'
     defaultValue="get_download_url"
     values={[
         { label: 'get_download_url', value: 'get_download_url' },
-        { label: 'get_video_download_url', value: 'get_video_download_url' },
-        { label: 'get_console_log_download_url', value: 'get_console_log_download_url' }
+        { label: 'get_video_download_url', value: 'get_video_download_url' }
     ]}
 >
 <TabItem value="get_download_url">
@@ -563,24 +605,6 @@ EXEC azure_extras.testbase.test_results.get_video_download_url
 @package_name='{{ package_name }}' --required, 
 @test_result_name='{{ test_result_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_console_log_download_url">
-
-Gets the download URL of the test execution console log file.
-
-```sql
-EXEC azure_extras.testbase.test_results.get_console_log_download_url 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@test_base_account_name='{{ test_base_account_name }}' --required, 
-@package_name='{{ package_name }}' --required, 
-@test_result_name='{{ test_result_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"logFileName": "{{ logFileName }}"
-}'
 ;
 ```
 </TabItem>

@@ -633,7 +633,7 @@ paths:
       x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Napster.CompanionAPI/organizations/{organizationname}/linkSaaS?api-version=2025-12-24-preview
   : post:
-      operationId: Organizations_begin_link_saa_s
+      operationId: Organizations_begin_link_saas
       description: Links a new SaaS to the Napster organization of the underlying monitor. Links a new SaaS to the
         Napster organization of the underlying monitor.
       parameters:
@@ -672,11 +672,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrganizationResource'
       x-stackql-resource: organizations
-      x-stackql-method: link_saa_s
+      x-stackql-method: link_saas
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Napster.CompanionAPI/organizations/{organizationname}/latestLinkedSaaS?api-version=2025-12-24-preview
   : post:
-      operationId: Organizations_latest_linked_saa_s
+      operationId: Organizations_latest_linked_saas
       description: Returns the latest SaaS linked to the Napster organization of the underlying monitor.
       parameters:
       - name: resource_group_name
@@ -704,7 +704,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/LatestLinkedSaaSResponse'
       x-stackql-resource: organizations
-      x-stackql-method: latest_linked_saa_s
+      x-stackql-method: latest_linked_saas
       x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Napster.CompanionAPI/activateSaaS?api-version=2025-12-24-preview:
     post:
@@ -738,6 +738,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SaaSResourceDetailsResponse'
-      x-stackql-resource: saa_s_operation_group
+      x-stackql-resource: saas_operation_group
       x-stackql-method: activate_resource
       x-stackql-verb: EXEC

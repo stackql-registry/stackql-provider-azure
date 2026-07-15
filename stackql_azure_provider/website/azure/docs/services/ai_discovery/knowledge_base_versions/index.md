@@ -332,18 +332,18 @@ The following methods are available for this resource:
     <td>Delete a KnowledgeBaseVersion.</td>
 </tr>
 <tr>
-    <td><a href="#delete_latest_version"><CopyableCode code="delete_latest_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete the most recent version of KnowledgeBase.</td>
-</tr>
-<tr>
     <td><a href="#get_latest_version"><CopyableCode code="get_latest_version" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Get the most recent version of KnowledgeBase.</td>
+</tr>
+<tr>
+    <td><a href="#delete_latest_version"><CopyableCode code="delete_latest_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-knowledge_base_name"><code>knowledge_base_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete the most recent version of KnowledgeBase.</td>
 </tr>
 <tr>
     <td><a href="#start_indexing"><CopyableCode code="start_indexing" /></a></td>
@@ -378,7 +378,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-knowledge_base_name">
     <td><CopyableCode code="knowledge_base_name" /></td>
@@ -639,8 +639,7 @@ version;
 <Tabs
     defaultValue="delete"
     values={[
-        { label: 'delete', value: 'delete' },
-        { label: 'delete_latest_version', value: 'delete_latest_version' }
+        { label: 'delete', value: 'delete' }
     ]}
 >
 <TabItem value="delete">
@@ -655,17 +654,6 @@ AND endpoint = '{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-<TabItem value="delete_latest_version">
-
-Delete the most recent version of KnowledgeBase.
-
-```sql
-DELETE FROM azure.ai_discovery.knowledge_base_versions
-WHERE knowledge_base_name = '{{ knowledge_base_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 </Tabs>
 
 
@@ -675,6 +663,7 @@ AND endpoint = '{{ endpoint }}' --required
     defaultValue="get_latest_version"
     values={[
         { label: 'get_latest_version', value: 'get_latest_version' },
+        { label: 'delete_latest_version', value: 'delete_latest_version' },
         { label: 'start_indexing', value: 'start_indexing' },
         { label: 'cancel_indexing', value: 'cancel_indexing' }
     ]}
@@ -685,6 +674,17 @@ Get the most recent version of KnowledgeBase.
 
 ```sql
 EXEC azure.ai_discovery.knowledge_base_versions.get_latest_version 
+@knowledge_base_name='{{ knowledge_base_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_latest_version">
+
+Delete the most recent version of KnowledgeBase.
+
+```sql
+EXEC azure.ai_discovery.knowledge_base_versions.delete_latest_version 
 @knowledge_base_name='{{ knowledge_base_name }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;

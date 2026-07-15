@@ -3523,9 +3523,19 @@ components:
             $ref: '#/components/schemas/HybridConnectionFlattened'
         nextLink:
           type: string
-    HybridConnectionKey:
+    HybridConnectionKeyProperties:
       type: object
-      description: Hybrid Connection key contract. This has the send key name and value for a Hybrid Connection.
+      description: HybridConnectionKey resource specific properties.
+      properties:
+        sendKeyName:
+          type: string
+          description: The name of the send key.
+        sendKeyValue:
+          type: string
+          description: The value of the send key.
+    HybridConnectionKeyFlattened:
+      type: object
+      description: Flattened view of HybridConnectionKey ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -3539,13 +3549,6 @@ components:
         type:
           type: string
           description: Resource type.
-        properties:
-          $ref: '#/components/schemas/HybridConnectionKeyProperties'
-          description: HybridConnectionKey resource specific properties.
-    HybridConnectionKeyProperties:
-      type: object
-      description: HybridConnectionKey resource specific properties.
-      properties:
         sendKeyName:
           type: string
           description: The name of the send key.
@@ -3715,6 +3718,19 @@ components:
           type: string
           format: date-time
           description: The RDP password expiry date.
+    ServerFarmInstance:
+      type: object
+      description: Represents details of a single instance in a server farm.
+      properties:
+        instanceName:
+          type: string
+          description: The instance name.
+        ipAddress:
+          type: string
+          description: The instance IP address.
+        status:
+          type: string
+          description: The instance status.
     ServerFarmInstanceDetails:
       type: object
       description: Represents instance details for an app service plan.
@@ -3730,19 +3746,6 @@ components:
         instanceCount:
           type: integer
           description: The total number of instances.
-    ServerFarmInstance:
-      type: object
-      description: Represents details of a single instance in a server farm.
-      properties:
-        instanceName:
-          type: string
-          description: The instance name.
-        ipAddress:
-          type: string
-          description: The instance IP address.
-        status:
-          type: string
-          description: The instance status.
     HybridConnectionLimitsProperties:
       type: object
       description: HybridConnectionLimits resource specific properties.
@@ -6832,25 +6835,6 @@ components:
             $ref: '#/components/schemas/StaticSiteARMResourceFlattened'
         nextLink:
           type: string
-    StaticSiteUserARMResource:
-      type: object
-      description: Static Site User ARM resource.
-      properties:
-        id:
-          type: string
-          description: Resource Id.
-        name:
-          type: string
-          description: Resource Name.
-        kind:
-          type: string
-          description: Kind of resource.
-        type:
-          type: string
-          description: Resource type.
-        properties:
-          $ref: '#/components/schemas/StaticSiteUserARMResourceProperties'
-          description: StaticSiteUserARMResource resource specific properties.
     StaticSiteUserARMResourceProperties:
       type: object
       description: StaticSiteUserARMResource resource specific properties.
@@ -6867,13 +6851,41 @@ components:
         roles:
           type: string
           description: The roles for the static site user, in free-form string format.
-    PagedStaticSiteUserARMResource:
+    StaticSiteUserARMResourceFlattened:
+      type: object
+      description: Flattened view of StaticSiteUserARMResource ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        provider:
+          type: string
+          description: The identity provider for the static site user.
+        userId:
+          type: string
+          description: The user id for the static site user.
+        displayName:
+          type: string
+          description: The display name for the static site user.
+        roles:
+          type: string
+          description: The roles for the static site user, in free-form string format.
+    PagedStaticSiteUserARMResourceFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/StaticSiteUserARMResource'
+            $ref: '#/components/schemas/StaticSiteUserARMResourceFlattened'
         nextLink:
           type: string
     StaticSiteFunctionOverviewARMResourceProperties:
@@ -7108,28 +7120,6 @@ components:
             $ref: '#/components/schemas/StaticSiteCustomDomainOverviewARMResourceFlattened'
         nextLink:
           type: string
-    DatabaseConnection:
-      type: object
-      description: Static Site Database Connection resource.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/DatabaseConnectionProperties'
-          description: DatabaseConnection resource specific properties.
-        kind:
-          type: string
-          description: Kind of resource.
     DatabaseConnectionProperties:
       type: object
       description: DatabaseConnection resource specific properties.
@@ -7157,13 +7147,52 @@ components:
       required:
       - resourceId
       - region
-    PagedDatabaseConnection:
+    DatabaseConnectionFlattened:
+      type: object
+      description: Flattened view of DatabaseConnection ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Kind of resource.
+        resourceId:
+          type: string
+          description: The resource id of the database. Required.
+        connectionIdentity:
+          type: string
+          description: If present, the identity is used in conjunction with connection string to connect to the
+            database. Use of the system-assigned managed identity is indicated with the string 'SystemAssigned',
+            while use of a user-assigned managed identity is indicated with the resource id of the managed identity
+            resource.
+        connectionString:
+          type: string
+          description: The connection string to use to connect to the database.
+        region:
+          type: string
+          description: The region of the database resource. Required.
+        configurationFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaticSiteDatabaseConnectionConfigurationFileOverview'
+          description: A list of configuration files associated with this database connection.
+    PagedDatabaseConnectionFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/DatabaseConnection'
+            $ref: '#/components/schemas/DatabaseConnectionFlattened'
         nextLink:
           type: string
     StaticSiteBuildARMResourceProperties:
@@ -7284,54 +7313,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StaticSiteBuildARMResourceFlattened'
-        nextLink:
-          type: string
-    DatabaseConnectionFlattened:
-      type: object
-      description: Flattened view of DatabaseConnection ('properties' hoisted to the top level).
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        kind:
-          type: string
-          description: Kind of resource.
-        resourceId:
-          type: string
-          description: The resource id of the database. Required.
-        connectionIdentity:
-          type: string
-          description: If present, the identity is used in conjunction with connection string to connect to the
-            database. Use of the system-assigned managed identity is indicated with the string 'SystemAssigned',
-            while use of a user-assigned managed identity is indicated with the resource id of the managed identity
-            resource.
-        connectionString:
-          type: string
-          description: The connection string to use to connect to the database.
-        region:
-          type: string
-          description: The region of the database resource. Required.
-        configurationFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/StaticSiteDatabaseConnectionConfigurationFileOverview'
-          description: A list of configuration files associated with this database connection.
-    PagedDatabaseConnectionFlattened:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseConnectionFlattened'
         nextLink:
           type: string
     StaticSiteUserProvidedFunctionAppARMResourceProperties:
@@ -7483,6 +7464,25 @@ components:
           description: Managed service identity.
       required:
       - location
+    StaticSiteUserARMResource:
+      type: object
+      description: Static Site User ARM resource.
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        properties:
+          $ref: '#/components/schemas/StaticSiteUserARMResourceProperties'
+          description: StaticSiteUserARMResource resource specific properties.
     StaticSiteUserInvitationRequestResourceProperties:
       type: object
       description: StaticSiteUserInvitationRequestResource resource specific properties.
@@ -7561,6 +7561,28 @@ components:
         functionLanguage:
           type: string
           description: The language of the api content, if it exists.
+    DatabaseConnection:
+      type: object
+      description: Static Site Database Connection resource.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: '#/components/schemas/DatabaseConnectionProperties'
+          description: DatabaseConnection resource specific properties.
+        kind:
+          type: string
+          description: Kind of resource.
     DatabaseConnectionPatchRequestProperties:
       type: object
       description: DatabaseConnectionPatchRequest resource specific properties.
@@ -7757,28 +7779,6 @@ components:
           type: object
           properties: {}
           description: Connection strings.
-    User:
-      type: object
-      description: User credentials used for publishing activity.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/UserProperties'
-          description: User resource specific properties.
-        kind:
-          type: string
-          description: Kind of resource.
     UserProperties:
       type: object
       description: User resource specific properties.
@@ -7800,6 +7800,72 @@ components:
           description: Url of SCM site.
       required:
       - publishingUserName
+    UserFlattened:
+      type: object
+      description: Flattened view of User ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Kind of resource.
+        publishingUserName:
+          type: string
+          description: Username used for publishing. Required.
+        publishingPassword:
+          type: string
+          description: Password used for publishing.
+        publishingPasswordHash:
+          type: string
+          description: Password hash used for publishing.
+        publishingPasswordHashSalt:
+          type: string
+          description: Password hash salt used for publishing.
+        scmUri:
+          type: string
+          description: Url of SCM site.
+    PushSettingsFlattened:
+      type: object
+      description: Flattened view of PushSettings ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        isPushEnabled:
+          type: boolean
+          description: Gets or sets a flag indicating whether the Push endpoint is enabled. Required.
+        tagWhitelistJson:
+          type: string
+          description: Gets or sets a JSON string containing a list of tags that are whitelisted for use by the
+            push registration endpoint.
+        tagsRequiringAuth:
+          type: string
+          description: 'Gets or sets a JSON string containing a list of tags that require user authentication to
+            be used in the push registration endpoint. Tags can consist of alphanumeric characters and the following:
+            ''_'', ''@'', ''#'', ''.'', '':'', ''-''. Validation should be performed at the PushRequestHandler.'
+        dynamicTagsJson:
+          type: string
+          description: Gets or sets a JSON string containing a list of dynamic tags that will be evaluated from
+            user claims in the push registration endpoint.
     HostKeys:
       type: object
       description: Functions host level keys.
@@ -7880,28 +7946,6 @@ components:
         biztalkUri:
           type: string
           description: ':vartype biztalk_uri: str'
-    BackupItem:
-      type: object
-      description: Backup description.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/BackupItemProperties'
-          description: BackupItem resource specific properties.
-        kind:
-          type: string
-          description: Kind of resource.
     BackupItemProperties:
       type: object
       description: BackupItem resource specific properties.
@@ -7996,13 +8040,75 @@ components:
       - MySql
       - LocalMySql
       - PostgreSql
-    PagedBackupItem:
+    BackupItemFlattened:
+      type: object
+      description: Flattened view of BackupItem ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        kind:
+          type: string
+          description: Kind of resource.
+        storageAccountUrl:
+          type: string
+          description: SAS URL for the storage account container which contains this backup.
+        blobName:
+          type: string
+          description: Name of the blob which contains data for this backup.
+        status:
+          $ref: '#/components/schemas/BackupItemStatus'
+          description: 'Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created",
+            "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted".'
+        sizeInBytes:
+          type: integer
+          description: Size of the backup in bytes.
+        created:
+          type: string
+          format: date-time
+          description: Timestamp of the backup creation.
+        log:
+          type: string
+          description: Details regarding this backup. Might contain an error message.
+        databases:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseBackupSetting'
+          description: List of databases included in the backup.
+        scheduled:
+          type: boolean
+          description: True if this backup has been created due to a schedule being triggered.
+        lastRestoreTimeStamp:
+          type: string
+          format: date-time
+          description: Timestamp of a last restore operation which used this backup.
+        finishedTimeStamp:
+          type: string
+          format: date-time
+          description: Timestamp when this backup finished.
+        correlationId:
+          type: string
+          description: Unique correlation identifier. Please use this along with the timestamp while communicating
+            with Azure support.
+        websiteSizeInBytes:
+          type: integer
+          description: Size of the original web app which has been backed up.
+    PagedBackupItemFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/BackupItem'
+            $ref: '#/components/schemas/BackupItemFlattened'
         nextLink:
           type: string
     FunctionSecrets:
@@ -8140,25 +8246,6 @@ components:
       - FileZilla3
       - WebDeploy
       - Ftp
-    SlotDifference:
-      type: object
-      description: A setting difference between two deployment slots of an app.
-      properties:
-        id:
-          type: string
-          description: Resource Id.
-        name:
-          type: string
-          description: Resource Name.
-        kind:
-          type: string
-          description: Kind of resource.
-        type:
-          type: string
-          description: Resource type.
-        properties:
-          $ref: '#/components/schemas/SlotDifferenceProperties'
-          description: SlotDifference resource specific properties.
     SlotDifferenceProperties:
       type: object
       description: SlotDifference resource specific properties.
@@ -8184,13 +8271,50 @@ components:
         description:
           type: string
           description: Description of the setting difference.
-    PagedSlotDifference:
+    SlotDifferenceFlattened:
+      type: object
+      description: Flattened view of SlotDifference ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        level:
+          type: string
+          description: 'Level of the difference: Information, Warning or Error.'
+        settingType:
+          type: string
+          description: 'The type of the setting: General, AppSetting or ConnectionString.'
+        diffRule:
+          type: string
+          description: Rule that describes how to process the setting difference during a slot swap.
+        settingName:
+          type: string
+          description: Name of the setting.
+        valueInCurrentSlot:
+          type: string
+          description: Value of the setting in the current slot.
+        valueInTargetSlot:
+          type: string
+          description: Value of the setting in the target slot.
+        description:
+          type: string
+          description: Description of the setting difference.
+    PagedSlotDifferenceFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/SlotDifference'
+            $ref: '#/components/schemas/SlotDifferenceFlattened'
         nextLink:
           type: string
     PagedSnapshotFlattened:
@@ -8202,31 +8326,6 @@ components:
             $ref: '#/components/schemas/SnapshotFlattened'
         nextLink:
           type: string
-    WorkflowEnvelope:
-      type: object
-      description: Workflow properties definition.
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        properties:
-          $ref: '#/components/schemas/WorkflowEnvelopeProperties'
-          description: Additional workflow properties.
-        kind:
-          type: string
-          description: The resource kind.
-        location:
-          type: string
-          description: The resource location.
     WorkflowEnvelopeProperties:
       type: object
       description: Additional workflow properties.
@@ -8271,9 +8370,9 @@ components:
       - Healthy
       - Unhealthy
       - Unknown
-    BackupItemFlattened:
+    WorkflowEnvelopeFlattened:
       type: object
-      description: Flattened view of BackupItem ('properties' hoisted to the top level).
+      description: Flattened view of WorkflowEnvelope ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -8289,59 +8388,21 @@ components:
           description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
         kind:
           type: string
-          description: Kind of resource.
-        storageAccountUrl:
+          description: The resource kind.
+        location:
           type: string
-          description: SAS URL for the storage account container which contains this backup.
-        blobName:
-          type: string
-          description: Name of the blob which contains data for this backup.
-        status:
-          $ref: '#/components/schemas/BackupItemStatus'
-          description: 'Backup status. Known values are: "InProgress", "Failed", "Succeeded", "TimedOut", "Created",
-            "Skipped", "PartiallySucceeded", "DeleteInProgress", "DeleteFailed", and "Deleted".'
-        sizeInBytes:
-          type: integer
-          description: Size of the backup in bytes.
-        created:
-          type: string
-          format: date-time
-          description: Timestamp of the backup creation.
-        log:
-          type: string
-          description: Details regarding this backup. Might contain an error message.
-        databases:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseBackupSetting'
-          description: List of databases included in the backup.
-        scheduled:
-          type: boolean
-          description: True if this backup has been created due to a schedule being triggered.
-        lastRestoreTimeStamp:
-          type: string
-          format: date-time
-          description: Timestamp of a last restore operation which used this backup.
-        finishedTimeStamp:
-          type: string
-          format: date-time
-          description: Timestamp when this backup finished.
-        correlationId:
-          type: string
-          description: Unique correlation identifier. Please use this along with the timestamp while communicating
-            with Azure support.
-        websiteSizeInBytes:
-          type: integer
-          description: Size of the original web app which has been backed up.
-    PagedBackupItemFlattened:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/BackupItemFlattened'
-        nextLink:
-          type: string
+          description: The resource location.
+        files:
+          type: object
+          properties: {}
+          description: Gets or sets the files.
+        flowState:
+          $ref: '#/components/schemas/WorkflowState'
+          description: 'Gets or sets the state of the workflow. Known values are: "NotSpecified", "Completed", "Enabled",
+            "Disabled", "Deleted", and "Suspended".'
+        health:
+          $ref: '#/components/schemas/WorkflowHealth'
+          description: Gets or sets workflow health.
     BackupRequestProperties:
       type: object
       description: BackupRequest resource specific properties.
@@ -10740,39 +10801,6 @@ components:
             $ref: '#/components/schemas/WebJobFlattened'
         nextLink:
           type: string
-    WorkflowEnvelopeFlattened:
-      type: object
-      description: Flattened view of WorkflowEnvelope ('properties' hoisted to the top level).
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        kind:
-          type: string
-          description: The resource kind.
-        location:
-          type: string
-          description: The resource location.
-        files:
-          type: object
-          properties: {}
-          description: Gets or sets the files.
-        flowState:
-          $ref: '#/components/schemas/WorkflowState'
-          description: 'Gets or sets the state of the workflow. Known values are: "NotSpecified", "Completed", "Enabled",
-            "Disabled", "Deleted", and "Suspended".'
-        health:
-          $ref: '#/components/schemas/WorkflowHealth'
-          description: Gets or sets workflow health.
     PagedWorkflowEnvelopeFlattened:
       type: object
       properties:
@@ -10782,25 +10810,6 @@ components:
             $ref: '#/components/schemas/WorkflowEnvelopeFlattened'
         nextLink:
           type: string
-    SiteAuthSettings:
-      type: object
-      description: Configuration settings for the Azure App Service Authentication / Authorization feature.
-      properties:
-        id:
-          type: string
-          description: Resource Id.
-        name:
-          type: string
-          description: Resource Name.
-        kind:
-          type: string
-          description: Kind of resource.
-        type:
-          type: string
-          description: Resource type.
-        properties:
-          $ref: '#/components/schemas/SiteAuthSettingsProperties'
-          description: SiteAuthSettings resource specific properties.
     SiteAuthSettingsProperties:
       type: object
       description: SiteAuthSettings resource specific properties.
@@ -11003,9 +11012,9 @@ components:
       - MicrosoftAccount
       - Twitter
       - Github
-    BackupRequest:
+    SiteAuthSettingsFlattened:
       type: object
-      description: Description of a backup which will be performed.
+      description: Flattened view of SiteAuthSettings ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -11019,9 +11028,224 @@ components:
         type:
           type: string
           description: Resource type.
-        properties:
-          $ref: '#/components/schemas/BackupRequestProperties'
-          description: BackupRequest resource specific properties.
+        enabled:
+          type: boolean
+          description: true if the Authentication / Authorization feature is enabled for the current app; otherwise,
+            false.
+        runtimeVersion:
+          type: string
+          description: The RuntimeVersion of the Authentication / Authorization feature in use for the current app.
+            The setting in this value can control the behavior of certain features in the Authentication / Authorization
+            module.
+        unauthenticatedClientAction:
+          $ref: '#/components/schemas/UnauthenticatedClientAction'
+          description: 'The action to take when an unauthenticated client attempts to access the app. Known values
+            are: "RedirectToLoginPage" and "AllowAnonymous".'
+        tokenStoreEnabled:
+          type: boolean
+          description: true to durably store platform-specific security tokens that are obtained during login flows;
+            otherwise, false. The default is false.
+        allowedExternalRedirectUrls:
+          type: array
+          items:
+            type: string
+          description: External URLs that can be redirected to as part of logging in or logging out of the app.
+            Note that the query string part of the URL is ignored. This is an advanced setting typically only needed
+            by Windows Store application backends. Note that URLs within the current domain are always implicitly
+            allowed.
+        defaultProvider:
+          $ref: '#/components/schemas/BuiltInAuthenticationProvider'
+          description: 'The default authentication provider to use when multiple providers are configured. This
+            setting is only needed if multiple providers are configured and the unauthenticated client action is
+            set to "RedirectToLoginPage". Known values are: "AzureActiveDirectory", "Facebook", "Google", "MicrosoftAccount",
+            "Twitter", and "Github".'
+        tokenRefreshExtensionHours:
+          type: number
+          description: The number of hours after session token expiration that a session token can be used to call
+            the token refresh API. The default is 72 hours.
+        clientId:
+          type: string
+          description: 'The Client ID of this relying party application, known as the client_id. This setting is
+            required for enabling OpenID Connection authentication with Azure Active Directory or other 3rd party
+            OpenID Connect providers. More information on OpenID Connect: `http://openid.net/specs/openid-connect-core-1_0.html
+            `_.'
+        clientSecret:
+          type: string
+          description: 'The Client Secret of this relying party application (in Azure Active Directory, this is
+            also referred to as the Key). This setting is optional. If no client secret is configured, the OpenID
+            Connect implicit auth flow is used to authenticate end users. Otherwise, the OpenID Connect Authorization
+            Code Flow is used to authenticate end users. More information on OpenID Connect: `http://openid.net/specs/openid-connect-core-1_0.html
+            `_.'
+        clientSecretSettingName:
+          type: string
+          description: The app setting name that contains the client secret of the relying party application.
+        clientSecretCertificateThumbprint:
+          type: string
+          description: An alternative to the client secret, that is the thumbprint of a certificate used for signing
+            purposes. This property acts as a replacement for the Client Secret. It is also optional.
+        issuer:
+          type: string
+          description: 'The OpenID Connect Issuer URI that represents the entity which issues access tokens for
+            this application. When using Azure Active Directory, this value is the URI of the directory tenant,
+            e.g. `https://sts.windows.net/{tenant-guid}/`. This URI is a case-sensitive identifier for the token
+            issuer. More information on OpenID Connect Discovery: `http://openid.net/specs/openid-connect-discovery-1_0.html
+            `_.'
+        validateIssuer:
+          type: boolean
+          description: Gets a value indicating whether the issuer should be a valid HTTPS url and be validated as
+            such.
+        allowedAudiences:
+          type: array
+          items:
+            type: string
+          description: Allowed audience values to consider when validating JSON Web Tokens issued by Azure Active
+            Directory. Note that the ClientID value is always considered an allowed audience, regardless of this
+            setting.
+        additionalLoginParams:
+          type: array
+          items:
+            type: string
+          description: Login parameters to send to the OpenID Connect authorization endpoint when a user logs in.
+            Each parameter must be in the form "key=value".
+        aadClaimsAuthorization:
+          type: string
+          description: Gets a JSON string containing the Azure AD Acl settings.
+        googleClientId:
+          type: string
+          description: 'The OpenID Connect Client ID for the Google web application. This setting is required for
+            enabling Google Sign-In. Google Sign-In documentation: `https://developers.google.com/identity/sign-in/web/
+            `_.'
+        googleClientSecret:
+          type: string
+          description: 'The client secret associated with the Google web application. This setting is required for
+            enabling Google Sign-In. Google Sign-In documentation: `https://developers.google.com/identity/sign-in/web/
+            `_.'
+        googleClientSecretSettingName:
+          type: string
+          description: The app setting name that contains the client secret associated with the Google web application.
+        googleOAuthScopes:
+          type: array
+          items:
+            type: string
+          description: 'The OAuth 2.0 scopes that will be requested as part of Google Sign-In authentication. This
+            setting is optional. If not specified, "openid", "profile", and "email" are used as default scopes.
+            Google Sign-In documentation: `https://developers.google.com/identity/sign-in/web/ `_.'
+        facebookAppId:
+          type: string
+          description: 'The App ID of the Facebook app used for login. This setting is required for enabling Facebook
+            Login. Facebook Login documentation: `https://developers.facebook.com/docs/facebook-login `_.'
+        facebookAppSecret:
+          type: string
+          description: 'The App Secret of the Facebook app used for Facebook Login. This setting is required for
+            enabling Facebook Login. Facebook Login documentation: `https://developers.facebook.com/docs/facebook-login
+            `_.'
+        facebookAppSecretSettingName:
+          type: string
+          description: The app setting name that contains the app secret used for Facebook Login.
+        facebookOAuthScopes:
+          type: array
+          items:
+            type: string
+          description: 'The OAuth 2.0 scopes that will be requested as part of Facebook Login authentication. This
+            setting is optional. Facebook Login documentation: `https://developers.facebook.com/docs/facebook-login
+            `_.'
+        gitHubClientId:
+          type: string
+          description: The Client Id of the GitHub app used for login. This setting is required for enabling Github
+            login.
+        gitHubClientSecret:
+          type: string
+          description: The Client Secret of the GitHub app used for Github Login. This setting is required for enabling
+            Github login.
+        gitHubClientSecretSettingName:
+          type: string
+          description: The app setting name that contains the client secret of the Github app used for GitHub Login.
+        gitHubOAuthScopes:
+          type: array
+          items:
+            type: string
+          description: The OAuth 2.0 scopes that will be requested as part of GitHub Login authentication. This
+            setting is optional.
+        twitterConsumerKey:
+          type: string
+          description: 'The OAuth 1.0a consumer key of the Twitter application used for sign-in. This setting is
+            required for enabling Twitter Sign-In. Twitter Sign-In documentation: `https://dev.twitter.com/web/sign-in
+            `_.'
+        twitterConsumerSecret:
+          type: string
+          description: 'The OAuth 1.0a consumer secret of the Twitter application used for sign-in. This setting
+            is required for enabling Twitter Sign-In. Twitter Sign-In documentation: `https://dev.twitter.com/web/sign-in
+            `_.'
+        twitterConsumerSecretSettingName:
+          type: string
+          description: The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application
+            used for sign-in.
+        microsoftAccountClientId:
+          type: string
+          description: 'The OAuth 2.0 client ID that was created for the app used for authentication. This setting
+            is required for enabling Microsoft Account authentication. Microsoft Account OAuth documentation: `https://dev.onedrive.com/auth/msa_oauth.htm
+            `_.'
+        microsoftAccountClientSecret:
+          type: string
+          description: 'The OAuth 2.0 client secret that was created for the app used for authentication. This setting
+            is required for enabling Microsoft Account authentication. Microsoft Account OAuth documentation: `https://dev.onedrive.com/auth/msa_oauth.htm
+            `_.'
+        microsoftAccountClientSecretSettingName:
+          type: string
+          description: The app setting name containing the OAuth 2.0 client secret that was created for the app
+            used for authentication.
+        microsoftAccountOAuthScopes:
+          type: array
+          items:
+            type: string
+          description: 'The OAuth 2.0 scopes that will be requested as part of Microsoft Account authentication.
+            This setting is optional. If not specified, "wl.basic" is used as the default scope. Microsoft Account
+            Scopes and permissions documentation: `https://msdn.microsoft.com/en-us/library/dn631845.aspx `_.'
+        isAuthFromFile:
+          type: string
+          description: '"true" if the auth config settings should be read from a file, "false" otherwise.'
+        authFilePath:
+          type: string
+          description: The path of the config file containing auth settings. If the path is relative, base will
+            the site's root directory.
+        configVersion:
+          type: string
+          description: The ConfigVersion of the Authentication / Authorization feature in use for the current app.
+            The setting in this value can control the behavior of the control plane for Authentication / Authorization.
+    BackupRequestFlattened:
+      type: object
+      description: Flattened view of BackupRequest ('properties' hoisted to the top level).
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        backupName:
+          type: string
+          description: Name of the backup.
+        enabled:
+          type: boolean
+          description: True if the backup schedule is enabled (must be included in that case), false if the backup
+            schedule should be disabled.
+        storageAccountUrl:
+          type: string
+          description: SAS URL to the container. Required.
+        backupSchedule:
+          $ref: '#/components/schemas/BackupSchedule'
+          description: Schedule for the backup if it is executed periodically.
+        databases:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseBackupSetting'
+          description: Databases included in the backup.
     NetworkTrace:
       type: object
       description: Network trace.
@@ -12509,6 +12733,66 @@ components:
       - Passed
       - Failed
       - Skipped
+    BackupItem:
+      type: object
+      description: Backup description.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: '#/components/schemas/BackupItemProperties'
+          description: BackupItem resource specific properties.
+        kind:
+          type: string
+          description: Kind of resource.
+    SiteAuthSettings:
+      type: object
+      description: Configuration settings for the Azure App Service Authentication / Authorization feature.
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        properties:
+          $ref: '#/components/schemas/SiteAuthSettingsProperties'
+          description: SiteAuthSettings resource specific properties.
+    BackupRequest:
+      type: object
+      description: Description of a backup which will be performed.
+      properties:
+        id:
+          type: string
+          description: Resource Id.
+        name:
+          type: string
+          description: Resource Name.
+        kind:
+          type: string
+          description: Kind of resource.
+        type:
+          type: string
+          description: Resource type.
+        properties:
+          $ref: '#/components/schemas/BackupRequestProperties'
+          description: BackupRequest resource specific properties.
     RestoreRequestProperties:
       type: object
       description: RestoreRequest resource specific properties.
@@ -13505,28 +13789,6 @@ components:
             $ref: '#/components/schemas/WorkflowRunActionRepetitionDefinitionFlattened'
         nextLink:
           type: string
-    ExpressionRoot:
-      type: object
-      description: The expression root.
-      properties:
-        text:
-          type: string
-          description: The text.
-        value:
-          type: object
-          properties: {}
-          description: Anything.
-        subexpressions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Expression'
-          description: The sub expressions.
-        error:
-          $ref: '#/components/schemas/AzureResourceErrorInfo'
-          description: The azure resource error info.
-        path:
-          type: string
-          description: The path.
     Expression:
       type: object
       description: The expression.
@@ -13564,6 +13826,28 @@ components:
       required:
       - code
       - message
+    ExpressionRoot:
+      type: object
+      description: The expression root.
+      properties:
+        text:
+          type: string
+          description: The text.
+        value:
+          type: object
+          properties: {}
+          description: Anything.
+        subexpressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Expression'
+          description: The sub expressions.
+        error:
+          $ref: '#/components/schemas/AzureResourceErrorInfo'
+          description: The azure resource error info.
+        path:
+          type: string
+          description: The path.
     PagedExpressionRoot:
       type: object
       properties:
@@ -14286,6 +14570,25 @@ components:
             $ref: '#/components/schemas/WorkflowTriggerFlattened'
         nextLink:
           type: string
+    WorkflowTriggerListCallbackUrlQueries:
+      type: object
+      description: Gets the workflow trigger callback URL query parameters.
+      properties:
+        api-version:
+          type: string
+          description: The api version.
+        sp:
+          type: string
+          description: The SAS permissions.
+        sv:
+          type: string
+          description: The SAS version.
+        sig:
+          type: string
+          description: The SAS signature.
+        se:
+          type: string
+          description: The SAS timestamp.
     WorkflowTriggerCallbackUrl:
       type: object
       description: The workflow trigger callback URL.
@@ -14310,25 +14613,6 @@ components:
         queries:
           $ref: '#/components/schemas/WorkflowTriggerListCallbackUrlQueries'
           description: Gets the workflow trigger callback URL query parameters.
-    WorkflowTriggerListCallbackUrlQueries:
-      type: object
-      description: Gets the workflow trigger callback URL query parameters.
-      properties:
-        api-version:
-          type: string
-          description: The api version.
-        sp:
-          type: string
-          description: The SAS permissions.
-        sv:
-          type: string
-          description: The SAS version.
-        sig:
-          type: string
-          description: The SAS signature.
-        se:
-          type: string
-          description: The SAS timestamp.
     JsonSchema:
       type: object
       description: The JSON schema.
@@ -14891,15 +15175,6 @@ components:
             $ref: '#/components/schemas/GeoRegionFlattened'
         nextLink:
           type: string
-    PagedIdentifier:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Identifier'
-        nextLink:
-          type: string
     PremierAddOnOfferProperties:
       type: object
       description: PremierAddOnOffer resource specific properties.
@@ -15148,40 +15423,6 @@ components:
           items:
             $ref: '#/components/schemas/HostingEnvironmentDeploymentInfo'
           description: Available App Service Environments with basic information.
-    UserFlattened:
-      type: object
-      description: Flattened view of User ('properties' hoisted to the top level).
-      properties:
-        id:
-          type: string
-          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
-        name:
-          type: string
-          description: The name of the resource.
-        type:
-          type: string
-          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
-        systemData:
-          $ref: '#/components/schemas/SystemData'
-          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
-        kind:
-          type: string
-          description: Kind of resource.
-        publishingUserName:
-          type: string
-          description: Username used for publishing. Required.
-        publishingPassword:
-          type: string
-          description: Password used for publishing.
-        publishingPasswordHash:
-          type: string
-          description: Password hash used for publishing.
-        publishingPasswordHashSalt:
-          type: string
-          description: Password hash salt used for publishing.
-        scmUri:
-          type: string
-          description: Url of SCM site.
     ValidateResourceTypes:
       type: string
       enum:
@@ -15265,6 +15506,11 @@ components:
       - Microsoft.Web/sites/slots
       - Microsoft.Web/hostingEnvironments
       - Microsoft.Web/publishingUsers
+    InAvailabilityReasonType:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     ResourceNameAvailability:
       type: object
       description: Information regarding availability of a resource name.
@@ -15283,11 +15529,6 @@ components:
           description: If reason == invalid, provide the user with the reason why the given name is invalid, and
             provide the resource naming requirements so that the user can select a valid name. If reason == AlreadyExists,
             explain that resource name is already in use, and direct them to select a different name.
-    InAvailabilityReasonType:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     DnlResourceNameAvailability:
       type: object
       description: Information regarding availability of a resource name for DNL apps with regionalized default
@@ -15394,6 +15635,28 @@ components:
         details:
           type: string
           description: The details of what caused the failure, e.g. the blocking rule name, etc.
+    User:
+      type: object
+      description: User credentials used for publishing activity.
+      properties:
+        id:
+          type: string
+          description: Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+        name:
+          type: string
+          description: The name of the resource.
+        type:
+          type: string
+          description: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".
+        systemData:
+          $ref: '#/components/schemas/SystemData'
+          description: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+        properties:
+          $ref: '#/components/schemas/UserProperties'
+          description: User resource specific properties.
+        kind:
+          type: string
+          description: Kind of resource.
     SourceControl:
       type: object
       description: The source control OAuth token.
@@ -16341,7 +16604,7 @@ paths:
                 $ref: '#/components/schemas/WorkerPoolResource'
       x-stackql-resource: app_service_environments
       x-stackql-method: create_or_update_worker_pool
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: AppServiceEnvironments_update_worker_pool
       description: Create or update a worker pool. Description for Create or update a worker pool.
@@ -16395,7 +16658,7 @@ paths:
                 $ref: '#/components/schemas/WorkerPoolResource'
       x-stackql-resource: app_service_environments
       x-stackql-method: update_worker_pool
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/microsoft.Web/hostingEnvironments/{name}/diagnostics/{diagnostics_name}?api-version=2025-05-01
   : get:
       operationId: AppServiceEnvironments_get_diagnostics_item
@@ -16647,7 +16910,7 @@ paths:
                 $ref: '#/components/schemas/CustomDnsSuffixConfiguration'
       x-stackql-resource: app_service_environments
       x-stackql-method: update_ase_custom_dns_suffix_configuration
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: AppServiceEnvironments_delete_ase_custom_dns_suffix_configuration
       description: Delete Custom Dns Suffix configuration of an App Service Environment. Delete Custom Dns Suffix
@@ -16671,11 +16934,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: app_service_environments
       x-stackql-method: delete_ase_custom_dns_suffix_configuration
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/hostingEnvironments/{name}/configurations/networking?api-version=2025-05-01
   : get:
       operationId: AppServiceEnvironments_get_ase_v3_networking_configuration
@@ -16754,7 +17017,7 @@ paths:
                 $ref: '#/components/schemas/AseV3NetworkingConfiguration'
       x-stackql-resource: app_service_environments
       x-stackql-method: update_ase_networking_configuration
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default?api-version=2025-05-01
   : get:
       operationId: AppServiceEnvironments_get_multi_role_pool
@@ -16835,7 +17098,7 @@ paths:
                 $ref: '#/components/schemas/WorkerPoolResource'
       x-stackql-resource: app_service_environments
       x-stackql-method: create_or_update_multi_role_pool
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: AppServiceEnvironments_update_multi_role_pool
       description: Create or update a multi-role pool. Description for Create or update a multi-role pool.
@@ -16883,7 +17146,7 @@ paths:
                 $ref: '#/components/schemas/WorkerPoolResource'
       x-stackql-resource: app_service_environments
       x-stackql-method: update_multi_role_pool
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/hostingEnvironments/{name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2025-05-01
   : get:
       operationId: AppServiceEnvironments_get_private_endpoint_connection
@@ -17006,7 +17269,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: app_service_environments
       x-stackql-method: delete_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/hostingEnvironments/{name}/privateEndpointConnections?api-version=2025-05-01
   : get:
       operationId: AppServiceEnvironments_get_private_endpoint_connection_list
@@ -17681,10 +17944,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HybridConnectionKey'
+                $ref: '#/components/schemas/HybridConnectionKeyFlattened'
       x-stackql-resource: app_service_plans
       x-stackql-method: list_hybrid_connection_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionNamespaces/{namespace_name}/relays/{relay_name}/sites?api-version=2025-05-01
   : get:
       operationId: AppServicePlans_list_web_apps_by_hybrid_connection
@@ -17723,9 +17987,25 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                  nextLink:
+                    type: string
       x-stackql-resource: app_service_plans
       x-stackql-method: list_web_apps_by_hybrid_connection
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list_paged
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections?api-version=2025-05-01
   : get:
       operationId: AppServicePlans_list_vnets
@@ -17832,7 +18112,7 @@ paths:
                 $ref: '#/components/schemas/ServerFarmRdpDetails'
       x-stackql-resource: app_service_plans
       x-stackql-method: get_server_farm_rdp_password
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/serverfarms/{name}/listinstances?api-version=2025-05-01
   : post:
       operationId: AppServicePlans_get_server_farm_instance_details
@@ -17865,7 +18145,7 @@ paths:
                 $ref: '#/components/schemas/ServerFarmInstanceDetails'
       x-stackql-resource: app_service_plans
       x-stackql-method: get_server_farm_instance_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/serverfarms/{name}/skus?api-version=2025-05-01
   : get:
       operationId: AppServicePlans_get_server_farm_skus
@@ -17976,11 +18256,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: app_service_plans
       x-stackql-method: delete_hybrid_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionPlanLimits/limit?api-version=2025-05-01
   : get:
       operationId: AppServicePlans_get_hybrid_connection_plan_limit
@@ -18155,7 +18435,7 @@ paths:
                 $ref: '#/components/schemas/VnetGateway'
       x-stackql-resource: app_service_plans
       x-stackql-method: update_vnet_gateway
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnet_name}/routes/{route_name}?api-version=2025-05-01
   : get:
       operationId: AppServicePlans_get_route_for_vnet
@@ -18258,7 +18538,7 @@ paths:
                 $ref: '#/components/schemas/VnetRoute'
       x-stackql-resource: app_service_plans
       x-stackql-method: create_or_update_vnet_route
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: AppServicePlans_update_vnet_route
       description: Create or update a Virtual Network route in an App Service plan. Description for Create or update
@@ -18315,7 +18595,7 @@ paths:
                 $ref: '#/components/schemas/VnetRoute'
       x-stackql-resource: app_service_plans
       x-stackql-method: update_vnet_route
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: AppServicePlans_delete_vnet_route
       description: Delete a Virtual Network route in an App Service plan. Description for Delete a Virtual Network
@@ -18351,11 +18631,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: app_service_plans
       x-stackql-method: delete_vnet_route
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/microsoft.Web/serverfarms/{name}/workers/{worker_name}/recycleinstance?api-version=2025-05-01
   : post:
       operationId: AppServicePlans_recycle_managed_instance_worker
@@ -21549,7 +21829,7 @@ paths:
                 $ref: '#/components/schemas/Certificate'
       x-stackql-resource: site_certificates
       x-stackql-method: create_or_update_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: SiteCertificates_update_slot
       description: Create or update a certificate for a site and deployment slot. Create or update a certificate
@@ -21607,7 +21887,7 @@ paths:
                 $ref: '#/components/schemas/Certificate'
       x-stackql-resource: site_certificates
       x-stackql-method: update_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: SiteCertificates_delete_slot
       description: Delete a certificate for a given site and deployment slot. Delete a certificate for a given site
@@ -21644,11 +21924,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: site_certificates
       x-stackql-method: delete_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.Web/staticSites?api-version=2025-05-01:
     get:
       operationId: StaticSites_list
@@ -21706,10 +21986,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedStaticSiteUserARMResource'
+                $ref: '#/components/schemas/PagedStaticSiteUserARMResourceFlattened'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_users
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/functions?api-version=2025-05-01
   : get:
       operationId: StaticSites_list_static_site_functions
@@ -21777,7 +22060,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_app_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/listConfiguredRoles?api-version=2025-05-01
   : post:
       operationId: StaticSites_list_static_site_configured_roles
@@ -21810,7 +22093,7 @@ paths:
                 $ref: '#/components/schemas/StringList'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_configured_roles
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/listFunctionAppSettings?api-version=2025-05-01
   : post:
       operationId: StaticSites_list_static_site_function_app_settings
@@ -21843,7 +22126,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_function_app_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/listSecrets?api-version=2025-05-01
   : post:
       operationId: StaticSites_list_static_site_secrets
@@ -21876,7 +22159,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/functions?api-version=2025-05-01
   : get:
       operationId: StaticSites_list_static_site_build_functions
@@ -21957,7 +22240,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_build_app_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/listFunctionAppSettings?api-version=2025-05-01
   : post:
       operationId: StaticSites_list_static_site_build_function_app_settings
@@ -21996,7 +22279,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: list_static_site_build_function_app_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/basicAuth?api-version=2025-05-01
   : get:
       operationId: StaticSites_list_basic_auth
@@ -22191,7 +22474,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: static_sites
       x-stackql-method: delete_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/privateEndpointConnections?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_private_endpoint_connection_list
@@ -22484,10 +22767,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedDatabaseConnection'
+                $ref: '#/components/schemas/PagedDatabaseConnectionFlattened'
       x-stackql-resource: static_sites
       x-stackql-method: get_database_connections_with_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_static_site_build
@@ -22559,7 +22845,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: static_sites
       x-stackql-method: delete_static_site_build
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_static_site_builds
@@ -22631,10 +22917,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedDatabaseConnection'
+                $ref: '#/components/schemas/PagedDatabaseConnectionFlattened'
       x-stackql-resource: static_sites
       x-stackql-method: get_build_database_connections_with_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/databaseConnections/{database_connection_name}?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_build_database_connection
@@ -22737,7 +23026,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseConnection'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_build_database_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: StaticSites_update_build_database_connection
       description: Create or update a database connection for a static site build. Description for Create or update
@@ -22791,7 +23080,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseConnection'
       x-stackql-resource: static_sites
       x-stackql-method: update_build_database_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: StaticSites_delete_build_database_connection
       description: Delete a database connection for a static site build. Delete a database connection for a static
@@ -22827,11 +23116,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: static_sites
       x-stackql-method: delete_build_database_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/databaseConnections?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_build_database_connections
@@ -22915,10 +23204,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DatabaseConnection'
+                $ref: '#/components/schemas/DatabaseConnectionFlattened'
       x-stackql-resource: static_sites
       x-stackql-method: get_build_database_connection_with_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/databaseConnections/{database_connection_name}?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_database_connection
@@ -23009,7 +23299,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseConnection'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_database_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: StaticSites_update_database_connection
       description: Create or update a database connection for a static site. Description for Create or update a
@@ -23057,7 +23347,7 @@ paths:
                 $ref: '#/components/schemas/DatabaseConnection'
       x-stackql-resource: static_sites
       x-stackql-method: update_database_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: StaticSites_delete_database_connection
       description: Delete a database connection for a static site. Delete a database connection for a static site.
@@ -23086,11 +23376,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: static_sites
       x-stackql-method: delete_database_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/databaseConnections?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_database_connections
@@ -23162,10 +23452,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DatabaseConnection'
+                $ref: '#/components/schemas/DatabaseConnectionFlattened'
       x-stackql-resource: static_sites
       x-stackql-method: get_database_connection_with_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/userProvidedFunctionApps/{function_app_name}?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_user_provided_function_app_for_static_site_build
@@ -23616,7 +23907,7 @@ paths:
                 $ref: '#/components/schemas/StaticSiteBasicAuthPropertiesARMResource'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_basic_auth
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/customDomains/{domain_name}?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_static_site_custom_domain
@@ -23707,7 +23998,7 @@ paths:
                 $ref: '#/components/schemas/StaticSiteCustomDomainOverviewARMResource'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_static_site_custom_domain
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: StaticSites_begin_delete_static_site_custom_domain
       description: Deletes a custom domain. Description for Deletes a custom domain.
@@ -23740,7 +24031,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: static_sites
       x-stackql-method: delete_static_site_custom_domain
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/linkedBackends/{linked_backend_name}?api-version=2025-05-01
   : get:
       operationId: StaticSites_get_linked_backend
@@ -24132,11 +24423,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: static_sites
       x-stackql-method: delete_static_site_user
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: StaticSites_update_static_site_user
       description: Updates a user entry with the listed roles. Description for Updates a user entry with the listed
@@ -24193,7 +24484,7 @@ paths:
                 $ref: '#/components/schemas/StaticSiteUserARMResource'
       x-stackql-resource: static_sites
       x-stackql-method: update_static_site_user
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/config/appsettings?api-version=2025-05-01
   : put:
       operationId: StaticSites_create_or_update_static_site_app_settings
@@ -24240,7 +24531,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_static_site_app_settings
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/config/functionappsettings?api-version=2025-05-01
   : put:
       operationId: StaticSites_create_or_update_static_site_function_app_settings
@@ -24287,7 +24578,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_static_site_function_app_settings
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/createUserInvitation?api-version=2025-05-01
   : post:
       operationId: StaticSites_create_user_roles_invitation_link
@@ -24333,7 +24624,7 @@ paths:
                 $ref: '#/components/schemas/StaticSiteUserInvitationResponseResource'
       x-stackql-resource: static_sites
       x-stackql-method: create_user_roles_invitation_link
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/detach?api-version=2025-05-01
   : post:
       operationId: StaticSites_begin_detach_static_site
@@ -24444,7 +24735,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: static_sites
       x-stackql-method: create_zip_deployment_for_static_site
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/config/appsettings?api-version=2025-05-01
   : put:
       operationId: StaticSites_create_or_update_static_site_build_app_settings
@@ -24497,7 +24788,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_static_site_build_app_settings
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/config/functionappsettings?api-version=2025-05-01
   : put:
       operationId: StaticSites_create_or_update_static_site_build_function_app_settings
@@ -24550,7 +24841,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: static_sites
       x-stackql-method: create_or_update_static_site_build_function_app_settings
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/builds/{environment_name}/zipdeploy?api-version=2025-05-01
   : post:
       operationId: StaticSites_begin_create_zip_deployment_for_static_site_build
@@ -24598,7 +24889,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: static_sites
       x-stackql-method: create_zip_deployment_for_static_site_build
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/staticSites/{name}/customDomains/{domain_name}/validate?api-version=2025-05-01
   : post:
       operationId: StaticSites_begin_validate_custom_domain_can_be_added_to_static_site
@@ -25108,7 +25399,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_application_settings_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/azurestorageaccounts/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_azure_storage_accounts_slot
@@ -25147,7 +25438,7 @@ paths:
                 $ref: '#/components/schemas/AzureStoragePropertyDictionaryResource'
       x-stackql-resource: web_apps
       x-stackql-method: list_azure_storage_accounts_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_connection_strings_slot
@@ -25185,7 +25476,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionStringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_connection_strings_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_metadata_slot
@@ -25223,7 +25514,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_metadata_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/publishingcredentials/list?api-version=2025-05-01
   : post:
       operationId: WebApps_begin_list_publishing_credentials_slot
@@ -25259,10 +25550,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_publishing_credentials_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/pushsettings/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_site_push_settings_slot
@@ -25298,10 +25590,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushSettings'
+                $ref: '#/components/schemas/PushSettingsFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_site_push_settings_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/host/default/listkeys?api-version=2025-05-01
   : post:
       operationId: WebApps_list_host_keys_slot
@@ -25339,7 +25632,7 @@ paths:
                 $ref: '#/components/schemas/HostKeys'
       x-stackql-resource: web_apps
       x-stackql-method: list_host_keys_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/host/default/listsyncstatus?api-version=2025-05-01
   : post:
       operationId: WebApps_list_sync_status_slot
@@ -25374,7 +25667,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: list_sync_status_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridConnectionRelays?api-version=2025-05-01
   : get:
       operationId: WebApps_list_hybrid_connections_slot
@@ -25489,10 +25782,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedBackupItem'
+                $ref: '#/components/schemas/PagedBackupItemFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_site_backups_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/listsyncfunctiontriggerstatus?api-version=2025-05-01
   : post:
       operationId: WebApps_list_sync_function_triggers_slot
@@ -25531,7 +25827,7 @@ paths:
                 $ref: '#/components/schemas/FunctionSecrets'
       x-stackql-resource: web_apps
       x-stackql-method: list_sync_function_triggers_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/perfcounters?api-version=2025-05-01
   : get:
       operationId: WebApps_list_perf_mon_counters_slot
@@ -25666,7 +25962,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: list_publishing_profile_xml_with_secrets_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs?api-version=2025-05-01
   : post:
       operationId: WebApps_list_slot_differences_slot
@@ -25718,10 +26014,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedSlotDifference'
+                $ref: '#/components/schemas/PagedSlotDifferenceFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_slot_differences_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/snapshots?api-version=2025-05-01
   : get:
       operationId: WebApps_list_snapshots_slot
@@ -25888,10 +26187,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowEnvelope'
+                $ref: '#/components/schemas/WorkflowEnvelopeFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_workflows_connections_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections?api-version=2025-05-01
   : get:
       operationId: WebApps_list_vnet_connections_slot
@@ -25999,7 +26299,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_application_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/azurestorageaccounts/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_azure_storage_accounts
@@ -26032,7 +26332,7 @@ paths:
                 $ref: '#/components/schemas/AzureStoragePropertyDictionaryResource'
       x-stackql-resource: web_apps
       x-stackql-method: list_azure_storage_accounts
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_connection_strings
@@ -26064,7 +26364,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionStringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_connection_strings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/metadata/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_metadata
@@ -26096,7 +26396,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_metadata
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list?api-version=2025-05-01
   : post:
       operationId: WebApps_begin_list_publishing_credentials
@@ -26126,10 +26426,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_publishing_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/pushsettings/list?api-version=2025-05-01
   : post:
       operationId: WebApps_list_site_push_settings
@@ -26159,10 +26460,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PushSettings'
+                $ref: '#/components/schemas/PushSettingsFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_site_push_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/host/default/listkeys?api-version=2025-05-01
   : post:
       operationId: WebApps_list_host_keys
@@ -26194,7 +26496,7 @@ paths:
                 $ref: '#/components/schemas/HostKeys'
       x-stackql-resource: web_apps
       x-stackql-method: list_host_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/host/default/listsyncstatus?api-version=2025-05-01
   : post:
       operationId: WebApps_list_sync_status
@@ -26223,7 +26525,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: list_sync_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hybridConnectionRelays?api-version=2025-05-01
   : get:
       operationId: WebApps_list_hybrid_connections
@@ -26320,10 +26622,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedBackupItem'
+                $ref: '#/components/schemas/PagedBackupItemFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_site_backups
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/listsyncfunctiontriggerstatus?api-version=2025-05-01
   : post:
       operationId: WebApps_list_sync_function_triggers
@@ -26356,7 +26661,7 @@ paths:
                 $ref: '#/components/schemas/FunctionSecrets'
       x-stackql-resource: web_apps
       x-stackql-method: list_sync_function_triggers
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/perfcounters?api-version=2025-05-01
   : get:
       operationId: WebApps_list_perf_mon_counters
@@ -26473,7 +26778,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: list_publishing_profile_xml_with_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slotsdiffs?api-version=2025-05-01
   : post:
       operationId: WebApps_list_slot_differences_from_production
@@ -26519,10 +26824,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedSlotDifference'
+                $ref: '#/components/schemas/PagedSlotDifferenceFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_slot_differences_from_production
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/snapshots?api-version=2025-05-01
   : get:
       operationId: WebApps_list_snapshots
@@ -26665,10 +26973,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowEnvelope'
+                $ref: '#/components/schemas/WorkflowEnvelopeFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_workflows_connections
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/backups?api-version=2025-05-01
   : get:
       operationId: WebApps_list_backups
@@ -26755,10 +27064,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BackupItem'
+                $ref: '#/components/schemas/BackupItemFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_backup_status_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups?api-version=2025-05-01
   : get:
       operationId: WebApps_list_backups_slot
@@ -26859,10 +27169,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BackupItem'
+                $ref: '#/components/schemas/BackupItemFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: list_backup_status_secrets_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies?api-version=2025-05-01
   : get:
       operationId: WebApps_list_basic_publishing_credentials_policies
@@ -27020,7 +27331,7 @@ paths:
                 $ref: '#/components/schemas/SlotConfigNamesResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_slot_configuration_names
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/web/snapshots?api-version=2025-05-01
   : get:
       operationId: WebApps_list_configuration_snapshot_info
@@ -27656,7 +27967,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_function_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/functions/{function_name}/listsecrets?api-version=2025-05-01
   : post:
       operationId: WebApps_list_function_secrets
@@ -27695,7 +28006,7 @@ paths:
                 $ref: '#/components/schemas/FunctionSecrets'
       x-stackql-resource: web_apps
       x-stackql-method: list_function_secrets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/functions?api-version=2025-05-01
   : get:
       operationId: WebApps_list_instance_functions_slot
@@ -27782,7 +28093,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: list_function_keys_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/functions/{function_name}/listsecrets?api-version=2025-05-01
   : post:
       operationId: WebApps_list_function_secrets_slot
@@ -27827,7 +28138,7 @@ paths:
                 $ref: '#/components/schemas/FunctionSecrets'
       x-stackql-resource: web_apps
       x-stackql-method: list_function_secrets_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hostNameBindings?api-version=2025-05-01
   : get:
       operationId: WebApps_list_host_name_bindings
@@ -29314,7 +29625,7 @@ paths:
                 $ref: '#/components/schemas/Site'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_slot
       description: Creates a new web, mobile, or API app in an existing resource group, or updates an existing app.
@@ -29369,7 +29680,7 @@ paths:
                 $ref: '#/components/schemas/Site'
       x-stackql-resource: web_apps
       x-stackql-method: update_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_slot
       description: Deletes a web, mobile, or API app, or one of the deployment slots. Description for Deletes a
@@ -29412,11 +29723,11 @@ paths:
         description: Specify false if you want to keep empty App Service plan. By default, empty App Service plan
           is deleted. Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings/list?api-version=2025-05-01
   : post:
       operationId: WebApps_get_auth_settings_slot
@@ -29452,10 +29763,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SiteAuthSettings'
+                $ref: '#/components/schemas/SiteAuthSettingsFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: get_auth_settings_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup/list?api-version=2025-05-01
   : post:
       operationId: WebApps_get_backup_configuration_slot
@@ -29491,10 +29803,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BackupRequest'
+                $ref: '#/components/schemas/BackupRequestFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: get_backup_configuration_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/containerlogs?api-version=2025-05-01
   : post:
       operationId: WebApps_get_web_site_container_logs_slot
@@ -29529,7 +29842,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: get_web_site_container_logs_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/containerlogs/zip/download?api-version=2025-05-01
   : post:
       operationId: WebApps_get_container_logs_zip_slot
@@ -29564,7 +29877,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: get_container_logs_zip_slot
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/functions/admin/token?api-version=2025-05-01
   : get:
       operationId: WebApps_get_functions_admin_token_slot
@@ -29597,9 +29910,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: web_apps
       x-stackql-method: get_functions_admin_token_slot
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/microsoft.Web/sites/{name}/slots/{slot}/networkTrace/operationresults/{operation_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_network_trace_operation_slot
@@ -29979,7 +30300,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: web_apps
       x-stackql-method: delete_private_endpoint_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/privateEndpointConnections?api-version=2025-05-01
   : get:
       operationId: WebApps_get_private_endpoint_connection_list
@@ -30156,7 +30477,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: web_apps
       x-stackql-method: delete_private_endpoint_connection_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/privateEndpointConnections?api-version=2025-05-01
   : get:
       operationId: WebApps_get_private_endpoint_connection_list_slot
@@ -30301,7 +30622,7 @@ paths:
                 $ref: '#/components/schemas/HybridConnection'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_hybrid_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_hybrid_connection
       description: Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid
@@ -30358,7 +30679,7 @@ paths:
                 $ref: '#/components/schemas/HybridConnection'
       x-stackql-resource: web_apps
       x-stackql-method: update_hybrid_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_hybrid_connection
       description: Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from
@@ -30394,11 +30715,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_hybrid_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridConnectionNamespaces/{namespace_name}/relays/{relay_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_hybrid_connection_slot
@@ -30513,7 +30834,7 @@ paths:
                 $ref: '#/components/schemas/HybridConnection'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_hybrid_connection_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_hybrid_connection_slot
       description: Creates a new Hybrid Connection using a Service Bus relay. Description for Creates a new Hybrid
@@ -30576,7 +30897,7 @@ paths:
                 $ref: '#/components/schemas/HybridConnection'
       x-stackql-resource: web_apps
       x-stackql-method: update_hybrid_connection_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_hybrid_connection_slot
       description: Removes a Hybrid Connection from this site. Description for Removes a Hybrid Connection from
@@ -30618,11 +30939,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_hybrid_connection_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnet_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_vnet_connection_slot
@@ -30728,7 +31049,7 @@ paths:
                 $ref: '#/components/schemas/VnetInfoResource'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_vnet_connection_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_vnet_connection_slot
       description: Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties
@@ -30787,7 +31108,7 @@ paths:
                 $ref: '#/components/schemas/VnetInfoResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_vnet_connection_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_vnet_connection_slot
       description: Deletes a connection from an app (or deployment slot to a named virtual network. Description
@@ -30824,11 +31145,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_vnet_connection_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnet_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_vnet_connection
@@ -30920,7 +31241,7 @@ paths:
                 $ref: '#/components/schemas/VnetInfoResource'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_vnet_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_vnet_connection
       description: Adds a Virtual Network connection to an app or slot (PUT) or updates the connection properties
@@ -30972,7 +31293,7 @@ paths:
                 $ref: '#/components/schemas/VnetInfoResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_vnet_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_vnet_connection
       description: Deletes a connection from an app (or deployment slot to a named virtual network. Description
@@ -31002,11 +31323,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_vnet_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnet_name}/gateways/{gateway_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_vnet_connection_gateway_slot
@@ -31122,7 +31443,7 @@ paths:
                 $ref: '#/components/schemas/VnetGateway'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_vnet_connection_gateway_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_vnet_connection_gateway_slot
       description: Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds
@@ -31186,7 +31507,7 @@ paths:
                 $ref: '#/components/schemas/VnetGateway'
       x-stackql-resource: web_apps
       x-stackql-method: update_vnet_connection_gateway_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnet_name}/gateways/{gateway_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_vnet_connection_gateway
@@ -31288,7 +31609,7 @@ paths:
                 $ref: '#/components/schemas/VnetGateway'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_vnet_connection_gateway
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_vnet_connection_gateway
       description: Adds a gateway to a connected Virtual Network (PUT) or updates it (PATCH). Description for Adds
@@ -31345,7 +31666,7 @@ paths:
                 $ref: '#/components/schemas/VnetGateway'
       x-stackql-resource: web_apps
       x-stackql-method: update_vnet_connection_gateway
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/authsettings/list?api-version=2025-05-01
   : post:
       operationId: WebApps_get_auth_settings
@@ -31375,10 +31696,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SiteAuthSettings'
+                $ref: '#/components/schemas/SiteAuthSettingsFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: get_auth_settings
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/backup/list?api-version=2025-05-01
   : post:
       operationId: WebApps_get_backup_configuration
@@ -31408,10 +31730,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BackupRequest'
+                $ref: '#/components/schemas/BackupRequestFlattened'
       x-stackql-resource: web_apps
       x-stackql-method: get_backup_configuration
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/containerlogs?api-version=2025-05-01
   : post:
       operationId: WebApps_get_web_site_container_logs
@@ -31440,7 +31763,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: get_web_site_container_logs
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/containerlogs/zip/download?api-version=2025-05-01
   : post:
       operationId: WebApps_get_container_logs_zip
@@ -31469,7 +31792,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: get_container_logs_zip
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/extensions/onedeploy?api-version=2025-05-01
   : get:
       operationId: WebApps_get_one_deploy_status
@@ -31526,7 +31849,7 @@ paths:
           description: Success
       x-stackql-resource: web_apps
       x-stackql-method: create_one_deploy_operation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/functions/admin/token?api-version=2025-05-01
   : get:
       operationId: WebApps_get_functions_admin_token
@@ -31553,9 +31876,17 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
       x-stackql-resource: web_apps
       x-stackql-method: get_functions_admin_token
       x-stackql-verb: SELECT
+      x-stackql-flatten: scalar
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/microsoft.Web/sites/{name}/networkTrace/operationresults/{operation_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_network_trace_operation
@@ -31844,11 +32175,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_backup
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backup_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_backup_status_slot
@@ -31930,11 +32261,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_backup_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/ftp?api-version=2025-05-01
   : get:
       operationId: WebApps_get_ftp_allowed
@@ -32013,7 +32344,7 @@ paths:
                 $ref: '#/components/schemas/CsmPublishingCredentialsPoliciesEntity'
       x-stackql-resource: web_apps
       x-stackql-method: update_ftp_allowed
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/scm?api-version=2025-05-01
   : get:
       operationId: WebApps_get_scm_allowed
@@ -32092,7 +32423,7 @@ paths:
                 $ref: '#/components/schemas/CsmPublishingCredentialsPoliciesEntity'
       x-stackql-resource: web_apps
       x-stackql-method: update_scm_allowed
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/basicPublishingCredentialsPolicies/ftp?api-version=2025-05-01
   : get:
       operationId: WebApps_get_ftp_allowed_slot
@@ -32183,7 +32514,7 @@ paths:
                 $ref: '#/components/schemas/CsmPublishingCredentialsPoliciesEntity'
       x-stackql-resource: web_apps
       x-stackql-method: update_ftp_allowed_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/basicPublishingCredentialsPolicies/scm?api-version=2025-05-01
   : get:
       operationId: WebApps_get_scm_allowed_slot
@@ -32274,7 +32605,7 @@ paths:
                 $ref: '#/components/schemas/CsmPublishingCredentialsPoliciesEntity'
       x-stackql-resource: web_apps
       x-stackql-method: update_scm_allowed_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2?api-version=2025-05-01
   : get:
       operationId: WebApps_get_auth_settings_v2_without_secrets
@@ -32354,7 +32685,7 @@ paths:
                 $ref: '#/components/schemas/SiteAuthSettingsV2'
       x-stackql-resource: web_apps
       x-stackql-method: update_auth_settings_v2
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2/list?api-version=2025-05-01
   : get:
       operationId: WebApps_get_auth_settings_v2
@@ -32482,7 +32813,7 @@ paths:
                 $ref: '#/components/schemas/SiteAuthSettingsV2'
       x-stackql-resource: web_apps
       x-stackql-method: update_auth_settings_v2_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettingsV2/list?api-version=2025-05-01
   : get:
       operationId: WebApps_get_auth_settings_v2_slot
@@ -32930,7 +33261,7 @@ paths:
                 $ref: '#/components/schemas/SiteLogsConfig'
       x-stackql-resource: web_apps
       x-stackql-method: update_diagnostic_logs_config
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs?api-version=2025-05-01
   : get:
       operationId: WebApps_get_diagnostic_logs_configuration_slot
@@ -33023,7 +33354,7 @@ paths:
                 $ref: '#/components/schemas/SiteLogsConfig'
       x-stackql-resource: web_apps
       x-stackql-method: update_diagnostic_logs_config_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/web?api-version=2025-05-01
   : get:
       operationId: WebApps_get_configuration
@@ -33103,7 +33434,7 @@ paths:
                 $ref: '#/components/schemas/SiteConfigResource'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_configuration
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_configuration
       description: Updates the configuration of an app. Description for Updates the configuration of an app.
@@ -33148,7 +33479,7 @@ paths:
                 $ref: '#/components/schemas/SiteConfigResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_configuration
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/web/snapshots/{snapshot_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_configuration_snapshot
@@ -33282,7 +33613,7 @@ paths:
                 $ref: '#/components/schemas/SiteConfigResource'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_configuration_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_configuration_slot
       description: Updates the configuration of an app. Description for Updates the configuration of an app.
@@ -33334,7 +33665,7 @@ paths:
                 $ref: '#/components/schemas/SiteConfigResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_configuration_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web/snapshots/{snapshot_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_configuration_snapshot_slot
@@ -33451,11 +33782,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_continuous_web_job
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/continuouswebjobs/{web_job_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_continuous_web_job_slot
@@ -33539,11 +33870,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_continuous_web_job_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/deploymentStatus/{deployment_status_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_begin_get_production_site_deployment_status
@@ -33721,7 +34052,7 @@ paths:
                 $ref: '#/components/schemas/Deployment'
       x-stackql-resource: web_apps
       x-stackql-method: create_deployment
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_deployment
       description: Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment
@@ -33751,11 +34082,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_deployment
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_deployment_slot
@@ -33860,7 +34191,7 @@ paths:
                 $ref: '#/components/schemas/Deployment'
       x-stackql-resource: web_apps
       x-stackql-method: create_deployment_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_deployment_slot
       description: Delete a deployment by its ID for an app, or a deployment slot. Description for Delete a deployment
@@ -33897,11 +34228,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_deployment_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/domainOwnershipIdentifiers/{domain_ownership_identifier_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_domain_ownership_identifier
@@ -33992,7 +34323,7 @@ paths:
                 $ref: '#/components/schemas/Identifier'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_domain_ownership_identifier
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_domain_ownership_identifier
       description: Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
@@ -34043,7 +34374,7 @@ paths:
                 $ref: '#/components/schemas/Identifier'
       x-stackql-resource: web_apps
       x-stackql-method: update_domain_ownership_identifier
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_domain_ownership_identifier
       description: Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership
@@ -34073,11 +34404,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_domain_ownership_identifier
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/domainOwnershipIdentifiers/{domain_ownership_identifier_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_domain_ownership_identifier_slot
@@ -34182,7 +34513,7 @@ paths:
                 $ref: '#/components/schemas/Identifier'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_domain_ownership_identifier_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_domain_ownership_identifier_slot
       description: Creates a domain ownership identifier for web app, or updates an existing ownership identifier.
@@ -34240,7 +34571,7 @@ paths:
                 $ref: '#/components/schemas/Identifier'
       x-stackql-resource: web_apps
       x-stackql-method: update_domain_ownership_identifier_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_domain_ownership_identifier_slot
       description: Deletes a domain ownership identifier for a web app. Description for Deletes a domain ownership
@@ -34277,11 +34608,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_domain_ownership_identifier_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/extensions/MSDeploy?api-version=2025-05-01
   : get:
       operationId: WebApps_get_ms_deploy_status
@@ -34359,7 +34690,7 @@ paths:
                 $ref: '#/components/schemas/MSDeployStatus'
       x-stackql-resource: web_apps
       x-stackql-method: create_ms_deploy_operation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/extensions/MSDeploy/log?api-version=2025-05-01
   : get:
       operationId: WebApps_get_ms_deploy_log
@@ -34483,7 +34814,7 @@ paths:
                 $ref: '#/components/schemas/MSDeployStatus'
       x-stackql-resource: web_apps
       x-stackql-method: create_instance_ms_deploy_operation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/instances/{instance_id}/extensions/MSDeploy/log?api-version=2025-05-01
   : get:
       operationId: WebApps_get_instance_ms_deploy_log
@@ -34613,7 +34944,7 @@ paths:
                 $ref: '#/components/schemas/MSDeployStatus'
       x-stackql-resource: web_apps
       x-stackql-method: create_ms_deploy_operation_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/extensions/MSDeploy/log?api-version=2025-05-01
   : get:
       operationId: WebApps_get_ms_deploy_log_slot
@@ -34755,7 +35086,7 @@ paths:
                 $ref: '#/components/schemas/MSDeployStatus'
       x-stackql-resource: web_apps
       x-stackql-method: create_instance_ms_deploy_operation_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instance_id}/extensions/MSDeploy/log?api-version=2025-05-01
   : get:
       operationId: WebApps_get_instance_ms_deploy_log_slot
@@ -34892,7 +35223,7 @@ paths:
                 $ref: '#/components/schemas/FunctionEnvelope'
       x-stackql-resource: web_apps
       x-stackql-method: create_function
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_function
       description: Delete a function for web site, or a deployment slot. Description for Delete a function for web
@@ -34922,11 +35253,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_function
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/functions/{function_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_instance_function_slot
@@ -35029,7 +35360,7 @@ paths:
                 $ref: '#/components/schemas/FunctionEnvelope'
       x-stackql-resource: web_apps
       x-stackql-method: create_instance_function_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_instance_function_slot
       description: Delete a function for web site, or a deployment slot. Description for Delete a function for web
@@ -35065,11 +35396,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_instance_function_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{host_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_host_name_binding
@@ -35159,7 +35490,7 @@ paths:
                 $ref: '#/components/schemas/HostNameBinding'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_host_name_binding
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_host_name_binding
       description: Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
@@ -35188,11 +35519,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_host_name_binding
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{host_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_host_name_binding_slot
@@ -35296,7 +35627,7 @@ paths:
                 $ref: '#/components/schemas/HostNameBinding'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_host_name_binding_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_host_name_binding_slot
       description: Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
@@ -35332,11 +35663,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_host_name_binding_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entity_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_relay_service_connection
@@ -35427,7 +35758,7 @@ paths:
                 $ref: '#/components/schemas/RelayServiceConnectionEntity'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_relay_service_connection
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_relay_service_connection
       description: Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description
@@ -35478,7 +35809,7 @@ paths:
                 $ref: '#/components/schemas/RelayServiceConnectionEntity'
       x-stackql-resource: web_apps
       x-stackql-method: update_relay_service_connection
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_relay_service_connection
       description: Deletes a relay service connection by its name. Description for Deletes a relay service connection
@@ -35508,11 +35839,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_relay_service_connection
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entity_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_relay_service_connection_slot
@@ -35617,7 +35948,7 @@ paths:
                 $ref: '#/components/schemas/RelayServiceConnectionEntity'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_relay_service_connection_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_relay_service_connection_slot
       description: Creates a new hybrid connection configuration (PUT), or updates an existing one (PATCH). Description
@@ -35675,7 +36006,7 @@ paths:
                 $ref: '#/components/schemas/RelayServiceConnectionEntity'
       x-stackql-resource: web_apps
       x-stackql-method: update_relay_service_connection_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_relay_service_connection_slot
       description: Deletes a relay service connection by its name. Description for Deletes a relay service connection
@@ -35712,11 +36043,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_relay_service_connection_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/instances/{instance_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_instance_info
@@ -35886,11 +36217,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_instance_process
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/instances/{instance_id}/processes/{process_id}/dump?api-version=2025-05-01
   : get:
       operationId: WebApps_get_instance_process_dump
@@ -36003,11 +36334,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_process
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/processes/{process_id}/dump?api-version=2025-05-01
   : get:
       operationId: WebApps_get_process_dump
@@ -36141,11 +36472,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_instance_process_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instance_id}/processes/{process_id}/dump?api-version=2025-05-01
   : get:
       operationId: WebApps_get_instance_process_dump_slot
@@ -36279,11 +36610,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_process_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/processes/{process_id}/dump?api-version=2025-05-01
   : get:
       operationId: WebApps_get_process_dump_slot
@@ -36695,7 +37026,7 @@ paths:
                 $ref: '#/components/schemas/SwiftVirtualNetwork'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_swift_virtual_network_connection_with_check
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_swift_virtual_network_connection_with_check
       description: Integrates this Web App with a Virtual Network. This requires that 1) "swiftSupported" is true
@@ -36744,7 +37075,7 @@ paths:
                 $ref: '#/components/schemas/SwiftVirtualNetwork'
       x-stackql-resource: web_apps
       x-stackql-method: update_swift_virtual_network_connection_with_check
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_swift_virtual_network
       description: Deletes a Swift Virtual Network connection from an app (or deployment slot). Description for
@@ -36768,11 +37099,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_swift_virtual_network
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkConfig/virtualNetwork?api-version=2025-05-01
   : get:
       operationId: WebApps_get_swift_virtual_network_connection_slot
@@ -36868,7 +37199,7 @@ paths:
                 $ref: '#/components/schemas/SwiftVirtualNetwork'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_swift_virtual_network_connection_with_check_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_swift_virtual_network_connection_with_check_slot
       description: Integrates this Web App with a Virtual Network. This requires that 1) "swiftSupported" is true
@@ -36924,7 +37255,7 @@ paths:
                 $ref: '#/components/schemas/SwiftVirtualNetwork'
       x-stackql-resource: web_apps
       x-stackql-method: update_swift_virtual_network_connection_with_check_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_swift_virtual_network_slot
       description: Deletes a Swift Virtual Network connection from an app (or deployment slot). Description for
@@ -36955,11 +37286,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_swift_virtual_network_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/premieraddons/{premier_add_on_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_premier_add_on
@@ -37107,7 +37438,7 @@ paths:
                 $ref: '#/components/schemas/PremierAddOn'
       x-stackql-resource: web_apps
       x-stackql-method: update_premier_add_on
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_premier_add_on
       description: Delete a premier add-on from an app. Description for Delete a premier add-on from an app.
@@ -37136,11 +37467,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_premier_add_on
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premier_add_on_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_premier_add_on_slot
@@ -37309,7 +37640,7 @@ paths:
                 $ref: '#/components/schemas/PremierAddOn'
       x-stackql-resource: web_apps
       x-stackql-method: update_premier_add_on_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_premier_add_on_slot
       description: Delete a premier add-on from an app. Description for Delete a premier add-on from an app.
@@ -37345,11 +37676,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_premier_add_on_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/privateAccess/virtualNetworks?api-version=2025-05-01
   : get:
       operationId: WebApps_get_private_access
@@ -37613,7 +37944,7 @@ paths:
                 $ref: '#/components/schemas/PublicCertificate'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_public_certificate
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_public_certificate
       description: Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
@@ -37642,11 +37973,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_public_certificate
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/publicCertificates/{public_certificate_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_public_certificate_slot
@@ -37750,7 +38081,7 @@ paths:
                 $ref: '#/components/schemas/PublicCertificate'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_public_certificate_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_public_certificate_slot
       description: Deletes a hostname binding for an app. Description for Deletes a hostname binding for an app.
@@ -37786,11 +38117,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_public_certificate_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/sitecontainers/{container_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_site_container
@@ -37881,7 +38212,7 @@ paths:
                 $ref: '#/components/schemas/SiteContainer'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_site_container
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_site_container
       description: Deletes a site container for a site, or a deployment slot. Deletes a site container for a site,
@@ -37911,11 +38242,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_site_container
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sitecontainers/{container_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_site_container_slot
@@ -38020,7 +38351,7 @@ paths:
                 $ref: '#/components/schemas/SiteContainer'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_site_container_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_site_container_slot
       description: Deletes a site container for a site, or a deployment slot. Deletes a site container for a site,
@@ -38057,11 +38388,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_site_container_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/siteextensions/{site_extension_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_site_extension
@@ -38169,11 +38500,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_site_extension
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/siteextensions/{site_extension_id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_site_extension_slot
@@ -38302,11 +38633,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_site_extension_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web?api-version=2025-05-01
   : get:
       operationId: WebApps_get_source_control_slot
@@ -38399,7 +38730,7 @@ paths:
                 $ref: '#/components/schemas/SiteSourceControl'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_source_control_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_source_control_slot
       description: Updates the source control configuration of an app. Description for Updates the source control
@@ -38451,7 +38782,7 @@ paths:
                 $ref: '#/components/schemas/SiteSourceControl'
       x-stackql-resource: web_apps
       x-stackql-method: update_source_control_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_source_control_slot
       description: Deletes the source control configuration of an app. Description for Deletes the source control
@@ -38488,11 +38819,11 @@ paths:
           type: string
         description: Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_source_control_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web?api-version=2025-05-01
   : get:
       operationId: WebApps_get_source_control
@@ -38571,7 +38902,7 @@ paths:
                 $ref: '#/components/schemas/SiteSourceControl'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_source_control
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: WebApps_update_source_control
       description: Updates the source control configuration of an app. Description for Updates the source control
@@ -38616,7 +38947,7 @@ paths:
                 $ref: '#/components/schemas/SiteSourceControl'
       x-stackql-resource: web_apps
       x-stackql-method: update_source_control
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_source_control
       description: Deletes the source control configuration of an app. Description for Deletes the source control
@@ -38646,11 +38977,11 @@ paths:
           type: string
         description: Default value is None.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_source_control
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/triggeredwebjobs/{web_job_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_triggered_web_job_slot
@@ -38734,11 +39065,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_triggered_web_job_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/triggeredwebjobs/{web_job_name}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_triggered_web_job
@@ -38808,11 +39139,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_triggered_web_job
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/triggeredwebjobs/{web_job_name}/history/{id}?api-version=2025-05-01
   : get:
       operationId: WebApps_get_triggered_web_job_history_slot
@@ -39283,7 +39614,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: update_application_settings_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings?api-version=2025-05-01
   : put:
       operationId: WebApps_update_auth_settings_slot
@@ -39335,7 +39666,7 @@ paths:
                 $ref: '#/components/schemas/SiteAuthSettings'
       x-stackql-resource: web_apps
       x-stackql-method: update_auth_settings_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/azurestorageaccounts?api-version=2025-05-01
   : put:
       operationId: WebApps_update_azure_storage_accounts_slot
@@ -39388,7 +39719,7 @@ paths:
                 $ref: '#/components/schemas/AzureStoragePropertyDictionaryResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_azure_storage_accounts_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup?api-version=2025-05-01
   : put:
       operationId: WebApps_update_backup_configuration_slot
@@ -39440,7 +39771,7 @@ paths:
                 $ref: '#/components/schemas/BackupRequest'
       x-stackql-resource: web_apps
       x-stackql-method: update_backup_configuration_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_backup_configuration_slot
       description: Deletes the backup configuration of an app. Description for Deletes the backup configuration
@@ -39470,11 +39801,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_backup_configuration_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings?api-version=2025-05-01
   : put:
       operationId: WebApps_update_connection_strings_slot
@@ -39527,7 +39858,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionStringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: update_connection_strings_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata?api-version=2025-05-01
   : put:
       operationId: WebApps_update_metadata_slot
@@ -39579,7 +39910,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: update_metadata_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/pushsettings?api-version=2025-05-01
   : put:
       operationId: WebApps_update_site_push_settings_slot
@@ -39631,7 +39962,7 @@ paths:
                 $ref: '#/components/schemas/PushSettings'
       x-stackql-resource: web_apps
       x-stackql-method: update_site_push_settings_slot
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/discoverbackup?api-version=2025-05-01
   : post:
       operationId: WebApps_discover_backup_slot
@@ -39783,7 +40114,7 @@ paths:
                 $ref: '#/components/schemas/KeyInfo'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_host_secret_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_host_secret_slot
       description: Delete a host level secret. Description for Delete a host level secret.
@@ -39824,11 +40155,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_host_secret_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/iscloneable?api-version=2025-05-01
   : post:
       operationId: WebApps_is_cloneable_slot
@@ -40778,7 +41109,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: update_application_settings
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/authsettings?api-version=2025-05-01
   : put:
       operationId: WebApps_update_auth_settings
@@ -40824,7 +41155,7 @@ paths:
                 $ref: '#/components/schemas/SiteAuthSettings'
       x-stackql-resource: web_apps
       x-stackql-method: update_auth_settings
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/azurestorageaccounts?api-version=2025-05-01
   : put:
       operationId: WebApps_update_azure_storage_accounts
@@ -40871,7 +41202,7 @@ paths:
                 $ref: '#/components/schemas/AzureStoragePropertyDictionaryResource'
       x-stackql-resource: web_apps
       x-stackql-method: update_azure_storage_accounts
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/backup?api-version=2025-05-01
   : put:
       operationId: WebApps_update_backup_configuration
@@ -40917,7 +41248,7 @@ paths:
                 $ref: '#/components/schemas/BackupRequest'
       x-stackql-resource: web_apps
       x-stackql-method: update_backup_configuration
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_backup_configuration
       description: Deletes the backup configuration of an app. Description for Deletes the backup configuration
@@ -40941,11 +41272,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_backup_configuration
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/connectionstrings?api-version=2025-05-01
   : put:
       operationId: WebApps_update_connection_strings
@@ -40992,7 +41323,7 @@ paths:
                 $ref: '#/components/schemas/ConnectionStringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: update_connection_strings
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/metadata?api-version=2025-05-01
   : put:
       operationId: WebApps_update_metadata
@@ -41038,7 +41369,7 @@ paths:
                 $ref: '#/components/schemas/StringDictionary'
       x-stackql-resource: web_apps
       x-stackql-method: update_metadata
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/config/pushsettings?api-version=2025-05-01
   : put:
       operationId: WebApps_update_site_push_settings
@@ -41084,7 +41415,7 @@ paths:
                 $ref: '#/components/schemas/PushSettings'
       x-stackql-resource: web_apps
       x-stackql-method: update_site_push_settings
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/discoverbackup?api-version=2025-05-01
   : post:
       operationId: WebApps_discover_backup
@@ -41218,7 +41549,7 @@ paths:
                 $ref: '#/components/schemas/KeyInfo'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_host_secret
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_host_secret
       description: Delete a host level secret. Description for Delete a host level secret.
@@ -41253,11 +41584,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_host_secret
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/iscloneable?api-version=2025-05-01
   : post:
       operationId: WebApps_is_cloneable
@@ -42440,7 +42771,7 @@ paths:
                 $ref: '#/components/schemas/KeyInfo'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_function_secret
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_function_secret
       description: Delete a function secret. Description for Delete a function secret.
@@ -42475,11 +42806,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_function_secret
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/functions/{function_name}/keys/{key_name}?api-version=2025-05-01
   : put:
       operationId: WebApps_create_or_update_function_secret_slot
@@ -42542,7 +42873,7 @@ paths:
                 $ref: '#/components/schemas/KeyInfo'
       x-stackql-resource: web_apps
       x-stackql-method: create_or_update_function_secret_slot
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: WebApps_delete_function_secret_slot
       description: Delete a function secret. Description for Delete a function secret.
@@ -42583,11 +42914,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: web_apps
       x-stackql-method: delete_function_secret_slot
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/slots/{slot}/triggeredwebjobs/{web_job_name}/run?api-version=2025-05-01
   : post:
       operationId: WebApps_run_triggered_web_job_slot
@@ -42830,7 +43161,8 @@ paths:
                 $ref: '#/components/schemas/PagedExpressionRoot'
       x-stackql-resource: workflow_run_action_repetitions
       x-stackql-method: list_expression_traces
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.inputs
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflow_name}/runs/{run_name}/actions/{action_name}/repetitions/{repetition_name}/requestHistories/{request_history_name}?api-version=2025-05-01
   : get:
       operationId: WorkflowRunActionRepetitionsRequestHistories_get
@@ -43223,7 +43555,8 @@ paths:
                 $ref: '#/components/schemas/PagedExpressionRoot'
       x-stackql-resource: workflow_run_actions
       x-stackql-method: list_expression_traces
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.inputs
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflow_name}/runs/{run_name}?api-version=2025-05-01
   : get:
       operationId: WorkflowRuns_get
@@ -43663,7 +43996,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: workflow_triggers
       x-stackql-method: list_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflow_name}/triggers/{trigger_name}/schemas/json?api-version=2025-05-01
   : get:
       operationId: WorkflowTriggers_get_schema_json
@@ -44114,10 +44447,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedIdentifier'
+                $ref: '#/components/schemas/PagedIdentifierFlattened'
       x-stackql-resource: site_identifiers_assigned_to_host_names
       x-stackql-method: list_site_identifiers_assigned_to_host_name
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   /subscriptions/{subscription_id}/providers/Microsoft.Web/premieraddonoffers?api-version=2025-05-01:
     get:
       operationId: _WebSiteManagementClient_list_premier_add_on_offers
@@ -44432,7 +44768,7 @@ paths:
                 $ref: '#/components/schemas/ResourceNameAvailability'
       x-stackql-resource: check_name_availabilities
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.Web/locations/{location}/checknameavailability?api-version=2025-05-01:
     post:
       operationId: _WebSiteManagementClient_regional_check_name_availability

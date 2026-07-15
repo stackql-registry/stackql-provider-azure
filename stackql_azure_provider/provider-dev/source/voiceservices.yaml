@@ -687,7 +687,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: name_availability
       x-stackql-method: check_local
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.VoiceServices/operations?api-version=2023-01-31:
     get:
       operationId: voiceservices_list

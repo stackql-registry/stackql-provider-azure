@@ -1032,6 +1032,12 @@ components:
         properties:
           $ref: '#/components/schemas/CostAllocationRuleProperties'
           description: Cost allocation rule properties.
+    Reason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
+      - Valid
     CostAllocationRuleCheckNameAvailabilityResponse:
       type: object
       description: The cost allocation rule check name availability response.
@@ -1046,12 +1052,6 @@ components:
         message:
           type: string
           description: Error message if the name is not available.
-    Reason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
-      - Valid
     DimensionProperties:
       type: object
       description: Dimension properties.
@@ -2988,6 +2988,11 @@ components:
         kind:
           $ref: '#/components/schemas/ScheduledActionKind'
           description: 'Kind of the scheduled action. Known values are: "Email" and "InsightAlert".'
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -3001,11 +3006,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     Setting:
       type: object
       description: 'Setting definition. You probably want to use the sub-classes and not this class directly. Known
@@ -4022,7 +4022,7 @@ paths:
                 $ref: '#/components/schemas/CostAllocationRuleCheckNameAvailabilityResponse'
       x-stackql-resource: cost_allocation_rules
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{scope}/providers/Microsoft.CostManagement/dimensions?api-version=2025-03-01:
     get:
       operationId: Dimensions_list
@@ -4991,7 +4991,7 @@ paths:
                 $ref: '#/components/schemas/CostDetailsOperationResults'
       x-stackql-resource: generate_cost_details_report
       x-stackql-method: create_operation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   /{scope}/providers/Microsoft.CostManagement/operationResults/{operation_id}?api-version=2025-03-01:
     get:
       operationId: GenerateDetailedCostReportOperationResults_begin_get
@@ -5104,7 +5104,7 @@ paths:
                 $ref: '#/components/schemas/GenerateDetailedCostReportOperationResult'
       x-stackql-resource: generate_detailed_cost_report
       x-stackql-method: create_operation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /providers/microsoft.Billing/billingAccounts/{billing_account_id}/providers/Microsoft.CostManagement/generateReservationDetailsReport?api-version=2025-03-01
   : post:
       operationId: GenerateReservationDetailsReport_begin_by_billing_account_id
@@ -5711,7 +5711,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: scheduled_actions
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{scope}/providers/Microsoft.CostManagement/checkNameAvailability?api-version=2025-03-01:
     post:
       operationId: ScheduledActions_check_name_availability_by_scope
@@ -5753,7 +5753,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: scheduled_actions
       x-stackql-method: check_name_availability_by_scope
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{scope}/providers/Microsoft.CostManagement/settings?api-version=2025-03-01:
     get:
       operationId: Settings_list

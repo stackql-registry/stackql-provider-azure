@@ -215,24 +215,6 @@ components:
           description: Properties for the attestation. Required.
       required:
       - properties
-    ComponentPolicyStatesQueryResults:
-      type: object
-      description: Query results.
-      properties:
-        '@odata':
-          type: object
-          properties:
-            context:
-              type: string
-              description: OData context string; used by OData clients to resolve type information based on metadata.
-            count:
-              type: integer
-              description: OData entity count; represents the number of policy state records returned.
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComponentPolicyState'
-          description: Query results.
     ComponentPolicyState:
       type: object
       description: Component Policy State record.
@@ -381,6 +363,24 @@ components:
         operator:
           type: string
           description: Operator to compare the expression value and the target value.
+    ComponentPolicyStatesQueryResults:
+      type: object
+      description: Query results.
+      properties:
+        '@odata':
+          type: object
+          properties:
+            context:
+              type: string
+              description: OData context string; used by OData clients to resolve type information based on metadata.
+            count:
+              type: integer
+              description: OData entity count; represents the number of policy state records returned.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentPolicyState'
+          description: Query results.
     Operation:
       type: object
       description: Operation definition.
@@ -425,6 +425,33 @@ components:
           items:
             $ref: '#/components/schemas/Operation'
           description: List of available operations.
+    ComponentEventDetails:
+      type: object
+      description: Component event details.
+      properties:
+        id:
+          type: string
+          description: Component Id.
+        type:
+          type: string
+          description: Component type.
+        name:
+          type: string
+          description: Component name.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp for component policy event record.
+        tenantId:
+          type: string
+          description: Tenant ID for the policy event record.
+        principalOid:
+          type: string
+          description: Principal object ID for the user who initiated the resource component operation that triggered
+            the policy event.
+        policyDefinitionAction:
+          type: string
+          description: Policy definition action, i.e. effect.
     PolicyEvent:
       type: object
       description: Policy event record.
@@ -533,33 +560,6 @@ components:
           items:
             $ref: '#/components/schemas/ComponentEventDetails'
           description: Components events records populated only when URL contains $expand=components clause.
-    ComponentEventDetails:
-      type: object
-      description: Component event details.
-      properties:
-        id:
-          type: string
-          description: Component Id.
-        type:
-          type: string
-          description: Component type.
-        name:
-          type: string
-          description: Component name.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp for component policy event record.
-        tenantId:
-          type: string
-          description: Tenant ID for the policy event record.
-        principalOid:
-          type: string
-          description: Principal object ID for the user who initiated the resource component operation that triggered
-            the policy event.
-        policyDefinitionAction:
-          type: string
-          description: Policy definition action, i.e. effect.
     PagedPolicyEvent:
       type: object
       properties:
@@ -736,18 +736,6 @@ components:
           description: The list of potential values for the field that should be evaluated against Azure Policy.
       required:
       - field
-    CheckRestrictionsResult:
-      type: object
-      description: The result of a check policy restrictions evaluation on a resource.
-      properties:
-        fieldRestrictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldRestrictions'
-          description: The restrictions that will be placed on various fields in the resource by policy.
-        contentEvaluationResult:
-          $ref: '#/components/schemas/CheckRestrictionsResultContentEvaluationResult'
-          description: Evaluation results for the provided partial resource content.
     FieldRestrictions:
       type: object
       description: The restrictions that will be placed on a field in the resource by policy.
@@ -896,6 +884,50 @@ components:
         policyEffect:
           type: string
           description: The effect that was applied to the resource. `http://aka.ms/policyeffects `_.
+    CheckRestrictionsResult:
+      type: object
+      description: The result of a check policy restrictions evaluation on a resource.
+      properties:
+        fieldRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldRestrictions'
+          description: The restrictions that will be placed on various fields in the resource by policy.
+        contentEvaluationResult:
+          $ref: '#/components/schemas/CheckRestrictionsResultContentEvaluationResult'
+          description: Evaluation results for the provided partial resource content.
+    PolicyEvaluationDetails:
+      type: object
+      description: Policy evaluation details.
+      properties:
+        evaluatedExpressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpressionEvaluationDetails'
+          description: Details of the evaluated expressions.
+        ifNotExistsDetails:
+          $ref: '#/components/schemas/IfNotExistsEvaluationDetails'
+          description: Evaluation details of IfNotExists effect.
+    ComponentStateDetails:
+      type: object
+      description: Component state details.
+      properties:
+        id:
+          type: string
+          description: Component Id.
+        type:
+          type: string
+          description: Component type.
+        name:
+          type: string
+          description: Component name.
+        timestamp:
+          type: string
+          format: date-time
+          description: Component compliance evaluation timestamp.
+        complianceState:
+          type: string
+          description: Component compliance state.
     PolicyState:
       type: object
       description: Policy state record.
@@ -1014,38 +1046,6 @@ components:
         policyAssignmentVersion:
           type: string
           description: Evaluated policy assignment version.
-    PolicyEvaluationDetails:
-      type: object
-      description: Policy evaluation details.
-      properties:
-        evaluatedExpressions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExpressionEvaluationDetails'
-          description: Details of the evaluated expressions.
-        ifNotExistsDetails:
-          $ref: '#/components/schemas/IfNotExistsEvaluationDetails'
-          description: Evaluation details of IfNotExists effect.
-    ComponentStateDetails:
-      type: object
-      description: Component state details.
-      properties:
-        id:
-          type: string
-          description: Component Id.
-        type:
-          type: string
-          description: Component type.
-        name:
-          type: string
-          description: Component name.
-        timestamp:
-          type: string
-          format: date-time
-          description: Component compliance evaluation timestamp.
-        complianceState:
-          type: string
-          description: Component compliance state.
     PagedPolicyState:
       type: object
       properties:
@@ -1189,26 +1189,6 @@ components:
         results:
           $ref: '#/components/schemas/SummaryResults'
           description: Compliance summary for the policy definition group.
-    PolicyTrackedResource:
-      type: object
-      description: Policy tracked resource record.
-      properties:
-        trackedResourceId:
-          type: string
-          description: The ID of the policy tracked resource.
-        policyDetails:
-          $ref: '#/components/schemas/PolicyDetails'
-          description: The details of the policy that require the tracked resource.
-        createdBy:
-          $ref: '#/components/schemas/TrackedResourceModificationDetails'
-          description: The details of the policy triggered deployment that created the tracked resource.
-        lastModifiedBy:
-          $ref: '#/components/schemas/TrackedResourceModificationDetails'
-          description: The details of the policy triggered deployment that modified the tracked resource.
-        lastUpdateUtc:
-          type: string
-          format: date-time
-          description: Timestamp of the last update to the tracked resource.
     PolicyDetails:
       type: object
       description: The policy details.
@@ -1245,6 +1225,26 @@ components:
           type: string
           format: date-time
           description: Timestamp of the deployment that created or modified the tracked resource.
+    PolicyTrackedResource:
+      type: object
+      description: Policy tracked resource record.
+      properties:
+        trackedResourceId:
+          type: string
+          description: The ID of the policy tracked resource.
+        policyDetails:
+          $ref: '#/components/schemas/PolicyDetails'
+          description: The details of the policy that require the tracked resource.
+        createdBy:
+          $ref: '#/components/schemas/TrackedResourceModificationDetails'
+          description: The details of the policy triggered deployment that created the tracked resource.
+        lastModifiedBy:
+          $ref: '#/components/schemas/TrackedResourceModificationDetails'
+          description: The details of the policy triggered deployment that modified the tracked resource.
+        lastUpdateUtc:
+          type: string
+          format: date-time
+          description: Timestamp of the last update to the tracked resource.
     PagedPolicyTrackedResource:
       type: object
       properties:
@@ -1419,33 +1419,6 @@ components:
             $ref: '#/components/schemas/RemediationFlattened'
         nextLink:
           type: string
-    RemediationDeployment:
-      type: object
-      description: Details of a single deployment created by the remediation.
-      properties:
-        remediatedResourceId:
-          type: string
-          description: Resource ID of the resource that is being remediated by the deployment.
-        deploymentId:
-          type: string
-          description: Resource ID of the template deployment that will remediate the resource.
-        status:
-          type: string
-          description: Status of the remediation deployment.
-        resourceLocation:
-          type: string
-          description: Location of the resource that is being remediated.
-        error:
-          $ref: '#/components/schemas/ErrorDefinition'
-          description: Error encountered while remediated the resource.
-        createdOn:
-          type: string
-          format: date-time
-          description: The time at which the remediation was created.
-        lastUpdatedOn:
-          type: string
-          format: date-time
-          description: The time at which the remediation deployment was last updated.
     ErrorDefinition:
       type: object
       description: Error definition.
@@ -1480,6 +1453,33 @@ components:
           type: object
           properties: {}
           description: The scenario specific error details.
+    RemediationDeployment:
+      type: object
+      description: Details of a single deployment created by the remediation.
+      properties:
+        remediatedResourceId:
+          type: string
+          description: Resource ID of the resource that is being remediated by the deployment.
+        deploymentId:
+          type: string
+          description: Resource ID of the template deployment that will remediate the resource.
+        status:
+          type: string
+          description: Status of the remediation deployment.
+        resourceLocation:
+          type: string
+          description: Location of the resource that is being remediated.
+        error:
+          $ref: '#/components/schemas/ErrorDefinition'
+          description: Error encountered while remediated the resource.
+        createdOn:
+          type: string
+          format: date-time
+          description: The time at which the remediation was created.
+        lastUpdatedOn:
+          type: string
+          format: date-time
+          description: The time at which the remediation deployment was last updated.
     PagedRemediationDeployment:
       type: object
       properties:
@@ -1973,7 +1973,7 @@ paths:
                 $ref: '#/components/schemas/ComponentPolicyStatesQueryResults'
       x-stackql-resource: component_policy_states
       x-stackql-method: list_query_results_for_subscription
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PolicyInsights/componentPolicyStates/{component_policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: ComponentPolicyStates_list_query_results_for_resource_group
@@ -2056,7 +2056,7 @@ paths:
                 $ref: '#/components/schemas/ComponentPolicyStatesQueryResults'
       x-stackql-resource: component_policy_states
       x-stackql-method: list_query_results_for_resource_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /{resource_id}/providers/Microsoft.PolicyInsights/componentPolicyStates/{component_policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: ComponentPolicyStates_list_query_results_for_resource
@@ -2139,7 +2139,7 @@ paths:
                 $ref: '#/components/schemas/ComponentPolicyStatesQueryResults'
       x-stackql-resource: component_policy_states
       x-stackql-method: list_query_results_for_resource
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policyDefinitions/{policy_definition_name}/providers/Microsoft.PolicyInsights/componentPolicyStates/{component_policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: ComponentPolicyStates_list_query_results_for_policy_definition
@@ -2222,7 +2222,7 @@ paths:
                 $ref: '#/components/schemas/ComponentPolicyStatesQueryResults'
       x-stackql-resource: component_policy_states
       x-stackql-method: list_query_results_for_policy_definition
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policyAssignments/{policy_assignment_name}/providers/Microsoft.PolicyInsights/componentPolicyStates/{component_policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: ComponentPolicyStates_list_query_results_for_subscription_level_policy_assignment
@@ -2305,7 +2305,7 @@ paths:
                 $ref: '#/components/schemas/ComponentPolicyStatesQueryResults'
       x-stackql-resource: component_policy_states
       x-stackql-method: list_query_results_for_subscription_level_policy_assignment
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/{authorization_namespace}/policyAssignments/{policy_assignment_name}/providers/Microsoft.PolicyInsights/componentPolicyStates/{component_policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: ComponentPolicyStates_list_query_results_for_resource_group_level_policy_assignment
@@ -2394,7 +2394,7 @@ paths:
                 $ref: '#/components/schemas/ComponentPolicyStatesQueryResults'
       x-stackql-resource: component_policy_states
       x-stackql-method: list_query_results_for_resource_group_level_policy_assignment
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.PolicyInsights/operations?api-version=2024-10-01:
     get:
       operationId: policyinsights_list
@@ -2493,7 +2493,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_management_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_subscription
@@ -2577,7 +2578,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_subscription
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_resource_group
@@ -2667,7 +2669,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_resource_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /{resource_id}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_resource
@@ -2758,7 +2761,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_resource
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policySetDefinitions/{policy_set_definition_name}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_policy_set_definition
@@ -2848,7 +2852,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_policy_set_definition
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policyDefinitions/{policy_definition_name}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_policy_definition
@@ -2938,7 +2943,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_policy_definition
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policyAssignments/{policy_assignment_name}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_subscription_level_policy_assignment
@@ -3028,7 +3034,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_subscription_level_policy_assignment
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/{authorization_namespace}/policyAssignments/{policy_assignment_name}/providers/Microsoft.PolicyInsights/policyEvents/{policy_events_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyEvents_list_query_results_for_resource_group_level_policy_assignment
@@ -3124,7 +3131,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyEvent'
       x-stackql-resource: policy_events
       x-stackql-method: list_query_results_for_resource_group_level_policy_assignment
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /providers/Microsoft.PolicyInsights/policyMetadata?api-version=2024-10-01:
     get:
       operationId: PolicyMetadata_list
@@ -3210,7 +3218,7 @@ paths:
                 $ref: '#/components/schemas/CheckRestrictionsResult'
       x-stackql-resource: policy_restrictions
       x-stackql-method: check_at_subscription_scope
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PolicyInsights/checkPolicyRestrictions?api-version=2024-10-01
   : post:
       operationId: PolicyRestrictions_check_at_resource_group_scope
@@ -3257,7 +3265,7 @@ paths:
                 $ref: '#/components/schemas/CheckRestrictionsResult'
       x-stackql-resource: policy_restrictions
       x-stackql-method: check_at_resource_group_scope
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/{management_groups_namespace}/managementGroups/{management_group_id}/providers/Microsoft.PolicyInsights/checkPolicyRestrictions?api-version=2024-10-01
   : post:
       operationId: PolicyRestrictions_check_at_management_group_scope
@@ -3293,7 +3301,7 @@ paths:
                 $ref: '#/components/schemas/CheckRestrictionsResult'
       x-stackql-resource: policy_restrictions
       x-stackql-method: check_at_management_group_scope
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /providers/{management_groups_namespace}/managementGroups/{management_group_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_management_group
@@ -3378,7 +3386,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_management_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_subscription
@@ -3463,7 +3472,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_subscription
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_resource_group
@@ -3554,7 +3564,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_resource_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /{resource_id}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_resource
@@ -3646,7 +3657,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_resource
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policySetDefinitions/{policy_set_definition_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_policy_set_definition
@@ -3737,7 +3749,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_policy_set_definition
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policyDefinitions/{policy_definition_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_policy_definition
@@ -3828,7 +3841,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_policy_definition
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/{authorization_namespace}/policyAssignments/{policy_assignment_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_subscription_level_policy_assignment
@@ -3919,7 +3933,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_subscription_level_policy_assignment
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/{authorization_namespace}/policyAssignments/{policy_assignment_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_resource}/queryResults?api-version=2024-10-01
   : post:
       operationId: PolicyStates_list_query_results_for_resource_group_level_policy_assignment
@@ -4016,7 +4031,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyState'
       x-stackql-resource: policy_states
       x-stackql-method: list_query_results_for_resource_group_level_policy_assignment
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /providers/{management_groups_namespace}/managementGroups/{management_group_name}/providers/Microsoft.PolicyInsights/policyStates/{policy_states_summary_resource}/summarize?api-version=2024-10-01
   : post:
       operationId: PolicyStates_summarize_for_management_group
@@ -4580,7 +4596,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyTrackedResource'
       x-stackql-resource: policy_tracked_resources
       x-stackql-method: list_query_results_for_management_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/Microsoft.PolicyInsights/policyTrackedResources/{policy_tracked_resources_resource}/queryResults?api-version=2018-07-01-preview
   : post:
       operationId: PolicyTrackedResources_list_query_results_for_subscription
@@ -4619,7 +4636,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyTrackedResource'
       x-stackql-resource: policy_tracked_resources
       x-stackql-method: list_query_results_for_subscription
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PolicyInsights/policyTrackedResources/{policy_tracked_resources_resource}/queryResults?api-version=2018-07-01-preview
   : post:
       operationId: PolicyTrackedResources_list_query_results_for_resource_group
@@ -4664,7 +4682,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyTrackedResource'
       x-stackql-resource: policy_tracked_resources
       x-stackql-method: list_query_results_for_resource_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /{resource_id}/providers/Microsoft.PolicyInsights/policyTrackedResources/{policy_tracked_resources_resource}/queryResults?api-version=2018-07-01-preview
   : post:
       operationId: PolicyTrackedResources_list_query_results_for_resource
@@ -4704,7 +4723,8 @@ paths:
                 $ref: '#/components/schemas/PagedPolicyTrackedResource'
       x-stackql-resource: policy_tracked_resources
       x-stackql-method: list_query_results_for_resource
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /providers/{management_groups_namespace}/managementGroups/{management_group_id}/providers/Microsoft.PolicyInsights/remediations?api-version=2024-10-01
   : get:
       operationId: Remediations_list_for_management_group
@@ -4807,7 +4827,8 @@ paths:
                 $ref: '#/components/schemas/PagedRemediationDeployment'
       x-stackql-resource: remediations
       x-stackql-method: list_deployments_at_subscription
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.PolicyInsights/remediations?api-version=2024-10-01
   : get:
       operationId: Remediations_list_for_resource_group
@@ -4886,7 +4907,8 @@ paths:
                 $ref: '#/components/schemas/PagedRemediationDeployment'
       x-stackql-resource: remediations
       x-stackql-method: list_deployments_at_resource_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /{resource_id}/providers/Microsoft.PolicyInsights/remediations?api-version=2024-10-01:
     get:
       operationId: Remediations_list_for_resource
@@ -4955,7 +4977,8 @@ paths:
                 $ref: '#/components/schemas/PagedRemediationDeployment'
       x-stackql-resource: remediations
       x-stackql-method: list_deployments_at_resource
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /providers/{management_groups_namespace}/managementGroups/{management_group_id}/providers/Microsoft.PolicyInsights/remediations/{remediation_name}/listDeployments?api-version=2024-10-01
   : post:
       operationId: Remediations_list_deployments_at_management_group
@@ -4988,7 +5011,8 @@ paths:
                 $ref: '#/components/schemas/PagedRemediationDeployment'
       x-stackql-resource: remediations
       x-stackql-method: list_deployments_at_management_group
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /providers/{management_groups_namespace}/managementGroups/{management_group_id}/providers/Microsoft.PolicyInsights/remediations/{remediation_name}?api-version=2024-10-01
   : get:
       operationId: Remediations_get_at_management_group

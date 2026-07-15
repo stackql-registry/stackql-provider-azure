@@ -833,27 +833,6 @@ The following methods are available for this resource:
     <td>Create or update an App Service Environment. Description for Create or update an App Service Environment.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_worker_pool"><CopyableCode code="create_or_update_worker_pool" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-worker_pool_name"><code>worker_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a worker pool. Description for Create or update a worker pool.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_multi_role_pool"><CopyableCode code="create_or_update_multi_role_pool" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a multi-role pool. Description for Create or update a multi-role pool.</td>
-</tr>
-<tr>
-    <td><a href="#update_worker_pool"><CopyableCode code="update_worker_pool" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-worker_pool_name"><code>worker_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a worker pool. Description for Create or update a worker pool.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -866,27 +845,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-location"><code>location</code></a></td>
     <td></td>
     <td>Create or update an App Service Environment. Description for Create or update an App Service Environment.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_worker_pool"><CopyableCode code="create_or_update_worker_pool" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-worker_pool_name"><code>worker_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a worker pool. Description for Create or update a worker pool.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_multi_role_pool"><CopyableCode code="create_or_update_multi_role_pool" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Create or update a multi-role pool. Description for Create or update a multi-role pool.</td>
-</tr>
-<tr>
-    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -994,6 +952,20 @@ The following methods are available for this resource:
     <td>Get properties of a worker pool. Description for Get properties of a worker pool.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_worker_pool"><CopyableCode code="create_or_update_worker_pool" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-worker_pool_name"><code>worker_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a worker pool. Description for Create or update a worker pool.</td>
+</tr>
+<tr>
+    <td><a href="#update_worker_pool"><CopyableCode code="update_worker_pool" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-worker_pool_name"><code>worker_pool_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a worker pool. Description for Create or update a worker pool.</td>
+</tr>
+<tr>
     <td><a href="#get_inbound_network_dependencies_endpoints"><CopyableCode code="get_inbound_network_dependencies_endpoints" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1064,6 +1036,13 @@ The following methods are available for this resource:
     <td>Get properties of a multi-role pool. Description for Get properties of a multi-role pool.</td>
 </tr>
 <tr>
+    <td><a href="#create_or_update_multi_role_pool"><CopyableCode code="create_or_update_multi_role_pool" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Create or update a multi-role pool. Description for Create or update a multi-role pool.</td>
+</tr>
+<tr>
     <td><a href="#update_multi_role_pool"><CopyableCode code="update_multi_role_pool" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -1076,6 +1055,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Approves or rejects a private endpoint connection. Description for Approves or rejects a private endpoint connection.</td>
+</tr>
+<tr>
+    <td><a href="#delete_private_endpoint_connection"><CopyableCode code="delete_private_endpoint_connection" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-private_endpoint_connection_name"><code>private_endpoint_connection_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Deletes a private endpoint connection. Description for Deletes a private endpoint connection.</td>
 </tr>
 <tr>
     <td><a href="#get_private_endpoint_connection_list"><CopyableCode code="get_private_endpoint_connection_list" /></a></td>
@@ -1445,8 +1431,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_worker_pool', value: 'create_or_update_worker_pool' },
-        { label: 'create_or_update_multi_role_pool', value: 'create_or_update_multi_role_pool' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -1484,70 +1468,6 @@ type
 ;
 ```
 </TabItem>
-<TabItem value="create_or_update_worker_pool">
-
-Create or update a worker pool. Description for Create or update a worker pool.
-
-```sql
-INSERT INTO azure.web.app_service_environments (
-properties,
-sku,
-kind,
-resource_group_name,
-name,
-worker_pool_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ sku }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ worker_pool_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-sku,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_multi_role_pool">
-
-Create or update a multi-role pool. Description for Create or update a multi-role pool.
-
-```sql
-INSERT INTO azure.web.app_service_environments (
-properties,
-sku,
-kind,
-resource_group_name,
-name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ sku }}',
-'{{ kind }}',
-'{{ resource_group_name }}',
-'{{ name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-kind,
-properties,
-sku,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
@@ -1562,9 +1482,6 @@ type
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the app_service_environments resource.
-    - name: worker_pool_name
-      value: "{{ worker_pool_name }}"
-      description: Required parameter for the app_service_environments resource.
     - name: tags
       value: "{{ tags }}"
       description: |
@@ -1575,39 +1492,80 @@ type
         The geo-location where the resource lives. Required.
     - name: properties
       description: |
-        Core resource properties.
+        Description of an App Service Environment.
       value:
-        workerSizeId: {{ workerSizeId }}
-        computeMode: "{{ computeMode }}"
-        workerSize: "{{ workerSize }}"
-        workerCount: {{ workerCount }}
-        instanceNames:
-          - "{{ instanceNames }}"
+        provisioningState: "{{ provisioningState }}"
+        status: "{{ status }}"
+        virtualNetwork:
+          id: "{{ id }}"
+          name: "{{ name }}"
+          type: "{{ type }}"
+          subnet: "{{ subnet }}"
+        internalLoadBalancingMode: "{{ internalLoadBalancingMode }}"
+        multiSize: "{{ multiSize }}"
+        multiRoleCount: {{ multiRoleCount }}
+        ipsslAddressCount: {{ ipsslAddressCount }}
+        dnsSuffix: "{{ dnsSuffix }}"
+        maximumNumberOfMachines: {{ maximumNumberOfMachines }}
+        frontEndScaleFactor: {{ frontEndScaleFactor }}
+        suspended: {{ suspended }}
+        clusterSettings:
+          - name: "{{ name }}"
+            value: "{{ value }}"
+        userWhitelistedIpRanges:
+          - "{{ userWhitelistedIpRanges }}"
+        hasLinuxWorkers: {{ hasLinuxWorkers }}
+        upgradePreference: "{{ upgradePreference }}"
+        dedicatedHostCount: {{ dedicatedHostCount }}
+        zoneRedundant: {{ zoneRedundant }}
+        customDnsSuffixConfiguration:
+          id: "{{ id }}"
+          name: "{{ name }}"
+          type: "{{ type }}"
+          systemData:
+            createdBy: "{{ createdBy }}"
+            createdByType: "{{ createdByType }}"
+            createdAt: "{{ createdAt }}"
+            lastModifiedBy: "{{ lastModifiedBy }}"
+            lastModifiedByType: "{{ lastModifiedByType }}"
+            lastModifiedAt: "{{ lastModifiedAt }}"
+          properties:
+            provisioningState: "{{ provisioningState }}"
+            provisioningDetails: "{{ provisioningDetails }}"
+            dnsSuffix: "{{ dnsSuffix }}"
+            certificateUrl: "{{ certificateUrl }}"
+            keyVaultReferenceIdentity: "{{ keyVaultReferenceIdentity }}"
+          kind: "{{ kind }}"
+        networkingConfiguration:
+          id: "{{ id }}"
+          name: "{{ name }}"
+          type: "{{ type }}"
+          systemData:
+            createdBy: "{{ createdBy }}"
+            createdByType: "{{ createdByType }}"
+            createdAt: "{{ createdAt }}"
+            lastModifiedBy: "{{ lastModifiedBy }}"
+            lastModifiedByType: "{{ lastModifiedByType }}"
+            lastModifiedAt: "{{ lastModifiedAt }}"
+          properties:
+            windowsOutboundIpAddresses:
+              - "{{ windowsOutboundIpAddresses }}"
+            linuxOutboundIpAddresses:
+              - "{{ linuxOutboundIpAddresses }}"
+            externalInboundIpAddresses:
+              - "{{ externalInboundIpAddresses }}"
+            internalInboundIpAddresses:
+              - "{{ internalInboundIpAddresses }}"
+            allowNewPrivateEndpointConnections: {{ allowNewPrivateEndpointConnections }}
+            ftpEnabled: {{ ftpEnabled }}
+            remoteDebugEnabled: {{ remoteDebugEnabled }}
+            inboundIpAddressOverride: "{{ inboundIpAddressOverride }}"
+          kind: "{{ kind }}"
+        upgradeAvailability: "{{ upgradeAvailability }}"
     - name: kind
       value: "{{ kind }}"
       description: |
         Kind of resource. If the resource is an app, you can refer to \`https://github.com/Azure/app-service-linux-docs/blob/master/Things_You_Should_Know/kind_property.md#app-service-resource-kind-reference \`_ for details supported values for kind.
-    - name: sku
-      description: |
-        Description of a SKU for a scalable resource.
-      value:
-        name: "{{ name }}"
-        tier: "{{ tier }}"
-        size: "{{ size }}"
-        family: "{{ family }}"
-        capacity: {{ capacity }}
-        skuCapacity:
-          minimum: {{ minimum }}
-          maximum: {{ maximum }}
-          elasticMaximum: {{ elasticMaximum }}
-          default: {{ default }}
-          scaleType: "{{ scaleType }}"
-        locations:
-          - "{{ locations }}"
-        capabilities:
-          - name: "{{ name }}"
-            value: "{{ value }}"
-            reason: "{{ reason }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -1617,37 +1575,11 @@ type
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_worker_pool"
+    defaultValue="update"
     values={[
-        { label: 'update_worker_pool', value: 'update_worker_pool' },
         { label: 'update', value: 'update' }
     ]}
 >
-<TabItem value="update_worker_pool">
-
-Create or update a worker pool. Description for Create or update a worker pool.
-
-```sql
-UPDATE azure.web.app_service_environments
-SET 
-properties = '{{ properties }}',
-sku = '{{ sku }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND worker_pool_name = '{{ worker_pool_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-sku,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="update">
 
 Create or update an App Service Environment. Description for Create or update an App Service Environment.
@@ -1680,9 +1612,7 @@ type;
 <Tabs
     defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_or_update_worker_pool', value: 'create_or_update_worker_pool' },
-        { label: 'create_or_update_multi_role_pool', value: 'create_or_update_multi_role_pool' }
+        { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
 <TabItem value="create_or_update">
@@ -1712,80 +1642,17 @@ tags,
 type;
 ```
 </TabItem>
-<TabItem value="create_or_update_worker_pool">
-
-Create or update a worker pool. Description for Create or update a worker pool.
-
-```sql
-REPLACE azure.web.app_service_environments
-SET 
-properties = '{{ properties }}',
-sku = '{{ sku }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND worker_pool_name = '{{ worker_pool_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-sku,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_multi_role_pool">
-
-Create or update a multi-role pool. Description for Create or update a multi-role pool.
-
-```sql
-REPLACE azure.web.app_service_environments
-SET 
-properties = '{{ properties }}',
-sku = '{{ sku }}',
-kind = '{{ kind }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-kind,
-properties,
-sku,
-systemData,
-type;
-```
-</TabItem>
 </Tabs>
 
 
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_private_endpoint_connection"
+    defaultValue="delete"
     values={[
-        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_private_endpoint_connection">
-
-Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
-
-```sql
-DELETE FROM azure.web.app_service_environments
-WHERE resource_group_name = '{{ resource_group_name }}' --required
-AND name = '{{ name }}' --required
-AND private_endpoint_connection_name = '{{ private_endpoint_connection_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete an App Service Environment. Description for Delete an App Service Environment.
@@ -1821,6 +1688,8 @@ AND forceDelete = '{{ forceDelete }}'
         { label: 'list_multi_role_pool_skus', value: 'list_multi_role_pool_skus' },
         { label: 'list_multi_role_usages', value: 'list_multi_role_usages' },
         { label: 'get_worker_pool', value: 'get_worker_pool' },
+        { label: 'create_or_update_worker_pool', value: 'create_or_update_worker_pool' },
+        { label: 'update_worker_pool', value: 'update_worker_pool' },
         { label: 'get_inbound_network_dependencies_endpoints', value: 'get_inbound_network_dependencies_endpoints' },
         { label: 'get_outbound_network_dependencies_endpoints', value: 'get_outbound_network_dependencies_endpoints' },
         { label: 'get_private_link_resources', value: 'get_private_link_resources' },
@@ -1831,8 +1700,10 @@ AND forceDelete = '{{ forceDelete }}'
         { label: 'get_ase_v3_networking_configuration', value: 'get_ase_v3_networking_configuration' },
         { label: 'update_ase_networking_configuration', value: 'update_ase_networking_configuration' },
         { label: 'get_multi_role_pool', value: 'get_multi_role_pool' },
+        { label: 'create_or_update_multi_role_pool', value: 'create_or_update_multi_role_pool' },
         { label: 'update_multi_role_pool', value: 'update_multi_role_pool' },
         { label: 'approve_or_reject_private_endpoint_connection', value: 'approve_or_reject_private_endpoint_connection' },
+        { label: 'delete_private_endpoint_connection', value: 'delete_private_endpoint_connection' },
         { label: 'get_private_endpoint_connection_list', value: 'get_private_endpoint_connection_list' },
         { label: 'change_vnet', value: 'change_vnet' },
         { label: 'test_upgrade_available_notification', value: 'test_upgrade_available_notification' },
@@ -2015,6 +1886,44 @@ EXEC azure.web.app_service_environments.get_worker_pool
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_worker_pool">
+
+Create or update a worker pool. Description for Create or update a worker pool.
+
+```sql
+EXEC azure.web.app_service_environments.create_or_update_worker_pool 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@worker_pool_name='{{ worker_pool_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"sku": "{{ sku }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="update_worker_pool">
+
+Create or update a worker pool. Description for Create or update a worker pool.
+
+```sql
+EXEC azure.web.app_service_environments.update_worker_pool 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@worker_pool_name='{{ worker_pool_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"sku": "{{ sku }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_inbound_network_dependencies_endpoints">
 
 Get the network endpoints of all inbound dependencies of an App Service Environment. Description for Get the network endpoints of all inbound dependencies of an App Service Environment.
@@ -2145,6 +2054,24 @@ EXEC azure.web.app_service_environments.get_multi_role_pool
 ;
 ```
 </TabItem>
+<TabItem value="create_or_update_multi_role_pool">
+
+Create or update a multi-role pool. Description for Create or update a multi-role pool.
+
+```sql
+EXEC azure.web.app_service_environments.create_or_update_multi_role_pool 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}", 
+"sku": "{{ sku }}", 
+"kind": "{{ kind }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="update_multi_role_pool">
 
 Create or update a multi-role pool. Description for Create or update a multi-role pool.
@@ -2178,6 +2105,19 @@ EXEC azure.web.app_service_environments.approve_or_reject_private_endpoint_conne
 "properties": "{{ properties }}", 
 "kind": "{{ kind }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="delete_private_endpoint_connection">
+
+Deletes a private endpoint connection. Description for Deletes a private endpoint connection.
+
+```sql
+EXEC azure.web.app_service_environments.delete_private_endpoint_connection 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@name='{{ name }}' --required, 
+@private_endpoint_connection_name='{{ private_endpoint_connection_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

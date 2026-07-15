@@ -147,13 +147,6 @@ The following methods are available for this resource:
     <td>The operation to list Initiator Subscription Changed Request.</td>
 </tr>
 <tr>
-    <td><a href="#delete_target_directory"><CopyableCode code="delete_target_directory" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>The operation to delete Initiator Subscription Changed Request.</td>
-</tr>
-<tr>
     <td><a href="#get_target_directory"><CopyableCode code="get_target_directory" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -166,6 +159,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>The operation to initiate Subscription Changed Request.</td>
+</tr>
+<tr>
+    <td><a href="#delete_target_directory"><CopyableCode code="delete_target_directory" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>The operation to delete Initiator Subscription Changed Request.</td>
 </tr>
 <tr>
     <td><a href="#accept_target_directory"><CopyableCode code="accept_target_directory" /></a></td>
@@ -241,27 +241,6 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_target_directory"
-    values={[
-        { label: 'delete_target_directory', value: 'delete_target_directory' }
-    ]}
->
-<TabItem value="delete_target_directory">
-
-The operation to delete Initiator Subscription Changed Request.
-
-```sql
-DELETE FROM azure.subscription.subscriptions
-WHERE subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -269,6 +248,7 @@ WHERE subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'get_target_directory', value: 'get_target_directory' },
         { label: 'put_target_directory', value: 'put_target_directory' },
+        { label: 'delete_target_directory', value: 'delete_target_directory' },
         { label: 'accept_target_directory', value: 'accept_target_directory' },
         { label: 'target_directory_status', value: 'target_directory_status' }
     ]}
@@ -294,6 +274,16 @@ EXEC azure.subscription.subscriptions.put_target_directory
 '{
 "properties": "{{ properties }}"
 }'
+;
+```
+</TabItem>
+<TabItem value="delete_target_directory">
+
+The operation to delete Initiator Subscription Changed Request.
+
+```sql
+EXEC azure.subscription.subscriptions.delete_target_directory 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

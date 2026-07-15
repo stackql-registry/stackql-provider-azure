@@ -92,21 +92,21 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the properties of an account's Table service, including properties for Analytics and CORS (Cross-Origin Resource Sharing) rules.</td>
 </tr>
 <tr>
     <td><a href="#set_properties"><CopyableCode code="set_properties" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Sets properties for an account's Table service endpoint, including properties for Analytics and CORS (Cross-Origin Resource Sharing) rules.</td>
 </tr>
 <tr>
     <td><a href="#get_statistics"><CopyableCode code="get_statistics" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves statistics related to replication for the Table service. It is only available on the secondary location endpoint when read-access geo-redundant replication is enabled for the account.</td>
 </tr>
@@ -126,10 +126,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `url` parameter. (default: )</td>
+    <td>Cosmos DB Table API account name. (default: )</td>
 </tr>
 <tr id="parameter-timeout">
     <td><CopyableCode code="timeout" /></td>
@@ -158,36 +158,9 @@ hourMetrics,
 logging,
 minuteMetrics
 FROM azure.data_tables.service
-WHERE url = '{{ url }}' -- required
+WHERE account = '{{ account }}' -- required
 AND timeout = '{{ timeout }}'
 ;
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="set_properties"
-    values={[
-        { label: 'set_properties', value: 'set_properties' }
-    ]}
->
-<TabItem value="set_properties">
-
-Sets properties for an account's Table service endpoint, including properties for Analytics and CORS (Cross-Origin Resource Sharing) rules.
-
-```sql
-REPLACE azure.data_tables.service
-SET 
-logging = '{{ logging }}',
-hourMetrics = '{{ hourMetrics }}',
-minuteMetrics = '{{ minuteMetrics }}',
-cors = '{{ cors }}'
-WHERE 
-url = '{{ url }}' --required
-AND timeout = '{{ timeout}}';
 ```
 </TabItem>
 </Tabs>
@@ -196,18 +169,37 @@ AND timeout = '{{ timeout}}';
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="get_statistics"
+    defaultValue="set_properties"
     values={[
+        { label: 'set_properties', value: 'set_properties' },
         { label: 'get_statistics', value: 'get_statistics' }
     ]}
 >
+<TabItem value="set_properties">
+
+Sets properties for an account's Table service endpoint, including properties for Analytics and CORS (Cross-Origin Resource Sharing) rules.
+
+```sql
+EXEC azure.data_tables.service.set_properties 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}' 
+@@json=
+'{
+"logging": "{{ logging }}", 
+"hourMetrics": "{{ hourMetrics }}", 
+"minuteMetrics": "{{ minuteMetrics }}", 
+"cors": "{{ cors }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="get_statistics">
 
 Retrieves statistics related to replication for the Table service. It is only available on the secondary location endpoint when read-access geo-redundant replication is enabled for the account.
 
 ```sql
 EXEC azure.data_tables.service.get_statistics 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}'
 ;
 ```

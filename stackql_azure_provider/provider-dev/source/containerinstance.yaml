@@ -2662,9 +2662,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: container_groups
       x-stackql-method: get_outbound_network_dependencies_endpoints
       x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerInstance/containerGroups/{container_group_name}/restart?api-version=2026-06-01-preview
   : post:
       operationId: ContainerGroups_begin_restart

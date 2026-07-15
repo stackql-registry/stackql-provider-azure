@@ -4869,7 +4869,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: channels
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/namespaces/{namespace_name}/clientGroups/{client_group_name}?api-version=2025-07-15-preview
   : get:
       operationId: ClientGroups_get
@@ -5514,7 +5514,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: domain_event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/domains/{domain_name}/eventSubscriptions/{event_subscription_name}/getFullUrl?api-version=2025-07-15-preview
   : post:
       operationId: DomainEventSubscriptions_get_full_url
@@ -5553,7 +5554,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: domain_event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/domains/{domain_name}/topics/{topic_name}/eventSubscriptions/{event_subscription_name}?api-version=2025-07-15-preview
   : get:
       operationId: DomainTopicEventSubscriptions_get
@@ -5891,7 +5892,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: domain_topic_event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/domains/{domain_name}/topics/{topic_name}/eventSubscriptions/{event_subscription_name}/getFullUrl?api-version=2025-07-15-preview
   : post:
       operationId: DomainTopicEventSubscriptions_get_full_url
@@ -5936,7 +5938,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: domain_topic_event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/domains/{domain_name}/topics/{domain_topic_name}?api-version=2025-07-15-preview
   : get:
       operationId: DomainTopics_get
@@ -6390,7 +6392,7 @@ paths:
                 $ref: '#/components/schemas/DomainSharedAccessKeys'
       x-stackql-resource: domains
       x-stackql-method: list_shared_access_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/domains/{domain_name}/regenerateKey?api-version=2025-07-15-preview
   : post:
       operationId: Domains_regenerate_key
@@ -7167,7 +7169,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /{scope}/providers/Microsoft.EventGrid/eventSubscriptions/{event_subscription_name}/getFullUrl?api-version=2025-07-15-preview
   : post:
       operationId: EventSubscriptions_get_full_url
@@ -7194,7 +7197,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{scope}/providers/Microsoft.EventGrid/extensionTopics/default?api-version=2025-07-15-preview:
     get:
       operationId: ExtensionTopics_get
@@ -7517,7 +7520,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: namespace_topic_event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/namespaces/{namespace_name}/topics/{topic_name}/eventSubscriptions/{event_subscription_name}/getFullUrl?api-version=2025-07-15-preview
   : post:
       operationId: NamespaceTopicEventSubscriptions_get_full_url
@@ -7562,7 +7566,7 @@ paths:
                 $ref: '#/components/schemas/SubscriptionFullUrl'
       x-stackql-resource: namespace_topic_event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/namespaces/{namespace_name}/topics/{topic_name}?api-version=2025-07-15-preview
   : get:
       operationId: NamespaceTopics_get
@@ -7820,7 +7824,7 @@ paths:
                 $ref: '#/components/schemas/TopicSharedAccessKeys'
       x-stackql-resource: namespace_topics
       x-stackql-method: list_shared_access_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/namespaces/{namespace_name}/topics/{topic_name}/regenerateKey?api-version=2025-07-15-preview
   : post:
       operationId: NamespaceTopics_begin_regenerate_key
@@ -8160,7 +8164,7 @@ paths:
                 $ref: '#/components/schemas/NamespaceSharedAccessKeys'
       x-stackql-resource: namespaces
       x-stackql-method: list_shared_access_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/namespaces/{namespace_name}/regenerateKey?api-version=2025-07-15-preview
   : post:
       operationId: Namespaces_begin_regenerate_key
@@ -9263,7 +9267,7 @@ paths:
                 $ref: '#/components/schemas/PartnerNamespaceSharedAccessKeys'
       x-stackql-resource: partner_namespaces
       x-stackql-method: list_shared_access_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/partnerNamespaces/{partner_namespace_name}/regenerateKey?api-version=2025-07-15-preview
   : post:
       operationId: PartnerNamespaces_regenerate_key
@@ -9854,7 +9858,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: partner_topic_event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/partnerTopics/{partner_topic_name}/eventSubscriptions/{event_subscription_name}/getDeliveryAttributes?api-version=2025-07-15-preview
   : post:
       operationId: PartnerTopicEventSubscriptions_get_delivery_attributes
@@ -9893,7 +9897,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: partner_topic_event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/partnerTopics/{partner_topic_name}?api-version=2025-07-15-preview
   : get:
       operationId: PartnerTopics_get
@@ -11003,7 +11008,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: system_topic_event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/systemTopics/{system_topic_name}/eventSubscriptions/{event_subscription_name}/getFullUrl?api-version=2025-07-15-preview
   : post:
       operationId: SystemTopicEventSubscriptions_get_full_url
@@ -11042,7 +11048,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: system_topic_event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/systemTopics/{system_topic_name}?api-version=2025-07-15-preview
   : get:
       operationId: SystemTopics_get
@@ -11589,7 +11595,8 @@ paths:
                 $ref: '#/components/schemas/DeliveryAttributeListResult'
       x-stackql-resource: topic_event_subscriptions
       x-stackql-method: get_delivery_attributes
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/topics/{topic_name}/eventSubscriptions/{event_subscription_name}/getFullUrl?api-version=2025-07-15-preview
   : post:
       operationId: TopicEventSubscriptions_get_full_url
@@ -11628,7 +11635,7 @@ paths:
                 $ref: '#/components/schemas/EventSubscriptionFullUrl'
       x-stackql-resource: topic_event_subscriptions
       x-stackql-method: get_full_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.EventGrid/namespaces/{namespace_name}/topicSpaces/{topic_space_name}?api-version=2025-07-15-preview
   : get:
       operationId: TopicSpaces_get
@@ -12160,7 +12167,7 @@ paths:
                 $ref: '#/components/schemas/TopicSharedAccessKeys'
       x-stackql-resource: topics
       x-stackql-method: list_shared_access_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/{provider_namespace}/{resource_type_name}/{resource_name}/providers/microsoft.EventGrid/eventTypes?api-version=2025-07-15-preview
   : get:
       operationId: Topics_list_event_types

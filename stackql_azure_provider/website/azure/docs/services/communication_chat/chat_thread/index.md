@@ -169,25 +169,11 @@ The following methods are available for this resource:
     <td>Gets chat message read receipts for a thread. Gets chat message read receipts for a thread.</td>
 </tr>
 <tr>
-    <td><a href="#update_chat_message"><CopyableCode code="update_chat_message" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-chat_thread_id"><code>chat_thread_id</code></a>, <a href="#parameter-chat_message_id"><code>chat_message_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Updates a message. Updates a message.</td>
-</tr>
-<tr>
     <td><a href="#update_chat_thread_properties"><CopyableCode code="update_chat_thread_properties" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-chat_thread_id"><code>chat_thread_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Updates a thread's properties. Updates a thread's properties.</td>
-</tr>
-<tr>
-    <td><a href="#delete_chat_message"><CopyableCode code="delete_chat_message" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-chat_thread_id"><code>chat_thread_id</code></a>, <a href="#parameter-chat_message_id"><code>chat_message_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Deletes a message. Deletes a message.</td>
 </tr>
 <tr>
     <td><a href="#get_chat_thread_properties"><CopyableCode code="get_chat_thread_properties" /></a></td>
@@ -223,6 +209,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-chat_thread_id"><code>chat_thread_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-maxPageSize"><code>maxPageSize</code></a>, <a href="#parameter-skip"><code>skip</code></a></td>
     <td>Gets the participants of a thread. Gets the participants of a thread.</td>
+</tr>
+<tr>
+    <td><a href="#update_chat_message"><CopyableCode code="update_chat_message" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-chat_thread_id"><code>chat_thread_id</code></a>, <a href="#parameter-chat_message_id"><code>chat_message_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Updates a message. Updates a message.</td>
+</tr>
+<tr>
+    <td><a href="#delete_chat_message"><CopyableCode code="delete_chat_message" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-chat_thread_id"><code>chat_thread_id</code></a>, <a href="#parameter-chat_message_id"><code>chat_message_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Deletes a message. Deletes a message.</td>
 </tr>
 <tr>
     <td><a href="#remove_chat_participant"><CopyableCode code="remove_chat_participant" /></a></td>
@@ -274,7 +274,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-maxPageSize">
     <td><CopyableCode code="maxPageSize" /></td>
@@ -350,27 +350,11 @@ AND skip = '{{ skip }}'
 ## `UPDATE` examples
 
 <Tabs
-    defaultValue="update_chat_message"
+    defaultValue="update_chat_thread_properties"
     values={[
-        { label: 'update_chat_message', value: 'update_chat_message' },
         { label: 'update_chat_thread_properties', value: 'update_chat_thread_properties' }
     ]}
 >
-<TabItem value="update_chat_message">
-
-Updates a message. Updates a message.
-
-```sql
-UPDATE azure.communication_chat.chat_thread
-SET 
-content = '{{ content }}',
-metadata = '{{ metadata }}'
-WHERE 
-chat_thread_id = '{{ chat_thread_id }}' --required
-AND chat_message_id = '{{ chat_message_id }}' --required
-AND endpoint = '{{ endpoint }}' --required;
-```
-</TabItem>
 <TabItem value="update_chat_thread_properties">
 
 Updates a thread's properties. Updates a thread's properties.
@@ -387,29 +371,6 @@ AND endpoint = '{{ endpoint }}' --required;
 </Tabs>
 
 
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_chat_message"
-    values={[
-        { label: 'delete_chat_message', value: 'delete_chat_message' }
-    ]}
->
-<TabItem value="delete_chat_message">
-
-Deletes a message. Deletes a message.
-
-```sql
-DELETE FROM azure.communication_chat.chat_thread
-WHERE chat_thread_id = '{{ chat_thread_id }}' --required
-AND chat_message_id = '{{ chat_message_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -420,6 +381,8 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'list_chat_messages', value: 'list_chat_messages' },
         { label: 'send_chat_message', value: 'send_chat_message' },
         { label: 'list_chat_participants', value: 'list_chat_participants' },
+        { label: 'update_chat_message', value: 'update_chat_message' },
+        { label: 'delete_chat_message', value: 'delete_chat_message' },
         { label: 'remove_chat_participant', value: 'remove_chat_participant' },
         { label: 'add_chat_participants', value: 'add_chat_participants' },
         { label: 'send_typing_notification', value: 'send_typing_notification' }
@@ -492,6 +455,35 @@ EXEC azure.communication_chat.chat_thread.list_chat_participants
 @endpoint='{{ endpoint }}' --required, 
 @maxPageSize='{{ maxPageSize }}', 
 @skip='{{ skip }}'
+;
+```
+</TabItem>
+<TabItem value="update_chat_message">
+
+Updates a message. Updates a message.
+
+```sql
+EXEC azure.communication_chat.chat_thread.update_chat_message 
+@chat_thread_id='{{ chat_thread_id }}' --required, 
+@chat_message_id='{{ chat_message_id }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"content": "{{ content }}", 
+"metadata": "{{ metadata }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_chat_message">
+
+Deletes a message. Deletes a message.
+
+```sql
+EXEC azure.communication_chat.chat_thread.delete_chat_message 
+@chat_thread_id='{{ chat_thread_id }}' --required, 
+@chat_message_id='{{ chat_message_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

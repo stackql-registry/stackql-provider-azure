@@ -33,13 +33,198 @@ Creates, updates, deletes, gets or lists a <code>network_watchers</code> resourc
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_next_hop"
     values={[
+        { label: 'get_next_hop', value: 'get_next_hop' },
+        { label: 'get_azure_reachability_report', value: 'get_azure_reachability_report' },
+        { label: 'get_troubleshooting', value: 'get_troubleshooting' },
+        { label: 'get_network_configuration_diagnostic', value: 'get_network_configuration_diagnostic' },
+        { label: 'check_connectivity', value: 'check_connectivity' },
+        { label: 'get_vm_security_rules', value: 'get_vm_security_rules' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_all', value: 'list_all' }
     ]}
 >
+<TabItem value="get_next_hop">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="nextHopIpAddress" /></td>
+    <td><code>string</code></td>
+    <td>Next hop IP Address.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nextHopType" /></td>
+    <td><code>string</code></td>
+    <td>Next hop type. Known values are: "Internet", "VirtualAppliance", "VirtualNetworkGateway", "VnetLocal", "HyperNetGateway", "VirtualApplianceEcmp", and "None". (Internet, VirtualAppliance, VirtualNetworkGateway, VnetLocal, HyperNetGateway, VirtualApplianceEcmp, None)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="routeTableId" /></td>
+    <td><code>string</code></td>
+    <td>The resource identifier for the route table associated with the route being returned. If the route being returned does not correspond to any user created routes then this field will be the string 'System Route'.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_azure_reachability_report">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="aggregationLevel" /></td>
+    <td><code>string</code></td>
+    <td>The aggregation level of Azure reachability report. Can be Country, State or City. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="providerLocation" /></td>
+    <td><code>object</code></td>
+    <td>Parameters that define a geographic location. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reachabilityReport" /></td>
+    <td><code>array</code></td>
+    <td>List of Azure reachability report items. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_troubleshooting">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="code" /></td>
+    <td><code>string</code></td>
+    <td>The result code of the troubleshooting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="endTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The end time of the troubleshooting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="results" /></td>
+    <td><code>array</code></td>
+    <td>Information from troubleshooting.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The start time of the troubleshooting.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_network_configuration_diagnostic">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="results" /></td>
+    <td><code>array</code></td>
+    <td>List of network configuration diagnostic results.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_connectivity">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="avgLatencyInMs" /></td>
+    <td><code>integer</code></td>
+    <td>Average latency in milliseconds.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="connectionStatus" /></td>
+    <td><code>string</code></td>
+    <td>The connection status. Known values are: "Unknown", "Connected", "Disconnected", and "Degraded". (Unknown, Connected, Disconnected, Degraded)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hops" /></td>
+    <td><code>array</code></td>
+    <td>List of hops between the source and the destination.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="maxLatencyInMs" /></td>
+    <td><code>integer</code></td>
+    <td>Maximum latency in milliseconds.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="minLatencyInMs" /></td>
+    <td><code>integer</code></td>
+    <td>Minimum latency in milliseconds.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="probesFailed" /></td>
+    <td><code>integer</code></td>
+    <td>Number of failed probes.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="probesSent" /></td>
+    <td><code>integer</code></td>
+    <td>Total number of probes sent.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="get_vm_security_rules">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="networkInterfaces" /></td>
+    <td><code>array</code></td>
+    <td>List of network interfaces on the specified VM.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -205,6 +390,48 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get_next_hop"><CopyableCode code="get_next_hop" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the next hop from the specified VM.</td>
+</tr>
+<tr>
+    <td><a href="#get_azure_reachability_report"><CopyableCode code="get_azure_reachability_report" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>NOTE: This feature is currently in preview and still being tested for stability. Gets the relative latency score for internet service providers from a specified location to Azure regions.</td>
+</tr>
+<tr>
+    <td><a href="#get_troubleshooting"><CopyableCode code="get_troubleshooting" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Initiate troubleshooting on a specified resource.</td>
+</tr>
+<tr>
+    <td><a href="#get_network_configuration_diagnostic"><CopyableCode code="get_network_configuration_diagnostic" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets Network Configuration Diagnostic data to help customers understand and debug network behavior. It provides detailed information on what security rules were applied to a specified traffic flow and the result of evaluating these rules. Customers must provide details of a flow like source, destination, protocol, etc. The API returns whether traffic was allowed or denied, the rules evaluated for the specified flow and the evaluation results.</td>
+</tr>
+<tr>
+    <td><a href="#check_connectivity"><CopyableCode code="check_connectivity" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Verifies the possibility of establishing a direct TCP connection from a virtual machine to a given endpoint including another VM or an arbitrary remote server.</td>
+</tr>
+<tr>
+    <td><a href="#get_vm_security_rules"><CopyableCode code="get_vm_security_rules" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the configured and effective security group rules on the specified VM.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -268,27 +495,6 @@ The following methods are available for this resource:
     <td>Gets the current network topology by resource group.</td>
 </tr>
 <tr>
-    <td><a href="#get_next_hop"><CopyableCode code="get_next_hop" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a>, <a href="#parameter-sourceIPAddress"><code>sourceIPAddress</code></a>, <a href="#parameter-destinationIPAddress"><code>destinationIPAddress</code></a></td>
-    <td></td>
-    <td>Gets the next hop from the specified VM.</td>
-</tr>
-<tr>
-    <td><a href="#get_vm_security_rules"><CopyableCode code="get_vm_security_rules" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a></td>
-    <td></td>
-    <td>Gets the configured and effective security group rules on the specified VM.</td>
-</tr>
-<tr>
-    <td><a href="#get_troubleshooting"><CopyableCode code="get_troubleshooting" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Initiate troubleshooting on a specified resource.</td>
-</tr>
-<tr>
     <td><a href="#get_troubleshooting_result"><CopyableCode code="get_troubleshooting_result" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a></td>
@@ -303,20 +509,6 @@ The following methods are available for this resource:
     <td>Queries status of flow log and traffic analytics (optional) on a specified resource.</td>
 </tr>
 <tr>
-    <td><a href="#get_azure_reachability_report"><CopyableCode code="get_azure_reachability_report" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-providerLocation"><code>providerLocation</code></a>, <a href="#parameter-startTime"><code>startTime</code></a>, <a href="#parameter-endTime"><code>endTime</code></a></td>
-    <td></td>
-    <td>NOTE: This feature is currently in preview and still being tested for stability. Gets the relative latency score for internet service providers from a specified location to Azure regions.</td>
-</tr>
-<tr>
-    <td><a href="#get_network_configuration_diagnostic"><CopyableCode code="get_network_configuration_diagnostic" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a>, <a href="#parameter-profiles"><code>profiles</code></a></td>
-    <td></td>
-    <td>Gets Network Configuration Diagnostic data to help customers understand and debug network behavior. It provides detailed information on what security rules were applied to a specified traffic flow and the result of evaluating these rules. Customers must provide details of a flow like source, destination, protocol, etc. The API returns whether traffic was allowed or denied, the rules evaluated for the specified flow and the evaluation results.</td>
-</tr>
-<tr>
     <td><a href="#verify_ip_flow"><CopyableCode code="verify_ip_flow" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a>, <a href="#parameter-direction"><code>direction</code></a>, <a href="#parameter-protocol"><code>protocol</code></a>, <a href="#parameter-localPort"><code>localPort</code></a>, <a href="#parameter-remotePort"><code>remotePort</code></a>, <a href="#parameter-localIPAddress"><code>localIPAddress</code></a>, <a href="#parameter-remoteIPAddress"><code>remoteIPAddress</code></a></td>
@@ -329,13 +521,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-targetResourceId"><code>targetResourceId</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
     <td>Configures flow log and traffic analytics (optional) on a specified resource.</td>
-</tr>
-<tr>
-    <td><a href="#check_connectivity"><CopyableCode code="check_connectivity" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_watcher_name"><code>network_watcher_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-source"><code>source</code></a>, <a href="#parameter-destination"><code>destination</code></a></td>
-    <td></td>
-    <td>Verifies the possibility of establishing a direct TCP connection from a virtual machine to a given endpoint including another VM or an arbitrary remote server.</td>
 </tr>
 </tbody>
 </table>
@@ -374,13 +559,116 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="get_next_hop"
     values={[
+        { label: 'get_next_hop', value: 'get_next_hop' },
+        { label: 'get_azure_reachability_report', value: 'get_azure_reachability_report' },
+        { label: 'get_troubleshooting', value: 'get_troubleshooting' },
+        { label: 'get_network_configuration_diagnostic', value: 'get_network_configuration_diagnostic' },
+        { label: 'check_connectivity', value: 'check_connectivity' },
+        { label: 'get_vm_security_rules', value: 'get_vm_security_rules' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' },
         { label: 'list_all', value: 'list_all' }
     ]}
 >
+<TabItem value="get_next_hop">
+
+Gets the next hop from the specified VM.
+
+```sql
+SELECT
+nextHopIpAddress,
+nextHopType,
+routeTableId
+FROM azure.network.network_watchers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_watcher_name = '{{ network_watcher_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_azure_reachability_report">
+
+NOTE: This feature is currently in preview and still being tested for stability. Gets the relative latency score for internet service providers from a specified location to Azure regions.
+
+```sql
+SELECT
+aggregationLevel,
+providerLocation,
+reachabilityReport
+FROM azure.network.network_watchers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_watcher_name = '{{ network_watcher_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_troubleshooting">
+
+Initiate troubleshooting on a specified resource.
+
+```sql
+SELECT
+code,
+endTime,
+results,
+startTime
+FROM azure.network.network_watchers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_watcher_name = '{{ network_watcher_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_network_configuration_diagnostic">
+
+Gets Network Configuration Diagnostic data to help customers understand and debug network behavior. It provides detailed information on what security rules were applied to a specified traffic flow and the result of evaluating these rules. Customers must provide details of a flow like source, destination, protocol, etc. The API returns whether traffic was allowed or denied, the rules evaluated for the specified flow and the evaluation results.
+
+```sql
+SELECT
+results
+FROM azure.network.network_watchers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_watcher_name = '{{ network_watcher_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_connectivity">
+
+Verifies the possibility of establishing a direct TCP connection from a virtual machine to a given endpoint including another VM or an arbitrary remote server.
+
+```sql
+SELECT
+avgLatencyInMs,
+connectionStatus,
+hops,
+maxLatencyInMs,
+minLatencyInMs,
+probesFailed,
+probesSent
+FROM azure.network.network_watchers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_watcher_name = '{{ network_watcher_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="get_vm_security_rules">
+
+Gets the configured and effective security group rules on the specified VM.
+
+```sql
+SELECT
+networkInterfaces
+FROM azure.network.network_watchers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_watcher_name = '{{ network_watcher_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets the specified network watcher by resource group.
@@ -619,16 +907,10 @@ AND subscription_id = '{{ subscription_id }}' --required
     values={[
         { label: 'list_available_providers', value: 'list_available_providers' },
         { label: 'get_topology', value: 'get_topology' },
-        { label: 'get_next_hop', value: 'get_next_hop' },
-        { label: 'get_vm_security_rules', value: 'get_vm_security_rules' },
-        { label: 'get_troubleshooting', value: 'get_troubleshooting' },
         { label: 'get_troubleshooting_result', value: 'get_troubleshooting_result' },
         { label: 'get_flow_log_status', value: 'get_flow_log_status' },
-        { label: 'get_azure_reachability_report', value: 'get_azure_reachability_report' },
-        { label: 'get_network_configuration_diagnostic', value: 'get_network_configuration_diagnostic' },
         { label: 'verify_ip_flow', value: 'verify_ip_flow' },
-        { label: 'set_flow_log_configuration', value: 'set_flow_log_configuration' },
-        { label: 'check_connectivity', value: 'check_connectivity' }
+        { label: 'set_flow_log_configuration', value: 'set_flow_log_configuration' }
     ]}
 >
 <TabItem value="list_available_providers">
@@ -668,58 +950,6 @@ EXEC azure.network.network_watchers.get_topology
 ;
 ```
 </TabItem>
-<TabItem value="get_next_hop">
-
-Gets the next hop from the specified VM.
-
-```sql
-EXEC azure.network.network_watchers.get_next_hop 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_watcher_name='{{ network_watcher_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetResourceId": "{{ targetResourceId }}", 
-"sourceIPAddress": "{{ sourceIPAddress }}", 
-"destinationIPAddress": "{{ destinationIPAddress }}", 
-"targetNicResourceId": "{{ targetNicResourceId }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_vm_security_rules">
-
-Gets the configured and effective security group rules on the specified VM.
-
-```sql
-EXEC azure.network.network_watchers.get_vm_security_rules 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_watcher_name='{{ network_watcher_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetResourceId": "{{ targetResourceId }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_troubleshooting">
-
-Initiate troubleshooting on a specified resource.
-
-```sql
-EXEC azure.network.network_watchers.get_troubleshooting 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_watcher_name='{{ network_watcher_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetResourceId": "{{ targetResourceId }}", 
-"properties": "{{ properties }}"
-}'
-;
-```
-</TabItem>
 <TabItem value="get_troubleshooting_result">
 
 Get the last completed troubleshooting result on a specified resource.
@@ -748,44 +978,6 @@ EXEC azure.network.network_watchers.get_flow_log_status
 @@json=
 '{
 "targetResourceId": "{{ targetResourceId }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_azure_reachability_report">
-
-NOTE: This feature is currently in preview and still being tested for stability. Gets the relative latency score for internet service providers from a specified location to Azure regions.
-
-```sql
-EXEC azure.network.network_watchers.get_azure_reachability_report 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_watcher_name='{{ network_watcher_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"providerLocation": "{{ providerLocation }}", 
-"providers": "{{ providers }}", 
-"azureLocations": "{{ azureLocations }}", 
-"startTime": "{{ startTime }}", 
-"endTime": "{{ endTime }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="get_network_configuration_diagnostic">
-
-Gets Network Configuration Diagnostic data to help customers understand and debug network behavior. It provides detailed information on what security rules were applied to a specified traffic flow and the result of evaluating these rules. Customers must provide details of a flow like source, destination, protocol, etc. The API returns whether traffic was allowed or denied, the rules evaluated for the specified flow and the evaluation results.
-
-```sql
-EXEC azure.network.network_watchers.get_network_configuration_diagnostic 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_watcher_name='{{ network_watcher_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"targetResourceId": "{{ targetResourceId }}", 
-"verbosityLevel": "{{ verbosityLevel }}", 
-"profiles": "{{ profiles }}"
 }'
 ;
 ```
@@ -828,26 +1020,6 @@ EXEC azure.network.network_watchers.set_flow_log_configuration
 "properties": "{{ properties }}", 
 "flowAnalyticsConfiguration": "{{ flowAnalyticsConfiguration }}", 
 "identity": "{{ identity }}"
-}'
-;
-```
-</TabItem>
-<TabItem value="check_connectivity">
-
-Verifies the possibility of establishing a direct TCP connection from a virtual machine to a given endpoint including another VM or an arbitrary remote server.
-
-```sql
-EXEC azure.network.network_watchers.check_connectivity 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_watcher_name='{{ network_watcher_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"source": "{{ source }}", 
-"destination": "{{ destination }}", 
-"protocol": "{{ protocol }}", 
-"protocolConfiguration": "{{ protocolConfiguration }}", 
-"preferredIPVersion": "{{ preferredIPVersion }}"
 }'
 ;
 ```

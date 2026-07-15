@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_knowledge_source_status"><CopyableCode code="get_knowledge_source_status" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-source_name"><code>source_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-source_name"><code>source_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Retrieves the status of a knowledge source.</td>
 </tr>
@@ -73,10 +73,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>Search service name. (default: )</td>
 </tr>
 <tr id="parameter-source_name">
     <td><CopyableCode code="source_name" /></td>
@@ -101,7 +101,7 @@ Retrieves the status of a knowledge source.
 ```sql
 EXEC azure.search_documents.knowledge_source_status.get_knowledge_source_status 
 @source_name='{{ source_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

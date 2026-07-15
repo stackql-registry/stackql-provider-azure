@@ -294,6 +294,18 @@ components:
             $ref: '#/components/schemas/Operation'
         nextLink:
           type: string
+    ApiKey:
+      type: object
+      description: Azure quantum workspace Api key details. Variables are only populated by the server, and will
+        be ignored when sending a request.
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: The creation time of the api key.
+        key:
+          type: string
+          description: The Api key.
     ListKeysResult:
       type: object
       description: Result of list Api keys and connection strings. Variables are only populated by the server, and
@@ -314,18 +326,6 @@ components:
         secondaryConnectionString:
           type: string
           description: The connection string of the secondary api key.
-    ApiKey:
-      type: object
-      description: Azure quantum workspace Api key details. Variables are only populated by the server, and will
-        be ignored when sending a request.
-      properties:
-        createdAt:
-          type: string
-          format: date-time
-          description: The creation time of the api key.
-        key:
-          type: string
-          description: The Api key.
     CheckNameAvailabilityResult:
       type: object
       description: Result of check name availability. Variables are only populated by the server, and will be ignored
@@ -599,7 +599,7 @@ paths:
                 $ref: '#/components/schemas/ListKeysResult'
       x-stackql-resource: workspace
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.Quantum/locations/{location_name}/checkNameAvailability?api-version=2023-11-13-preview
   : post:
       operationId: Workspace_check_name_availability
@@ -638,7 +638,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: workspace
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Quantum/workspaces/{workspace_name}/regenerateKey?api-version=2023-11-13-preview
   : post:
       operationId: Workspace_regenerate_keys

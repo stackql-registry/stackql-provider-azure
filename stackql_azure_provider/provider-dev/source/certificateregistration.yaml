@@ -537,20 +537,6 @@ components:
           description: HTML snippet. Required.
       required:
       - html
-    CertificateOrderAction:
-      type: object
-      description: Certificate order action.
-      properties:
-        actionType:
-          $ref: '#/components/schemas/CertificateOrderActionType'
-          description: 'Action type. Known values are: "CertificateIssued", "CertificateOrderCanceled", "CertificateOrderCreated",
-            "CertificateRevoked", "DomainValidationComplete", "FraudDetected", "OrgNameChange", "OrgValidationComplete",
-            "SanDrop", "FraudCleared", "CertificateExpired", "CertificateExpirationWarning", "FraudDocumentationRequired",
-            and "Unknown".'
-        createdAt:
-          type: string
-          format: date-time
-          description: Time at which the certificate action was performed.
     CertificateOrderActionType:
       type: string
       enum:
@@ -568,6 +554,20 @@ components:
       - CertificateExpirationWarning
       - FraudDocumentationRequired
       - Unknown
+    CertificateOrderAction:
+      type: object
+      description: Certificate order action.
+      properties:
+        actionType:
+          $ref: '#/components/schemas/CertificateOrderActionType'
+          description: 'Action type. Known values are: "CertificateIssued", "CertificateOrderCanceled", "CertificateOrderCreated",
+            "CertificateRevoked", "DomainValidationComplete", "FraudDetected", "OrgNameChange", "OrgValidationComplete",
+            "SanDrop", "FraudCleared", "CertificateExpired", "CertificateExpirationWarning", "FraudDocumentationRequired",
+            and "Unknown".'
+        createdAt:
+          type: string
+          format: date-time
+          description: Time at which the certificate action was performed.
     CertificateEmail:
       type: object
       description: SSL certificate email.
@@ -1417,7 +1417,7 @@ paths:
                 $ref: '#/components/schemas/AppServiceCertificateResource'
       x-stackql-resource: app_service_certificate_orders
       x-stackql-method: create_or_update_certificate
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: AppServiceCertificateOrders_update_certificate
       description: Creates or updates a certificate and associates with key vault secret. Description for Creates
@@ -1468,7 +1468,7 @@ paths:
                 $ref: '#/components/schemas/AppServiceCertificateResource'
       x-stackql-resource: app_service_certificate_orders
       x-stackql-method: update_certificate
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: AppServiceCertificateOrders_delete_certificate
       description: Delete the certificate associated with a certificate order. Description for Delete the certificate
@@ -1498,11 +1498,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: app_service_certificate_orders
       x-stackql-method: delete_certificate
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificate_order_name}/reissue?api-version=2024-11-01
   : post:
       operationId: AppServiceCertificateOrders_reissue
@@ -1703,7 +1703,7 @@ paths:
                 $ref: '#/components/schemas/SiteSeal'
       x-stackql-resource: app_service_certificate_orders
       x-stackql-method: retrieve_site_seal
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificate_order_name}/verifyDomainOwnership?api-version=2024-11-01
   : post:
       operationId: AppServiceCertificateOrders_verify_domain_ownership
@@ -1764,7 +1764,7 @@ paths:
                 $ref: '#/components/schemas/CertificateOrderAction'
       x-stackql-resource: app_service_certificate_orders
       x-stackql-method: retrieve_certificate_actions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/retrieveEmailHistory?api-version=2024-11-01
   : post:
       operationId: AppServiceCertificateOrders_retrieve_certificate_email_history
@@ -1796,7 +1796,7 @@ paths:
                 $ref: '#/components/schemas/CertificateEmail'
       x-stackql-resource: app_service_certificate_orders
       x-stackql-method: retrieve_certificate_email_history
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.CertificateRegistration/validateCertificateRegistrationInformation?api-version=2024-11-01
   : post:
       operationId: AppServiceCertificateOrders_validate_purchase_information

@@ -699,7 +699,7 @@ paths:
                 $ref: '#/components/schemas/FluidRelayServerKeys'
       x-stackql-resource: fluid_relay_servers
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group}/providers/Microsoft.FluidRelay/fluidRelayServers/{fluid_relay_server_name}/regenerateKey?api-version=2022-06-01
   : post:
       operationId: FluidRelayServers_regenerate_key

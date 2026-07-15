@@ -226,20 +226,6 @@ The following methods are available for this resource:
     <td>Get Configuration records within a subscription.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_parent"><CopyableCode code="create_or_update_parent" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Apply Updates to resource with parent. Apply maintenance updates to resource with parent.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_or_cancel"><CopyableCode code="create_or_update_or_cancel" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-apply_update_name"><code>apply_update_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Apply maintenance updates to resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -247,25 +233,25 @@ The following methods are available for this resource:
     <td>Apply Updates to resource. Apply maintenance updates to resource.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_parent"><CopyableCode code="create_or_update_parent" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Apply Updates to resource with parent. Apply maintenance updates to resource with parent.</td>
-</tr>
-<tr>
-    <td><a href="#create_or_update_or_cancel"><CopyableCode code="create_or_update_or_cancel" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-apply_update_name"><code>apply_update_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Apply maintenance updates to resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Apply Updates to resource. Apply maintenance updates to resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_or_cancel"><CopyableCode code="create_or_update_or_cancel" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-apply_update_name"><code>apply_update_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Apply maintenance updates to resource.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_parent"><CopyableCode code="create_or_update_parent" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-provider_name"><code>provider_name</code></a>, <a href="#parameter-resource_parent_type"><code>resource_parent_type</code></a>, <a href="#parameter-resource_parent_name"><code>resource_parent_name</code></a>, <a href="#parameter-resource_type"><code>resource_type</code></a>, <a href="#parameter-resource_name"><code>resource_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Apply Updates to resource with parent. Apply maintenance updates to resource with parent.</td>
 </tr>
 </tbody>
 </table>
@@ -408,76 +394,12 @@ WHERE subscription_id = '{{ subscription_id }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_parent"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_parent', value: 'create_or_update_parent' },
-        { label: 'create_or_update_or_cancel', value: 'create_or_update_or_cancel' },
         { label: 'create_or_update', value: 'create_or_update' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_parent">
-
-Apply Updates to resource with parent. Apply maintenance updates to resource with parent.
-
-```sql
-INSERT INTO azure.maintenance.apply_updates (
-resource_group_name,
-provider_name,
-resource_parent_type,
-resource_parent_name,
-resource_type,
-resource_name,
-subscription_id
-)
-SELECT 
-'{{ resource_group_name }}',
-'{{ provider_name }}',
-'{{ resource_parent_type }}',
-'{{ resource_parent_name }}',
-'{{ resource_type }}',
-'{{ resource_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
-<TabItem value="create_or_update_or_cancel">
-
-Apply maintenance updates to resource.
-
-```sql
-INSERT INTO azure.maintenance.apply_updates (
-properties,
-resource_group_name,
-provider_name,
-resource_type,
-resource_name,
-apply_update_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}',
-'{{ resource_group_name }}',
-'{{ provider_name }}',
-'{{ resource_type }}',
-'{{ resource_name }}',
-'{{ apply_update_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Apply Updates to resource. Apply maintenance updates to resource.
@@ -516,12 +438,6 @@ type
     - name: provider_name
       value: "{{ provider_name }}"
       description: Required parameter for the apply_updates resource.
-    - name: resource_parent_type
-      value: "{{ resource_parent_type }}"
-      description: Required parameter for the apply_updates resource.
-    - name: resource_parent_name
-      value: "{{ resource_parent_name }}"
-      description: Required parameter for the apply_updates resource.
     - name: resource_type
       value: "{{ resource_type }}"
       description: Required parameter for the apply_updates resource.
@@ -531,16 +447,6 @@ type
     - name: subscription_id
       value: "{{ subscription_id }}"
       description: Required parameter for the apply_updates resource.
-    - name: apply_update_name
-      value: "{{ apply_update_name }}"
-      description: Required parameter for the apply_updates resource.
-    - name: properties
-      description: |
-        Properties of the apply update.
-      value:
-        status: "{{ status }}"
-        resourceId: "{{ resourceId }}"
-        lastUpdateTime: "{{ lastUpdateTime }}"
 `}</CodeBlock>
 
 </TabItem>
@@ -550,60 +456,11 @@ type
 ## `REPLACE` examples
 
 <Tabs
-    defaultValue="create_or_update_parent"
+    defaultValue="create_or_update"
     values={[
-        { label: 'create_or_update_parent', value: 'create_or_update_parent' },
-        { label: 'create_or_update_or_cancel', value: 'create_or_update_or_cancel' },
         { label: 'create_or_update', value: 'create_or_update' }
     ]}
 >
-<TabItem value="create_or_update_parent">
-
-Apply Updates to resource with parent. Apply maintenance updates to resource with parent.
-
-```sql
-REPLACE azure.maintenance.apply_updates
-SET 
--- No updatable properties
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND provider_name = '{{ provider_name }}' --required
-AND resource_parent_type = '{{ resource_parent_type }}' --required
-AND resource_parent_name = '{{ resource_parent_name }}' --required
-AND resource_type = '{{ resource_type }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
-<TabItem value="create_or_update_or_cancel">
-
-Apply maintenance updates to resource.
-
-```sql
-REPLACE azure.maintenance.apply_updates
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND provider_name = '{{ provider_name }}' --required
-AND resource_type = '{{ resource_type }}' --required
-AND resource_name = '{{ resource_name }}' --required
-AND apply_update_name = '{{ apply_update_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-systemData,
-type;
-```
-</TabItem>
 <TabItem value="create_or_update">
 
 Apply Updates to resource. Apply maintenance updates to resource.
@@ -624,6 +481,53 @@ name,
 properties,
 systemData,
 type;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="create_or_update_or_cancel"
+    values={[
+        { label: 'create_or_update_or_cancel', value: 'create_or_update_or_cancel' },
+        { label: 'create_or_update_parent', value: 'create_or_update_parent' }
+    ]}
+>
+<TabItem value="create_or_update_or_cancel">
+
+Apply maintenance updates to resource.
+
+```sql
+EXEC azure.maintenance.apply_updates.create_or_update_or_cancel 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@provider_name='{{ provider_name }}' --required, 
+@resource_type='{{ resource_type }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@apply_update_name='{{ apply_update_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="create_or_update_parent">
+
+Apply Updates to resource with parent. Apply maintenance updates to resource with parent.
+
+```sql
+EXEC azure.maintenance.apply_updates.create_or_update_parent 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@provider_name='{{ provider_name }}' --required, 
+@resource_parent_type='{{ resource_parent_type }}' --required, 
+@resource_parent_name='{{ resource_parent_name }}' --required, 
+@resource_type='{{ resource_type }}' --required, 
+@resource_name='{{ resource_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
+;
 ```
 </TabItem>
 </Tabs>

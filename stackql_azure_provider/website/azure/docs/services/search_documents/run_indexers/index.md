@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#run_indexer"><CopyableCode code="run_indexer" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-indexer_name"><code>indexer_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-indexer_name"><code>indexer_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a></td>
     <td></td>
     <td>Runs an indexer on-demand.</td>
 </tr>
@@ -73,15 +73,15 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
-</tr>
 <tr id="parameter-indexer_name">
     <td><CopyableCode code="indexer_name" /></td>
     <td><code>string</code></td>
     <td>The name of the indexer. Required.</td>
+</tr>
+<tr id="parameter-search_service_name">
+    <td><CopyableCode code="search_service_name" /></td>
+    <td><code>string</code></td>
+    <td>Search service name. (default: )</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ Runs an indexer on-demand.
 ```sql
 EXEC azure.search_documents.run_indexers.run_indexer 
 @indexer_name='{{ indexer_name }}' --required, 
-@endpoint='{{ endpoint }}' --required
+@search_service_name='{{ search_service_name }}' --required
 ;
 ```
 </TabItem>

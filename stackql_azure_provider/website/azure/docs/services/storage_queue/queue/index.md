@@ -77,72 +77,72 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_access_policy"><CopyableCode code="get_access_policy" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Gets the access policy for the specified queue.</td>
 </tr>
 <tr>
-    <td><a href="#update_message"><CopyableCode code="update_message" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-message_id"><code>message_id</code></a>, <a href="#parameter-popreceipt"><code>popreceipt</code></a>, <a href="#parameter-visibilitytimeout"><code>visibilitytimeout</code></a>, <a href="#parameter-url"><code>url</code></a>, <a href="#parameter-messageText"><code>messageText</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Updates the visibility timeout of a message. This operation can also be used to update the contents of a message.</td>
-</tr>
-<tr>
-    <td><a href="#set_access_policy"><CopyableCode code="set_access_policy" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-items_"><code>items_</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Sets the permissions for the specified queue.</td>
-</tr>
-<tr>
-    <td><a href="#set_metadata"><CopyableCode code="set_metadata" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-meta"><code>x-ms-meta</code></a></td>
-    <td>Sets user-defined metadata for the specified queue.</td>
-</tr>
-<tr>
-    <td><a href="#delete_message"><CopyableCode code="delete_message" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-message_id"><code>message_id</code></a>, <a href="#parameter-popreceipt"><code>popreceipt</code></a>, <a href="#parameter-url"><code>url</code></a></td>
-    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
-    <td>Deletes the specified message.</td>
-</tr>
-<tr>
     <td><a href="#clear"><CopyableCode code="clear" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Deletes all messages from the specified queue.</td>
 </tr>
 <tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Returns all user-defined metadata and system properties for the specified queue.</td>
 </tr>
 <tr>
+    <td><a href="#set_metadata"><CopyableCode code="set_metadata" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-meta"><code>x-ms-meta</code></a></td>
+    <td>Sets user-defined metadata for the specified queue.</td>
+</tr>
+<tr>
+    <td><a href="#set_access_policy"><CopyableCode code="set_access_policy" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-account"><code>account</code></a>, <a href="#parameter-items_"><code>items_</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Sets the permissions for the specified queue.</td>
+</tr>
+<tr>
     <td><a href="#receive_messages"><CopyableCode code="receive_messages" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-numofmessages"><code>numofmessages</code></a>, <a href="#parameter-visibilitytimeout"><code>visibilitytimeout</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves one or more messages from the front of the queue.</td>
 </tr>
 <tr>
     <td><a href="#send_message"><CopyableCode code="send_message" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-messageText"><code>messageText</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a>, <a href="#parameter-messageText"><code>messageText</code></a></td>
     <td><a href="#parameter-visibilitytimeout"><code>visibilitytimeout</code></a>, <a href="#parameter-messagettl"><code>messagettl</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Adds a new message to the back of the message queue. A visibility timeout can also be specified to make the message invisible until the visibility timeout expires.</td>
 </tr>
 <tr>
     <td><a href="#peek_messages"><CopyableCode code="peek_messages" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a></td>
+    <td><a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-numofmessages"><code>numofmessages</code></a>, <a href="#parameter-timeout"><code>timeout</code></a></td>
     <td>Retrieves one or more messages from the front of the queue, but does not alter the visibility of the message.</td>
+</tr>
+<tr>
+    <td><a href="#update_message"><CopyableCode code="update_message" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-message_id"><code>message_id</code></a>, <a href="#parameter-popreceipt"><code>popreceipt</code></a>, <a href="#parameter-visibilitytimeout"><code>visibilitytimeout</code></a>, <a href="#parameter-account"><code>account</code></a>, <a href="#parameter-messageText"><code>messageText</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Updates the visibility timeout of a message. This operation can also be used to update the contents of a message.</td>
+</tr>
+<tr>
+    <td><a href="#delete_message"><CopyableCode code="delete_message" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-message_id"><code>message_id</code></a>, <a href="#parameter-popreceipt"><code>popreceipt</code></a>, <a href="#parameter-account"><code>account</code></a></td>
+    <td><a href="#parameter-timeout"><code>timeout</code></a></td>
+    <td>Deletes the specified message.</td>
 </tr>
 </tbody>
 </table>
@@ -160,6 +160,11 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
+    <td><code>string</code></td>
+    <td>Storage account name. (default: )</td>
+</tr>
 <tr id="parameter-message_id">
     <td><CopyableCode code="message_id" /></td>
     <td><code>string</code></td>
@@ -169,11 +174,6 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     <td><CopyableCode code="popreceipt" /></td>
     <td><code>string</code></td>
     <td>An opaque value required to delete the message. If deletion fails using this PopReceipt then the message has been dequeued by another client. Required.</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `url` parameter. (default: )</td>
 </tr>
 <tr id="parameter-visibilitytimeout">
     <td><CopyableCode code="visibilitytimeout" /></td>
@@ -224,77 +224,9 @@ Gets the access policy for the specified queue.
 SELECT
 items_
 FROM azure.storage_queue.queue
-WHERE url = '{{ url }}' -- required
+WHERE account = '{{ account }}' -- required
 AND timeout = '{{ timeout }}'
 ;
-```
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_message"
-    values={[
-        { label: 'update_message', value: 'update_message' }
-    ]}
->
-<TabItem value="update_message">
-
-Updates the visibility timeout of a message. This operation can also be used to update the contents of a message.
-
-```sql
-UPDATE azure.storage_queue.queue
-SET 
-messageText = '{{ messageText }}'
-WHERE 
-message_id = '{{ message_id }}' --required
-AND popreceipt = '{{ popreceipt }}' --required
-AND visibilitytimeout = '{{ visibilitytimeout }}' --required
-AND url = '{{ url }}' --required
-AND messageText = '{{ messageText }}' --required
-AND timeout = '{{ timeout}}';
-```
-</TabItem>
-</Tabs>
-
-
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="set_access_policy"
-    values={[
-        { label: 'set_access_policy', value: 'set_access_policy' },
-        { label: 'set_metadata', value: 'set_metadata' }
-    ]}
->
-<TabItem value="set_access_policy">
-
-Sets the permissions for the specified queue.
-
-```sql
-REPLACE azure.storage_queue.queue
-SET 
-items_ = '{{ items_ }}'
-WHERE 
-url = '{{ url }}' --required
-AND items_ = '{{ items_ }}' --required
-AND timeout = '{{ timeout}}';
-```
-</TabItem>
-<TabItem value="set_metadata">
-
-Sets user-defined metadata for the specified queue.
-
-```sql
-REPLACE azure.storage_queue.queue
-SET 
--- No updatable properties
-WHERE 
-url = '{{ url }}' --required
-AND timeout = '{{ timeout}}'
-AND x-ms-meta = '{{ x-ms-meta}}';
 ```
 </TabItem>
 </Tabs>
@@ -303,32 +235,18 @@ AND x-ms-meta = '{{ x-ms-meta}}';
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_message"
+    defaultValue="clear"
     values={[
-        { label: 'delete_message', value: 'delete_message' },
         { label: 'clear', value: 'clear' }
     ]}
 >
-<TabItem value="delete_message">
-
-Deletes the specified message.
-
-```sql
-DELETE FROM azure.storage_queue.queue
-WHERE message_id = '{{ message_id }}' --required
-AND popreceipt = '{{ popreceipt }}' --required
-AND url = '{{ url }}' --required
-AND timeout = '{{ timeout }}'
-;
-```
-</TabItem>
 <TabItem value="clear">
 
 Deletes all messages from the specified queue.
 
 ```sql
 DELETE FROM azure.storage_queue.queue
-WHERE url = '{{ url }}' --required
+WHERE account = '{{ account }}' --required
 AND timeout = '{{ timeout }}'
 ;
 ```
@@ -342,9 +260,13 @@ AND timeout = '{{ timeout }}'
     defaultValue="get_properties"
     values={[
         { label: 'get_properties', value: 'get_properties' },
+        { label: 'set_metadata', value: 'set_metadata' },
+        { label: 'set_access_policy', value: 'set_access_policy' },
         { label: 'receive_messages', value: 'receive_messages' },
         { label: 'send_message', value: 'send_message' },
-        { label: 'peek_messages', value: 'peek_messages' }
+        { label: 'peek_messages', value: 'peek_messages' },
+        { label: 'update_message', value: 'update_message' },
+        { label: 'delete_message', value: 'delete_message' }
     ]}
 >
 <TabItem value="get_properties">
@@ -353,8 +275,35 @@ Returns all user-defined metadata and system properties for the specified queue.
 
 ```sql
 EXEC azure.storage_queue.queue.get_properties 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}'
+;
+```
+</TabItem>
+<TabItem value="set_metadata">
+
+Sets user-defined metadata for the specified queue.
+
+```sql
+EXEC azure.storage_queue.queue.set_metadata 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}', 
+@x-ms-meta='{{ x-ms-meta }}'
+;
+```
+</TabItem>
+<TabItem value="set_access_policy">
+
+Sets the permissions for the specified queue.
+
+```sql
+EXEC azure.storage_queue.queue.set_access_policy 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}' 
+@@json=
+'{
+"items_": "{{ items_ }}"
+}'
 ;
 ```
 </TabItem>
@@ -364,7 +313,7 @@ Retrieves one or more messages from the front of the queue.
 
 ```sql
 EXEC azure.storage_queue.queue.receive_messages 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @numofmessages='{{ numofmessages }}', 
 @visibilitytimeout='{{ visibilitytimeout }}', 
 @timeout='{{ timeout }}'
@@ -377,7 +326,7 @@ Adds a new message to the back of the message queue. A visibility timeout can al
 
 ```sql
 EXEC azure.storage_queue.queue.send_message 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @visibilitytimeout='{{ visibilitytimeout }}', 
 @messagettl='{{ messagettl }}', 
 @timeout='{{ timeout }}' 
@@ -394,8 +343,39 @@ Retrieves one or more messages from the front of the queue, but does not alter t
 
 ```sql
 EXEC azure.storage_queue.queue.peek_messages 
-@url='{{ url }}' --required, 
+@account='{{ account }}' --required, 
 @numofmessages='{{ numofmessages }}', 
+@timeout='{{ timeout }}'
+;
+```
+</TabItem>
+<TabItem value="update_message">
+
+Updates the visibility timeout of a message. This operation can also be used to update the contents of a message.
+
+```sql
+EXEC azure.storage_queue.queue.update_message 
+@message_id='{{ message_id }}' --required, 
+@popreceipt='{{ popreceipt }}' --required, 
+@visibilitytimeout='{{ visibilitytimeout }}' --required, 
+@account='{{ account }}' --required, 
+@timeout='{{ timeout }}' 
+@@json=
+'{
+"messageText": "{{ messageText }}"
+}'
+;
+```
+</TabItem>
+<TabItem value="delete_message">
+
+Deletes the specified message.
+
+```sql
+EXEC azure.storage_queue.queue.delete_message 
+@message_id='{{ message_id }}' --required, 
+@popreceipt='{{ popreceipt }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}'
 ;
 ```

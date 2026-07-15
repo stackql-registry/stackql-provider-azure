@@ -1,0 +1,26 @@
+{
+  "_comment": "Stage-3 supplemental services: proven service docs generated from Azure/azure-rest-api-specs by the original AutoRest pipeline (ref/stackql-provider-azure-original), for Azure services with NO azure-sdk-for-python package. Keys are stackql service aliases; the yaml artifact for each lives at provider-dev/supplemental/<alias>.yaml. Injected AFTER stage 2 by provider-dev/scripts/add-supplemental-services.mjs (stage 3 must re-run after every stage-2 run - stage 2 wipes the provider trees). Retirement rule: when an azure-sdk-for-python package appears for one of these services, stage 3 hard-fails - remove the entry and artifact and let the SDK pipeline own it. `title`/`description` override the artifact's info block; `source`/`notes` are documentation only.",
+  "services": {
+    "aad_domain_services": {
+      "provider": "azure",
+      "title": "Microsoft Entra Domain Services",
+      "description": "Managed domain services: domain join, LDAP, Kerberos and NTLM without deploying domain controllers (Microsoft.AAD).",
+      "source": "azure-rest-api-specs/specification/domainservices/resource-manager",
+      "notes": "No azure-mgmt SDK package. Regenerate via ref/stackql-provider-azure-original: bin/stackql-azure-openapi {generate,dereference,combine,tag} domainservices."
+    },
+    "blueprints": {
+      "provider": "azure",
+      "title": "Azure Blueprints",
+      "description": "Blueprint definitions, artifacts and assignments for repeatable environment deployment (Microsoft.Blueprint; deprecated upstream in favor of Template Specs and Deployment Stacks).",
+      "source": "azure-rest-api-specs/specification/blueprint/resource-manager",
+      "notes": "Spec frozen upstream. Original pipeline spec-dir key: blueprint."
+    },
+    "video_indexer": {
+      "provider": "azure_extras",
+      "title": "Azure AI Video Indexer",
+      "description": "Extract insights from video and audio with AI: accounts, private endpoints and generation configuration (Microsoft.VideoIndexer).",
+      "source": "azure-rest-api-specs/specification/vi/resource-manager",
+      "notes": "No azure-mgmt SDK package."
+    }
+  }
+}

@@ -1478,7 +1478,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailability'
       x-stackql-resource: clusters
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{cluster_name}/configurations/{configuration_name}?api-version=2023-03-02-preview
   : get:
       operationId: Configurations_get
@@ -1682,7 +1682,7 @@ paths:
                 $ref: '#/components/schemas/ServerConfiguration'
       x-stackql-resource: configurations
       x-stackql-method: update_on_coordinator
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{cluster_name}/nodeConfigurations/{configuration_name}?api-version=2023-03-02-preview
   : get:
       operationId: Configurations_get_node
@@ -1771,7 +1771,7 @@ paths:
                 $ref: '#/components/schemas/ServerConfiguration'
       x-stackql-resource: configurations
       x-stackql-method: update_on_node
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{cluster_name}/firewallRules/{firewall_rule_name}?api-version=2023-03-02-preview
   : get:
       operationId: FirewallRules_get

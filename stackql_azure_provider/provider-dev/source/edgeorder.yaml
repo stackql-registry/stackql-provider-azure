@@ -240,49 +240,6 @@ components:
         state:
           type: string
           description: State of subscription registered feature.
-    ProductFamily:
-      type: object
-      description: Product Family. Variables are only populated by the server, and will be ignored when sending
-        a request.
-      properties:
-        properties:
-          type: object
-          properties:
-            displayName:
-              type: string
-              description: Display Name for the product system.
-            description:
-              $ref: '#/components/schemas/Description'
-              description: Description related to the product system.
-            imageInformation:
-              type: array
-              items:
-                $ref: '#/components/schemas/ImageInformation'
-              description: Image information for the product system.
-            costInformation:
-              $ref: '#/components/schemas/CostInformation'
-              description: Cost information for the product system.
-            availabilityInformation:
-              $ref: '#/components/schemas/AvailabilityInformation'
-              description: Availability information of the product system.
-            hierarchyInformation:
-              $ref: '#/components/schemas/HierarchyInformation'
-              description: Hierarchy information of a product.
-            filterableProperties:
-              type: array
-              items:
-                $ref: '#/components/schemas/FilterableProperty'
-              description: list of filters supported for a product.
-            productLines:
-              type: array
-              items:
-                $ref: '#/components/schemas/ProductLine'
-              description: List of product lines supported in the product family.
-            resourceProviderDetails:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceProviderDetails'
-              description: Contains details related to resource provider.
     Description:
       type: object
       description: Description related properties of a product system. Variables are only populated by the server,
@@ -594,13 +551,52 @@ components:
         resourceProviderNamespace:
           type: string
           description: Resource provider namespace.
-    PagedProductFamily:
+    ProductFamilyFlattened:
+      type: object
+      description: Flattened view of ProductFamily ('properties' hoisted to the top level).
+      properties:
+        displayName:
+          type: string
+          description: Display Name for the product system.
+        description:
+          $ref: '#/components/schemas/Description'
+          description: Description related to the product system.
+        imageInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageInformation'
+          description: Image information for the product system.
+        costInformation:
+          $ref: '#/components/schemas/CostInformation'
+          description: Cost information for the product system.
+        availabilityInformation:
+          $ref: '#/components/schemas/AvailabilityInformation'
+          description: Availability information of the product system.
+        hierarchyInformation:
+          $ref: '#/components/schemas/HierarchyInformation'
+          description: Hierarchy information of a product.
+        filterableProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterableProperty'
+          description: list of filters supported for a product.
+        productLines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductLine'
+          description: List of product lines supported in the product family.
+        resourceProviderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceProviderDetails'
+          description: Contains details related to resource provider.
+    PagedProductFamilyFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/ProductFamily'
+            $ref: '#/components/schemas/ProductFamilyFlattened'
         nextLink:
           type: string
     ConfigurationFilters:
@@ -617,65 +613,98 @@ components:
           description: Filters specific to product.
       required:
       - hierarchyInformation
-    PagedConfiguration:
+    ConfigurationFlattened:
+      type: object
+      description: Flattened view of Configuration ('properties' hoisted to the top level).
+      properties:
+        displayName:
+          type: string
+          description: Display Name for the product system.
+        description:
+          $ref: '#/components/schemas/Description'
+          description: Description related to the product system.
+        imageInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageInformation'
+          description: Image information for the product system.
+        costInformation:
+          $ref: '#/components/schemas/CostInformation'
+          description: Cost information for the product system.
+        availabilityInformation:
+          $ref: '#/components/schemas/AvailabilityInformation'
+          description: Availability information of the product system.
+        hierarchyInformation:
+          $ref: '#/components/schemas/HierarchyInformation'
+          description: Hierarchy information of a product.
+        filterableProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterableProperty'
+          description: list of filters supported for a product.
+        specifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Specification'
+          description: Specifications of the configuration.
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+          description: Dimensions of the configuration.
+    PagedConfigurationFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/Configuration'
+            $ref: '#/components/schemas/ConfigurationFlattened'
         nextLink:
           type: string
-    ProductFamiliesMetadataDetails:
+    ProductFamiliesMetadataDetailsFlattened:
       type: object
-      description: Product families metadata details. Variables are only populated by the server, and will be ignored
-        when sending a request.
+      description: Flattened view of ProductFamiliesMetadataDetails ('properties' hoisted to the top level).
       properties:
-        properties:
-          type: object
-          properties:
-            displayName:
-              type: string
-              description: Display Name for the product system.
-            description:
-              $ref: '#/components/schemas/Description'
-              description: Description related to the product system.
-            imageInformation:
-              type: array
-              items:
-                $ref: '#/components/schemas/ImageInformation'
-              description: Image information for the product system.
-            costInformation:
-              $ref: '#/components/schemas/CostInformation'
-              description: Cost information for the product system.
-            availabilityInformation:
-              $ref: '#/components/schemas/AvailabilityInformation'
-              description: Availability information of the product system.
-            hierarchyInformation:
-              $ref: '#/components/schemas/HierarchyInformation'
-              description: Hierarchy information of a product.
-            filterableProperties:
-              type: array
-              items:
-                $ref: '#/components/schemas/FilterableProperty'
-              description: list of filters supported for a product.
-            productLines:
-              type: array
-              items:
-                $ref: '#/components/schemas/ProductLine'
-              description: List of product lines supported in the product family.
-            resourceProviderDetails:
-              type: array
-              items:
-                $ref: '#/components/schemas/ResourceProviderDetails'
-              description: Contains details related to resource provider.
-    PagedProductFamiliesMetadataDetails:
+        displayName:
+          type: string
+          description: Display Name for the product system.
+        description:
+          $ref: '#/components/schemas/Description'
+          description: Description related to the product system.
+        imageInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageInformation'
+          description: Image information for the product system.
+        costInformation:
+          $ref: '#/components/schemas/CostInformation'
+          description: Cost information for the product system.
+        availabilityInformation:
+          $ref: '#/components/schemas/AvailabilityInformation'
+          description: Availability information of the product system.
+        hierarchyInformation:
+          $ref: '#/components/schemas/HierarchyInformation'
+          description: Hierarchy information of a product.
+        filterableProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterableProperty'
+          description: list of filters supported for a product.
+        productLines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductLine'
+          description: List of product lines supported in the product family.
+        resourceProviderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceProviderDetails'
+          description: Contains details related to resource provider.
+    PagedProductFamiliesMetadataDetailsFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/ProductFamiliesMetadataDetails'
+            $ref: '#/components/schemas/ProductFamiliesMetadataDetailsFlattened'
         nextLink:
           type: string
     StageDetails:
@@ -1243,10 +1272,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedProductFamily'
+                $ref: '#/components/schemas/PagedProductFamilyFlattened'
       x-stackql-resource: product_families
       x-stackql-method: list_product_families
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   /subscriptions/{subscription_id}/providers/Microsoft.EdgeOrder/listConfigurations?api-version=2021-12-01:
     post:
       operationId: EdgeOrderManagementClient_list_configurations
@@ -1289,10 +1321,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedConfiguration'
+                $ref: '#/components/schemas/PagedConfigurationFlattened'
       x-stackql-resource: configurations
       x-stackql-method: list_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   /subscriptions/{subscription_id}/providers/Microsoft.EdgeOrder/productFamiliesMetadata?api-version=2021-12-01:
     post:
       operationId: EdgeOrderManagementClient_list_product_families_metadata
@@ -1316,10 +1351,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedProductFamiliesMetadataDetails'
+                $ref: '#/components/schemas/PagedProductFamiliesMetadataDetailsFlattened'
       x-stackql-resource: product_families_metadatas
       x-stackql-method: list_product_families_metadata
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   /subscriptions/{subscription_id}/providers/Microsoft.EdgeOrder/orders?api-version=2021-12-01:
     get:
       operationId: EdgeOrderManagementClient_list_order_at_subscription_level
@@ -1876,7 +1914,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: order_items
       x-stackql-method: delete_order_item_by_name
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     patch:
       operationId: EdgeOrderManagementClient_begin_update_order_item
       description: Updates the properties of an existing order item.

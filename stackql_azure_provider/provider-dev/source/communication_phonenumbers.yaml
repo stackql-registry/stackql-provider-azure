@@ -908,7 +908,7 @@ paths:
                 $ref: '#/components/schemas/PhoneNumbersReservation'
       x-stackql-resource: phone_numbers
       x-stackql-method: create_or_update_reservation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: PhoneNumbers_delete_reservation
       description: Deletes a reservation by its ID. Deletes the reservation with the given ID. Any phone number
@@ -922,11 +922,11 @@ paths:
           type: string
         description: The id of the reservation. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: phone_numbers
       x-stackql-method: delete_reservation
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /availablePhoneNumbers/searchResults/{search_id}?api-version=2025-06-01:
     get:
       operationId: PhoneNumbers_get_search_result
@@ -1114,7 +1114,7 @@ paths:
                 $ref: '#/components/schemas/PhoneNumberSearchResult'
       x-stackql-resource: phone_numbers
       x-stackql-method: search_available_phone_numbers
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /availablePhoneNumbers/:purchase?api-version=2025-06-01:
     post:
       operationId: PhoneNumbers_begin_purchase_phone_numbers
@@ -1174,7 +1174,7 @@ paths:
                 $ref: '#/components/schemas/PurchasedPhoneNumber'
       x-stackql-resource: phone_numbers
       x-stackql-method: update_capabilities
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   /operatorInformation/:search?api-version=2025-06-01:
     post:
       operationId: PhoneNumbers_operator_information_search

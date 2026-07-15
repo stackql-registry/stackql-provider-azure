@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists an <code>integration_runtime_node_ip_ad
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="ipAddress" /></td>
+    <td><code>string</code></td>
+    <td>The IP address of self-hosted integration runtime node.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +75,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-node_name"><code>node_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get integration runtime node IP address. Get the IP address of an integration runtime node.</td>
@@ -101,25 +125,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_raw"
+    defaultValue="get"
     values={[
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'get', value: 'get' }
     ]}
 >
-<TabItem value="get_raw">
+<TabItem value="get">
 
 Get integration runtime node IP address. Get the IP address of an integration runtime node.
 
 ```sql
-EXEC azure.synapse.integration_runtime_node_ip_address.get_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@integration_runtime_name='{{ integration_runtime_name }}' --required, 
-@node_name='{{ node_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+ipAddress
+FROM azure.synapse.integration_runtime_node_ip_address
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND integration_runtime_name = '{{ integration_runtime_name }}' -- required
+AND node_name = '{{ node_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

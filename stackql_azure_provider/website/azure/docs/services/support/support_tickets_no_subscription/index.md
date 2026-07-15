@@ -33,12 +33,42 @@ Creates, updates, deletes, gets or lists a <code>support_tickets_no_subscription
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed error message describing why the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates whether the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -385,6 +415,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td></td>
+    <td></td>
+    <td>Check the availability of a resource name. This API should be used to check the uniqueness of the name for support ticket creation for the selected subscription.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-support_ticket_name"><code>support_ticket_name</code></a></td>
@@ -411,13 +448,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-support_ticket_name"><code>support_ticket_name</code></a></td>
     <td></td>
     <td>This API allows you to update the severity level, ticket status, and your contact information in the support ticket.Note: The severity levels cannot be changed if a support ticket is actively being worked upon by an Azure support engineer. In such a case, contact your support engineer to request severity update by adding a new communication using the Communications API.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Check the availability of a resource name. This API should be used to check the uniqueness of the name for support ticket creation for the selected subscription.</td>
 </tr>
 </tbody>
 </table>
@@ -456,12 +486,26 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Check the availability of a resource name. This API should be used to check the uniqueness of the name for support ticket creation for the selected subscription.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.support.support_tickets_no_subscription
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Gets details for a specific support ticket. Support ticket data is available for 18 months after ticket creation. If a ticket was created more than 18 months ago, a request for data might cause an error.
@@ -661,31 +705,6 @@ id,
 name,
 properties,
 type;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="check_name_availability"
-    values={[
-        { label: 'check_name_availability', value: 'check_name_availability' }
-    ]}
->
-<TabItem value="check_name_availability">
-
-Check the availability of a resource name. This API should be used to check the uniqueness of the name for support ticket creation for the selected subscription.
-
-```sql
-EXEC azure.support.support_tickets_no_subscription.check_name_availability 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
 ```
 </TabItem>
 </Tabs>

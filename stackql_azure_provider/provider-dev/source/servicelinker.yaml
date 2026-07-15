@@ -1087,7 +1087,7 @@ paths:
                 $ref: '#/components/schemas/DryrunResource'
       x-stackql-resource: connector
       x-stackql-method: create_dryrun
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Connector_begin_update_dryrun
       description: update a dryrun job to do necessary check before actual creation.
@@ -1138,7 +1138,7 @@ paths:
                 $ref: '#/components/schemas/DryrunResource'
       x-stackql-resource: connector
       x-stackql-method: update_dryrun
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: Connector_delete_dryrun
       description: delete a dryrun job.
@@ -1168,11 +1168,11 @@ paths:
           type: string
         description: The name of dryrun. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: connector
       x-stackql-method: delete_dryrun
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.ServiceLinker/locations/{location}/connectors/{connector_name}/validate?api-version=2024-07-01-preview
   : post:
       operationId: Connector_begin_validate
@@ -1515,7 +1515,7 @@ paths:
                 $ref: '#/components/schemas/ConfigurationResult'
       x-stackql-resource: linker
       x-stackql-method: list_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{resource_uri}/providers/Microsoft.ServiceLinker/linkers/{linker_name}/validateLinker?api-version=2024-07-01-preview:
     post:
       operationId: Linker_begin_validate
@@ -1657,7 +1657,7 @@ paths:
                 $ref: '#/components/schemas/DryrunResource'
       x-stackql-resource: linkers
       x-stackql-method: create_dryrun
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: Linkers_begin_update_dryrun
       description: add a dryrun job to do necessary check before actual creation.
@@ -1696,7 +1696,7 @@ paths:
                 $ref: '#/components/schemas/DryrunResource'
       x-stackql-resource: linkers
       x-stackql-method: update_dryrun
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: Linkers_delete_dryrun
       description: delete a dryrun job.
@@ -1714,11 +1714,11 @@ paths:
           type: string
         description: The name of dryrun. Required.
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: linkers
       x-stackql-method: delete_dryrun
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /{resource_uri}/providers/Microsoft.ServiceLinker/linkers/{linker_name}/generateConfigurations?api-version=2024-07-01-preview
   : post:
       operationId: Linkers_generate_configurations

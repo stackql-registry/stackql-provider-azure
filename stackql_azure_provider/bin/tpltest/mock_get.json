@@ -1,0 +1,1 @@
+{"id": "/subs/x/vm1", "name": "vm1", "location": "eastus", "tags": {"env": "uat"}, "properties": {"provisioningState": "Succeeded", "vmId": "abc-123", "hardwareProfile": {"vmSize": "Standard_B1ls"}}}

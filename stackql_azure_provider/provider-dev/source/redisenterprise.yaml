@@ -1353,15 +1353,6 @@ components:
             $ref: '#/components/schemas/ClusterFlattened'
         nextLink:
           type: string
-    SkuDetailsList:
-      type: object
-      description: The response of a listSkusForScaling operation.
-      properties:
-        skus:
-          type: array
-          items:
-            $ref: '#/components/schemas/SkuDetails'
-          description: List of SKUS available to scale up or scale down.
     SkuDetails:
       type: object
       description: Details of a Redis Enterprise cluster SKU.
@@ -1372,6 +1363,15 @@ components:
         sizeInGB:
           type: number
           description: The cache size in GB.
+    SkuDetailsList:
+      type: object
+      description: The response of a listSkusForScaling operation.
+      properties:
+        skus:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkuDetails'
+          description: List of SKUS available to scale up or scale down.
     Cluster:
       type: object
       description: Describes the Redis Enterprise cluster.
@@ -1895,7 +1895,7 @@ paths:
                 $ref: '#/components/schemas/AccessKeys'
       x-stackql-resource: databases
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cache/redisEnterprise/{cluster_name}/databases/{database_name}/regenerateKey?api-version=2026-02-01-preview
   : post:
       operationId: Databases_begin_regenerate_key
@@ -2925,4 +2925,4 @@ paths:
                 $ref: '#/components/schemas/SkuDetailsList'
       x-stackql-resource: redis_enterprise
       x-stackql-method: list_skus_for_scaling
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

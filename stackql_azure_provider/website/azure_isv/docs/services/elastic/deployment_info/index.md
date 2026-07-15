@@ -32,8 +32,72 @@ Creates, updates, deletes, gets or lists a <code>deployment_info</code> resource
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="configurationType" /></td>
+    <td><code>string</code></td>
+    <td>ConfigurationType Type - Applicable for Serverless only.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="deploymentUrl" /></td>
+    <td><code>string</code></td>
+    <td>Deployment URL of the elasticsearch in Elastic cloud deployment.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="diskCapacity" /></td>
+    <td><code>string</code></td>
+    <td>Disk capacity of the elasticsearch in Elastic cloud deployment.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="elasticsearchEndPoint" /></td>
+    <td><code>string</code></td>
+    <td>Elasticsearch endpoint in Elastic cloud deployment. This is either the aliased_endpoint if available, or the service_url otherwise.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="marketplaceSaasInfo" /></td>
+    <td><code>object</code></td>
+    <td>Marketplace SaaS Info of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="memoryCapacity" /></td>
+    <td><code>string</code></td>
+    <td>RAM capacity of the elasticsearch in Elastic cloud deployment.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="projectType" /></td>
+    <td><code>string</code></td>
+    <td>Project Type - Applicable for Serverless only.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The Elastic deployment status. Known values are: "Healthy" and "Unhealthy".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="version" /></td>
+    <td><code>string</code></td>
+    <td>Version of the elasticsearch in Elastic cloud deployment.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +115,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-monitor_name"><code>monitor_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Fetch detailed information about Elastic cloud deployments corresponding to the Elastic monitor resource. Fetch detailed information about Elastic cloud deployments corresponding to the Elastic monitor resource.</td>
@@ -91,23 +155,33 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Fetch detailed information about Elastic cloud deployments corresponding to the Elastic monitor resource. Fetch detailed information about Elastic cloud deployments corresponding to the Elastic monitor resource.
 
 ```sql
-EXEC azure_isv.elastic.deployment_info.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@monitor_name='{{ monitor_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+configurationType,
+deploymentUrl,
+diskCapacity,
+elasticsearchEndPoint,
+marketplaceSaasInfo,
+memoryCapacity,
+projectType,
+status,
+version
+FROM azure_isv.elastic.deployment_info
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND monitor_name = '{{ monitor_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

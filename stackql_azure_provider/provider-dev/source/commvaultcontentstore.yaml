@@ -1451,7 +1451,7 @@ paths:
       x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Commvault.ContentStore/cloudAccounts/{cloud_account_name}/linkSaaS?api-version=2026-07-03-preview
   : post:
-      operationId: CloudAccounts_begin_link_saa_s
+      operationId: CloudAccounts_begin_link_saas
       description: Links a new SaaS to the cloud account. Links a new SaaS to the cloud account.
       parameters:
       - name: resource_group_name
@@ -1489,11 +1489,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/CloudAccount'
       x-stackql-resource: cloud_accounts
-      x-stackql-method: link_saa_s
+      x-stackql-method: link_saas
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Commvault.ContentStore/cloudAccounts/{cloud_account_name}/latestLinkedSaaS?api-version=2026-07-03-preview
   : post:
-      operationId: CloudAccounts_latest_linked_saa_s
+      operationId: CloudAccounts_latest_linked_saas
       description: Returns the latest SaaS linked to the cloud account.
       parameters:
       - name: resource_group_name
@@ -1521,7 +1521,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/LatestLinkedSaaSResponse'
       x-stackql-resource: cloud_accounts
-      x-stackql-method: latest_linked_saa_s
+      x-stackql-method: latest_linked_saas
       x-stackql-verb: EXEC
   /providers/Commvault.ContentStore/operations?api-version=2026-07-03-preview:
     get:
@@ -1624,7 +1624,7 @@ paths:
                 $ref: '#/components/schemas/CommvaultPlan'
       x-stackql-resource: plans
       x-stackql-method: create_orupdate
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: Plans_begin_delete
       description: Delete a CommvaultPlan.
@@ -1855,7 +1855,7 @@ paths:
                 $ref: '#/components/schemas/RestorePoints'
       x-stackql-resource: protected_items
       x-stackql-method: get_restore_points
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Commvault.ContentStore/cloudAccounts/{cloud_account_name}/protectionGroups/{protection_group_name}/protectedItems/{protected_item_name}/restore?api-version=2026-07-03-preview
   : post:
       operationId: ProtectedItems_restore
@@ -2009,7 +2009,7 @@ paths:
                 $ref: '#/components/schemas/ProtectionGroup'
       x-stackql-resource: protection_groups
       x-stackql-method: create_orupdate
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: ProtectionGroups_begin_delete
       description: Delete a ProtectionGroup.
@@ -2442,7 +2442,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SaaSResourceDetailsResponse'
-      x-stackql-resource: saa_s_operation_group
+      x-stackql-resource: saas_operation_group
       x-stackql-method: activate_resource
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Commvault.ContentStore/cloudAccounts/{cloud_account_name}/storages/{storage_name}?api-version=2026-07-03-preview

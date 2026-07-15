@@ -82,13 +82,6 @@ The following methods are available for this resource:
     <td>List all file services in storage accounts.</td>
 </tr>
 <tr>
-    <td><a href="#set_service_properties"><CopyableCode code="set_service_properties" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.</td>
-</tr>
-<tr>
     <td><a href="#list_service_usages"><CopyableCode code="list_service_usages" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -101,6 +94,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.</td>
+</tr>
+<tr>
+    <td><a href="#set_service_properties"><CopyableCode code="set_service_properties" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.</td>
 </tr>
 <tr>
     <td><a href="#get_service_usage"><CopyableCode code="get_service_usage" /></a></td>
@@ -173,38 +173,6 @@ AND subscription_id = '{{ subscription_id }}' -- required
 </Tabs>
 
 
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="set_service_properties"
-    values={[
-        { label: 'set_service_properties', value: 'set_service_properties' }
-    ]}
->
-<TabItem value="set_service_properties">
-
-Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
-
-```sql
-REPLACE azure.storage.file_services
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-properties,
-sku,
-systemData,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## Lifecycle Methods
 
 <Tabs
@@ -212,6 +180,7 @@ type;
     values={[
         { label: 'list_service_usages', value: 'list_service_usages' },
         { label: 'get_service_properties', value: 'get_service_properties' },
+        { label: 'set_service_properties', value: 'set_service_properties' },
         { label: 'get_service_usage', value: 'get_service_usage' }
     ]}
 >
@@ -237,6 +206,22 @@ EXEC azure.storage.file_services.get_service_properties
 @resource_group_name='{{ resource_group_name }}' --required, 
 @account_name='{{ account_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="set_service_properties">
+
+Sets the properties of file services in storage accounts, including CORS (Cross-Origin Resource Sharing) rules.
+
+```sql
+EXEC azure.storage.file_services.set_service_properties 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

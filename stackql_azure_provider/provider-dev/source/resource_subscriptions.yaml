@@ -281,21 +281,6 @@ components:
             $ref: '#/components/schemas/Location'
         nextLink:
           type: string
-    CheckZonePeersResult:
-      type: object
-      description: Result of the Check zone peers operation.
-      properties:
-        subscriptionId:
-          type: string
-          description: The subscription ID.
-        location:
-          type: string
-          description: the location of the subscription.
-        availabilityZonePeers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AvailabilityZonePeers'
-          description: The Availability Zones shared by the subscriptions.
     AvailabilityZonePeers:
       type: object
       description: List of availability zones shared by the subscriptions.
@@ -318,6 +303,21 @@ components:
         availabilityZone:
           type: string
           description: The availabilityZone.
+    CheckZonePeersResult:
+      type: object
+      description: Result of the Check zone peers operation.
+      properties:
+        subscriptionId:
+          type: string
+          description: The subscription ID.
+        location:
+          type: string
+          description: the location of the subscription.
+        availabilityZonePeers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailabilityZonePeers'
+          description: The Availability Zones shared by the subscriptions.
     TenantCategory:
       type: string
       enum:
@@ -369,6 +369,11 @@ components:
             $ref: '#/components/schemas/TenantIdDescription'
         nextLink:
           type: string
+    ResourceNameStatus:
+      type: string
+      enum:
+      - Allowed
+      - Reserved
     CheckResourceNameResult:
       type: object
       description: Resource Name valid if not a reserved word, does not contain a reserved word and does not start
@@ -383,11 +388,6 @@ components:
         status:
           $ref: '#/components/schemas/ResourceNameStatus'
           description: 'Is the resource name Allowed or Reserved. Known values are: "Allowed" and "Reserved".'
-    ResourceNameStatus:
-      type: string
-      enum:
-      - Allowed
-      - Reserved
 paths:
   /providers/Microsoft.Resources/operations?api-version=2022-12-01:
     get:
@@ -506,7 +506,7 @@ paths:
                 $ref: '#/components/schemas/CheckZonePeersResult'
       x-stackql-resource: subscriptions
       x-stackql-method: check_zone_peers
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /tenants?api-version=2022-12-01:
     get:
       operationId: Tenants_list
@@ -554,4 +554,4 @@ paths:
                 $ref: '#/components/schemas/CheckResourceNameResult'
       x-stackql-resource: check_resource_names
       x-stackql-method: check_resource_name
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

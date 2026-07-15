@@ -5546,15 +5546,6 @@ components:
           description: This is primarily used to expose different UI experiences in the portal for different kinds.
       required:
       - location
-    CredentialResults:
-      type: object
-      description: The list credential result response.
-      properties:
-        kubeconfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CredentialResult'
-          description: Base64-encoded Kubernetes configuration file.
     CredentialResult:
       type: object
       description: The credential result response.
@@ -5565,6 +5556,15 @@ components:
         value:
           type: string
           format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    CredentialResults:
+      type: object
+      description: The list credential result response.
+      properties:
+        kubeconfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CredentialResult'
           description: Base64-encoded Kubernetes configuration file.
     EndpointDependency:
       type: object
@@ -5869,9 +5869,17 @@ components:
           items:
             $ref: '#/components/schemas/KubernetesVersion'
           description: Array of AKS supported Kubernetes versions.
-    ManagedClusterAccessProfile:
+    AccessProfile:
       type: object
-      description: Managed cluster Access Profile.
+      description: Profile for enabling a user to access a managed cluster.
+      properties:
+        kubeConfig:
+          type: string
+          format: byte
+          description: Base64-encoded Kubernetes configuration file.
+    ManagedClusterAccessProfileFlattened:
+      type: object
+      description: Flattened view of ManagedClusterAccessProfile ('properties' hoisted to the top level).
       properties:
         id:
           type: string
@@ -5892,15 +5900,6 @@ components:
         location:
           type: string
           description: The geo-location where the resource lives. Required.
-        properties:
-          $ref: '#/components/schemas/AccessProfile'
-          description: AccessProfile of a managed cluster.
-      required:
-      - location
-    AccessProfile:
-      type: object
-      description: Profile for enabling a user to access a managed cluster.
-      properties:
         kubeConfig:
           type: string
           format: byte
@@ -7372,7 +7371,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: agent_pools
       x-stackql-method: delete_machines
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/agentPools/{agent_pool_name}/upgradeNodeImageVersion?api-version=2026-04-02-preview
   : post:
       operationId: AgentPools_begin_upgrade_node_image_version
@@ -8877,7 +8876,7 @@ paths:
                 $ref: '#/components/schemas/CredentialResults'
       x-stackql-resource: managed_clusters
       x-stackql-method: list_cluster_admin_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/listClusterUserCredential?api-version=2026-04-02-preview
   : post:
       operationId: ManagedClusters_list_cluster_user_credentials
@@ -8923,7 +8922,7 @@ paths:
                 $ref: '#/components/schemas/CredentialResults'
       x-stackql-resource: managed_clusters
       x-stackql-method: list_cluster_user_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/listClusterMonitoringUserCredential?api-version=2026-04-02-preview
   : post:
       operationId: ManagedClusters_list_cluster_monitoring_user_credentials
@@ -8961,7 +8960,7 @@ paths:
                 $ref: '#/components/schemas/CredentialResults'
       x-stackql-resource: managed_clusters
       x-stackql-method: list_cluster_monitoring_user_credentials
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/outboundNetworkDependenciesEndpoints?api-version=2026-04-02-preview
   : get:
       operationId: ManagedClusters_list_outbound_network_dependencies_endpoints
@@ -9185,10 +9184,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagedClusterAccessProfile'
+                $ref: '#/components/schemas/ManagedClusterAccessProfileFlattened'
       x-stackql-resource: managed_clusters
       x-stackql-method: get_access_profile
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/commandResults/{command_id}?api-version=2026-04-02-preview
   : get:
       operationId: ManagedClusters_get_command_result
@@ -9998,7 +9998,7 @@ paths:
                 $ref: '#/components/schemas/CredentialResults'
       x-stackql-resource: managed_namespaces
       x-stackql-method: list_credential
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.ContainerService/managedClusters/{resource_name}/meshMemberships/{mesh_membership_name}?api-version=2026-04-02-preview
   : get:
       operationId: MeshMemberships_get

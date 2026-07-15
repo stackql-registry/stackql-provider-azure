@@ -2228,7 +2228,7 @@ paths:
                 $ref: '#/components/schemas/WebPubSubKeys'
       x-stackql-resource: web_pub_sub
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/webPubSub/{resource_name}/replicas/{replica_name}/skus?api-version=2024-03-01
   : get:
       operationId: WebPubSub_list_replica_skus
@@ -2344,7 +2344,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailability'
       x-stackql-resource: web_pub_sub
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.SignalRService/webPubSub/{resource_name}/regenerateKey?api-version=2024-03-01
   : post:
       operationId: WebPubSub_begin_regenerate_key

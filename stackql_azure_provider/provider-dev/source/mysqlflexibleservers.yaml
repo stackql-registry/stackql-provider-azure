@@ -2012,7 +2012,7 @@ paths:
                 $ref: '#/components/schemas/AdvancedThreatProtection'
       x-stackql-resource: advanced_threat_protection_settings
       x-stackql-method: update_put
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     patch:
       operationId: AdvancedThreatProtectionSettings_begin_update
       description: Updates a server's Advanced Threat Protection state.

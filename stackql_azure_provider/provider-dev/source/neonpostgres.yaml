@@ -986,6 +986,13 @@ components:
           description: The resource-specific properties for this resource.
       required:
       - location
+    PgVersion:
+      type: object
+      description: PostgreSQL Version model.
+      properties:
+        version:
+          type: integer
+          description: The major PostgreSQL version number.
     PgVersionsResult:
       type: object
       description: Response model for PostgreSQL versions.
@@ -997,13 +1004,6 @@ components:
           description: List of PostgreSQL versions. Required.
       required:
       - versions
-    PgVersion:
-      type: object
-      description: PostgreSQL Version model.
-      properties:
-        version:
-          type: integer
-          description: The major PostgreSQL version number.
     ProjectFlattened:
       type: object
       description: Flattened view of Project ('properties' hoisted to the top level).
@@ -2662,7 +2662,7 @@ paths:
                 $ref: '#/components/schemas/PgVersionsResult'
       x-stackql-resource: organizations
       x-stackql-method: get_postgres_versions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Neon.Postgres/organizations/{organization_name}/projects/{project_name}?api-version=2025-03-01
   : get:
       operationId: Projects_get
@@ -2926,4 +2926,4 @@ paths:
                 $ref: '#/components/schemas/ConnectionUriProperties'
       x-stackql-resource: projects
       x-stackql-method: get_connection_uri
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

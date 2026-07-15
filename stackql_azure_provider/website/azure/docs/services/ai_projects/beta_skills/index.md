@@ -218,13 +218,6 @@ The following methods are available for this resource:
     <td>Create a new version of a skill. Creates a new version of a skill. If the skill does not exist, it will be created.</td>
 </tr>
 <tr>
-    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete a specific version of a skill. Removes the specified version of a skill.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -244,6 +237,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-limit"><code>limit</code></a>, <a href="#parameter-order"><code>order</code></a>, <a href="#parameter-after"><code>after</code></a>, <a href="#parameter-before"><code>before</code></a></td>
     <td>List skill versions. Returns the available versions for the specified skill.</td>
+</tr>
+<tr>
+    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete a specific version of a skill. Removes the specified version of a skill.</td>
 </tr>
 <tr>
     <td><a href="#download"><CopyableCode code="download" /></a></td>
@@ -278,7 +278,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -435,24 +435,11 @@ version
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_version"
+    defaultValue="delete"
     values={[
-        { label: 'delete_version', value: 'delete_version' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_version">
-
-Delete a specific version of a skill. Removes the specified version of a skill.
-
-```sql
-DELETE FROM azure.ai_projects.beta_skills
-WHERE name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a skill. Removes the specified skill and its associated versions.
@@ -474,6 +461,7 @@ AND endpoint = '{{ endpoint }}' --required
     values={[
         { label: 'update', value: 'update' },
         { label: 'list_versions', value: 'list_versions' },
+        { label: 'delete_version', value: 'delete_version' },
         { label: 'download', value: 'download' },
         { label: 'download_version', value: 'download_version' }
     ]}
@@ -501,6 +489,18 @@ EXEC azure.ai_projects.beta_skills.list_versions
 @order='{{ order }}', 
 @after='{{ after }}', 
 @before='{{ before }}'
+;
+```
+</TabItem>
+<TabItem value="delete_version">
+
+Delete a specific version of a skill. Removes the specified version of a skill.
+
+```sql
+EXEC azure.ai_projects.beta_skills.delete_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

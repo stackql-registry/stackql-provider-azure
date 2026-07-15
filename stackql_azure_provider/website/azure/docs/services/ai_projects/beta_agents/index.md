@@ -180,14 +180,14 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#create_optimization_job"><CopyableCode code="create_optimization_job" /></a></td>
-    <td><CopyableCode code="insert" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-Operation-Id"><code>Operation-Id</code></a></td>
     <td>Creates an agent optimization job. Create an optimization job. Returns 201 with the queued job. Honours `Operation-Id` for idempotent retry.</td>
 </tr>
 <tr>
     <td><a href="#delete_optimization_job"><CopyableCode code="delete_optimization_job" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Deletes an agent optimization job. Delete the job and its candidate artifacts. Cancels first if non-terminal.</td>
@@ -218,7 +218,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
@@ -320,13 +320,14 @@ AND agent_name = '{{ agent_name }}'
 </Tabs>
 
 
-## `INSERT` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="create_optimization_job"
     values={[
         { label: 'create_optimization_job', value: 'create_optimization_job' },
-        { label: 'Manifest', value: 'manifest' }
+        { label: 'delete_optimization_job', value: 'delete_optimization_job' },
+        { label: 'cancel_optimization_job', value: 'cancel_optimization_job' }
     ]}
 >
 <TabItem value="create_optimization_job">
@@ -334,96 +335,27 @@ AND agent_name = '{{ agent_name }}'
 Creates an agent optimization job. Create an optimization job. Returns 201 with the queued job. Honours `Operation-Id` for idempotent retry.
 
 ```sql
-INSERT INTO azure.ai_projects.beta_agents (
-inputs,
-endpoint,
-Operation-Id
-)
-SELECT 
-'{{ inputs }}',
-'{{ endpoint }}',
-'{{ Operation-Id }}'
-RETURNING
-id,
-created_at,
-error,
-inputs,
-progress,
-result,
-status,
-updated_at,
-warnings
+EXEC azure.ai_projects.beta_agents.create_optimization_job 
+@endpoint='{{ endpoint }}' --required, 
+@Operation-Id='{{ Operation-Id }}' 
+@@json=
+'{
+"inputs": "{{ inputs }}"
+}'
 ;
 ```
 </TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: beta_agents
-  props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the beta_agents resource.
-    - name: inputs
-      description: |
-        Caller-supplied inputs.
-      value:
-        agent:
-          agent_name: "{{ agent_name }}"
-          agent_version: "{{ agent_version }}"
-        train_dataset:
-          type: "{{ type }}"
-        validation_dataset:
-          type: "{{ type }}"
-        evaluators:
-          - name: "{{ name }}"
-            version: "{{ version }}"
-        options:
-          max_candidates: {{ max_candidates }}
-          optimization_config: "{{ optimization_config }}"
-          eval_model: "{{ eval_model }}"
-          optimization_model: "{{ optimization_model }}"
-          evaluation_level: "{{ evaluation_level }}"
-    - name: Operation-Id
-      value: "{{ Operation-Id }}"
-      description: Client-generated unique ID for idempotent retries. When absent, the server creates the job unconditionally. Default value is None.
-      description: Client-generated unique ID for idempotent retries. When absent, the server creates the job unconditionally. Default value is None.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `DELETE` examples
-
-<Tabs
-    defaultValue="delete_optimization_job"
-    values={[
-        { label: 'delete_optimization_job', value: 'delete_optimization_job' }
-    ]}
->
 <TabItem value="delete_optimization_job">
 
 Deletes an agent optimization job. Delete the job and its candidate artifacts. Cancels first if non-terminal.
 
 ```sql
-DELETE FROM azure.ai_projects.beta_agents
-WHERE job_id = '{{ job_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
+EXEC azure.ai_projects.beta_agents.delete_optimization_job 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="cancel_optimization_job"
-    values={[
-        { label: 'cancel_optimization_job', value: 'cancel_optimization_job' }
-    ]}
->
 <TabItem value="cancel_optimization_job">
 
 Cancels an agent optimization job. Request cancellation of a running or queued job. Returns an error if the job is already in a terminal state.

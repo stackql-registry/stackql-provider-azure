@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>network_manager_effective_secur
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_network_manager_effective_security_admin_rules"
+    values={[
+        { label: 'list_network_manager_effective_security_admin_rules', value: 'list_network_manager_effective_security_admin_rules' }
+    ]}
+>
+<TabItem value="list_network_manager_effective_security_admin_rules">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Resource ID.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="configurationDescription" /></td>
+    <td><code>string</code></td>
+    <td>A description of the security admin configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Whether the rule is custom or default. Required. Known values are: "Custom" and "Default".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ruleCollectionAppliesToGroups" /></td>
+    <td><code>array</code></td>
+    <td>Groups for rule collection.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ruleCollectionDescription" /></td>
+    <td><code>string</code></td>
+    <td>A description of the rule collection.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="ruleGroups" /></td>
+    <td><code>array</code></td>
+    <td>Effective configuration groups.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +101,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_network_manager_effective_security_admin_rules"><CopyableCode code="list_network_manager_effective_security_admin_rules" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-virtual_network_name"><code>virtual_network_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a></td>
     <td>List all effective security admin rules applied on a virtual network.</td>
@@ -96,7 +145,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_network_manager_effective_security_admin_rules"
@@ -109,15 +158,18 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 List all effective security admin rules applied on a virtual network.
 
 ```sql
-EXEC azure.network.network_manager_effective_security_admin_rules.list_network_manager_effective_security_admin_rules 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@virtual_network_name='{{ virtual_network_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}' 
-@@json=
-'{
-"skipToken": "{{ skipToken }}"
-}'
+SELECT
+id,
+configurationDescription,
+kind,
+ruleCollectionAppliesToGroups,
+ruleCollectionDescription,
+ruleGroups
+FROM azure.network.network_manager_effective_security_admin_rules
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND virtual_network_name = '{{ virtual_network_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>

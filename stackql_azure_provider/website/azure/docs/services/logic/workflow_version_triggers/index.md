@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>workflow_version_triggers</code
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_callback_url"
+    values={[
+        { label: 'list_callback_url', value: 'list_callback_url' }
+    ]}
+>
+<TabItem value="list_callback_url">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="basePath" /></td>
+    <td><code>string</code></td>
+    <td>Gets the workflow trigger callback URL base path.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="method" /></td>
+    <td><code>string</code></td>
+    <td>Gets the workflow trigger callback URL HTTP method.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="queries" /></td>
+    <td><code>object</code></td>
+    <td>Gets the workflow trigger callback URL query parameters.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="relativePath" /></td>
+    <td><code>string</code></td>
+    <td>Gets the workflow trigger callback URL relative path.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="relativePathParameters" /></td>
+    <td><code>array</code></td>
+    <td>Gets the workflow trigger callback URL relative path parameters.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="value" /></td>
+    <td><code>string</code></td>
+    <td>Gets the workflow trigger callback URL.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +101,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_callback_url"><CopyableCode code="list_callback_url" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workflow_name"><code>workflow_name</code></a>, <a href="#parameter-version_id"><code>version_id</code></a>, <a href="#parameter-trigger_name"><code>trigger_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get the callback url for a trigger of a workflow version.</td>
@@ -101,7 +150,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_callback_url"
@@ -114,17 +163,19 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Get the callback url for a trigger of a workflow version.
 
 ```sql
-EXEC azure.logic.workflow_version_triggers.list_callback_url 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workflow_name='{{ workflow_name }}' --required, 
-@version_id='{{ version_id }}' --required, 
-@trigger_name='{{ trigger_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"notAfter": "{{ notAfter }}", 
-"keyType": "{{ keyType }}"
-}'
+SELECT
+basePath,
+method,
+queries,
+relativePath,
+relativePathParameters,
+value
+FROM azure.logic.workflow_version_triggers
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workflow_name = '{{ workflow_name }}' -- required
+AND version_id = '{{ version_id }}' -- required
+AND trigger_name = '{{ trigger_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

@@ -289,6 +289,11 @@ components:
       enum:
       - Primary
       - Secondary
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -302,11 +307,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     DomainProperties:
       type: object
       description: A class that describes the properties of a Domains resource.
@@ -1266,7 +1266,7 @@ paths:
                 $ref: '#/components/schemas/CommunicationServiceKeys'
       x-stackql-resource: communication_services
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Communication/communicationServices/{communication_service_name}/linkNotificationHub?api-version=2025-09-01
   : post:
       operationId: CommunicationServices_link_notification_hub
@@ -1392,7 +1392,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: communication_services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Communication/emailServices/{email_service_name}/domains/{domain_name}?api-version=2025-09-01
   : get:
       operationId: Domains_get
@@ -1921,9 +1921,23 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
       x-stackql-resource: email_services
       x-stackql-method: list_verified_exchange_online_domains
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: scalar_list
   /providers/Microsoft.Communication/operations?api-version=2025-09-01:
     get:
       operationId: communication_list

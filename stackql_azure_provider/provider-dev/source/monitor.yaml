@@ -6108,7 +6108,7 @@ paths:
                 $ref: '#/components/schemas/TestNotificationDetailsResponse'
       x-stackql-resource: action_groups
       x-stackql-method: create_notifications_at_action_group_resource_level
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.Insights/actionGroups/{action_group_name}/subscribe?api-version=2024-10-01-preview
   : post:
       operationId: ActionGroups_enable_receiver
@@ -8514,7 +8514,7 @@ paths:
                 $ref: '#/components/schemas/Response'
       x-stackql-resource: metrics
       x-stackql-method: list_at_subscription_scope_post
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.Insights/autoscalesettings/{autoscale_setting_name}/predictiveMetrics?api-version=2022-10-01
   : get:
       operationId: PredictiveMetric_get

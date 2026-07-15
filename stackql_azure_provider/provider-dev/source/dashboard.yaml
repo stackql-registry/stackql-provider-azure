@@ -574,16 +574,6 @@ components:
         grafanaMajorVersion:
           type: string
           description: The major Grafana software version to target.
-    EnterpriseDetails:
-      type: object
-      description: Enterprise details of a Grafana instance.
-      properties:
-        saasSubscriptionDetails:
-          $ref: '#/components/schemas/SaasSubscriptionDetails'
-          description: SaaS subscription details of a Grafana instance.
-        marketplaceTrialQuota:
-          $ref: '#/components/schemas/MarketplaceTrialQuota'
-          description: The allocation details of the per subscription free trial slot of the subscription.
     SaasSubscriptionDetails:
       type: object
       description: SaaS subscription details of a Grafana instance.
@@ -638,18 +628,16 @@ components:
       enum:
       - None
       - FreeTrial
-    GrafanaAvailablePluginListResponse:
+    EnterpriseDetails:
       type: object
-      description: GrafanaAvailablePluginListResponse.
+      description: Enterprise details of a Grafana instance.
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/GrafanaAvailablePlugin'
-          description: ':vartype value: list[~azure.mgmt.dashboard.models.GrafanaAvailablePlugin]'
-        nextLink:
-          type: string
-          description: ':vartype next_link: str'
+        saasSubscriptionDetails:
+          $ref: '#/components/schemas/SaasSubscriptionDetails'
+          description: SaaS subscription details of a Grafana instance.
+        marketplaceTrialQuota:
+          $ref: '#/components/schemas/MarketplaceTrialQuota'
+          description: The allocation details of the per subscription free trial slot of the subscription.
     GrafanaAvailablePlugin:
       type: object
       description: Available plugins of grafana.
@@ -666,6 +654,18 @@ components:
         author:
           type: string
           description: Grafana plugin author/publisher name.
+    GrafanaAvailablePluginListResponse:
+      type: object
+      description: GrafanaAvailablePluginListResponse.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/GrafanaAvailablePlugin'
+          description: ':vartype value: list[~azure.mgmt.dashboard.models.GrafanaAvailablePlugin]'
+        nextLink:
+          type: string
+          description: ':vartype next_link: str'
     IntegrationFabricProperties:
       type: object
       description: IntegrationFabricProperties.
@@ -1401,7 +1401,7 @@ paths:
                 $ref: '#/components/schemas/EnterpriseDetails'
       x-stackql-resource: grafana
       x-stackql-method: check_enterprise_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Dashboard/grafana/{workspace_name}/fetchAvailablePlugins?api-version=2025-08-01
   : post:
       operationId: Grafana_fetch_available_plugins
@@ -1433,7 +1433,7 @@ paths:
                 $ref: '#/components/schemas/GrafanaAvailablePluginListResponse'
       x-stackql-resource: grafana
       x-stackql-method: fetch_available_plugins
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Dashboard/grafana/{workspace_name}/integrationFabrics/{integration_fabric_name}?api-version=2025-08-01
   : get:
       operationId: IntegrationFabrics_get

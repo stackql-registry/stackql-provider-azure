@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists an <code>admin_keys</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="primaryKey" /></td>
+    <td><code>string</code></td>
+    <td>The primary admin API key of the search service.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="secondaryKey" /></td>
+    <td><code>string</code></td>
+    <td>The secondary admin API key of the search service.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,18 +80,18 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets the primary and secondary admin API keys for the specified Azure AI Search service.</td>
+</tr>
+<tr>
     <td><a href="#regenerate"><CopyableCode code="regenerate" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-key_kind"><code>key_kind</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Regenerates either the primary or secondary admin API key. You can only regenerate one key at a time.</td>
-</tr>
-<tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Gets the primary and secondary admin API keys for the specified Azure AI Search service.</td>
 </tr>
 </tbody>
 </table>
@@ -103,13 +132,38 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
+
+Gets the primary and secondary admin API keys for the specified Azure AI Search service.
+
+```sql
+SELECT
+primaryKey,
+secondaryKey
+FROM azure.search.admin_keys
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND search_service_name = '{{ search_service_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
 ## Lifecycle Methods
 
 <Tabs
     defaultValue="regenerate"
     values={[
-        { label: 'regenerate', value: 'regenerate' },
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'regenerate', value: 'regenerate' }
     ]}
 >
 <TabItem value="regenerate">
@@ -121,18 +175,6 @@ EXEC azure.search.admin_keys.regenerate
 @resource_group_name='{{ resource_group_name }}' --required, 
 @search_service_name='{{ search_service_name }}' --required, 
 @key_kind='{{ key_kind }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="get_raw">
-
-Gets the primary and secondary admin API keys for the specified Azure AI Search service.
-
-```sql
-EXEC azure.search.admin_keys.get_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@search_service_name='{{ search_service_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
 ;
 ```

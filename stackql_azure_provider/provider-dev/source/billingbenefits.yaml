@@ -5290,10 +5290,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Macc'
+                $ref: '#/components/schemas/MaccFlattened'
       x-stackql-resource: seller_resource
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.BillingBenefits/credits/{credit_name}/sources/{source_name}?api-version=2025-12-01-preview
   : get:
       operationId: Sources_get

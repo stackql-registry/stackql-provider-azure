@@ -142,7 +142,7 @@ The following methods are available for this resource:
 </tr>
 <tr>
     <td><a href="#delete_order_item_by_name"><CopyableCode code="delete_order_item_by_name" /></a></td>
-    <td><CopyableCode code="delete" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-order_item_name"><code>order_item_name</code></a>, <a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes an order item.</td>
@@ -445,7 +445,7 @@ type;
 </Tabs>
 
 
-## `DELETE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="delete_order_item_by_name"
@@ -458,10 +458,10 @@ type;
 Deletes an order item.
 
 ```sql
-DELETE FROM azure_extras.edgeorder.order_items
-WHERE order_item_name = '{{ order_item_name }}' --required
-AND resource_group_name = '{{ resource_group_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
+EXEC azure_extras.edgeorder.order_items.delete_order_item_by_name 
+@order_item_name='{{ order_item_name }}' --required, 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

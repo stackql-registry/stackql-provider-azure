@@ -127,18 +127,6 @@ components:
             $ref: '#/components/schemas/AvailableOSResourceFlattened'
         nextLink:
           type: string
-    BillingHubGetFreeHourBalanceResponse:
-      type: object
-      description: BillingHubGetFreeHourBalanceResponse.
-      properties:
-        totalRemainingFreeHours:
-          type: number
-          description: ':vartype total_remaining_free_hours: float'
-        incrementEntries:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingHubFreeHourIncrementEntry'
-          description: ':vartype increment_entries: list[~azure.mgmt.testbase.models.BillingHubFreeHourIncrementEntry]'
     BillingHubFreeHourIncrementEntry:
       type: object
       description: BillingHubFreeHourIncrementEntry.
@@ -157,27 +145,18 @@ components:
         remainingFreeHours:
           type: number
           description: ':vartype remaining_free_hours: float'
-    BillingHubGetUsageResponse:
+    BillingHubGetFreeHourBalanceResponse:
       type: object
-      description: BillingHubGetUsageResponse.
+      description: BillingHubGetFreeHourBalanceResponse.
       properties:
-        totalUsedFreeHours:
+        totalRemainingFreeHours:
           type: number
-          description: ':vartype total_used_free_hours: float'
-        totalUsedBillableHours:
-          type: number
-          description: ':vartype total_used_billable_hours: float'
-        totalCharges:
-          type: number
-          description: ':vartype total_charges: float'
-        packageUsageEntries:
+          description: ':vartype total_remaining_free_hours: float'
+        incrementEntries:
           type: array
           items:
-            $ref: '#/components/schemas/BillingHubPackageUsage'
-          description: ':vartype package_usage_entries: list[~azure.mgmt.testbase.models.BillingHubPackageUsage]'
-        nextRequest:
-          $ref: '#/components/schemas/BillingHubGetUsageRequest'
-          description: ':vartype next_request: ~azure.mgmt.testbase.models.BillingHubGetUsageRequest'
+            $ref: '#/components/schemas/BillingHubFreeHourIncrementEntry'
+          description: ':vartype increment_entries: list[~azure.mgmt.testbase.models.BillingHubFreeHourIncrementEntry]'
     BillingHubPackageUsage:
       type: object
       description: BillingHubPackageUsage.
@@ -335,6 +314,27 @@ components:
       required:
       - startTimeStamp
       - endTimeStamp
+    BillingHubGetUsageResponse:
+      type: object
+      description: BillingHubGetUsageResponse.
+      properties:
+        totalUsedFreeHours:
+          type: number
+          description: ':vartype total_used_free_hours: float'
+        totalUsedBillableHours:
+          type: number
+          description: ':vartype total_used_billable_hours: float'
+        totalCharges:
+          type: number
+          description: ':vartype total_charges: float'
+        packageUsageEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingHubPackageUsage'
+          description: ':vartype package_usage_entries: list[~azure.mgmt.testbase.models.BillingHubPackageUsage]'
+        nextRequest:
+          $ref: '#/components/schemas/BillingHubGetUsageRequest'
+          description: ':vartype next_request: ~azure.mgmt.testbase.models.BillingHubGetUsageRequest'
     NotificationEventReceiver:
       type: object
       description: A notification event receivers.
@@ -1621,7 +1621,7 @@ paths:
                 $ref: '#/components/schemas/BillingHubGetFreeHourBalanceResponse'
       x-stackql-resource: billing_hub_service
       x-stackql-method: get_free_hour_balance
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/getUsage?api-version=2022-04-01-preview
   : post:
       operationId: BillingHubService_get_usage
@@ -1677,7 +1677,7 @@ paths:
                 $ref: '#/components/schemas/BillingHubGetUsageResponse'
       x-stackql-resource: billing_hub_service
       x-stackql-method: get_usage
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/customerEvents/{customer_event_name}?api-version=2022-04-01-preview
   : get:
       operationId: CustomerEvents_get
@@ -2578,7 +2578,7 @@ paths:
                 $ref: '#/components/schemas/DownloadURLResponse'
       x-stackql-resource: packages
       x-stackql-method: get_download_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/packages/{package_name}/hardDelete?api-version=2022-04-01-preview
   : post:
       operationId: Packages_begin_hard_delete
@@ -2970,7 +2970,7 @@ paths:
                 $ref: '#/components/schemas/FileUploadURLResponse'
       x-stackql-resource: test_base_accounts
       x-stackql-method: get_file_upload_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/offboard?api-version=2022-04-01-preview
   : post:
       operationId: TestBaseAccounts_begin_offboard
@@ -3053,7 +3053,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: test_base_accounts
       x-stackql-method: check_package_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/packages/{package_name}/testResults/{test_result_name}?api-version=2022-04-01-preview
   : get:
       operationId: TestResults_get
@@ -3196,7 +3196,7 @@ paths:
                 $ref: '#/components/schemas/DownloadURLResponse'
       x-stackql-resource: test_results
       x-stackql-method: get_download_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/packages/{package_name}/testResults/{test_result_name}/getVideoDownloadUrl?api-version=2022-04-01-preview
   : post:
       operationId: TestResults_get_video_download_url
@@ -3240,7 +3240,7 @@ paths:
                 $ref: '#/components/schemas/DownloadURLResponse'
       x-stackql-resource: test_results
       x-stackql-method: get_video_download_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/packages/{package_name}/testResults/{test_result_name}/getConsoleLogDownloadUrl?api-version=2022-04-01-preview
   : post:
       operationId: TestResults_get_console_log_download_url
@@ -3296,7 +3296,7 @@ paths:
                 $ref: '#/components/schemas/DownloadURLResponse'
       x-stackql-resource: test_results
       x-stackql-method: get_console_log_download_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.TestBase/testBaseAccounts/{test_base_account_name}/testSummaries/{test_summary_name}?api-version=2022-04-01-preview
   : get:
       operationId: TestSummaries_get

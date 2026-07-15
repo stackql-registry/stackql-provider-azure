@@ -33,12 +33,42 @@ Creates, updates, deletes, gets or lists a <code>communications_no_subscription<
 The following fields are returned by `SELECT` queries:
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed error message describing why the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates whether the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
 <TabItem value="get">
 
 <table>
@@ -175,6 +205,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-support_ticket_name"><code>support_ticket_name</code></a></td>
+    <td></td>
+    <td>Check the availability of a resource name. This API should be used to check the uniqueness of the name for adding a new communication to the support ticket.</td>
+</tr>
+<tr>
     <td><a href="#get"><CopyableCode code="get" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-support_ticket_name"><code>support_ticket_name</code></a>, <a href="#parameter-communication_name"><code>communication_name</code></a></td>
@@ -194,13 +231,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-support_ticket_name"><code>support_ticket_name</code></a>, <a href="#parameter-communication_name"><code>communication_name</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
     <td></td>
     <td>Adds a new customer communication to an Azure support ticket.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-support_ticket_name"><code>support_ticket_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
-    <td></td>
-    <td>Check the availability of a resource name. This API should be used to check the uniqueness of the name for adding a new communication to the support ticket.</td>
 </tr>
 </tbody>
 </table>
@@ -244,12 +274,27 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 ## `SELECT` examples
 
 <Tabs
-    defaultValue="get"
+    defaultValue="check_name_availability"
     values={[
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'get', value: 'get' },
         { label: 'list', value: 'list' }
     ]}
 >
+<TabItem value="check_name_availability">
+
+Check the availability of a resource name. This API should be used to check the uniqueness of the name for adding a new communication to the support ticket.
+
+```sql
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.support.communications_no_subscription
+WHERE support_ticket_name = '{{ support_ticket_name }}' -- required
+;
+```
+</TabItem>
 <TabItem value="get">
 
 Returns communication details for a support ticket.
@@ -345,31 +390,5 @@ type
         body: "{{ body }}"
 `}</CodeBlock>
 
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="check_name_availability"
-    values={[
-        { label: 'check_name_availability', value: 'check_name_availability' }
-    ]}
->
-<TabItem value="check_name_availability">
-
-Check the availability of a resource name. This API should be used to check the uniqueness of the name for adding a new communication to the support ticket.
-
-```sql
-EXEC azure.support.communications_no_subscription.check_name_availability 
-@support_ticket_name='{{ support_ticket_name }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
-;
-```
 </TabItem>
 </Tabs>

@@ -1272,6 +1272,11 @@ components:
           description: The identity of the resource.
       required:
       - location
+    UnavailableNameReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityOutput:
       type: object
       description: Output of check name availability API.
@@ -1288,11 +1293,6 @@ components:
           type: string
           description: A message that explains why the name is invalid and provides resource naming requirements.
             Available only if 'Invalid' is returned in the 'reason' property.
-    UnavailableNameReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     SharedPrivateLinkResourceFlattened:
       type: object
       description: Flattened view of SharedPrivateLinkResource ('properties' hoisted to the top level).
@@ -1411,7 +1411,7 @@ paths:
                 $ref: '#/components/schemas/AdminKeyResult'
       x-stackql-resource: admin_keys
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/regenerateAdminKey/{key_kind}?api-version=2026-03-01-preview
   : post:
       operationId: AdminKeys_regenerate
@@ -1829,7 +1829,8 @@ paths:
                 $ref: '#/components/schemas/PagedQueryKey'
       x-stackql-resource: query_keys
       x-stackql-method: list_by_search_service
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/createQueryKey/{name}?api-version=2026-03-01-preview
   : post:
       operationId: QueryKeys_create
@@ -2175,7 +2176,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityOutput'
       x-stackql-resource: services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Search/searchServices/{search_service_name}/upgrade?api-version=2026-03-01-preview
   : post:
       operationId: Services_begin_upgrade

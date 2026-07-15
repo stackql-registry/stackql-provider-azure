@@ -149,13 +149,6 @@ The following methods are available for this resource:
     <td>Implements virtual machine PUT method. The operation to create or update a virtual machine instance. Please note some properties can be set only during virtual machine instance creation.</td>
 </tr>
 <tr>
-    <td><a href="#create_checkpoint"><CopyableCode code="create_checkpoint" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
-    <td></td>
-    <td>Implements the operation to creates a checkpoint in a virtual machine instance. Creates a checkpoint in virtual machine instance.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
@@ -175,6 +168,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
     <td><a href="#parameter-force"><code>force</code></a>, <a href="#parameter-deleteFromHost"><code>deleteFromHost</code></a></td>
     <td>Deletes an virtual machine. The operation to delete a virtual machine instance.</td>
+</tr>
+<tr>
+    <td><a href="#create_checkpoint"><CopyableCode code="create_checkpoint" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_uri"><code>resource_uri</code></a></td>
+    <td></td>
+    <td>Implements the operation to creates a checkpoint in a virtual machine instance. Creates a checkpoint in virtual machine instance.</td>
 </tr>
 <tr>
     <td><a href="#delete_checkpoint"><CopyableCode code="delete_checkpoint" /></a></td>
@@ -293,7 +293,6 @@ WHERE resource_uri = '{{ resource_uri }}' -- required
     defaultValue="create_or_update"
     values={[
         { label: 'create_or_update', value: 'create_or_update' },
-        { label: 'create_checkpoint', value: 'create_checkpoint' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -318,23 +317,6 @@ extendedLocation,
 properties,
 systemData,
 type
-;
-```
-</TabItem>
-<TabItem value="create_checkpoint">
-
-Implements the operation to creates a checkpoint in a virtual machine instance. Creates a checkpoint in virtual machine instance.
-
-```sql
-INSERT INTO azure.scvmm.virtual_machine_instances (
-name,
-description,
-resource_uri
-)
-SELECT 
-'{{ name }}',
-'{{ description }}',
-'{{ resource_uri }}'
 ;
 ```
 </TabItem>
@@ -426,14 +408,6 @@ SELECT
       value:
         type: "{{ type }}"
         name: "{{ name }}"
-    - name: name
-      value: "{{ name }}"
-      description: |
-        Name of the checkpoint.
-    - name: description
-      value: "{{ description }}"
-      description: |
-        Description of the checkpoint.
 `}</CodeBlock>
 
 </TabItem>
@@ -528,8 +502,9 @@ AND deleteFromHost = '{{ deleteFromHost }}'
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="delete_checkpoint"
+    defaultValue="create_checkpoint"
     values={[
+        { label: 'create_checkpoint', value: 'create_checkpoint' },
         { label: 'delete_checkpoint', value: 'delete_checkpoint' },
         { label: 'restart', value: 'restart' },
         { label: 'restore_checkpoint', value: 'restore_checkpoint' },
@@ -538,6 +513,21 @@ AND deleteFromHost = '{{ deleteFromHost }}'
         { label: 'list_raw', value: 'list_raw' }
     ]}
 >
+<TabItem value="create_checkpoint">
+
+Implements the operation to creates a checkpoint in a virtual machine instance. Creates a checkpoint in virtual machine instance.
+
+```sql
+EXEC azure.scvmm.virtual_machine_instances.create_checkpoint 
+@resource_uri='{{ resource_uri }}' --required 
+@@json=
+'{
+"name": "{{ name }}", 
+"description": "{{ description }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="delete_checkpoint">
 
 Implements the operation to delete a checkpoint in a virtual machine instance. Deletes a checkpoint in virtual machine instance.

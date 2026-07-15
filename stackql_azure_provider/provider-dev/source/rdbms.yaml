@@ -984,15 +984,15 @@ components:
               type: string
               format: date-time
               description: The key creation date.
-    ConfigurationListResult:
+    ConfigurationListResultFlattened:
       type: object
-      description: A list of server configurations.
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/Configuration'
-          description: The list of server configurations.
+            $ref: '#/components/schemas/ConfigurationFlattened'
+        nextLink:
+          type: string
     ServerSecurityAlertPolicyFlattened:
       type: object
       description: Flattened view of ServerSecurityAlertPolicy ('properties' hoisted to the top level).
@@ -5630,10 +5630,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConfigurationListResult'
+                $ref: '#/components/schemas/ConfigurationListResultFlattened'
       x-stackql-resource: server_parameters
       x-stackql-method: list_update_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforMySQL/servers/{server_name}/updateConfigurations?api-version=2017-12-01
   : post:
       operationId: ServerParameters_begin_list_update_configurations
@@ -5674,10 +5677,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConfigurationListResult'
+                $ref: '#/components/schemas/ConfigurationListResultFlattened'
       x-stackql-resource: server_parameters
       x-stackql-method: list_update_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforPostgreSQL/servers/{server_name}/updateConfigurations?api-version=2017-12-01
   : post:
       operationId: ServerParameters_begin_list_update_configurations
@@ -5718,10 +5724,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConfigurationListResult'
+                $ref: '#/components/schemas/ConfigurationListResultFlattened'
       x-stackql-resource: server_parameters
       x-stackql-method: list_update_configurations
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DBforMariaDB/servers/{server_name}/securityAlertPolicies/{security_alert_policy_name}?api-version=2018-06-01
   : get:
       operationId: ServerSecurityAlertPolicies_get

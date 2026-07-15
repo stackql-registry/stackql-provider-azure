@@ -192,28 +192,28 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_spark_batch_job"><CopyableCode code="get_spark_batch_job" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-batch_id"><code>batch_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-batch_id"><code>batch_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-detailed"><code>detailed</code></a></td>
     <td>Gets a single spark batch job.</td>
 </tr>
 <tr>
     <td><a href="#get_spark_batch_jobs"><CopyableCode code="get_spark_batch_jobs" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-from"><code>from</code></a>, <a href="#parameter-size"><code>size</code></a>, <a href="#parameter-detailed"><code>detailed</code></a></td>
     <td>List all spark batch jobs which are running under a particular spark pool.</td>
 </tr>
 <tr>
     <td><a href="#create_spark_batch_job"><CopyableCode code="create_spark_batch_job" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-file"><code>file</code></a></td>
+    <td><a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-file"><code>file</code></a></td>
     <td><a href="#parameter-detailed"><code>detailed</code></a></td>
     <td>Create new spark batch job.</td>
 </tr>
 <tr>
     <td><a href="#cancel_spark_batch_job"><CopyableCode code="cancel_spark_batch_job" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-batch_id"><code>batch_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-batch_id"><code>batch_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Cancels a running spark batch job.</td>
 </tr>
@@ -241,7 +241,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-livy_api_version">
     <td><CopyableCode code="livy_api_version" /></td>
@@ -306,9 +306,9 @@ tags,
 workspaceName
 FROM azure.synapse_spark.spark_batch
 WHERE batch_id = '{{ batch_id }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
 AND livy_api_version = '{{ livy_api_version }}' -- required
 AND spark_pool_name = '{{ spark_pool_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 AND detailed = '{{ detailed }}'
 ;
 ```
@@ -323,9 +323,9 @@ from,
 sessions,
 total
 FROM azure.synapse_spark.spark_batch
-WHERE endpoint = '{{ endpoint }}' -- required
-AND livy_api_version = '{{ livy_api_version }}' -- required
+WHERE livy_api_version = '{{ livy_api_version }}' -- required
 AND spark_pool_name = '{{ spark_pool_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 AND from = '{{ from }}'
 AND size = '{{ size }}'
 AND detailed = '{{ detailed }}'
@@ -366,9 +366,9 @@ driverCores,
 executorMemory,
 executorCores,
 numExecutors,
-endpoint,
 livy_api_version,
 spark_pool_name,
+endpoint,
 detailed
 )
 SELECT 
@@ -388,9 +388,9 @@ SELECT
 '{{ executorMemory }}',
 {{ executorCores }},
 {{ numExecutors }},
-'{{ endpoint }}',
 '{{ livy_api_version }}',
 '{{ spark_pool_name }}',
+'{{ endpoint }}',
 '{{ detailed }}'
 RETURNING
 id,
@@ -419,14 +419,14 @@ workspaceName
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: spark_batch
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the spark_batch resource.
     - name: livy_api_version
       value: "{{ livy_api_version }}"
       description: Required parameter for the spark_batch resource.
     - name: spark_pool_name
       value: "{{ spark_pool_name }}"
+      description: Required parameter for the spark_batch resource.
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the spark_batch resource.
     - name: tags
       value: "{{ tags }}"
@@ -490,9 +490,9 @@ Cancels a running spark batch job.
 ```sql
 DELETE FROM azure.synapse_spark.spark_batch
 WHERE batch_id = '{{ batch_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
 AND livy_api_version = '{{ livy_api_version }}' --required
 AND spark_pool_name = '{{ spark_pool_name }}' --required
+AND endpoint = '{{ endpoint }}' --required
 ;
 ```
 </TabItem>

@@ -32,8 +32,57 @@ Creates, updates, deletes, gets or lists a <code>network_manager_deployment_stat
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list"
+    values={[
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="list">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="commitTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Commit Time.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="configurationIds" /></td>
+    <td><code>array</code></td>
+    <td>List of configuration ids.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="deploymentStatus" /></td>
+    <td><code>string</code></td>
+    <td>Deployment Status. Known values are: "NotStarted", "Deploying", "Deployed", and "Failed". (NotStarted, Deploying, Deployed, Failed)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="deploymentType" /></td>
+    <td><code>string</code></td>
+    <td>Configuration Deployment Type. Known values are: "SecurityAdmin", "Connectivity", "SecurityUser", and "Routing". (SecurityAdmin, Connectivity, SecurityUser, Routing)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="errorMessage" /></td>
+    <td><code>string</code></td>
+    <td>Error Message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="region" /></td>
+    <td><code>string</code></td>
+    <td>Region Name.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +100,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#list_raw"><CopyableCode code="list_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_manager_name"><code>network_manager_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a></td>
     <td>Post to List of Network Manager Deployment Status.</td>
@@ -96,30 +145,31 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="list_raw"
+    defaultValue="list"
     values={[
-        { label: 'list_raw', value: 'list_raw' }
+        { label: 'list', value: 'list' }
     ]}
 >
-<TabItem value="list_raw">
+<TabItem value="list">
 
 Post to List of Network Manager Deployment Status.
 
 ```sql
-EXEC azure.network.network_manager_deployment_status.list_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_manager_name='{{ network_manager_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}' 
-@@json=
-'{
-"regions": "{{ regions }}", 
-"deploymentTypes": "{{ deploymentTypes }}", 
-"skipToken": "{{ skipToken }}"
-}'
+SELECT
+commitTime,
+configurationIds,
+deploymentStatus,
+deploymentType,
+errorMessage,
+region
+FROM azure.network.network_manager_deployment_status
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_manager_name = '{{ network_manager_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>

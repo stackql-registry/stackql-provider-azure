@@ -2308,11 +2308,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: tags
       x-stackql-method: delete_value
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
     put:
       operationId: Tags_create_or_update_value
       description: Creates a predefined value for a predefined tag name. This operation allows adding a value to
@@ -2345,4 +2345,4 @@ paths:
                 $ref: '#/components/schemas/TagValue'
       x-stackql-resource: tags
       x-stackql-method: create_or_update_value
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC

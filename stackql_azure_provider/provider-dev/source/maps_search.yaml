@@ -192,7 +192,7 @@ paths:
           description: Success
       x-stackql-resource: search
       x-stackql-method: get_geocoding_batch
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /search/polygon?api-version=2023-06-01:
     get:
       operationId: Search_get_polygon
@@ -345,4 +345,4 @@ paths:
           description: Success
       x-stackql-resource: search
       x-stackql-method: get_reverse_geocoding_batch
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

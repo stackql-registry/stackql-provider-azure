@@ -1666,6 +1666,11 @@ components:
           description: EventHub consumer group name. Required.
       required:
       - name
+    IotHubNameUnavailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     IotHubNameAvailabilityInfo:
       type: object
       description: The properties indicating whether a given IoT hub name is available.
@@ -1679,11 +1684,6 @@ components:
         message:
           type: string
           description: The detailed reason message.
-    IotHubNameUnavailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: The object that represents the operation.
@@ -2428,7 +2428,8 @@ paths:
                 $ref: '#/components/schemas/PagedSharedAccessSignatureAuthorizationRule'
       x-stackql-resource: iot_hub_resource
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Devices/IotHubs/{resource_name}/eventHubEndpoints/{event_hub_endpoint_name}/ConsumerGroups?api-version=2026-03-01-preview
   : get:
       operationId: IotHubResource_list_event_hub_consumer_groups
@@ -2648,7 +2649,7 @@ paths:
                 $ref: '#/components/schemas/SharedAccessSignatureAuthorizationRule'
       x-stackql-resource: iot_hub_resource
       x-stackql-method: get_keys_for_key_name
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Devices/IotHubs/{resource_name}/IotHubStats?api-version=2026-03-01-preview
   : get:
       operationId: IotHubResource_get_stats
@@ -2781,7 +2782,7 @@ paths:
                 $ref: '#/components/schemas/EventHubConsumerGroupInfo'
       x-stackql-resource: iot_hub_resource
       x-stackql-method: create_event_hub_consumer_group
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: IotHubResource_delete_event_hub_consumer_group
       description: Delete a consumer group from an Event Hub-compatible endpoint in an IoT hub. Delete a consumer
@@ -2817,11 +2818,11 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: Success (no content / accepted)
+        '200':
+          description: Success
       x-stackql-resource: iot_hub_resource
       x-stackql-method: delete_event_hub_consumer_group
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Devices/IotHubs/{iot_hub_name}/routing/routes/$testall?api-version=2026-03-01-preview
   : post:
       operationId: IotHubResource_test_all_routes
@@ -3095,7 +3096,7 @@ paths:
                 $ref: '#/components/schemas/IotHubNameAvailabilityInfo'
       x-stackql-resource: iot_hub_resource
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Devices/operations?api-version=2026-03-01-preview:
     get:
       operationId: iothub_list

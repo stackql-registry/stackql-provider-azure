@@ -1577,7 +1577,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: recovery_services
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.RecoveryServices/locations/{location}/capabilities?api-version=2025-08-01
   : post:
       operationId: RecoveryServices_capabilities

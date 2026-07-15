@@ -2800,7 +2800,7 @@ paths:
                 $ref: '#/components/schemas/RedisAccessKeys'
       x-stackql-resource: redis
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Cache/redis/{name}/regenerateKey?api-version=2025-08-01-preview
   : post:
       operationId: Redis_regenerate_key
@@ -3069,4 +3069,4 @@ paths:
           description: Success
       x-stackql-resource: redis
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

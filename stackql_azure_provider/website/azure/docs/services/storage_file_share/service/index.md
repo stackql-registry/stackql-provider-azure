@@ -32,8 +32,67 @@ Creates, updates, deletes, gets or lists a <code>service</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_user_delegation_key"
+    values={[
+        { label: 'get_user_delegation_key', value: 'get_user_delegation_key' }
+    ]}
+>
+<TabItem value="get_user_delegation_key">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="SignedDelegatedUserTid" /></td>
+    <td><code>string</code></td>
+    <td>The delegated user tenant id in Azure AD. Return if DelegatedUserTid is specified.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="SignedExpiry" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The date-time the key expires. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="SignedOid" /></td>
+    <td><code>string</code></td>
+    <td>The Azure Active Directory object ID in GUID format. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="SignedService" /></td>
+    <td><code>string</code></td>
+    <td>Abbreviation of the Azure Storage service that accepts the key. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="SignedStart" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The date-time the key is active. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="SignedTid" /></td>
+    <td><code>string</code></td>
+    <td>The Azure Active Directory tenant ID in GUID format. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="SignedVersion" /></td>
+    <td><code>string</code></td>
+    <td>The service version that created the key. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="Value" /></td>
+    <td><code>string</code></td>
+    <td>The key as a base64 string. Required.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +111,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_user_delegation_key"><CopyableCode code="get_user_delegation_key" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-Expiry"><code>Expiry</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a></td>
     <td>Retrieves a user delegation key for the File service. This is only a valid operation when using bearer token authentication.</td>
 </tr>
@@ -73,15 +132,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -101,7 +155,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_user_delegation_key"
@@ -114,18 +168,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Retrieves a user delegation key for the File service. This is only a valid operation when using bearer token authentication.
 
 ```sql
-EXEC azure.storage_file_share.service.get_user_delegation_key 
-@url='{{ url }}' --required, 
-@x-ms-version='{{ x-ms-version }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@timeout='{{ timeout }}', 
-@x-ms-client-request-id='{{ x-ms-client-request-id }}' 
-@@json=
-'{
-"Start": "{{ Start }}", 
-"Expiry": "{{ Expiry }}", 
-"DelegatedUserTid": "{{ DelegatedUserTid }}"
-}'
+SELECT
+SignedDelegatedUserTid,
+SignedExpiry,
+SignedOid,
+SignedService,
+SignedStart,
+SignedTid,
+SignedVersion,
+Value
+FROM azure.storage_file_share.service
+WHERE x-ms-version = '{{ x-ms-version }}' -- required
+AND account = '{{ account }}' -- required
+AND timeout = '{{ timeout }}'
+AND x-ms-client-request-id = '{{ x-ms-client-request-id }}'
 ;
 ```
 </TabItem>

@@ -126,15 +126,6 @@ components:
             $ref: '#/components/schemas/EnergyServiceFlattened'
         nextLink:
           type: string
-    DataPartitionsListResult:
-      type: object
-      description: List of data partitions.
-      properties:
-        dataPartitionInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataPartitionProperties'
-          description: List of data partitions along with their properties in a given OEP resource.
     DataPartitionProperties:
       type: object
       description: Defines the properties of an individual data partition.
@@ -145,6 +136,15 @@ components:
         provisioningState:
           type: string
           description: Name of the data partition.
+    DataPartitionsListResult:
+      type: object
+      description: List of data partitions.
+      properties:
+        dataPartitionInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPartitionProperties'
+          description: List of data partitions along with their properties in a given OEP resource.
     EnergyService:
       type: object
       description: EnergyService. Variables are only populated by the server, and will be ignored when sending a
@@ -439,7 +439,7 @@ paths:
                 $ref: '#/components/schemas/DataPartitionsListResult'
       x-stackql-resource: energy_services
       x-stackql-method: list_partitions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resource_name}
   : put:
       operationId: EnergyServices_begin_create
@@ -607,7 +607,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: locations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.OpenEnergyPlatform/operations?api-version=2022-04-04-preview:
     get:
       operationId: oep_list

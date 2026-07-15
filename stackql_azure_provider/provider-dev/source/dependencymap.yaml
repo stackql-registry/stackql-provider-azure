@@ -791,7 +791,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: maps
       x-stackql-method: get_dependency_view_for_focused_machine
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/getConnectionsWithConnectedMachineForFocusedMachine?api-version=2025-01-31-preview
   : post:
       operationId: Maps_begin_get_connections_with_connected_machine_for_focused_machine
@@ -838,7 +838,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: maps
       x-stackql-method: get_connections_with_connected_machine_for_focused_machine
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/getConnectionsForProcessOnFocusedMachine?api-version=2025-01-31-preview
   : post:
       operationId: Maps_begin_get_connections_for_process_on_focused_machine
@@ -885,7 +885,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: maps
       x-stackql-method: get_connections_for_process_on_focused_machine
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DependencyMap/maps/{map_name}/exportDependencies?api-version=2025-01-31-preview
   : post:
       operationId: Maps_begin_export_dependencies

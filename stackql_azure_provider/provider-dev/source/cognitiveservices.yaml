@@ -1996,18 +1996,6 @@ components:
           description: '[Required] Additional attributes of the entity. Required.'
       required:
       - properties
-    AgentReferenceResourceArmPaginatedResult:
-      type: object
-      description: A paginated list of Agent Reference entities.
-      properties:
-        nextLink:
-          type: string
-          description: The link to the next page of Agent Reference objects. If null, there are no additional pages.
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentReference'
-          description: An array of objects of type Agent Reference.
     AgentReference:
       type: object
       description: Agent Reference resource.
@@ -2029,6 +2017,18 @@ components:
           description: '[Required] Additional attributes of the entity. Required.'
       required:
       - properties
+    AgentReferenceResourceArmPaginatedResult:
+      type: object
+      description: A paginated list of Agent Reference entities.
+      properties:
+        nextLink:
+          type: string
+          description: The link to the next page of Agent Reference objects. If null, there are no additional pages.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentReference'
+          description: An array of objects of type Agent Reference.
     AgentDeploymentProperties:
       type: object
       description: 'Type representing an agent deployment as a management construct. You probably want to use the
@@ -6553,7 +6553,7 @@ paths:
                 $ref: '#/components/schemas/ApiKeys'
       x-stackql-resource: accounts
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CognitiveServices/accounts/{account_name}/skus?api-version=2026-05-15-preview
   : get:
       operationId: Accounts_list_skus
@@ -7010,7 +7010,7 @@ paths:
                 $ref: '#/components/schemas/AgentReferenceResourceArmPaginatedResult'
       x-stackql-resource: agent_applications
       x-stackql-method: list_agents
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CognitiveServices/accounts/{account_name}/projects/{project_name}/applications/{name}/enable?api-version=2026-05-15-preview
   : post:
       operationId: AgentApplications_enable
@@ -7752,7 +7752,7 @@ paths:
                 $ref: '#/components/schemas/CommitmentPlan'
       x-stackql-resource: commitment_plans
       x-stackql-method: create_or_update_plan
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     patch:
       operationId: CommitmentPlans_begin_update_plan
       description: Create Cognitive Services commitment plan.
@@ -7797,7 +7797,7 @@ paths:
                 $ref: '#/components/schemas/CommitmentPlan'
       x-stackql-resource: commitment_plans
       x-stackql-method: update_plan
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
     delete:
       operationId: CommitmentPlans_begin_delete_plan
       description: Deletes a Cognitive Services commitment plan from the resource group.
@@ -7824,7 +7824,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: commitment_plans
       x-stackql-method: delete_plan
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.CognitiveServices/commitmentPlans/{commitment_plan_name}/accountAssociations/{commitment_plan_association_name}?api-version=2026-05-15-preview
   : get:
       operationId: CommitmentPlans_get_association
@@ -7914,7 +7914,7 @@ paths:
                 $ref: '#/components/schemas/CommitmentPlanAccountAssociation'
       x-stackql-resource: commitment_plans
       x-stackql-method: create_or_update_association
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: CommitmentPlans_begin_delete_association
       description: Deletes the association of the Cognitive Services commitment plan.
@@ -7947,7 +7947,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: commitment_plans
       x-stackql-method: delete_association
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/providers/Microsoft.CognitiveServices/locations/{location}/commitmentTiers?api-version=2026-05-15-preview
   : get:
       operationId: CommitmentTiers_list
@@ -12793,7 +12793,8 @@ paths:
                 $ref: '#/components/schemas/SkuAvailabilityListResult'
       x-stackql-resource: check_sku_availabilities
       x-stackql-method: check_sku_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/Microsoft.CognitiveServices/checkDomainAvailability?api-version=2026-05-15-preview
   : post:
       operationId: _CognitiveServicesManagementClient_check_domain_availability
@@ -12832,7 +12833,7 @@ paths:
                 $ref: '#/components/schemas/DomainAvailability'
       x-stackql-resource: check_domain_availabilities
       x-stackql-method: check_domain_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.CognitiveServices/calculateModelCapacity?api-version=2026-05-15-preview
   : post:
       operationId: _CognitiveServicesManagementClient_calculate_model_capacity

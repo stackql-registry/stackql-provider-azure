@@ -89,16 +89,6 @@ components:
             $ref: '#/components/schemas/AccountResourceFlattened'
         nextLink:
           type: string
-    BillingInfoResponse:
-      type: object
-      description: Marketplace Subscription and Organization details to which resource gets billed into.
-      properties:
-        marketplaceSaasInfo:
-          $ref: '#/components/schemas/MarketplaceSaaSInfo'
-          description: Marketplace Subscription details.
-        partnerBillingEntity:
-          $ref: '#/components/schemas/PartnerBillingEntity'
-          description: 'Partner Billing Entity details: Organization Info.'
     MarketplaceSaaSInfo:
       type: object
       description: Marketplace SAAS Info of the resource.
@@ -134,13 +124,16 @@ components:
         organizationName:
           type: string
           description: The New Relic Organization Name.
-    ConnectedPartnerResourcesListFormat:
+    BillingInfoResponse:
       type: object
-      description: Connected Partner Resources List Format.
+      description: Marketplace Subscription and Organization details to which resource gets billed into.
       properties:
-        properties:
-          $ref: '#/components/schemas/ConnectedPartnerResourceProperties'
-          description: Connected Partner Resource Properties.
+        marketplaceSaasInfo:
+          $ref: '#/components/schemas/MarketplaceSaaSInfo'
+          description: Marketplace Subscription details.
+        partnerBillingEntity:
+          $ref: '#/components/schemas/PartnerBillingEntity'
+          description: 'Partner Billing Entity details: Organization Info.'
     ConnectedPartnerResourceProperties:
       type: object
       description: Connected Partner Resource Properties.
@@ -157,13 +150,29 @@ components:
         location:
           type: string
           description: The location of the deployment.
-    PagedConnectedPartnerResourcesListFormat:
+    ConnectedPartnerResourcesListFormatFlattened:
+      type: object
+      description: Flattened view of ConnectedPartnerResourcesListFormat ('properties' hoisted to the top level).
+      properties:
+        accountName:
+          type: string
+          description: NewRelic account name.
+        accountId:
+          type: string
+          description: NewRelic Account Id.
+        azureResourceId:
+          type: string
+          description: The azure resource Id of the deployment.
+        location:
+          type: string
+          description: The location of the deployment.
+    PagedConnectedPartnerResourcesListFormatFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/ConnectedPartnerResourcesListFormat'
+            $ref: '#/components/schemas/ConnectedPartnerResourcesListFormatFlattened'
         nextLink:
           type: string
     SubscriptionList:
@@ -990,7 +999,7 @@ paths:
                 $ref: '#/components/schemas/BillingInfoResponse'
       x-stackql-resource: billing_info
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/listConnectedPartnerResources?api-version=2025-05-01-preview
   : post:
       operationId: ConnectedPartnerResources_list
@@ -1028,10 +1037,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedConnectedPartnerResourcesListFormat'
+                $ref: '#/components/schemas/PagedConnectedPartnerResourcesListFormatFlattened'
       x-stackql-resource: connected_partner_resources
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/monitoredSubscriptions/{configuration_name}?api-version=2025-05-01-preview
   : get:
       operationId: MonitoredSubscriptions_get
@@ -1557,7 +1569,8 @@ paths:
                 $ref: '#/components/schemas/PagedAppServiceInfo'
       x-stackql-resource: monitors
       x-stackql-method: list_app_services
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/listHosts?api-version=2025-05-01-preview
   : post:
       operationId: Monitors_list_hosts
@@ -1607,7 +1620,8 @@ paths:
                 $ref: '#/components/schemas/PagedVMInfo'
       x-stackql-resource: monitors
       x-stackql-method: list_hosts
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/monitoredResources?api-version=2025-05-01-preview
   : post:
       operationId: Monitors_list_monitored_resources
@@ -1640,7 +1654,8 @@ paths:
                 $ref: '#/components/schemas/PagedMonitoredResource'
       x-stackql-resource: monitors
       x-stackql-method: list_monitored_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/listLinkedResources?api-version=2025-05-01-preview
   : post:
       operationId: Monitors_list_linked_resources
@@ -1675,7 +1690,8 @@ paths:
                 $ref: '#/components/schemas/PagedLinkedResource'
       x-stackql-resource: monitors
       x-stackql-method: list_linked_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/getMetricRules?api-version=2025-05-01-preview
   : post:
       operationId: Monitors_get_metric_rules
@@ -1719,7 +1735,7 @@ paths:
                 $ref: '#/components/schemas/MetricRules'
       x-stackql-resource: monitors
       x-stackql-method: get_metric_rules
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/getMetricStatus?api-version=2025-05-01-preview
   : post:
       operationId: Monitors_get_metric_status
@@ -1768,7 +1784,7 @@ paths:
                 $ref: '#/components/schemas/MetricsStatusResponse'
       x-stackql-resource: monitors
       x-stackql-method: get_metric_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/switchBilling?api-version=2025-05-01-preview
   : post:
       operationId: Monitors_switch_billing
@@ -1886,7 +1902,7 @@ paths:
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/latestLinkedSaaS?api-version=2025-05-01-preview
   : post:
-      operationId: Monitors_latest_linked_saa_s
+      operationId: Monitors_latest_linked_saas
       description: Returns the latest SaaS linked to the newrelic organization of the underlying monitor.
       parameters:
       - name: resource_group_name
@@ -1914,11 +1930,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/LatestLinkedSaaSResponse'
       x-stackql-resource: monitors
-      x-stackql-method: latest_linked_saa_s
+      x-stackql-method: latest_linked_saas
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/linkSaaS?api-version=2025-05-01-preview
   : post:
-      operationId: Monitors_begin_link_saa_s
+      operationId: Monitors_begin_link_saas
       description: Links a new SaaS to the newrelic organization of the underlying monitor. Links a new SaaS to
         the newrelic organization of the underlying monitor.
       parameters:
@@ -1957,7 +1973,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/NewRelicMonitorResource'
       x-stackql-resource: monitors
-      x-stackql-method: link_saa_s
+      x-stackql-method: link_saas
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/resubscribe?api-version=2025-05-01-preview
   : post:
@@ -2143,7 +2159,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SaaSResourceDetailsResponse'
-      x-stackql-resource: saa_s
+      x-stackql-resource: saas
       x-stackql-method: activate_resource
       x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/NewRelic.Observability/monitors/{monitor_name}/tagRules/{rule_set_name}?api-version=2025-05-01-preview

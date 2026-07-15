@@ -339,13 +339,6 @@ The following methods are available for this resource:
     <td>Lists all containers and does not support a prefix like data plane. Also SRP today does not return continuation token.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_immutability_policy"><CopyableCode code="create_or_update_immutability_policy" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.</td>
-</tr>
-<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -360,13 +353,6 @@ The following methods are available for this resource:
     <td>Updates container properties as specified in request body. Properties not mentioned in the request will be unchanged. Update fails if the specified container doesn't already exist.</td>
 </tr>
 <tr>
-    <td><a href="#create_or_update_immutability_policy"><CopyableCode code="create_or_update_immutability_policy" /></a></td>
-    <td><CopyableCode code="replace" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
-    <td></td>
-    <td>Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -379,6 +365,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Gets the existing immutability policy along with the corresponding ETag in response headers and body.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update_immutability_policy"><CopyableCode code="create_or_update_immutability_policy" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-account_name"><code>account_name</code></a>, <a href="#parameter-container_name"><code>container_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.</td>
 </tr>
 <tr>
     <td><a href="#delete_immutability_policy"><CopyableCode code="delete_immutability_policy" /></a></td>
@@ -576,41 +569,12 @@ AND $include = '{{ $include }}'
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_or_update_immutability_policy"
+    defaultValue="create"
     values={[
-        { label: 'create_or_update_immutability_policy', value: 'create_or_update_immutability_policy' },
         { label: 'create', value: 'create' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_or_update_immutability_policy">
-
-Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.
-
-```sql
-INSERT INTO azure.storage.blob_containers (
-properties,
-resource_group_name,
-account_name,
-container_name,
-subscription_id
-)
-SELECT 
-'{{ properties }}' /* required */,
-'{{ resource_group_name }}',
-'{{ account_name }}',
-'{{ container_name }}',
-'{{ subscription_id }}'
-RETURNING
-id,
-name,
-etag,
-properties,
-systemData,
-type
-;
-```
-</TabItem>
 <TabItem value="create">
 
 Creates a new container under the specified account as described by request body. The container resource includes metadata and properties for that container. It does not include a list of the blobs contained by the container.
@@ -746,40 +710,6 @@ type;
 </Tabs>
 
 
-## `REPLACE` examples
-
-<Tabs
-    defaultValue="create_or_update_immutability_policy"
-    values={[
-        { label: 'create_or_update_immutability_policy', value: 'create_or_update_immutability_policy' }
-    ]}
->
-<TabItem value="create_or_update_immutability_policy">
-
-Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.
-
-```sql
-REPLACE azure.storage.blob_containers
-SET 
-properties = '{{ properties }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND account_name = '{{ account_name }}' --required
-AND container_name = '{{ container_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-AND properties = '{{ properties }}' --required
-RETURNING
-id,
-name,
-etag,
-properties,
-systemData,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
@@ -810,6 +740,7 @@ AND subscription_id = '{{ subscription_id }}' --required
     defaultValue="get_immutability_policy"
     values={[
         { label: 'get_immutability_policy', value: 'get_immutability_policy' },
+        { label: 'create_or_update_immutability_policy', value: 'create_or_update_immutability_policy' },
         { label: 'delete_immutability_policy', value: 'delete_immutability_policy' },
         { label: 'set_legal_hold', value: 'set_legal_hold' },
         { label: 'clear_legal_hold', value: 'clear_legal_hold' },
@@ -829,6 +760,23 @@ EXEC azure.storage.blob_containers.get_immutability_policy
 @account_name='{{ account_name }}' --required, 
 @container_name='{{ container_name }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_or_update_immutability_policy">
+
+Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.
+
+```sql
+EXEC azure.storage.blob_containers.create_or_update_immutability_policy 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@account_name='{{ account_name }}' --required, 
+@container_name='{{ container_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"properties": "{{ properties }}"
+}'
 ;
 ```
 </TabItem>

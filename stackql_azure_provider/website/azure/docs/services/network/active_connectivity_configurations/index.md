@@ -32,8 +32,92 @@ Creates, updates, deletes, gets or lists an <code>active_connectivity_configurat
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_active_connectivity_configurations"
+    values={[
+        { label: 'list_active_connectivity_configurations', value: 'list_active_connectivity_configurations' }
+    ]}
+>
+<TabItem value="list_active_connectivity_configurations">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Connectivity configuration ID.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="appliesToGroups" /></td>
+    <td><code>array</code></td>
+    <td>Groups for configuration. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="commitTime" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>Deployment time string.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="configurationGroups" /></td>
+    <td><code>array</code></td>
+    <td>Effective configuration groups.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="connectivityCapabilities" /></td>
+    <td><code>object</code></td>
+    <td>Collection of additional settings to enhance specific topology behaviors of the connectivity configuration resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="connectivityTopology" /></td>
+    <td><code>string</code></td>
+    <td>Connectivity topology type. Required. Known values are: "HubAndSpoke" and "Mesh". (HubAndSpoke, Mesh)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="deleteExistingPeering" /></td>
+    <td><code>string</code></td>
+    <td>Flag if need to remove current existing peerings. Known values are: "False" and "True". (False, True)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>A description of the connectivity configuration.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="hubs" /></td>
+    <td><code>array</code></td>
+    <td>List of hubItems.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="isGlobal" /></td>
+    <td><code>string</code></td>
+    <td>Flag if global mesh is supported. Known values are: "False" and "True". (False, True)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="provisioningState" /></td>
+    <td><code>string</code></td>
+    <td>The provisioning state of the connectivity configuration resource. Known values are: "Failed", "Succeeded", "Canceled", "Creating", "Updating", and "Deleting". (Failed, Succeeded, Canceled, Creating, Updating, Deleting)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="region" /></td>
+    <td><code>string</code></td>
+    <td>Deployment region.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="resourceGuid" /></td>
+    <td><code>string</code></td>
+    <td>Unique identifier for this resource.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +136,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_active_connectivity_configurations"><CopyableCode code="list_active_connectivity_configurations" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-network_manager_name"><code>network_manager_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td><a href="#parameter-$top"><code>$top</code></a></td>
     <td>Lists active connectivity configurations in a network manager.</td>
@@ -96,7 +180,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_active_connectivity_configurations"
@@ -109,16 +193,25 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Lists active connectivity configurations in a network manager.
 
 ```sql
-EXEC azure.network.active_connectivity_configurations.list_active_connectivity_configurations 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@network_manager_name='{{ network_manager_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required, 
-@$top='{{ $top }}' 
-@@json=
-'{
-"regions": "{{ regions }}", 
-"skipToken": "{{ skipToken }}"
-}'
+SELECT
+id,
+appliesToGroups,
+commitTime,
+configurationGroups,
+connectivityCapabilities,
+connectivityTopology,
+deleteExistingPeering,
+description,
+hubs,
+isGlobal,
+provisioningState,
+region,
+resourceGuid
+FROM azure.network.active_connectivity_configurations
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND network_manager_name = '{{ network_manager_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+AND $top = '{{ $top }}'
 ;
 ```
 </TabItem>

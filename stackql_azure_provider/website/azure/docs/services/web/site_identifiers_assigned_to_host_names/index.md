@@ -32,8 +32,52 @@ Creates, updates, deletes, gets or lists a <code>site_identifiers_assigned_to_ho
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_site_identifiers_assigned_to_host_name"
+    values={[
+        { label: 'list_site_identifiers_assigned_to_host_name', value: 'list_site_identifiers_assigned_to_host_name' }
+    ]}
+>
+<TabItem value="list_site_identifiers_assigned_to_host_name">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="kind" /></td>
+    <td><code>string</code></td>
+    <td>Kind of resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +96,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_site_identifiers_assigned_to_host_name"><CopyableCode code="list_site_identifiers_assigned_to_host_name" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>List all apps that are assigned to a hostname. Description for List all apps that are assigned to a hostname.</td>
@@ -81,7 +125,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_site_identifiers_assigned_to_host_name"
@@ -94,12 +138,14 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 List all apps that are assigned to a hostname. Description for List all apps that are assigned to a hostname.
 
 ```sql
-EXEC azure.web.site_identifiers_assigned_to_host_names.list_site_identifiers_assigned_to_host_name 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}"
-}'
+SELECT
+id,
+name,
+kind,
+systemData,
+type
+FROM azure.web.site_identifiers_assigned_to_host_names
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

@@ -2228,7 +2228,7 @@ paths:
                 $ref: '#/components/schemas/ArtifactAccessCredential'
       x-stackql-resource: artifact_manifests
       x-stackql-method: list_credential
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.HybridNetwork/publishers/{publisher_name}/artifactStores/{artifact_store_name}/artifactManifests/{artifact_manifest_name}/updateState?api-version=2023-09-01
   : post:
       operationId: ArtifactManifests_begin_update_state
@@ -4475,7 +4475,7 @@ paths:
                 $ref: '#/components/schemas/ProxyArtifactVersionsListOverview'
       x-stackql-resource: proxy_artifact
       x-stackql-method: update_state
-      x-stackql-verb: UPDATE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.HybridNetwork/publishers/{publisher_name}?api-version=2023-09-01
   : get:
       operationId: Publishers_get

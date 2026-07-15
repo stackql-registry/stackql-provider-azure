@@ -32,8 +32,47 @@ Creates, updates, deletes, gets or lists an <code>integration_runtime_status</co
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' }
+    ]}
+>
+<TabItem value="get">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The integration runtime name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataFactoryName" /></td>
+    <td><code>string</code></td>
+    <td>The workspace name which the integration runtime belong to.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="state" /></td>
+    <td><code>string</code></td>
+    <td>The state of integration runtime. Known values are: "Initial", "Stopped", "Started", "Starting", "Stopping", "NeedRegistration", "Online", "Limited", "Offline", and "AccessDenied".</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>Type of integration runtime. Required. Known values are: "Managed" and "SelfHosted".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,8 +90,8 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
-    <td><a href="#get_raw"><CopyableCode code="get_raw" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-integration_runtime_name"><code>integration_runtime_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get integration runtime status. Get the integration runtime status.</td>
@@ -96,24 +135,29 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
-    defaultValue="get_raw"
+    defaultValue="get"
     values={[
-        { label: 'get_raw', value: 'get_raw' }
+        { label: 'get', value: 'get' }
     ]}
 >
-<TabItem value="get_raw">
+<TabItem value="get">
 
 Get integration runtime status. Get the integration runtime status.
 
 ```sql
-EXEC azure.synapse.integration_runtime_status.get_raw 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@workspace_name='{{ workspace_name }}' --required, 
-@integration_runtime_name='{{ integration_runtime_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
+SELECT
+name,
+dataFactoryName,
+state,
+type
+FROM azure.synapse.integration_runtime_status
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND integration_runtime_name = '{{ integration_runtime_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

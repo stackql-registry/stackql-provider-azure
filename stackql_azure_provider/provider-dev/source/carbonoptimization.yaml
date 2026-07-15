@@ -273,7 +273,8 @@ paths:
                 $ref: '#/components/schemas/CarbonEmissionDataListResult'
       x-stackql-resource: carbon_service
       x-stackql-method: query_carbon_emission_reports
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /providers/Microsoft.Carbon/queryCarbonEmissionDataAvailableDateRange?api-version=2025-04-01:
     post:
       operationId: CarbonService_query_carbon_emission_data_available_date_range
@@ -288,7 +289,7 @@ paths:
                 $ref: '#/components/schemas/CarbonEmissionDataAvailableDateRange'
       x-stackql-resource: carbon_service
       x-stackql-method: query_carbon_emission_data_available_date_range
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Carbon/operations?api-version=2025-04-01:
     get:
       operationId: carbonoptimization_list

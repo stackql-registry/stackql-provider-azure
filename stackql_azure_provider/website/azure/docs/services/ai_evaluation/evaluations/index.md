@@ -189,13 +189,6 @@ The following methods are available for this resource:
     <td>List evaluation runs.</td>
 </tr>
 <tr>
-    <td><a href="#create_agent_evaluation"><CopyableCode code="create_agent_evaluation" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-runId"><code>runId</code></a>, <a href="#parameter-evaluators"><code>evaluators</code></a>, <a href="#parameter-appInsightsConnectionString"><code>appInsightsConnectionString</code></a></td>
-    <td></td>
-    <td>Creates an agent evaluation run.</td>
-</tr>
-<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-data"><code>data</code></a>, <a href="#parameter-evaluators"><code>evaluators</code></a></td>
@@ -208,6 +201,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Delete an evaluation run by name.</td>
+</tr>
+<tr>
+    <td><a href="#create_agent_evaluation"><CopyableCode code="create_agent_evaluation" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-runId"><code>runId</code></a>, <a href="#parameter-evaluators"><code>evaluators</code></a>, <a href="#parameter-appInsightsConnectionString"><code>appInsightsConnectionString</code></a></td>
+    <td></td>
+    <td>Creates an agent evaluation run.</td>
 </tr>
 <tr>
     <td><a href="#cancel"><CopyableCode code="cancel" /></a></td>
@@ -270,7 +270,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
@@ -341,43 +341,12 @@ WHERE endpoint = '{{ endpoint }}' -- required
 ## `INSERT` examples
 
 <Tabs
-    defaultValue="create_agent_evaluation"
+    defaultValue="create"
     values={[
-        { label: 'create_agent_evaluation', value: 'create_agent_evaluation' },
         { label: 'create', value: 'create' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
-<TabItem value="create_agent_evaluation">
-
-Creates an agent evaluation run.
-
-```sql
-INSERT INTO azure.ai_evaluation.evaluations (
-runId,
-threadId,
-evaluators,
-samplingConfiguration,
-redactionConfiguration,
-appInsightsConnectionString,
-endpoint
-)
-SELECT 
-'{{ runId }}' /* required */,
-'{{ threadId }}',
-'{{ evaluators }}' /* required */,
-'{{ samplingConfiguration }}',
-'{{ redactionConfiguration }}',
-'{{ appInsightsConnectionString }}' /* required */,
-'{{ endpoint }}'
-RETURNING
-id,
-error,
-result,
-status
-;
-```
-</TabItem>
 <TabItem value="create">
 
 Creates an evaluation run.
@@ -423,34 +392,6 @@ target
     - name: endpoint
       value: "{{ endpoint }}"
       description: Required parameter for the evaluations resource.
-    - name: runId
-      value: "{{ runId }}"
-      description: |
-        Identifier of the agent run. Required.
-    - name: threadId
-      value: "{{ threadId }}"
-      description: |
-        Identifier of the agent thread. This field is mandatory currently, but it will be optional in the future.
-    - name: evaluators
-      value: "{{ evaluators }}"
-      description: |
-        Evaluators to be used for the evaluation. Required.
-    - name: samplingConfiguration
-      description: |
-        Sampling configuration for the evaluation.
-      value:
-        name: "{{ name }}"
-        samplingPercent: {{ samplingPercent }}
-        maxRequestRate: {{ maxRequestRate }}
-    - name: redactionConfiguration
-      description: |
-        Redaction configuration for the evaluation.
-      value:
-        redactScoreProperties: {{ redactScoreProperties }}
-    - name: appInsightsConnectionString
-      value: "{{ appInsightsConnectionString }}"
-      description: |
-        Pass the AppInsights connection string to the agent evaluation for the evaluation results and the errors logs. Required.
     - name: data
       description: |
         Data for evaluation. Required.
@@ -472,6 +413,10 @@ target
       value: "{{ properties }}"
       description: |
         Evaluation's properties. Unlike tags, properties are add-only. Once added, a property cannot be removed.
+    - name: evaluators
+      value: "{{ evaluators }}"
+      description: |
+        Evaluators to be used for the evaluation. Required.
     - name: target
       description: |
         Specifies the type and configuration of the entity used for this evaluation.
@@ -508,8 +453,9 @@ AND endpoint = '{{ endpoint }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="cancel"
+    defaultValue="create_agent_evaluation"
     values={[
+        { label: 'create_agent_evaluation', value: 'create_agent_evaluation' },
         { label: 'cancel', value: 'cancel' },
         { label: 'check_annotation', value: 'check_annotation' },
         { label: 'submit_annotation', value: 'submit_annotation' },
@@ -518,6 +464,25 @@ AND endpoint = '{{ endpoint }}' --required
         { label: 'upload_update_run', value: 'upload_update_run' }
     ]}
 >
+<TabItem value="create_agent_evaluation">
+
+Creates an agent evaluation run.
+
+```sql
+EXEC azure.ai_evaluation.evaluations.create_agent_evaluation 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"runId": "{{ runId }}", 
+"threadId": "{{ threadId }}", 
+"evaluators": "{{ evaluators }}", 
+"samplingConfiguration": "{{ samplingConfiguration }}", 
+"redactionConfiguration": "{{ redactionConfiguration }}", 
+"appInsightsConnectionString": "{{ appInsightsConnectionString }}"
+}'
+;
+```
+</TabItem>
 <TabItem value="cancel">
 
 Cancel an evaluation run by name.

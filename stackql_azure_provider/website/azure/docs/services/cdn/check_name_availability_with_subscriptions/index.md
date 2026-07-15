@@ -32,8 +32,42 @@ Creates, updates, deletes, gets or lists a <code>check_name_availability_with_su
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="check_name_availability_with_subscription"
+    values={[
+        { label: 'check_name_availability_with_subscription', value: 'check_name_availability_with_subscription' }
+    ]}
+>
+<TabItem value="check_name_availability_with_subscription">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>The detailed error message describing why the name is not available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nameAvailable" /></td>
+    <td><code>boolean</code></td>
+    <td>Indicates whether the name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>The reason why the name is not available.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,8 +86,8 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#check_name_availability_with_subscription"><CopyableCode code="check_name_availability_with_subscription" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-type"><code>type</code></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Check the availability of a resource name. This is needed for resources where name is globally unique, such as a CDN endpoint.</td>
 </tr>
@@ -81,7 +115,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="check_name_availability_with_subscription"
@@ -94,13 +128,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Check the availability of a resource name. This is needed for resources where name is globally unique, such as a CDN endpoint.
 
 ```sql
-EXEC azure.cdn.check_name_availability_with_subscriptions.check_name_availability_with_subscription 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
+SELECT
+message,
+nameAvailable,
+reason
+FROM azure.cdn.check_name_availability_with_subscriptions
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

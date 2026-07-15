@@ -4,14 +4,33 @@ These are the load-bearing design rules for the azure-sdk-for-python derived sta
 
 ## Pipeline
 
-Two stages, both committed:
+Three stages, all committed:
 
 1. **`openapi-generation/azure_sdk_to_openapi.py`** (Python, stdlib `ast`) walks every parseable SDK package under `../sdk/` and emits one OpenAPI 3.0 YAML per service into `provider-dev/source/`. Every operation is stamped with `x-stackql-*` breadcrumbs.
 2. **`provider-dev/scripts/generate-provider.mjs`** (Node) folds the breadcrumbs into `components/x-stackQL-resources`, attaches the properties-flattening transforms, strips the breadcrumbs, and writes the final provider trees under `provider-dev/openapi/src/<provider>/<version>/`.
+3. **`provider-dev/scripts/add-supplemental-services.mjs`** (Node) injects supplemental services (see below). MUST run after every stage-2 run (stage 2 wipes the provider trees); `npm run generate-provider` and `bin/generate-provider.sh` chain it automatically. Shared helpers (loadYaml/dumpYaml, requiredParamsOf, verifySignatureUniqueness, NAME_INFERRED) live in `provider-dev/scripts/lib/common.mjs`.
 
 ## Multi-provider split (service-provider map)
 
-Services are split across four providers - `azure` (core), `azure_extras` (niche Microsoft services), `azure_isv` (Azure Native ISV / partner services), `azure_stack` - a single mega-provider causes registry and tooling issues (same split as the original AutoRest-based provider). The assignment lives in **`provider-dev/config/service-provider-map.json`**: keys are stage-1 service aliases; any service NOT in the map lands in the base `azure` provider, so new SDK packages default to `azure` until deliberately mapped. Entries may also carry `title` / `description` overrides for the providerServices block. Resource ids are `<provider>.<service>.<resource>`; per-provider docgen headers live in `provider-dev/docgen/<provider>/` and each provider has its own docusaurus site under `website/<provider>/`.
+Services are split across four providers - `azure` (core), `azure_extras` (domain-specific: health/agri/M365/operator-telco, retired/retiring, and niche services), `azure_isv` (Azure Native ISV / partner services - anything Azure labels [Partner]), `azure_stack` (Azure Stack / Azure Local family) - a single mega-provider causes registry and tooling issues. Split heuristics: terraform-azurerm coverage is the tie-breaker for core-vs-extras when in doubt; partner branding -> isv; the azure provider is meant to be signal (what 95% of Azure users touch), extras is the long tail. The assignment lives in **`provider-dev/config/service-provider-map.json`**: keys are stage-1 service aliases; any service NOT in the map (or with no `provider` key) lands in the base `azure` provider, so new SDK packages default to `azure` until deliberately mapped.
+
+The map also **masters `title` / `description` for every service** (Azure product names - "Azure Data Factory", partner branding verbatim, data-plane slices qualified like "Azure Key Vault - Keys (Data Plane)"). Stage 2 stamps them into BOTH the providerServices block (SHOW SERVICES) and the emitted service doc's info block (web docs), and warns on services with no mastered title (the SDK client-class name would leak). Resource ids are `<provider>.<service>.<resource>`; per-provider docgen headers live in `provider-dev/docgen/<provider>/` and each provider has its own docusaurus site under `website/<provider>/`.
+
+### Renames and consolidation (stage 2, mastered in the map)
+
+- **`name`**: cosmetic rename - the FINAL service name used for the emitted file, resource ids, x-serviceAlias and providerServices (e.g. `datafactory` -> `data_factory`, ~168 applied 2026-07-15). Map keys STAY stage-1 aliases (they match `provider-dev/source/` files and stage-1 `name-overrides.json` keys - never rekey either to final names).
+- **`mergeInto: '<final name>'`**: folds member services into one service doc. HARD CONSTRAINT: all members must have byte-identical `servers` - a stackql service doc has exactly one servers block and the router resolves hosts per doc, so mgmt-plane (management.azure.com) and data-plane ({endpoint}) services can NEVER merge; that is why keyvault/storage/batch/etc. data planes stay separate services. Merged groups (2026-07-15): `resource` (15 ARM sub-packages), `kubernetes_configuration` (5 ARM packages), `ai_language` (4 data planes all on `https://{endpoint}/language`; virtual map entry carries its metadata), `health_data_services` (healthcareapis + healthdataaiservices ARM planes, azure_extras; virtual entry - note virtual entries carry `provider` too, else the merged service lands in base azure).
+- **`dropResources`** (merge members): drop superseded duplicates - the base `kubernetesconfiguration` package (2023-05-01) drops extensions/flux resources in favor of the dedicated 2025-xx packages.
+- **`resourceRenames`** (merge members): resolve cross-member resource collisions (per-RP `operations` -> `features_operations` etc.; the two authoring `projects` -> `conversation_projects` / `question_answering_projects`). The merge engine hard-fails on unresolved resource.method or path-key collisions and auto-renames colliding component schemas (`<Name>_<suffix>`, internal-only).
+- `defendereasm` (mgmt) renames to `defender_easm`; the old `defender_easm` (data-plane package azure-defender-easm) renames to `defender_easm_dataplane` - they are control/data planes of the same product, not duplicates.
+
+## Supplemental services (stage 3, non-SDK)
+
+Azure services with NO azure-sdk-for-python package (Entra Domain Services, Blueprints, Video Indexer, ...) are injected from committed artifacts in `provider-dev/supplemental/<alias>.yaml` - proven output of the original AutoRest pipeline (`ref/stackql-provider-azure-original/`, gitignored reference checkout; regen procedure in `provider-dev/supplemental/README.md`). Config: `provider-dev/config/supplemental-services.json` (alias -> provider/title/description). Key mechanics:
+
+- Injected docs are marked `info.x-stackql-supplemental: true` - the idempotency/ownership marker. Stage 3 hard-fails if an alias has a stage-1 source file (SDK coverage arrived -> retire the supplemental entry) or was emitted by stage 2 without the marker.
+- Artifacts follow ORIGINAL-pipeline conventions (proven in the published provider, coexist fine): camelCase path params, no properties-flattening transforms, `response.schemaRef` (resolves fine against local registries - live-verified, unlike `schema_override`), parameters as `$ref`s into components/parameters (requiredParamsOf derefs these), and `vw_*` view resources with `config.views.select` DDL and no methods (test-meta-routes DESCRIBEs views instead of asserting methods).
+- provider.yaml patching re-sorts providerServices alphabetically to preserve the stage-2 invariant.
 
 There is no botocore-style data file in the Azure SDK; the *generated Python code* is the machine-readable model. Stage 1 parses three codegen generations, all with `ast` (never `import` the SDK):
 
@@ -90,6 +109,8 @@ No `allOf` / `oneOf` / `anyOf` / `additionalProperties`. Maps emit `{type: objec
 ### 4. Verb mapping (name prefix + HTTP verb, both must agree)
 
 - GET + `get*`/`list*` -> SELECT
+- POST + read-prefixed (`get_`/`list_`/`query`/`search`/`check_`/`find_`/`fetch_`/`lookup`/`retrieve`) -> SELECT. Azure uses POST for reads that carry a body or return secrets (checkNameAvailability, listKeys, policyinsights queries); POST-with-body SELECTs are the proven aws-json pattern, and the stage-2 zero-column guard demotes any without an introspectable row schema.
+- Scalar and array-of-scalar SELECT responses are wrapped into `{"value": ...}` rows via golang_template_json transforms (`scalar` / `scalar_list` / `scalar_list_paged` flatten kinds) so they are selectable. `bool` returns are excluded - they are header-only existence checks (apimanagement get_entity_tag) with empty bodies.
 - PUT/POST + `create*` -> INSERT; `create_or_update`/`create_or_replace` also registers under REPLACE
 - PATCH/PUT + `update*` -> UPDATE; PUT + `replace*`/`set_*` -> REPLACE
 - HTTP DELETE, or `delete*`/`purge*` prefix -> DELETE
@@ -97,7 +118,12 @@ No `allOf` / `oneOf` / `anyOf` / `additionalProperties`. Maps emit `{type: objec
 
 ### 5. sqlVerbs - dedupe, canonical preference, ordering
 
-Within each `(resource, sqlVerb)` bucket: candidates sort canonical-name-first (`get` < `list` < `list_by_*` for select; `delete` first for delete; `create*` first for insert), then dedupe by required-params signature (first wins, rest demoted to EXEC-only `methods` entries), then survivors sort by `requiredParams.length` DESC (most specific first for router precedence). `verifySignatureUniqueness` hard-fails the build on any surviving collision.
+Two hard rules, applied across the board:
+
+1. **Ordering**: within every `(resource, sqlVerb)` bucket, methods are ordered by number of required params, HIGHEST first (most descriptive signature leads). stackql's router picks the first satisfiable method, so a rg-scoped query routes to `list_by_resource_group`, not subscription-wide `list`. Uniform for ALL verbs.
+2. **Uniqueness**: no two methods on the same sqlVerb for a resource may share a required-params signature. Enforced twice: the dedupe pass (candidates sort canonical-name-first so the canonical method survives a signature tie; losers demote to EXEC-only `methods` entries) and the `verifySignatureUniqueness` build guard, which hard-fails stage 2. test-meta-routes re-asserts it at runtime.
+
+Supporting invariant (stage 1, sub-object demotion): mutation-shaped methods whose trailing noun does not address the resource itself (`create_or_update_immutability_policy` on blob_containers, `update_table_throughput` on table_resources, `delete_instances` on VMSS, `update_entity` on data-plane tables) are EXEC-only - mutation buckets contain only methods that mutate the resource, otherwise a longer-signature sub-object sibling would capture the resource's own DML under rule 1 (live-verified failure mode). `tags` counts as a field update on the resource (`update_tags` stays UPDATE); qualifier tails (`_by_*`, `_in_*`) count as no noun; noun matching is loose across singular/plural/group-prefix forms (`create_update_table` targets `table_resources`, `set_secret` targets `secrets`). `create_update_*` (cosmos naming) registers under replace as well as insert, like `create_or_update`.
 
 ### 6. stackql name-inference guard (`_raw` renames)
 
@@ -155,8 +181,8 @@ mgmt packages: `https://management.azure.com/`. Data-plane packages:
 # offline archetype tests (16 checks, one per codegen/flatten regime)
 STACKQL=stackql bash bin/integration-tests.sh --describe-only
 
-# full meta-route walk (server-based; every service/resource/method + invariants)
-npm run start-server && npm run test-meta-routes -- azure && npm run stop-server
+# full meta-route walk (one-stop: fresh server start/stop is built in)
+npm run test-meta-routes -- all        # or a single provider name
 
 # live (creds in ./.env, sourced automatically; AZURE_SUBSCRIPTION_ID required)
 bash bin/integration-tests.sh --select-only
@@ -177,10 +203,14 @@ stackql_azure_provider/
 ├── provider-dev/
 │   ├── source/                              stage 1 output
 │   ├── scripts/generate-provider.mjs        stage 2
-│   ├── config/service-provider-map.json     service -> provider assignments
-│   ├── openapi/src/<provider>/v00.00.00000/ stage 2 output (azure, azure_extras, azure_isv, azure_stack)
+│   ├── scripts/add-supplemental-services.mjs   stage 3 (supplemental services)
+│   ├── scripts/lib/common.mjs               shared stage-2/3 helpers
+│   ├── config/service-provider-map.json     service -> provider assignments + mastered titles/descriptions
+│   ├── config/supplemental-services.json    stage-3 service registrations
+│   ├── supplemental/<alias>.yaml            committed non-SDK service artifacts (+ README with regen procedure)
+│   ├── openapi/src/<provider>/v00.00.00000/ stage 2+3 output (azure, azure_extras, azure_isv, azure_stack)
 │   └── docgen/<provider>/                   per-provider docs header content
-└── website/<provider>/                      one docusaurus site per provider (GitHub Pages ready)
+└── website/<provider>/                      one docusaurus site per provider (Netlify: small sites auto-build on push; azure site is built locally and pushed via netlify-cli deploy --no-build - see README)
 ```
 
-Coverage snapshot (2026-07): 362 services across 4 providers (azure 312 / azure_extras 18 / azure_isv 30 / azure_stack 2), 4,096 resources, 16,161 methods (6,594 selectable); 1 unparseable package (storage_blob_changefeed - wraps azure-storage-blob, no own REST surface).
+Coverage snapshot (2026-07-15, post rename/consolidation): 343 services across 4 providers (azure 268 / azure_extras 44 / azure_isv 27 / azure_stack 4 - includes 3 stage-3 supplemental services; 362 SDK packages fold into 340 stage-2 services via 4 merges), ~4,112 resources, ~16,192 methods; 1 unparseable package (storage_blob_changefeed - wraps azure-storage-blob, no own REST surface).

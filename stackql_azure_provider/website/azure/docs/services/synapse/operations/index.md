@@ -36,6 +36,7 @@ The following fields are returned by `SELECT` queries:
     defaultValue="get_azure_async_header_result"
     values={[
         { label: 'get_azure_async_header_result', value: 'get_azure_async_header_result' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -89,6 +90,40 @@ The following fields are returned by `SELECT` queries:
     <td><CopyableCode code="status" /></td>
     <td><code>string</code></td>
     <td>Operation status. Known values are: "InProgress", "Succeeded", "Failed", and "Canceled".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="check_name_availability">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>Workspace name.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="available" /></td>
+    <td><code>boolean</code></td>
+    <td>Whether the workspace name is available.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="message" /></td>
+    <td><code>string</code></td>
+    <td>Validation message.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="reason" /></td>
+    <td><code>string</code></td>
+    <td>Reason the workspace name is or is not available.</td>
 </tr>
 </tbody>
 </table>
@@ -157,6 +192,13 @@ The following methods are available for this resource:
     <td>Get operation status. Get the status of an operation.</td>
 </tr>
 <tr>
+    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Check name availability. Check whether a workspace name is available.</td>
+</tr>
+<tr>
     <td><a href="#list"><CopyableCode code="list" /></a></td>
     <td><CopyableCode code="select" /></td>
     <td></td>
@@ -169,13 +211,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-operation_id"><code>operation_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Get operation result. Get the result of an operation.</td>
-</tr>
-<tr>
-    <td><a href="#check_name_availability"><CopyableCode code="check_name_availability" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Check name availability. Check whether a workspace name is available.</td>
 </tr>
 </tbody>
 </table>
@@ -222,6 +257,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     defaultValue="get_azure_async_header_result"
     values={[
         { label: 'get_azure_async_header_result', value: 'get_azure_async_header_result' },
+        { label: 'check_name_availability', value: 'check_name_availability' },
         { label: 'list', value: 'list' }
     ]}
 >
@@ -244,6 +280,21 @@ WHERE resource_group_name = '{{ resource_group_name }}' -- required
 AND workspace_name = '{{ workspace_name }}' -- required
 AND operation_id = '{{ operation_id }}' -- required
 AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="check_name_availability">
+
+Check name availability. Check whether a workspace name is available.
+
+```sql
+SELECT
+name,
+available,
+message,
+reason
+FROM azure.synapse.operations
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>
@@ -270,8 +321,7 @@ FROM azure.synapse.operations
 <Tabs
     defaultValue="get_location_header_result"
     values={[
-        { label: 'get_location_header_result', value: 'get_location_header_result' },
-        { label: 'check_name_availability', value: 'check_name_availability' }
+        { label: 'get_location_header_result', value: 'get_location_header_result' }
     ]}
 >
 <TabItem value="get_location_header_result">
@@ -284,21 +334,6 @@ EXEC azure.synapse.operations.get_location_header_result
 @workspace_name='{{ workspace_name }}' --required, 
 @operation_id='{{ operation_id }}' --required, 
 @subscription_id='{{ subscription_id }}' --required
-;
-```
-</TabItem>
-<TabItem value="check_name_availability">
-
-Check name availability. Check whether a workspace name is available.
-
-```sql
-EXEC azure.synapse.operations.check_name_availability 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"name": "{{ name }}", 
-"type": "{{ type }}"
-}'
 ;
 ```
 </TabItem>

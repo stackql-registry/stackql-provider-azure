@@ -25,11 +25,11 @@ total resources: __10__
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/devhub/adoo_auth/">adoo_auth</a><br />
-<a href="/services/devhub/adoo_auth_infos/">adoo_auth_infos</a><br />
+<a href="/services/devhub/ado_oauth/">ado_oauth</a><br />
+<a href="/services/devhub/ado_oauth_infos/">ado_oauth_infos</a><br />
 <a href="/services/devhub/generate_preview_artifacts/">generate_preview_artifacts</a><br />
-<a href="/services/devhub/git_hub_o_auth_callbacks/">git_hub_o_auth_callbacks</a><br />
-<a href="/services/devhub/git_hub_o_auths/">git_hub_o_auths</a>
+<a href="/services/devhub/github_oauth_callbacks/">github_oauth_callbacks</a><br />
+<a href="/services/devhub/github_oauths/">github_oauths</a>
 </div>
 <div class="providerDocColumn">
 <a href="/services/devhub/iac_profiles/">iac_profiles</a><br />

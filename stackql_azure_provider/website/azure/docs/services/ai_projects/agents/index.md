@@ -417,41 +417,6 @@ The following methods are available for this resource:
     <td>List agents. Returns a paged collection of agent resources.</td>
 </tr>
 <tr>
-    <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create an agent version. Creates a new version for the specified agent and returns the created version resource.</td>
-</tr>
-<tr>
-    <td><a href="#update_details"><CopyableCode code="update_details" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Update an agent endpoint. Applies a merge-patch update to the specified agent endpoint configuration.</td>
-</tr>
-<tr>
-    <td><a href="#delete_session_file"><CopyableCode code="delete_session_file" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-agent_session_id"><code>agent_session_id</code></a>, <a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-recursive"><code>recursive</code></a></td>
-    <td>Delete a session file. Deletes the specified file or directory from the session sandbox. When `recursive` is false, deleting a non-empty directory returns 409 Conflict.</td>
-</tr>
-<tr>
-    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-agent_version"><code>agent_version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td><a href="#parameter-force"><code>force</code></a></td>
-    <td>Delete an agent version. Deletes a specific version of an agent. For hosted agents, if the version has active sessions, the request is rejected with HTTP 409 unless `force` is set to true. When force is true, all sessions associated with this version are cascade-deleted.</td>
-</tr>
-<tr>
-    <td><a href="#delete_session"><CopyableCode code="delete_session" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete a session. Deletes a session synchronously. Returns 204 No Content when the session is deleted or does not exist.</td>
-</tr>
-<tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
     <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -459,11 +424,25 @@ The following methods are available for this resource:
     <td>Delete an agent. Deletes an agent. For hosted agents, if any version has active sessions, the request is rejected with HTTP 409 unless `force` is set to true. When force is true, all associated sessions are cascade-deleted along with the agent and its versions.</td>
 </tr>
 <tr>
+    <td><a href="#update_details"><CopyableCode code="update_details" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Update an agent endpoint. Applies a merge-patch update to the specified agent endpoint configuration.</td>
+</tr>
+<tr>
     <td><a href="#list_versions"><CopyableCode code="list_versions" /></a></td>
     <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-limit"><code>limit</code></a>, <a href="#parameter-order"><code>order</code></a>, <a href="#parameter-after"><code>after</code></a>, <a href="#parameter-before"><code>before</code></a>, <a href="#parameter-include_drafts"><code>include_drafts</code></a></td>
     <td>List agent versions. Returns a paged collection of versions for the specified agent.</td>
+</tr>
+<tr>
+    <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create an agent version. Creates a new version for the specified agent and returns the created version resource.</td>
 </tr>
 <tr>
     <td><a href="#list_sessions"><CopyableCode code="list_sessions" /></a></td>
@@ -478,6 +457,27 @@ The following methods are available for this resource:
     <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Create a session. Creates a new session for an agent endpoint. The endpoint resolves the backing agent version from `version_indicator` and enforces session ownership using the provided user identity for session-mutating operations.</td>
+</tr>
+<tr>
+    <td><a href="#delete_session_file"><CopyableCode code="delete_session_file" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-agent_session_id"><code>agent_session_id</code></a>, <a href="#parameter-path"><code>path</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-recursive"><code>recursive</code></a></td>
+    <td>Delete a session file. Deletes the specified file or directory from the session sandbox. When `recursive` is false, deleting a non-empty directory returns 409 Conflict.</td>
+</tr>
+<tr>
+    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-agent_version"><code>agent_version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-force"><code>force</code></a></td>
+    <td>Delete an agent version. Deletes a specific version of an agent. For hosted agents, if the version has active sessions, the request is rejected with HTTP 409 unless `force` is set to true. When force is true, all sessions associated with this version are cascade-deleted.</td>
+</tr>
+<tr>
+    <td><a href="#delete_session"><CopyableCode code="delete_session" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-agent_name"><code>agent_name</code></a>, <a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete a session. Deletes a session synchronously. Returns 204 No Content when the session is deleted or does not exist.</td>
 </tr>
 <tr>
     <td><a href="#create_version_from_manifest"><CopyableCode code="create_version_from_manifest" /></a></td>
@@ -562,7 +562,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-path">
     <td><CopyableCode code="path" /></td>
@@ -592,7 +592,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-force">
     <td><CopyableCode code="force" /></td>
     <td><code>boolean</code></td>
-    <td>For Hosted Agents, if `true`, force-deletes the agent even if its versions have active sessions, cascading deletion to all associated sessions. The service defaults to `false` if a value is not specified by the caller. This value is not relevant for other Agent types. Default value is None.</td>
+    <td>For Hosted Agents, if `true`, force-deletes the version even if it has active sessions, cascading deletion to all associated sessions. The service defaults to `false` if a value is not specified by the caller. This value is not relevant for other Agent types. Default value is None.</td>
 </tr>
 <tr id="parameter-include_drafts">
     <td><CopyableCode code="include_drafts" /></td>
@@ -775,147 +775,14 @@ AND before = '{{ before }}'
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_version"
-    values={[
-        { label: 'create_version', value: 'create_version' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_version">
-
-Create an agent version. Creates a new version for the specified agent and returns the created version resource.
-
-```sql
-INSERT INTO azure.ai_projects.agents (
-agent_name,
-endpoint
-)
-SELECT 
-'{{ agent_name }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-agent_guid,
-blueprint,
-blueprint_reference,
-created_at,
-definition,
-description,
-draft,
-instance_identity,
-metadata,
-object,
-status,
-version
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: agents
-  props:
-    - name: agent_name
-      value: "{{ agent_name }}"
-      description: Required parameter for the agents resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the agents resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_details"
-    values={[
-        { label: 'update_details', value: 'update_details' }
-    ]}
->
-<TabItem value="update_details">
-
-Update an agent endpoint. Applies a merge-patch update to the specified agent endpoint configuration.
-
-```sql
-UPDATE azure.ai_projects.agents
-SET 
--- No updatable properties
-WHERE 
-agent_name = '{{ agent_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-RETURNING
-id,
-name,
-agent_card,
-agent_endpoint,
-blueprint,
-blueprint_reference,
-instance_identity,
-object,
-state,
-versions;
-```
-</TabItem>
-</Tabs>
-
-
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_session_file"
+    defaultValue="delete"
     values={[
-        { label: 'delete_session_file', value: 'delete_session_file' },
-        { label: 'delete_version', value: 'delete_version' },
-        { label: 'delete_session', value: 'delete_session' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_session_file">
-
-Delete a session file. Deletes the specified file or directory from the session sandbox. When `recursive` is false, deleting a non-empty directory returns 409 Conflict.
-
-```sql
-DELETE FROM azure.ai_projects.agents
-WHERE agent_name = '{{ agent_name }}' --required
-AND agent_session_id = '{{ agent_session_id }}' --required
-AND path = '{{ path }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND recursive = '{{ recursive }}'
-;
-```
-</TabItem>
-<TabItem value="delete_version">
-
-Delete an agent version. Deletes a specific version of an agent. For hosted agents, if the version has active sessions, the request is rejected with HTTP 409 unless `force` is set to true. When force is true, all sessions associated with this version are cascade-deleted.
-
-```sql
-DELETE FROM azure.ai_projects.agents
-WHERE agent_name = '{{ agent_name }}' --required
-AND agent_version = '{{ agent_version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND force = '{{ force }}'
-;
-```
-</TabItem>
-<TabItem value="delete_session">
-
-Delete a session. Deletes a session synchronously. Returns 204 No Content when the session is deleted or does not exist.
-
-```sql
-DELETE FROM azure.ai_projects.agents
-WHERE agent_name = '{{ agent_name }}' --required
-AND session_id = '{{ session_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete an agent. Deletes an agent. For hosted agents, if any version has active sessions, the request is rejected with HTTP 409 unless `force` is set to true. When force is true, all associated sessions are cascade-deleted along with the agent and its versions.
@@ -934,11 +801,16 @@ AND force = '{{ force }}'
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="list_versions"
+    defaultValue="update_details"
     values={[
+        { label: 'update_details', value: 'update_details' },
         { label: 'list_versions', value: 'list_versions' },
+        { label: 'create_version', value: 'create_version' },
         { label: 'list_sessions', value: 'list_sessions' },
         { label: 'create_session', value: 'create_session' },
+        { label: 'delete_session_file', value: 'delete_session_file' },
+        { label: 'delete_version', value: 'delete_version' },
+        { label: 'delete_session', value: 'delete_session' },
         { label: 'create_version_from_manifest', value: 'create_version_from_manifest' },
         { label: 'download_code', value: 'download_code' },
         { label: 'enable', value: 'enable' },
@@ -948,6 +820,17 @@ AND force = '{{ force }}'
         { label: 'download_session_file', value: 'download_session_file' }
     ]}
 >
+<TabItem value="update_details">
+
+Update an agent endpoint. Applies a merge-patch update to the specified agent endpoint configuration.
+
+```sql
+EXEC azure.ai_projects.agents.update_details 
+@agent_name='{{ agent_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
 <TabItem value="list_versions">
 
 List agent versions. Returns a paged collection of versions for the specified agent.
@@ -961,6 +844,17 @@ EXEC azure.ai_projects.agents.list_versions
 @after='{{ after }}', 
 @before='{{ before }}', 
 @include_drafts={{ include_drafts }}
+;
+```
+</TabItem>
+<TabItem value="create_version">
+
+Create an agent version. Creates a new version for the specified agent and returns the created version resource.
+
+```sql
+EXEC azure.ai_projects.agents.create_version 
+@agent_name='{{ agent_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
@@ -986,6 +880,45 @@ Create a session. Creates a new session for an agent endpoint. The endpoint reso
 ```sql
 EXEC azure.ai_projects.agents.create_session 
 @agent_name='{{ agent_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_session_file">
+
+Delete a session file. Deletes the specified file or directory from the session sandbox. When `recursive` is false, deleting a non-empty directory returns 409 Conflict.
+
+```sql
+EXEC azure.ai_projects.agents.delete_session_file 
+@agent_name='{{ agent_name }}' --required, 
+@agent_session_id='{{ agent_session_id }}' --required, 
+@path='{{ path }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@recursive={{ recursive }}
+;
+```
+</TabItem>
+<TabItem value="delete_version">
+
+Delete an agent version. Deletes a specific version of an agent. For hosted agents, if the version has active sessions, the request is rejected with HTTP 409 unless `force` is set to true. When force is true, all sessions associated with this version are cascade-deleted.
+
+```sql
+EXEC azure.ai_projects.agents.delete_version 
+@agent_name='{{ agent_name }}' --required, 
+@agent_version='{{ agent_version }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@force={{ force }}
+;
+```
+</TabItem>
+<TabItem value="delete_session">
+
+Delete a session. Deletes a session synchronously. Returns 204 No Content when the session is deleted or does not exist.
+
+```sql
+EXEC azure.ai_projects.agents.delete_session 
+@agent_name='{{ agent_name }}' --required, 
+@session_id='{{ session_id }}' --required, 
 @endpoint='{{ endpoint }}' --required
 ;
 ```

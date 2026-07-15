@@ -4784,7 +4784,7 @@ paths:
                 $ref: '#/components/schemas/RequiredAmlFilesystemSubnetsSize'
       x-stackql-resource: required_aml_fs_subnets_sizes
       x-stackql-method: get_required_aml_fs_subnets_size
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /subscriptions/{subscription_id}/providers/Microsoft.StorageCache/checkAmlFSSubnets?api-version=2026-01-01:
     post:
       operationId: _StorageCacheManagementClient_check_aml_fs_subnets
@@ -4820,4 +4820,4 @@ paths:
           description: Success
       x-stackql-resource: check_aml_fs_subnets
       x-stackql-method: check_aml_fs_subnets
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT

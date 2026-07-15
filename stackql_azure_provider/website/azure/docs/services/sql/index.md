@@ -64,10 +64,10 @@ total resources: __148__
 <a href="/services/sql/failover_groups/">failover_groups</a><br />
 <a href="/services/sql/firewall_rules/">firewall_rules</a><br />
 <a href="/services/sql/geo_backup_policies/">geo_backup_policies</a><br />
-<a href="/services/sql/i_pv6_firewall_rules/">i_pv6_firewall_rules</a><br />
 <a href="/services/sql/instance_failover_groups/">instance_failover_groups</a><br />
 <a href="/services/sql/instance_pool_operations/">instance_pool_operations</a><br />
 <a href="/services/sql/instance_pools/">instance_pools</a><br />
+<a href="/services/sql/ipv6_firewall_rules/">ipv6_firewall_rules</a><br />
 <a href="/services/sql/job_agents/">job_agents</a><br />
 <a href="/services/sql/job_credentials/">job_credentials</a><br />
 <a href="/services/sql/job_executions/">job_executions</a><br />

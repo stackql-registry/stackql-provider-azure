@@ -1150,7 +1150,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: check_name_availability
       x-stackql-method: check_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /{scope}/providers/Microsoft.Help/diagnostics/{diagnostics_resource_name}?api-version=2024-03-01-preview:
     get:
       operationId: Diagnostics_get

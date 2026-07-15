@@ -5076,15 +5076,6 @@ components:
             $ref: '#/components/schemas/StorageAccountFlattened'
         nextLink:
           type: string
-    StorageAccountListKeysResult:
-      type: object
-      description: The response from the ListKeys operation.
-      properties:
-        keys:
-          type: array
-          items:
-            $ref: '#/components/schemas/StorageAccountKey'
-          description: Gets the list of storage account keys and their properties for the specified storage account.
     StorageAccountKey:
       type: object
       description: An access key for the storage account.
@@ -5107,6 +5098,15 @@ components:
       enum:
       - Read
       - Full
+    StorageAccountListKeysResult:
+      type: object
+      description: The response from the ListKeys operation.
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageAccountKey'
+          description: Gets the list of storage account keys and their properties for the specified storage account.
     Services:
       type: string
       enum:
@@ -5217,6 +5217,11 @@ components:
         migrationFailedDetailedReason:
           type: string
           description: Reason for migration failure.
+    Reason:
+      type: string
+      enum:
+      - AccountNameInvalid
+      - AlreadyExists
     CheckNameAvailabilityResult:
       type: object
       description: The CheckNameAvailability operation response.
@@ -5232,11 +5237,6 @@ components:
         message:
           type: string
           description: Gets an error message explaining the Reason value in more detail.
-    Reason:
-      type: string
-      enum:
-      - AccountNameInvalid
-      - AlreadyExists
     StorageAccountPropertiesCreateParameters:
       type: object
       description: The parameters used to create the storage account.
@@ -6475,7 +6475,7 @@ paths:
                 $ref: '#/components/schemas/ImmutabilityPolicy'
       x-stackql-resource: blob_containers
       x-stackql-method: create_or_update_immutability_policy
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: BlobContainers_delete_immutability_policy
       description: Aborts an unlocked immutability policy. The response of delete has immutabilityPeriodSinceCreationInDays
@@ -6518,7 +6518,7 @@ paths:
                 $ref: '#/components/schemas/ImmutabilityPolicy'
       x-stackql-resource: blob_containers
       x-stackql-method: delete_immutability_policy
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/blobServices/default/containers/{container_name}/setLegalHold?api-version=2025-08-01
   : post:
       operationId: BlobContainers_set_legal_hold
@@ -7121,7 +7121,7 @@ paths:
                 $ref: '#/components/schemas/BlobServiceProperties'
       x-stackql-resource: blob_services
       x-stackql-method: set_service_properties
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/connectors/{connector_name}?api-version=2025-08-01
   : get:
       operationId: Connectors_get
@@ -8026,7 +8026,7 @@ paths:
                 $ref: '#/components/schemas/FileServiceProperties'
       x-stackql-resource: file_services
       x-stackql-method: set_service_properties
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/fileServices/default/usages/default?api-version=2025-08-01
   : get:
       operationId: FileServices_get_service_usage
@@ -8683,7 +8683,7 @@ paths:
                 $ref: '#/components/schemas/LocalUserKeys'
       x-stackql-resource: local_users
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/localUsers/{username}/regeneratePassword?api-version=2025-08-01
   : post:
       operationId: LocalUsers_regenerate_password
@@ -9672,7 +9672,7 @@ paths:
                 $ref: '#/components/schemas/QueueServiceProperties'
       x-stackql-resource: queue_services
       x-stackql-method: set_service_properties
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.Storage/skus?api-version=2025-08-01:
     get:
       operationId: Skus_list
@@ -9788,7 +9788,7 @@ paths:
                 $ref: '#/components/schemas/StorageAccountListKeysResult'
       x-stackql-resource: storage_accounts
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/listAccountSas?api-version=2025-08-01
   : post:
       operationId: StorageAccounts_list_account_sas
@@ -9866,7 +9866,7 @@ paths:
                 $ref: '#/components/schemas/ListAccountSasResponse'
       x-stackql-resource: storage_accounts
       x-stackql-method: list_account_sas
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/listServiceSas?api-version=2025-08-01
   : post:
       operationId: StorageAccounts_list_service_sas
@@ -9969,7 +9969,7 @@ paths:
                 $ref: '#/components/schemas/ListServiceSasResponse'
       x-stackql-resource: storage_accounts
       x-stackql-method: list_service_sas
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}?api-version=2025-08-01
   : get:
       operationId: StorageAccounts_get_properties
@@ -10277,7 +10277,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResult'
       x-stackql-resource: storage_accounts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Storage/storageAccounts/{account_name}/regenerateKey?api-version=2025-08-01
   : post:
       operationId: StorageAccounts_regenerate_key
@@ -11239,7 +11239,7 @@ paths:
                 $ref: '#/components/schemas/TableServiceProperties'
       x-stackql-resource: table_services
       x-stackql-method: set_service_properties
-      x-stackql-verb: REPLACE
+      x-stackql-verb: EXEC
   /subscriptions/{subscription_id}/providers/Microsoft.Storage/locations/{location}/usages?api-version=2025-08-01:
     get:
       operationId: Usages_list_by_location

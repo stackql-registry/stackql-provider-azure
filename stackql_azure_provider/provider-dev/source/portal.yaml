@@ -586,7 +586,8 @@ paths:
                 $ref: '#/components/schemas/PagedViolation'
       x-stackql-resource: list_tenant_configuration_violations
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   /providers/Microsoft.Portal/operations?api-version=2020-09-01-preview:
     get:
       operationId: portal_list

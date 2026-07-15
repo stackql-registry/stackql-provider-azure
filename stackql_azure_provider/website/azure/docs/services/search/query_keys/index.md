@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>query_keys</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_by_search_service"
+    values={[
+        { label: 'list_by_search_service', value: 'list_by_search_service' }
+    ]}
+>
+<TabItem value="list_by_search_service">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the query API key. Query names are optional, but assigning a name can help you remember how it's used.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="key" /></td>
+    <td><code>string</code></td>
+    <td>The value of the query API key.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,6 +80,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#list_by_search_service"><CopyableCode code="list_by_search_service" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Returns the list of query API keys for the given Azure AI Search service.</td>
+</tr>
+<tr>
     <td><a href="#create"><CopyableCode code="create" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-name"><code>name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -60,16 +96,9 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-key"><code>key</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-key_name"><code>key_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes the specified query key. Unlike admin keys, query keys are not regenerated. The process for regenerating a query key is to delete and then recreate it. Returns 200 (OK) on successful deletion, 204 (No Content) if the service exists but the query keys not found, or 404 (Not Found) if the service is not found. NOTE: The behavior of returning 404 is inconsistent with ARM guidelines. Clients should expect a 204 response in future versions and avoid new dependencies on the 404 response.</td>
-</tr>
-<tr>
-    <td><a href="#list_by_search_service"><CopyableCode code="list_by_search_service" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-search_service_name"><code>search_service_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Returns the list of query API keys for the given Azure AI Search service.</td>
 </tr>
 </tbody>
 </table>
@@ -87,8 +116,8 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-key">
-    <td><CopyableCode code="key" /></td>
+<tr id="parameter-key_name">
+    <td><CopyableCode code="key_name" /></td>
     <td><code>string</code></td>
     <td>The query key to be deleted. Query keys are identified by value, not by name. Required.</td>
 </tr>
@@ -114,6 +143,32 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tr>
 </tbody>
 </table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="list_by_search_service"
+    values={[
+        { label: 'list_by_search_service', value: 'list_by_search_service' }
+    ]}
+>
+<TabItem value="list_by_search_service">
+
+Returns the list of query API keys for the given Azure AI Search service.
+
+```sql
+SELECT
+name,
+key
+FROM azure.search.query_keys
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND search_service_name = '{{ search_service_name }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
 
 ## `INSERT` examples
 
@@ -185,31 +240,8 @@ Deletes the specified query key. Unlike admin keys, query keys are not regenerat
 DELETE FROM azure.search.query_keys
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND search_service_name = '{{ search_service_name }}' --required
-AND key = '{{ key }}' --required
+AND key_name = '{{ key_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
-;
-```
-</TabItem>
-</Tabs>
-
-
-## Lifecycle Methods
-
-<Tabs
-    defaultValue="list_by_search_service"
-    values={[
-        { label: 'list_by_search_service', value: 'list_by_search_service' }
-    ]}
->
-<TabItem value="list_by_search_service">
-
-Returns the list of query API keys for the given Azure AI Search service.
-
-```sql
-EXEC azure.search.query_keys.list_by_search_service 
-@resource_group_name='{{ resource_group_name }}' --required, 
-@search_service_name='{{ search_service_name }}' --required, 
-@subscription_id='{{ subscription_id }}' --required
 ;
 ```
 </TabItem>

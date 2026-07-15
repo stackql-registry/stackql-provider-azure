@@ -5382,7 +5382,7 @@ paths:
                 $ref: '#/components/schemas/ArcIdentityResponse'
       x-stackql-resource: arc_settings
       x-stackql-method: create_identity
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureStackHCI/clusters/{cluster_name}/arcSettings/{arc_setting_name}/reconcile?api-version=2026-04-01-preview
   : post:
       operationId: ArcSettings_begin_reconcile
@@ -5987,7 +5987,7 @@ paths:
                 $ref: '#/components/schemas/ClusterIdentityResponse'
       x-stackql-resource: clusters
       x-stackql-method: create_identity
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureStackHCI/clusters/{cluster_name}/extendSoftwareAssuranceBenefit?api-version=2026-04-01-preview
   : post:
       operationId: Clusters_begin_extend_software_assurance_benefit
@@ -8519,7 +8519,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: update_summaries_operation_group
       x-stackql-method: check_updates
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureStackHCI/clusters/{cluster_name}/updateSummaries/default/checkHealth?api-version=2026-04-01-preview
   : post:
       operationId: UpdateSummariesOperationGroup_begin_check_health
@@ -8547,7 +8547,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: update_summaries_operation_group
       x-stackql-method: check_health
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AzureStackHCI/clusters/{cluster_name}/updateSummaries/default?api-version=2026-04-01-preview
   : get:
       operationId: UpdateSummaries_get

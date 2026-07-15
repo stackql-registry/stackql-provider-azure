@@ -52,7 +52,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#replace_job"><CopyableCode code="replace_job" /></a></td>
-    <td><CopyableCode code="replace" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-job_id"><code>job_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-poolInfo"><code>poolInfo</code></a></td>
     <td><a href="#parameter-timeOut"><code>timeOut</code></a>, <a href="#parameter-ocp-date"><code>ocp-date</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a></td>
     <td>Updates the properties of the specified Job. This fully replaces all the updatable properties of the Job. For example, if the Job has constraints associated with it and if constraints is not specified with this request, then the Batch service will remove the existing constraints.</td>
@@ -76,7 +76,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-job_id">
     <td><CopyableCode code="job_id" /></td>
@@ -106,7 +106,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `REPLACE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="replace_job"
@@ -119,23 +119,24 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Updates the properties of the specified Job. This fully replaces all the updatable properties of the Job. For example, if the Job has constraints associated with it and if constraints is not specified with this request, then the Batch service will remove the existing constraints.
 
 ```sql
-REPLACE azure.batch_dataplane.replace_jobs
-SET 
-priority = {{ priority }},
-allowTaskPreemption = {{ allowTaskPreemption }},
-maxParallelTasks = {{ maxParallelTasks }},
-constraints = '{{ constraints }}',
-poolInfo = '{{ poolInfo }}',
-onAllTasksComplete = '{{ onAllTasksComplete }}',
-metadata = '{{ metadata }}'
-WHERE 
-job_id = '{{ job_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND poolInfo = '{{ poolInfo }}' --required
-AND timeOut = '{{ timeOut}}'
-AND ocp-date = '{{ ocp-date}}'
-AND If-Modified-Since = '{{ If-Modified-Since}}'
-AND If-Unmodified-Since = '{{ If-Unmodified-Since}}';
+EXEC azure.batch_dataplane.replace_jobs.replace_job 
+@job_id='{{ job_id }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@timeOut='{{ timeOut }}', 
+@ocp-date='{{ ocp-date }}', 
+@If-Modified-Since='{{ If-Modified-Since }}', 
+@If-Unmodified-Since='{{ If-Unmodified-Since }}' 
+@@json=
+'{
+"priority": {{ priority }}, 
+"allowTaskPreemption": {{ allowTaskPreemption }}, 
+"maxParallelTasks": {{ maxParallelTasks }}, 
+"constraints": "{{ constraints }}", 
+"poolInfo": "{{ poolInfo }}", 
+"onAllTasksComplete": "{{ onAllTasksComplete }}", 
+"metadata": "{{ metadata }}"
+}'
+;
 ```
 </TabItem>
 </Tabs>

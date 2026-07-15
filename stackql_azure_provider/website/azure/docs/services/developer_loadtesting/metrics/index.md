@@ -32,8 +32,37 @@ Creates, updates, deletes, gets or lists a <code>metrics</code> resource.
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="list_metrics"
+    values={[
+        { label: 'list_metrics', value: 'list_metrics' }
+    ]}
+>
+<TabItem value="list_metrics">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="data" /></td>
+    <td><code>array</code></td>
+    <td>An array of data points representing the metric values.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dimensionValues" /></td>
+    <td><code>array</code></td>
+    <td>The dimension values.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +81,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#list_metrics"><CopyableCode code="list_metrics" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-test_run_id"><code>test_run_id</code></a>, <a href="#parameter-metricname"><code>metricname</code></a>, <a href="#parameter-metricNamespace"><code>metricNamespace</code></a>, <a href="#parameter-timespan"><code>timespan</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-aggregation"><code>aggregation</code></a>, <a href="#parameter-interval"><code>interval</code></a></td>
     <td>List the metric values for a load test run. List the metric values for a load test run.</td>
@@ -76,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-metricNamespace">
     <td><CopyableCode code="metricNamespace" /></td>
@@ -111,7 +140,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="list_metrics"
@@ -124,18 +153,17 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 List the metric values for a load test run. List the metric values for a load test run.
 
 ```sql
-EXEC azure.developer_loadtesting.metrics.list_metrics 
-@test_run_id='{{ test_run_id }}' --required, 
-@metricname='{{ metricname }}' --required, 
-@metricNamespace='{{ metricNamespace }}' --required, 
-@timespan='{{ timespan }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
-@aggregation='{{ aggregation }}', 
-@interval='{{ interval }}' 
-@@json=
-'{
-"filters": "{{ filters }}"
-}'
+SELECT
+data,
+dimensionValues
+FROM azure.developer_loadtesting.metrics
+WHERE test_run_id = '{{ test_run_id }}' -- required
+AND metricname = '{{ metricname }}' -- required
+AND metricNamespace = '{{ metricNamespace }}' -- required
+AND timespan = '{{ timespan }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
+AND aggregation = '{{ aggregation }}'
+AND interval = '{{ interval }}'
 ;
 ```
 </TabItem>

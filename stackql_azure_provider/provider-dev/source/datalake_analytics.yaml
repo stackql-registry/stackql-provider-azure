@@ -1444,7 +1444,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityInformation'
       x-stackql-resource: accounts
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/computePolicies/{compute_policy_name}?api-version=2019-11-01-preview
   : get:
       operationId: ComputePolicies_get
@@ -2475,7 +2475,8 @@ paths:
                 $ref: '#/components/schemas/PagedSasTokenInformation'
       x-stackql-resource: storage_accounts
       x-stackql-method: list_sas_tokens
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DataLakeAnalytics/accounts/{account_name}/storageAccounts/{storage_account_name}/containers/{container_name}?api-version=2019-11-01-preview
   : get:
       operationId: StorageAccounts_get_storage_container

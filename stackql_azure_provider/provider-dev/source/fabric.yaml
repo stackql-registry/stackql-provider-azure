@@ -272,6 +272,11 @@ components:
         administration:
           $ref: '#/components/schemas/CapacityAdministration'
           description: The capacity administration.
+    CheckNameAvailabilityReason:
+      type: string
+      enum:
+      - Invalid
+      - AlreadyExists
     CheckNameAvailabilityResponse:
       type: object
       description: The check availability result.
@@ -285,11 +290,6 @@ components:
         message:
           type: string
           description: Detailed reason why the given name is not available.
-    CheckNameAvailabilityReason:
-      type: string
-      enum:
-      - Invalid
-      - AlreadyExists
     OperationDisplay:
       type: object
       description: Localized display information for and operation. Readonly variables are only populated by the
@@ -724,7 +724,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: fabric_capacities
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.Fabric/operations?api-version=2023-11-01:
     get:
       operationId: fabric_list

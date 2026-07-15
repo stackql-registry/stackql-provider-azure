@@ -1,156 +1,1811 @@
 {
-  "_comment": "Service-to-provider map. Keys are service aliases produced by openapi-generation/azure_sdk_to_openapi.py (SDK package derived). Any service NOT listed here lands in the base `azure` provider. Optional per-service `title` / `description` override the SDK-derived info block.",
+  "_comment": "Mastered service metadata. Keys are STAGE-1 service aliases produced by openapi-generation/azure_sdk_to_openapi.py (SDK package derived; they match provider-dev/source/ files and stage-1 name-overrides keys). Fields: provider (azure_extras/azure_isv/azure_stack; absent = base azure), title + description (Azure product name; stamped into the emitted info block and providerServices - SHOW SERVICES and web docs), name (cosmetic rename - the FINAL service name used for the emitted file, resource ids and providerServices), mergeInto (fold this service into the named final service; only possible when all members share identical servers - mgmt-plane and data-plane hosts can never merge), dropResources (merge members: superseded duplicate resources to drop), resourceRenames (merge members: resolve cross-member resource name collisions). A mergeInto target with no source file of its own gets a virtual entry keyed by the final name (e.g. ai_language) carrying title/description. Split rules: azure = core; azure_extras = domain-specific (health, agri, M365/desktop, operator/telco), retired/retiring, niche; azure_isv = Azure Native ISV / [Partner]-labeled; azure_stack = Azure Stack / Azure Local family.",
   "defaultProvider": "azure",
   "services": {
+    "advisor": {
+      "title": "Azure Advisor",
+      "description": "Personalized recommendations to optimize Azure deployments for cost, security, reliability, performance and operational excellence."
+    },
+    "agricultureplatform": {
+      "provider": "azure_extras",
+      "title": "Azure Agriculture Platform",
+      "description": "Agriculture industry data platform (Microsoft.AgriculturePlatform).",
+      "name": "agriculture_platform"
+    },
     "agrifood": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Azure Data Manager for Agriculture",
+      "description": "Industry-specific data manager that connects farm data across providers (Microsoft.AgFoodPlatform)."
+    },
+    "agrifood_farming": {
+      "provider": "azure_extras",
+      "title": "Azure Data Manager for Agriculture - Farming (Data Plane)",
+      "description": "Data-plane operations for farm hierarchies, boundaries and agronomic data in Azure Data Manager for Agriculture."
+    },
+    "ai_agents": {
+      "title": "Azure AI Foundry Agent Service (Data Plane)",
+      "description": "Create and run AI agents with tools, threads and runs in Azure AI Foundry projects."
+    },
+    "ai_anomalydetector": {
+      "title": "Azure AI Anomaly Detector (Data Plane)",
+      "description": "Detect anomalies in time-series data with univariate and multivariate models.",
+      "name": "ai_anomaly_detector"
+    },
+    "ai_contentsafety": {
+      "title": "Azure AI Content Safety (Data Plane)",
+      "description": "Detect harmful text and image content, manage blocklists and analyze content risk.",
+      "name": "ai_content_safety"
+    },
+    "ai_contentunderstanding": {
+      "title": "Azure AI Content Understanding (Data Plane)",
+      "description": "Extract structured insights from documents, images, audio and video with multimodal analyzers.",
+      "name": "ai_content_understanding"
+    },
+    "ai_discovery": {
+      "title": "Azure AI Discovery (Data Plane)",
+      "description": "Data-plane operations for the Azure AI discovery surface."
+    },
+    "ai_documentintelligence": {
+      "title": "Azure AI Document Intelligence (Data Plane)",
+      "description": "Analyze documents and forms with prebuilt and custom models (formerly Form Recognizer).",
+      "name": "ai_document_intelligence"
+    },
+    "ai_evaluation": {
+      "title": "Azure AI Evaluation (Data Plane)",
+      "description": "Evaluate generative AI model and agent outputs with built-in and custom evaluators."
+    },
+    "ai_formrecognizer": {
+      "title": "Azure AI Form Recognizer (Data Plane)",
+      "description": "Legacy document and form analysis API (superseded by Azure AI Document Intelligence).",
+      "name": "ai_form_recognizer"
+    },
+    "ai_inference": {
+      "title": "Azure AI Model Inference (Data Plane)",
+      "description": "Chat completions, embeddings and model info against Azure AI Foundry model deployments."
+    },
+    "ai_language_conversations": {
+      "title": "Azure AI Language - Conversations (Data Plane)",
+      "description": "Conversational language understanding, orchestration and conversation summarization runtime.",
+      "mergeInto": "ai_language"
+    },
+    "ai_language_conversations_authoring": {
+      "title": "Azure AI Language - Conversations Authoring (Data Plane)",
+      "description": "Author, train and deploy conversational language understanding projects.",
+      "mergeInto": "ai_language",
+      "resourceRenames": {
+        "projects": "conversation_projects"
+      }
+    },
+    "ai_language_questionanswering": {
+      "title": "Azure AI Language - Question Answering (Data Plane)",
+      "description": "Query knowledge bases and get answers from text at runtime.",
+      "mergeInto": "ai_language"
+    },
+    "ai_language_questionanswering_authoring": {
+      "title": "Azure AI Language - Question Answering Authoring (Data Plane)",
+      "description": "Author and deploy custom question answering projects and knowledge sources.",
+      "mergeInto": "ai_language",
+      "resourceRenames": {
+        "projects": "question_answering_projects"
+      }
+    },
+    "ai_personalizer": {
+      "title": "Azure AI Personalizer (Data Plane)",
+      "description": "Rank actions and reward-based learning loops for content personalization (service retired upstream)."
+    },
+    "ai_projects": {
+      "title": "Azure AI Foundry Projects (Data Plane)",
+      "description": "Enumerate and manage Azure AI Foundry project assets: connections, datasets, deployments and indexes."
+    },
+    "ai_textanalytics_authoring": {
+      "title": "Azure AI Language - Text Analytics Authoring (Data Plane)",
+      "description": "Author custom text classification and entity recognition projects.",
+      "name": "ai_text_analytics_authoring"
+    },
+    "ai_textanalytics_dataplane": {
+      "title": "Azure AI Language - Text Analytics (Data Plane)",
+      "description": "Sentiment analysis, entity recognition, key phrases, PII detection and summarization runtime.",
+      "name": "ai_text_analytics"
+    },
+    "ai_transcription": {
+      "title": "Azure AI Speech - Transcription (Data Plane)",
+      "description": "Speech-to-text transcription operations."
+    },
+    "ai_translation_document": {
+      "title": "Azure AI Translator - Document Translation (Data Plane)",
+      "description": "Batch and single document translation across languages and file formats."
+    },
+    "ai_translation_text": {
+      "title": "Azure AI Translator - Text Translation (Data Plane)",
+      "description": "Text translation, transliteration, language detection and dictionary lookup."
+    },
+    "ai_vision_face": {
+      "title": "Azure AI Vision - Face (Data Plane)",
+      "description": "Face detection, verification, identification and liveness operations."
+    },
+    "ai_vision_imageanalysis": {
+      "title": "Azure AI Vision - Image Analysis (Data Plane)",
+      "description": "Image captioning, tagging, object detection, OCR and smart crops.",
+      "name": "ai_vision_image_analysis"
+    },
+    "ai_voicelive": {
+      "title": "Azure AI Speech - Voice Live (Data Plane)",
+      "description": "Real-time voice conversation API combining speech recognition, generative AI and synthesis.",
+      "name": "ai_voice_live"
+    },
+    "alertsmanagement": {
+      "title": "Azure Monitor Alerts Management",
+      "description": "Manage alerts, smart groups, alert processing rules and Prometheus rule groups across Azure Monitor.",
+      "name": "alerts_management"
+    },
+    "apicenter": {
+      "title": "Azure API Center",
+      "description": "Inventory, govern and discover APIs across the organization.",
+      "name": "api_center"
+    },
+    "apimanagement": {
+      "title": "Azure API Management",
+      "description": "Publish, secure, transform and monitor APIs with managed gateways, products and policies.",
+      "name": "api_management"
+    },
+    "app": {
+      "title": "Azure Container Apps (Legacy SDK)",
+      "description": "Container Apps management surface from the legacy azure-mgmt-app package (see appcontainers for the current surface)."
     },
     "appcomplianceautomation": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "App Compliance Automation Tool for Microsoft 365",
+      "description": "Automate compliance evidence collection and reporting for Microsoft 365 app certification.",
+      "name": "app_compliance_automation"
     },
-    "astro": {
-      "provider": "azure_isv"
+    "appconfiguration": {
+      "title": "Azure App Configuration",
+      "description": "Centralized configuration stores with keys, feature flags, replicas and snapshots.",
+      "name": "app_configuration"
     },
-    "azurestack": {
-      "provider": "azure_stack"
+    "appconfiguration_dataplane": {
+      "title": "Azure App Configuration (Data Plane)",
+      "description": "Data-plane operations for key-values, labels, snapshots and revisions in an App Configuration store.",
+      "name": "app_configuration_dataplane"
     },
-    "azurestackhci": {
-      "provider": "azure_stack"
+    "appcontainers": {
+      "title": "Azure Container Apps",
+      "description": "Serverless containers with managed environments, revisions, jobs and Dapr integration (Microsoft.App).",
+      "name": "app_containers"
     },
-    "chaos": {
-      "provider": "azure_extras"
+    "applicationinsights": {
+      "title": "Azure Application Insights",
+      "description": "Application performance management: components, web tests, workbooks and live diagnostics.",
+      "name": "application_insights"
+    },
+    "appnetwork": {
+      "title": "Azure Container Apps - Networking",
+      "description": "Networking management surface for the Microsoft.App resource provider.",
+      "name": "app_network"
+    },
+    "appplatform": {
+      "provider": "azure_extras",
+      "title": "Azure Spring Apps",
+      "description": "Managed Spring Boot application platform (retirement announced for 2028).",
+      "name": "app_platform"
+    },
+    "arizeaiobservabilityeval": {
+      "provider": "azure_isv",
+      "title": "Azure Native Arize AI Cloud Service",
+      "description": "Arize AI observability and evaluation for ML and LLM applications - an Azure Native ISV Service.",
+      "name": "arize_ai_observability_eval"
     },
     "artifactsigning": {
-      "provider": "azure_extras"
+      "title": "Trusted Signing",
+      "description": "Fully managed code and artifact signing service with managed certificate lifecycle (Microsoft.CodeSigning).",
+      "name": "artifact_signing"
+    },
+    "astro": {
+      "provider": "azure_isv",
+      "title": "Apache Airflow on Astro - An Azure Native ISV Service",
+      "description": "Astronomer's managed Apache Airflow orchestration platform on Azure."
+    },
+    "attestation": {
+      "title": "Microsoft Azure Attestation",
+      "description": "Remote attestation of trusted execution environments (SGX, TPM, VBS enclaves)."
+    },
+    "authorization": {
+      "title": "Azure Authorization (RBAC)",
+      "description": "Role definitions, role assignments, deny assignments and Privileged Identity Management scheduling."
+    },
+    "automanage": {
+      "title": "Azure Automanage",
+      "description": "Automated best-practice configuration profiles for virtual machines."
+    },
+    "automation": {
+      "title": "Azure Automation",
+      "description": "Process automation with runbooks, DSC, schedules, hybrid workers and update deployments."
+    },
+    "avs": {
+      "title": "Azure VMware Solution",
+      "description": "Run native VMware vSphere clusters on dedicated Azure infrastructure (Microsoft.AVS)."
+    },
+    "azurearcdata": {
+      "title": "Azure Arc-enabled Data Services",
+      "description": "Arc data controllers and Arc-enabled SQL managed instances / SQL Server instances running anywhere.",
+      "name": "azure_arc_data"
+    },
+    "azurestack": {
+      "provider": "azure_stack",
+      "title": "Azure Stack",
+      "description": "Azure Stack registrations, products and customer subscriptions (Microsoft.AzureStack).",
+      "name": "azure_stack"
+    },
+    "azurestackhci": {
+      "provider": "azure_stack",
+      "title": "Azure Local (Azure Stack HCI)",
+      "description": "Hyperconverged infrastructure clusters, updates and deployment settings for Azure Local (formerly Azure Stack HCI).",
+      "name": "azure_stack_hci"
+    },
+    "azurestackhcivm": {
+      "provider": "azure_stack",
+      "title": "Azure Local Virtual Machines",
+      "description": "Arc-managed virtual machines, images and networks on Azure Local (Azure Stack HCI).",
+      "name": "azure_stack_hci_vm"
+    },
+    "baremetalinfrastructure": {
+      "title": "BareMetal Infrastructure",
+      "description": "Manage BareMetal Instances for large in-memory workloads.",
+      "name": "bare_metal_infrastructure"
+    },
+    "batch": {
+      "title": "Azure Batch",
+      "description": "Large-scale parallel and HPC batch computing: accounts, pools, applications and certificates."
+    },
+    "batch_dataplane": {
+      "title": "Azure Batch (Data Plane)",
+      "description": "Data-plane operations for Batch jobs, tasks, pools, nodes and job schedules."
+    },
+    "billing": {
+      "title": "Azure Billing",
+      "description": "Billing accounts, profiles, invoices, payment methods and billing subscriptions."
+    },
+    "billingbenefits": {
+      "title": "Azure Billing Benefits",
+      "description": "Savings plans and reservation trade-in/exchange operations.",
+      "name": "billing_benefits"
+    },
+    "botservice": {
+      "title": "Azure AI Bot Service",
+      "description": "Bot registrations, channels and connection settings for conversational AI bots.",
+      "name": "bot_service"
+    },
+    "carbonoptimization": {
+      "title": "Azure Carbon Optimization",
+      "description": "Carbon emissions reporting and optimization insights for Azure workloads.",
+      "name": "carbon_optimization"
+    },
+    "cdn": {
+      "title": "Azure Content Delivery Network",
+      "description": "CDN and Azure Front Door (Standard/Premium) profiles, endpoints, rules and WAF policies."
+    },
+    "certificateregistration": {
+      "title": "App Service Certificates",
+      "description": "Purchase and manage App Service certificate orders (Microsoft.CertificateRegistration).",
+      "name": "certificate_registration"
+    },
+    "changeanalysis": {
+      "title": "Azure Change Analysis",
+      "description": "Detect and browse changes to Azure resources and their in-guest configuration.",
+      "name": "change_analysis"
+    },
+    "chaos": {
+      "title": "Azure Chaos Studio",
+      "description": "Fault-injection experiments against Azure resources for resilience validation."
+    },
+    "cloudhealth": {
+      "title": "Azure Monitor Health Models",
+      "description": "Entity-based health models for workloads (Microsoft.CloudHealth).",
+      "name": "cloud_health"
+    },
+    "cognitiveservices": {
+      "title": "Azure AI Services (Cognitive Services)",
+      "description": "Management plane for Azure AI services accounts, deployments, models and commitment plans.",
+      "name": "cognitive_services"
     },
     "commerce": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Azure Commerce (Usage and RateCard)",
+      "description": "Legacy usage aggregates and RateCard pricing APIs."
+    },
+    "communication": {
+      "title": "Azure Communication Services",
+      "description": "Management plane for Communication Services resources, domains and sender usernames."
+    },
+    "communication_callautomation": {
+      "title": "Azure Communication Services - Call Automation (Data Plane)",
+      "description": "Server-based call workflows: answer, transfer, record and play media in calls.",
+      "name": "communication_call_automation"
+    },
+    "communication_chat": {
+      "title": "Azure Communication Services - Chat (Data Plane)",
+      "description": "Chat threads, participants and messages."
+    },
+    "communication_email": {
+      "title": "Azure Communication Services - Email (Data Plane)",
+      "description": "Send transactional email and poll send status."
+    },
+    "communication_identity": {
+      "title": "Azure Communication Services - Identity (Data Plane)",
+      "description": "Communication user identities and access token issuance."
+    },
+    "communication_jobrouter": {
+      "title": "Azure Communication Services - Job Router (Data Plane)",
+      "description": "Route jobs to workers with queues, policies and classification rules.",
+      "name": "communication_job_router"
+    },
+    "communication_messages": {
+      "title": "Azure Communication Services - Advanced Messaging (Data Plane)",
+      "description": "WhatsApp and channel messaging: notifications, templates and conversations."
+    },
+    "communication_phonenumbers": {
+      "title": "Azure Communication Services - Phone Numbers (Data Plane)",
+      "description": "Search, purchase and manage phone numbers and SIP routing.",
+      "name": "communication_phone_numbers"
+    },
+    "communication_rooms": {
+      "title": "Azure Communication Services - Rooms (Data Plane)",
+      "description": "Structured meeting rooms with participant roles and validity windows."
+    },
+    "communication_sms": {
+      "title": "Azure Communication Services - SMS (Data Plane)",
+      "description": "Send SMS messages and manage opt-outs."
+    },
+    "commvaultcontentstore": {
+      "provider": "azure_isv",
+      "title": "Commvault Cloud - An Azure Native ISV Service",
+      "description": "Commvault Cloud ContentStore data protection on Azure.",
+      "name": "commvault_content_store"
+    },
+    "compute": {
+      "title": "Azure Compute",
+      "description": "Virtual machines, VM scale sets, disks, images, compute galleries, availability sets and related compute primitives."
+    },
+    "computebulkactions": {
+      "title": "Azure Compute Bulk Actions",
+      "description": "Bulk operations across compute resources (Microsoft.ComputeBulkActions).",
+      "name": "compute_bulk_actions"
+    },
+    "computefleet": {
+      "title": "Azure Compute Fleet",
+      "description": "Provision Spot and on-demand VM capacity at scale with fleets.",
+      "name": "compute_fleet"
+    },
+    "computelimit": {
+      "title": "Azure Compute Limits",
+      "description": "Compute capacity limits and constraints surface (Microsoft.ComputeLimit).",
+      "name": "compute_limit"
+    },
+    "computerecommender": {
+      "title": "Azure Compute Recommender",
+      "description": "Spot placement and VM sizing recommendations.",
+      "name": "compute_recommender"
+    },
+    "computeschedule": {
+      "title": "Azure Compute Schedule",
+      "description": "Scheduled start, stop, hibernate and deallocate operations for virtual machines.",
+      "name": "compute_schedule"
+    },
+    "confidentialledger": {
+      "title": "Azure Confidential Ledger",
+      "description": "Management plane for tamper-proof confidential ledgers backed by hardware enclaves.",
+      "name": "confidential_ledger"
+    },
+    "confidentialledger_certificate": {
+      "title": "Azure Confidential Ledger - Identity Certificates (Data Plane)",
+      "description": "Retrieve ledger identity TLS certificates.",
+      "name": "confidential_ledger_certificate"
+    },
+    "confidentialledger_dataplane": {
+      "title": "Azure Confidential Ledger (Data Plane)",
+      "description": "Append and read ledger entries, receipts, users and governance scripts.",
+      "name": "confidential_ledger_dataplane"
     },
     "confluent": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Apache Kafka & Apache Flink on Confluent Cloud - An Azure Native ISV Service",
+      "description": "Confluent Cloud organizations and cluster access managed natively on Azure."
+    },
+    "connectedcache": {
+      "provider": "azure_extras",
+      "title": "Microsoft Connected Cache for Internet Service Providers",
+      "description": "Content caching nodes operated by ISPs for Microsoft download traffic.",
+      "name": "connected_cache"
     },
     "connectedvmware": {
-      "provider": "azure_isv"
+      "title": "Azure Arc-enabled VMware vSphere",
+      "description": "Arc-manage vSphere VMs, templates, networks and inventory through Azure (Microsoft.ConnectedVMwarevSphere).",
+      "name": "connected_vmware"
+    },
+    "consumption": {
+      "title": "Azure Consumption",
+      "description": "Usage details, budgets, charges, credits and price sheets for subscriptions and billing scopes."
+    },
+    "containerinstance": {
+      "title": "Azure Container Instances",
+      "description": "Run containers without managing servers: container groups, profiles and ngroups.",
+      "name": "container_instance"
+    },
+    "containerorchestratorruntime": {
+      "title": "Azure Kubernetes Runtime",
+      "description": "Arc-connected Kubernetes runtime services: load balancers, BGP peers and storage classes (Microsoft.KubernetesRuntime).",
+      "name": "container_orchestrator_runtime"
+    },
+    "containerregistry": {
+      "title": "Azure Container Registry",
+      "description": "Managed OCI registries with replications, webhooks, connected registries and network rules.",
+      "name": "container_registry"
+    },
+    "containerregistry_dataplane": {
+      "title": "Azure Container Registry (Data Plane)",
+      "description": "Registry data-plane operations: repositories, manifests and tags.",
+      "name": "container_registry_dataplane"
+    },
+    "containerregistrytasks": {
+      "title": "Azure Container Registry Tasks",
+      "description": "Build, patch and task-run automation inside Azure Container Registry.",
+      "name": "container_registry_tasks"
+    },
+    "containerservice": {
+      "title": "Azure Kubernetes Service (AKS)",
+      "description": "Managed Kubernetes clusters, node pools, maintenance windows and snapshots.",
+      "name": "container_service"
+    },
+    "containerservicefleet": {
+      "title": "Azure Kubernetes Fleet Manager",
+      "description": "Multi-cluster AKS fleets with update runs, strategies and auto-upgrade profiles.",
+      "name": "container_service_fleet"
+    },
+    "containerservicesafeguards": {
+      "title": "Azure Kubernetes Service - Deployment Safeguards",
+      "description": "Policy-backed deployment safeguards for AKS clusters.",
+      "name": "container_service_safeguards"
+    },
+    "cosmosdb": {
+      "title": "Azure Cosmos DB",
+      "description": "Globally distributed multi-model database accounts: SQL/NoSQL, MongoDB, Cassandra, Gremlin and Table APIs."
+    },
+    "cosmosdbforpostgresql": {
+      "title": "Azure Cosmos DB for PostgreSQL",
+      "description": "Distributed PostgreSQL clusters powered by Citus.",
+      "name": "cosmosdb_for_postgresql"
+    },
+    "costmanagement": {
+      "title": "Microsoft Cost Management",
+      "description": "Cost analysis queries, exports, views, scheduled actions and benefit recommendations.",
+      "name": "cost_management"
+    },
+    "customproviders": {
+      "title": "Azure Custom Providers",
+      "description": "Build custom resource providers backed by your own endpoints.",
+      "name": "custom_providers"
+    },
+    "dashboard": {
+      "title": "Azure Managed Grafana",
+      "description": "Managed Grafana workspaces with private endpoints and integration settings."
+    },
+    "data_tables": {
+      "title": "Azure Tables (Data Plane)",
+      "description": "Table and entity operations against Azure Table Storage and Cosmos DB Table API endpoints."
+    },
+    "databasewatcher": {
+      "title": "Database Watcher",
+      "description": "Managed monitoring for Azure SQL family databases with watchers and data stores.",
+      "name": "database_watcher"
+    },
+    "databox": {
+      "title": "Azure Data Box",
+      "description": "Offline bulk data transfer jobs using shipped storage devices.",
+      "name": "data_box"
+    },
+    "databoxedge": {
+      "title": "Azure Stack Edge / Data Box Gateway",
+      "description": "Edge appliance devices: orders, shares, users, triggers and IoT roles (Microsoft.DataBoxEdge).",
+      "name": "data_box_edge"
     },
     "databricks": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Azure Databricks",
+      "description": "Databricks workspaces, access connectors and VNet peering on Azure."
     },
     "datadog": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Datadog - An Azure Native ISV Service",
+      "description": "Datadog organizations with unified Azure billing, log and metric forwarding."
     },
-    "devspaces": {
-      "provider": "azure_extras"
+    "datafactory": {
+      "title": "Azure Data Factory",
+      "description": "Data integration pipelines, datasets, linked services, triggers and integration runtimes.",
+      "name": "data_factory"
+    },
+    "datalake_analytics": {
+      "title": "Azure Data Lake Analytics",
+      "description": "On-demand U-SQL analytics accounts and jobs (retired upstream)."
+    },
+    "datalake_store": {
+      "title": "Azure Data Lake Storage Gen1",
+      "description": "Data Lake Storage Gen1 accounts, firewall and trusted ID provider rules (retired upstream)."
+    },
+    "datamigration": {
+      "title": "Azure Database Migration Service",
+      "description": "Database migration projects, tasks and SQL migration services.",
+      "name": "data_migration"
+    },
+    "dataprotection": {
+      "title": "Azure Backup (Data Protection)",
+      "description": "Backup vaults, policies, instances and recovery points for the data protection platform.",
+      "name": "data_protection"
+    },
+    "datashare": {
+      "title": "Azure Data Share",
+      "description": "Share datasets across organizations with sent/received shares, invitations and synchronization.",
+      "name": "data_share"
+    },
+    "defender_easm": {
+      "title": "Microsoft Defender EASM (Data Plane)",
+      "description": "Query external attack surface assets, discovery groups and risk reports.",
+      "name": "defender_easm_dataplane"
+    },
+    "defendereasm": {
+      "title": "Microsoft Defender EASM",
+      "description": "Management plane for Defender External Attack Surface Management workspaces and labels.",
+      "name": "defender_easm"
+    },
+    "dellstorage": {
+      "provider": "azure_isv",
+      "title": "Dell Storage - An Azure Native ISV Service",
+      "description": "Dell file storage (PowerScale) file systems managed natively on Azure.",
+      "name": "dell_storage"
+    },
+    "dependencymap": {
+      "title": "Azure Dependency Map",
+      "description": "Discover and visualize dependencies between workloads (Microsoft.DependencyMap).",
+      "name": "dependency_map"
+    },
+    "desktopvirtualization": {
+      "title": "Azure Virtual Desktop",
+      "description": "Host pools, application groups, workspaces, scaling plans and session hosts for desktop virtualization.",
+      "name": "desktop_virtualization"
+    },
+    "devcenter": {
+      "title": "Azure Dev Center (Microsoft Dev Box)",
+      "description": "Dev centers, projects, dev box definitions, pools and environment types for developer self-service."
+    },
+    "developer_devcenter": {
+      "title": "Azure Dev Center (Data Plane)",
+      "description": "Developer-facing operations: create and manage dev boxes and deployment environments."
+    },
+    "developer_loadtesting": {
+      "title": "Azure Load Testing (Data Plane)",
+      "description": "Create and run load tests, test profiles and fetch results and metrics."
     },
     "devhub": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Microsoft DevHub",
+      "description": "GitHub workflow bootstrapping and ADO pipeline templates for AKS deployments (Microsoft.DevHub)."
+    },
+    "deviceregistry": {
+      "title": "Azure Device Registry",
+      "description": "Namespaces, assets and device endpoint profiles for industrial edge devices (Microsoft.DeviceRegistry).",
+      "name": "device_registry"
+    },
+    "deviceupdate": {
+      "title": "Device Update for IoT Hub",
+      "description": "Over-the-air update accounts, instances and private endpoint connections for IoT devices.",
+      "name": "device_update"
+    },
+    "devopsinfrastructure": {
+      "title": "Managed DevOps Pools",
+      "description": "Managed agent pools for Azure DevOps pipelines (Microsoft.DevOpsInfrastructure).",
+      "name": "devops_infrastructure"
+    },
+    "devspaces": {
+      "provider": "azure_extras",
+      "title": "Azure Dev Spaces",
+      "description": "Team development against AKS clusters (retired upstream)."
+    },
+    "devtestlabs": {
+      "title": "Azure DevTest Labs",
+      "description": "Labs with VMs, custom images, formulas, artifacts, policies and cost controls.",
+      "name": "dev_test_labs"
+    },
+    "digitaltwins": {
+      "title": "Azure Digital Twins",
+      "description": "Management plane for Digital Twins instances, endpoints and time series database connections.",
+      "name": "digital_twins"
+    },
+    "digitaltwins_core": {
+      "title": "Azure Digital Twins (Data Plane)",
+      "description": "Twin graph operations: twins, relationships, models, event routes and queries.",
+      "name": "digital_twins_core"
+    },
+    "disconnectedoperations": {
+      "provider": "azure_stack",
+      "title": "Azure Local - Disconnected Operations",
+      "description": "Run and manage Azure Local instances in fully disconnected environments (Microsoft.Edge).",
+      "name": "disconnected_operations"
+    },
+    "discovery": {
+      "title": "Microsoft Discovery",
+      "description": "Scientific discovery platform workspaces (Microsoft.Discovery)."
+    },
+    "dns": {
+      "title": "Azure DNS",
+      "description": "Public DNS zones and record sets."
+    },
+    "dnsresolver": {
+      "title": "Azure DNS Private Resolver",
+      "description": "Private DNS resolution with inbound/outbound endpoints, forwarding rulesets and DNS security policies.",
+      "name": "dns_resolver"
+    },
+    "domainregistration": {
+      "title": "App Service Domains",
+      "description": "Purchase and manage custom domains through App Service (Microsoft.DomainRegistration).",
+      "name": "domain_registration"
+    },
+    "durabletask": {
+      "title": "Durable Task Scheduler",
+      "description": "Managed backend for durable function orchestrations: schedulers, task hubs and retention policies.",
+      "name": "durable_task"
     },
     "dynatrace": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Azure Native Dynatrace Service",
+      "description": "Dynatrace environments with unified Azure billing and monitored-resource wiring."
+    },
+    "edgeactions": {
+      "title": "Azure Edge Actions",
+      "description": "Edge action definitions and deployments (Microsoft.Edge).",
+      "name": "edge_actions"
+    },
+    "edgegateway": {
+      "title": "Azure Edge Gateway",
+      "description": "Edge gateway management surface (Microsoft.Edge).",
+      "name": "edge_gateway"
     },
     "edgeorder": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Azure Edge Hardware Center",
+      "description": "Order and track first-party edge hardware devices."
+    },
+    "edgezones": {
+      "title": "Azure Extended Zones",
+      "description": "Register and enumerate Azure Extended Zones for latency-sensitive workloads.",
+      "name": "edge_zones"
     },
     "education": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Azure Education",
+      "description": "Education grants, labs and student allocations (Microsoft.Education)."
     },
     "elastic": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Elastic Cloud (Elasticsearch) - An Azure Native ISV Service",
+      "description": "Elasticsearch deployments with unified Azure billing, log forwarding and traffic filters."
+    },
+    "elasticsan": {
+      "title": "Azure Elastic SAN",
+      "description": "Cloud-native SAN with volume groups, volumes and snapshots.",
+      "name": "elastic_san"
+    },
+    "eventgrid": {
+      "title": "Azure Event Grid",
+      "description": "Topics, domains, system topics, namespaces, partner configurations and event subscriptions.",
+      "name": "event_grid"
+    },
+    "eventgrid_dataplane": {
+      "title": "Azure Event Grid (Data Plane)",
+      "description": "Publish, receive, acknowledge and release CloudEvents against namespace topics.",
+      "name": "event_grid_dataplane"
+    },
+    "eventhub": {
+      "title": "Azure Event Hubs",
+      "description": "Event streaming namespaces, event hubs, consumer groups, clusters and geo-DR configurations.",
+      "name": "event_hub"
+    },
+    "extendedlocation": {
+      "title": "Azure Custom Locations",
+      "description": "Project Arc-connected infrastructure as deployment targets for Azure services (Microsoft.ExtendedLocation).",
+      "name": "extended_location"
+    },
+    "fabric": {
+      "title": "Microsoft Fabric",
+      "description": "Fabric capacities management (Microsoft.Fabric)."
+    },
+    "fileshares": {
+      "title": "Azure File Shares",
+      "description": "Standalone file share resources (Microsoft.FileShares).",
+      "name": "file_shares"
+    },
+    "fluidrelay": {
+      "title": "Azure Fluid Relay",
+      "description": "Fluid Relay servers and containers for real-time collaborative applications.",
+      "name": "fluid_relay"
+    },
+    "frontdoor": {
+      "title": "Azure Front Door",
+      "description": "Classic Front Door profiles, routing rules, WAF policies and network experiment profiles.",
+      "name": "front_door"
+    },
+    "graphservices": {
+      "provider": "azure_extras",
+      "title": "Microsoft Graph Services",
+      "description": "Billing accounts for Microsoft Graph Data Connect applications.",
+      "name": "graph_services"
+    },
+    "guestconfig": {
+      "title": "Azure Policy Guest Configuration",
+      "description": "In-guest configuration assignments and compliance reports for VMs and Arc machines.",
+      "name": "guest_config"
     },
     "hanaonazure": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "SAP HANA on Azure Large Instances",
+      "description": "SAP HANA large instance management and monitoring provider registration.",
+      "name": "hana_on_azure"
+    },
+    "hardwaresecuritymodules": {
+      "title": "Azure Cloud HSM",
+      "description": "Dedicated HSMs and Cloud HSM clusters for hardware-backed key custody.",
+      "name": "hardware_security_modules"
+    },
+    "hdinsight": {
+      "title": "Azure HDInsight",
+      "description": "Managed Hadoop, Spark, Kafka, HBase clusters plus HDInsight on AKS cluster pools."
+    },
+    "health_deidentification": {
+      "provider": "azure_extras",
+      "title": "Azure Health Data Services - De-identification",
+      "description": "De-identify clinical text and documents with the health de-identification service."
     },
     "healthbot": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Azure AI Health Bot",
+      "description": "Compliant conversational healthcare bot instances.",
+      "name": "health_bot"
     },
     "healthcareapis": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Azure Health Data Services",
+      "description": "FHIR, DICOM and MedTech (IoT connector) services and workspaces, plus the legacy Azure API for FHIR.",
+      "mergeInto": "health_data_services"
     },
-    "selfhelp": {
-      "provider": "azure_extras"
+    "healthdataaiservices": {
+      "provider": "azure_extras",
+      "title": "Azure Health Data and AI Services",
+      "description": "De-identification services under Microsoft.HealthDataAIServices.",
+      "mergeInto": "health_data_services",
+      "resourceRenames": {
+        "operations": "deid_operations",
+        "private_endpoint_connections": "deid_private_endpoint_connections"
+      }
+    },
+    "healthinsights_cancerprofiling": {
+      "provider": "azure_extras",
+      "title": "Azure AI Health Insights - Cancer Profiling (Data Plane)",
+      "description": "Infer cancer staging and attributes from clinical documents.",
+      "name": "health_insights_cancer_profiling"
+    },
+    "healthinsights_clinicalmatching": {
+      "provider": "azure_extras",
+      "title": "Azure AI Health Insights - Clinical Matching (Data Plane)",
+      "description": "Match patients to clinical trials from clinical documents and registries.",
+      "name": "health_insights_clinical_matching"
+    },
+    "healthinsights_radiologyinsights": {
+      "provider": "azure_extras",
+      "title": "Azure AI Health Insights - Radiology Insights (Data Plane)",
+      "description": "Derive quality checks and follow-up inferences from radiology reports.",
+      "name": "health_insights_radiology_insights"
+    },
+    "horizondb": {
+      "title": "Azure HorizonDB",
+      "description": "Next-generation managed PostgreSQL-compatible database clusters.",
+      "name": "horizon_db"
+    },
+    "hybridcompute": {
+      "title": "Azure Arc-enabled Servers",
+      "description": "Arc machines, extensions, licenses, run commands and gateway resources (Microsoft.HybridCompute).",
+      "name": "hybrid_compute"
+    },
+    "hybridconnectivity": {
+      "title": "Azure Arc Gateway and Hybrid Connectivity",
+      "description": "Connectivity endpoints, service configurations, public cloud connectors and Arc gateway inventory.",
+      "name": "hybrid_connectivity"
+    },
+    "hybridcontainerservice": {
+      "title": "AKS enabled by Azure Arc",
+      "description": "Provisioned Kubernetes clusters, agent pools and networks on Arc-connected infrastructure.",
+      "name": "hybrid_container_service"
+    },
+    "hybridkubernetes": {
+      "title": "Azure Arc-enabled Kubernetes",
+      "description": "Connected Kubernetes clusters registered with Azure Arc (Microsoft.Kubernetes).",
+      "name": "hybrid_kubernetes"
+    },
+    "hybridnetwork": {
+      "provider": "azure_extras",
+      "title": "Azure Network Function Manager",
+      "description": "Deploy network functions to edge devices; site and service management for operators (Microsoft.HybridNetwork).",
+      "name": "hybrid_network"
+    },
+    "imagebuilder": {
+      "title": "Azure VM Image Builder",
+      "description": "Image template pipelines that build and distribute custom VM images.",
+      "name": "image_builder"
+    },
+    "impactreporting": {
+      "title": "Azure Impact Reporting",
+      "description": "Report workload impact events and connect them to Azure telemetry (Microsoft.Impact).",
+      "name": "impact_reporting"
+    },
+    "informaticadatamanagement": {
+      "provider": "azure_isv",
+      "title": "Informatica Intelligent Data Management Cloud - An Azure Native ISV Service",
+      "description": "Informatica IDMC organizations and serverless runtime environments on Azure.",
+      "name": "informatica_data_management"
+    },
+    "iot_deviceprovisioning": {
+      "title": "Azure IoT Hub Device Provisioning (Data Plane)",
+      "description": "Device enrollment and registration state operations against a Device Provisioning Service.",
+      "name": "iot_device_provisioning"
+    },
+    "iotcentral": {
+      "provider": "azure_extras",
+      "title": "Azure IoT Central",
+      "description": "IoT application platform-as-a-service (retirement announced for 2027).",
+      "name": "iot_central"
+    },
+    "iotfirmwaredefense": {
+      "provider": "azure_extras",
+      "title": "Microsoft Defender for IoT - Firmware Analysis",
+      "description": "Analyze embedded device firmware images for vulnerabilities and weaknesses.",
+      "name": "iot_firmware_defense"
+    },
+    "iothub": {
+      "title": "Azure IoT Hub",
+      "description": "IoT hubs with routing, consumer groups, certificates and failover operations.",
+      "name": "iot_hub"
+    },
+    "iothubprovisioningservices": {
+      "title": "Azure IoT Hub Device Provisioning Service",
+      "description": "Management plane for Device Provisioning Services, certificates and allocation policies.",
+      "name": "iot_hub_provisioning_services"
+    },
+    "iotoperations": {
+      "title": "Azure IoT Operations",
+      "description": "Edge-native MQTT broker, dataflows and asset processing on Arc-enabled clusters.",
+      "name": "iot_operations"
+    },
+    "keyvault": {
+      "title": "Azure Key Vault",
+      "description": "Management plane for vaults and managed HSMs: access policies, private endpoints and keys/secrets metadata.",
+      "name": "key_vault"
+    },
+    "keyvault_administration": {
+      "title": "Azure Key Vault - Administration (Data Plane)",
+      "description": "Managed HSM RBAC, full backup/restore and security domain administration.",
+      "name": "key_vault_administration"
+    },
+    "keyvault_certificates": {
+      "title": "Azure Key Vault - Certificates (Data Plane)",
+      "description": "Certificate lifecycle: issuers, policies, versions and contacts.",
+      "name": "key_vault_certificates"
+    },
+    "keyvault_keys": {
+      "title": "Azure Key Vault - Keys (Data Plane)",
+      "description": "Key lifecycle plus cryptographic operations: encrypt, sign, wrap, rotate.",
+      "name": "key_vault_keys"
+    },
+    "keyvault_secrets": {
+      "title": "Azure Key Vault - Secrets (Data Plane)",
+      "description": "Secret lifecycle: set, get, versions, backup and restore.",
+      "name": "key_vault_secrets"
+    },
+    "keyvault_securitydomain": {
+      "title": "Azure Key Vault - Security Domain (Data Plane)",
+      "description": "Managed HSM security domain download and upload operations.",
+      "name": "key_vault_security_domain"
+    },
+    "kubernetesconfiguration": {
+      "title": "Azure Arc Kubernetes Configuration",
+      "description": "Arc-enabled and AKS cluster configuration: GitOps (source control and Flux configurations), cluster extensions, extension types and private link scopes (Microsoft.KubernetesConfiguration).",
+      "name": "kubernetes_configuration",
+      "dropResources": [
+        "extensions",
+        "flux_configurations",
+        "flux_config_operation_status",
+        "operation_status"
+      ]
+    },
+    "kubernetesconfiguration_extensions": {
+      "title": "Azure Arc Kubernetes Configuration - Extensions",
+      "description": "Cluster extension instances on Arc-enabled and AKS clusters.",
+      "mergeInto": "kubernetes_configuration"
+    },
+    "kubernetesconfiguration_extensiontypes": {
+      "title": "Azure Arc Kubernetes Configuration - Extension Types",
+      "description": "Browse available cluster extension types and versions.",
+      "mergeInto": "kubernetes_configuration"
+    },
+    "kubernetesconfiguration_fluxconfigurations": {
+      "title": "Azure Arc Kubernetes Configuration - Flux Configurations",
+      "description": "GitOps Flux configurations and their sync status.",
+      "mergeInto": "kubernetes_configuration"
+    },
+    "kubernetesconfiguration_privatelinkscopes": {
+      "title": "Azure Arc Kubernetes Configuration - Private Link Scopes",
+      "description": "Private link scopes for Arc Kubernetes configuration traffic.",
+      "mergeInto": "kubernetes_configuration"
+    },
+    "kusto": {
+      "title": "Azure Data Explorer (Kusto)",
+      "description": "Data Explorer clusters, databases, data connections, principals and follower configurations."
+    },
+    "labservices": {
+      "provider": "azure_extras",
+      "title": "Azure Lab Services",
+      "description": "Classroom and training labs with VM pools, schedules and users (retirement announced for 2027).",
+      "name": "lab_services"
+    },
+    "lambdatesthyperexecute": {
+      "provider": "azure_isv",
+      "title": "Azure Native LambdaTest - HyperExecute Cloud Service",
+      "description": "LambdaTest HyperExecute test orchestration on Azure.",
+      "name": "lambda_test_hyper_execute"
+    },
+    "largeinstance": {
+      "title": "Azure Large Instances",
+      "description": "Manage Azure Large Instances and their storage for Epic and other memory-intensive workloads.",
+      "name": "large_instance"
+    },
+    "loadtesting": {
+      "title": "Azure Load Testing",
+      "description": "Management plane for load testing resources and quotas.",
+      "name": "load_testing"
+    },
+    "loganalytics": {
+      "title": "Azure Log Analytics",
+      "description": "Workspaces, dedicated clusters, saved searches, data exports, tables and linked services.",
+      "name": "log_analytics"
+    },
+    "logic": {
+      "title": "Azure Logic Apps",
+      "description": "Workflows, integration accounts, maps, schemas, agreements and integration service environments."
+    },
+    "machinelearningcompute": {
+      "title": "Azure Machine Learning Compute (Legacy)",
+      "description": "Legacy ML compute operationalization cluster management.",
+      "name": "machine_learning_compute"
+    },
+    "machinelearningservices": {
+      "title": "Azure Machine Learning",
+      "description": "Workspaces, compute, jobs, models, endpoints, registries, datastores and feature stores.",
+      "name": "machine_learning_services"
+    },
+    "maintenance": {
+      "title": "Azure Maintenance",
+      "description": "Maintenance configurations, assignments and apply-update controls behind Azure Update Manager."
+    },
+    "managedapplications": {
+      "title": "Azure Managed Applications",
+      "description": "Managed application definitions and deployments (Microsoft.Solutions).",
+      "name": "managed_applications"
+    },
+    "managednetworkfabric": {
+      "provider": "azure_extras",
+      "title": "Azure Operator Nexus - Network Fabric",
+      "description": "Network fabrics, devices, racks and route policies for Operator Nexus deployments.",
+      "name": "managed_network_fabric"
+    },
+    "managedops": {
+      "title": "Azure Managed Operations",
+      "description": "Managed operations surface (Microsoft.ManagedOps).",
+      "name": "managed_ops"
+    },
+    "managedservices": {
+      "title": "Azure Lighthouse (Managed Services)",
+      "description": "Registration definitions and assignments that delegate resource management to service providers.",
+      "name": "managed_services"
+    },
+    "managementgroups": {
+      "title": "Azure Management Groups",
+      "description": "Organize subscriptions into management group hierarchies with settings and entity views.",
+      "name": "management_groups"
     },
     "managementpartner": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Microsoft Management Partner",
+      "description": "Partner Admin Link (PAL) associations between partners and Azure credentials.",
+      "name": "management_partner"
+    },
+    "maps": {
+      "title": "Azure Maps",
+      "description": "Management plane for Maps accounts, creators and shared-key/SAS credentials."
+    },
+    "maps_geolocation": {
+      "title": "Azure Maps - Geolocation (Data Plane)",
+      "description": "IP-to-country geolocation lookups."
+    },
+    "maps_render": {
+      "title": "Azure Maps - Render (Data Plane)",
+      "description": "Map tiles, static images and copyright attribution."
+    },
+    "maps_route": {
+      "title": "Azure Maps - Route (Data Plane)",
+      "description": "Route directions, ranges and matrix calculations."
+    },
+    "maps_search": {
+      "title": "Azure Maps - Search (Data Plane)",
+      "description": "Geocoding, reverse geocoding and POI search."
+    },
+    "maps_timezone": {
+      "title": "Azure Maps - Timezone (Data Plane)",
+      "description": "Timezone lookups by coordinates or IANA/Windows IDs."
+    },
+    "maps_weather": {
+      "title": "Azure Maps - Weather (Data Plane)",
+      "description": "Current conditions, forecasts and weather along routes."
     },
     "marketplaceordering": {
-      "provider": "azure_extras"
+      "title": "Azure Marketplace Ordering",
+      "description": "Accept and manage marketplace legal terms for offers and plans.",
+      "name": "marketplace_ordering"
+    },
+    "media": {
+      "provider": "azure_extras",
+      "title": "Azure Media Services",
+      "description": "Media encoding, streaming and live events (retired upstream June 2024)."
+    },
+    "messaging_webpubsubservice": {
+      "title": "Azure Web PubSub (Data Plane)",
+      "description": "Send messages to hubs, groups, connections and users over the Web PubSub service."
+    },
+    "migrationassessment": {
+      "title": "Azure Migrate - Assessment",
+      "description": "Migration assessment projects, machine inventory and readiness reports.",
+      "name": "migration_assessment"
+    },
+    "migrationdiscoverysap": {
+      "provider": "azure_extras",
+      "title": "Azure Migrate - SAP Discovery",
+      "description": "Discover SAP systems and instances for migration planning.",
+      "name": "migration_discovery_sap"
+    },
+    "mongocluster": {
+      "title": "Azure DocumentDB (MongoDB compatibility)",
+      "description": "MongoDB vCore-compatible clusters, firewall rules, replicas and private endpoints (Microsoft.DocumentDB mongoClusters).",
+      "name": "mongo_cluster"
+    },
+    "mongodbatlas": {
+      "provider": "azure_isv",
+      "title": "MongoDB Atlas - An Azure Native ISV Service",
+      "description": "MongoDB Atlas organizations provisioned and billed through Azure.",
+      "name": "mongodb_atlas"
+    },
+    "monitor": {
+      "title": "Azure Monitor",
+      "description": "Action groups, diagnostic settings, autoscale, data collection rules, private link scopes and scheduled query rules."
+    },
+    "monitor_ingestion": {
+      "title": "Azure Monitor - Logs Ingestion (Data Plane)",
+      "description": "Upload custom logs through data collection rules into Log Analytics."
+    },
+    "monitor_opentelemetry_exporter": {
+      "title": "Azure Monitor - OpenTelemetry Exporter (Data Plane)",
+      "description": "OpenTelemetry trace, metric and log export surface for Application Insights."
+    },
+    "monitor_query": {
+      "title": "Azure Monitor - Query (Data Plane)",
+      "description": "Run KQL queries against Log Analytics workspaces and resource-centric logs."
+    },
+    "monitor_querymetrics": {
+      "title": "Azure Monitor - Metrics Query (Data Plane)",
+      "description": "Query platform metrics for Azure resources in batch.",
+      "name": "monitor_query_metrics"
+    },
+    "monitorslis": {
+      "title": "Azure Monitor - Service Level Indicators",
+      "description": "Service level indicator surface for Azure Monitor (Microsoft.MonitorSLIs).",
+      "name": "monitor_slis"
+    },
+    "monitorworkspaces": {
+      "title": "Azure Monitor Workspaces (Managed Prometheus)",
+      "description": "Azure Monitor workspaces that back managed Prometheus metrics.",
+      "name": "monitor_workspaces"
+    },
+    "msi": {
+      "title": "Azure Managed Identities",
+      "description": "User-assigned managed identities and federated identity credentials (Microsoft.ManagedIdentity)."
+    },
+    "mysqlflexibleservers": {
+      "title": "Azure Database for MySQL - Flexible Server",
+      "description": "MySQL flexible servers, databases, firewall rules, backups and replicas.",
+      "name": "mysql_flexible_servers"
+    },
+    "napsteromniagentapi": {
+      "provider": "azure_isv",
+      "title": "Napster Omni Agent API",
+      "description": "Napster Omni AI agent platform - an Azure Native ISV Service.",
+      "name": "napster_omni_agent_api"
+    },
+    "neonpostgres": {
+      "provider": "azure_isv",
+      "title": "Neon Serverless Postgres - An Azure Native ISV Service",
+      "description": "Neon serverless PostgreSQL organizations and projects on Azure.",
+      "name": "neon_postgres"
     },
     "netapp": {
-      "provider": "azure_isv"
+      "title": "Azure NetApp Files",
+      "description": "Enterprise file storage: NetApp accounts, capacity pools, volumes, snapshots and replication."
+    },
+    "network": {
+      "title": "Azure Networking",
+      "description": "Virtual networks, subnets, NICs, load balancers, firewalls, bastions, gateways, public IPs, NSGs and the rest of the core networking surface."
+    },
+    "networkanalytics": {
+      "provider": "azure_extras",
+      "title": "Azure Operator Insights",
+      "description": "Data products and catalogs for operator network analytics.",
+      "name": "network_analytics"
+    },
+    "networkcloud": {
+      "provider": "azure_extras",
+      "title": "Azure Operator Nexus",
+      "description": "Carrier-grade hybrid cloud: bare metal machines, clusters, racks and tenant workloads.",
+      "name": "network_cloud"
+    },
+    "networkfunction": {
+      "title": "ExpressRoute Traffic Collectors",
+      "description": "Traffic collectors and flow-log collection policies for ExpressRoute (Microsoft.NetworkFunction).",
+      "name": "network_function"
     },
     "newrelicobservability": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Azure Native New Relic Service",
+      "description": "New Relic organizations with unified Azure billing and telemetry forwarding.",
+      "name": "new_relic_observability"
     },
     "nginx": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "NGINXaaS - An Azure Native ISV Service",
+      "description": "NGINX as a Service deployments, configurations and certificates by F5."
     },
-    "springappdiscovery": {
-      "provider": "azure_extras"
+    "notificationhubs": {
+      "title": "Azure Notification Hubs",
+      "description": "Push notification namespaces, hubs and platform credentials.",
+      "name": "notification_hubs"
+    },
+    "oep": {
+      "provider": "azure_extras",
+      "title": "Azure Data Manager for Energy",
+      "description": "OSDU-based energy data platform instances (Open Energy Platform)."
+    },
+    "onlineexperimentation": {
+      "title": "Azure Online Experimentation",
+      "description": "Management plane for online experimentation workspaces.",
+      "name": "online_experimentation"
+    },
+    "onlineexperimentation_dataplane": {
+      "title": "Azure Online Experimentation (Data Plane)",
+      "description": "Experiment metric definitions and validation operations.",
+      "name": "online_experimentation_dataplane"
+    },
+    "operationsmanagement": {
+      "title": "Azure Operations Management",
+      "description": "Log Analytics solutions, management associations and configurations (Microsoft.OperationsManagement).",
+      "name": "operations_management"
     },
     "oracledatabase": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Oracle Database@Azure",
+      "description": "Exadata infrastructure, autonomous databases, VM clusters and Oracle networking on Azure.",
+      "name": "oracle_database"
+    },
+    "orbital": {
+      "provider": "azure_extras",
+      "title": "Azure Orbital Ground Station",
+      "description": "Satellite spacecraft, contacts and contact profiles (service retirement announced)."
     },
     "paloaltonetworksngfw": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Cloud NGFW by Palo Alto Networks - An Azure Native ISV Service",
+      "description": "Palo Alto Networks next-generation firewalls, rulestacks and rules on Azure.",
+      "name": "palo_alto_networks_ngfw"
+    },
+    "peering": {
+      "title": "Azure Peering Service",
+      "description": "Internet peerings, peer ASNs and Peering Service connections."
+    },
+    "pineconevectordb": {
+      "provider": "azure_isv",
+      "title": "Pinecone Vector Database - An Azure Native ISV Service",
+      "description": "Pinecone vector database organizations on Azure.",
+      "name": "pinecone_vector_db"
+    },
+    "planetarycomputer": {
+      "title": "Microsoft Planetary Computer Pro",
+      "description": "Management plane for geospatial catalogs (Microsoft.Orbital geo-catalogs).",
+      "name": "planetary_computer"
+    },
+    "planetarycomputer_dataplane": {
+      "title": "Microsoft Planetary Computer Pro (Data Plane)",
+      "description": "STAC collections, items and ingestion operations against geo-catalogs.",
+      "name": "planetary_computer_dataplane"
+    },
+    "playwright": {
+      "title": "Azure Playwright",
+      "description": "Playwright workspaces for cloud-hosted browser testing (Microsoft.LoadTestService playwright workspaces)."
+    },
+    "playwrighttesting": {
+      "title": "Microsoft Playwright Testing (Classic)",
+      "description": "Classic Playwright Testing accounts and quotas.",
+      "name": "playwright_testing"
+    },
+    "policyinsights": {
+      "title": "Azure Policy Insights",
+      "description": "Policy compliance states, events, remediations and attestations.",
+      "name": "policy_insights"
+    },
+    "portal": {
+      "title": "Azure Portal Dashboards",
+      "description": "Shared portal dashboards and tenant configurations (Microsoft.Portal)."
+    },
+    "portalservicescopilot": {
+      "provider": "azure_extras",
+      "title": "Azure Copilot Admin Center",
+      "description": "Copilot in Azure admin settings (Microsoft.PortalServices).",
+      "name": "portal_services_copilot"
+    },
+    "postgresqlflexibleservers": {
+      "title": "Azure Database for PostgreSQL - Flexible Server",
+      "description": "PostgreSQL flexible servers, databases, firewall rules, backups, replicas and migrations.",
+      "name": "postgresql_flexible_servers"
+    },
+    "powerbidedicated": {
+      "title": "Power BI Embedded - Dedicated Capacities",
+      "description": "Power BI dedicated capacities and auto-scale v-cores (Microsoft.PowerBIDedicated).",
+      "name": "power_bi_dedicated"
+    },
+    "powerbiembedded": {
+      "title": "Power BI Embedded",
+      "description": "Legacy Power BI Embedded workspace collections.",
+      "name": "power_bi_embedded"
     },
     "powerplatform": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Power Platform",
+      "description": "Enterprise policies and private endpoint wiring for Power Platform environments.",
+      "name": "power_platform"
+    },
+    "privatedns": {
+      "title": "Azure Private DNS",
+      "description": "Private DNS zones, record sets and virtual network links.",
+      "name": "private_dns"
+    },
+    "programenrollment": {
+      "provider": "azure_extras",
+      "title": "Azure Program Enrollment",
+      "description": "Program enrollment surface (Microsoft.ProgramEnrollment).",
+      "name": "program_enrollment"
+    },
+    "purestorageblock": {
+      "provider": "azure_isv",
+      "title": "Azure Native Pure Storage Cloud Service",
+      "description": "Pure Storage Cloud block storage pools and volumes on Azure.",
+      "name": "pure_storage_block"
+    },
+    "purview": {
+      "title": "Microsoft Purview",
+      "description": "Management plane for Purview accounts, kafka configurations and private endpoints."
+    },
+    "purview_administration": {
+      "title": "Microsoft Purview - Administration (Data Plane)",
+      "description": "Account and metadata policy administration operations."
+    },
+    "purview_catalog": {
+      "title": "Microsoft Purview - Catalog (Data Plane)",
+      "description": "Data catalog entities, glossaries, lineage, relationships and types (Atlas API)."
+    },
+    "purview_datamap": {
+      "title": "Microsoft Purview - Data Map (Data Plane)",
+      "description": "Data map entities, discovery query and lineage operations.",
+      "name": "purview_data_map"
+    },
+    "purview_scanning": {
+      "title": "Microsoft Purview - Scanning (Data Plane)",
+      "description": "Data sources, scans, scan rulesets, classification rules and triggers."
+    },
+    "purview_sharing": {
+      "title": "Microsoft Purview - Data Sharing (Data Plane)",
+      "description": "Sent and received data shares, invitations and asset mappings."
+    },
+    "purview_workflow": {
+      "title": "Microsoft Purview - Workflow (Data Plane)",
+      "description": "Approval workflows, tasks and workflow runs."
+    },
+    "quantum": {
+      "title": "Azure Quantum",
+      "description": "Quantum workspaces and provider offerings."
     },
     "qumulo": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Azure Native Qumulo Scalable File Service",
+      "description": "Qumulo multi-protocol scale-out file systems on Azure."
+    },
+    "quota": {
+      "title": "Azure Quotas",
+      "description": "Query and request quota limits across Azure providers, plus group quotas."
+    },
+    "rdbms": {
+      "provider": "azure_extras",
+      "title": "Azure Database Single Servers (MySQL, PostgreSQL, MariaDB)",
+      "description": "Legacy single-server database offerings; all retired upstream in favor of flexible servers."
+    },
+    "recoveryservices": {
+      "title": "Azure Recovery Services",
+      "description": "Recovery Services vaults, vault certificates, replication usages and private link resources.",
+      "name": "recovery_services"
+    },
+    "recoveryservicesbackup": {
+      "title": "Azure Backup",
+      "description": "Backup items, policies, jobs, containers and restore operations in Recovery Services vaults.",
+      "name": "recovery_services_backup"
+    },
+    "recoveryservicesbackup_passivestamp": {
+      "title": "Azure Backup - Cross-Region Restore",
+      "description": "Secondary-region (passive stamp) backup items, jobs and restore operations.",
+      "name": "recovery_services_backup_passive_stamp"
+    },
+    "recoveryservicesdatareplication": {
+      "title": "Azure Site Recovery - Data Replication",
+      "description": "Replication fabrics, policies, protected items and workflows for the modernized replication surface.",
+      "name": "recovery_services_data_replication"
+    },
+    "recoveryservicessiterecovery": {
+      "title": "Azure Site Recovery",
+      "description": "Disaster recovery: replication fabrics, protection containers, protected items, recovery plans and jobs.",
+      "name": "recovery_services_site_recovery"
     },
     "redhatopenshift": {
-      "provider": "azure_isv"
+      "title": "Azure Red Hat OpenShift",
+      "description": "Managed OpenShift clusters, machine pools, secrets and sync resources.",
+      "name": "red_hat_openshift"
     },
     "redis": {
-      "provider": "azure_isv"
+      "title": "Azure Cache for Redis",
+      "description": "Redis caches, firewall rules, patch schedules, linked servers and access policies."
     },
     "redisenterprise": {
-      "provider": "azure_isv"
+      "title": "Azure Managed Redis (Redis Enterprise)",
+      "description": "Redis Enterprise clusters and databases including Azure Managed Redis.",
+      "name": "redis_enterprise"
     },
-    "workloads": {
-      "provider": "azure_isv"
+    "relationships": {
+      "title": "Azure Resource Relationships",
+      "description": "Dependency and connection relationships between resources (Microsoft.Relationships)."
     },
-    "workloadssapvirtualinstance": {
+    "relay": {
+      "title": "Azure Relay",
+      "description": "Relay namespaces, hybrid connections and WCF relays."
+    },
+    "reservations": {
+      "title": "Azure Reservations",
+      "description": "Reserved capacity orders, exchanges, calculations and applied reservations."
+    },
+    "resiliencemanagement": {
+      "title": "Azure Resiliency Management",
+      "description": "Resiliency posture and management surface (Microsoft.ResilienceManagement).",
+      "name": "resilience_management"
+    },
+    "resource": {
+      "title": "Azure Resource Manager",
+      "description": "The core ARM control plane: resource groups, resources, providers, tags, deployments, deployment scripts and stacks, policy, locks, links, features, subscriptions, template specs, managed applications, bicep and data boundaries."
+    },
+    "resource_bicep": {
+      "title": "Azure Resource Manager - Bicep",
+      "description": "Decompile ARM JSON to Bicep through the Microsoft.Resources bicep client.",
+      "mergeInto": "resource"
+    },
+    "resource_changes": {
+      "title": "Azure Resource Manager - Changes",
+      "description": "Resource change history at resource scope.",
+      "mergeInto": "resource"
+    },
+    "resource_databoundaries": {
+      "title": "Azure Resource Manager - Data Boundaries",
+      "description": "Tenant data boundary configuration (EU Data Boundary).",
+      "mergeInto": "resource",
+      "resourceRenames": {
+        "operations": "data_boundaries_operations"
+      }
+    },
+    "resource_deployments": {
+      "title": "Azure Resource Manager - Deployments",
+      "description": "Template deployments and operations at every ARM scope.",
+      "mergeInto": "resource"
+    },
+    "resource_deploymentscripts": {
+      "title": "Azure Resource Manager - Deployment Scripts",
+      "description": "Run PowerShell or CLI scripts as part of ARM deployments.",
+      "mergeInto": "resource"
+    },
+    "resource_deploymentstacks": {
+      "title": "Azure Resource Manager - Deployment Stacks",
+      "description": "Deployment stacks that manage resource lifecycles as a unit.",
+      "mergeInto": "resource"
+    },
+    "resource_features": {
+      "title": "Azure Resource Manager - Features",
+      "description": "Preview feature registrations per provider namespace.",
+      "mergeInto": "resource",
+      "resourceRenames": {
+        "operations": "features_operations"
+      }
+    },
+    "resource_links": {
+      "title": "Azure Resource Manager - Resource Links",
+      "description": "Typed links between related resources.",
+      "mergeInto": "resource",
+      "resourceRenames": {
+        "operations": "links_operations"
+      }
+    },
+    "resource_locks": {
+      "title": "Azure Resource Manager - Management Locks",
+      "description": "CanNotDelete and ReadOnly locks at subscription, group and resource scope.",
+      "mergeInto": "resource"
+    },
+    "resource_managedapplications": {
+      "title": "Azure Resource Manager - Managed Applications",
+      "description": "Managed application and application definition operations from the Microsoft.Resources surface.",
+      "mergeInto": "resource",
+      "resourceRenames": {
+        "operations": "managed_applications_operations"
+      }
+    },
+    "resource_policy": {
+      "title": "Azure Policy",
+      "description": "Policy definitions, set definitions (initiatives), assignments and exemptions.",
+      "mergeInto": "resource"
+    },
+    "resource_privatelinks": {
+      "title": "Azure Resource Manager - Private Links",
+      "description": "Resource management private links and private link associations.",
+      "mergeInto": "resource"
+    },
+    "resource_subscriptions": {
+      "title": "Azure Resource Manager - Subscriptions",
+      "description": "Subscriptions, tenants and location enumeration.",
+      "mergeInto": "resource",
+      "resourceRenames": {
+        "operations": "subscriptions_operations"
+      }
+    },
+    "resource_templatespecs": {
+      "title": "Azure Resource Manager - Template Specs",
+      "description": "Versioned, shareable ARM template specs.",
+      "mergeInto": "resource"
+    },
+    "resourceconnector": {
+      "title": "Azure Arc Resource Bridge",
+      "description": "Arc resource bridge appliances connecting on-premises infrastructure (Microsoft.ResourceConnector).",
+      "name": "resource_connector"
+    },
+    "resourcegraph": {
+      "title": "Azure Resource Graph",
+      "description": "Query resources at scale across subscriptions with KQL.",
+      "name": "resource_graph"
+    },
+    "resourcehealth": {
+      "title": "Azure Resource Health",
+      "description": "Availability statuses, service health events and emerging issues.",
+      "name": "resource_health"
+    },
+    "resourcemover": {
+      "title": "Azure Resource Mover",
+      "description": "Move collections and move resources for cross-region migration.",
+      "name": "resource_mover"
+    },
+    "schemaregistry": {
+      "title": "Azure Schema Registry (Data Plane)",
+      "description": "Register and resolve event schemas hosted in Event Hubs namespaces.",
+      "name": "schema_registry"
+    },
+    "scvmm": {
+      "title": "Azure Arc-enabled System Center VMM",
+      "description": "Arc-manage SCVMM servers, clouds, VM templates and virtual machines."
+    },
+    "search": {
+      "title": "Azure AI Search",
+      "description": "Management plane for search services, admin/query keys, private endpoints and shared private links."
+    },
+    "search_documents": {
+      "title": "Azure AI Search - Documents (Data Plane)",
+      "description": "Indexes, indexers, data sources, skillsets, synonym maps and document search."
+    },
+    "secretsstoreextension": {
+      "title": "Azure Secrets Store Extension",
+      "description": "Sync Key Vault secrets to Kubernetes clusters (Microsoft.SecretSyncController).",
+      "name": "secrets_store_extension"
+    },
+    "security": {
+      "title": "Microsoft Defender for Cloud",
+      "description": "Security posture and workload protection: assessments, alerts, pricings, secure scores and compliance."
+    },
+    "security_attestation": {
+      "title": "Microsoft Azure Attestation (Data Plane)",
+      "description": "Attest enclaves and TPMs against attestation providers, and manage policies."
+    },
+    "securitydevops": {
+      "title": "Microsoft Defender for DevOps",
+      "description": "Connect Azure DevOps and GitHub environments to Defender for Cloud (Microsoft.SecurityDevOps).",
+      "name": "security_devops"
+    },
+    "securityinsight": {
+      "title": "Microsoft Sentinel",
+      "description": "SIEM/SOAR: incidents, alert rules, data connectors, watchlists, hunting queries and automation rules.",
+      "name": "security_insight"
+    },
+    "selfhelp": {
+      "provider": "azure_extras",
+      "title": "Azure Self Help",
+      "description": "Guided diagnostics, solutions and troubleshooters (Microsoft.Help).",
+      "name": "self_help"
+    },
+    "serialconsole": {
+      "title": "Azure Serial Console",
+      "description": "Serial console enablement and administration for VMs.",
+      "name": "serial_console"
+    },
+    "servicebus": {
+      "title": "Azure Service Bus",
+      "description": "Messaging namespaces, queues, topics, subscriptions, rules and geo-DR configurations.",
+      "name": "service_bus"
+    },
+    "servicefabric": {
+      "title": "Azure Service Fabric",
+      "description": "Service Fabric clusters, application types, applications and services.",
+      "name": "service_fabric"
+    },
+    "servicefabric_dataplane": {
+      "title": "Azure Service Fabric (Data Plane)",
+      "description": "Cluster runtime operations: nodes, applications, services, partitions and replicas.",
+      "name": "service_fabric_dataplane"
+    },
+    "servicefabricmanagedclusters": {
+      "title": "Azure Service Fabric Managed Clusters",
+      "description": "Managed Service Fabric clusters, node types and managed applications.",
+      "name": "service_fabric_managed_clusters"
+    },
+    "servicegroups": {
+      "title": "Azure Service Groups",
+      "description": "Group resources across subscriptions into service group hierarchies (Microsoft.Management serviceGroups).",
+      "name": "service_groups"
+    },
+    "servicelinker": {
+      "title": "Azure Service Connector",
+      "description": "Link compute services to backing services with connection configuration (Microsoft.ServiceLinker).",
+      "name": "service_linker"
+    },
+    "servicenetworking": {
+      "title": "Application Gateway for Containers",
+      "description": "Traffic controllers, frontends, associations and security policies (Microsoft.ServiceNetworking).",
+      "name": "service_networking"
+    },
+    "signalr": {
+      "title": "Azure SignalR Service",
+      "description": "SignalR resources, custom domains, replicas and private endpoints for real-time messaging."
+    },
+    "sitemanager": {
+      "title": "Azure Arc Site Manager",
+      "description": "Sites that group edge and hybrid resources by physical location (Microsoft.Edge sites).",
+      "name": "site_manager"
+    },
+    "sphere": {
+      "provider": "azure_extras",
+      "title": "Azure Sphere",
+      "description": "Secured IoT device platform: catalogs, products, device groups and deployments."
+    },
+    "springappdiscovery": {
+      "provider": "azure_extras",
+      "title": "Azure Spring Apps Discovery",
+      "description": "Discover off-Azure Spring workloads for migration (Microsoft.OffAzureSpringBoot).",
+      "name": "spring_app_discovery"
+    },
+    "sql": {
+      "title": "Azure SQL Database",
+      "description": "SQL servers, databases, elastic pools, managed instances, failover groups and security configuration."
+    },
+    "sqlvirtualmachine": {
+      "title": "SQL Server on Azure Virtual Machines",
+      "description": "SQL VM resources, availability group listeners and licensing/patching configuration.",
+      "name": "sql_virtual_machine"
+    },
+    "standbypool": {
+      "title": "Azure Standby Pools",
+      "description": "Pre-provisioned VM and container-group pools for fast scale-out.",
+      "name": "standby_pool"
+    },
+    "storage": {
+      "title": "Azure Storage",
+      "description": "Storage accounts, blob/file/queue/table service properties, containers, shares and management policies."
+    },
+    "storage_blob": {
+      "title": "Azure Blob Storage (Data Plane)",
+      "description": "Containers and blob operations: upload, download, lease, tags and versions."
+    },
+    "storage_file_datalake": {
+      "title": "Azure Data Lake Storage Gen2 (Data Plane)",
+      "description": "Hierarchical namespace file systems, directories, files and ACLs."
+    },
+    "storage_file_share": {
+      "title": "Azure Files (Data Plane)",
+      "description": "SMB file shares, directories, files and share snapshots."
+    },
+    "storage_queue": {
+      "title": "Azure Queue Storage (Data Plane)",
+      "description": "Queues and queue message operations."
+    },
+    "storageactions": {
+      "title": "Azure Storage Actions",
+      "description": "Serverless storage tasks, assignments and task runs over storage accounts.",
+      "name": "storage_actions"
+    },
+    "storagecache": {
+      "title": "Azure HPC Cache and Managed Lustre",
+      "description": "HPC caches, storage targets and Azure Managed Lustre file systems (Microsoft.StorageCache).",
+      "name": "storage_cache"
+    },
+    "storagediscovery": {
+      "title": "Azure Storage Discovery",
+      "description": "Estate-wide storage discovery workspaces and reports.",
+      "name": "storage_discovery"
+    },
+    "storageimportexport": {
+      "provider": "azure_extras",
+      "title": "Azure Import/Export",
+      "description": "Ship-drive import/export jobs (retired upstream).",
+      "name": "storage_import_export"
+    },
+    "storagemover": {
+      "title": "Azure Storage Mover",
+      "description": "Migrate file data to Azure with movers, agents, endpoints and job definitions.",
+      "name": "storage_mover"
+    },
+    "storagepool": {
+      "provider": "azure_extras",
+      "title": "Azure Disk Pools",
+      "description": "Disk pools and iSCSI targets (retired upstream).",
+      "name": "storage_pool"
+    },
+    "storagesync": {
+      "title": "Azure File Sync",
+      "description": "Storage sync services, sync groups, cloud/server endpoints and registered servers.",
+      "name": "storage_sync"
+    },
+    "streamanalytics": {
+      "title": "Azure Stream Analytics",
+      "description": "Streaming jobs, inputs, outputs, transformations, functions and clusters.",
+      "name": "stream_analytics"
+    },
+    "subscription": {
+      "title": "Azure Subscriptions",
+      "description": "Subscription aliases, creation, rename, cancel and tenant policy."
+    },
+    "support": {
+      "title": "Azure Support",
+      "description": "Support tickets, communications, file attachments and problem classifications."
+    },
+    "synapse": {
+      "title": "Azure Synapse Analytics",
+      "description": "Synapse workspaces, SQL/Spark pools, integration runtimes, private link hubs and Kusto pools."
+    },
+    "synapse_accesscontrol": {
+      "title": "Azure Synapse Analytics - Access Control (Data Plane)",
+      "description": "Workspace role assignments and definitions.",
+      "name": "synapse_access_control"
+    },
+    "synapse_artifacts": {
+      "title": "Azure Synapse Analytics - Artifacts (Data Plane)",
+      "description": "Workspace artifacts: pipelines, notebooks, datasets, dataflows, linked services and triggers."
+    },
+    "synapse_managedprivateendpoints": {
+      "title": "Azure Synapse Analytics - Managed Private Endpoints (Data Plane)",
+      "description": "Managed private endpoints inside Synapse managed virtual networks.",
+      "name": "synapse_managed_private_endpoints"
+    },
+    "synapse_monitoring": {
+      "title": "Azure Synapse Analytics - Monitoring (Data Plane)",
+      "description": "Spark job and SQL request monitoring."
+    },
+    "synapse_spark": {
+      "title": "Azure Synapse Analytics - Spark (Data Plane)",
+      "description": "Spark batch jobs and Spark sessions."
+    },
+    "terraform": {
+      "title": "Azure Terraform",
+      "description": "Export existing Azure resources as Terraform configuration (Microsoft.AzureTerraform).",
       "provider": "azure_isv"
     },
     "testbase": {
-      "provider": "azure_extras"
+      "provider": "azure_extras",
+      "title": "Test Base for Microsoft 365",
+      "description": "Application compatibility testing against Windows updates."
     },
-    "avs": {
-      "provider": "azure_isv"
+    "timeseriesinsights": {
+      "provider": "azure_extras",
+      "title": "Azure Time Series Insights",
+      "description": "Time series environments, event sources and reference data sets (retired upstream).",
+      "name": "time_series_insights"
+    },
+    "trafficmanager": {
+      "title": "Azure Traffic Manager",
+      "description": "DNS-based traffic routing profiles, endpoints and user metrics keys.",
+      "name": "traffic_manager"
+    },
+    "videoanalyzer": {
+      "provider": "azure_extras",
+      "title": "Azure Video Analyzer",
+      "description": "Video analysis accounts, edge modules and pipelines (retired upstream).",
+      "name": "video_analyzer"
     },
     "vmwarecloudsimple": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Azure VMware Solution by CloudSimple",
+      "description": "Legacy CloudSimple-operated VMware private clouds (superseded by Azure VMware Solution).",
+      "name": "vmware_cloud_simple"
     },
-    "arizeaiobservabilityeval": {
-      "provider": "azure_isv"
+    "voiceservices": {
+      "provider": "azure_extras",
+      "title": "Azure Communications Gateway",
+      "description": "Operator Connect / Teams Phone Mobile voice gateways and test lines for telco operators.",
+      "name": "voice_services"
     },
-    "lambdatesthyperexecute": {
-      "provider": "azure_isv"
+    "web": {
+      "title": "Azure App Service",
+      "description": "Web apps, function apps, App Service plans, environments, static web apps, certificates and deployment slots."
     },
-    "mongodbatlas": {
-      "provider": "azure_isv"
+    "webpubsub": {
+      "title": "Azure Web PubSub",
+      "description": "Management plane for Web PubSub resources, hubs, custom domains and replicas including Socket.IO mode.",
+      "name": "web_pubsub"
     },
     "weightsandbiases": {
-      "provider": "azure_isv"
+      "provider": "azure_isv",
+      "title": "Weights & Biases - An Azure Native ISV Service",
+      "description": "W&B instances for ML experiment tracking and model management on Azure.",
+      "name": "weights_and_biases"
     },
-    "commvaultcontentstore": {
-      "provider": "azure_isv"
+    "workloadorchestration": {
+      "title": "Azure Workload Orchestration",
+      "description": "Orchestrate workload configuration across edge sites: solutions, targets, schemas and contexts (Microsoft.Edge).",
+      "name": "workload_orchestration"
     },
-    "purestorageblock": {
-      "provider": "azure_isv"
+    "workloads": {
+      "provider": "azure_isv",
+      "title": "Azure Center for SAP Solutions",
+      "description": "SAP virtual instances, central/app/database server instances and sizing recommendations (Microsoft.Workloads)."
     },
-    "neonpostgres": {
-      "provider": "azure_isv"
+    "workloadssapvirtualinstance": {
+      "provider": "azure_isv",
+      "title": "Virtual Instances for SAP Solutions",
+      "description": "SAP virtual instance lifecycle from the dedicated workloads SAP virtual instance surface.",
+      "name": "workloads_sap_virtual_instance"
     },
-    "informaticadatamanagement": {
-      "provider": "azure_isv"
+    "ai_language": {
+      "title": "Azure AI Language (Data Plane)",
+      "description": "Conversational language understanding, question answering and their authoring surfaces - conversation analysis, QA runtime, and CLU/QA project authoring."
     },
-    "dellstorage": {
-      "provider": "azure_isv"
-    },
-    "oep": {
-      "provider": "azure_extras"
+    "health_data_services": {
+      "provider": "azure_extras",
+      "title": "Azure Health Data Services",
+      "description": "FHIR, DICOM and MedTech (IoT connector) services and workspaces, the legacy Azure API for FHIR, and the de-identification service management plane (Microsoft.HealthcareApis + Microsoft.HealthDataAIServices)."
     }
   }
 }

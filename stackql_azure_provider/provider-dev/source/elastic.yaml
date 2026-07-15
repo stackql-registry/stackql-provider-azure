@@ -26,15 +26,6 @@ components:
           scopes:
             user_impersonation: impersonate your user account
   schemas:
-    ElasticTrafficFilterResponse:
-      type: object
-      description: List of elastic traffic filters in the account.
-      properties:
-        rulesets:
-          type: array
-          items:
-            $ref: '#/components/schemas/ElasticTrafficFilter'
-          description: List of elastic traffic filters in the account.
     ElasticTrafficFilter:
       type: object
       description: Elastic traffic filter object.
@@ -81,16 +72,15 @@ components:
         id:
           type: string
           description: Id of the elastic filter rule.
-    BillingInfoResponse:
+    ElasticTrafficFilterResponse:
       type: object
-      description: Marketplace Subscription and Organization details to which resource gets billed into.
+      description: List of elastic traffic filters in the account.
       properties:
-        marketplaceSaasInfo:
-          $ref: '#/components/schemas/MarketplaceSaaSInfo'
-          description: Marketplace Subscription details.
-        partnerBillingEntity:
-          $ref: '#/components/schemas/PartnerBillingEntity'
-          description: 'Partner Billing Entity details: Organization Info.'
+        rulesets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElasticTrafficFilter'
+          description: List of elastic traffic filters in the account.
     MarketplaceSaaSInfo:
       type: object
       description: Marketplace SAAS Info of the resource.
@@ -139,13 +129,16 @@ components:
         partnerEntityUri:
           type: string
           description: Link to the elastic organization page.
-    ConnectedPartnerResourcesListFormat:
+    BillingInfoResponse:
       type: object
-      description: Connected Partner Resources List Format.
+      description: Marketplace Subscription and Organization details to which resource gets billed into.
       properties:
-        properties:
-          $ref: '#/components/schemas/ConnectedPartnerResourceProperties'
-          description: Connected Partner Resource Properties.
+        marketplaceSaasInfo:
+          $ref: '#/components/schemas/MarketplaceSaaSInfo'
+          description: Marketplace Subscription details.
+        partnerBillingEntity:
+          $ref: '#/components/schemas/PartnerBillingEntity'
+          description: 'Partner Billing Entity details: Organization Info.'
     ConnectedPartnerResourceProperties:
       type: object
       description: Connected Partner Resource Properties.
@@ -165,13 +158,32 @@ components:
         type:
           type: string
           description: The hosting type of the resource.
-    PagedConnectedPartnerResourcesListFormat:
+    ConnectedPartnerResourcesListFormatFlattened:
+      type: object
+      description: Flattened view of ConnectedPartnerResourcesListFormat ('properties' hoisted to the top level).
+      properties:
+        partnerDeploymentName:
+          type: string
+          description: Elastic resource name.
+        partnerDeploymentUri:
+          type: string
+          description: URL of the resource in Elastic cloud.
+        azureResourceId:
+          type: string
+          description: The azure resource Id of the resource.
+        location:
+          type: string
+          description: The location of the resource.
+        type:
+          type: string
+          description: The hosting type of the resource.
+    PagedConnectedPartnerResourcesListFormatFlattened:
       type: object
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/ConnectedPartnerResourcesListFormat'
+            $ref: '#/components/schemas/ConnectedPartnerResourcesListFormatFlattened'
         nextLink:
           type: string
     DeploymentInfoResponse:
@@ -818,16 +830,16 @@ components:
         properties:
           $ref: '#/components/schemas/OpenAIIntegrationProperties'
           description: Open AI Integration details.
-    OpenAIIntegrationStatusResponse:
-      type: object
-      description: Status of the OpenAI Integration.
-      properties:
-        properties:
-          $ref: '#/components/schemas/OpenAIIntegrationStatusResponseProperties'
-          description: Status of the OpenAI Integration.
     OpenAIIntegrationStatusResponseProperties:
       type: object
       description: Status of the OpenAI Integration.
+      properties:
+        status:
+          type: string
+          description: Status of the OpenAI Integration.
+    OpenAIIntegrationStatusResponseFlattened:
+      type: object
+      description: Flattened view of OpenAIIntegrationStatusResponse ('properties' hoisted to the top level).
       properties:
         status:
           type: string
@@ -873,14 +885,6 @@ components:
             $ref: '#/components/schemas/OperationResult'
         nextLink:
           type: string
-    UserApiKeyResponse:
-      type: object
-      description: The User Api Key created for the Organization associated with the User Email Id that was passed
-        in the request.
-      properties:
-        properties:
-          $ref: '#/components/schemas/UserApiKeyResponseProperties'
-          description: ':vartype properties: ~azure.mgmt.elastic.models.UserApiKeyResponseProperties'
     UserApiKeyResponseProperties:
       type: object
       description: UserApiKeyResponseProperties.
@@ -889,19 +893,36 @@ components:
           type: string
           description: The User Api Key Generated based on GenerateApiKey flag. This is applicable for non-Portal
             clients only.
-    ElasticOrganizationToAzureSubscriptionMappingResponse:
+    UserApiKeyResponseFlattened:
       type: object
-      description: The Azure Subscription ID to which the Organization of the logged in user belongs and gets billed
-        into.
+      description: Flattened view of UserApiKeyResponse ('properties' hoisted to the top level).
       properties:
-        properties:
-          $ref: '#/components/schemas/ElasticOrganizationToAzureSubscriptionMappingResponseProperties'
-          description: The properties of Azure Subscription ID to which the Organization of the logged in user belongs
-            and gets billed into.
+        apiKey:
+          type: string
+          description: The User Api Key Generated based on GenerateApiKey flag. This is applicable for non-Portal
+            clients only.
     ElasticOrganizationToAzureSubscriptionMappingResponseProperties:
       type: object
       description: The properties of Azure Subscription ID to which the Organization of the logged in user belongs
         and gets billed into. Variables are only populated by the server, and will be ignored when sending a request.
+      properties:
+        billedAzureSubscriptionId:
+          type: string
+          description: The Azure Subscription ID to which the Organization belongs and gets billed into. This is
+            empty for a new user OR a user without an Elastic Organization.
+        marketplaceSaasInfo:
+          $ref: '#/components/schemas/MarketplaceSaaSInfo'
+          description: Marketplace SaaS Info of the resource.
+        elasticOrganizationId:
+          type: string
+          description: The Elastic Organization Id.
+        elasticOrganizationName:
+          type: string
+          description: The Elastic Organization Name.
+    ElasticOrganizationToAzureSubscriptionMappingResponseFlattened:
+      type: object
+      description: Flattened view of ElasticOrganizationToAzureSubscriptionMappingResponse ('properties' hoisted
+        to the top level).
       properties:
         billedAzureSubscriptionId:
           type: string
@@ -1040,7 +1061,7 @@ paths:
                 $ref: '#/components/schemas/ElasticTrafficFilterResponse'
       x-stackql-resource: all_traffic_filters
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/associateTrafficFilter?api-version=2025-06-01
   : post:
       operationId: AssociateTrafficFilter_begin_associate
@@ -1109,7 +1130,7 @@ paths:
                 $ref: '#/components/schemas/BillingInfoResponse'
       x-stackql-resource: billing_info
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/listConnectedPartnerResources?api-version=2025-06-01
   : post:
       operationId: ConnectedPartnerResources_list
@@ -1140,10 +1161,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedConnectedPartnerResourcesListFormat'
+                $ref: '#/components/schemas/PagedConnectedPartnerResourcesListFormatFlattened'
       x-stackql-resource: connected_partner_resources
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/createAndAssociateIPFilter?api-version=2025-06-01
   : post:
       operationId: CreateAndAssociateIPFilter_begin_create
@@ -1267,7 +1291,7 @@ paths:
                 $ref: '#/components/schemas/DeploymentInfoResponse'
       x-stackql-resource: deployment_info
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/detachAndDeleteTrafficFilter?api-version=2025-06-01
   : post:
       operationId: DetachAndDeleteTrafficFilter_delete
@@ -1462,7 +1486,7 @@ paths:
                 $ref: '#/components/schemas/ElasticTrafficFilterResponse'
       x-stackql-resource: list_associated_traffic_filters
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/upgrade?api-version=2025-06-01
   : post:
       operationId: Monitor_begin_upgrade
@@ -1535,7 +1559,8 @@ paths:
                 $ref: '#/components/schemas/PagedMonitoredResource'
       x-stackql-resource: monitored_resources
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/monitoredSubscriptions/{configuration_name}?api-version=2025-06-01
   : get:
       operationId: MonitoredSubscriptions_get
@@ -2171,10 +2196,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OpenAIIntegrationStatusResponse'
+                $ref: '#/components/schemas/OpenAIIntegrationStatusResponseFlattened'
       x-stackql-resource: open_ai
       x-stackql-method: get_status
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   /providers/Microsoft.Elastic/operations?api-version=2025-06-01:
     get:
       operationId: elastic_list
@@ -2219,10 +2245,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserApiKeyResponse'
+                $ref: '#/components/schemas/UserApiKeyResponseFlattened'
       x-stackql-resource: organizations
       x-stackql-method: get_api_key
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/providers/Microsoft.Elastic/getElasticOrganizationToAzureSubscriptionMapping?api-version=2025-06-01
   : post:
       operationId: Organizations_get_elastic_to_azure_subscription_mapping
@@ -2241,10 +2268,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ElasticOrganizationToAzureSubscriptionMappingResponse'
+                $ref: '#/components/schemas/ElasticOrganizationToAzureSubscriptionMappingResponseFlattened'
       x-stackql-resource: organizations
       x-stackql-method: get_elastic_to_azure_subscription_mapping
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/resubscribe?api-version=2025-06-01
   : post:
       operationId: Organizations_begin_resubscribe
@@ -2607,7 +2635,8 @@ paths:
                 $ref: '#/components/schemas/PagedVMResources'
       x-stackql-resource: vm_host
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Elastic/monitors/{monitor_name}/vmIngestionDetails?api-version=2025-06-01
   : post:
       operationId: VMIngestion_details

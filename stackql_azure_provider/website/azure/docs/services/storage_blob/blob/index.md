@@ -53,28 +53,28 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-snapshot"><code>snapshot</code></a>, <a href="#parameter-versionid"><code>versionid</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-lease-id"><code>x-ms-lease-id</code></a>, <a href="#parameter-x-ms-delete-snapshots"><code>x-ms-delete-snapshots</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a>, <a href="#parameter-If-None-Match"><code>If-None-Match</code></a>, <a href="#parameter-x-ms-if-tags"><code>x-ms-if-tags</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-deletetype"><code>deletetype</code></a>, <a href="#parameter-x-ms-access-tier-if-modified-since"><code>x-ms-access-tier-if-modified-since</code></a>, <a href="#parameter-x-ms-access-tier-if-unmodified-since"><code>x-ms-access-tier-if-unmodified-since</code></a></td>
     <td>If the storage account's soft delete feature is disabled then, when a blob is deleted, it is permanently removed from the storage account. If the storage account's soft delete feature is enabled, then, when a blob is deleted, it is marked for deletion and becomes inaccessible immediately. However, the blob service retains the blob or snapshot for the number of days specified by the DeleteRetentionPolicy section of [Storage service properties] (Set-Blob-Service-Properties.md). After the specified number of days has passed, the blob's data is permanently removed from the storage account. Note that you continue to be charged for the soft-deleted blob's storage until it is permanently removed. Use the List Blobs API and specify the "include=deleted" query parameter to discover which blobs and snapshots have been soft deleted. You can then use the Undelete Blob API to restore a soft-deleted blob. All other operations on a soft-deleted blob or snapshot causes the service to return an HTTP status code of 404 (ResourceNotFound).</td>
 </tr>
 <tr>
     <td><a href="#get_properties"><CopyableCode code="get_properties" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-snapshot"><code>snapshot</code></a>, <a href="#parameter-versionid"><code>versionid</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-lease-id"><code>x-ms-lease-id</code></a>, <a href="#parameter-x-ms-encryption-key"><code>x-ms-encryption-key</code></a>, <a href="#parameter-x-ms-encryption-key-sha256"><code>x-ms-encryption-key-sha256</code></a>, <a href="#parameter-x-ms-encryption-algorithm"><code>x-ms-encryption-algorithm</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a>, <a href="#parameter-If-None-Match"><code>If-None-Match</code></a>, <a href="#parameter-x-ms-if-tags"><code>x-ms-if-tags</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a></td>
     <td>The Get Properties operation returns all user-defined metadata, standard HTTP properties, and system properties for the blob. It does not return the content of the blob.</td>
 </tr>
 <tr>
     <td><a href="#get_account_info"><CopyableCode code="get_account_info" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a></td>
     <td>Returns the sku name and account kind.</td>
 </tr>
 <tr>
     <td><a href="#query"><CopyableCode code="query" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-account"><code>account</code></a></td>
     <td><a href="#parameter-snapshot"><code>snapshot</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-lease-id"><code>x-ms-lease-id</code></a>, <a href="#parameter-x-ms-encryption-key"><code>x-ms-encryption-key</code></a>, <a href="#parameter-x-ms-encryption-key-sha256"><code>x-ms-encryption-key-sha256</code></a>, <a href="#parameter-x-ms-encryption-algorithm"><code>x-ms-encryption-algorithm</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a>, <a href="#parameter-If-None-Match"><code>If-None-Match</code></a>, <a href="#parameter-x-ms-if-tags"><code>x-ms-if-tags</code></a>, <a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a></td>
     <td>The Query operation enables users to select/project on blob data by providing simple query expressions.</td>
 </tr>
@@ -94,15 +94,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
     </tr>
 </thead>
 <tbody>
-<tr id="parameter-endpoint">
-    <td><CopyableCode code="endpoint" /></td>
+<tr id="parameter-account">
+    <td><CopyableCode code="account" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>Storage account name. (default: )</td>
 </tr>
 <tr id="parameter-x-ms-version">
     <td><CopyableCode code="x-ms-version" /></td>
@@ -211,9 +206,8 @@ If the storage account's soft delete feature is disabled then, when a blob is de
 
 ```sql
 DELETE FROM azure.storage_blob.blob
-WHERE url = '{{ url }}' --required
-AND x-ms-version = '{{ x-ms-version }}' --required
-AND endpoint = '{{ endpoint }}' --required
+WHERE x-ms-version = '{{ x-ms-version }}' --required
+AND account = '{{ account }}' --required
 AND snapshot = '{{ snapshot }}'
 AND versionid = '{{ versionid }}'
 AND timeout = '{{ timeout }}'
@@ -250,9 +244,8 @@ The Get Properties operation returns all user-defined metadata, standard HTTP pr
 
 ```sql
 EXEC azure.storage_blob.blob.get_properties 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@account='{{ account }}' --required, 
 @snapshot='{{ snapshot }}', 
 @versionid='{{ versionid }}', 
 @timeout='{{ timeout }}', 
@@ -279,9 +272,8 @@ Returns the sku name and account kind.
 
 ```sql
 EXEC azure.storage_blob.blob.get_account_info 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@account='{{ account }}' --required, 
 @timeout='{{ timeout }}', 
 @x-ms-client-request-id='{{ x-ms-client-request-id }}'
 ;
@@ -293,9 +285,8 @@ The Query operation enables users to select/project on blob data by providing si
 
 ```sql
 EXEC azure.storage_blob.blob.query 
-@url='{{ url }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@account='{{ account }}' --required, 
 @snapshot='{{ snapshot }}', 
 @timeout='{{ timeout }}', 
 @x-ms-lease-id='{{ x-ms-lease-id }}', 

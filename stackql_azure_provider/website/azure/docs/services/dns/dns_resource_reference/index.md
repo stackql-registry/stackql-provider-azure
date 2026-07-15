@@ -32,8 +32,32 @@ Creates, updates, deletes, gets or lists a <code>dns_resource_reference</code> r
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="get_by_target_resources"
+    values={[
+        { label: 'get_by_target_resources', value: 'get_by_target_resources' }
+    ]}
+>
+<TabItem value="get_by_target_resources">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="dnsResourceReferences" /></td>
+    <td><code>array</code></td>
+    <td>The result of dns resource reference request. A list of dns resource references for each of the azure resource in the request.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -52,7 +76,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#get_by_target_resources"><CopyableCode code="get_by_target_resources" /></a></td>
-    <td><CopyableCode code="exec" /></td>
+    <td><CopyableCode code="select" /></td>
     <td><a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Returns the DNS records specified by the referencing targetResourceIds.</td>
@@ -81,7 +105,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## Lifecycle Methods
+## `SELECT` examples
 
 <Tabs
     defaultValue="get_by_target_resources"
@@ -94,12 +118,10 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Returns the DNS records specified by the referencing targetResourceIds.
 
 ```sql
-EXEC azure.dns.dns_resource_reference.get_by_target_resources 
-@subscription_id='{{ subscription_id }}' --required 
-@@json=
-'{
-"properties": "{{ properties }}"
-}'
+SELECT
+dnsResourceReferences
+FROM azure.dns.dns_resource_reference
+WHERE subscription_id = '{{ subscription_id }}' -- required
 ;
 ```
 </TabItem>

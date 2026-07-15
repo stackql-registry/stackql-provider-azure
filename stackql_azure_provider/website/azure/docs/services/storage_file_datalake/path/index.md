@@ -53,7 +53,7 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#lease"><CopyableCode code="lease" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-url"><code>url</code></a>, <a href="#parameter-x-ms-lease-action"><code>x-ms-lease-action</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td><a href="#parameter-x-ms-lease-action"><code>x-ms-lease-action</code></a>, <a href="#parameter-x-ms-version"><code>x-ms-version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-x-ms-client-request-id"><code>x-ms-client-request-id</code></a>, <a href="#parameter-timeout"><code>timeout</code></a>, <a href="#parameter-x-ms-lease-break-period"><code>x-ms-lease-break-period</code></a>, <a href="#parameter-x-ms-lease-id"><code>x-ms-lease-id</code></a>, <a href="#parameter-x-ms-proposed-lease-id"><code>x-ms-proposed-lease-id</code></a>, <a href="#parameter-If-Match"><code>If-Match</code></a>, <a href="#parameter-If-None-Match"><code>If-None-Match</code></a>, <a href="#parameter-If-Modified-Since"><code>If-Modified-Since</code></a>, <a href="#parameter-If-Unmodified-Since"><code>If-Unmodified-Since</code></a>, <a href="#parameter-x-ms-lease-duration"><code>x-ms-lease-duration</code></a></td>
     <td>Lease Path. Create and manage a lease to restrict write and delete access to the path. This operation supports conditional HTTP requests. For more information, see `Specifying Conditional Headers for Blob Service Operations `_.</td>
 </tr>
@@ -76,12 +76,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
-</tr>
-<tr id="parameter-url">
-    <td><CopyableCode code="url" /></td>
-    <td><code>string</code></td>
-    <td></td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-x-ms-lease-action">
     <td><CopyableCode code="x-ms-lease-action" /></td>
@@ -160,7 +155,6 @@ Lease Path. Create and manage a lease to restrict write and delete access to the
 
 ```sql
 EXEC azure.storage_file_datalake.path.lease 
-@url='{{ url }}' --required, 
 @x-ms-lease-action='{{ x-ms-lease-action }}' --required, 
 @x-ms-version='{{ x-ms-version }}' --required, 
 @endpoint='{{ endpoint }}' --required, 

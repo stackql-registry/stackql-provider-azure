@@ -17,9 +17,25 @@
     "           https://{url} does not."
   ],
   "segments": {
-    "v_net": "vnet"
+    "v_net": "vnet",
+    "o_auth": "oauth",
+    "git_hub": "github",
+    "adoo_auth": "ado_oauth",
+    "saa_s": "saas",
+    "signal_r": "signalr",
+    "v_cores": "vcores",
+    "v_center": "vcenter",
+    "v_ms": "vms",
+    "p2_s": "p2s",
+    "v2_s": "v2s",
+    "qn_a": "qna",
+    "i_pv6": "ipv6",
+    "o_auths": "oauths",
+    "v_centers": "vcenters"
   },
-  "resources": {},
+  "resources": {
+    "recoveryservicessiterecovery.replicationv_centers": "replication_vcenters"
+  },
   "methods": {},
   "verbs": {},
   "servers": {

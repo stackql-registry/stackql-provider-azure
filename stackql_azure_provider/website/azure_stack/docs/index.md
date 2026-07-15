@@ -20,8 +20,8 @@ Build and run hybrid apps across datacenters, edge locations, remote offices, an
 
 :::info[Provider Summary] 
 
-total services: __2__  
-total resources: __33__  
+total services: __4__  
+total resources: __51__  
 
 :::
 
@@ -49,9 +49,11 @@ To authenticate using an Azure Service Principal, set the following environment 
 ## Services
 <div class="row">
 <div class="providerDocColumn">
-<a href="/services/azurestack/">azurestack</a><br />
+<a href="/services/azure_stack/">azure_stack</a><br />
+<a href="/services/azure_stack_hci/">azure_stack_hci</a><br />
 </div>
 <div class="providerDocColumn">
-<a href="/services/azurestackhci/">azurestackhci</a><br />
+<a href="/services/azure_stack_hci_vm/">azure_stack_hci_vm</a><br />
+<a href="/services/disconnected_operations/">disconnected_operations</a><br />
 </div>
 </div>

@@ -196,25 +196,11 @@ The following methods are available for this resource:
     <td>List toolboxes. Returns the toolboxes available in the current project.</td>
 </tr>
 <tr>
-    <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Create a new version of a toolbox. Creates a new toolbox version, provisioning the toolbox itself if it does not already exist.</td>
-</tr>
-<tr>
     <td><a href="#update"><CopyableCode code="update" /></a></td>
     <td><CopyableCode code="update" /></td>
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Update a toolbox to point to a specific version. Updates the toolbox's default version pointer to the specified version.</td>
-</tr>
-<tr>
-    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
-    <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Delete a specific version of a toolbox. Removes the specified version of a toolbox.</td>
 </tr>
 <tr>
     <td><a href="#delete"><CopyableCode code="delete" /></a></td>
@@ -229,6 +215,20 @@ The following methods are available for this resource:
     <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-limit"><code>limit</code></a>, <a href="#parameter-order"><code>order</code></a>, <a href="#parameter-after"><code>after</code></a>, <a href="#parameter-before"><code>before</code></a></td>
     <td>List toolbox versions. Returns the available versions for the specified toolbox.</td>
+</tr>
+<tr>
+    <td><a href="#create_version"><CopyableCode code="create_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create a new version of a toolbox. Creates a new toolbox version, provisioning the toolbox itself if it does not already exist.</td>
+</tr>
+<tr>
+    <td><a href="#delete_version"><CopyableCode code="delete_version" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-name"><code>name</code></a>, <a href="#parameter-version"><code>version</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Delete a specific version of a toolbox. Removes the specified version of a toolbox.</td>
 </tr>
 </tbody>
 </table>
@@ -249,12 +249,12 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-name">
     <td><CopyableCode code="name" /></td>
     <td><code>string</code></td>
-    <td>The name of the toolbox to list versions for. Required.</td>
+    <td>The name of the toolbox. Required.</td>
 </tr>
 <tr id="parameter-version">
     <td><CopyableCode code="version" /></td>
@@ -352,57 +352,6 @@ AND before = '{{ before }}'
 </Tabs>
 
 
-## `INSERT` examples
-
-<Tabs
-    defaultValue="create_version"
-    values={[
-        { label: 'create_version', value: 'create_version' },
-        { label: 'Manifest', value: 'manifest' }
-    ]}
->
-<TabItem value="create_version">
-
-Create a new version of a toolbox. Creates a new toolbox version, provisioning the toolbox itself if it does not already exist.
-
-```sql
-INSERT INTO azure.ai_projects.toolboxes (
-name,
-endpoint
-)
-SELECT 
-'{{ name }}',
-'{{ endpoint }}'
-RETURNING
-id,
-name,
-created_at,
-description,
-metadata,
-policies,
-skills,
-tools,
-version
-;
-```
-</TabItem>
-<TabItem value="manifest">
-
-<CodeBlock language="yaml">{`# Description fields are for documentation purposes
-- name: toolboxes
-  props:
-    - name: name
-      value: "{{ name }}"
-      description: Required parameter for the toolboxes resource.
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the toolboxes resource.
-`}</CodeBlock>
-
-</TabItem>
-</Tabs>
-
-
 ## `UPDATE` examples
 
 <Tabs
@@ -434,24 +383,11 @@ default_version;
 ## `DELETE` examples
 
 <Tabs
-    defaultValue="delete_version"
+    defaultValue="delete"
     values={[
-        { label: 'delete_version', value: 'delete_version' },
         { label: 'delete', value: 'delete' }
     ]}
 >
-<TabItem value="delete_version">
-
-Delete a specific version of a toolbox. Removes the specified version of a toolbox.
-
-```sql
-DELETE FROM azure.ai_projects.toolboxes
-WHERE name = '{{ name }}' --required
-AND version = '{{ version }}' --required
-AND endpoint = '{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="delete">
 
 Delete a toolbox. Removes the specified toolbox along with all of its versions.
@@ -471,7 +407,9 @@ AND endpoint = '{{ endpoint }}' --required
 <Tabs
     defaultValue="list_versions"
     values={[
-        { label: 'list_versions', value: 'list_versions' }
+        { label: 'list_versions', value: 'list_versions' },
+        { label: 'create_version', value: 'create_version' },
+        { label: 'delete_version', value: 'delete_version' }
     ]}
 >
 <TabItem value="list_versions">
@@ -486,6 +424,29 @@ EXEC azure.ai_projects.toolboxes.list_versions
 @order='{{ order }}', 
 @after='{{ after }}', 
 @before='{{ before }}'
+;
+```
+</TabItem>
+<TabItem value="create_version">
+
+Create a new version of a toolbox. Creates a new toolbox version, provisioning the toolbox itself if it does not already exist.
+
+```sql
+EXEC azure.ai_projects.toolboxes.create_version 
+@name='{{ name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="delete_version">
+
+Delete a specific version of a toolbox. Removes the specified version of a toolbox.
+
+```sql
+EXEC azure.ai_projects.toolboxes.delete_version 
+@name='{{ name }}' --required, 
+@version='{{ version }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

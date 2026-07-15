@@ -1,0 +1,499 @@
+--- 
+title: incident_tasks
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - incident_tasks
+  - security_insight
+  - azure
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage azure resources using SQL
+custom_edit_url: null
+image: /img/stackql-azure-provider-featured-image.png
+---
+
+import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Creates, updates, deletes, gets or lists an <code>incident_tasks</code> resource.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><CopyableCode code="incident_tasks" /></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="azure.security_insight.incident_tasks" /></td></tr>
+</tbody></table>
+
+## Fields
+
+The following fields are returned by `SELECT` queries:
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdBy" /></td>
+    <td><code>object</code></td>
+    <td>Information on the client (user or application) that made some action.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdTimeUtc" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The time the task was created.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>The description of the task.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="etag" /></td>
+    <td><code>string</code></td>
+    <td>Etag of the azure resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastModifiedBy" /></td>
+    <td><code>object</code></td>
+    <td>Information on the client (user or application) that made some action.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastModifiedTimeUtc" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The last time the task was updated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The status of the task. Required. Known values are: "New" and "Completed". (New, Completed)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="title" /></td>
+    <td><code>string</code></td>
+    <td>The title of the task. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+<TabItem value="list">
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="id" /></td>
+    <td><code>string</code></td>
+    <td>Fully qualified resource ID for the resource. Ex - /subscriptions/&#123;subscriptionId&#125;/resourceGroups/&#123;resourceGroupName&#125;/providers/&#123;resourceProviderNamespace&#125;/&#123;resourceType&#125;/&#123;resourceName&#125;.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdBy" /></td>
+    <td><code>object</code></td>
+    <td>Information on the client (user or application) that made some action.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="createdTimeUtc" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The time the task was created.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="description" /></td>
+    <td><code>string</code></td>
+    <td>The description of the task.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="etag" /></td>
+    <td><code>string</code></td>
+    <td>Etag of the azure resource.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastModifiedBy" /></td>
+    <td><code>object</code></td>
+    <td>Information on the client (user or application) that made some action.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastModifiedTimeUtc" /></td>
+    <td><code>string (date-time)</code></td>
+    <td>The last time the task was updated.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="status" /></td>
+    <td><code>string</code></td>
+    <td>The status of the task. Required. Known values are: "New" and "Completed". (New, Completed)</td>
+</tr>
+<tr>
+    <td><CopyableCode code="systemData" /></td>
+    <td><code>object</code></td>
+    <td>Azure Resource Manager metadata containing createdBy and modifiedBy information.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="title" /></td>
+    <td><code>string</code></td>
+    <td>The title of the task. Required.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="type" /></td>
+    <td><code>string</code></td>
+    <td>The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts".</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
+
+## Methods
+
+The following methods are available for this resource:
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Accessible by</th>
+    <th>Required Params</th>
+    <th>Optional Params</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><a href="#get"><CopyableCode code="get" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-incident_id"><code>incident_id</code></a>, <a href="#parameter-incident_task_id"><code>incident_task_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets an incident task.</td>
+</tr>
+<tr>
+    <td><a href="#list"><CopyableCode code="list" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-incident_id"><code>incident_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Gets all incident tasks.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><CopyableCode code="insert" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-incident_id"><code>incident_id</code></a>, <a href="#parameter-incident_task_id"><code>incident_task_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Creates or updates the incident task.</td>
+</tr>
+<tr>
+    <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
+    <td><CopyableCode code="replace" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-incident_id"><code>incident_id</code></a>, <a href="#parameter-incident_task_id"><code>incident_task_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a>, <a href="#parameter-properties"><code>properties</code></a></td>
+    <td></td>
+    <td>Creates or updates the incident task.</td>
+</tr>
+<tr>
+    <td><a href="#delete"><CopyableCode code="delete" /></a></td>
+    <td><CopyableCode code="delete" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-workspace_name"><code>workspace_name</code></a>, <a href="#parameter-incident_id"><code>incident_id</code></a>, <a href="#parameter-incident_task_id"><code>incident_task_id</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Delete the incident task.</td>
+</tr>
+</tbody>
+</table>
+
+## Parameters
+
+Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#methods) section to see which parameters are required or optional for each operation.
+
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr id="parameter-incident_id">
+    <td><CopyableCode code="incident_id" /></td>
+    <td><code>string</code></td>
+    <td>Incident ID. Required.</td>
+</tr>
+<tr id="parameter-incident_task_id">
+    <td><CopyableCode code="incident_task_id" /></td>
+    <td><code>string</code></td>
+    <td>Incident task ID. Required.</td>
+</tr>
+<tr id="parameter-resource_group_name">
+    <td><CopyableCode code="resource_group_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the resource group. The name is case insensitive. Required.</td>
+</tr>
+<tr id="parameter-subscription_id">
+    <td><CopyableCode code="subscription_id" /></td>
+    <td><code>string</code></td>
+    <td></td>
+</tr>
+<tr id="parameter-workspace_name">
+    <td><CopyableCode code="workspace_name" /></td>
+    <td><code>string</code></td>
+    <td>The name of the monitor workspace. Required.</td>
+</tr>
+</tbody>
+</table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="get"
+    values={[
+        { label: 'get', value: 'get' },
+        { label: 'list', value: 'list' }
+    ]}
+>
+<TabItem value="get">
+
+Gets an incident task.
+
+```sql
+SELECT
+id,
+name,
+createdBy,
+createdTimeUtc,
+description,
+etag,
+lastModifiedBy,
+lastModifiedTimeUtc,
+status,
+systemData,
+title,
+type
+FROM azure.security_insight.incident_tasks
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND incident_id = '{{ incident_id }}' -- required
+AND incident_task_id = '{{ incident_task_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+<TabItem value="list">
+
+Gets all incident tasks.
+
+```sql
+SELECT
+id,
+name,
+createdBy,
+createdTimeUtc,
+description,
+etag,
+lastModifiedBy,
+lastModifiedTimeUtc,
+status,
+systemData,
+title,
+type
+FROM azure.security_insight.incident_tasks
+WHERE resource_group_name = '{{ resource_group_name }}' -- required
+AND workspace_name = '{{ workspace_name }}' -- required
+AND incident_id = '{{ incident_id }}' -- required
+AND subscription_id = '{{ subscription_id }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## `INSERT` examples
+
+<Tabs
+    defaultValue="create_or_update"
+    values={[
+        { label: 'create_or_update', value: 'create_or_update' },
+        { label: 'Manifest', value: 'manifest' }
+    ]}
+>
+<TabItem value="create_or_update">
+
+Creates or updates the incident task.
+
+```sql
+INSERT INTO azure.security_insight.incident_tasks (
+properties,
+etag,
+resource_group_name,
+workspace_name,
+incident_id,
+incident_task_id,
+subscription_id
+)
+SELECT 
+'{{ properties }}' /* required */,
+'{{ etag }}',
+'{{ resource_group_name }}',
+'{{ workspace_name }}',
+'{{ incident_id }}',
+'{{ incident_task_id }}',
+'{{ subscription_id }}'
+RETURNING
+id,
+name,
+etag,
+properties,
+systemData,
+type
+;
+```
+</TabItem>
+<TabItem value="manifest">
+
+<CodeBlock language="yaml">{`# Description fields are for documentation purposes
+- name: incident_tasks
+  props:
+    - name: resource_group_name
+      value: "{{ resource_group_name }}"
+      description: Required parameter for the incident_tasks resource.
+    - name: workspace_name
+      value: "{{ workspace_name }}"
+      description: Required parameter for the incident_tasks resource.
+    - name: incident_id
+      value: "{{ incident_id }}"
+      description: Required parameter for the incident_tasks resource.
+    - name: incident_task_id
+      value: "{{ incident_task_id }}"
+      description: Required parameter for the incident_tasks resource.
+    - name: subscription_id
+      value: "{{ subscription_id }}"
+      description: Required parameter for the incident_tasks resource.
+    - name: properties
+      description: |
+        Describes the properties of an incident task. Required.
+      value:
+        title: "{{ title }}"
+        description: "{{ description }}"
+        status: "{{ status }}"
+        createdTimeUtc: "{{ createdTimeUtc }}"
+        lastModifiedTimeUtc: "{{ lastModifiedTimeUtc }}"
+        createdBy:
+          email: "{{ email }}"
+          name: "{{ name }}"
+          objectId: "{{ objectId }}"
+          userPrincipalName: "{{ userPrincipalName }}"
+        lastModifiedBy:
+          email: "{{ email }}"
+          name: "{{ name }}"
+          objectId: "{{ objectId }}"
+          userPrincipalName: "{{ userPrincipalName }}"
+    - name: etag
+      value: "{{ etag }}"
+      description: |
+        Etag of the azure resource.
+`}</CodeBlock>
+
+</TabItem>
+</Tabs>
+
+
+## `REPLACE` examples
+
+<Tabs
+    defaultValue="create_or_update"
+    values={[
+        { label: 'create_or_update', value: 'create_or_update' }
+    ]}
+>
+<TabItem value="create_or_update">
+
+Creates or updates the incident task.
+
+```sql
+REPLACE azure.security_insight.incident_tasks
+SET 
+properties = '{{ properties }}',
+etag = '{{ etag }}'
+WHERE 
+resource_group_name = '{{ resource_group_name }}' --required
+AND workspace_name = '{{ workspace_name }}' --required
+AND incident_id = '{{ incident_id }}' --required
+AND incident_task_id = '{{ incident_task_id }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+AND properties = '{{ properties }}' --required
+RETURNING
+id,
+name,
+etag,
+properties,
+systemData,
+type;
+```
+</TabItem>
+</Tabs>
+
+
+## `DELETE` examples
+
+<Tabs
+    defaultValue="delete"
+    values={[
+        { label: 'delete', value: 'delete' }
+    ]}
+>
+<TabItem value="delete">
+
+Delete the incident task.
+
+```sql
+DELETE FROM azure.security_insight.incident_tasks
+WHERE resource_group_name = '{{ resource_group_name }}' --required
+AND workspace_name = '{{ workspace_name }}' --required
+AND incident_id = '{{ incident_id }}' --required
+AND incident_task_id = '{{ incident_task_id }}' --required
+AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>

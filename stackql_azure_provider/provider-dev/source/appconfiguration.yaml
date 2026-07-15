@@ -1665,7 +1665,8 @@ paths:
                 $ref: '#/components/schemas/PagedApiKey'
       x-stackql-resource: configuration_stores
       x-stackql-method: list_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/Microsoft.AppConfiguration/deletedConfigurationStores?api-version=2025-08-01-preview
   : get:
       operationId: ConfigurationStores_list_deleted
@@ -1791,7 +1792,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: configuration_stores
       x-stackql-method: purge_deleted
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.AppConfiguration/configurationStores/{config_store_name}/keyValues/{key_value_name}?api-version=2025-08-01-preview
   : get:
       operationId: KeyValues_get
@@ -2088,7 +2089,7 @@ paths:
                 $ref: '#/components/schemas/NameAvailabilityStatus'
       x-stackql-resource: operations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/providers/Microsoft.AppConfiguration/locations/{location}/checkNameAvailability?api-version=2025-08-01-preview
   : post:
       operationId: appconfiguration_regional_check_name_availability

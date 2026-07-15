@@ -840,18 +840,6 @@ components:
         isIdentityCertExprired:
           type: boolean
           description: Whether the identity certificate is expired.
-    IntegrationRuntimeMonitoringData:
-      type: object
-      description: Get monitoring data response.
-      properties:
-        name:
-          type: string
-          description: Integration runtime name.
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationRuntimeNodeMonitoringData'
-          description: Integration runtime node monitoring data.
     IntegrationRuntimeNodeMonitoringData:
       type: object
       description: Monitoring data for integration runtime node. Variables are only populated by the server, and
@@ -885,6 +873,18 @@ components:
         receivedBytes:
           type: number
           description: Received bytes on the integration runtime node.
+    IntegrationRuntimeMonitoringData:
+      type: object
+      description: Get monitoring data response.
+      properties:
+        name:
+          type: string
+          description: Integration runtime name.
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationRuntimeNodeMonitoringData'
+          description: Integration runtime node monitoring data.
     IntegrationRuntimeNodeIpAddress:
       type: object
       description: The IP address of self-hosted integration runtime node. Variables are only populated by the server,
@@ -966,18 +966,6 @@ components:
         maxConcurrentJobs:
           type: integer
           description: The maximum concurrent jobs in this integration runtime.
-    SsisObjectMetadataListResponse:
-      type: object
-      description: A list of SSIS object metadata.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/SsisObjectMetadata'
-          description: List of SSIS object metadata.
-        nextLink:
-          type: string
-          description: The link to the next page of results, if any remaining results exist.
     SsisObjectMetadata:
       type: object
       description: 'SSIS object metadata. You probably want to use the sub-classes and not this class directly.
@@ -998,6 +986,18 @@ components:
           description: Metadata description.
       required:
       - type
+    SsisObjectMetadataListResponse:
+      type: object
+      description: A list of SSIS object metadata.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/SsisObjectMetadata'
+          description: List of SSIS object metadata.
+        nextLink:
+          type: string
+          description: The link to the next page of results, if any remaining results exist.
     SsisObjectMetadataStatusResponse:
       type: object
       description: The status of the operation.
@@ -1014,29 +1014,23 @@ components:
         error:
           type: string
           description: The operation error message.
-    IntegrationRuntimeStatusResponse:
+    IntegrationRuntimeStatusResponseFlattened:
       type: object
-      description: Integration runtime status response. Variables are only populated by the server, and will be
-        ignored when sending a request. All required parameters must be populated in order to send to Azure.
+      description: Flattened view of IntegrationRuntimeStatusResponse ('properties' hoisted to the top level).
       properties:
         name:
           type: string
           description: The integration runtime name.
-        properties:
-          type: object
-          properties:
-            type:
-              type: string
-              description: 'Type of integration runtime. Required. Known values are: "Managed" and "SelfHosted".'
-            dataFactoryName:
-              type: string
-              description: The workspace name which the integration runtime belong to.
-            state:
-              type: string
-              description: 'The state of integration runtime. Known values are: "Initial", "Stopped", "Started",
-                "Starting", "Stopping", "NeedRegistration", "Online", "Limited", "Offline", and "AccessDenied".'
-      required:
-      - properties
+        type:
+          type: string
+          description: 'Type of integration runtime. Required. Known values are: "Managed" and "SelfHosted".'
+        dataFactoryName:
+          type: string
+          description: The workspace name which the integration runtime belong to.
+        state:
+          type: string
+          description: 'The state of integration runtime. Known values are: "Initial", "Stopped", "Started", "Starting",
+            "Stopping", "NeedRegistration", "Online", "Limited", "Offline", and "AccessDenied".'
     IntegrationRuntimeResourceFlattened:
       type: object
       description: Flattened view of IntegrationRuntimeResource ('properties' hoisted to the top level).
@@ -1131,6 +1125,29 @@ components:
             description:
               type: string
               description: Integration runtime description.
+      required:
+      - properties
+    IntegrationRuntimeStatusResponse:
+      type: object
+      description: Integration runtime status response. Variables are only populated by the server, and will be
+        ignored when sending a request. All required parameters must be populated in order to send to Azure.
+      properties:
+        name:
+          type: string
+          description: The integration runtime name.
+        properties:
+          type: object
+          properties:
+            type:
+              type: string
+              description: 'Type of integration runtime. Required. Known values are: "Managed" and "SelfHosted".'
+            dataFactoryName:
+              type: string
+              description: The workspace name which the integration runtime belong to.
+            state:
+              type: string
+              description: 'The state of integration runtime. Known values are: "Initial", "Stopped", "Started",
+                "Starting", "Stopping", "NeedRegistration", "Online", "Limited", "Offline", and "AccessDenied".'
       required:
       - properties
     IpFirewallRuleInfoFlattened:
@@ -6535,7 +6552,7 @@ paths:
                 $ref: '#/components/schemas/IntegrationRuntimeAuthKeys'
       x-stackql-resource: integration_runtime_auth_keys
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/integrationRuntimes/{integration_runtime_name}/regenerateAuthKey?api-version=2021-06-01-preview
   : post:
       operationId: IntegrationRuntimeAuthKeys_regenerate
@@ -6623,7 +6640,7 @@ paths:
                 $ref: '#/components/schemas/IntegrationRuntimeConnectionInfo'
       x-stackql-resource: integration_runtime_connection_infos
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/integrationRuntimes/{integration_runtime_name}/syncCredentials?api-version=2021-06-01-preview
   : post:
       operationId: IntegrationRuntimeCredentials_sync
@@ -6698,7 +6715,7 @@ paths:
                 $ref: '#/components/schemas/IntegrationRuntimeMonitoringData'
       x-stackql-resource: integration_runtime_monitoring_data
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/integrationRuntimes/{integration_runtime_name}/nodes/{node_name}/ipAddress?api-version=2021-06-01-preview
   : post:
       operationId: IntegrationRuntimeNodeIpAddress_get
@@ -6742,7 +6759,7 @@ paths:
                 $ref: '#/components/schemas/IntegrationRuntimeNodeIpAddress'
       x-stackql-resource: integration_runtime_node_ip_address
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/integrationRuntimes/{integration_runtime_name}/nodes/{node_name}?api-version=2021-06-01-preview
   : get:
       operationId: IntegrationRuntimeNodes_get
@@ -6927,7 +6944,7 @@ paths:
                 $ref: '#/components/schemas/SsisObjectMetadataListResponse'
       x-stackql-resource: integration_runtime_object_metadata
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/integrationRuntimes/{integration_runtime_name}/refreshObjectMetadata?api-version=2021-06-01-preview
   : post:
       operationId: IntegrationRuntimeObjectMetadata_begin_refresh
@@ -7000,10 +7017,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IntegrationRuntimeStatusResponse'
+                $ref: '#/components/schemas/IntegrationRuntimeStatusResponseFlattened'
       x-stackql-resource: integration_runtime_status
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/integrationRuntimes/{integration_runtime_name}?api-version=2021-06-01-preview
   : get:
       operationId: IntegrationRuntimes_get
@@ -8083,7 +8101,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: kusto_pool_child_resource
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/kustoPools/{kusto_pool_name}/databases/{database_name}/dataConnections/{data_connection_name}?api-version=2021-06-01-preview
   : get:
       operationId: KustoPoolDataConnections_get
@@ -8414,7 +8432,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: kusto_pool_data_connections
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/kustoPools/{kusto_pool_name}/databases/{database_name}/dataConnectionValidation?api-version=2021-06-01-preview
   : post:
       operationId: KustoPoolDataConnections_begin_data_connection_validation
@@ -8748,7 +8766,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: kusto_pool_database_principal_assignments
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/kustoPools/{kusto_pool_name}/databases/{database_name}?api-version=2021-06-01-preview
   : get:
       operationId: KustoPoolDatabases_get
@@ -9232,7 +9250,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: kusto_pool_principal_assignments
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/kustoPools/{kusto_pool_name}/privateLinkResources?api-version=2021-06-01-preview
   : get:
       operationId: KustoPoolPrivateLinkResources_list
@@ -9637,7 +9655,8 @@ paths:
                 $ref: '#/components/schemas/PagedLanguageExtension'
       x-stackql-resource: kusto_pools
       x-stackql-method: list_language_extensions
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/kustoPools/{kusto_pool_name}/listFollowerDatabases?api-version=2021-06-01-preview
   : post:
       operationId: KustoPools_list_follower_databases
@@ -9676,7 +9695,8 @@ paths:
                 $ref: '#/components/schemas/PagedFollowerDatabaseDefinition'
       x-stackql-resource: kusto_pools
       x-stackql-method: list_follower_databases
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/providers/Microsoft.Synapse/locations/{location}/kustoPoolCheckNameAvailability?api-version=2021-06-01-preview
   : post:
       operationId: KustoPools_check_name_availability
@@ -9719,7 +9739,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameResult'
       x-stackql-resource: kusto_pools
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/kustoPools/{kusto_pool_name}/stop?api-version=2021-06-01-preview
   : post:
       operationId: KustoPools_begin_stop
@@ -10124,7 +10144,7 @@ paths:
                 $ref: '#/components/schemas/CheckNameAvailabilityResponse'
       x-stackql-resource: operations
       x-stackql-method: check_name_availability
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Synapse/workspaces/{workspace_name}/privateEndpointConnections/{private_endpoint_connection_name}?api-version=2021-06-01
   : get:
       operationId: PrivateEndpointConnections_get

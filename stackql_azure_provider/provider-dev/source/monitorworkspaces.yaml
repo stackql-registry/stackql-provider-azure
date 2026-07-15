@@ -511,20 +511,6 @@ components:
             $ref: '#/components/schemas/IssueResourceFlattened'
         nextLink:
           type: string
-    PagedRelatedAlert:
-      type: object
-      description: Paged collection of RelatedAlert items.
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/RelatedAlert'
-          description: The RelatedAlert items on this page. Required.
-        nextLink:
-          type: string
-          description: The link to the next page of items.
-      required:
-      - value
     RelatedAlert:
       type: object
       description: Properties of an alert which is related to the issue.
@@ -575,15 +561,15 @@ components:
       enum:
       - Manual
       - Automatic
-    PagedRelatedResource:
+    PagedRelatedAlert:
       type: object
-      description: Paged collection of RelatedResource items.
+      description: Paged collection of RelatedAlert items.
       properties:
         value:
           type: array
           items:
-            $ref: '#/components/schemas/RelatedResource'
-          description: The RelatedResource items on this page. Required.
+            $ref: '#/components/schemas/RelatedAlert'
+          description: The RelatedAlert items on this page. Required.
         nextLink:
           type: string
           description: The link to the next page of items.
@@ -613,6 +599,20 @@ components:
       required:
       - id
       - relevance
+    PagedRelatedResource:
+      type: object
+      description: Paged collection of RelatedResource items.
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedResource'
+          description: The RelatedResource items on this page. Required.
+        nextLink:
+          type: string
+          description: The link to the next page of items.
+      required:
+      - value
     IssueResource:
       type: object
       description: The Issue resource.
@@ -1307,7 +1307,7 @@ paths:
                 $ref: '#/components/schemas/PagedRelatedAlert'
       x-stackql-resource: issue
       x-stackql-method: list_alerts
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Monitor/accounts/{azure_monitor_workspace_name}/issues/{issue_name}/listResources?api-version=2025-10-03
   : post:
       operationId: Issue_list_resources
@@ -1356,7 +1356,7 @@ paths:
                 $ref: '#/components/schemas/PagedRelatedResource'
       x-stackql-resource: issue
       x-stackql-method: list_resources
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Monitor/accounts/{azure_monitor_workspace_name}/issues/{issue_name}/addInvestigationResult?api-version=2025-10-03
   : post:
       operationId: Issue_add_investigation_result
@@ -1471,7 +1471,7 @@ paths:
                 $ref: '#/components/schemas/InvestigationResult'
       x-stackql-resource: issue
       x-stackql-method: fetch_investigation_result
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Monitor/accounts/{azure_monitor_workspace_name}/issues/{issue_name}/addOrUpdateAlerts?api-version=2025-10-03
   : post:
       operationId: Issue_add_or_update_alerts
@@ -1613,7 +1613,7 @@ paths:
                 $ref: '#/components/schemas/BackgroundVisualization'
       x-stackql-resource: issue
       x-stackql-method: fetch_background_visualization
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Monitor/accounts/{azure_monitor_workspace_name}/issues/{issue_name}/setBackgroundVisualization?api-version=2025-10-03
   : post:
       operationId: Issue_set_background_visualization

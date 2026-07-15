@@ -52,7 +52,7 @@ The following methods are available for this resource:
 <tbody>
 <tr>
     <td><a href="#replace_node_user"><CopyableCode code="replace_node_user" /></a></td>
-    <td><CopyableCode code="replace" /></td>
+    <td><CopyableCode code="exec" /></td>
     <td><a href="#parameter-pool_id"><code>pool_id</code></a>, <a href="#parameter-node_id"><code>node_id</code></a>, <a href="#parameter-user_name"><code>user_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-timeOut"><code>timeOut</code></a>, <a href="#parameter-ocp-date"><code>ocp-date</code></a></td>
     <td>Updates the password and expiration time of a user Account on the specified Compute Node. This operation replaces of all the updatable properties of the Account. For example, if the expiryTime element is not specified, the current value is replaced with the default value, not left unmodified. You can update a user Account on a Compute Node only when it is in the idle or running state.</td>
@@ -76,7 +76,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint, e.g. value of the client `endpoint` parameter. (default: )</td>
+    <td>The service endpoint host (no scheme), e.g. myaccount.table.cosmos.azure.com:443 - value of the client `endpoint` parameter. (default: )</td>
 </tr>
 <tr id="parameter-node_id">
     <td><CopyableCode code="node_id" /></td>
@@ -106,7 +106,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 </tbody>
 </table>
 
-## `REPLACE` examples
+## Lifecycle Methods
 
 <Tabs
     defaultValue="replace_node_user"
@@ -119,18 +119,20 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 Updates the password and expiration time of a user Account on the specified Compute Node. This operation replaces of all the updatable properties of the Account. For example, if the expiryTime element is not specified, the current value is replaced with the default value, not left unmodified. You can update a user Account on a Compute Node only when it is in the idle or running state.
 
 ```sql
-REPLACE azure.batch_dataplane.replace_node_users
-SET 
-password = '{{ password }}',
-expiryTime = '{{ expiryTime }}',
-sshPublicKey = '{{ sshPublicKey }}'
-WHERE 
-pool_id = '{{ pool_id }}' --required
-AND node_id = '{{ node_id }}' --required
-AND user_name = '{{ user_name }}' --required
-AND endpoint = '{{ endpoint }}' --required
-AND timeOut = '{{ timeOut}}'
-AND ocp-date = '{{ ocp-date}}';
+EXEC azure.batch_dataplane.replace_node_users.replace_node_user 
+@pool_id='{{ pool_id }}' --required, 
+@node_id='{{ node_id }}' --required, 
+@user_name='{{ user_name }}' --required, 
+@endpoint='{{ endpoint }}' --required, 
+@timeOut='{{ timeOut }}', 
+@ocp-date='{{ ocp-date }}' 
+@@json=
+'{
+"password": "{{ password }}", 
+"expiryTime": "{{ expiryTime }}", 
+"sshPublicKey": "{{ sshPublicKey }}"
+}'
+;
 ```
 </TabItem>
 </Tabs>

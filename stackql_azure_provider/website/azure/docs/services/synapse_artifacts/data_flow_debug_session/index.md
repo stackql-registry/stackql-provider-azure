@@ -32,8 +32,77 @@ Creates, updates, deletes, gets or lists a <code>data_flow_debug_session</code> 
 
 The following fields are returned by `SELECT` queries:
 
-`SELECT` not supported for this resource, use `SHOW METHODS` to view available operations for the resource.
+<Tabs
+    defaultValue="query_data_flow_debug_sessions_by_workspace"
+    values={[
+        { label: 'query_data_flow_debug_sessions_by_workspace', value: 'query_data_flow_debug_sessions_by_workspace' }
+    ]}
+>
+<TabItem value="query_data_flow_debug_sessions_by_workspace">
 
+<table>
+<thead>
+    <tr>
+    <th>Name</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+    <td><CopyableCode code="" /></td>
+    <td><code>object</code></td>
+    <td>Unmatched properties from the message are deserialized to this collection.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="computeType" /></td>
+    <td><code>string</code></td>
+    <td>Compute type of the cluster.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="coreCount" /></td>
+    <td><code>integer</code></td>
+    <td>Core count of the cluster.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="dataFlowName" /></td>
+    <td><code>string</code></td>
+    <td>The name of the data flow.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="integrationRuntimeName" /></td>
+    <td><code>string</code></td>
+    <td>Attached integration runtime name of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="lastActivityTime" /></td>
+    <td><code>string</code></td>
+    <td>Last activity time of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="nodeCount" /></td>
+    <td><code>integer</code></td>
+    <td>Node count of the cluster. (deprecated property).</td>
+</tr>
+<tr>
+    <td><CopyableCode code="sessionId" /></td>
+    <td><code>string</code></td>
+    <td>The ID of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="startTime" /></td>
+    <td><code>string</code></td>
+    <td>Start time of data flow debug session.</td>
+</tr>
+<tr>
+    <td><CopyableCode code="timeToLiveInMinutes" /></td>
+    <td><code>integer</code></td>
+    <td>Compute type of the cluster.</td>
+</tr>
+</tbody>
+</table>
+</TabItem>
+</Tabs>
 
 ## Methods
 
@@ -51,6 +120,13 @@ The following methods are available for this resource:
 </thead>
 <tbody>
 <tr>
+    <td><a href="#query_data_flow_debug_sessions_by_workspace"><CopyableCode code="query_data_flow_debug_sessions_by_workspace" /></a></td>
+    <td><CopyableCode code="select" /></td>
+    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Query all active data flow debug sessions.</td>
+</tr>
+<tr>
     <td><a href="#create_data_flow_debug_session"><CopyableCode code="create_data_flow_debug_session" /></a></td>
     <td><CopyableCode code="insert" /></td>
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
@@ -63,13 +139,6 @@ The following methods are available for this resource:
     <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Deletes a data flow debug session.</td>
-</tr>
-<tr>
-    <td><a href="#query_data_flow_debug_sessions_by_workspace"><CopyableCode code="query_data_flow_debug_sessions_by_workspace" /></a></td>
-    <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a></td>
-    <td></td>
-    <td>Query all active data flow debug sessions.</td>
 </tr>
 <tr>
     <td><a href="#add_data_flow"><CopyableCode code="add_data_flow" /></a></td>
@@ -104,10 +173,42 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 </tbody>
 </table>
+
+## `SELECT` examples
+
+<Tabs
+    defaultValue="query_data_flow_debug_sessions_by_workspace"
+    values={[
+        { label: 'query_data_flow_debug_sessions_by_workspace', value: 'query_data_flow_debug_sessions_by_workspace' }
+    ]}
+>
+<TabItem value="query_data_flow_debug_sessions_by_workspace">
+
+Query all active data flow debug sessions.
+
+```sql
+SELECT
+,
+computeType,
+coreCount,
+dataFlowName,
+integrationRuntimeName,
+lastActivityTime,
+nodeCount,
+sessionId,
+startTime,
+timeToLiveInMinutes
+FROM azure.synapse_artifacts.data_flow_debug_session
+WHERE endpoint = '{{ endpoint }}' -- required
+;
+```
+</TabItem>
+</Tabs>
+
 
 ## `INSERT` examples
 
@@ -200,23 +301,12 @@ WHERE endpoint = '{{ endpoint }}' --required
 ## Lifecycle Methods
 
 <Tabs
-    defaultValue="query_data_flow_debug_sessions_by_workspace"
+    defaultValue="add_data_flow"
     values={[
-        { label: 'query_data_flow_debug_sessions_by_workspace', value: 'query_data_flow_debug_sessions_by_workspace' },
         { label: 'add_data_flow', value: 'add_data_flow' },
         { label: 'execute_command', value: 'execute_command' }
     ]}
 >
-<TabItem value="query_data_flow_debug_sessions_by_workspace">
-
-Query all active data flow debug sessions.
-
-```sql
-EXEC azure.synapse_artifacts.data_flow_debug_session.query_data_flow_debug_sessions_by_workspace 
-@endpoint='{{ endpoint }}' --required
-;
-```
-</TabItem>
 <TabItem value="add_data_flow">
 
 Add a data flow into debug session.

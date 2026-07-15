@@ -328,7 +328,7 @@ paths:
           description: Success
       x-stackql-resource: sent_shares
       x-stackql-method: create_invitation
-      x-stackql-verb: INSERT
+      x-stackql-verb: EXEC
     delete:
       operationId: SentShares_begin_delete_invitation
       description: Delete Invitation in a share. Delete a sent share invitation.
@@ -350,7 +350,7 @@ paths:
           description: Success (no content / accepted)
       x-stackql-resource: sent_shares
       x-stackql-method: delete_invitation
-      x-stackql-verb: DELETE
+      x-stackql-verb: EXEC
   /sentShares/{sent_share_id}/sentShareInvitations/{sent_share_invitation_id}:notify?api-version=2023-05-30-preview:
     post:
       operationId: SentShares_notify_user_invitation

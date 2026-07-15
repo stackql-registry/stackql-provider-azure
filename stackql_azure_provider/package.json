@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "generate-openapi": "python openapi-generation/azure_sdk_to_openapi.py --output-dir provider-dev/source",
-    "generate-provider": "node provider-dev/scripts/generate-provider.mjs --provider-name azure --source-dir provider-dev/source --output-dir provider-dev/openapi/src --overwrite",
+    "generate-provider": "node provider-dev/scripts/generate-provider.mjs --provider-name azure --source-dir provider-dev/source --output-dir provider-dev/openapi/src --overwrite && node provider-dev/scripts/add-supplemental-services.mjs",
     "generate-docs": "bash ./bin/generate-docs.sh",
     "start-server": "bash ./bin/start-server.sh",
     "stop-server": "bash ./bin/stop-server.sh",
     "server-status": "bash ./bin/server-status.sh",
-    "test-meta-routes": "node ./bin/test-meta-routes.cjs"
+    "test-meta-routes": "node ./bin/test-meta-routes.cjs",
+    "add-supplemental-services": "node provider-dev/scripts/add-supplemental-services.mjs"
   },
   "dependencies": {
     "@stackql/pgwire-lite": "^1.0.1",

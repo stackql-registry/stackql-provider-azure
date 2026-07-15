@@ -1338,6 +1338,16 @@ components:
         eTag:
           type: string
           description: Optional ETag.
+    FabricName:
+      type: string
+      enum:
+      - Invalid
+      - Azure
+    AcquireStorageAccountLock:
+      type: string
+      enum:
+      - Acquire
+      - NotAcquire
     BackupStatusResponse:
       type: object
       description: BackupStatus response.
@@ -1377,16 +1387,6 @@ components:
           $ref: '#/components/schemas/AcquireStorageAccountLock'
           description: 'Specifies whether the storage account lock has been acquired or not. Known values are: "Acquire"
             and "NotAcquire".'
-    FabricName:
-      type: string
-      enum:
-      - Invalid
-      - Azure
-    AcquireStorageAccountLock:
-      type: string
-      enum:
-      - Acquire
-      - NotAcquire
     UsagesUnit:
       type: string
       enum:
@@ -2295,15 +2295,6 @@ components:
         eTag:
           type: string
           description: Optional ETag.
-    PagedRecoveryPointResource:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecoveryPointResource'
-        nextLink:
-          type: string
     ResourceGuardProxyBase:
       type: object
       description: ResourceGuardProxyBase.
@@ -3348,7 +3339,7 @@ paths:
                 $ref: '#/components/schemas/BackupStatusResponse'
       x-stackql-resource: backup_status
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RecoveryServices/vaults/{vault_name}/backupUsageSummaries?api-version=2026-01-31-preview
   : get:
       operationId: BackupUsageSummaries_list
@@ -5593,10 +5584,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PagedRecoveryPointResource'
+                $ref: '#/components/schemas/PagedRecoveryPointResourceFlattened'
       x-stackql-resource: recovery_points_recommended_for_move
       x-stackql-method: list
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
+      x-stackql-flatten: list
+      x-stackql-flattenKey: value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RecoveryServices/vaults/{vault_name}/backupResourceGuardProxies?api-version=2026-01-31-preview
   : get:
       operationId: ResourceGuardProxies_get
@@ -5942,7 +5936,7 @@ paths:
                 $ref: '#/components/schemas/TokenInformation'
       x-stackql-resource: security_pi_ns
       x-stackql-method: get
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RecoveryServices/vaults/{vault_name}/backupTieringCost/default/operationsStatus/{operation_id}?api-version=2026-01-31-preview
   : get:
       operationId: TieringCostOperationStatus_get

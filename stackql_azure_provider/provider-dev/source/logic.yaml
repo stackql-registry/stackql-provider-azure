@@ -1583,6 +1583,25 @@ components:
               description: The agreement content. Required.
       required:
       - properties
+    WorkflowTriggerListCallbackUrlQueries:
+      type: object
+      description: Gets the workflow trigger callback URL query parameters.
+      properties:
+        api-version:
+          type: string
+          description: The api version.
+        sp:
+          type: string
+          description: The SAS permissions.
+        sv:
+          type: string
+          description: The SAS version.
+        sig:
+          type: string
+          description: The SAS signature.
+        se:
+          type: string
+          description: The SAS timestamp.
     WorkflowTriggerCallbackUrl:
       type: object
       description: The workflow trigger callback URL. Variables are only populated by the server, and will be ignored
@@ -1608,25 +1627,6 @@ components:
         queries:
           $ref: '#/components/schemas/WorkflowTriggerListCallbackUrlQueries'
           description: Gets the workflow trigger callback URL query parameters.
-    WorkflowTriggerListCallbackUrlQueries:
-      type: object
-      description: Gets the workflow trigger callback URL query parameters.
-      properties:
-        api-version:
-          type: string
-          description: The api version.
-        sp:
-          type: string
-          description: The SAS permissions.
-        sv:
-          type: string
-          description: The SAS version.
-        sig:
-          type: string
-          description: The SAS signature.
-        se:
-          type: string
-          description: The SAS timestamp.
     AssemblyProperties:
       type: object
       description: The assembly properties definition. All required parameters must be populated in order to send
@@ -2623,16 +2623,6 @@ components:
         type:
           type: string
           description: Gets the resource type.
-    KeyVaultKey:
-      type: object
-      description: The key vault key.
-      properties:
-        kid:
-          type: string
-          description: The key id.
-        attributes:
-          $ref: '#/components/schemas/KeyVaultKeyAttributes'
-          description: The key attributes.
     KeyVaultKeyAttributes:
       type: object
       description: The key attributes.
@@ -2646,6 +2636,16 @@ components:
         updated:
           type: integer
           description: When the key was updated.
+    KeyVaultKey:
+      type: object
+      description: The key vault key.
+      properties:
+        kid:
+          type: string
+          description: The key id.
+        attributes:
+          $ref: '#/components/schemas/KeyVaultKeyAttributes'
+          description: The key attributes.
     PagedKeyVaultKey:
       type: object
       properties:
@@ -3901,28 +3901,6 @@ components:
             $ref: '#/components/schemas/WorkflowRunActionRepetitionDefinitionFlattened'
         nextLink:
           type: string
-    ExpressionRoot:
-      type: object
-      description: The expression root.
-      properties:
-        text:
-          type: string
-          description: The text.
-        value:
-          type: object
-          properties: {}
-          description: Anything.
-        subexpressions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Expression'
-          description: The sub expressions.
-        error:
-          $ref: '#/components/schemas/AzureResourceErrorInfo'
-          description: The azure resource error info.
-        path:
-          type: string
-          description: The path.
     Expression:
       type: object
       description: The expression.
@@ -3961,6 +3939,28 @@ components:
       required:
       - code
       - message
+    ExpressionRoot:
+      type: object
+      description: The expression root.
+      properties:
+        text:
+          type: string
+          description: The text.
+        value:
+          type: object
+          properties: {}
+          description: Anything.
+        subexpressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Expression'
+          description: The sub expressions.
+        error:
+          $ref: '#/components/schemas/AzureResourceErrorInfo'
+          description: The azure resource error info.
+        path:
+          type: string
+          description: The path.
     PagedExpressionRoot:
       type: object
       properties:
@@ -4932,7 +4932,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: integration_account_agreements
       x-stackql-method: list_content_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/assemblies/{assembly_artifact_name}?api-version=2019-05-01
   : get:
       operationId: IntegrationAccountAssemblies_get
@@ -5133,7 +5133,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: integration_account_assemblies
       x-stackql-method: list_content_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/batchConfigurations/{batch_configuration_name}?api-version=2019-05-01
   : get:
       operationId: IntegrationAccountBatchConfigurations_get
@@ -5720,7 +5720,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: integration_account_maps
       x-stackql-method: list_content_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/partners/{partner_name}?api-version=2019-05-01
   : get:
       operationId: IntegrationAccountPartners_get
@@ -5958,7 +5958,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: integration_account_partners
       x-stackql-method: list_content_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/schemas/{schema_name}?api-version=2019-05-01
   : get:
       operationId: IntegrationAccountSchemas_get
@@ -6208,7 +6208,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: integration_account_schemas
       x-stackql-method: list_content_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/sessions/{session_name}?api-version=2019-05-01
   : get:
       operationId: IntegrationAccountSessions_get
@@ -6672,7 +6672,7 @@ paths:
                 $ref: '#/components/schemas/CallbackUrl'
       x-stackql-resource: integration_accounts
       x-stackql-method: list_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/listKeyVaultKeys?api-version=2019-05-01
   : post:
       operationId: IntegrationAccounts_list_key_vault_keys
@@ -6719,7 +6719,8 @@ paths:
                 $ref: '#/components/schemas/PagedKeyVaultKey'
       x-stackql-resource: integration_accounts
       x-stackql-method: list_key_vault_keys
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/integrationAccounts/{integration_account_name}/logTrackingEvents?api-version=2019-05-01
   : post:
       operationId: IntegrationAccounts_log_tracking_events
@@ -7507,7 +7508,8 @@ paths:
                 $ref: '#/components/schemas/PagedExpressionRoot'
       x-stackql-resource: workflow_run_action_repetitions
       x-stackql-method: list_expression_traces
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.inputs
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/workflows/{workflow_name}/runs/{run_name}/actions/{action_name}/repetitions/{repetition_name}/requestHistories/{request_history_name}?api-version=2019-05-01
   : get:
       operationId: WorkflowRunActionRepetitionsRequestHistories_get
@@ -7956,7 +7958,8 @@ paths:
                 $ref: '#/components/schemas/PagedExpressionRoot'
       x-stackql-resource: workflow_run_actions
       x-stackql-method: list_expression_traces
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.inputs
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/workflows/{workflow_name}/runs/{run_name}/operations/{operation_id}?api-version=2019-05-01
   : get:
       operationId: WorkflowRunOperations_get
@@ -8387,7 +8390,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: workflow_triggers
       x-stackql-method: list_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/workflows/{workflow_name}/triggers/{trigger_name}/schemas/json?api-version=2019-05-01
   : get:
       operationId: WorkflowTriggers_get_schema_json
@@ -8597,7 +8600,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: workflow_version_triggers
       x-stackql-method: list_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/workflows/{workflow_name}/versions/{version_id}?api-version=2019-05-01
   : get:
       operationId: WorkflowVersions_get
@@ -8967,7 +8970,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTriggerCallbackUrl'
       x-stackql-resource: workflows
       x-stackql-method: list_callback_url
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/workflows/{workflow_name}/listSwagger?api-version=2019-05-01
   : post:
       operationId: Workflows_list_swagger
@@ -8995,7 +8998,7 @@ paths:
           description: Success
       x-stackql-resource: workflows
       x-stackql-method: list_swagger
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Logic/workflows/{workflow_name}/disable?api-version=2019-05-01
   : post:
       operationId: Workflows_disable

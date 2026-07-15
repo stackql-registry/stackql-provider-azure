@@ -278,13 +278,6 @@ The following methods are available for this resource:
     <td>Creates or updates an ipGroups in a specified resource group.</td>
 </tr>
 <tr>
-    <td><a href="#update_groups"><CopyableCode code="update_groups" /></a></td>
-    <td><CopyableCode code="update" /></td>
-    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-ip_groups_name"><code>ip_groups_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
-    <td></td>
-    <td>Updates tags of an IpGroups resource.</td>
-</tr>
-<tr>
     <td><a href="#create_or_update"><CopyableCode code="create_or_update" /></a></td>
     <td><CopyableCode code="replace" /></td>
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-ip_groups_name"><code>ip_groups_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
@@ -297,6 +290,13 @@ The following methods are available for this resource:
     <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-ip_groups_name"><code>ip_groups_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
     <td></td>
     <td>Deletes the specified ipGroups.</td>
+</tr>
+<tr>
+    <td><a href="#update_groups"><CopyableCode code="update_groups" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-resource_group_name"><code>resource_group_name</code></a>, <a href="#parameter-ip_groups_name"><code>ip_groups_name</code></a>, <a href="#parameter-subscription_id"><code>subscription_id</code></a></td>
+    <td></td>
+    <td>Updates tags of an IpGroups resource.</td>
 </tr>
 </tbody>
 </table>
@@ -502,39 +502,6 @@ type
 </Tabs>
 
 
-## `UPDATE` examples
-
-<Tabs
-    defaultValue="update_groups"
-    values={[
-        { label: 'update_groups', value: 'update_groups' }
-    ]}
->
-<TabItem value="update_groups">
-
-Updates tags of an IpGroups resource.
-
-```sql
-UPDATE azure.network.ip_groups
-SET 
-tags = '{{ tags }}'
-WHERE 
-resource_group_name = '{{ resource_group_name }}' --required
-AND ip_groups_name = '{{ ip_groups_name }}' --required
-AND subscription_id = '{{ subscription_id }}' --required
-RETURNING
-id,
-name,
-etag,
-location,
-properties,
-tags,
-type;
-```
-</TabItem>
-</Tabs>
-
-
 ## `REPLACE` examples
 
 <Tabs
@@ -588,6 +555,33 @@ DELETE FROM azure.network.ip_groups
 WHERE resource_group_name = '{{ resource_group_name }}' --required
 AND ip_groups_name = '{{ ip_groups_name }}' --required
 AND subscription_id = '{{ subscription_id }}' --required
+;
+```
+</TabItem>
+</Tabs>
+
+
+## Lifecycle Methods
+
+<Tabs
+    defaultValue="update_groups"
+    values={[
+        { label: 'update_groups', value: 'update_groups' }
+    ]}
+>
+<TabItem value="update_groups">
+
+Updates tags of an IpGroups resource.
+
+```sql
+EXEC azure.network.ip_groups.update_groups 
+@resource_group_name='{{ resource_group_name }}' --required, 
+@ip_groups_name='{{ ip_groups_name }}' --required, 
+@subscription_id='{{ subscription_id }}' --required 
+@@json=
+'{
+"tags": "{{ tags }}"
+}'
 ;
 ```
 </TabItem>

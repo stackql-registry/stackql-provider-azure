@@ -1784,7 +1784,8 @@ paths:
                 $ref: '#/components/schemas/PagedClusterJob'
       x-stackql-resource: clusters
       x-stackql-method: list_streaming_jobs
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-objectKey: $.value
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.StreamAnalytics/streamingjobs/{job_name}/functions/{function_name}?api-version=2021-10-01-preview
   : get:
       operationId: Functions_get
@@ -2121,10 +2122,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Function'
+                $ref: '#/components/schemas/FunctionFlattened'
       x-stackql-resource: functions
       x-stackql-method: retrieve_default_definition
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourcegroups/{resource_group_name}/providers/Microsoft.StreamAnalytics/streamingjobs/{job_name}/inputs/{input_name}?api-version=2021-10-01-preview
   : get:
       operationId: Inputs_get

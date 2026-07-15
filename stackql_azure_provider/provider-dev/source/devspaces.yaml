@@ -101,15 +101,6 @@ components:
             $ref: '#/components/schemas/ControllerFlattened'
         nextLink:
           type: string
-    ControllerConnectionDetailsList:
-      type: object
-      description: ControllerConnectionDetailsList.
-      properties:
-        connectionDetailsList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ControllerConnectionDetails'
-          description: List of Azure Dev Spaces Controller connection details.
     ControllerConnectionDetails:
       type: object
       description: ControllerConnectionDetails.
@@ -127,6 +118,15 @@ components:
         instanceType:
           type: string
           description: Gets the Instance type. Required.
+    ControllerConnectionDetailsList:
+      type: object
+      description: ControllerConnectionDetailsList.
+      properties:
+        connectionDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ControllerConnectionDetails'
+          description: List of Azure Dev Spaces Controller connection details.
     Controller:
       type: object
       description: Controller. Variables are only populated by the server, and will be ignored when sending a request.
@@ -255,7 +255,7 @@ paths:
                 $ref: '#/components/schemas/ContainerHostMapping'
       x-stackql-resource: container_host_mappings
       x-stackql-method: get_container_host_mapping
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.DevSpaces/controllers/{name}?api-version=2019-04-01
   : get:
       operationId: Controllers_get
@@ -525,7 +525,7 @@ paths:
                 $ref: '#/components/schemas/ControllerConnectionDetailsList'
       x-stackql-resource: controllers
       x-stackql-method: list_connection_details
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
   /providers/Microsoft.DevSpaces/operations?api-version=2019-04-01:
     get:
       operationId: devspaces_list

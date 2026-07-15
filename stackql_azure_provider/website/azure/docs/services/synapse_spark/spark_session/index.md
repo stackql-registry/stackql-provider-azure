@@ -227,63 +227,63 @@ The following methods are available for this resource:
 <tr>
     <td><a href="#get_spark_statement"><CopyableCode code="get_spark_statement" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Gets a single statement within a spark session.</td>
 </tr>
 <tr>
     <td><a href="#get_spark_session"><CopyableCode code="get_spark_session" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-detailed"><code>detailed</code></a></td>
     <td>Gets a single spark session.</td>
 </tr>
 <tr>
     <td><a href="#get_spark_sessions"><CopyableCode code="get_spark_sessions" /></a></td>
     <td><CopyableCode code="select" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td><a href="#parameter-from"><code>from</code></a>, <a href="#parameter-size"><code>size</code></a>, <a href="#parameter-detailed"><code>detailed</code></a></td>
     <td>List all spark sessions which are running under a particular spark pool.</td>
 </tr>
 <tr>
     <td><a href="#create_spark_session"><CopyableCode code="create_spark_session" /></a></td>
     <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-name"><code>name</code></a></td>
+    <td><a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-name"><code>name</code></a></td>
     <td><a href="#parameter-detailed"><code>detailed</code></a></td>
     <td>Create new spark session.</td>
 </tr>
 <tr>
-    <td><a href="#create_spark_statement"><CopyableCode code="create_spark_statement" /></a></td>
-    <td><CopyableCode code="insert" /></td>
-    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
-    <td></td>
-    <td>Create statement within a spark session.</td>
-</tr>
-<tr>
     <td><a href="#cancel_spark_session"><CopyableCode code="cancel_spark_session" /></a></td>
     <td><CopyableCode code="delete" /></td>
-    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Cancels a running spark session.</td>
 </tr>
 <tr>
     <td><a href="#get_spark_statements"><CopyableCode code="get_spark_statements" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Gets a list of statements within a spark session.</td>
 </tr>
 <tr>
+    <td><a href="#create_spark_statement"><CopyableCode code="create_spark_statement" /></a></td>
+    <td><CopyableCode code="exec" /></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
+    <td></td>
+    <td>Create statement within a spark session.</td>
+</tr>
+<tr>
     <td><a href="#reset_spark_session_timeout"><CopyableCode code="reset_spark_session_timeout" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Sends a keep alive call to the current session to reset the session timeout.</td>
 </tr>
 <tr>
     <td><a href="#cancel_spark_statement"><CopyableCode code="cancel_spark_statement" /></a></td>
     <td><CopyableCode code="exec" /></td>
-    <td><a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a></td>
+    <td><a href="#parameter-session_id"><code>session_id</code></a>, <a href="#parameter-statement_id"><code>statement_id</code></a>, <a href="#parameter-livy_api_version"><code>livy_api_version</code></a>, <a href="#parameter-spark_pool_name"><code>spark_pool_name</code></a>, <a href="#parameter-endpoint"><code>endpoint</code></a></td>
     <td></td>
     <td>Kill a statement within a session.</td>
 </tr>
@@ -306,7 +306,7 @@ Parameters can be passed in the `WHERE` clause of a query. Check the [Methods](#
 <tr id="parameter-endpoint">
     <td><CopyableCode code="endpoint" /></td>
     <td><code>string</code></td>
-    <td>The service endpoint. (default: )</td>
+    <td>The service endpoint host (no scheme). (default: )</td>
 </tr>
 <tr id="parameter-livy_api_version">
     <td><CopyableCode code="livy_api_version" /></td>
@@ -367,11 +367,11 @@ code,
 output,
 state
 FROM azure.synapse_spark.spark_session
-WHERE statement_id = '{{ statement_id }}' -- required
-AND session_id = '{{ session_id }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
+WHERE session_id = '{{ session_id }}' -- required
+AND statement_id = '{{ statement_id }}' -- required
 AND livy_api_version = '{{ livy_api_version }}' -- required
 AND spark_pool_name = '{{ spark_pool_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 ;
 ```
 </TabItem>
@@ -401,9 +401,9 @@ tags,
 workspaceName
 FROM azure.synapse_spark.spark_session
 WHERE session_id = '{{ session_id }}' -- required
-AND endpoint = '{{ endpoint }}' -- required
 AND livy_api_version = '{{ livy_api_version }}' -- required
 AND spark_pool_name = '{{ spark_pool_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 AND detailed = '{{ detailed }}'
 ;
 ```
@@ -418,9 +418,9 @@ from,
 sessions,
 total
 FROM azure.synapse_spark.spark_session
-WHERE endpoint = '{{ endpoint }}' -- required
-AND livy_api_version = '{{ livy_api_version }}' -- required
+WHERE livy_api_version = '{{ livy_api_version }}' -- required
 AND spark_pool_name = '{{ spark_pool_name }}' -- required
+AND endpoint = '{{ endpoint }}' -- required
 AND from = '{{ from }}'
 AND size = '{{ size }}'
 AND detailed = '{{ detailed }}'
@@ -436,7 +436,6 @@ AND detailed = '{{ detailed }}'
     defaultValue="create_spark_session"
     values={[
         { label: 'create_spark_session', value: 'create_spark_session' },
-        { label: 'create_spark_statement', value: 'create_spark_statement' },
         { label: 'Manifest', value: 'manifest' }
     ]}
 >
@@ -462,9 +461,9 @@ driverCores,
 executorMemory,
 executorCores,
 numExecutors,
-endpoint,
 livy_api_version,
 spark_pool_name,
+endpoint,
 detailed
 )
 SELECT 
@@ -484,9 +483,9 @@ SELECT
 '{{ executorMemory }}',
 {{ executorCores }},
 {{ numExecutors }},
-'{{ endpoint }}',
 '{{ livy_api_version }}',
 '{{ spark_pool_name }}',
+'{{ endpoint }}',
 '{{ detailed }}'
 RETURNING
 id,
@@ -510,50 +509,19 @@ workspaceName
 ;
 ```
 </TabItem>
-<TabItem value="create_spark_statement">
-
-Create statement within a spark session.
-
-```sql
-INSERT INTO azure.synapse_spark.spark_session (
-code,
-kind,
-session_id,
-endpoint,
-livy_api_version,
-spark_pool_name
-)
-SELECT 
-'{{ code }}',
-'{{ kind }}',
-'{{ session_id }}',
-'{{ endpoint }}',
-'{{ livy_api_version }}',
-'{{ spark_pool_name }}'
-RETURNING
-id,
-code,
-output,
-state
-;
-```
-</TabItem>
 <TabItem value="manifest">
 
 <CodeBlock language="yaml">{`# Description fields are for documentation purposes
 - name: spark_session
   props:
-    - name: endpoint
-      value: "{{ endpoint }}"
-      description: Required parameter for the spark_session resource.
     - name: livy_api_version
       value: "{{ livy_api_version }}"
       description: Required parameter for the spark_session resource.
     - name: spark_pool_name
       value: "{{ spark_pool_name }}"
       description: Required parameter for the spark_session resource.
-    - name: session_id
-      value: {{ session_id }}
+    - name: endpoint
+      value: "{{ endpoint }}"
       description: Required parameter for the spark_session resource.
     - name: tags
       value: "{{ tags }}"
@@ -592,10 +560,6 @@ state
       value: {{ executorCores }}
     - name: numExecutors
       value: {{ numExecutors }}
-    - name: code
-      value: "{{ code }}"
-    - name: kind
-      value: "{{ kind }}"
     - name: detailed
       value: {{ detailed }}
       description: Optional query param specifying whether detailed response is returned beyond plain livy.
@@ -621,9 +585,9 @@ Cancels a running spark session.
 ```sql
 DELETE FROM azure.synapse_spark.spark_session
 WHERE session_id = '{{ session_id }}' --required
-AND endpoint = '{{ endpoint }}' --required
 AND livy_api_version = '{{ livy_api_version }}' --required
 AND spark_pool_name = '{{ spark_pool_name }}' --required
+AND endpoint = '{{ endpoint }}' --required
 ;
 ```
 </TabItem>
@@ -636,6 +600,7 @@ AND spark_pool_name = '{{ spark_pool_name }}' --required
     defaultValue="get_spark_statements"
     values={[
         { label: 'get_spark_statements', value: 'get_spark_statements' },
+        { label: 'create_spark_statement', value: 'create_spark_statement' },
         { label: 'reset_spark_session_timeout', value: 'reset_spark_session_timeout' },
         { label: 'cancel_spark_statement', value: 'cancel_spark_statement' }
     ]}
@@ -647,9 +612,27 @@ Gets a list of statements within a spark session.
 ```sql
 EXEC azure.synapse_spark.spark_session.get_spark_statements 
 @session_id='{{ session_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
 @livy_api_version='{{ livy_api_version }}' --required, 
-@spark_pool_name='{{ spark_pool_name }}' --required
+@spark_pool_name='{{ spark_pool_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
+;
+```
+</TabItem>
+<TabItem value="create_spark_statement">
+
+Create statement within a spark session.
+
+```sql
+EXEC azure.synapse_spark.spark_session.create_spark_statement 
+@session_id='{{ session_id }}' --required, 
+@livy_api_version='{{ livy_api_version }}' --required, 
+@spark_pool_name='{{ spark_pool_name }}' --required, 
+@endpoint='{{ endpoint }}' --required 
+@@json=
+'{
+"code": "{{ code }}", 
+"kind": "{{ kind }}"
+}'
 ;
 ```
 </TabItem>
@@ -660,9 +643,9 @@ Sends a keep alive call to the current session to reset the session timeout.
 ```sql
 EXEC azure.synapse_spark.spark_session.reset_spark_session_timeout 
 @session_id='{{ session_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
 @livy_api_version='{{ livy_api_version }}' --required, 
-@spark_pool_name='{{ spark_pool_name }}' --required
+@spark_pool_name='{{ spark_pool_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>
@@ -672,11 +655,11 @@ Kill a statement within a session.
 
 ```sql
 EXEC azure.synapse_spark.spark_session.cancel_spark_statement 
-@statement_id='{{ statement_id }}' --required, 
 @session_id='{{ session_id }}' --required, 
-@endpoint='{{ endpoint }}' --required, 
+@statement_id='{{ statement_id }}' --required, 
 @livy_api_version='{{ livy_api_version }}' --required, 
-@spark_pool_name='{{ spark_pool_name }}' --required
+@spark_pool_name='{{ spark_pool_name }}' --required, 
+@endpoint='{{ endpoint }}' --required
 ;
 ```
 </TabItem>

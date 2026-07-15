@@ -6015,10 +6015,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Fabric'
+                $ref: '#/components/schemas/FabricFlattened'
       x-stackql-resource: replication_fabrics
       x-stackql-method: check_consistency
-      x-stackql-verb: EXEC
+      x-stackql-verb: SELECT
+      x-stackql-flatten: singleton
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RecoveryServices/vaults/{resource_name}/replicationFabrics/{fabric_name}/migratetoaad?api-version=2025-08-01
   : post:
       operationId: ReplicationFabrics_begin_migrate_to_aad
@@ -12314,7 +12315,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VCenterFlattened'
-      x-stackql-resource: replicationv_centers
+      x-stackql-resource: replication_vcenters
       x-stackql-method: get
       x-stackql-verb: SELECT
       x-stackql-flatten: singleton
@@ -12368,7 +12369,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VCenter'
-      x-stackql-resource: replicationv_centers
+      x-stackql-resource: replication_vcenters
       x-stackql-method: create
       x-stackql-verb: INSERT
     patch:
@@ -12421,7 +12422,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VCenter'
-      x-stackql-resource: replicationv_centers
+      x-stackql-resource: replication_vcenters
       x-stackql-method: update
       x-stackql-verb: UPDATE
     delete:
@@ -12461,7 +12462,7 @@ paths:
       responses:
         '204':
           description: Success (no content / accepted)
-      x-stackql-resource: replicationv_centers
+      x-stackql-resource: replication_vcenters
       x-stackql-method: delete
       x-stackql-verb: DELETE
   ? /subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.RecoveryServices/vaults/{resource_name}/replicationvCenters?api-version=2025-08-01
@@ -12494,7 +12495,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedVCenterFlattened'
-      x-stackql-resource: replicationv_centers
+      x-stackql-resource: replication_vcenters
       x-stackql-method: list
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
@@ -12536,7 +12537,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedVCenterFlattened'
-      x-stackql-resource: replicationv_centers
+      x-stackql-resource: replication_vcenters
       x-stackql-method: list_by_replication_fabrics
       x-stackql-verb: SELECT
       x-stackql-objectKey: $.value
