@@ -24,8 +24,11 @@ environment limitations are reported as XFAIL, not FAIL:
 Usage:
     pip install pystackql
     python tests/smoke_test.py                    # local registry (default)
-    python tests/smoke_test.py --registry public  # public registry (once the
-                                                  # native provider is published)
+    python tests/smoke_test.py --registry public  # default public registry: runs
+                                                  # REGISTRY PULL azure first (always
+                                                  # fetches the LATEST published
+                                                  # provider) and prints the pulled +
+                                                  # running versions
     python tests/smoke_test.py --cleanup-only     # just sweep breadcrumbs
     python tests/smoke_test.py --location westus2 --skip-vm
 
@@ -98,6 +101,7 @@ class Smoke:
         self.results: list[tuple[str, str, str]] = []  # (step, status, note)
         self.created_vm = False
         self.provider_version = "unknown"
+        self.pulled_version = None  # set in public-registry mode by REGISTRY PULL
 
         from pystackql import StackQL
 
@@ -144,9 +148,22 @@ class Smoke:
                     params[i + 1] = quoted
                     break
         else:
-            # default public registry; requires the native azure provider to
-            # be published there
+            # default public registry (no --registry override on the binary);
+            # requires the native azure provider to be published there.
             self.sq = StackQL(output="dict")
+            # ALWAYS pull the latest published provider - without an explicit
+            # pull, stackql silently reuses whatever azure provider version is
+            # already cached under ~/.stackql (or auto-pulls once and never
+            # refreshes), so a stale local install would masquerade as the
+            # published provider.
+            print("registry pull azure (public registry)...")
+            rows, err = self.q("REGISTRY PULL azure")
+            if err:
+                sys.exit(f"registry pull azure failed: {err[:300]}")
+            pull_msg = json.dumps(rows, default=str) if not isinstance(rows, str) else rows
+            m = re.search(r"v?\d{2}\.\d{2}\.\d{5}", pull_msg)
+            self.pulled_version = m.group(0) if m else "unknown"
+            print(f"  pulled: azure {self.pulled_version}")
 
     # ------------------------------------------------------------------ core
     def q(self, sql: str):
@@ -437,7 +454,12 @@ def main() -> int:
         for r in rows or []:
             if r.get("name") == "azure":
                 smoke.provider_version = str(r.get("version", "unknown"))
-    print(f"azure provider version: {smoke.provider_version}")
+    if smoke.pulled_version:
+        print(f"azure provider version: {smoke.provider_version} (pulled {smoke.pulled_version} from public registry)")
+        if smoke.provider_version.lstrip("v") != smoke.pulled_version.lstrip("v"):
+            print("  WARN: running version differs from pulled version - stale cached provider?")
+    else:
+        print(f"azure provider version: {smoke.provider_version}")
     return smoke.run()
 
 

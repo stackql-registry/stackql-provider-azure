@@ -141,10 +141,10 @@ Storage / DocumentDB) and the SP needs Contributor.
 
 ```bash
 # live SELECTs across key services
-bash bin/integration-tests.sh --select-only
+STACKQL=./stackql bash bin/integration-tests.sh --select-only
 
 # + resource-group create/delete lifecycle
-AZURE_RUN_DML_TESTS=1 bash bin/integration-tests.sh --select-only
+STACKQL=./stackql AZURE_RUN_DML_TESTS=1 bash bin/integration-tests.sh --select-only
 
 # full pystackql smoke suite (the release gate): sweeps breadcrumbs from
 # previous runs, then rg / vnet / subnet / nsg / nic / VM / storage account +
@@ -158,7 +158,7 @@ python tests/smoke_test.py --registry public  # once published
 python tests/smoke_test.py --cleanup-only     # just sweep breadcrumbs
 
 # guided UAT walkthrough (18 steps, table output per step)
-bash bin/uat.sh
+STACKQL=./stackql bash bin/uat.sh
 ```
 
 `.env` format (gitignored):
@@ -226,7 +226,7 @@ cd stackql_azure_provider/website/azure
 bash local_build.sh                  # ~25 min locally, 16GB heap
 npx netlify-cli login                # once
 npx netlify-cli link                 # once - pick the stackql-azure-provider site
-bash deploy_to_netlify.sh            # netlify deploy --prod --dir=build --no-build
+bash deploy_to_netlify.sh            # netlify deploy --prod --dir=stackql_azure_provider/website/azure/build --no-build
 ```
 
 If `website/azure/build` is already current (e.g. the validation pipeline just
