@@ -18,3 +18,150 @@ StackQL uses Azure application credentials obtained using the <CopyableCode code
 ### Authenticating using an Azure Service Principal
 
 To authenticate using an Azure Service Principal, set the following environment variables: <CopyableCode code="AZURE_TENANT_ID" />, <CopyableCode code="AZURE_CLIENT_ID" /> and <CopyableCode code="AZURE_CLIENT_SECRET" />, see [__creating-an-azure-service-principal__](https://learn.microsoft.com/en-us/azure/developer/go/azure-sdk-authentication-service-principal?tabs=azure-cli#2-create-an-azure-service-principal).
+
+## Example Queries
+
+Try the following queries using `stackql shell`, or run them from a script or CI pipeline with `stackql exec`.
+
+### Resource groups in a subscription
+
+Name, location, provisioning state and tags for every resource group:
+
+```sql
+SELECT name, location, provisioning_state, tags
+FROM azure.resource.resource_groups
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY name;
+```
+
+### Virtual machines by size and state
+
+Every virtual machine in the subscription with its size, OS type, provisioning state and zones, read from the nested `hardware_profile` and `storage_profile` columns with `json_extract`:
+
+```sql
+SELECT name, location,
+       json_extract(hardware_profile, '$.vmSize') AS vm_size,
+       json_extract(storage_profile, '$.osDisk.osType') AS os_type,
+       provisioning_state, zones
+FROM azure.compute.virtual_machines
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY location, name;
+```
+
+### Storage accounts
+
+SKU, kind and the access settings that security reviews usually check, for every storage account:
+
+```sql
+SELECT name, location, kind,
+       json_extract(sku, '$.name') AS sku_name,
+       access_tier, minimum_tls_version,
+       allow_blob_public_access, public_network_access,
+       provisioning_state
+FROM azure.storage.storage_accounts
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY name;
+```
+
+### Virtual networks and subnets
+
+Address space and subnet count for every virtual network, then the subnets of one network with their prefixes and attached network security group:
+
+```sql
+SELECT name, location,
+       json_extract(address_space, '$.addressPrefixes') AS address_prefixes,
+       json_array_length(subnets) AS subnet_count,
+       enable_ddos_protection, provisioning_state
+FROM azure.network.virtual_networks
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY name;
+
+SELECT name, address_prefix,
+       json_extract(network_security_group, '$.id') AS nsg_id,
+       provisioning_state
+FROM azure.network.subnets
+WHERE subscription_id = '{{ subscription_id }}'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND virtual_network_name = '{{ virtual_network_name }}';
+```
+
+### Key vaults in a resource group
+
+Soft delete, purge protection, RBAC authorization and public network access for each vault in a resource group (the resource group scope is the one that returns the vault properties):
+
+```sql
+SELECT name, location,
+       json_extract(sku, '$.name') AS sku_name,
+       enable_soft_delete, enable_purge_protection,
+       enable_rbac_authorization, public_network_access,
+       vault_uri
+FROM azure.key_vault.vaults
+WHERE subscription_id = '{{ subscription_id }}'
+  AND resource_group_name = '{{ resource_group_name }}';
+```
+
+### AKS clusters
+
+Kubernetes version, node pool count and power state for every managed cluster:
+
+```sql
+SELECT name, location,
+       kubernetes_version, current_kubernetes_version,
+       dns_prefix, node_resource_group,
+       json_array_length(agent_pool_profiles) AS node_pools,
+       json_extract(power_state, '$.code') AS power_state_code,
+       provisioning_state
+FROM azure.container_service.managed_clusters
+WHERE subscription_id = '{{ subscription_id }}';
+```
+
+### Role assignments with role names
+
+Which principal holds which role at which scope, joining each assignment to its role definition for the display name:
+
+```sql
+SELECT a.principal_id, a.principal_type, d.role_name, a.scope, a.created_on
+FROM azure.authorization.role_assignments a
+JOIN azure.authorization.role_definitions d
+  ON d.id = a.role_definition_id
+WHERE a.subscription_id = '{{ subscription_id }}'
+  AND d.scope = 'subscriptions/{{ subscription_id }}'
+ORDER BY d.role_name, a.principal_type;
+```
+
+### Resources by tag
+
+Resource count by type for everything tagged `environment=prod`, with the tag filter pushed to the API through the `$filter` parameter:
+
+```sql
+SELECT type, COUNT(*) AS resource_count
+FROM azure.resource.resources
+WHERE subscription_id = '{{ subscription_id }}'
+  AND $filter = 'tagName eq ''environment'' and tagValue eq ''prod'''
+GROUP BY type
+ORDER BY resource_count DESC;
+```
+
+### Create and delete a resource group
+
+Create a tagged resource group, then remove it (deleting a resource group also deletes everything inside it):
+
+```sql
+INSERT INTO azure.resource.resource_groups (resource_group_name, subscription_id, location, tags)
+SELECT '{{ resource_group_name }}', '{{ subscription_id }}', 'eastus', '{"environment": "dev"}';
+
+DELETE FROM azure.resource.resource_groups
+WHERE resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}';
+```
+
+### Virtual machine lifecycle
+
+`start`, `restart` and `redeploy` are `EXEC` methods on `virtual_machines`, keyed by resource group, VM name and subscription:
+
+```sql
+EXEC azure.compute.virtual_machines.start
+  @resource_group_name = '{{ resource_group_name }}',
+  @vm_name = '{{ vm_name }}',
+  @subscription_id = '{{ subscription_id }}';
+```

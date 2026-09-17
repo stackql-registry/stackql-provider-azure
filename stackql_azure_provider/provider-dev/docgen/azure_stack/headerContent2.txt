@@ -18,3 +18,116 @@ StackQL uses Azure application credentials obtained using the <CopyableCode code
 ### Authenticating using an Azure Service Principal
 
 To authenticate using an Azure Service Principal, set the following environment variables: <CopyableCode code="AZURE_TENANT_ID" />, <CopyableCode code="AZURE_CLIENT_ID" /> and <CopyableCode code="AZURE_CLIENT_SECRET" />, see [__creating-an-azure-service-principal__](https://learn.microsoft.com/en-us/azure/developer/go/azure-sdk-authentication-service-principal?tabs=azure-cli#2-create-an-azure-service-principal).
+
+## Example Queries
+
+Try the following queries using `stackql shell`, or run them from a script or CI pipeline with `stackql exec`.
+
+### Azure Local clusters
+
+Every Azure Local (Azure Stack HCI) cluster in the subscription with its connection state, billing model, running cluster version, node count and Software Assurance status:
+
+```sql
+SELECT name, location, status, connectivity_status, billing_model,
+       json_extract(reported_properties, '$.clusterVersion') AS cluster_version,
+       json_array_length(reported_properties, '$.nodes') AS node_count,
+       json_extract(software_assurance_properties, '$.softwareAssuranceStatus') AS software_assurance,
+       last_sync_timestamp, provisioning_state
+FROM azure_stack.azure_stack_hci.clusters
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY location, name;
+```
+
+### Logical networks for Arc VMs
+
+Logical networks across the subscription with the custom location and virtual switch each one is bound to:
+
+```sql
+SELECT name, location, vm_switch_name, network_type,
+       json_extract(extended_location, '$.name') AS custom_location,
+       json_array_length(subnets) AS subnet_count,
+       provisioning_state
+FROM azure_stack.azure_stack_hci_vm.logical_networks
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY name;
+```
+
+### Arc VM instance on an Azure Local machine
+
+The VM instance is addressed by `resource_uri`, the ARM id of its Arc machine (`.../providers/Microsoft.HybridCompute/machines/<name>`); size, memory, power state and host node in one row:
+
+```sql
+SELECT name, vm_id, host_node_name,
+       json_extract(status, '$.powerState') AS power_state,
+       json_extract(hardware_profile, '$.vmSize') AS vm_size,
+       json_extract(hardware_profile, '$.processors') AS processors,
+       json_extract(hardware_profile, '$.memoryMB') AS memory_mb,
+       json_extract(os_profile, '$.computerName') AS computer_name,
+       json_extract(storage_profile, '$.osDisk.osType') AS os_type,
+       provisioning_state
+FROM azure_stack.azure_stack_hci_vm.virtual_machine_instances
+WHERE resource_uri = '{{ resource_uri }}';
+```
+
+### Update health for a cluster
+
+The update summary reports the running solution version and health, and the updates list shows each update known to the cluster with its state and whether it needs a reboot:
+
+```sql
+SELECT current_version, current_oem_version, current_sbe_version,
+       hardware_model, oem_family, health_state, state, last_updated, last_checked
+FROM azure_stack.azure_stack_hci.update_summaries
+WHERE cluster_name = '{{ cluster_name }}'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}';
+
+SELECT display_name, version, state, availability_type, package_type,
+       reboot_required, health_state, installed_date
+FROM azure_stack.azure_stack_hci.updates
+WHERE cluster_name = '{{ cluster_name }}'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}'
+ORDER BY version;
+```
+
+### Azure Stack Hub registrations
+
+Azure Stack Hub registrations in the subscription with their billing model and cloud id:
+
+```sql
+SELECT name, location, billing_model, cloud_id, object_id
+FROM azure_stack.azure_stack.registrations
+WHERE subscription_id = '{{ subscription_id }}';
+```
+
+### Marketplace products syndicated to a registration
+
+Downloadable Marketplace products for one Azure Stack Hub registration, counted by publisher and product kind (the `azure_stack` service names the resource group parameter `resource_group`):
+
+```sql
+SELECT publisher_display_name, product_kind, COUNT(*) AS products
+FROM azure_stack.azure_stack.products
+WHERE registration_name = '{{ registration_name }}'
+  AND resource_group = '{{ resource_group }}'
+  AND subscription_id = '{{ subscription_id }}'
+GROUP BY publisher_display_name, product_kind
+ORDER BY products DESC;
+```
+
+### Cluster resource provisioning
+
+Registering a cluster starts with the Azure Local cluster resource in Azure; create it with a system-assigned identity, then remove it:
+
+```sql
+INSERT INTO azure_stack.azure_stack_hci.clusters (
+  cluster_name, resource_group_name, subscription_id, location, identity, tags
+)
+SELECT 'hci-cluster-01', '{{ resource_group_name }}', '{{ subscription_id }}', 'eastus',
+       '{"type": "SystemAssigned"}',
+       '{"environment": "lab"}';
+
+DELETE FROM azure_stack.azure_stack_hci.clusters
+WHERE cluster_name = 'hci-cluster-01'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}';
+```
