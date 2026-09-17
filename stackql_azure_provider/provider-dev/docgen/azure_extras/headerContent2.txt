@@ -18,3 +18,113 @@ StackQL uses Azure application credentials obtained using the <CopyableCode code
 ### Authenticating using an Azure Service Principal
 
 To authenticate using an Azure Service Principal, set the following environment variables: <CopyableCode code="AZURE_TENANT_ID" />, <CopyableCode code="AZURE_CLIENT_ID" /> and <CopyableCode code="AZURE_CLIENT_SECRET" />, see [__creating-an-azure-service-principal__](https://learn.microsoft.com/en-us/azure/developer/go/azure-sdk-authentication-service-principal?tabs=azure-cli#2-create-an-azure-service-principal).
+
+## Example Queries
+
+Try the following queries using `stackql shell`, or run them from a script or CI pipeline with `stackql exec`.
+
+### IoT Central applications
+
+IoT Central applications in the subscription with subdomain, SKU, template and state:
+
+```sql
+SELECT name, display_name, subdomain, state, location,
+       json_extract(sku, '$.name') AS sku, template, application_id
+FROM azure_extras.iot_central.apps
+WHERE subscription_id = '{{ subscription_id }}'
+ORDER BY location, name;
+```
+
+### Azure Spring Apps instances
+
+Spring Apps service instances with tier, power state, version, zone redundancy and outbound network type:
+
+```sql
+SELECT name, location, service_id, version, power_state, zone_redundant, fqdn,
+       json_extract(sku, '$.name') AS sku,
+       json_extract(sku, '$.tier') AS tier,
+       json_extract(network_profile, '$.outboundType') AS outbound_type,
+       provisioning_state
+FROM azure_extras.app_platform.services
+WHERE subscription_id = '{{ subscription_id }}';
+```
+
+### Lab Services labs
+
+Labs with their lab plan, state, VM size, usage quota and auto-shutdown settings:
+
+```sql
+SELECT name, title, state, location, lab_plan_id,
+       json_extract(virtual_machine_profile, '$.sku.name') AS vm_sku,
+       json_extract(virtual_machine_profile, '$.osType') AS os_type,
+       json_extract(virtual_machine_profile, '$.usageQuota') AS usage_quota,
+       json_extract(auto_shutdown_profile, '$.shutdownOnDisconnect') AS shutdown_on_disconnect,
+       json_extract(auto_shutdown_profile, '$.shutdownOnIdle') AS shutdown_on_idle,
+       provisioning_state
+FROM azure_extras.lab_services.labs
+WHERE subscription_id = '{{ subscription_id }}';
+```
+
+### Health Data Services workspaces
+
+Health Data Services workspaces with their public network access setting and private endpoint count:
+
+```sql
+SELECT name, location, public_network_access,
+       json_array_length(private_endpoint_connections) AS private_endpoints,
+       provisioning_state
+FROM azure_extras.health_data_services.workspaces
+WHERE subscription_id = '{{ subscription_id }}';
+```
+
+### FHIR services in a workspace
+
+FHIR services in one workspace with the FHIR version, the authentication authority and audience, and whether the SMART on FHIR proxy is enabled:
+
+```sql
+SELECT name, kind, location, public_network_access, event_state,
+       json_extract(authentication_configuration, '$.authority') AS authority,
+       json_extract(authentication_configuration, '$.audience') AS audience,
+       json_extract(authentication_configuration, '$.smartProxyEnabled') AS smart_proxy_enabled,
+       provisioning_state
+FROM azure_extras.health_data_services.fhir_services
+WHERE workspace_name = '{{ workspace_name }}'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}';
+```
+
+### Spring Apps deployments
+
+Every deployment across the apps in one Spring Apps instance with its active flag, status, instance count and resource requests:
+
+```sql
+SELECT id, name, active, status,
+       json_extract(sku, '$.capacity') AS instance_count,
+       json_extract(source, '$.type') AS source_type,
+       json_extract(deployment_settings, '$.resourceRequests.cpu') AS cpu,
+       json_extract(deployment_settings, '$.resourceRequests.memory') AS memory,
+       provisioning_state
+FROM azure_extras.app_platform.deployments
+WHERE service_name = '{{ service_name }}'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}';
+```
+
+### IoT Central application provisioning
+
+Create an application on the ST2 SKU with a globally unique subdomain, then delete it:
+
+```sql
+INSERT INTO azure_extras.iot_central.apps (
+  resource_name, resource_group_name, subscription_id, location, sku, properties, tags
+)
+SELECT 'fleet-telemetry-01', '{{ resource_group_name }}', '{{ subscription_id }}', 'eastus',
+       '{"name": "ST2"}',
+       '{"displayName": "Fleet telemetry", "subdomain": "fleet-telemetry-01"}',
+       '{"environment": "dev"}';
+
+DELETE FROM azure_extras.iot_central.apps
+WHERE resource_name = 'fleet-telemetry-01'
+  AND resource_group_name = '{{ resource_group_name }}'
+  AND subscription_id = '{{ subscription_id }}';
+```
