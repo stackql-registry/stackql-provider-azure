@@ -22,6 +22,7 @@ Build and run hybrid apps across datacenters, edge locations, remote offices, an
 
 total services: __4__  
 total resources: __51__  
+source project: __[stackql-provider-azure](https://github.com/stackql-registry/stackql-provider-azure)__  
 
 :::
 
