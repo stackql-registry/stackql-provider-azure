@@ -23,6 +23,7 @@ Core cloud services from Microsoft Azure.
 
 total services: __268__  
 total resources: __3741__  
+source project: __[stackql-provider-azure](https://github.com/stackql-registry/stackql-provider-azure)__  
 
 :::
 

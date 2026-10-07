@@ -22,6 +22,7 @@ Additional Azure cloud computing services by Microsoft.
 
 total services: __44__  
 total resources: __443__  
+source project: __[stackql-provider-azure](https://github.com/stackql-registry/stackql-provider-azure)__  
 
 :::
 

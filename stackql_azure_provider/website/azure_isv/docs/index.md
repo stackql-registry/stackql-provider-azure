@@ -22,6 +22,7 @@ Provision, manage, and integrate independent software vendor services on Azure.
 
 total services: __27__  
 total resources: __220__  
+source project: __[stackql-provider-azure](https://github.com/stackql-registry/stackql-provider-azure)__  
 
 :::
 

@@ -9,6 +9,9 @@ set -euo pipefail
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="$( cd "$DIR/.." && pwd )"
 VERSION="${VERSION:-v00.00.00000}"
+# Repository linked from the Provider Summary on each docs landing page
+# (--source-project, provider-utils >= 0.7.11).
+SOURCE_PROJECT="${SOURCE_PROJECT:-https://github.com/stackql-registry/stackql-provider-azure}"
 
 PROVIDERS=(azure azure_extras azure_isv azure_stack)
 if [ $# -gt 0 ]; then
@@ -23,5 +26,6 @@ for p in "${PROVIDERS[@]}"; do
     --provider-name "$p" \
     --provider-dir "./provider-dev/openapi/src/$p/$VERSION" \
     --output-dir "./website/$p" \
-    --provider-data-dir "./provider-dev/docgen/$p"
+    --provider-data-dir "./provider-dev/docgen/$p" \
+    --source-project "$SOURCE_PROJECT"
 done
